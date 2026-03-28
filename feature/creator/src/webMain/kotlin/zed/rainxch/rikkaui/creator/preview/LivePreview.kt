@@ -10,10 +10,13 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -311,13 +314,24 @@ private fun ComponentStrip() {
  * Cards are distributed across 3 columns round-robin,
  * allowing different-height cards to pack tightly without
  * gaps — like shadcn's "Create" page.
+ *
+ * Each column has a fixed width (380dp) so the grid extends
+ * beyond the viewport. The parent horizontal scroll enables
+ * 2D panning — horizontal via this scroll, vertical via
+ * the outer page scroll.
  */
 @Composable
 private fun ExampleCardsGrid() {
-    StaggeredGrid(
-        columns = 3,
-        spacing = RikkaTheme.spacing.md,
+    Box(
+        modifier = Modifier.horizontalScroll(
+            rememberScrollState(),
+        ),
     ) {
+        StaggeredGrid(
+            columns = 3,
+            spacing = RikkaTheme.spacing.md,
+            columnWidth = 380.dp,
+        ) {
         // Column 1: cards 1, 4, 7, 10, 13, 16, 19
         item { ExampleEnvVariables() }
         item { ExampleTaskList() }
@@ -343,5 +357,6 @@ private fun ExampleCardsGrid() {
         item { ExampleApiKeyManager() }
         item { ExampleUserDirectory() }
         item { ExampleOnboarding() }
+        }
     }
 }

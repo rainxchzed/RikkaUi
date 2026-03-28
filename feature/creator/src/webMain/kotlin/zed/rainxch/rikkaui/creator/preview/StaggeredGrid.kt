@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
@@ -13,6 +14,11 @@ import androidx.compose.ui.unit.Dp
  * composables across [columns] columns. Each item is
  * placed in the next column round-robin style, allowing
  * different-height cards to pack tightly without gaps.
+ *
+ * When [columnWidth] is provided, each column gets a
+ * fixed width (enabling horizontal scroll on the parent).
+ * When null, columns share available width equally via
+ * `Modifier.weight(1f)`.
  *
  * ```
  *  ┌─────┐ ┌─────┐ ┌─────┐
@@ -30,6 +36,7 @@ fun StaggeredGrid(
     columns: Int,
     spacing: Dp,
     modifier: Modifier = Modifier,
+    columnWidth: Dp? = null,
     content: StaggeredGridScope.() -> Unit,
 ) {
     val scope = StaggeredGridScopeImpl().apply(content)
@@ -41,12 +48,20 @@ fun StaggeredGrid(
     }
 
     Row(
-        modifier = modifier.fillMaxWidth(),
+        modifier = if (columnWidth != null) {
+            modifier
+        } else {
+            modifier.fillMaxWidth()
+        },
         horizontalArrangement = Arrangement.spacedBy(spacing),
     ) {
         columnItems.forEach { colItems ->
             Column(
-                modifier = Modifier.weight(1f),
+                modifier = if (columnWidth != null) {
+                    Modifier.width(columnWidth)
+                } else {
+                    Modifier.weight(1f)
+                },
                 verticalArrangement =
                     Arrangement.spacedBy(spacing),
             ) {
