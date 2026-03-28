@@ -15,6 +15,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -43,6 +44,8 @@ import zed.rainxch.rikkaui.components.theme.RikkaColors
 import zed.rainxch.rikkaui.components.theme.RikkaPalettes
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.theme.rememberRikkaFontFamily
+import zed.rainxch.rikkaui.components.theme.rikkaShapes
+import zed.rainxch.rikkaui.components.theme.rikkaSpacing
 import zed.rainxch.rikkaui.components.theme.rikkaTypography
 import zed.rainxch.rikkaui.components.theme.withAccent
 import zed.rainxch.rikkaui.components.ui.separator.Separator
@@ -69,6 +72,9 @@ fun main() {
         var isDark by remember { mutableStateOf(true) }
         var paletteName by remember { mutableStateOf("Zinc") }
         var accentName by remember { mutableStateOf("Default") }
+        var radius by remember { mutableFloatStateOf(10f) }
+        var spacingBase by remember { mutableFloatStateOf(4f) }
+
         val baseColors = resolvePalette(paletteName, isDark)
         val colors = resolveAccent(baseColors, accentName, isDark)
         val fontFamily =
@@ -84,6 +90,8 @@ fun main() {
         RikkaTheme(
             colors = colors,
             typography = rikkaTypography(fontFamily),
+            shapes = rikkaShapes(radius = radius.dp),
+            spacing = rikkaSpacing(base = spacingBase.dp),
         ) {
             ShowcaseApp(
                 isDark = isDark,
@@ -92,6 +100,10 @@ fun main() {
                 onPaletteChange = { paletteName = it },
                 accentName = accentName,
                 onAccentChange = { accentName = it },
+                radius = radius,
+                onRadiusChange = { radius = it },
+                spacingBase = spacingBase,
+                onSpacingBaseChange = { spacingBase = it },
             )
         }
     }
@@ -105,6 +117,10 @@ private fun ShowcaseApp(
     onPaletteChange: (String) -> Unit,
     accentName: String,
     onAccentChange: (String) -> Unit,
+    radius: Float,
+    onRadiusChange: (Float) -> Unit,
+    spacingBase: Float,
+    onSpacingBaseChange: (Float) -> Unit,
 ) {
     BoxWithConstraints(
         modifier =
@@ -185,6 +201,10 @@ private fun ShowcaseApp(
                 onPaletteChange = onPaletteChange,
                 accentName = accentName,
                 onAccentChange = onAccentChange,
+                radius = radius,
+                onRadiusChange = onRadiusChange,
+                spacingBase = spacingBase,
+                onSpacingBaseChange = onSpacingBaseChange,
             )
 
             Spacer(Modifier.height(RikkaTheme.spacing.xxxl))

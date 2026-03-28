@@ -120,7 +120,10 @@ fun WeatherDashboardExample() {
 }
 
 @Composable
-private fun WeatherStat(label: String, value: String) {
+private fun WeatherStat(
+    label: String,
+    value: String,
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),

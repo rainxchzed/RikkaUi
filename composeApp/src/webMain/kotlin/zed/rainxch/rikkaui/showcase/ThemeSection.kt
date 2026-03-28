@@ -5,6 +5,7 @@ package zed.rainxch.rikkaui.showcase
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
@@ -19,16 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import org.jetbrains.compose.resources.stringResource
-import rikkaui.composeapp.generated.resources.Res
-import rikkaui.composeapp.generated.resources.accent
-import rikkaui.composeapp.generated.resources.dark
-import rikkaui.composeapp.generated.resources.dark_mode_label
-import rikkaui.composeapp.generated.resources.light
-import rikkaui.composeapp.generated.resources.palette
-import rikkaui.composeapp.generated.resources.theme_description
-import rikkaui.composeapp.generated.resources.theme_title
-import rikkaui.composeapp.generated.resources.toggle_dark_mode
 import zed.rainxch.rikkaui.accentPreviewColor
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.button.Button
@@ -36,6 +27,7 @@ import zed.rainxch.rikkaui.components.ui.button.ButtonAnimation
 import zed.rainxch.rikkaui.components.ui.button.ButtonSize
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
 import zed.rainxch.rikkaui.components.ui.card.Card
+import zed.rainxch.rikkaui.components.ui.slider.Slider
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.toggle.Toggle
@@ -48,33 +40,52 @@ fun ThemeSection(
     onPaletteChange: (String) -> Unit,
     accentName: String,
     onAccentChange: (String) -> Unit,
+    radius: Float,
+    onRadiusChange: (Float) -> Unit,
+    spacingBase: Float,
+    onSpacingBaseChange: (Float) -> Unit,
 ) {
     Spacer(Modifier.height(RikkaTheme.spacing.xl))
 
     SectionHeader(
-        title = stringResource(Res.string.theme_title),
-        description = stringResource(Res.string.theme_description),
+        title = "Theme",
+        description = "Switch palettes and toggle dark mode in real time.",
     )
 
     Spacer(Modifier.height(RikkaTheme.spacing.md))
 
     Card(modifier = Modifier.fillMaxWidth()) {
         // ─── Palette ─────────────────────────────────────────
-        Text(
-            text = stringResource(Res.string.palette),
-            variant = TextVariant.Small,
-        )
+        Text(text = "Palette", variant = TextVariant.Small)
         Spacer(Modifier.height(RikkaTheme.spacing.xs))
         FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
-            verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
+            horizontalArrangement =
+                Arrangement.spacedBy(
+                    RikkaTheme.spacing.sm,
+                ),
+            verticalArrangement =
+                Arrangement.spacedBy(
+                    RikkaTheme.spacing.sm,
+                ),
         ) {
-            val palettes = listOf("Zinc", "Slate", "Stone", "Gray", "Neutral")
+            val palettes =
+                listOf(
+                    "Zinc",
+                    "Slate",
+                    "Stone",
+                    "Gray",
+                    "Neutral",
+                )
             palettes.forEach { name ->
                 Button(
                     text = name,
                     onClick = { onPaletteChange(name) },
-                    variant = if (paletteName == name) ButtonVariant.Default else ButtonVariant.Outline,
+                    variant =
+                        if (paletteName == name) {
+                            ButtonVariant.Default
+                        } else {
+                            ButtonVariant.Outline
+                        },
                     size = ButtonSize.Sm,
                     animation = ButtonAnimation.Scale,
                 )
@@ -84,20 +95,38 @@ fun ThemeSection(
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
         // ─── Accent ──────────────────────────────────────────
-        Text(
-            text = stringResource(Res.string.accent),
-            variant = TextVariant.Small,
-        )
+        Text(text = "Accent", variant = TextVariant.Small)
         Spacer(Modifier.height(RikkaTheme.spacing.xs))
         FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
-            verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
+            horizontalArrangement =
+                Arrangement.spacedBy(
+                    RikkaTheme.spacing.sm,
+                ),
+            verticalArrangement =
+                Arrangement.spacedBy(
+                    RikkaTheme.spacing.sm,
+                ),
         ) {
-            val accents = listOf("Default", "Blue", "Green", "Orange", "Red", "Rose", "Violet", "Yellow")
+            val accents =
+                listOf(
+                    "Default",
+                    "Blue",
+                    "Green",
+                    "Orange",
+                    "Red",
+                    "Rose",
+                    "Violet",
+                    "Yellow",
+                )
             accents.forEach { name ->
                 Button(
                     onClick = { onAccentChange(name) },
-                    variant = if (accentName == name) ButtonVariant.Default else ButtonVariant.Outline,
+                    variant =
+                        if (accentName == name) {
+                            ButtonVariant.Default
+                        } else {
+                            ButtonVariant.Outline
+                        },
                     size = ButtonSize.Sm,
                     animation = ButtonAnimation.Scale,
                 ) {
@@ -107,7 +136,10 @@ fun ThemeSection(
                                 Modifier
                                     .size(12.dp)
                                     .clip(CircleShape)
-                                    .background(accentPreviewColor(name), CircleShape),
+                                    .background(
+                                        accentPreviewColor(name),
+                                        CircleShape,
+                                    ),
                         )
                         Spacer(Modifier.width(RikkaTheme.spacing.xs))
                     }
@@ -127,28 +159,77 @@ fun ThemeSection(
 
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
+        // ─── Radius ──────────────────────────────────────────
+        Text(text = "Radius", variant = TextVariant.Small)
+        Spacer(Modifier.height(RikkaTheme.spacing.xs))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement =
+                Arrangement.spacedBy(
+                    RikkaTheme.spacing.md,
+                ),
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Slider(
+                    value = radius / 24f,
+                    onValueChange = { onRadiusChange(it * 24f) },
+                    label = "Corner radius",
+                )
+            }
+            Text(
+                text = "${radius.toInt()}dp",
+                variant = TextVariant.Muted,
+            )
+        }
+
+        Spacer(Modifier.height(RikkaTheme.spacing.lg))
+
+        // ─── Spacing ─────────────────────────────────────────
+        Text(text = "Spacing", variant = TextVariant.Small)
+        Spacer(Modifier.height(RikkaTheme.spacing.xs))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement =
+                Arrangement.spacedBy(
+                    RikkaTheme.spacing.md,
+                ),
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Slider(
+                    value = (spacingBase - 2f) / 6f,
+                    onValueChange = {
+                        onSpacingBaseChange(it * 6f + 2f)
+                    },
+                    label = "Base spacing unit",
+                )
+            }
+            Text(
+                text = "${spacingBase.toInt()}dp",
+                variant = TextVariant.Muted,
+            )
+        }
+
+        Spacer(Modifier.height(RikkaTheme.spacing.lg))
+
         // ─── Dark Mode ───────────────────────────────────────
-        Text(
-            text = stringResource(Res.string.dark_mode_label),
-            variant = TextVariant.Small,
-        )
+        Text(text = "Dark Mode", variant = TextVariant.Small)
         Spacer(Modifier.height(RikkaTheme.spacing.xs))
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
+            horizontalArrangement =
+                Arrangement.spacedBy(
+                    RikkaTheme.spacing.sm,
+                ),
         ) {
             Toggle(
                 checked = isDark,
                 onCheckedChange = onDarkChange,
-                label = stringResource(Res.string.toggle_dark_mode),
+                label = "Toggle dark mode",
             )
             Text(
-                text =
-                    if (isDark) {
-                        stringResource(Res.string.dark)
-                    } else {
-                        stringResource(Res.string.light)
-                    },
+                text = if (isDark) "Dark" else "Light",
                 variant = TextVariant.Muted,
             )
         }

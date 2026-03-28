@@ -77,7 +77,10 @@ fun ApiKeyManagerExample() {
 }
 
 @Composable
-private fun KeyEntry(label: String, maskedKey: String) {
+private fun KeyEntry(
+    label: String,
+    maskedKey: String,
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),

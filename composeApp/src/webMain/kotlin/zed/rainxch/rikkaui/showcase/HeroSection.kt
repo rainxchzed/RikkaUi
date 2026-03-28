@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-
 import org.jetbrains.compose.resources.stringResource
 import rikkaui.composeapp.generated.resources.Res
 import rikkaui.composeapp.generated.resources.app_name

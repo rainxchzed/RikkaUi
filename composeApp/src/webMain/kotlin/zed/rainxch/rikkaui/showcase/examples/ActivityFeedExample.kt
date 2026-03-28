@@ -83,7 +83,11 @@ fun ActivityFeedExample() {
 }
 
 @Composable
-private fun ActivityItem(initials: String, action: String, time: String) {
+private fun ActivityItem(
+    initials: String,
+    action: String,
+    time: String,
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),

@@ -19,40 +19,54 @@ import androidx.compose.ui.unit.Dp
  * to duration + easing. We have full spring physics, velocity preservation
  * on interruption, and per-component overrides.
  *
- * Usage:
+ * ### Customization levels
+ *
+ * **1. Presets (quickest):**
  * ```
- * // Components automatically use these tokens.
- * // Override for a custom feel:
+ * RikkaTheme(motion = RikkaMotionPresets.snappy()) { ... }
+ * RikkaTheme(motion = RikkaMotionPresets.playful()) { ... }
+ * RikkaTheme(motion = RikkaMotionPresets.minimal()) { ... }
+ * ```
+ *
+ * **2. Selective override:**
+ * ```
  * RikkaTheme(
  *     motion = RikkaMotion(
- *         springDefault = spring(
- *             dampingRatio = Spring.DampingRatioNoBouncy,
- *             stiffness = Spring.StiffnessHigh,
- *         ),
+ *         durationDefault = 200,
+ *         pressScaleSubtle = 0.95f,
  *     ),
  * ) { ... }
  * ```
  *
- * Design principles:
- * - **Spring first**: Springs handle interruptions gracefully (velocity preservation).
- * - **Tween for color**: Color transitions use fixed-duration tweens for predictability.
- * - **graphicsLayer for transforms**: Scale/rotation/alpha skip composition + layout phases.
+ * **3. Full override:**
+ * ```
+ * val motion = RikkaMotion(
+ *     springDefault = spring(stiffness = 500f, dampingRatio = 0.7f),
+ *     springBouncy = spring(stiffness = 200f, dampingRatio = 0.4f),
+ *     ...
+ * )
+ * ```
  *
- * @param springDefault Default spring for most interactive animations. Medium bouncy, medium-low stiffness.
- * @param springBouncy Gentle spring for playful interactions. Low bouncy, low stiffness.
- * @param springSnap Snappy spring for instant-feeling transitions. No bounce, high stiffness.
+ * Design principles:
+ * - **Spring first**: Springs handle interruptions gracefully.
+ * - **Tween for color**: Predictable duration for color transitions.
+ * - **graphicsLayer for transforms**: Skip composition + layout phases.
+ *
+ * @param springDefault Default spring. Medium bouncy, medium-low stiffness.
+ * @param springBouncy Gentle spring for playful interactions.
+ * @param springSnap Snappy spring for instant transitions.
  * @param tweenFast Fast tween (100ms) for micro-interactions.
- * @param tweenDefault Standard tween (150ms) for most color/opacity transitions.
- * @param tweenSlow Slow tween (250ms) for larger visual transitions.
- * @param tweenEnter Enter/exit tween (200ms) for content appearing/disappearing.
- * @param durationFast Fast duration in ms (100).
- * @param durationDefault Default duration in ms (150).
- * @param durationSlow Slow duration in ms (250).
- * @param durationEnter Enter/exit duration in ms (200).
- * @param springDefaultDp Default Dp spring for position/size animations (Toggle thumb, sliding panels).
- * @param springBouncyDp Bouncy Dp spring for playful position animations.
- * @param pressScaleSubtle Subtle press scale (0.97). Used by Button Scale animation.
- * @param pressScaleBouncy Noticeable press scale (0.93). Used by Button Bounce animation.
+ * @param tweenDefault Standard tween (150ms) for color/opacity.
+ * @param tweenSlow Slow tween (250ms) for larger transitions.
+ * @param tweenEnter Enter/exit tween (200ms).
+ * @param durationFast Fast duration in ms.
+ * @param durationDefault Default duration in ms.
+ * @param durationSlow Slow duration in ms.
+ * @param durationEnter Enter/exit duration in ms.
+ * @param springDefaultDp Default Dp spring for position/size animations.
+ * @param springBouncyDp Bouncy Dp spring for position animations.
+ * @param pressScaleSubtle Subtle press scale (0.97).
+ * @param pressScaleBouncy Noticeable press scale (0.93).
  */
 @Immutable
 data class RikkaMotion(
@@ -95,10 +109,151 @@ data class RikkaMotion(
 
 val LocalRikkaMotion =
     staticCompositionLocalOf<RikkaMotion> {
-        error("No RikkaMotion provided. Wrap your content in RikkaTheme { ... }")
+        error(
+            "No RikkaMotion provided. Wrap your content in RikkaTheme { ... }",
+        )
     }
 
 /**
- * Creates a default [RikkaMotion] with balanced, polished animation tokens.
+ * Creates a default [RikkaMotion] with balanced animation tokens.
  */
 fun defaultRikkaMotion(): RikkaMotion = RikkaMotion()
+
+/**
+ * Pre-built motion presets for common animation styles.
+ *
+ * ```
+ * RikkaTheme(motion = RikkaMotionPresets.snappy()) { ... }
+ * ```
+ */
+object RikkaMotionPresets {
+
+    /**
+     * Fast, no-bounce animations. Professional, precise feel.
+     * Good for data-heavy dashboards and productivity tools.
+     */
+    fun snappy(): RikkaMotion =
+        RikkaMotion(
+            springDefault =
+                spring(
+                    dampingRatio = Spring.DampingRatioNoBouncy,
+                    stiffness = Spring.StiffnessHigh,
+                ),
+            springBouncy =
+                spring(
+                    dampingRatio = Spring.DampingRatioNoBouncy,
+                    stiffness = Spring.StiffnessMedium,
+                ),
+            springSnap =
+                spring(
+                    dampingRatio = Spring.DampingRatioNoBouncy,
+                    stiffness = Spring.StiffnessHigh,
+                ),
+            durationFast = 80,
+            durationDefault = 120,
+            durationSlow = 180,
+            durationEnter = 150,
+            tweenFast = tween(durationMillis = 80),
+            tweenDefault = tween(durationMillis = 120),
+            tweenSlow = tween(durationMillis = 180),
+            tweenEnter = tween(durationMillis = 150),
+            springDefaultDp =
+                spring(
+                    dampingRatio = Spring.DampingRatioNoBouncy,
+                    stiffness = Spring.StiffnessHigh,
+                ),
+            springBouncyDp =
+                spring(
+                    dampingRatio = Spring.DampingRatioNoBouncy,
+                    stiffness = Spring.StiffnessMedium,
+                ),
+            pressScaleSubtle = 0.98f,
+            pressScaleBouncy = 0.95f,
+        )
+
+    /**
+     * Bouncy, exaggerated animations. Fun, playful feel.
+     * Good for consumer apps, games, creative tools.
+     */
+    fun playful(): RikkaMotion =
+        RikkaMotion(
+            springDefault =
+                spring(
+                    dampingRatio = Spring.DampingRatioLowBouncy,
+                    stiffness = Spring.StiffnessLow,
+                ),
+            springBouncy =
+                spring(
+                    dampingRatio = Spring.DampingRatioHighBouncy,
+                    stiffness = Spring.StiffnessLow,
+                ),
+            springSnap =
+                spring(
+                    dampingRatio = Spring.DampingRatioMediumBouncy,
+                    stiffness = Spring.StiffnessMedium,
+                ),
+            durationFast = 120,
+            durationDefault = 200,
+            durationSlow = 350,
+            durationEnter = 250,
+            tweenFast = tween(durationMillis = 120),
+            tweenDefault = tween(durationMillis = 200),
+            tweenSlow = tween(durationMillis = 350),
+            tweenEnter = tween(durationMillis = 250),
+            springDefaultDp =
+                spring(
+                    dampingRatio = Spring.DampingRatioLowBouncy,
+                    stiffness = Spring.StiffnessLow,
+                ),
+            springBouncyDp =
+                spring(
+                    dampingRatio = Spring.DampingRatioHighBouncy,
+                    stiffness = Spring.StiffnessLow,
+                ),
+            pressScaleSubtle = 0.95f,
+            pressScaleBouncy = 0.88f,
+        )
+
+    /**
+     * Minimal, subtle animations. Calm, understated feel.
+     * Good for reading apps, accessibility-focused UIs.
+     */
+    fun minimal(): RikkaMotion =
+        RikkaMotion(
+            springDefault =
+                spring(
+                    dampingRatio = Spring.DampingRatioNoBouncy,
+                    stiffness = Spring.StiffnessMedium,
+                ),
+            springBouncy =
+                spring(
+                    dampingRatio = Spring.DampingRatioNoBouncy,
+                    stiffness = Spring.StiffnessMediumLow,
+                ),
+            springSnap =
+                spring(
+                    dampingRatio = Spring.DampingRatioNoBouncy,
+                    stiffness = Spring.StiffnessHigh,
+                ),
+            durationFast = 60,
+            durationDefault = 100,
+            durationSlow = 150,
+            durationEnter = 120,
+            tweenFast = tween(durationMillis = 60),
+            tweenDefault = tween(durationMillis = 100),
+            tweenSlow = tween(durationMillis = 150),
+            tweenEnter = tween(durationMillis = 120),
+            springDefaultDp =
+                spring(
+                    dampingRatio = Spring.DampingRatioNoBouncy,
+                    stiffness = Spring.StiffnessMedium,
+                ),
+            springBouncyDp =
+                spring(
+                    dampingRatio = Spring.DampingRatioNoBouncy,
+                    stiffness = Spring.StiffnessMediumLow,
+                ),
+            pressScaleSubtle = 0.99f,
+            pressScaleBouncy = 0.97f,
+        )
+}

@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-
 import org.jetbrains.compose.resources.stringResource
 import rikkaui.composeapp.generated.resources.Res
 import rikkaui.composeapp.generated.resources.built_with_compose
