@@ -26,6 +26,7 @@ import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.creator.codegen.generateReadme
 import zed.rainxch.rikkaui.creator.codegen.generateThemeCode
 import zed.rainxch.rikkaui.creator.download.downloadDesignSystemZip
+import zed.rainxch.rikkaui.creator.download.preloadAllFonts
 import zed.rainxch.rikkaui.creator.fonts.availableFonts
 import zed.rainxch.rikkaui.creator.panel.ConfigPanel
 import zed.rainxch.rikkaui.creator.preview.LivePreview
@@ -46,6 +47,11 @@ fun DesignSystemCreatorPage() {
     var accentName by remember { mutableStateOf("Default") }
     var previewDark by remember { mutableStateOf(true) }
     var fontId by remember { mutableStateOf("inter") }
+
+    // Preload all font files into browser cache on first composition
+    androidx.compose.runtime.LaunchedEffect(Unit) {
+        preloadAllFonts()
+    }
 
     val selectedFont =
         availableFonts.find { it.id == fontId }

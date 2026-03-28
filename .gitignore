@@ -1,6 +1,6 @@
 # Project exclude paths
 /.gradle/
-/build/
-/composeApp/build/
-/composeApp/build/classes/kotlin/wasmJs/main/
-/.kotlin
+/.kotlin/
+
+# Build outputs (all modules)
+**/build/
