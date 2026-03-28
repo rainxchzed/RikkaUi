@@ -11,6 +11,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.composeapp.generated.resources.Res
+import rikkaui.composeapp.generated.resources.contact_me_about_feedback
+import rikkaui.composeapp.generated.resources.rate_stars
+import rikkaui.composeapp.generated.resources.rate_your_experience
+import rikkaui.composeapp.generated.resources.submit_feedback
+import rikkaui.composeapp.generated.resources.tell_us_more
+import rikkaui.composeapp.generated.resources.what_could_we_improve
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonSize
@@ -26,13 +34,6 @@ import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.textarea.Textarea
 
-/**
- * Feedback form with star rating, free-text area, and opt-in checkbox.
- *
- * Demonstrates [Card], [CardHeader], [CardContent], [Button] (icon variant
- * for stars), [Icon], [Label], [Textarea], [Checkbox], and [Text]
- * composed together in a feedback collection layout.
- */
 @Composable
 fun FeedbackFormExample() {
     var rating by remember { mutableStateOf(0) }
@@ -40,22 +41,12 @@ fun FeedbackFormExample() {
     var contactMe by remember { mutableStateOf(false) }
 
     Card {
-        // ─── Header ───────────────────────────────────────
         CardHeader {
-            Text(
-                text = "Rate Your Experience",
-                variant = TextVariant.H4,
-            )
+            Text(text = stringResource(Res.string.rate_your_experience), variant = TextVariant.H4)
         }
 
-        // ─── Star rating row ──────────────────────────────
         CardContent {
-            Row(
-                horizontalArrangement =
-                    Arrangement.spacedBy(
-                        RikkaTheme.spacing.xs,
-                    ),
-            ) {
+            Row(horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs)) {
                 for (star in 1..5) {
                     Button(
                         onClick = { rating = star },
@@ -64,7 +55,7 @@ fun FeedbackFormExample() {
                     ) {
                         Icon(
                             imageVector = RikkaIcons.Star,
-                            contentDescription = "Rate $star stars",
+                            contentDescription = stringResource(Res.string.rate_stars, star),
                             tint =
                                 if (star <= rating) {
                                     RikkaTheme.colors.primary
@@ -78,30 +69,27 @@ fun FeedbackFormExample() {
 
             Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
 
-            // ─── Feedback textarea ────────────────────────
-            Label(text = "Tell us more")
+            Label(text = stringResource(Res.string.tell_us_more))
             Spacer(modifier = Modifier.height(RikkaTheme.spacing.xs))
             Textarea(
                 value = feedbackText,
                 onValueChange = { feedbackText = it },
-                placeholder = "What could we improve?",
+                placeholder = stringResource(Res.string.what_could_we_improve),
                 modifier = Modifier.fillMaxWidth(),
             )
 
             Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
 
-            // ─── Contact opt-in ───────────────────────────
             Checkbox(
                 checked = contactMe,
                 onCheckedChange = { contactMe = it },
-                label = "Contact me about this feedback",
+                label = stringResource(Res.string.contact_me_about_feedback),
             )
 
             Spacer(modifier = Modifier.height(RikkaTheme.spacing.md))
 
-            // ─── Submit button ────────────────────────────
             Button(
-                text = "Submit Feedback",
+                text = stringResource(Res.string.submit_feedback),
                 onClick = { },
                 modifier = Modifier.fillMaxWidth(),
             )

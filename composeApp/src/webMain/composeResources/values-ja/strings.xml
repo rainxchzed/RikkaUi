@@ -1,0 +1,164 @@
+<resources>
+    <!-- App / Section Titles -->
+    <string name="components_in_action">コンポーネント実例</string>
+    <string name="components_in_action_desc">RikkaUIコンポーネントだけで構築された実用的なインターフェース。</string>
+    <string name="make_it_yours">カスタマイズ</string>
+    <string name="make_it_yours_desc">パレットを選び、アクセントを変え、ダークモードを切り替え。すべてがリアルタイムで更新されます。</string>
+
+    <!-- Hero -->
+    <string name="preview">プレビュー</string>
+    <string name="app_name">RikkaUI</string>
+    <string name="hero_subtitle">Compose Multiplatform向けの美しいコンポーネント</string>
+    <string name="hero_description">Kotlin向けのshadcnインスパイアコンポーネントライブラリ。コピー＆ペーストで所有できるコンポーネント、スプリング物理アニメーション、Material依存ゼロ。</string>
+    <string name="get_started">はじめる</string>
+    <string name="github">GitHub</string>
+
+    <!-- Footer -->
+    <string name="built_with_compose">Compose Multiplatformで構築</string>
+    <string name="footer_tagline">RikkaUI — Materialゼロ。純粋なKotlin。</string>
+
+    <!-- Theme Section -->
+    <string name="theme_title">テーマ</string>
+    <string name="theme_description">パレットの切替とダークモードをリアルタイムで。</string>
+    <string name="palette">パレット</string>
+    <string name="accent">アクセント</string>
+    <string name="dark_mode_label">ダークモード</string>
+    <string name="dark">ダーク</string>
+    <string name="light">ライト</string>
+    <string name="toggle_dark_mode">ダークモード切替</string>
+    <string name="language_label">言語</string>
+
+    <!-- Music Player -->
+    <string name="music_player_label">音楽プレーヤー</string>
+    <string name="now_playing">再生中</string>
+    <string name="hd_audio">HD音質</string>
+    <string name="song_title">真夜中のドライブ</string>
+    <string name="song_artist">ネオンウェーブ</string>
+    <string name="playback_progress">再生進捗</string>
+    <string name="previous_track">前のトラック</string>
+    <string name="pause">一時停止</string>
+    <string name="play">再生</string>
+    <string name="next_track">次のトラック</string>
+    <string name="volume">音量</string>
+    <string name="volume_control">音量調整</string>
+    <string name="shuffle">シャッフル</string>
+    <string name="repeat_label">リピート</string>
+    <string name="current_time">2:18</string>
+    <string name="total_time">3:33</string>
+
+    <!-- Weather Dashboard -->
+    <string name="weather_label">天気ダッシュボード</string>
+    <string name="weather">天気</string>
+    <string name="live">ライブ</string>
+    <string name="temperature">24°C</string>
+    <string name="partly_cloudy">曇り時々晴れ</string>
+    <string name="humidity">湿度</string>
+    <string name="humidity_value">65%</string>
+    <string name="wind">風速</string>
+    <string name="wind_value">12 km/h</string>
+    <string name="uv_index">UV指数</string>
+    <string name="uv_index_value">4</string>
+    <string name="three_day_forecast">3日間予報</string>
+    <string name="day_column">曜日</string>
+    <string name="temp_column">気温</string>
+    <string name="condition_column">天候</string>
+    <string name="monday">月</string>
+    <string name="monday_temp">26°C</string>
+    <string name="sunny">晴れ</string>
+    <string name="tuesday">火</string>
+    <string name="tuesday_temp">22°C</string>
+    <string name="cloudy">曇り</string>
+    <string name="wednesday">水</string>
+    <string name="wednesday_temp">19°C</string>
+    <string name="rain">雨</string>
+
+    <!-- Task Board -->
+    <string name="task_board_label">スプリントタスクボード</string>
+    <string name="sprint_tasks">スプリントタスク</string>
+    <string name="active_count">3件進行中</string>
+    <string name="design_token_system">デザイントークン設計</string>
+    <string name="high">高</string>
+    <string name="write_unit_tests">ユニットテスト作成</string>
+    <string name="medium">中</string>
+    <string name="update_docs">ドキュメント更新</string>
+    <string name="low">低</string>
+    <string name="assigned_to_you">あなたに割当て済み</string>
+    <string name="view_board">ボードを見る</string>
+
+    <!-- File Explorer -->
+    <string name="file_browser_label">プロジェクトファイル</string>
+    <string name="project_files">プロジェクトファイル</string>
+    <string name="kotlin_file_desc">Kotlinファイル</string>
+    <string name="app_kt_name">App.kt</string>
+    <string name="app_kt_size">2.4 KB</string>
+    <string name="build_file_desc">ビルドファイル</string>
+    <string name="build_gradle_name">build.gradle</string>
+    <string name="build_gradle_size">1.8 KB</string>
+    <string name="readme_file_desc">Readmeファイル</string>
+    <string name="readme_md_name">README.md</string>
+    <string name="readme_size">856 B</string>
+    <string name="search_files_placeholder">ファイルを検索…</string>
+    <string name="file_search_label">ファイル検索</string>
+    <string name="search_files_desc">ファイルを検索</string>
+    <string name="file_count">3ファイル</string>
+
+    <!-- Quick Note -->
+    <string name="quick_note_label">クイックメモ</string>
+    <string name="quick_note">クイックメモ</string>
+    <string name="write_something">何か書く…</string>
+    <string name="note_content">メモ内容</string>
+    <string name="personal">個人</string>
+    <string name="work">仕事</string>
+    <string name="ideas">アイデア</string>
+    <string name="save">保存</string>
+
+    <!-- System Status -->
+    <string name="system_status_label">システム状態モニター</string>
+    <string name="system_status">システム状態</string>
+    <string name="api_server">APIサーバー</string>
+    <string name="operational">稼働中</string>
+    <string name="database">データベース</string>
+    <string name="healthy">正常</string>
+    <string name="cdn">CDN</string>
+    <string name="degraded">低下中</string>
+    <string name="uptime_text">稼働率: 99.87%</string>
+    <string name="system_uptime">システム稼働率</string>
+
+    <!-- User Profile -->
+    <string name="user_name">田中花子</string>
+    <string name="user_email">hanako@example.com</string>
+    <string name="notifications">通知</string>
+    <string name="dark_mode_preference">ダークモード</string>
+    <string name="newsletter">ニュースレター</string>
+    <string name="edit_profile">プロフィール編集</string>
+
+    <!-- API Key Manager -->
+    <string name="api_keys">APIキー</string>
+    <string name="new_key">新規キー</string>
+    <string name="production">本番</string>
+    <string name="production_key">sk-…a8f2</string>
+    <string name="development">開発</string>
+    <string name="development_key">sk-…c3d1</string>
+    <string name="rate_limited">レート制限</string>
+    <string name="quota_used">クォータの95%使用済み</string>
+    <string name="copy_key_label">%1$sキーをコピー</string>
+
+    <!-- Feedback Form -->
+    <string name="rate_your_experience">体験を評価</string>
+    <string name="rate_stars">%1$dつ星で評価</string>
+    <string name="tell_us_more">詳しく教えてください</string>
+    <string name="what_could_we_improve">改善点はありますか？</string>
+    <string name="contact_me_about_feedback">このフィードバックについて連絡希望</string>
+    <string name="submit_feedback">フィードバック送信</string>
+
+    <!-- Activity Feed -->
+    <string name="recent_activity">最近のアクティビティ</string>
+    <string name="alice_action">アリスがApp.ktを更新</string>
+    <string name="alice_time">2分前</string>
+    <string name="bob_action">ボブがPR #42をマージ</string>
+    <string name="bob_time">15分前</string>
+    <string name="carol_action">キャロルがコメントを追加</string>
+    <string name="carol_time">1時間前</string>
+    <string name="dave_action">デイブがv2.1をデプロイ</string>
+    <string name="dave_time">3時間前</string>
+</resources>

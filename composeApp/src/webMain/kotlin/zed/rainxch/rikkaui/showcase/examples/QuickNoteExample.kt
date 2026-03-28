@@ -10,6 +10,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.composeapp.generated.resources.Res
+import rikkaui.composeapp.generated.resources.ideas
+import rikkaui.composeapp.generated.resources.note_content
+import rikkaui.composeapp.generated.resources.personal
+import rikkaui.composeapp.generated.resources.quick_note
+import rikkaui.composeapp.generated.resources.quick_note_label
+import rikkaui.composeapp.generated.resources.save
+import rikkaui.composeapp.generated.resources.work
+import rikkaui.composeapp.generated.resources.write_something
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonSize
 import zed.rainxch.rikkaui.components.ui.card.Card
@@ -23,12 +33,6 @@ import zed.rainxch.rikkaui.components.ui.textarea.Textarea
 import zed.rainxch.rikkaui.components.ui.togglegroup.ToggleGroup
 import zed.rainxch.rikkaui.components.ui.togglegroup.ToggleGroupItem
 
-/**
- * Quick note-taking card example for the showcase mosaic grid.
- *
- * Demonstrates Card, Kbd, Textarea, ToggleGroup, and Button
- * in a note composer pattern.
- */
 @Composable
 fun QuickNoteExample() {
     var noteText by remember { mutableStateOf("") }
@@ -36,7 +40,7 @@ fun QuickNoteExample() {
 
     Card(
         modifier = Modifier.fillMaxWidth(),
-        label = "Quick note card",
+        label = stringResource(Res.string.quick_note_label),
     ) {
         CardHeader {
             Row(
@@ -44,10 +48,7 @@ fun QuickNoteExample() {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(
-                    text = "Quick Note",
-                    variant = TextVariant.H4,
-                )
+                Text(text = stringResource(Res.string.quick_note), variant = TextVariant.H4)
                 Kbd(text = "\u2318N")
             }
         }
@@ -56,8 +57,8 @@ fun QuickNoteExample() {
             Textarea(
                 value = noteText,
                 onValueChange = { noteText = it },
-                placeholder = "Write something...",
-                label = "Note content",
+                placeholder = stringResource(Res.string.write_something),
+                label = stringResource(Res.string.note_content),
                 modifier = Modifier.fillMaxWidth(),
             )
         }
@@ -70,23 +71,23 @@ fun QuickNoteExample() {
             ) {
                 ToggleGroup {
                     ToggleGroupItem(
-                        text = "Personal",
+                        text = stringResource(Res.string.personal),
                         selected = selectedCategory == "Personal",
                         onClick = { selectedCategory = "Personal" },
                     )
                     ToggleGroupItem(
-                        text = "Work",
+                        text = stringResource(Res.string.work),
                         selected = selectedCategory == "Work",
                         onClick = { selectedCategory = "Work" },
                     )
                     ToggleGroupItem(
-                        text = "Ideas",
+                        text = stringResource(Res.string.ideas),
                         selected = selectedCategory == "Ideas",
                         onClick = { selectedCategory = "Ideas" },
                     )
                 }
                 Button(
-                    text = "Save",
+                    text = stringResource(Res.string.save),
                     onClick = { },
                     size = ButtonSize.Sm,
                 )

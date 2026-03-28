@@ -14,6 +14,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.composeapp.generated.resources.Res
+import rikkaui.composeapp.generated.resources.api_server
+import rikkaui.composeapp.generated.resources.cdn
+import rikkaui.composeapp.generated.resources.database
+import rikkaui.composeapp.generated.resources.degraded
+import rikkaui.composeapp.generated.resources.healthy
+import rikkaui.composeapp.generated.resources.operational
+import rikkaui.composeapp.generated.resources.system_status
+import rikkaui.composeapp.generated.resources.system_status_label
+import rikkaui.composeapp.generated.resources.system_uptime
+import rikkaui.composeapp.generated.resources.uptime_text
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.badge.Badge
 import zed.rainxch.rikkaui.components.ui.badge.BadgeVariant
@@ -26,12 +38,6 @@ import zed.rainxch.rikkaui.components.ui.spinner.SpinnerSize
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 
-/**
- * System status monitor card example for the showcase mosaic grid.
- *
- * Demonstrates Card, Spinner, Badge, colored Box indicators,
- * Progress bar, and Text in a service health dashboard pattern.
- */
 @Composable
 fun SystemStatusExample() {
     val greenDot = Color(0xFF22C55E)
@@ -39,7 +45,7 @@ fun SystemStatusExample() {
 
     Card(
         modifier = Modifier.fillMaxWidth(),
-        label = "System status monitor",
+        label = stringResource(Res.string.system_status_label),
     ) {
         CardHeader {
             Row(
@@ -47,10 +53,7 @@ fun SystemStatusExample() {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(
-                    text = "System Status",
-                    variant = TextVariant.H4,
-                )
+                Text(text = stringResource(Res.string.system_status), variant = TextVariant.H4)
                 Spinner(size = SpinnerSize.Sm)
             }
         }
@@ -61,18 +64,9 @@ fun SystemStatusExample() {
                 horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Box(
-                    modifier =
-                        Modifier
-                            .size(8.dp)
-                            .background(greenDot, CircleShape),
-                )
-                Text(
-                    text = "API Server",
-                    variant = TextVariant.P,
-                    modifier = Modifier.weight(1f),
-                )
-                Badge(text = "Operational", variant = BadgeVariant.Default)
+                Box(modifier = Modifier.size(8.dp).background(greenDot, CircleShape))
+                Text(text = stringResource(Res.string.api_server), variant = TextVariant.P, modifier = Modifier.weight(1f))
+                Badge(text = stringResource(Res.string.operational), variant = BadgeVariant.Default)
             }
 
             Spacer(modifier = Modifier.height(RikkaTheme.spacing.xs))
@@ -82,18 +76,9 @@ fun SystemStatusExample() {
                 horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Box(
-                    modifier =
-                        Modifier
-                            .size(8.dp)
-                            .background(greenDot, CircleShape),
-                )
-                Text(
-                    text = "Database",
-                    variant = TextVariant.P,
-                    modifier = Modifier.weight(1f),
-                )
-                Badge(text = "Healthy", variant = BadgeVariant.Default)
+                Box(modifier = Modifier.size(8.dp).background(greenDot, CircleShape))
+                Text(text = stringResource(Res.string.database), variant = TextVariant.P, modifier = Modifier.weight(1f))
+                Badge(text = stringResource(Res.string.healthy), variant = BadgeVariant.Default)
             }
 
             Spacer(modifier = Modifier.height(RikkaTheme.spacing.xs))
@@ -103,24 +88,15 @@ fun SystemStatusExample() {
                 horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Box(
-                    modifier =
-                        Modifier
-                            .size(8.dp)
-                            .background(yellowDot, CircleShape),
-                )
-                Text(
-                    text = "CDN",
-                    variant = TextVariant.P,
-                    modifier = Modifier.weight(1f),
-                )
-                Badge(text = "Degraded", variant = BadgeVariant.Secondary)
+                Box(modifier = Modifier.size(8.dp).background(yellowDot, CircleShape))
+                Text(text = stringResource(Res.string.cdn), variant = TextVariant.P, modifier = Modifier.weight(1f))
+                Badge(text = stringResource(Res.string.degraded), variant = BadgeVariant.Secondary)
             }
 
             Spacer(modifier = Modifier.height(RikkaTheme.spacing.md))
 
             Text(
-                text = "Uptime: 99.87%",
+                text = stringResource(Res.string.uptime_text),
                 variant = TextVariant.Small,
                 color = RikkaTheme.colors.mutedForeground,
             )
@@ -130,7 +106,7 @@ fun SystemStatusExample() {
             Progress(
                 progress = 0.87f,
                 modifier = Modifier.fillMaxWidth(),
-                label = "System uptime",
+                label = stringResource(Res.string.system_uptime),
             )
         }
     }

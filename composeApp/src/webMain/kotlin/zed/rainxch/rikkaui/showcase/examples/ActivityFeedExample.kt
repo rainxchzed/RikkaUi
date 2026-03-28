@@ -13,6 +13,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.composeapp.generated.resources.Res
+import rikkaui.composeapp.generated.resources.alice_action
+import rikkaui.composeapp.generated.resources.alice_time
+import rikkaui.composeapp.generated.resources.bob_action
+import rikkaui.composeapp.generated.resources.bob_time
+import rikkaui.composeapp.generated.resources.carol_action
+import rikkaui.composeapp.generated.resources.carol_time
+import rikkaui.composeapp.generated.resources.dave_action
+import rikkaui.composeapp.generated.resources.dave_time
+import rikkaui.composeapp.generated.resources.recent_activity
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.avatar.Avatar
 import zed.rainxch.rikkaui.components.ui.avatar.AvatarSize
@@ -24,47 +35,38 @@ import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 
-/**
- * Recent activity feed with avatars, action descriptions, and pagination.
- *
- * Demonstrates [Card], [CardHeader], [CardContent], [Avatar],
- * [Pagination], [Separator], and [Text] composed together
- * in a team activity timeline layout.
- */
 @Composable
 fun ActivityFeedExample() {
     var currentPage by remember { mutableStateOf(1) }
 
     Card {
-        // ─── Header ───────────────────────────────────────
         CardHeader {
-            Text(text = "Recent Activity", variant = TextVariant.H4)
+            Text(text = stringResource(Res.string.recent_activity), variant = TextVariant.H4)
         }
 
-        // ─── Activity items ───────────────────────────────
         CardContent {
             ActivityItem(
                 initials = "AL",
-                action = "Alice updated App.kt",
-                time = "2 min ago",
+                action = stringResource(Res.string.alice_action),
+                time = stringResource(Res.string.alice_time),
             )
             Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
             ActivityItem(
                 initials = "BM",
-                action = "Bob merged PR #42",
-                time = "15 min ago",
+                action = stringResource(Res.string.bob_action),
+                time = stringResource(Res.string.bob_time),
             )
             Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
             ActivityItem(
                 initials = "CS",
-                action = "Carol added a comment",
-                time = "1 hour ago",
+                action = stringResource(Res.string.carol_action),
+                time = stringResource(Res.string.carol_time),
             )
             Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
             ActivityItem(
                 initials = "DK",
-                action = "Dave deployed v2.1",
-                time = "3 hours ago",
+                action = stringResource(Res.string.dave_action),
+                time = stringResource(Res.string.dave_time),
             )
         }
 
@@ -72,7 +74,6 @@ fun ActivityFeedExample() {
         Separator()
         Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
 
-        // ─── Pagination ───────────────────────────────────
         Pagination(
             currentPage = currentPage,
             totalPages = 4,
@@ -82,20 +83,14 @@ fun ActivityFeedExample() {
 }
 
 @Composable
-private fun ActivityItem(
-    initials: String,
-    action: String,
-    time: String,
-) {
+private fun ActivityItem(initials: String, action: String, time: String) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Avatar(fallback = initials, size = AvatarSize.Sm)
-        Column(
-            verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
-        ) {
+        Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs)) {
             Text(text = action, variant = TextVariant.Small)
             Text(text = time, variant = TextVariant.Muted)
         }

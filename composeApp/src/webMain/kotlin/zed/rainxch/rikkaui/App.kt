@@ -2,7 +2,7 @@ package zed.rainxch.rikkaui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,13 +25,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.ComposeViewport
+import org.jetbrains.compose.resources.stringResource
 import rikkaui.composeapp.generated.resources.Res
+import rikkaui.composeapp.generated.resources.components_in_action
+import rikkaui.composeapp.generated.resources.components_in_action_desc
 import rikkaui.composeapp.generated.resources.inter_black
 import rikkaui.composeapp.generated.resources.inter_bold
 import rikkaui.composeapp.generated.resources.inter_light
 import rikkaui.composeapp.generated.resources.inter_medium
 import rikkaui.composeapp.generated.resources.inter_regular
 import rikkaui.composeapp.generated.resources.inter_semi_bold
+import rikkaui.composeapp.generated.resources.make_it_yours
+import rikkaui.composeapp.generated.resources.make_it_yours_desc
 import zed.rainxch.rikkaui.components.theme.RikkaAccent
 import zed.rainxch.rikkaui.components.theme.RikkaAccentDark
 import zed.rainxch.rikkaui.components.theme.RikkaColors
@@ -46,6 +51,7 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.showcase.FooterSection
 import zed.rainxch.rikkaui.showcase.HeroSection
 import zed.rainxch.rikkaui.showcase.ThemeSection
+import zed.rainxch.rikkaui.showcase.WindowSizeClass
 import zed.rainxch.rikkaui.showcase.examples.ActivityFeedExample
 import zed.rainxch.rikkaui.showcase.examples.ApiKeyManagerExample
 import zed.rainxch.rikkaui.showcase.examples.FeedbackFormExample
@@ -63,7 +69,6 @@ fun main() {
         var isDark by remember { mutableStateOf(true) }
         var paletteName by remember { mutableStateOf("Zinc") }
         var accentName by remember { mutableStateOf("Default") }
-
         val baseColors = resolvePalette(paletteName, isDark)
         val colors = resolveAccent(baseColors, accentName, isDark)
         val fontFamily =
@@ -101,20 +106,28 @@ private fun ShowcaseApp(
     accentName: String,
     onAccentChange: (String) -> Unit,
 ) {
-    Box(
+    BoxWithConstraints(
         modifier =
             Modifier
                 .fillMaxSize()
                 .background(RikkaTheme.colors.background),
         contentAlignment = Alignment.TopCenter,
     ) {
+        val sizeClass = WindowSizeClass.fromWidth(maxWidth)
+        val horizontalPadding =
+            when (sizeClass) {
+                WindowSizeClass.Compact -> RikkaTheme.spacing.md
+                WindowSizeClass.Medium -> RikkaTheme.spacing.lg
+                WindowSizeClass.Expanded -> RikkaTheme.spacing.lg
+            }
+
         Column(
             modifier =
                 Modifier
                     .widthIn(max = 1200.dp)
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
-                    .padding(horizontal = RikkaTheme.spacing.lg),
+                    .padding(horizontal = horizontalPadding),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             HeroSection()
@@ -122,7 +135,7 @@ private fun ShowcaseApp(
             Spacer(Modifier.height(RikkaTheme.spacing.xl))
 
             Text(
-                text = "Components in Action",
+                text = stringResource(Res.string.components_in_action),
                 variant = TextVariant.H2,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
@@ -131,9 +144,7 @@ private fun ShowcaseApp(
             Spacer(Modifier.height(RikkaTheme.spacing.xs))
 
             Text(
-                text =
-                    "Real-world interfaces built entirely with" +
-                        " RikkaUI components.",
+                text = stringResource(Res.string.components_in_action_desc),
                 variant = TextVariant.Muted,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
@@ -141,7 +152,7 @@ private fun ShowcaseApp(
 
             Spacer(Modifier.height(RikkaTheme.spacing.xxl))
 
-            ExamplesGrid()
+            ExamplesGrid(sizeClass)
 
             Spacer(Modifier.height(RikkaTheme.spacing.xxxl))
 
@@ -150,7 +161,7 @@ private fun ShowcaseApp(
             Spacer(Modifier.height(RikkaTheme.spacing.xl))
 
             Text(
-                text = "Make It Yours",
+                text = stringResource(Res.string.make_it_yours),
                 variant = TextVariant.H2,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
@@ -159,9 +170,7 @@ private fun ShowcaseApp(
             Spacer(Modifier.height(RikkaTheme.spacing.xs))
 
             Text(
-                text =
-                    "Pick a palette, choose an accent, toggle" +
-                        " dark mode. Watch everything update.",
+                text = stringResource(Res.string.make_it_yours_desc),
                 variant = TextVariant.Muted,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
@@ -186,9 +195,66 @@ private fun ShowcaseApp(
 }
 
 @Composable
-private fun ExamplesGrid() {
+private fun ExamplesGrid(sizeClass: WindowSizeClass) {
     val gap = RikkaTheme.spacing.md
 
+    when (sizeClass) {
+        WindowSizeClass.Compact -> CompactGrid(gap)
+        WindowSizeClass.Medium -> MediumGrid(gap)
+        WindowSizeClass.Expanded -> ExpandedGrid(gap)
+    }
+}
+
+@Composable
+private fun CompactGrid(gap: androidx.compose.ui.unit.Dp) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(gap),
+    ) {
+        MusicPlayerExample()
+        TaskBoardExample()
+        UserProfileExample()
+        WeatherDashboardExample()
+        FileExplorerExample()
+        ApiKeyManagerExample()
+        QuickNoteExample()
+        FeedbackFormExample()
+        SystemStatusExample()
+        ActivityFeedExample()
+    }
+}
+
+@Composable
+private fun MediumGrid(gap: androidx.compose.ui.unit.Dp) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(gap),
+    ) {
+        Column(
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.spacedBy(gap),
+        ) {
+            MusicPlayerExample()
+            WeatherDashboardExample()
+            QuickNoteExample()
+            SystemStatusExample()
+        }
+        Column(
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.spacedBy(gap),
+        ) {
+            TaskBoardExample()
+            FileExplorerExample()
+            UserProfileExample()
+            ApiKeyManagerExample()
+            FeedbackFormExample()
+            ActivityFeedExample()
+        }
+    }
+}
+
+@Composable
+private fun ExpandedGrid(gap: androidx.compose.ui.unit.Dp) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(gap),

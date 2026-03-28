@@ -14,6 +14,24 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.composeapp.generated.resources.Res
+import rikkaui.composeapp.generated.resources.current_time
+import rikkaui.composeapp.generated.resources.hd_audio
+import rikkaui.composeapp.generated.resources.music_player_label
+import rikkaui.composeapp.generated.resources.next_track
+import rikkaui.composeapp.generated.resources.now_playing
+import rikkaui.composeapp.generated.resources.pause
+import rikkaui.composeapp.generated.resources.play
+import rikkaui.composeapp.generated.resources.playback_progress
+import rikkaui.composeapp.generated.resources.previous_track
+import rikkaui.composeapp.generated.resources.repeat_label
+import rikkaui.composeapp.generated.resources.shuffle
+import rikkaui.composeapp.generated.resources.song_artist
+import rikkaui.composeapp.generated.resources.song_title
+import rikkaui.composeapp.generated.resources.total_time
+import rikkaui.composeapp.generated.resources.volume
+import rikkaui.composeapp.generated.resources.volume_control
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.badge.Badge
 import zed.rainxch.rikkaui.components.ui.badge.BadgeVariant
@@ -31,10 +49,6 @@ import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.toggle.Toggle
 
-/**
- * A music player card demonstrating Card, Button, Progress, Slider,
- * Toggle, Badge, and Text components in a realistic media playback UI.
- */
 @Composable
 fun MusicPlayerExample() {
     var isPlaying by remember { mutableStateOf(false) }
@@ -43,9 +57,8 @@ fun MusicPlayerExample() {
     var repeatOn by remember { mutableStateOf(true) }
 
     Card(
-        label = "Music player",
+        label = stringResource(Res.string.music_player_label),
     ) {
-        // ─── Header ──────────────────────────────────────
         CardHeader {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -53,59 +66,55 @@ fun MusicPlayerExample() {
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    text = "Now Playing",
+                    text = stringResource(Res.string.now_playing),
                     variant = TextVariant.H4,
                 )
                 Badge(
-                    text = "HD Audio",
+                    text = stringResource(Res.string.hd_audio),
                     variant = BadgeVariant.Secondary,
                 )
             }
         }
 
-        // ─── Content ─────────────────────────────────────
         CardContent {
             Column(
                 verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
             ) {
-                // Song info
                 Column(
                     verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
                 ) {
                     Text(
-                        text = "Midnight Drive",
+                        text = stringResource(Res.string.song_title),
                         variant = TextVariant.Large,
                     )
                     Text(
-                        text = "Neon Waves",
+                        text = stringResource(Res.string.song_artist),
                         variant = TextVariant.Muted,
                     )
                 }
 
-                // Playback progress
                 Column(
                     verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
                 ) {
                     Progress(
                         progress = 0.65f,
-                        label = "Playback progress",
+                        label = stringResource(Res.string.playback_progress),
                     )
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         Text(
-                            text = "2:18",
+                            text = stringResource(Res.string.current_time),
                             variant = TextVariant.Muted,
                         )
                         Text(
-                            text = "3:33",
+                            text = stringResource(Res.string.total_time),
                             variant = TextVariant.Muted,
                         )
                     }
                 }
 
-                // Transport controls
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement =
@@ -116,17 +125,22 @@ fun MusicPlayerExample() {
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Button(
-                        onClick = { /* previous track */ },
+                        onClick = { },
                         variant = ButtonVariant.Ghost,
                         size = ButtonSize.Icon,
-                        label = "Previous track",
+                        label = stringResource(Res.string.previous_track),
                     ) {
                         Text(text = "\u25C1", variant = TextVariant.P)
                     }
                     Button(
                         onClick = { isPlaying = !isPlaying },
                         size = ButtonSize.Icon,
-                        label = if (isPlaying) "Pause" else "Play",
+                        label =
+                            if (isPlaying) {
+                                stringResource(Res.string.pause)
+                            } else {
+                                stringResource(Res.string.play)
+                            },
                     ) {
                         Text(
                             text = if (isPlaying) "\u23F8" else "\u25B6",
@@ -135,10 +149,10 @@ fun MusicPlayerExample() {
                         )
                     }
                     Button(
-                        onClick = { /* next track */ },
+                        onClick = { },
                         variant = ButtonVariant.Ghost,
                         size = ButtonSize.Icon,
-                        label = "Next track",
+                        label = stringResource(Res.string.next_track),
                     ) {
                         Text(text = "\u25B7", variant = TextVariant.P)
                     }
@@ -146,58 +160,50 @@ fun MusicPlayerExample() {
 
                 Spacer(modifier = Modifier.height(RikkaTheme.spacing.xs))
 
-                // Volume slider
                 Column(
                     verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
                 ) {
-                    Label("Volume")
+                    Label(stringResource(Res.string.volume))
                     Slider(
                         value = volume,
                         onValueChange = { volume = it },
-                        label = "Volume control",
+                        label = stringResource(Res.string.volume_control),
                     )
                 }
             }
         }
 
-        // ─── Footer ─────────────────────────────────────
         CardFooter {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xl),
             ) {
                 Row(
-                    horizontalArrangement =
-                        Arrangement.spacedBy(
-                            RikkaTheme.spacing.sm,
-                        ),
+                    horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        text = "Shuffle",
+                        text = stringResource(Res.string.shuffle),
                         variant = TextVariant.Small,
                     )
                     Toggle(
                         checked = shuffleOn,
                         onCheckedChange = { shuffleOn = it },
-                        label = "Shuffle",
+                        label = stringResource(Res.string.shuffle),
                     )
                 }
                 Row(
-                    horizontalArrangement =
-                        Arrangement.spacedBy(
-                            RikkaTheme.spacing.sm,
-                        ),
+                    horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        text = "Repeat",
+                        text = stringResource(Res.string.repeat_label),
                         variant = TextVariant.Small,
                     )
                     Toggle(
                         checked = repeatOn,
                         onCheckedChange = { repeatOn = it },
-                        label = "Repeat",
+                        label = stringResource(Res.string.repeat_label),
                     )
                 }
             }

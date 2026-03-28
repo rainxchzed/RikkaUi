@@ -6,6 +6,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.composeapp.generated.resources.Res
+import rikkaui.composeapp.generated.resources.built_with_compose
+import rikkaui.composeapp.generated.resources.footer_tagline
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.text.Text
@@ -18,7 +23,7 @@ fun FooterSection() {
     Spacer(Modifier.height(RikkaTheme.spacing.xl))
 
     Text(
-        text = "Built with Compose Multiplatform",
+        text = stringResource(Res.string.built_with_compose),
         variant = TextVariant.Muted,
         textAlign = TextAlign.Center,
         modifier = Modifier.fillMaxWidth(),
@@ -27,7 +32,7 @@ fun FooterSection() {
     Spacer(Modifier.height(RikkaTheme.spacing.xs))
 
     Text(
-        text = "RikkaUI — Zero Material. Pure Kotlin.",
+        text = stringResource(Res.string.footer_tagline),
         variant = TextVariant.Small,
         textAlign = TextAlign.Center,
         modifier = Modifier.fillMaxWidth(),

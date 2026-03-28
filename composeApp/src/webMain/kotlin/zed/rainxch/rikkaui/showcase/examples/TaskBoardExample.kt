@@ -12,6 +12,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.composeapp.generated.resources.Res
+import rikkaui.composeapp.generated.resources.active_count
+import rikkaui.composeapp.generated.resources.assigned_to_you
+import rikkaui.composeapp.generated.resources.design_token_system
+import rikkaui.composeapp.generated.resources.high
+import rikkaui.composeapp.generated.resources.low
+import rikkaui.composeapp.generated.resources.medium
+import rikkaui.composeapp.generated.resources.sprint_tasks
+import rikkaui.composeapp.generated.resources.task_board_label
+import rikkaui.composeapp.generated.resources.update_docs
+import rikkaui.composeapp.generated.resources.view_board
+import rikkaui.composeapp.generated.resources.write_unit_tests
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.avatar.Avatar
 import zed.rainxch.rikkaui.components.ui.avatar.AvatarSize
@@ -28,12 +41,6 @@ import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 
-/**
- * Kanban-style task board card example for the showcase mosaic grid.
- *
- * Demonstrates Card with header, Checkbox, Badge variants, Avatar,
- * Separator, and Button in a sprint task tracker pattern.
- */
 @Composable
 fun TaskBoardExample() {
     var task1Checked by remember { mutableStateOf(false) }
@@ -42,7 +49,7 @@ fun TaskBoardExample() {
 
     Card(
         modifier = Modifier.fillMaxWidth(),
-        label = "Sprint task board card",
+        label = stringResource(Res.string.task_board_label),
     ) {
         CardHeader {
             Row(
@@ -50,21 +57,13 @@ fun TaskBoardExample() {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(
-                    text = "Sprint Tasks",
-                    variant = TextVariant.H4,
-                )
-                Badge(
-                    text = "3 active",
-                    variant = BadgeVariant.Default,
-                )
+                Text(text = stringResource(Res.string.sprint_tasks), variant = TextVariant.H4)
+                Badge(text = stringResource(Res.string.active_count), variant = BadgeVariant.Default)
             }
         }
 
         CardContent {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
-            ) {
+            Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm)) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
@@ -73,10 +72,10 @@ fun TaskBoardExample() {
                     Checkbox(
                         checked = task1Checked,
                         onCheckedChange = { task1Checked = it },
-                        label = "Design token system",
+                        label = stringResource(Res.string.design_token_system),
                     )
                     Spacer(modifier = Modifier.weight(1f))
-                    Badge(text = "High", variant = BadgeVariant.Destructive)
+                    Badge(text = stringResource(Res.string.high), variant = BadgeVariant.Destructive)
                 }
 
                 Row(
@@ -87,10 +86,10 @@ fun TaskBoardExample() {
                     Checkbox(
                         checked = task2Checked,
                         onCheckedChange = { task2Checked = it },
-                        label = "Write unit tests",
+                        label = stringResource(Res.string.write_unit_tests),
                     )
                     Spacer(modifier = Modifier.weight(1f))
-                    Badge(text = "Medium", variant = BadgeVariant.Secondary)
+                    Badge(text = stringResource(Res.string.medium), variant = BadgeVariant.Secondary)
                 }
 
                 Row(
@@ -101,10 +100,10 @@ fun TaskBoardExample() {
                     Checkbox(
                         checked = task3Checked,
                         onCheckedChange = { task3Checked = it },
-                        label = "Update docs",
+                        label = stringResource(Res.string.update_docs),
                     )
                     Spacer(modifier = Modifier.weight(1f))
-                    Badge(text = "Low", variant = BadgeVariant.Outline)
+                    Badge(text = stringResource(Res.string.low), variant = BadgeVariant.Outline)
                 }
             }
         }
@@ -117,18 +116,15 @@ fun TaskBoardExample() {
                 horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Avatar(
-                    fallback = "AK",
-                    size = AvatarSize.Sm,
-                )
+                Avatar(fallback = "AK", size = AvatarSize.Sm)
                 Text(
-                    text = "Assigned to you",
+                    text = stringResource(Res.string.assigned_to_you),
                     variant = TextVariant.Small,
                     color = RikkaTheme.colors.mutedForeground,
                     modifier = Modifier.weight(1f),
                 )
                 Button(
-                    text = "View Board",
+                    text = stringResource(Res.string.view_board),
                     onClick = { },
                     variant = ButtonVariant.Ghost,
                 )

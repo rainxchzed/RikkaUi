@@ -1,0 +1,164 @@
+<resources>
+    <!-- App / Section Titles -->
+    <string name="components_in_action">Components in Action</string>
+    <string name="components_in_action_desc">Real-world interfaces built entirely with RikkaUI components.</string>
+    <string name="make_it_yours">Make It Yours</string>
+    <string name="make_it_yours_desc">Pick a palette, choose an accent, toggle dark mode. Watch everything update.</string>
+
+    <!-- Hero -->
+    <string name="preview">Preview</string>
+    <string name="app_name">RikkaUI</string>
+    <string name="hero_subtitle">Beautiful components for Compose Multiplatform</string>
+    <string name="hero_description">A shadcn-inspired component library for Kotlin. Copy-paste components you own, spring-physics animations, and zero Material dependency.</string>
+    <string name="get_started">Get Started</string>
+    <string name="github">GitHub</string>
+
+    <!-- Footer -->
+    <string name="built_with_compose">Built with Compose Multiplatform</string>
+    <string name="footer_tagline">RikkaUI — Zero Material. Pure Kotlin.</string>
+
+    <!-- Theme Section -->
+    <string name="theme_title">Theme</string>
+    <string name="theme_description">Switch palettes and toggle dark mode in real time.</string>
+    <string name="palette">Palette</string>
+    <string name="accent">Accent</string>
+    <string name="dark_mode_label">Dark Mode</string>
+    <string name="dark">Dark</string>
+    <string name="light">Light</string>
+    <string name="toggle_dark_mode">Toggle dark mode</string>
+    <string name="language_label">Language</string>
+
+    <!-- Music Player -->
+    <string name="music_player_label">Music player</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="hd_audio">HD Audio</string>
+    <string name="song_title">Midnight Drive</string>
+    <string name="song_artist">Neon Waves</string>
+    <string name="playback_progress">Playback progress</string>
+    <string name="previous_track">Previous track</string>
+    <string name="pause">Pause</string>
+    <string name="play">Play</string>
+    <string name="next_track">Next track</string>
+    <string name="volume">Volume</string>
+    <string name="volume_control">Volume control</string>
+    <string name="shuffle">Shuffle</string>
+    <string name="repeat_label">Repeat</string>
+    <string name="current_time">2:18</string>
+    <string name="total_time">3:33</string>
+
+    <!-- Weather Dashboard -->
+    <string name="weather_label">Weather dashboard</string>
+    <string name="weather">Weather</string>
+    <string name="live">Live</string>
+    <string name="temperature">24°C</string>
+    <string name="partly_cloudy">Partly Cloudy</string>
+    <string name="humidity">Humidity</string>
+    <string name="humidity_value">65%</string>
+    <string name="wind">Wind</string>
+    <string name="wind_value">12 km/h</string>
+    <string name="uv_index">UV Index</string>
+    <string name="uv_index_value">4</string>
+    <string name="three_day_forecast">3-Day Forecast</string>
+    <string name="day_column">Day</string>
+    <string name="temp_column">Temp</string>
+    <string name="condition_column">Condition</string>
+    <string name="monday">Mon</string>
+    <string name="monday_temp">26°C</string>
+    <string name="sunny">Sunny</string>
+    <string name="tuesday">Tue</string>
+    <string name="tuesday_temp">22°C</string>
+    <string name="cloudy">Cloudy</string>
+    <string name="wednesday">Wed</string>
+    <string name="wednesday_temp">19°C</string>
+    <string name="rain">Rain</string>
+
+    <!-- Task Board -->
+    <string name="task_board_label">Sprint task board card</string>
+    <string name="sprint_tasks">Sprint Tasks</string>
+    <string name="active_count">3 active</string>
+    <string name="design_token_system">Design token system</string>
+    <string name="high">High</string>
+    <string name="write_unit_tests">Write unit tests</string>
+    <string name="medium">Medium</string>
+    <string name="update_docs">Update docs</string>
+    <string name="low">Low</string>
+    <string name="assigned_to_you">Assigned to you</string>
+    <string name="view_board">View Board</string>
+
+    <!-- File Explorer -->
+    <string name="file_browser_label">Project file browser</string>
+    <string name="project_files">Project Files</string>
+    <string name="kotlin_file_desc">Kotlin file</string>
+    <string name="app_kt_name">App.kt</string>
+    <string name="app_kt_size">2.4 KB</string>
+    <string name="build_file_desc">Build file</string>
+    <string name="build_gradle_name">build.gradle</string>
+    <string name="build_gradle_size">1.8 KB</string>
+    <string name="readme_file_desc">Readme file</string>
+    <string name="readme_md_name">README.md</string>
+    <string name="readme_size">856 B</string>
+    <string name="search_files_placeholder">Search files…</string>
+    <string name="file_search_label">File search</string>
+    <string name="search_files_desc">Search files</string>
+    <string name="file_count">3 files</string>
+
+    <!-- Quick Note -->
+    <string name="quick_note_label">Quick note card</string>
+    <string name="quick_note">Quick Note</string>
+    <string name="write_something">Write something…</string>
+    <string name="note_content">Note content</string>
+    <string name="personal">Personal</string>
+    <string name="work">Work</string>
+    <string name="ideas">Ideas</string>
+    <string name="save">Save</string>
+
+    <!-- System Status -->
+    <string name="system_status_label">System status monitor</string>
+    <string name="system_status">System Status</string>
+    <string name="api_server">API Server</string>
+    <string name="operational">Operational</string>
+    <string name="database">Database</string>
+    <string name="healthy">Healthy</string>
+    <string name="cdn">CDN</string>
+    <string name="degraded">Degraded</string>
+    <string name="uptime_text">Uptime: 99.87%</string>
+    <string name="system_uptime">System uptime</string>
+
+    <!-- User Profile -->
+    <string name="user_name">Jane Doe</string>
+    <string name="user_email">jane@example.com</string>
+    <string name="notifications">Notifications</string>
+    <string name="dark_mode_preference">Dark Mode</string>
+    <string name="newsletter">Newsletter</string>
+    <string name="edit_profile">Edit Profile</string>
+
+    <!-- API Key Manager -->
+    <string name="api_keys">API Keys</string>
+    <string name="new_key">New Key</string>
+    <string name="production">Production</string>
+    <string name="production_key">sk-…a8f2</string>
+    <string name="development">Development</string>
+    <string name="development_key">sk-…c3d1</string>
+    <string name="rate_limited">Rate Limited</string>
+    <string name="quota_used">95% of quota used</string>
+    <string name="copy_key_label">Copy %1$s key</string>
+
+    <!-- Feedback Form -->
+    <string name="rate_your_experience">Rate Your Experience</string>
+    <string name="rate_stars">Rate %1$d stars</string>
+    <string name="tell_us_more">Tell us more</string>
+    <string name="what_could_we_improve">What could we improve?</string>
+    <string name="contact_me_about_feedback">Contact me about this feedback</string>
+    <string name="submit_feedback">Submit Feedback</string>
+
+    <!-- Activity Feed -->
+    <string name="recent_activity">Recent Activity</string>
+    <string name="alice_action">Alice updated App.kt</string>
+    <string name="alice_time">2 min ago</string>
+    <string name="bob_action">Bob merged PR #42</string>
+    <string name="bob_time">15 min ago</string>
+    <string name="carol_action">Carol added a comment</string>
+    <string name="carol_time">1 hour ago</string>
+    <string name="dave_action">Dave deployed v2.1</string>
+    <string name="dave_time">3 hours ago</string>
+</resources>

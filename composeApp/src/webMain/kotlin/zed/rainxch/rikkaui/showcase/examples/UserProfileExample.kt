@@ -14,6 +14,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.composeapp.generated.resources.Res
+import rikkaui.composeapp.generated.resources.dark_mode_preference
+import rikkaui.composeapp.generated.resources.edit_profile
+import rikkaui.composeapp.generated.resources.newsletter
+import rikkaui.composeapp.generated.resources.notifications
+import rikkaui.composeapp.generated.resources.user_email
+import rikkaui.composeapp.generated.resources.user_name
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.avatar.Avatar
 import zed.rainxch.rikkaui.components.ui.avatar.AvatarSize
@@ -25,12 +33,6 @@ import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.toggle.Toggle
 
-/**
- * User profile card with avatar, contact info, and preference toggles.
- *
- * Demonstrates [Card], [Avatar], [Toggle], [Separator], [Button],
- * and [Text] composed together in a profile settings layout.
- */
 @Composable
 fun UserProfileExample() {
     var notifications by remember { mutableStateOf(true) }
@@ -38,23 +40,19 @@ fun UserProfileExample() {
     var newsletter by remember { mutableStateOf(true) }
 
     Card {
-        // ─── Avatar + Identity ────────────────────────────
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
         ) {
-            Avatar(
-                fallback = "JD",
-                size = AvatarSize.Lg,
-            )
+            Avatar(fallback = "JD", size = AvatarSize.Lg)
             Text(
-                text = "Jane Doe",
+                text = stringResource(Res.string.user_name),
                 variant = TextVariant.H4,
                 textAlign = TextAlign.Center,
             )
             Text(
-                text = "jane@example.com",
+                text = stringResource(Res.string.user_email),
                 variant = TextVariant.Muted,
                 textAlign = TextAlign.Center,
             )
@@ -64,28 +62,26 @@ fun UserProfileExample() {
         Separator()
         Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
 
-        // ─── Preference toggles ───────────────────────────
         PreferenceRow(
-            label = "Notifications",
+            label = stringResource(Res.string.notifications),
             checked = notifications,
             onCheckedChange = { notifications = it },
         )
         PreferenceRow(
-            label = "Dark Mode",
+            label = stringResource(Res.string.dark_mode_preference),
             checked = darkMode,
             onCheckedChange = { darkMode = it },
         )
         PreferenceRow(
-            label = "Newsletter",
+            label = stringResource(Res.string.newsletter),
             checked = newsletter,
             onCheckedChange = { newsletter = it },
         )
 
         Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
 
-        // ─── Edit Profile button ──────────────────────────
         Button(
-            text = "Edit Profile",
+            text = stringResource(Res.string.edit_profile),
             onClick = { },
             variant = ButtonVariant.Outline,
             modifier = Modifier.fillMaxWidth(),

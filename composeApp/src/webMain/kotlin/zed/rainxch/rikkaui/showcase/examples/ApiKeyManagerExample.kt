@@ -8,6 +8,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.composeapp.generated.resources.Res
+import rikkaui.composeapp.generated.resources.api_keys
+import rikkaui.composeapp.generated.resources.copy_key_label
+import rikkaui.composeapp.generated.resources.development
+import rikkaui.composeapp.generated.resources.development_key
+import rikkaui.composeapp.generated.resources.new_key
+import rikkaui.composeapp.generated.resources.production
+import rikkaui.composeapp.generated.resources.production_key
+import rikkaui.composeapp.generated.resources.quota_used
+import rikkaui.composeapp.generated.resources.rate_limited
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.alert.Alert
 import zed.rainxch.rikkaui.components.ui.alert.AlertDescription
@@ -26,64 +37,47 @@ import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 
-/**
- * API key management card with masked keys, copy actions, and usage alert.
- *
- * Demonstrates [Card], [CardHeader], [CardContent], [Kbd], [Button],
- * [Icon], [Alert], [AlertTitle], [AlertDescription], and [Separator]
- * composed together in a developer tools layout.
- */
 @Composable
 fun ApiKeyManagerExample() {
     Card {
-        // ─── Header with action button ────────────────────
         CardHeader {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(text = "API Keys", variant = TextVariant.H4)
-                Button(
-                    text = "New Key",
-                    onClick = { },
-                    size = ButtonSize.Sm,
-                )
+                Text(text = stringResource(Res.string.api_keys), variant = TextVariant.H4)
+                Button(text = stringResource(Res.string.new_key), onClick = { }, size = ButtonSize.Sm)
             }
         }
 
         Spacer(modifier = Modifier.height(RikkaTheme.spacing.xs))
 
-        // ─── Key entries ──────────────────────────────────
         CardContent {
-            KeyEntry(label = "Production", maskedKey = "sk-...a8f2")
+            KeyEntry(
+                label = stringResource(Res.string.production),
+                maskedKey = stringResource(Res.string.production_key),
+            )
             Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
-            KeyEntry(label = "Development", maskedKey = "sk-...c3d1")
+            KeyEntry(
+                label = stringResource(Res.string.development),
+                maskedKey = stringResource(Res.string.development_key),
+            )
         }
 
         Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
         Separator()
         Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
 
-        // ─── Usage warning ────────────────────────────────
         Alert(variant = AlertVariant.Destructive) {
-            AlertTitle(
-                text = "Rate Limited",
-                variant = AlertVariant.Destructive,
-            )
-            AlertDescription(
-                text = "95% of quota used",
-                variant = AlertVariant.Destructive,
-            )
+            AlertTitle(text = stringResource(Res.string.rate_limited), variant = AlertVariant.Destructive)
+            AlertDescription(text = stringResource(Res.string.quota_used), variant = AlertVariant.Destructive)
         }
     }
 }
 
 @Composable
-private fun KeyEntry(
-    label: String,
-    maskedKey: String,
-) {
+private fun KeyEntry(label: String, maskedKey: String) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
@@ -99,7 +93,7 @@ private fun KeyEntry(
         ) {
             Icon(
                 imageVector = RikkaIcons.Copy,
-                contentDescription = "Copy $label key",
+                contentDescription = stringResource(Res.string.copy_key_label, label),
             )
         }
     }
