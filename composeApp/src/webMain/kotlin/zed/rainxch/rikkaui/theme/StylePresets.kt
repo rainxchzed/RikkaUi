@@ -1,17 +1,13 @@
 package zed.rainxch.rikkaui.theme
 
-import zed.rainxch.rikkaui.components.theme.RikkaStyle
-import zed.rainxch.rikkaui.components.theme.RikkaStylePresets
+import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
 
 /**
- * Re-exports from the component library for showcase convenience.
+ * Resolves a [RikkaStylePreset] enum from a display name string.
  *
- * The actual preset definitions live in `:components` at
- * [RikkaStylePresets] so that all library consumers can use them.
+ * Used by the theme switcher UI which stores selection as a string.
+ * Falls back to [RikkaStylePreset.Default] for unknown names.
  */
-
-/** Named style preset names shown in the theme switcher UI. */
-val stylePresetNames: List<String> get() = RikkaStylePresets.names
-
-/** Resolves a named style preset by name. */
-fun resolveStyle(name: String): RikkaStyle = RikkaStylePresets.fromName(name)
+fun resolveStylePreset(name: String): RikkaStylePreset =
+    RikkaStylePreset.entries.find { it.label == name }
+        ?: RikkaStylePreset.Default

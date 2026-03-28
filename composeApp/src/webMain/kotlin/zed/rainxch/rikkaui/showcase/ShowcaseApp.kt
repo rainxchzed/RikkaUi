@@ -22,6 +22,7 @@ import rikkaui.composeapp.generated.resources.components_in_action
 import rikkaui.composeapp.generated.resources.components_in_action_desc
 import rikkaui.composeapp.generated.resources.make_it_yours
 import rikkaui.composeapp.generated.resources.make_it_yours_desc
+import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.text.Text
@@ -44,8 +45,8 @@ fun ShowcaseApp(
     onPaletteChange: (String) -> Unit,
     accentName: String,
     onAccentChange: (String) -> Unit,
-    styleName: String,
-    onStyleChange: (String) -> Unit,
+    stylePreset: RikkaStylePreset,
+    onStyleChange: (RikkaStylePreset) -> Unit,
 ) {
     BoxWithConstraints(
         modifier =
@@ -128,7 +129,7 @@ fun ShowcaseApp(
                 onPaletteChange = onPaletteChange,
                 accentName = accentName,
                 onAccentChange = onAccentChange,
-                styleName = styleName,
+                stylePreset = stylePreset,
                 onStyleChange = onStyleChange,
             )
 

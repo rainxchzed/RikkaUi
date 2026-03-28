@@ -19,17 +19,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.theme.accentPreviewColor
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
-import zed.rainxch.rikkaui.components.ui.button.Button
-import zed.rainxch.rikkaui.components.ui.button.ButtonAnimation
-import zed.rainxch.rikkaui.components.ui.button.ButtonSize
-import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
-import zed.rainxch.rikkaui.components.ui.card.Card
-import zed.rainxch.rikkaui.components.ui.text.Text
-import zed.rainxch.rikkaui.components.ui.text.TextVariant
-import zed.rainxch.rikkaui.components.ui.toggle.Toggle
-import zed.rainxch.rikkaui.theme.stylePresetNames
 import org.jetbrains.compose.resources.stringResource
 import rikkaui.composeapp.generated.resources.Res
 import rikkaui.composeapp.generated.resources.accent
@@ -41,6 +30,17 @@ import rikkaui.composeapp.generated.resources.style_label
 import rikkaui.composeapp.generated.resources.theme_description
 import rikkaui.composeapp.generated.resources.theme_title
 import rikkaui.composeapp.generated.resources.toggle_dark_mode
+import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
+import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.components.ui.button.Button
+import zed.rainxch.rikkaui.components.ui.button.ButtonAnimation
+import zed.rainxch.rikkaui.components.ui.button.ButtonSize
+import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
+import zed.rainxch.rikkaui.components.ui.card.Card
+import zed.rainxch.rikkaui.components.ui.text.Text
+import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.components.ui.toggle.Toggle
+import zed.rainxch.rikkaui.theme.accentPreviewColor
 
 @Composable
 fun ThemeSection(
@@ -50,8 +50,8 @@ fun ThemeSection(
     onPaletteChange: (String) -> Unit,
     accentName: String,
     onAccentChange: (String) -> Unit,
-    styleName: String,
-    onStyleChange: (String) -> Unit,
+    stylePreset: RikkaStylePreset,
+    onStyleChange: (RikkaStylePreset) -> Unit,
 ) {
     Spacer(Modifier.height(RikkaTheme.spacing.xl))
 
@@ -64,7 +64,10 @@ fun ThemeSection(
 
     Card(modifier = Modifier.fillMaxWidth()) {
         // ─── Style ─────────────────────────────────────────
-        Text(text = stringResource(Res.string.style_label), variant = TextVariant.Small)
+        Text(
+            text = stringResource(Res.string.style_label),
+            variant = TextVariant.Small,
+        )
         Spacer(Modifier.height(RikkaTheme.spacing.xs))
         FlowRow(
             horizontalArrangement =
@@ -72,12 +75,12 @@ fun ThemeSection(
             verticalArrangement =
                 Arrangement.spacedBy(RikkaTheme.spacing.sm),
         ) {
-            stylePresetNames.forEach { name ->
+            RikkaStylePreset.entries.forEach { preset ->
                 Button(
-                    text = name,
-                    onClick = { onStyleChange(name) },
+                    text = preset.label,
+                    onClick = { onStyleChange(preset) },
                     variant =
-                        if (styleName == name) {
+                        if (stylePreset == preset) {
                             ButtonVariant.Default
                         } else {
                             ButtonVariant.Outline
@@ -91,7 +94,10 @@ fun ThemeSection(
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
         // ─── Palette ───────────────────────────────────────
-        Text(text = stringResource(Res.string.palette), variant = TextVariant.Small)
+        Text(
+            text = stringResource(Res.string.palette),
+            variant = TextVariant.Small,
+        )
         Spacer(Modifier.height(RikkaTheme.spacing.xs))
         FlowRow(
             horizontalArrangement =
@@ -121,7 +127,10 @@ fun ThemeSection(
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
         // ─── Accent ────────────────────────────────────────
-        Text(text = stringResource(Res.string.accent), variant = TextVariant.Small)
+        Text(
+            text = stringResource(Res.string.accent),
+            variant = TextVariant.Small,
+        )
         Spacer(Modifier.height(RikkaTheme.spacing.xs))
         FlowRow(
             horizontalArrangement =
@@ -177,7 +186,10 @@ fun ThemeSection(
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
         // ─── Dark Mode ─────────────────────────────────────
-        Text(text = stringResource(Res.string.dark_mode_label), variant = TextVariant.Small)
+        Text(
+            text = stringResource(Res.string.dark_mode_label),
+            variant = TextVariant.Small,
+        )
         Spacer(Modifier.height(RikkaTheme.spacing.xs))
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -190,7 +202,11 @@ fun ThemeSection(
                 label = stringResource(Res.string.toggle_dark_mode),
             )
             Text(
-                text = if (isDark) stringResource(Res.string.dark) else stringResource(Res.string.light),
+                text = if (isDark) {
+                    stringResource(Res.string.dark)
+                } else {
+                    stringResource(Res.string.light)
+                },
                 variant = TextVariant.Muted,
             )
         }
