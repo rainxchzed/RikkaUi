@@ -25,6 +25,7 @@ fun RikkaTheme(
     typography: RikkaTypography = defaultRikkaTypography(),
     spacing: RikkaSpacing = defaultRikkaSpacing(),
     shapes: RikkaShapes = defaultRikkaShapes(),
+    motion: RikkaMotion = defaultRikkaMotion(),
     content: @Composable () -> Unit,
 ) {
     CompositionLocalProvider(
@@ -32,6 +33,7 @@ fun RikkaTheme(
         LocalRikkaTypography provides typography,
         LocalRikkaSpacing provides spacing,
         LocalRikkaShapes provides shapes,
+        LocalRikkaMotion provides motion,
         content = content,
     )
 }
@@ -45,6 +47,7 @@ fun RikkaTheme(
  * val heading = RikkaTheme.typography.h1
  * val padding = RikkaTheme.spacing.lg
  * val rounded = RikkaTheme.shapes.md
+ * val spring = RikkaTheme.motion.springDefault
  * ```
  */
 object RikkaTheme {
@@ -67,4 +70,9 @@ object RikkaTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalRikkaShapes.current
+
+    val motion: RikkaMotion
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalRikkaMotion.current
 }

@@ -6,6 +6,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.unit.Dp
 
 /**
  * RikkaMotion defines the animation token system for the design system.
@@ -36,90 +37,59 @@ import androidx.compose.runtime.staticCompositionLocalOf
  * - **Spring first**: Springs handle interruptions gracefully (velocity preservation).
  * - **Tween for color**: Color transitions use fixed-duration tweens for predictability.
  * - **graphicsLayer for transforms**: Scale/rotation/alpha skip composition + layout phases.
+ *
+ * @param springDefault Default spring for most interactive animations. Medium bouncy, medium-low stiffness.
+ * @param springBouncy Gentle spring for playful interactions. Low bouncy, low stiffness.
+ * @param springSnap Snappy spring for instant-feeling transitions. No bounce, high stiffness.
+ * @param tweenFast Fast tween (100ms) for micro-interactions.
+ * @param tweenDefault Standard tween (150ms) for most color/opacity transitions.
+ * @param tweenSlow Slow tween (250ms) for larger visual transitions.
+ * @param tweenEnter Enter/exit tween (200ms) for content appearing/disappearing.
+ * @param durationFast Fast duration in ms (100).
+ * @param durationDefault Default duration in ms (150).
+ * @param durationSlow Slow duration in ms (250).
+ * @param durationEnter Enter/exit duration in ms (200).
+ * @param springDefaultDp Default Dp spring for position/size animations (Toggle thumb, sliding panels).
+ * @param springBouncyDp Bouncy Dp spring for playful position animations.
+ * @param pressScaleSubtle Subtle press scale (0.97). Used by Button Scale animation.
+ * @param pressScaleBouncy Noticeable press scale (0.93). Used by Button Bounce animation.
  */
 @Immutable
 data class RikkaMotion(
-    // ─── Spring animations (interactive, interruptible) ─────
-
-    /**
-     * Default spring for most interactive animations.
-     * Medium bouncy, medium-low stiffness — responsive but not snappy.
-     * Used by: Button scale, Toggle thumb, expandable content.
-     */
     val springDefault: AnimationSpec<Float> =
         spring(
             dampingRatio = Spring.DampingRatioMediumBouncy,
             stiffness = Spring.StiffnessMediumLow,
         ),
-
-    /**
-     * Gentle spring for playful interactions.
-     * Low bouncy, low stiffness — visible overshoot.
-     * Used by: Button bounce animation, fun micro-interactions.
-     */
     val springBouncy: AnimationSpec<Float> =
         spring(
             dampingRatio = Spring.DampingRatioLowBouncy,
             stiffness = Spring.StiffnessLow,
         ),
-
-    /**
-     * Snappy spring for instant-feeling transitions.
-     * No bounce, high stiffness — crisp and decisive.
-     * Used by: Focus ring, selection indicators, snap-to-position.
-     */
     val springSnap: AnimationSpec<Float> =
         spring(
             dampingRatio = Spring.DampingRatioNoBouncy,
             stiffness = Spring.StiffnessHigh,
         ),
-
-    // ─── Tween animations (fixed-duration, predictable) ─────
-
-    /**
-     * Fast tween for micro-interactions.
-     * 100ms — hover state color changes, opacity toggles.
-     */
     val tweenFast: AnimationSpec<Float> = tween(durationMillis = 100),
-
-    /**
-     * Standard tween for most color/opacity transitions.
-     * 150ms — button background, border color, focus ring.
-     */
     val tweenDefault: AnimationSpec<Float> = tween(durationMillis = 150),
-
-    /**
-     * Slow tween for larger visual transitions.
-     * 250ms — card expand, page fade-in, layout shifts.
-     */
     val tweenSlow: AnimationSpec<Float> = tween(durationMillis = 250),
-
-    /**
-     * Enter/exit tween for content appearing/disappearing.
-     * 200ms — dropdown open, tooltip fade, dialog enter.
-     */
     val tweenEnter: AnimationSpec<Float> = tween(durationMillis = 200),
-
-    // ─── Duration tokens (for custom AnimationSpec) ──────────
-
-    /** Fast duration in ms. For direct-feeling micro-interactions. */
     val durationFast: Int = 100,
-
-    /** Default duration in ms. For most transitions. */
     val durationDefault: Int = 150,
-
-    /** Slow duration in ms. For larger, more visible transitions. */
     val durationSlow: Int = 250,
-
-    /** Enter/exit duration in ms. For content appearing/disappearing. */
     val durationEnter: Int = 200,
-
-    // ─── Scale targets (for press animations) ────────────────
-
-    /** Subtle press scale (0.97). Used by Button Scale animation. */
+    val springDefaultDp: AnimationSpec<Dp> =
+        spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessMediumLow,
+        ),
+    val springBouncyDp: AnimationSpec<Dp> =
+        spring(
+            dampingRatio = Spring.DampingRatioLowBouncy,
+            stiffness = Spring.StiffnessLow,
+        ),
     val pressScaleSubtle: Float = 0.97f,
-
-    /** Noticeable press scale (0.93). Used by Button Bounce animation. */
     val pressScaleBouncy: Float = 0.93f,
 )
 

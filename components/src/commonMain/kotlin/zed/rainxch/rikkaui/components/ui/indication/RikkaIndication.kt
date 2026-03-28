@@ -58,8 +58,7 @@ import kotlinx.coroutines.launch
  * ```
  */
 object RikkaIndication : IndicationNodeFactory {
-    override fun create(interactionSource: InteractionSource): DelegatableNode =
-        RikkaIndicationNode(interactionSource, Color.Unspecified)
+    override fun create(interactionSource: InteractionSource): DelegatableNode = RikkaIndicationNode(interactionSource, Color.Unspecified)
 
     override fun hashCode(): Int = -1
 
@@ -77,8 +76,7 @@ object RikkaIndication : IndicationNodeFactory {
 fun RikkaIndication(
     overlayColor: Color = Color.Unspecified,
     cornerRadius: CornerRadius = CornerRadius.Zero,
-): IndicationNodeFactory =
-    RikkaIndicationFactory(overlayColor, cornerRadius)
+): IndicationNodeFactory = RikkaIndicationFactory(overlayColor, cornerRadius)
 
 private class RikkaIndicationFactory(
     private val overlayColor: Color,
