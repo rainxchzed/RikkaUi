@@ -28,7 +28,7 @@ components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/
     RikkaSpacing.kt       — 7-level spacing scale (xs=4dp through xxxl=48dp, 4dp base grid)
     RikkaShapes.kt        — 5-level shape scale (sm/md/lg/xl/full) from base radius
     RikkaMotion.kt        — Animation token system (springs, tweens, durations, press scales)
-    RikkaStyle.kt         — Bundled style presets (RikkaStyle + RikkaStylePresets: Default/Nova/Vega/Aurora/Nebula)
+    RikkaStyle.kt         — RikkaStyle data class + RikkaStylePreset enum (Default/Nova/Vega/Aurora/Nebula)
     RikkaFontFamily.kt    — Font wrapper with rememberRikkaFontFamily() composable
     RikkaTheme.kt         — CompositionLocalProvider + RikkaTheme object + convenience style overload
   ui/
@@ -140,16 +140,15 @@ Every theme token is customizable at 3 levels: presets, factory functions, or fu
 - **Spacing:** `rikkaSpacing(base = 4.dp)` — generates proportional scale (xs=1x, sm=2x, md=3x, lg=4x, xl=6x, xxl=8x, xxxl=12x). Presets: `RikkaSpacingPresets.compact()` (3dp), `.comfortable()` (5dp), `.spacious()` (6dp).
 - **Shapes:** `rikkaShapes(radius = 10.dp)` — generates sm/md/lg/xl/full from one base radius. Presets: `RikkaShapesPresets.square()` (0dp), `.sharp()` (4dp), `.rounded()` (16dp), `.pill()` (24dp).
 - **Motion:** `RikkaMotion(...)` with all params having defaults. Presets: `RikkaMotionPresets.snappy()` (no bounce, fast), `.playful()` (bouncy, slow), `.minimal()` (subtle, short).
-- **Style presets (in `:components` library):** `RikkaStyle` data class bundles shapes + spacing + motion + typeScale. `RikkaStylePresets` object provides named presets usable by any consumer:
-  - `default()`: radius 10dp, spacing 4dp, balanced motion, scale 1.0
-  - `nova()`: radius 4dp, spacing 3dp, snappy motion, scale 0.9 (sharp, dense)
-  - `vega()`: radius 20dp, spacing 5dp, playful motion, scale 1.05 (rounded, bouncy)
-  - `aurora()`: radius 14dp, spacing 5dp, default motion, scale 1.1 (spacious, large)
-  - `nebula()`: radius 0dp, spacing 3dp, minimal motion, scale 0.85 (square, tight)
-  - `fromName("Nova")`: resolve by string name
-  - `names`: list of all preset names
-- **Convenience `RikkaTheme` overload:** `RikkaTheme(colors, style, typography) { ... }` accepts a `RikkaStyle` directly, extracts shapes/spacing/motion from it.
-- **Website demo:** ThemeSection uses `RikkaStylePresets` from the library + palette/accent/dark-mode controls.
+- **Style presets (in `:components` library):** `RikkaStylePreset` enum with type-safe entries. Each entry has a `.style` property returning a `RikkaStyle` data class (shapes + spacing + motion + typeScale). Shortcut properties: `.shapes`, `.spacing`, `.motion`, `.typeScale`, `.label`.
+  - `RikkaStylePreset.Default`: radius 10dp, spacing 4dp, balanced motion, scale 1.0
+  - `RikkaStylePreset.Nova`: radius 4dp, spacing 3dp, snappy motion, scale 0.9 (sharp, dense)
+  - `RikkaStylePreset.Vega`: radius 20dp, spacing 5dp, playful motion, scale 1.05 (rounded, bouncy)
+  - `RikkaStylePreset.Aurora`: radius 14dp, spacing 5dp, default motion, scale 1.1 (spacious, large)
+  - `RikkaStylePreset.Nebula`: radius 0dp, spacing 3dp, minimal motion, scale 0.85 (square, tight)
+  - Iterate with `RikkaStylePreset.entries`
+- **Convenience `RikkaTheme` overloads:** `RikkaTheme(colors, style: RikkaStyle, typography)` and `RikkaTheme(colors, preset: RikkaStylePreset, typography)`.
+- **Website demo:** ThemeSection iterates `RikkaStylePreset.entries` for type-safe style switching.
 
 ## Build & Run
 
