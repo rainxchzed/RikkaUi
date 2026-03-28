@@ -1,8 +1,13 @@
 package zed.rainxch.rikkaui.components.ui.dialog
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -21,15 +26,49 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.dismiss
 import androidx.compose.ui.semantics.paneTitle
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
+import zed.rainxch.rikkaui.components.theme.RikkaMotion
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+
+// ─── Animation Enum ─────────────────────────────────────────
+
+/**
+ * Animation style for [Dialog] enter/exit transitions.
+ *
+ * Each variant uses [RikkaTheme.motion] tokens for timing, so
+ * switching the motion preset (snappy / playful / minimal)
+ * automatically adjusts the dialog animation speed.
+ *
+ * ```
+ * Dialog(
+ *     open = open,
+ *     onDismiss = { open = false },
+ *     animation = DialogAnimation.Fade,
+ * ) { ... }
+ * ```
+ *
+ * - [FadeScale] — Fade in combined with a subtle 0.95 -> 1.0
+ *   scale. The default, gives the dialog a "zoom-in" feel.
+ * - [Fade] — Opacity-only transition, no scale.
+ * - [None] — Instant appear/disappear with no animation.
+ */
+enum class DialogAnimation {
+    /** Fade + subtle scale up from 0.95. Default. */
+    FadeScale,
+
+    /** Opacity-only fade, no scale. */
+    Fade,
+
+    /** Instant appear/disappear. */
+    None,
+}
 
 // ─── Component ──────────────────────────────────────────────
 
@@ -38,7 +77,7 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
  *
  * Displays a centered card on top of a semi-transparent scrim.
  * Clicking the scrim dismisses the dialog. Uses [Popup] for
- * overlay rendering and [AnimatedVisibility] for fade in/out.
+ * overlay rendering and [AnimatedVisibility] for transitions.
  *
  * Usage:
  * ```
@@ -60,10 +99,18 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
  * ```
  *
  * @param open Whether the dialog is visible.
- * @param onDismiss Called when the user dismisses the dialog (scrim click or back gesture).
+ * @param onDismiss Called when the user dismisses the dialog
+ *   (scrim click or back gesture).
  * @param modifier Modifier applied to the dialog card.
  * @param label Accessibility label describing the dialog's purpose.
- * @param content Dialog content — use [DialogHeader], [DialogFooter], and any other composables.
+ * @param animation The enter/exit animation style. Defaults to
+ *   [DialogAnimation.FadeScale].
+ * @param scrimColor Color of the backdrop scrim. Defaults to
+ *   semi-transparent black (`Color.Black.copy(alpha = 0.5f)`).
+ * @param maxWidth Maximum width of the dialog card. Defaults to
+ *   480.dp.
+ * @param content Dialog content — use [DialogHeader],
+ *   [DialogFooter], and any other composables.
  */
 @Composable
 fun Dialog(
@@ -71,6 +118,9 @@ fun Dialog(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
     label: String = "Dialog",
+    animation: DialogAnimation = DialogAnimation.FadeScale,
+    scrimColor: Color = Color.Black.copy(alpha = 0.5f),
+    maxWidth: Dp = 480.dp,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     if (!open) return
@@ -79,6 +129,12 @@ fun Dialog(
     val shapes = RikkaTheme.shapes
     val spacing = RikkaTheme.spacing
     val motion = RikkaTheme.motion
+
+    val (cardEnter, cardExit) =
+        resolveDialogTransition(
+            animation,
+            motion,
+        )
 
     Popup(
         onDismissRequest = onDismiss,
@@ -90,55 +146,55 @@ fun Dialog(
             // ─── Scrim ───────────────────────────────────
             AnimatedVisibility(
                 visible = true,
-                enter = fadeIn(
-                    animationSpec = androidx.compose.animation.core.tween(
-                        motion.durationEnter,
+                enter =
+                    fadeIn(
+                        animationSpec = tween(motion.durationEnter),
                     ),
-                ),
-                exit = fadeOut(
-                    animationSpec = androidx.compose.animation.core.tween(
-                        motion.durationEnter,
+                exit =
+                    fadeOut(
+                        animationSpec = tween(motion.durationEnter),
                     ),
-                ),
             ) {
                 Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.Black.copy(alpha = 0.5f))
-                        .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = null,
-                            onClick = onDismiss,
-                        ),
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .background(scrimColor)
+                            .clickable(
+                                interactionSource =
+                                    remember {
+                                        MutableInteractionSource()
+                                    },
+                                indication = null,
+                                onClick = onDismiss,
+                            ),
                 )
             }
 
             // ─── Dialog card ─────────────────────────────
             AnimatedVisibility(
                 visible = true,
-                enter = fadeIn(
-                    animationSpec = androidx.compose.animation.core.tween(
-                        motion.durationEnter,
-                    ),
-                ),
-                exit = fadeOut(
-                    animationSpec = androidx.compose.animation.core.tween(
-                        motion.durationEnter,
-                    ),
-                ),
+                enter = cardEnter,
+                exit = cardExit,
             ) {
                 Column(
-                    modifier = modifier
-                        .widthIn(max = 480.dp)
-                        .semantics(mergeDescendants = true) {
-                            paneTitle = label
-                            dismiss { onDismiss(); true }
-                        }
-                        .border(1.dp, colors.border, shapes.lg)
-                        .background(colors.card, shapes.lg)
-                        .clip(shapes.lg)
-                        .padding(spacing.xl),
-                    verticalArrangement = Arrangement.spacedBy(spacing.md),
+                    modifier =
+                        modifier
+                            .widthIn(max = maxWidth)
+                            .semantics(mergeDescendants = true) {
+                                paneTitle = label
+                                dismiss {
+                                    onDismiss()
+                                    true
+                                }
+                            }.border(1.dp, colors.border, shapes.lg)
+                            .background(colors.card, shapes.lg)
+                            .clip(shapes.lg)
+                            .padding(spacing.xl),
+                    verticalArrangement =
+                        Arrangement.spacedBy(
+                            spacing.md,
+                        ),
                     content = content,
                 )
             }
@@ -170,7 +226,10 @@ fun DialogHeader(
 ) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
+        verticalArrangement =
+            Arrangement.spacedBy(
+                RikkaTheme.spacing.xs,
+            ),
     ) {
         Text(
             text = title,
@@ -186,7 +245,8 @@ fun DialogHeader(
 }
 
 /**
- * Footer section for a [Dialog]. Arranges action buttons at the end (right-aligned).
+ * Footer section for a [Dialog]. Arranges action buttons at the
+ * end (right-aligned).
  *
  * ```
  * DialogFooter {
@@ -205,12 +265,63 @@ fun DialogFooter(
 ) {
     Row(
         modifier = modifier.padding(top = RikkaTheme.spacing.sm),
-        horizontalArrangement = Arrangement.spacedBy(
-            RikkaTheme.spacing.sm,
-            Alignment.End,
-        ),
+        horizontalArrangement =
+            Arrangement.spacedBy(
+                RikkaTheme.spacing.sm,
+                Alignment.End,
+            ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         content()
     }
 }
+
+// ─── Internal: Transition Resolution ────────────────────────
+
+/**
+ * Resolves enter/exit transitions for the dialog card based on
+ * the chosen [DialogAnimation] and current [RikkaMotion] tokens.
+ */
+private fun resolveDialogTransition(
+    animation: DialogAnimation,
+    motion: RikkaMotion,
+): Pair<EnterTransition, ExitTransition> =
+    when (animation) {
+        DialogAnimation.FadeScale -> {
+            val enter =
+                fadeIn(
+                    animationSpec = tween(motion.durationEnter),
+                ) +
+                    scaleIn(
+                        initialScale = 0.95f,
+                        animationSpec = tween(motion.durationEnter),
+                    )
+            val exit =
+                fadeOut(
+                    animationSpec = tween(motion.durationEnter),
+                ) +
+                    scaleOut(
+                        targetScale = 0.95f,
+                        animationSpec = tween(motion.durationEnter),
+                    )
+            enter to exit
+        }
+
+        DialogAnimation.Fade -> {
+            val enter =
+                fadeIn(
+                    animationSpec = tween(motion.durationEnter),
+                )
+            val exit =
+                fadeOut(
+                    animationSpec = tween(motion.durationEnter),
+                )
+            enter to exit
+        }
+
+        DialogAnimation.None -> {
+            val enter = fadeIn(animationSpec = tween(0))
+            val exit = fadeOut(animationSpec = tween(0))
+            enter to exit
+        }
+    }

@@ -1,6 +1,8 @@
 package zed.rainxch.rikkaui.components.ui.alertdialog
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -29,13 +31,49 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.dismiss
 import androidx.compose.ui.semantics.paneTitle
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
+import zed.rainxch.rikkaui.components.theme.RikkaMotion
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+
+// ─── Animation Enum ─────────────────────────────────────────
+
+/**
+ * Animation style for [AlertDialog] enter/exit transitions.
+ *
+ * Each variant uses [RikkaTheme.motion] tokens for timing, so
+ * switching the motion preset (snappy / playful / minimal)
+ * automatically adjusts the dialog animation speed.
+ *
+ * ```
+ * AlertDialog(
+ *     open = open,
+ *     onDismiss = { open = false },
+ *     onConfirm = { confirm() },
+ *     animation = AlertDialogAnimation.Fade,
+ * ) { ... }
+ * ```
+ *
+ * - [FadeScale] — Fade in combined with a subtle 0.95 -> 1.0
+ *   scale. The default, gives the dialog a "zoom-in" feel.
+ * - [Fade] — Opacity-only transition, no scale.
+ * - [None] — Instant appear/disappear with no animation.
+ */
+enum class AlertDialogAnimation {
+    /** Fade + subtle scale up from 0.95. Default. */
+    FadeScale,
+
+    /** Opacity-only fade, no scale. */
+    Fade,
+
+    /** Instant appear/disappear. */
+    None,
+}
 
 // ─── Component ──────────────────────────────────────────────
 
@@ -50,7 +88,7 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
  * irreversible operations such as deleting data.
  *
  * Uses [Popup] for overlay rendering with [AnimatedVisibility] for
- * fade + scale enter/exit transitions driven by theme motion tokens.
+ * enter/exit transitions driven by theme motion tokens.
  *
  * Usage:
  * ```
@@ -89,6 +127,12 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
  *   [AlertDialogAction].
  * @param modifier Modifier applied to the dialog card container.
  * @param label Accessibility label describing the dialog's purpose.
+ * @param animation The enter/exit animation style. Defaults to
+ *   [AlertDialogAnimation.FadeScale].
+ * @param scrimColor Color of the backdrop scrim. Defaults to
+ *   semi-transparent black (`Color.Black.copy(alpha = 0.5f)`).
+ * @param maxWidth Maximum width of the dialog card. Defaults to
+ *   520.dp.
  * @param content Dialog content — use [AlertDialogHeader],
  *   [AlertDialogFooter], and any other composables.
  */
@@ -99,6 +143,9 @@ fun AlertDialog(
     onConfirm: () -> Unit,
     modifier: Modifier = Modifier,
     label: String = "Alert Dialog",
+    animation: AlertDialogAnimation = AlertDialogAnimation.FadeScale,
+    scrimColor: Color = Color.Black.copy(alpha = 0.5f),
+    maxWidth: Dp = 520.dp,
     content: @Composable () -> Unit,
 ) {
     if (!open) return
@@ -107,6 +154,12 @@ fun AlertDialog(
     val shapes = RikkaTheme.shapes
     val spacing = RikkaTheme.spacing
     val motion = RikkaTheme.motion
+
+    val (cardEnter, cardExit) =
+        resolveAlertDialogTransition(
+            animation,
+            motion,
+        )
 
     Popup(
         onDismissRequest = onDismiss,
@@ -118,62 +171,60 @@ fun AlertDialog(
             // ─── Scrim (non-dismissing) ───────────────
             AnimatedVisibility(
                 visible = true,
-                enter = fadeIn(
-                    animationSpec = tween(motion.durationEnter),
-                ),
-                exit = fadeOut(
-                    animationSpec = tween(motion.durationEnter),
-                ),
+                enter =
+                    fadeIn(
+                        animationSpec = tween(motion.durationEnter),
+                    ),
+                exit =
+                    fadeOut(
+                        animationSpec = tween(motion.durationEnter),
+                    ),
             ) {
                 Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.Black.copy(alpha = 0.5f))
-                        .clickable(
-                            interactionSource = remember {
-                                MutableInteractionSource()
-                            },
-                            indication = null,
-                            onClick = {
-                                // Intentionally empty — alert dialogs
-                                // must not dismiss on scrim click.
-                            },
-                        ),
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .background(scrimColor)
+                            .clickable(
+                                interactionSource =
+                                    remember {
+                                        MutableInteractionSource()
+                                    },
+                                indication = null,
+                                onClick = {
+                                    // Intentionally empty — alert dialogs
+                                    // must not dismiss on scrim click.
+                                },
+                            ),
                 )
             }
 
             // ─── Dialog card ──────────────────────────
             AnimatedVisibility(
                 visible = true,
-                enter = fadeIn(
-                    animationSpec = tween(motion.durationEnter),
-                ) + scaleIn(
-                    initialScale = 0.95f,
-                    animationSpec = tween(motion.durationEnter),
-                ),
-                exit = fadeOut(
-                    animationSpec = tween(motion.durationEnter),
-                ) + scaleOut(
-                    targetScale = 0.95f,
-                    animationSpec = tween(motion.durationEnter),
-                ),
+                enter = cardEnter,
+                exit = cardExit,
             ) {
                 Column(
-                    modifier = modifier
-                        .widthIn(max = 520.dp)
-                        .semantics(mergeDescendants = true) {
-                            paneTitle = label
-                            contentDescription = label
-                            dismiss { onDismiss(); true }
-                        }
-                        .shadow(8.dp, shapes.lg)
-                        .border(1.dp, colors.border, shapes.lg)
-                        .background(colors.popover, shapes.lg)
-                        .clip(shapes.lg)
-                        .padding(spacing.xl),
-                    verticalArrangement = Arrangement.spacedBy(
-                        spacing.md,
-                    ),
+                    modifier =
+                        modifier
+                            .widthIn(max = maxWidth)
+                            .semantics(mergeDescendants = true) {
+                                paneTitle = label
+                                contentDescription = label
+                                dismiss {
+                                    onDismiss()
+                                    true
+                                }
+                            }.shadow(8.dp, shapes.lg)
+                            .border(1.dp, colors.border, shapes.lg)
+                            .background(colors.popover, shapes.lg)
+                            .clip(shapes.lg)
+                            .padding(spacing.xl),
+                    verticalArrangement =
+                        Arrangement.spacedBy(
+                            spacing.md,
+                        ),
                 ) {
                     content()
                 }
@@ -208,9 +259,10 @@ fun AlertDialogHeader(
 ) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(
-            RikkaTheme.spacing.xs,
-        ),
+        verticalArrangement =
+            Arrangement.spacedBy(
+                RikkaTheme.spacing.xs,
+            ),
     ) {
         Text(
             text = title,
@@ -249,13 +301,15 @@ fun AlertDialogFooter(
     content: @Composable () -> Unit,
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(top = RikkaTheme.spacing.sm),
-        horizontalArrangement = Arrangement.spacedBy(
-            RikkaTheme.spacing.sm,
-            Alignment.End,
-        ),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(top = RikkaTheme.spacing.sm),
+        horizontalArrangement =
+            Arrangement.spacedBy(
+                RikkaTheme.spacing.sm,
+                Alignment.End,
+            ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         content()
@@ -333,14 +387,16 @@ fun AlertDialogAction(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    variant: AlertDialogActionVariant = AlertDialogActionVariant.Default,
+    variant: AlertDialogActionVariant =
+        AlertDialogActionVariant.Default,
 ) {
-    val buttonVariant = when (variant) {
-        AlertDialogActionVariant.Default -> ButtonVariant.Default
-        AlertDialogActionVariant.Destructive -> {
-            ButtonVariant.Destructive
+    val buttonVariant =
+        when (variant) {
+            AlertDialogActionVariant.Default -> ButtonVariant.Default
+            AlertDialogActionVariant.Destructive -> {
+                ButtonVariant.Destructive
+            }
         }
-    }
 
     Button(
         text = text,
@@ -349,3 +405,54 @@ fun AlertDialogAction(
         variant = buttonVariant,
     )
 }
+
+// ─── Internal: Transition Resolution ────────────────────────
+
+/**
+ * Resolves enter/exit transitions for the alert dialog card based
+ * on the chosen [AlertDialogAnimation] and current [RikkaMotion]
+ * tokens.
+ */
+private fun resolveAlertDialogTransition(
+    animation: AlertDialogAnimation,
+    motion: RikkaMotion,
+): Pair<EnterTransition, ExitTransition> =
+    when (animation) {
+        AlertDialogAnimation.FadeScale -> {
+            val enter =
+                fadeIn(
+                    animationSpec = tween(motion.durationEnter),
+                ) +
+                    scaleIn(
+                        initialScale = 0.95f,
+                        animationSpec = tween(motion.durationEnter),
+                    )
+            val exit =
+                fadeOut(
+                    animationSpec = tween(motion.durationEnter),
+                ) +
+                    scaleOut(
+                        targetScale = 0.95f,
+                        animationSpec = tween(motion.durationEnter),
+                    )
+            enter to exit
+        }
+
+        AlertDialogAnimation.Fade -> {
+            val enter =
+                fadeIn(
+                    animationSpec = tween(motion.durationEnter),
+                )
+            val exit =
+                fadeOut(
+                    animationSpec = tween(motion.durationEnter),
+                )
+            enter to exit
+        }
+
+        AlertDialogAnimation.None -> {
+            val enter = fadeIn(animationSpec = tween(0))
+            val exit = fadeOut(animationSpec = tween(0))
+            enter to exit
+        }
+    }

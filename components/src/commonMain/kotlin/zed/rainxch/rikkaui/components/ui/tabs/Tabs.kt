@@ -1,6 +1,10 @@
 package zed.rainxch.rikkaui.components.ui.tabs
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.snap
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -23,6 +28,40 @@ import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+
+// ─── Animation ────────────────────────────────────────────
+
+/**
+ * Animation strategy for [Tab] selection transitions.
+ *
+ * Controls how background and text colors animate when switching
+ * between selected and unselected states.
+ *
+ * - [Spring] — Spring-based color transition using theme motion tokens.
+ *   Handles interruptions gracefully. **(default)**
+ * - [Tween] — Smooth eased transition with a fixed duration from
+ *   [RikkaTheme.motion.durationDefault].
+ * - [None] — Instant selection change with no animation.
+ *
+ * ```
+ * Tab(
+ *     selected = index == 0,
+ *     onClick = { index = 0 },
+ *     text = "Account",
+ *     animation = TabAnimation.Tween,
+ * )
+ * ```
+ */
+enum class TabAnimation {
+    /** Spring-based color transition (default). */
+    Spring,
+
+    /** Smooth eased tween transition. */
+    Tween,
+
+    /** Instant change with no animation. */
+    None,
+}
 
 // ─── TabList ───────────────────────────────────────────────
 
@@ -69,7 +108,8 @@ fun TabList(
  * Individual tab trigger inside a [TabList].
  *
  * Animates between selected and unselected states with smooth color
- * transitions driven by theme motion tokens.
+ * transitions driven by theme motion tokens. The animation strategy
+ * is configurable via the [animation] parameter.
  *
  * Usage:
  * ```
@@ -85,6 +125,7 @@ fun TabList(
  *         selected = selectedIndex == 1,
  *         onClick = { selectedIndex = 1 },
  *         text = "Analytics",
+ *         animation = TabAnimation.Tween,
  *     )
  * }
  * ```
@@ -93,6 +134,16 @@ fun TabList(
  * @param onClick Called when the tab is clicked.
  * @param text Label text displayed in the tab.
  * @param modifier Modifier for layout and decoration.
+ * @param animation Animation strategy for selection transitions.
+ *   Defaults to [TabAnimation.Spring].
+ * @param activeColor Override for the selected text color.
+ *   Defaults to [RikkaTheme.colors.foreground].
+ * @param inactiveColor Override for the unselected text color.
+ *   Defaults to [RikkaTheme.colors.mutedForeground].
+ * @param activeBackground Override for the selected background color.
+ *   Defaults to [RikkaTheme.colors.background].
+ * @param inactiveBackground Override for the unselected background color.
+ *   Defaults to [RikkaTheme.colors.muted].
  */
 @Composable
 fun Tab(
@@ -100,26 +151,57 @@ fun Tab(
     onClick: () -> Unit,
     text: String,
     modifier: Modifier = Modifier,
+    animation: TabAnimation = TabAnimation.Spring,
+    activeColor: Color = Color.Unspecified,
+    inactiveColor: Color = Color.Unspecified,
+    activeBackground: Color = Color.Unspecified,
+    inactiveBackground: Color = Color.Unspecified,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val colors = RikkaTheme.colors
     val motion = RikkaTheme.motion
     val shape = RikkaTheme.shapes.sm
 
-    // ─── Animated colors (from theme motion tokens) ──────
+    // ─── Resolve color targets ────────────────────────────
+    val resolvedActiveColor =
+        if (activeColor != Color.Unspecified) activeColor else colors.foreground
+    val resolvedInactiveColor =
+        if (inactiveColor != Color.Unspecified) {
+            inactiveColor
+        } else {
+            colors.mutedForeground
+        }
+    val resolvedActiveBg =
+        if (activeBackground != Color.Unspecified) {
+            activeBackground
+        } else {
+            colors.background
+        }
+    val resolvedInactiveBg =
+        if (inactiveBackground != Color.Unspecified) {
+            inactiveBackground
+        } else {
+            colors.muted
+        }
+
+    // ─── Resolve animation spec ───────────────────────────
+    val colorAnimSpec: AnimationSpec<Color> =
+        resolveColorAnimSpec(animation, motion.durationDefault)
+
+    // ─── Animated colors ──────────────────────────────────
     val backgroundColor by animateColorAsState(
         targetValue =
-            if (selected) colors.background else colors.muted,
-        animationSpec = tween(motion.durationDefault),
+            if (selected) resolvedActiveBg else resolvedInactiveBg,
+        animationSpec = colorAnimSpec,
     )
 
     val textColor by animateColorAsState(
         targetValue =
-            if (selected) colors.foreground else colors.mutedForeground,
-        animationSpec = tween(motion.durationDefault),
+            if (selected) resolvedActiveColor else resolvedInactiveColor,
+        animationSpec = colorAnimSpec,
     )
 
-    // ─── Shadow modifier for selected state ──────────────
+    // ─── Shadow modifier for selected state ───────────────
     val shadowModifier =
         if (selected) {
             Modifier.shadow(1.dp, shape)
@@ -138,12 +220,10 @@ fun Tab(
                     indication = null,
                     role = Role.Tab,
                     onClick = onClick,
-                )
-                .padding(
+                ).padding(
                     horizontal = RikkaTheme.spacing.md,
                     vertical = RikkaTheme.spacing.sm,
-                )
-                .semantics {
+                ).semantics {
                     contentDescription = text
                 },
         contentAlignment = Alignment.Center,
@@ -189,3 +269,24 @@ fun TabContent(
         content()
     }
 }
+
+// ─── Internal: Animation Spec Resolution ──────────────────
+
+/**
+ * Resolves a [TabAnimation] to an [AnimationSpec] for color
+ * transitions, using the theme's motion duration tokens.
+ */
+@Composable
+private fun resolveColorAnimSpec(
+    animation: TabAnimation,
+    durationMs: Int,
+): AnimationSpec<Color> =
+    when (animation) {
+        TabAnimation.Spring ->
+            spring(
+                dampingRatio = Spring.DampingRatioMediumBouncy,
+                stiffness = Spring.StiffnessMediumLow,
+            )
+        TabAnimation.Tween -> tween(durationMs)
+        TabAnimation.None -> snap()
+    }

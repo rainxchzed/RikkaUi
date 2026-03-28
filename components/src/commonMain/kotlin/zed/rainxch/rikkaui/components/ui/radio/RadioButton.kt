@@ -2,6 +2,7 @@ package zed.rainxch.rikkaui.components.ui.radio
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -30,6 +31,31 @@ import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 
+// ─── Animation ──────────────────────────────────────────────
+
+/**
+ * Animation style for the radio button dot and ring transitions.
+ *
+ * - [Spring] — Bouncy spring physics (default). Natural, native feel
+ *   with a satisfying pop on selection.
+ * - [Tween] — Linear tween transition. Predictable, consistent timing.
+ * - [None] — Instant state change with no animation. Best for
+ *   accessibility (reduced motion) or performance-critical UIs.
+ *
+ * ```
+ * RadioButton(
+ *     selected = selected == 0,
+ *     onClick = { selected = 0 },
+ *     animation = RadioAnimation.None,
+ * )
+ * ```
+ */
+enum class RadioAnimation {
+    Spring,
+    Tween,
+    None,
+}
+
 // ─── Component ──────────────────────────────────────────────
 
 /**
@@ -56,16 +82,19 @@ import zed.rainxch.rikkaui.components.ui.text.Text
  *     label = "Option A",
  * )
  *
+ * // No animation (reduced motion)
  * RadioButton(
  *     selected = selected == 1,
  *     onClick = { selected = 1 },
  *     label = "Option B",
+ *     animation = RadioAnimation.None,
  * )
  * ```
  *
  * @param selected Whether the radio button is selected.
  * @param onClick Called when the radio button is clicked.
  * @param modifier Modifier for layout and decoration.
+ * @param animation Animation style for dot and ring transitions.
  * @param enabled Whether the radio button is interactive.
  * @param label Accessibility label for screen readers. Also rendered as visible text beside the circle.
  */
@@ -74,6 +103,7 @@ fun RadioButton(
     selected: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    animation: RadioAnimation = RadioAnimation.Spring,
     enabled: Boolean = true,
     label: String = "",
 ) {
@@ -88,18 +118,33 @@ fun RadioButton(
 
     val animatedRingColor by animateColorAsState(
         targetValue = resolvedColors.ring,
-        animationSpec = tween(motion.durationDefault),
+        animationSpec =
+            when (animation) {
+                RadioAnimation.Spring -> tween(motion.durationDefault)
+                RadioAnimation.Tween -> tween(motion.durationDefault)
+                RadioAnimation.None -> snap()
+            },
     )
 
     val animatedDotColor by animateColorAsState(
         targetValue = resolvedColors.dot,
-        animationSpec = tween(motion.durationDefault),
+        animationSpec =
+            when (animation) {
+                RadioAnimation.Spring -> tween(motion.durationDefault)
+                RadioAnimation.Tween -> tween(motion.durationDefault)
+                RadioAnimation.None -> snap()
+            },
     )
 
     // ─── Inner dot scale animation ──────────────────────
     val dotScale by animateFloatAsState(
         targetValue = if (selected) 1f else 0f,
-        animationSpec = motion.springDefault,
+        animationSpec =
+            when (animation) {
+                RadioAnimation.Spring -> motion.springDefault
+                RadioAnimation.Tween -> tween(motion.durationDefault)
+                RadioAnimation.None -> snap()
+            },
     )
 
     // ─── Layout ─────────────────────────────────────────

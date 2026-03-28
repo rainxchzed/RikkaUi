@@ -1,6 +1,7 @@
 package zed.rainxch.rikkaui.components.ui.text
 
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -47,6 +48,10 @@ enum class TextVariant {
  * @param textAlign Text alignment.
  * @param overflow How to handle text overflow.
  * @param maxLines Maximum number of lines.
+ * @param minLines Minimum number of lines to occupy, expanding height if needed.
+ * @param selectable When true, wraps the text in a [SelectionContainer] so users
+ *   can select and copy it. Useful for code snippets, error messages, or any
+ *   text the user might want to copy.
  * @param style Override style. Merged on top of the variant style.
  */
 @Composable
@@ -58,6 +63,8 @@ fun Text(
     textAlign: TextAlign? = null,
     overflow: TextOverflow = TextOverflow.Clip,
     maxLines: Int = Int.MAX_VALUE,
+    minLines: Int = 1,
+    selectable: Boolean = false,
     style: TextStyle = TextStyle.Default,
 ) {
     val baseStyle = variantStyle(variant)
@@ -88,13 +95,22 @@ fun Text(
             modifier
         }
 
-    BasicText(
-        text = text,
-        modifier = semanticsModifier,
-        style = mergedStyle,
-        overflow = overflow,
-        maxLines = maxLines,
-    )
+    val textContent = @Composable {
+        BasicText(
+            text = text,
+            modifier = semanticsModifier,
+            style = mergedStyle,
+            overflow = overflow,
+            maxLines = maxLines,
+            minLines = minLines,
+        )
+    }
+
+    if (selectable) {
+        SelectionContainer { textContent() }
+    } else {
+        textContent()
+    }
 }
 
 @Composable

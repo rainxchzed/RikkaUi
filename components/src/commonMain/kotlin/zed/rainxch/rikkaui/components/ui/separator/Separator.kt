@@ -1,14 +1,15 @@
 package zed.rainxch.rikkaui.components.ui.separator
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -25,6 +26,21 @@ import zed.rainxch.rikkaui.components.theme.RikkaTheme
 enum class SeparatorOrientation {
     Horizontal,
     Vertical,
+}
+
+// ─── Style ──────────────────────────────────────────────────
+
+/**
+ * Separator line style.
+ *
+ * - [Solid] — Continuous line. Default.
+ * - [Dashed] — Dashed line with configurable dash/gap lengths.
+ * - [Dotted] — Dotted line (short dashes with equal gaps).
+ */
+enum class SeparatorStyle {
+    Solid,
+    Dashed,
+    Dotted,
 }
 
 // ─── Component ──────────────────────────────────────────────
@@ -47,12 +63,17 @@ enum class SeparatorOrientation {
  *     Separator(orientation = SeparatorOrientation.Vertical)
  *     Text("Right")
  * }
+ *
+ * // Dashed separator
+ * Separator(style = SeparatorStyle.Dashed)
  * ```
  *
  * @param modifier Modifier for layout and decoration.
  * @param orientation Horizontal (default) or Vertical.
  * @param color Override color. Defaults to theme border color.
  * @param thickness Line thickness. Defaults to 1dp.
+ * @param style Line style — [SeparatorStyle.Solid], [SeparatorStyle.Dashed],
+ *   or [SeparatorStyle.Dotted].
  */
 @Composable
 fun Separator(
@@ -60,6 +81,7 @@ fun Separator(
     orientation: SeparatorOrientation = SeparatorOrientation.Horizontal,
     color: Color = Color.Unspecified,
     thickness: Dp = 1.dp,
+    style: SeparatorStyle = SeparatorStyle.Solid,
 ) {
     val resolvedColor =
         if (color != Color.Unspecified) color else RikkaTheme.colors.border
@@ -81,11 +103,46 @@ fun Separator(
 
     // Separators are purely decorative — clear all semantics so
     // screen readers skip them entirely instead of announcing "empty".
-    Box(
+    Canvas(
         modifier =
             modifier
                 .then(sizeModifier)
-                .background(resolvedColor)
                 .clearAndSetSemantics { },
-    )
+    ) {
+        val pathEffect =
+            when (style) {
+                SeparatorStyle.Solid -> null
+                SeparatorStyle.Dashed ->
+                    PathEffect.dashPathEffect(
+                        floatArrayOf(8f, 4f),
+                    )
+                SeparatorStyle.Dotted ->
+                    PathEffect.dashPathEffect(
+                        floatArrayOf(2f, 2f),
+                    )
+            }
+
+        val isHorizontal =
+            orientation == SeparatorOrientation.Horizontal
+        val strokeWidth = thickness.toPx()
+        val center = strokeWidth / 2f
+
+        drawLine(
+            color = resolvedColor,
+            start =
+                if (isHorizontal) {
+                    Offset(0f, center)
+                } else {
+                    Offset(center, 0f)
+                },
+            end =
+                if (isHorizontal) {
+                    Offset(size.width, center)
+                } else {
+                    Offset(center, size.height)
+                },
+            strokeWidth = strokeWidth,
+            pathEffect = pathEffect,
+        )
+    }
 }

@@ -2,6 +2,7 @@ package zed.rainxch.rikkaui.components.ui.toggle
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,6 +24,31 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
+
+// ─── Animation ──────────────────────────────────────────────
+
+/**
+ * Animation style for the toggle thumb and background transitions.
+ *
+ * - [Spring] — Bouncy spring physics (default). Natural, native feel with
+ *   velocity preservation on interruption.
+ * - [Tween] — Linear tween transition. Predictable, consistent timing.
+ * - [None] — Instant state change with no animation. Best for
+ *   accessibility (reduced motion) or performance-critical UIs.
+ *
+ * ```
+ * Toggle(
+ *     checked = enabled,
+ *     onCheckedChange = { enabled = it },
+ *     animation = ToggleAnimation.None,
+ * )
+ * ```
+ */
+enum class ToggleAnimation {
+    Spring,
+    Tween,
+    None,
+}
 
 // ─── Size ───────────────────────────────────────────────────
 
@@ -60,10 +86,12 @@ enum class ToggleSize {
  *     onCheckedChange = { enabled = it },
  * )
  *
+ * // Compact, no animation (reduced motion)
  * Toggle(
  *     checked = enabled,
  *     onCheckedChange = { enabled = it },
  *     size = ToggleSize.Sm,
+ *     animation = ToggleAnimation.None,
  * )
  * ```
  *
@@ -71,6 +99,7 @@ enum class ToggleSize {
  * @param onCheckedChange Called when the toggle state changes.
  * @param modifier Modifier for layout and decoration.
  * @param size Toggle size variant.
+ * @param animation Animation style for thumb and background transitions.
  * @param enabled Whether the toggle is interactive.
  * @param label Accessibility label for screen readers.
  */
@@ -80,6 +109,7 @@ fun Toggle(
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
     size: ToggleSize = ToggleSize.Default,
+    animation: ToggleAnimation = ToggleAnimation.Spring,
     enabled: Boolean = true,
     label: String = "",
 ) {
@@ -89,26 +119,41 @@ fun Toggle(
 
     val sizeValues = resolveSizeValues(size)
 
+    // ─── Resolve target values ───────────────────────────
+    val targetBgColor =
+        when {
+            !enabled && checked -> colors.primary.copy(alpha = 0.5f)
+            !enabled -> colors.input.copy(alpha = 0.5f)
+            checked -> colors.primary
+            else -> colors.input
+        }
+
+    val targetOffset =
+        if (checked) {
+            sizeValues.trackWidth - sizeValues.thumbSize - sizeValues.thumbPadding * 2
+        } else {
+            0.dp
+        }
+
     // ─── Animated values (from theme motion tokens) ──────
     val backgroundColor by animateColorAsState(
-        targetValue =
-            when {
-                !enabled && checked -> colors.primary.copy(alpha = 0.5f)
-                !enabled -> colors.input.copy(alpha = 0.5f)
-                checked -> colors.primary
-                else -> colors.input
+        targetValue = targetBgColor,
+        animationSpec =
+            when (animation) {
+                ToggleAnimation.Spring -> tween(motion.durationDefault)
+                ToggleAnimation.Tween -> tween(motion.durationDefault)
+                ToggleAnimation.None -> snap()
             },
-        animationSpec = tween(motion.durationDefault),
     )
 
     val thumbOffset by animateDpAsState(
-        targetValue =
-            if (checked) {
-                sizeValues.trackWidth - sizeValues.thumbSize - sizeValues.thumbPadding * 2
-            } else {
-                0.dp
+        targetValue = targetOffset,
+        animationSpec =
+            when (animation) {
+                ToggleAnimation.Spring -> motion.springDefaultDp
+                ToggleAnimation.Tween -> tween(motion.durationDefault)
+                ToggleAnimation.None -> snap()
             },
-        animationSpec = motion.springDefaultDp,
     )
 
     // ─── Track ───────────────────────────────────────────

@@ -2,6 +2,7 @@ package zed.rainxch.rikkaui.components.ui.checkbox
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -35,6 +36,31 @@ import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 
+// ─── Animation ──────────────────────────────────────────────
+
+/**
+ * Animation style for the checkbox checkmark and color transitions.
+ *
+ * - [Spring] — Bouncy spring physics (default). Natural, native feel
+ *   with a satisfying pop on check.
+ * - [Tween] — Linear tween transition. Predictable, consistent timing.
+ * - [None] — Instant state change with no animation. Best for
+ *   accessibility (reduced motion) or performance-critical UIs.
+ *
+ * ```
+ * Checkbox(
+ *     checked = accepted,
+ *     onCheckedChange = { accepted = it },
+ *     animation = CheckboxAnimation.None,
+ * )
+ * ```
+ */
+enum class CheckboxAnimation {
+    Spring,
+    Tween,
+    None,
+}
+
 // ─── Component ──────────────────────────────────────────────
 
 /**
@@ -60,17 +86,19 @@ import zed.rainxch.rikkaui.components.ui.text.Text
  *     onCheckedChange = { accepted = it },
  * )
  *
- * // With label
+ * // With label, no animation (reduced motion)
  * Checkbox(
  *     checked = accepted,
  *     onCheckedChange = { accepted = it },
  *     label = "Accept terms",
+ *     animation = CheckboxAnimation.None,
  * )
  * ```
  *
  * @param checked Whether the checkbox is checked.
  * @param onCheckedChange Called when the checkbox state changes.
  * @param modifier Modifier for layout and decoration.
+ * @param animation Animation style for checkmark and color transitions.
  * @param enabled Whether the checkbox is interactive.
  * @param label Accessibility label for screen readers. Also rendered as visible text beside the box.
  */
@@ -79,6 +107,7 @@ fun Checkbox(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
+    animation: CheckboxAnimation = CheckboxAnimation.Spring,
     enabled: Boolean = true,
     label: String = "",
 ) {
@@ -95,18 +124,33 @@ fun Checkbox(
 
     val animatedBackground by animateColorAsState(
         targetValue = resolvedColors.background,
-        animationSpec = tween(motion.durationDefault),
+        animationSpec =
+            when (animation) {
+                CheckboxAnimation.Spring -> tween(motion.durationDefault)
+                CheckboxAnimation.Tween -> tween(motion.durationDefault)
+                CheckboxAnimation.None -> snap()
+            },
     )
 
     val animatedBorder by animateColorAsState(
         targetValue = resolvedColors.border,
-        animationSpec = tween(motion.durationDefault),
+        animationSpec =
+            when (animation) {
+                CheckboxAnimation.Spring -> tween(motion.durationDefault)
+                CheckboxAnimation.Tween -> tween(motion.durationDefault)
+                CheckboxAnimation.None -> snap()
+            },
     )
 
     // ─── Checkmark scale animation ──────────────────────
     val checkmarkScale by animateFloatAsState(
         targetValue = if (checked) 1f else 0f,
-        animationSpec = motion.springDefault,
+        animationSpec =
+            when (animation) {
+                CheckboxAnimation.Spring -> motion.springDefault
+                CheckboxAnimation.Tween -> tween(motion.durationDefault)
+                CheckboxAnimation.None -> snap()
+            },
     )
 
     val checkmarkColor = colors.primaryForeground

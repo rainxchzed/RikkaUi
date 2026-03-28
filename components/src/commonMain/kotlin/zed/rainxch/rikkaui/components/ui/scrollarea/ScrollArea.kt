@@ -26,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
@@ -34,9 +35,37 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 
+// ─── ScrollbarAnimation ─────────────────────────────────────
+
+/**
+ * Controls scrollbar visibility and animation behaviour in [ScrollArea]
+ * and [HorizontalScrollArea].
+ *
+ * Usage:
+ * ```
+ * ScrollArea(scrollbarAnimation = ScrollbarAnimation.Always) {
+ *     // content
+ * }
+ * ```
+ *
+ * @property Fade Scrollbar fades in when scrolling and dims when idle (default).
+ * @property Always Scrollbar is always fully visible when content overflows.
+ * @property None Scrollbar is never shown.
+ */
+enum class ScrollbarAnimation {
+    /** Scrollbar fades in when scrolling, dims to semi-transparent when idle. */
+    Fade,
+
+    /** Scrollbar is always fully visible when content overflows. */
+    Always,
+
+    /** No scrollbar is rendered. */
+    None,
+}
+
 // ─── Constants ─────────────────────────────────────────────
 
-private val SCROLLBAR_THICKNESS: Dp = 4.dp
+private val DEFAULT_SCROLLBAR_THICKNESS: Dp = 4.dp
 private val SCROLLBAR_MIN_THUMB: Dp = 24.dp
 private val SCROLLBAR_PADDING: Dp = 2.dp
 
@@ -45,9 +74,9 @@ private val SCROLLBAR_PADDING: Dp = 2.dp
 /**
  * Vertical scrollable container with a custom scrollbar indicator.
  *
- * Provides a thin rounded scrollbar on the right side that fades
- * in when content is scrolled and fades out when idle. The scrollbar
- * thumb position and size are calculated from the scroll state.
+ * Provides a thin rounded scrollbar on the right side whose visibility
+ * is controlled by [scrollbarAnimation]. The scrollbar thumb position
+ * and size are calculated from the scroll state.
  *
  * Usage:
  * ```
@@ -56,14 +85,30 @@ private val SCROLLBAR_PADDING: Dp = 2.dp
  *         Text("Item $index")
  *     }
  * }
+ *
+ * // Always-visible wider scrollbar with custom colour
+ * ScrollArea(
+ *     scrollbarAnimation = ScrollbarAnimation.Always,
+ *     scrollbarWidth = 6.dp,
+ *     scrollbarColor = RikkaTheme.colors.primary,
+ * ) {
+ *     // content
+ * }
  * ```
  *
  * @param modifier Modifier for layout and decoration.
+ * @param scrollbarAnimation Controls scrollbar visibility behaviour.
+ * @param scrollbarWidth Thickness of the scrollbar track and thumb.
+ * @param scrollbarColor Optional colour override for the scrollbar thumb.
+ *   When `null` the theme's [RikkaTheme.colors.mutedForeground] is used.
  * @param content Scrollable column content.
  */
 @Composable
 fun ScrollArea(
     modifier: Modifier = Modifier,
+    scrollbarAnimation: ScrollbarAnimation = ScrollbarAnimation.Fade,
+    scrollbarWidth: Dp = DEFAULT_SCROLLBAR_THICKNESS,
+    scrollbarColor: Color? = null,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     val scrollState = rememberScrollState()
@@ -71,7 +116,10 @@ fun ScrollArea(
     val shape = RikkaTheme.shapes.md
 
     // Track container height in px for thumb calculation
-    val containerHeightPx = remember { androidx.compose.runtime.mutableIntStateOf(0) }
+    val containerHeightPx =
+        remember {
+            androidx.compose.runtime.mutableIntStateOf(0)
+        }
 
     // Whether the content overflows and scrollbar is needed
     val isScrollable by remember {
@@ -83,8 +131,15 @@ fun ScrollArea(
         derivedStateOf { scrollState.isScrollInProgress }
     }
 
+    val showScrollbar = scrollbarAnimation != ScrollbarAnimation.None
+
     val scrollbarAlpha by animateFloatAsState(
-        targetValue = if (isScrolling && isScrollable) 1f else if (isScrollable) 0.4f else 0f,
+        targetValue =
+            resolveScrollbarAlpha(
+                scrollbarAnimation,
+                isScrollable,
+                isScrolling,
+            ),
         animationSpec = tween(motion.durationDefault),
     )
 
@@ -99,17 +154,26 @@ fun ScrollArea(
                 Modifier
                     .fillMaxSize()
                     .verticalScroll(scrollState)
-                    .padding(end = if (isScrollable) SCROLLBAR_THICKNESS + SCROLLBAR_PADDING * 2 else 0.dp),
+                    .padding(
+                        end =
+                            if (isScrollable && showScrollbar) {
+                                scrollbarWidth + SCROLLBAR_PADDING * 2
+                            } else {
+                                0.dp
+                            },
+                    ),
             content = content,
         )
 
         // Scrollbar track + thumb
-        if (isScrollable) {
+        if (isScrollable && showScrollbar) {
             VerticalScrollbar(
                 scrollValue = scrollState.value,
                 maxScrollValue = scrollState.maxValue,
                 containerHeightPx = containerHeightPx.intValue,
                 alpha = scrollbarAlpha,
+                thickness = scrollbarWidth,
+                thumbColorOverride = scrollbarColor,
                 modifier = Modifier.align(Alignment.CenterEnd),
             )
         }
@@ -121,31 +185,46 @@ fun ScrollArea(
 /**
  * Horizontal scrollable container with a custom scrollbar indicator.
  *
- * Provides a thin rounded scrollbar on the bottom that fades
- * in when content is scrolled and fades out when idle.
+ * Provides a thin rounded scrollbar on the bottom whose visibility
+ * is controlled by [scrollbarAnimation].
  *
  * Usage:
  * ```
  * HorizontalScrollArea(modifier = Modifier.fillMaxWidth()) {
  *     repeat(20) { index ->
- *         Box(modifier = Modifier.size(100.dp).background(RikkaTheme.colors.muted))
+ *         Box(modifier = Modifier.size(100.dp))
  *     }
+ * }
+ *
+ * // Hidden scrollbar
+ * HorizontalScrollArea(scrollbarAnimation = ScrollbarAnimation.None) {
+ *     // content
  * }
  * ```
  *
  * @param modifier Modifier for layout and decoration.
+ * @param scrollbarAnimation Controls scrollbar visibility behaviour.
+ * @param scrollbarWidth Thickness of the scrollbar track and thumb.
+ * @param scrollbarColor Optional colour override for the scrollbar thumb.
+ *   When `null` the theme's [RikkaTheme.colors.mutedForeground] is used.
  * @param content Scrollable row content.
  */
 @Composable
 fun HorizontalScrollArea(
     modifier: Modifier = Modifier,
+    scrollbarAnimation: ScrollbarAnimation = ScrollbarAnimation.Fade,
+    scrollbarWidth: Dp = DEFAULT_SCROLLBAR_THICKNESS,
+    scrollbarColor: Color? = null,
     content: @Composable RowScope.() -> Unit,
 ) {
     val scrollState = rememberScrollState()
     val motion = RikkaTheme.motion
     val shape = RikkaTheme.shapes.md
 
-    val containerWidthPx = remember { androidx.compose.runtime.mutableIntStateOf(0) }
+    val containerWidthPx =
+        remember {
+            androidx.compose.runtime.mutableIntStateOf(0)
+        }
 
     val isScrollable by remember {
         derivedStateOf { scrollState.maxValue > 0 }
@@ -155,8 +234,15 @@ fun HorizontalScrollArea(
         derivedStateOf { scrollState.isScrollInProgress }
     }
 
+    val showScrollbar = scrollbarAnimation != ScrollbarAnimation.None
+
     val scrollbarAlpha by animateFloatAsState(
-        targetValue = if (isScrolling && isScrollable) 1f else if (isScrollable) 0.4f else 0f,
+        targetValue =
+            resolveScrollbarAlpha(
+                scrollbarAnimation,
+                isScrollable,
+                isScrolling,
+            ),
         animationSpec = tween(motion.durationDefault),
     )
 
@@ -171,22 +257,52 @@ fun HorizontalScrollArea(
                 Modifier
                     .fillMaxSize()
                     .horizontalScroll(scrollState)
-                    .padding(bottom = if (isScrollable) SCROLLBAR_THICKNESS + SCROLLBAR_PADDING * 2 else 0.dp),
+                    .padding(
+                        bottom =
+                            if (isScrollable && showScrollbar) {
+                                scrollbarWidth + SCROLLBAR_PADDING * 2
+                            } else {
+                                0.dp
+                            },
+                    ),
             content = content,
         )
 
         // Scrollbar track + thumb
-        if (isScrollable) {
+        if (isScrollable && showScrollbar) {
             HorizontalScrollbar(
                 scrollValue = scrollState.value,
                 maxScrollValue = scrollState.maxValue,
                 containerWidthPx = containerWidthPx.intValue,
                 alpha = scrollbarAlpha,
+                thickness = scrollbarWidth,
+                thumbColorOverride = scrollbarColor,
                 modifier = Modifier.align(Alignment.BottomCenter),
             )
         }
     }
 }
+
+// ─── Internal: resolveScrollbarAlpha ────────────────────────
+
+/**
+ * Resolves target alpha for the scrollbar based on animation mode.
+ */
+private fun resolveScrollbarAlpha(
+    animation: ScrollbarAnimation,
+    isScrollable: Boolean,
+    isScrolling: Boolean,
+): Float =
+    when (animation) {
+        ScrollbarAnimation.Fade ->
+            when {
+                isScrolling && isScrollable -> 1f
+                isScrollable -> 0.4f
+                else -> 0f
+            }
+        ScrollbarAnimation.Always -> if (isScrollable) 1f else 0f
+        ScrollbarAnimation.None -> 0f
+    }
 
 // ─── Internal: Vertical Scrollbar ──────────────────────────
 
@@ -197,6 +313,8 @@ fun HorizontalScrollArea(
  * @param maxScrollValue Maximum scroll position in pixels.
  * @param containerHeightPx Container height in pixels.
  * @param alpha Overall scrollbar alpha for fade animation.
+ * @param thickness Scrollbar width.
+ * @param thumbColorOverride Optional thumb colour override.
  * @param modifier Modifier for positioning.
  */
 @Composable
@@ -205,11 +323,13 @@ private fun VerticalScrollbar(
     maxScrollValue: Int,
     containerHeightPx: Int,
     alpha: Float,
+    thickness: Dp,
+    thumbColorOverride: Color?,
     modifier: Modifier = Modifier,
 ) {
     val density = LocalDensity.current
     val trackColor = RikkaTheme.colors.muted.copy(alpha = 0.5f)
-    val thumbColor = RikkaTheme.colors.mutedForeground
+    val thumbColor = thumbColorOverride ?: RikkaTheme.colors.mutedForeground
     val thumbShape = RoundedCornerShape(50)
 
     val minThumbPx: Float = with(density) { SCROLLBAR_MIN_THUMB.toPx() }
@@ -218,11 +338,13 @@ private fun VerticalScrollbar(
     val totalContentPx = containerHeightPx + maxScrollValue
     val thumbFraction =
         if (totalContentPx > 0) {
-            (containerHeightPx.toFloat() / totalContentPx).coerceIn(0.05f, 1f)
+            (containerHeightPx.toFloat() / totalContentPx)
+                .coerceIn(0.05f, 1f)
         } else {
             1f
         }
-    val thumbHeightPx = (containerHeightPx * thumbFraction).coerceAtLeast(minThumbPx)
+    val thumbHeightPx =
+        (containerHeightPx * thumbFraction).coerceAtLeast(minThumbPx)
     val thumbHeightDp: Dp = with(density) { thumbHeightPx.toDp() }
 
     val scrollFraction =
@@ -231,13 +353,14 @@ private fun VerticalScrollbar(
         } else {
             0f
         }
-    val thumbOffsetPx = ((containerHeightPx - thumbHeightPx) * scrollFraction).toInt()
+    val thumbOffsetPx =
+        ((containerHeightPx - thumbHeightPx) * scrollFraction).toInt()
 
     Box(
         modifier =
             modifier
                 .fillMaxHeight()
-                .width(SCROLLBAR_THICKNESS + SCROLLBAR_PADDING * 2)
+                .width(thickness + SCROLLBAR_PADDING * 2)
                 .padding(horizontal = SCROLLBAR_PADDING)
                 .graphicsLayer { this.alpha = alpha },
     ) {
@@ -246,7 +369,7 @@ private fun VerticalScrollbar(
             modifier =
                 Modifier
                     .fillMaxHeight()
-                    .width(SCROLLBAR_THICKNESS)
+                    .width(thickness)
                     .background(trackColor, thumbShape),
         )
 
@@ -254,7 +377,7 @@ private fun VerticalScrollbar(
         Box(
             modifier =
                 Modifier
-                    .width(SCROLLBAR_THICKNESS)
+                    .width(thickness)
                     .height(thumbHeightDp)
                     .offset { IntOffset(0, thumbOffsetPx) }
                     .background(thumbColor, thumbShape),
@@ -271,6 +394,8 @@ private fun VerticalScrollbar(
  * @param maxScrollValue Maximum scroll position in pixels.
  * @param containerWidthPx Container width in pixels.
  * @param alpha Overall scrollbar alpha for fade animation.
+ * @param thickness Scrollbar height.
+ * @param thumbColorOverride Optional thumb colour override.
  * @param modifier Modifier for positioning.
  */
 @Composable
@@ -279,11 +404,13 @@ private fun HorizontalScrollbar(
     maxScrollValue: Int,
     containerWidthPx: Int,
     alpha: Float,
+    thickness: Dp,
+    thumbColorOverride: Color?,
     modifier: Modifier = Modifier,
 ) {
     val density = LocalDensity.current
     val trackColor = RikkaTheme.colors.muted.copy(alpha = 0.5f)
-    val thumbColor = RikkaTheme.colors.mutedForeground
+    val thumbColor = thumbColorOverride ?: RikkaTheme.colors.mutedForeground
     val thumbShape = RoundedCornerShape(50)
 
     val minThumbPx: Float = with(density) { SCROLLBAR_MIN_THUMB.toPx() }
@@ -291,11 +418,13 @@ private fun HorizontalScrollbar(
     val totalContentPx = containerWidthPx + maxScrollValue
     val thumbFraction =
         if (totalContentPx > 0) {
-            (containerWidthPx.toFloat() / totalContentPx).coerceIn(0.05f, 1f)
+            (containerWidthPx.toFloat() / totalContentPx)
+                .coerceIn(0.05f, 1f)
         } else {
             1f
         }
-    val thumbWidthPx = (containerWidthPx * thumbFraction).coerceAtLeast(minThumbPx)
+    val thumbWidthPx =
+        (containerWidthPx * thumbFraction).coerceAtLeast(minThumbPx)
     val thumbWidthDp: Dp = with(density) { thumbWidthPx.toDp() }
 
     val scrollFraction =
@@ -304,13 +433,14 @@ private fun HorizontalScrollbar(
         } else {
             0f
         }
-    val thumbOffsetPx = ((containerWidthPx - thumbWidthPx) * scrollFraction).toInt()
+    val thumbOffsetPx =
+        ((containerWidthPx - thumbWidthPx) * scrollFraction).toInt()
 
     Box(
         modifier =
             modifier
                 .fillMaxWidth()
-                .height(SCROLLBAR_THICKNESS + SCROLLBAR_PADDING * 2)
+                .height(thickness + SCROLLBAR_PADDING * 2)
                 .padding(vertical = SCROLLBAR_PADDING)
                 .graphicsLayer { this.alpha = alpha },
     ) {
@@ -319,7 +449,7 @@ private fun HorizontalScrollbar(
             modifier =
                 Modifier
                     .fillMaxWidth()
-                    .height(SCROLLBAR_THICKNESS)
+                    .height(thickness)
                     .background(trackColor, thumbShape),
         )
 
@@ -327,7 +457,7 @@ private fun HorizontalScrollbar(
         Box(
             modifier =
                 Modifier
-                    .height(SCROLLBAR_THICKNESS)
+                    .height(thickness)
                     .width(thumbWidthDp)
                     .offset { IntOffset(thumbOffsetPx, 0) }
                     .background(thumbColor, thumbShape),

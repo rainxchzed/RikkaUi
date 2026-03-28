@@ -32,6 +32,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.components.ui.spinner.Spinner
+import zed.rainxch.rikkaui.components.ui.spinner.SpinnerSize
 import zed.rainxch.rikkaui.components.ui.text.Text
 
 // ─── Variant ────────────────────────────────────────────────
@@ -134,6 +136,8 @@ enum class ButtonAnimation {
  * @param size Controls height, padding, and min width.
  * @param animation Press animation style. Defaults to [ButtonAnimation.Scale].
  * @param enabled Whether the button is interactive.
+ * @param loading When true, shows a [Spinner] and disables interaction.
+ *   The button retains its dimensions but becomes non-clickable.
  * @param label Accessibility label for screen readers. When set, overrides content description.
  * @param content Button content — typically [Text] and/or icons.
  */
@@ -145,9 +149,11 @@ fun Button(
     size: ButtonSize = ButtonSize.Default,
     animation: ButtonAnimation = ButtonAnimation.Scale,
     enabled: Boolean = true,
+    loading: Boolean = false,
     label: String = "",
     content: @Composable () -> Unit,
 ) {
+    val isEffectivelyEnabled = enabled && !loading
     val interactionSource = remember { MutableInteractionSource() }
     val isHovered by interactionSource.collectIsHoveredAsState()
     val isPressed by interactionSource.collectIsPressedAsState()
@@ -180,7 +186,7 @@ fun Button(
 
     val targetScale =
         when {
-            !enabled -> {
+            !isEffectivelyEnabled -> {
                 1f
             }
 
@@ -247,7 +253,7 @@ fun Button(
                 .clickable(
                     interactionSource = interactionSource,
                     indication = null,
-                    enabled = enabled,
+                    enabled = isEffectivelyEnabled,
                     role = Role.Button,
                     onClick = onClick,
                 ).defaultMinSize(
@@ -256,12 +262,13 @@ fun Button(
                 ).padding(
                     horizontal = sizeValues.horizontalPadding,
                     vertical = sizeValues.verticalPadding,
-                ).then(if (!enabled) Modifier.alpha(0.5f) else Modifier)
-                .semantics(mergeDescendants = true) {
+                ).then(
+                    if (!isEffectivelyEnabled) Modifier.alpha(0.5f) else Modifier,
+                ).semantics(mergeDescendants = true) {
                     if (label.isNotEmpty()) {
                         contentDescription = label
                     }
-                    if (!enabled) {
+                    if (!isEffectivelyEnabled) {
                         disabled()
                     }
                 },
@@ -272,18 +279,48 @@ fun Button(
             ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
+        if (loading) {
+            val spinnerSize =
+                when (size) {
+                    ButtonSize.Sm -> SpinnerSize.Sm
+                    ButtonSize.Icon -> SpinnerSize.Sm
+                    else -> SpinnerSize.Default
+                }
+            Spinner(
+                size = spinnerSize,
+                color = colors.foreground,
+                label = "Loading",
+            )
+        }
         content()
     }
 }
 
 /**
- * Convenience overload with a text label.
+ * Convenience overload with a text label and optional icon slots.
  *
  * ```
  * Button("Save", onClick = { save() })
  * Button("Delete", onClick = { delete() }, variant = ButtonVariant.Destructive)
  * Button("Bounce!", onClick = { }, animation = ButtonAnimation.Bounce)
+ * Button("Saving...", onClick = { }, loading = true)
+ * Button(
+ *     "Search",
+ *     onClick = { },
+ *     leadingIcon = { Icon(RikkaIcons.Search, contentDescription = null) },
+ * )
  * ```
+ *
+ * @param text The button label text.
+ * @param onClick Called when the button is clicked.
+ * @param modifier Modifier for layout and decoration.
+ * @param variant Visual variant — controls colors and border.
+ * @param size Controls height, padding, and min width.
+ * @param animation Press animation style. Defaults to [ButtonAnimation.Scale].
+ * @param enabled Whether the button is interactive.
+ * @param loading When true, shows a [Spinner] and disables interaction.
+ * @param leadingIcon Optional composable rendered before the text (e.g. an [Icon]).
+ * @param trailingIcon Optional composable rendered after the text (e.g. an [Icon]).
  */
 @Composable
 fun Button(
@@ -294,6 +331,9 @@ fun Button(
     size: ButtonSize = ButtonSize.Default,
     animation: ButtonAnimation = ButtonAnimation.Scale,
     enabled: Boolean = true,
+    loading: Boolean = false,
+    leadingIcon: (@Composable () -> Unit)? = null,
+    trailingIcon: (@Composable () -> Unit)? = null,
 ) {
     val colors = resolveColors(variant, isHovered = false, isPressed = false)
 
@@ -304,7 +344,10 @@ fun Button(
         size = size,
         animation = animation,
         enabled = enabled,
+        loading = loading,
     ) {
+        if (!loading) leadingIcon?.invoke()
+
         val textStyle =
             if (variant == ButtonVariant.Link) {
                 TextStyle(textDecoration = TextDecoration.None)
@@ -317,6 +360,8 @@ fun Button(
             color = colors.foreground,
             style = RikkaTheme.typography.small.merge(textStyle),
         )
+
+        if (!loading) trailingIcon?.invoke()
     }
 }
 

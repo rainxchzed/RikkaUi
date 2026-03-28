@@ -1,6 +1,8 @@
 package zed.rainxch.rikkaui.components.ui.pagination
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -19,16 +21,70 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.icon.Icon
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+
+// ─── Animation Enum ─────────────────────────────────────────
+
+/**
+ * Controls the animation style for active page state transitions.
+ *
+ * - [Scale] — Active page button scales up with a spring animation
+ *   using [RikkaTheme.motion] tokens. Creates a bouncy highlight effect.
+ *   This is the default.
+ * - [Fade] — Active/inactive transitions use alpha fade, creating a
+ *   smooth crossfade between states.
+ * - [None] — Instant state change with no animation. Colors still
+ *   transition via tween for polish, but no scale or fade is applied.
+ *
+ * ```
+ * Pagination(
+ *     currentPage = page,
+ *     totalPages = 20,
+ *     onPageChange = { page = it },
+ *     animation = PaginationAnimation.Scale,
+ * )
+ * ```
+ */
+enum class PaginationAnimation {
+    Scale,
+    Fade,
+    None,
+}
+
+// ─── Size Enum ──────────────────────────────────────────────
+
+/**
+ * Controls the size of page buttons in [Pagination].
+ *
+ * - [Small] — 28dp buttons with [TextVariant.Muted] text. Compact.
+ * - [Default] — 36dp buttons with [TextVariant.Small] text. Standard.
+ * - [Large] — 44dp buttons with [TextVariant.P] text. Touch-friendly.
+ *
+ * ```
+ * Pagination(
+ *     currentPage = page,
+ *     totalPages = 10,
+ *     onPageChange = { page = it },
+ *     buttonSize = PaginationSize.Large,
+ * )
+ * ```
+ */
+enum class PaginationSize {
+    Small,
+    Default,
+    Large,
+}
 
 // ─── Component ─────────────────────────────────────────────
 
@@ -49,12 +105,27 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
  *     onPageChange = { currentPage = it },
  * )
  *
- * // With custom visible pages
+ * // With scale animation, large buttons, and custom visible pages
  * Pagination(
  *     currentPage = currentPage,
  *     totalPages = 50,
  *     onPageChange = { currentPage = it },
  *     maxVisiblePages = 7,
+ *     animation = PaginationAnimation.Scale,
+ *     buttonSize = PaginationSize.Large,
+ * )
+ *
+ * // With custom previous/next content
+ * Pagination(
+ *     currentPage = currentPage,
+ *     totalPages = 10,
+ *     onPageChange = { currentPage = it },
+ *     previousContent = { tint ->
+ *         Text("Prev", color = tint, variant = TextVariant.Small)
+ *     },
+ *     nextContent = { tint ->
+ *         Text("Next", color = tint, variant = TextVariant.Small)
+ *     },
  * )
  * ```
  *
@@ -62,7 +133,18 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
  * @param totalPages Total number of pages.
  * @param onPageChange Called when the user selects a different page.
  * @param modifier Modifier for layout and decoration.
- * @param maxVisiblePages Maximum number of page buttons visible at once (excluding nav buttons).
+ * @param maxVisiblePages Maximum number of page buttons visible at
+ *   once (excluding nav buttons). Defaults to 5.
+ * @param animation Controls the active page transition animation.
+ *   Defaults to [PaginationAnimation.Scale].
+ * @param buttonSize Controls the size of page buttons.
+ *   Defaults to [PaginationSize.Default].
+ * @param previousContent Custom content for the previous button.
+ *   Receives the resolved foreground [Color] as a parameter.
+ *   When `null` (default), renders a chevron-left icon.
+ * @param nextContent Custom content for the next button.
+ *   Receives the resolved foreground [Color] as a parameter.
+ *   When `null` (default), renders a chevron-right icon.
  */
 @Composable
 fun Pagination(
@@ -71,15 +153,29 @@ fun Pagination(
     onPageChange: (Int) -> Unit,
     modifier: Modifier = Modifier,
     maxVisiblePages: Int = 5,
+    animation: PaginationAnimation = PaginationAnimation.Scale,
+    buttonSize: PaginationSize = PaginationSize.Default,
+    previousContent: (@Composable (Color) -> Unit)? = null,
+    nextContent: (@Composable (Color) -> Unit)? = null,
 ) {
-    val pageRange = resolvePageRange(currentPage, totalPages, maxVisiblePages)
+    val pageRange =
+        resolvePageRange(
+            currentPage,
+            totalPages,
+            maxVisiblePages,
+        )
+    val sizeValues = resolveSizeValues(buttonSize)
 
     Row(
         modifier =
             modifier.semantics {
-                contentDescription = "Pagination, page $currentPage of $totalPages"
+                contentDescription =
+                    "Pagination, page $currentPage of $totalPages"
             },
-        horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
+        horizontalArrangement =
+            Arrangement.spacedBy(
+                RikkaTheme.spacing.xs,
+            ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         // Previous button
@@ -87,13 +183,20 @@ fun Pagination(
             onClick = { onPageChange(currentPage - 1) },
             enabled = currentPage > 1,
             label = "Previous page",
+            buttonDp = sizeValues.buttonDp,
+            iconDp = sizeValues.iconDp,
+            animation = animation,
         ) { tint ->
-            Icon(
-                imageVector = RikkaIcons.ChevronLeft,
-                contentDescription = null,
-                tint = tint,
-                modifier = Modifier.size(16.dp),
-            )
+            if (previousContent != null) {
+                previousContent(tint)
+            } else {
+                Icon(
+                    imageVector = RikkaIcons.ChevronLeft,
+                    contentDescription = null,
+                    tint = tint,
+                    modifier = Modifier.size(sizeValues.iconDp),
+                )
+            }
         }
 
         // Leading ellipsis
@@ -104,8 +207,10 @@ fun Pagination(
                 enabled = true,
                 isActive = false,
                 label = "Page 1",
+                animation = animation,
+                sizeValues = sizeValues,
             )
-            PaginationEllipsis()
+            PaginationEllipsis(buttonDp = sizeValues.buttonDp)
         }
 
         // Page number buttons
@@ -115,19 +220,28 @@ fun Pagination(
                 onClick = { onPageChange(page) },
                 enabled = true,
                 isActive = page == currentPage,
-                label = if (page == currentPage) "Page $page, current page" else "Page $page",
+                label =
+                    if (page == currentPage) {
+                        "Page $page, current page"
+                    } else {
+                        "Page $page"
+                    },
+                animation = animation,
+                sizeValues = sizeValues,
             )
         }
 
         // Trailing ellipsis
         if (pageRange.showTrailingEllipsis) {
-            PaginationEllipsis()
+            PaginationEllipsis(buttonDp = sizeValues.buttonDp)
             PaginationButton(
                 text = totalPages.toString(),
                 onClick = { onPageChange(totalPages) },
                 enabled = true,
                 isActive = false,
                 label = "Page $totalPages",
+                animation = animation,
+                sizeValues = sizeValues,
             )
         }
 
@@ -136,13 +250,20 @@ fun Pagination(
             onClick = { onPageChange(currentPage + 1) },
             enabled = currentPage < totalPages,
             label = "Next page",
+            buttonDp = sizeValues.buttonDp,
+            iconDp = sizeValues.iconDp,
+            animation = animation,
         ) { tint ->
-            Icon(
-                imageVector = RikkaIcons.ChevronRight,
-                contentDescription = null,
-                tint = tint,
-                modifier = Modifier.size(16.dp),
-            )
+            if (nextContent != null) {
+                nextContent(tint)
+            } else {
+                Icon(
+                    imageVector = RikkaIcons.ChevronRight,
+                    contentDescription = null,
+                    tint = tint,
+                    modifier = Modifier.size(sizeValues.iconDp),
+                )
+            }
         }
     }
 }
@@ -157,6 +278,8 @@ fun Pagination(
  * @param enabled Whether the button is interactive.
  * @param isActive Whether this is the current/active page.
  * @param label Accessibility label for screen readers.
+ * @param animation The animation strategy for active state transitions.
+ * @param sizeValues Resolved size values for the button.
  * @param modifier Modifier for layout and decoration.
  */
 @Composable
@@ -166,6 +289,8 @@ private fun PaginationButton(
     enabled: Boolean,
     isActive: Boolean,
     label: String,
+    animation: PaginationAnimation,
+    sizeValues: PaginationSizeValues,
     modifier: Modifier = Modifier,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -179,6 +304,13 @@ private fun PaginationButton(
         targetValue = colors.background,
         animationSpec = tween(motion.durationDefault),
     )
+
+    // ─── Animation modifiers based on enum ──────────────
+    val animationModifier =
+        resolveAnimationModifier(
+            animation = animation,
+            isActive = isActive,
+        )
 
     val backgroundModifier =
         if (colors.background != Color.Transparent) {
@@ -197,10 +329,11 @@ private fun PaginationButton(
     Box(
         modifier =
             modifier
+                .then(animationModifier)
                 .then(borderModifier)
                 .then(backgroundModifier)
                 .clip(shape)
-                .size(36.dp)
+                .size(sizeValues.buttonDp)
                 .clickable(
                     interactionSource = interactionSource,
                     indication = null,
@@ -218,7 +351,7 @@ private fun PaginationButton(
     ) {
         Text(
             text = text,
-            variant = TextVariant.Small,
+            variant = sizeValues.textVariant,
             color = colors.foreground,
         )
     }
@@ -228,26 +361,38 @@ private fun PaginationButton(
 
 /**
  * Navigation button variant that accepts icon content instead of text.
- * Used for Previous/Next buttons with [Icon] composables.
+ * Used for Previous/Next buttons with [Icon] composables or custom
+ * content.
  *
  * @param onClick Called when the button is clicked.
  * @param enabled Whether the button is interactive.
  * @param label Accessibility label for screen readers.
+ * @param buttonDp Size of the button in dp.
+ * @param iconDp Size of the default icon in dp.
+ * @param animation The animation strategy for hover transitions.
  * @param modifier Modifier for layout and decoration.
- * @param content Icon content slot receiving the resolved foreground [Color].
+ * @param content Icon content slot receiving the resolved foreground
+ *   [Color].
  */
 @Composable
 private fun PaginationIconButton(
     onClick: () -> Unit,
     enabled: Boolean,
     label: String,
+    buttonDp: Dp,
+    iconDp: Dp,
+    animation: PaginationAnimation,
     modifier: Modifier = Modifier,
     content: @Composable (Color) -> Unit,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isHovered by interactionSource.collectIsHoveredAsState()
 
-    val colors = resolveButtonColors(isActive = false, isHovered = isHovered)
+    val colors =
+        resolveButtonColors(
+            isActive = false,
+            isHovered = isHovered,
+        )
     val motion = RikkaTheme.motion
     val shape = RikkaTheme.shapes.md
 
@@ -276,7 +421,7 @@ private fun PaginationIconButton(
                 .then(borderModifier)
                 .then(backgroundModifier)
                 .clip(shape)
-                .size(36.dp)
+                .size(buttonDp)
                 .clickable(
                     interactionSource = interactionSource,
                     indication = null,
@@ -301,12 +446,16 @@ private fun PaginationIconButton(
 /**
  * Ellipsis indicator for truncated page ranges.
  *
+ * @param buttonDp Size matching the page buttons for alignment.
  * @param modifier Modifier for layout and decoration.
  */
 @Composable
-private fun PaginationEllipsis(modifier: Modifier = Modifier) {
+private fun PaginationEllipsis(
+    buttonDp: Dp,
+    modifier: Modifier = Modifier,
+) {
     Box(
-        modifier = modifier.size(36.dp),
+        modifier = modifier.size(buttonDp),
         contentAlignment = Alignment.Center,
     ) {
         Text(
@@ -316,6 +465,85 @@ private fun PaginationEllipsis(modifier: Modifier = Modifier) {
         )
     }
 }
+
+// ─── Internal: Animation Resolution ────────────────────────
+
+/**
+ * Resolves the [Modifier] for the active page animation based
+ * on the [PaginationAnimation] enum. Uses `graphicsLayer` to
+ * skip composition and layout phases for performance.
+ */
+@Composable
+private fun resolveAnimationModifier(
+    animation: PaginationAnimation,
+    isActive: Boolean,
+): Modifier {
+    val motion = RikkaTheme.motion
+
+    return when (animation) {
+        PaginationAnimation.Scale -> {
+            val scale by animateFloatAsState(
+                targetValue = if (isActive) 1.1f else 1f,
+                animationSpec =
+                    spring(
+                        dampingRatio = motion.springDefault.let { 0.6f },
+                        stiffness = motion.springDefault.let { 400f },
+                    ),
+            )
+            Modifier.graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+            }
+        }
+
+        PaginationAnimation.Fade -> {
+            val alpha by animateFloatAsState(
+                targetValue = if (isActive) 1f else 0.65f,
+                animationSpec = tween(motion.durationDefault),
+            )
+            Modifier.graphicsLayer { this.alpha = alpha }
+        }
+
+        PaginationAnimation.None -> Modifier
+    }
+}
+
+// ─── Internal: Size Resolution ─────────────────────────────
+
+private data class PaginationSizeValues(
+    val buttonDp: Dp,
+    val iconDp: Dp,
+    val textVariant: TextVariant,
+)
+
+/**
+ * Resolves the button dimensions and text variant for each
+ * [PaginationSize].
+ */
+@Composable
+private fun resolveSizeValues(size: PaginationSize): PaginationSizeValues =
+    when (size) {
+        PaginationSize.Small ->
+            PaginationSizeValues(
+                buttonDp = 28.dp,
+                iconDp = 14.dp,
+                textVariant = TextVariant.Muted,
+            )
+
+        PaginationSize.Default ->
+            PaginationSizeValues(
+                buttonDp = 36.dp,
+                iconDp = 16.dp,
+                textVariant = TextVariant.Small,
+            )
+
+        PaginationSize.Large ->
+            PaginationSizeValues(
+                buttonDp = 44.dp,
+                iconDp = 20.dp,
+                textVariant = TextVariant.P,
+            )
+    }
 
 // ─── Internal: Color Resolution ────────────────────────────
 
@@ -366,7 +594,8 @@ private data class PageRange(
 )
 
 /**
- * Calculates which page numbers to display, and whether to show ellipsis.
+ * Calculates which page numbers to display, and whether to show
+ * ellipsis.
  *
  * If [totalPages] fits within [maxVisible], all pages are shown.
  * Otherwise, a window around [currentPage] is shown with ellipsis

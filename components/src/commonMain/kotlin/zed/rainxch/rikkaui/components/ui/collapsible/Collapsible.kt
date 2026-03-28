@@ -2,6 +2,7 @@ package zed.rainxch.rikkaui.components.ui.collapsible
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
@@ -24,7 +25,49 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
+import zed.rainxch.rikkaui.components.theme.RikkaMotion
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
+
+// ─── Animation Enum ─────────────────────────────────────────
+
+/**
+ * Controls the expand/collapse animation style for
+ * [CollapsibleContent].
+ *
+ * Each option reads duration and spring parameters from
+ * [RikkaTheme.motion] tokens so the animation stays consistent
+ * with the rest of the design system.
+ *
+ * ```
+ * CollapsibleContent(
+ *     open = isOpen,
+ *     animation = CollapsibleAnimation.Tween,
+ * ) {
+ *     Text("Smooth eased transition")
+ * }
+ * ```
+ */
+enum class CollapsibleAnimation {
+    /**
+     * Spring-physics expand/collapse with medium bounce and a
+     * fade overlay. Handles interruptions gracefully and feels
+     * organic. This is the default.
+     */
+    Spring,
+
+    /**
+     * Duration-based eased expand/collapse with fade using
+     * [RikkaTheme.motion] tween durations. Smoother and more
+     * predictable than [Spring], good for data-heavy UIs.
+     */
+    Tween,
+
+    /**
+     * Instant expand/collapse with no animation. Useful for
+     * reduced-motion preferences or performance-critical lists.
+     */
+    None,
+}
 
 // ─── Scope ─────────────────────────────────────────────────
 
@@ -172,6 +215,8 @@ fun Collapsible(
  *
  * @param modifier Modifier applied to the outer container.
  * @param initialOpen Initial expanded state. Defaults to `false`.
+ * @param animation The expand/collapse animation style passed to
+ *   [CollapsibleContent]. Defaults to [CollapsibleAnimation.Spring].
  * @param builder DSL builder providing [CollapsibleScope.trigger]
  *   and [CollapsibleScope.content].
  */
@@ -179,13 +224,15 @@ fun Collapsible(
 fun Collapsible(
     modifier: Modifier = Modifier,
     initialOpen: Boolean = false,
+    animation: CollapsibleAnimation = CollapsibleAnimation.Spring,
     builder: CollapsibleScope.() -> Unit,
 ) {
     var open by remember { mutableStateOf(initialOpen) }
-    val scope = CollapsibleScope(
-        open = open,
-        onOpenChange = { open = it },
-    ).apply(builder)
+    val scope =
+        CollapsibleScope(
+            open = open,
+            onOpenChange = { open = it },
+        ).apply(builder)
 
     Collapsible(
         open = open,
@@ -201,7 +248,10 @@ fun Collapsible(
             }
         }
         scope.bodyContent?.let { body ->
-            CollapsibleContent(open = open) {
+            CollapsibleContent(
+                open = open,
+                animation = animation,
+            ) {
                 body()
             }
         }
@@ -254,20 +304,20 @@ fun CollapsibleTrigger(
     val interactionSource = remember { MutableInteractionSource() }
 
     Box(
-        modifier = modifier
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null,
-                role = Role.Button,
-                onClick = onClick,
-            )
-            .semantics(mergeDescendants = true) {
-                contentDescription = label
-                if (expanded != null) {
-                    stateDescription =
-                        if (expanded) "Expanded" else "Collapsed"
-                }
-            },
+        modifier =
+            modifier
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null,
+                    role = Role.Button,
+                    onClick = onClick,
+                ).semantics(mergeDescendants = true) {
+                    contentDescription = label
+                    if (expanded != null) {
+                        stateDescription =
+                            if (expanded) "Expanded" else "Collapsed"
+                    }
+                },
         contentAlignment = Alignment.CenterStart,
     ) {
         content()
@@ -278,67 +328,148 @@ fun CollapsibleTrigger(
  * Expandable content area for a [Collapsible].
  *
  * Wraps content in [AnimatedVisibility] with vertical expand/shrink
- * and fade transitions. The expand/shrink uses spring physics that
- * mirror [RikkaTheme.motion]'s default spring (medium-bouncy,
- * medium-low stiffness). The fade uses tween durations from the
- * motion token system.
+ * and fade transitions. The animation style is controlled by the
+ * [animation] parameter which reads tokens from [RikkaTheme.motion].
  *
  * ```
+ * // Spring (default — bouncy, organic)
  * CollapsibleContent(open = isOpen) {
- *     Column(
- *         modifier = Modifier.padding(RikkaTheme.spacing.md),
- *     ) {
- *         Text("First item")
- *         Text("Second item")
- *     }
+ *     Text("Spring-animated content")
+ * }
+ *
+ * // Tween (smooth, predictable)
+ * CollapsibleContent(
+ *     open = isOpen,
+ *     animation = CollapsibleAnimation.Tween,
+ * ) {
+ *     Text("Eased content")
+ * }
+ *
+ * // Instant (no animation)
+ * CollapsibleContent(
+ *     open = isOpen,
+ *     animation = CollapsibleAnimation.None,
+ * ) {
+ *     Text("Instant content")
  * }
  * ```
  *
  * @param open Whether the content is currently visible.
  * @param modifier Modifier applied to the inner content wrapper.
+ * @param animation The expand/collapse animation style. Defaults to
+ *   [CollapsibleAnimation.Spring].
  * @param content Composable content to show/hide.
  */
 @Composable
 fun CollapsibleContent(
     open: Boolean,
     modifier: Modifier = Modifier,
+    animation: CollapsibleAnimation = CollapsibleAnimation.Spring,
     content: @Composable () -> Unit,
 ) {
     val motion = RikkaTheme.motion
 
-    // Spring physics for height animation. Uses the same damping
-    // and stiffness constants as RikkaMotion.springDefault so the
-    // expand/collapse feel is consistent with the rest of the
-    // design system. AnimatedVisibility needs AnimationSpec<IntSize>,
-    // so we construct a matching spring here rather than reusing
-    // the Float-typed token directly.
     AnimatedVisibility(
         visible = open,
-        enter = expandVertically(
-            animationSpec = spring(
-                dampingRatio = Spring.DampingRatioMediumBouncy,
-                stiffness = Spring.StiffnessMediumLow,
-            ),
-            expandFrom = Alignment.Top,
-        ) + fadeIn(
-            animationSpec = tween(
-                durationMillis = motion.durationDefault,
-            ),
-        ),
-        exit = shrinkVertically(
-            animationSpec = spring(
-                dampingRatio = Spring.DampingRatioMediumBouncy,
-                stiffness = Spring.StiffnessMediumLow,
-            ),
-            shrinkTowards = Alignment.Top,
-        ) + fadeOut(
-            animationSpec = tween(
-                durationMillis = motion.durationFast,
-            ),
-        ),
+        enter = resolveEnter(animation, motion),
+        exit = resolveExit(animation, motion),
     ) {
         Box(modifier = modifier.fillMaxWidth()) {
             content()
         }
     }
 }
+
+// ─── Private animation resolution ───────────────────────────
+
+/**
+ * Resolves the [AnimatedVisibility] enter transition for the given
+ * [CollapsibleAnimation] style, reading tokens from [RikkaMotion].
+ */
+@Composable
+private fun resolveEnter(
+    animation: CollapsibleAnimation,
+    motion: RikkaMotion,
+): androidx.compose.animation.EnterTransition =
+    when (animation) {
+        CollapsibleAnimation.Spring ->
+            expandVertically(
+                animationSpec =
+                    spring(
+                        dampingRatio = Spring.DampingRatioMediumBouncy,
+                        stiffness = Spring.StiffnessMediumLow,
+                    ),
+                expandFrom = Alignment.Top,
+            ) +
+                fadeIn(
+                    animationSpec =
+                        tween(
+                            durationMillis = motion.durationDefault,
+                        ),
+                )
+        CollapsibleAnimation.Tween ->
+            expandVertically(
+                animationSpec =
+                    tween(
+                        durationMillis = motion.durationSlow,
+                    ),
+                expandFrom = Alignment.Top,
+            ) +
+                fadeIn(
+                    animationSpec =
+                        tween(
+                            durationMillis = motion.durationDefault,
+                        ),
+                )
+        CollapsibleAnimation.None ->
+            expandVertically(
+                animationSpec = snap(),
+                expandFrom = Alignment.Top,
+            )
+    }
+
+/**
+ * Resolves the [AnimatedVisibility] exit transition for the given
+ * [CollapsibleAnimation] style, reading tokens from [RikkaMotion].
+ */
+@Composable
+private fun resolveExit(
+    animation: CollapsibleAnimation,
+    motion: RikkaMotion,
+): androidx.compose.animation.ExitTransition =
+    when (animation) {
+        CollapsibleAnimation.Spring ->
+            shrinkVertically(
+                animationSpec =
+                    spring(
+                        dampingRatio = Spring.DampingRatioMediumBouncy,
+                        stiffness = Spring.StiffnessMediumLow,
+                    ),
+                shrinkTowards = Alignment.Top,
+            ) +
+                fadeOut(
+                    animationSpec =
+                        tween(
+                            durationMillis = motion.durationFast,
+                        ),
+                )
+        CollapsibleAnimation.Tween ->
+            shrinkVertically(
+                animationSpec =
+                    tween(
+                        durationMillis = motion.durationSlow,
+                    ),
+                shrinkTowards = Alignment.Top,
+            ) +
+                fadeOut(
+                    animationSpec =
+                        tween(
+                            durationMillis = motion.durationFast,
+                        ),
+                )
+        CollapsibleAnimation.None ->
+            shrinkVertically(
+                animationSpec = snap(),
+                shrinkTowards = Alignment.Top,
+            )
+    }

@@ -1,5 +1,7 @@
 package zed.rainxch.rikkaui.components.ui.label
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -8,6 +10,7 @@ import androidx.compose.ui.semantics.text
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
@@ -24,30 +27,50 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
  * ```
  * Label("Email")
  * Label("Username", disabled = true)
- * Label("Password", modifier = Modifier.padding(bottom = RikkaTheme.spacing.xs))
+ * Label("Password", required = true)
+ * Label("Name", modifier = Modifier.padding(bottom = RikkaTheme.spacing.xs))
  * ```
  *
  * @param text The label text to display.
  * @param modifier Modifier for layout and decoration.
  * @param disabled When true, the label is dimmed using [RikkaTheme.colors.mutedForeground].
+ * @param required When true, a red asterisk (*) is appended after the label text
+ *   to indicate the field is mandatory.
  */
 @Composable
 fun Label(
     text: String,
     modifier: Modifier = Modifier,
     disabled: Boolean = false,
+    required: Boolean = false,
 ) {
     val color = resolveColor(disabled)
+    val semanticText =
+        if (required) "$text (required)" else text
 
-    Text(
-        text = text,
-        modifier = modifier.semantics {
-            this.text = AnnotatedString(text)
-        },
-        variant = TextVariant.Small,
-        color = color,
-        style = TextStyle(fontWeight = FontWeight.Medium),
-    )
+    Row(
+        modifier =
+            modifier.semantics {
+                this.text = AnnotatedString(semanticText)
+            },
+        horizontalArrangement = Arrangement.spacedBy(2.dp),
+    ) {
+        Text(
+            text = text,
+            variant = TextVariant.Small,
+            color = color,
+            style = TextStyle(fontWeight = FontWeight.Medium),
+        )
+
+        if (required) {
+            Text(
+                text = "*",
+                variant = TextVariant.Small,
+                color = RikkaTheme.colors.destructive,
+                style = TextStyle(fontWeight = FontWeight.Medium),
+            )
+        }
+    }
 }
 
 // ─── Internal: Color Resolution ─────────────────────────────

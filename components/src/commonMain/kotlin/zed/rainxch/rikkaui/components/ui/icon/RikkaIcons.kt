@@ -33,20 +33,21 @@ import androidx.compose.ui.unit.dp
  * ```
  */
 object RikkaIcons {
-
     // ── Shared builder helpers ──────────────────────────────
 
     private inline fun lucideIcon(
         name: String,
         crossinline block: ImageVector.Builder.() -> Unit,
     ): ImageVector =
-        ImageVector.Builder(
-            name = name,
-            defaultWidth = 24.dp,
-            defaultHeight = 24.dp,
-            viewportWidth = 24f,
-            viewportHeight = 24f,
-        ).apply(block).build()
+        ImageVector
+            .Builder(
+                name = name,
+                defaultWidth = 24.dp,
+                defaultHeight = 24.dp,
+                viewportWidth = 24f,
+                viewportHeight = 24f,
+            ).apply(block)
+            .build()
 
     // ── Chevrons ────────────────────────────────────────────
 
@@ -609,9 +610,7 @@ object RikkaIcons {
  * Adds a stroke-only path with Lucide defaults:
  * stroke-width 2, round cap, round join.
  */
-private inline fun ImageVector.Builder.strokePath(
-    crossinline block: PathBuilder.() -> Unit,
-) {
+private inline fun ImageVector.Builder.strokePath(crossinline block: PathBuilder.() -> Unit) {
     path(
         stroke = SolidColor(Color.Black),
         strokeLineWidth = 2f,
@@ -624,9 +623,7 @@ private inline fun ImageVector.Builder.strokePath(
 /**
  * Adds a fill-only path (for solid dots like MoreHorizontal / MoreVertical).
  */
-private inline fun ImageVector.Builder.fillPath(
-    crossinline block: PathBuilder.() -> Unit,
-) {
+private inline fun ImageVector.Builder.fillPath(crossinline block: PathBuilder.() -> Unit) {
     path(
         fill = SolidColor(Color.Black),
         pathBuilder = block,

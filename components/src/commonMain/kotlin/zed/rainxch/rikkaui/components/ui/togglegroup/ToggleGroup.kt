@@ -1,6 +1,10 @@
 package zed.rainxch.rikkaui.components.ui.togglegroup
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.snap
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -36,6 +40,40 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
 enum class ToggleGroupVariant {
     Default,
     Outline,
+}
+
+// ─── Animation ────────────────────────────────────────────
+
+/**
+ * Animation strategy for [ToggleGroupItem] selection transitions.
+ *
+ * Controls how background and foreground colors animate when toggling
+ * between selected and unselected states.
+ *
+ * - [Spring] — Spring-based color transition. Handles interruptions
+ *   gracefully when rapidly toggling items. **(default)**
+ * - [Tween] — Smooth eased transition with a fixed duration from
+ *   [RikkaTheme.motion.durationDefault].
+ * - [None] — Instant selection change with no animation.
+ *
+ * ```
+ * ToggleGroupItem(
+ *     selected = selected == 0,
+ *     onClick = { selected = 0 },
+ *     text = "Bold",
+ *     animation = ToggleGroupAnimation.Spring,
+ * )
+ * ```
+ */
+enum class ToggleGroupAnimation {
+    /** Spring-based color transition (default). */
+    Spring,
+
+    /** Smooth eased tween transition. */
+    Tween,
+
+    /** Instant change with no animation. */
+    None,
 }
 
 // ─── ToggleGroup ───────────────────────────────────────────
@@ -92,7 +130,8 @@ fun ToggleGroup(
  * Individual toggle button inside a [ToggleGroup].
  *
  * Supports two visual variants via [ToggleGroupVariant] and animates
- * background color transitions using theme motion tokens.
+ * background color transitions using theme motion tokens. The animation
+ * strategy is configurable via [animation].
  *
  * Usage:
  * ```
@@ -100,6 +139,7 @@ fun ToggleGroup(
  *     selected = isSelected,
  *     onClick = { toggle() },
  *     variant = ToggleGroupVariant.Outline,
+ *     animation = ToggleGroupAnimation.Tween,
  * ) {
  *     Icon(painter = painterResource(...), contentDescription = null)
  * }
@@ -109,7 +149,13 @@ fun ToggleGroup(
  * @param onClick Called when the item is clicked.
  * @param modifier Modifier for layout and decoration.
  * @param variant Visual variant — controls background and border behavior.
+ * @param animation Animation strategy for selection transitions.
+ *   Defaults to [ToggleGroupAnimation.Spring].
  * @param label Accessibility label for screen readers.
+ * @param selectedColor Override for the selected foreground color.
+ *   Defaults to [RikkaTheme.colors.foreground].
+ * @param unselectedColor Override for the unselected foreground color.
+ *   Defaults to [RikkaTheme.colors.mutedForeground].
  * @param content Item content — typically an icon or text.
  */
 @Composable
@@ -118,7 +164,10 @@ fun ToggleGroupItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     variant: ToggleGroupVariant = ToggleGroupVariant.Default,
+    animation: ToggleGroupAnimation = ToggleGroupAnimation.Spring,
     label: String = "",
+    selectedColor: Color = Color.Unspecified,
+    unselectedColor: Color = Color.Unspecified,
     content: @Composable () -> Unit,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -126,12 +175,22 @@ fun ToggleGroupItem(
     val motion = RikkaTheme.motion
     val shape = RikkaTheme.shapes.md
 
-    val resolved = resolveColors(variant, selected)
+    val resolved =
+        resolveColors(
+            variant = variant,
+            selected = selected,
+            selectedColorOverride = selectedColor,
+            unselectedColorOverride = unselectedColor,
+        )
+
+    // ─── Resolve animation spec ───────────────────────────
+    val colorAnimSpec: AnimationSpec<Color> =
+        resolveColorAnimSpec(animation, motion.durationDefault)
 
     // ─── Animated background (from theme motion tokens) ──
     val animatedBackground by animateColorAsState(
         targetValue = resolved.background,
-        animationSpec = tween(motion.durationDefault),
+        animationSpec = colorAnimSpec,
     )
 
     val backgroundModifier =
@@ -159,12 +218,10 @@ fun ToggleGroupItem(
                     indication = null,
                     role = Role.Button,
                     onClick = onClick,
-                )
-                .padding(
+                ).padding(
                     horizontal = RikkaTheme.spacing.md,
                     vertical = RikkaTheme.spacing.sm,
-                )
-                .semantics {
+                ).semantics {
                     if (label.isNotEmpty()) {
                         contentDescription = label
                     }
@@ -184,6 +241,7 @@ fun ToggleGroupItem(
  *     onClick = { selected = 0 },
  *     text = "Bold",
  *     variant = ToggleGroupVariant.Outline,
+ *     animation = ToggleGroupAnimation.Tween,
  * )
  * ```
  *
@@ -192,6 +250,12 @@ fun ToggleGroupItem(
  * @param onClick Called when the item is clicked.
  * @param modifier Modifier for layout and decoration.
  * @param variant Visual variant — controls background and border behavior.
+ * @param animation Animation strategy for selection transitions.
+ *   Defaults to [ToggleGroupAnimation.Spring].
+ * @param selectedColor Override for the selected foreground color.
+ *   Defaults to [RikkaTheme.colors.foreground].
+ * @param unselectedColor Override for the unselected foreground color.
+ *   Defaults to [RikkaTheme.colors.mutedForeground].
  */
 @Composable
 fun ToggleGroupItem(
@@ -200,20 +264,44 @@ fun ToggleGroupItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     variant: ToggleGroupVariant = ToggleGroupVariant.Default,
+    animation: ToggleGroupAnimation = ToggleGroupAnimation.Spring,
+    selectedColor: Color = Color.Unspecified,
+    unselectedColor: Color = Color.Unspecified,
 ) {
-    val colors = resolveColors(variant, selected)
+    val resolved =
+        resolveColors(
+            variant = variant,
+            selected = selected,
+            selectedColorOverride = selectedColor,
+            unselectedColorOverride = unselectedColor,
+        )
+
+    // ─── Resolve animation spec for text color ────────────
+    val colorAnimSpec: AnimationSpec<Color> =
+        resolveColorAnimSpec(
+            animation,
+            RikkaTheme.motion.durationDefault,
+        )
+
+    val animatedForeground by animateColorAsState(
+        targetValue = resolved.foreground,
+        animationSpec = colorAnimSpec,
+    )
 
     ToggleGroupItem(
         selected = selected,
         onClick = onClick,
         modifier = modifier,
         variant = variant,
+        animation = animation,
         label = text,
+        selectedColor = selectedColor,
+        unselectedColor = unselectedColor,
     ) {
         Text(
             text = text,
             variant = TextVariant.Small,
-            color = colors.foreground,
+            color = animatedForeground,
         )
     }
 }
@@ -230,16 +318,27 @@ private data class ToggleGroupColors(
 private fun resolveColors(
     variant: ToggleGroupVariant,
     selected: Boolean,
+    selectedColorOverride: Color = Color.Unspecified,
+    unselectedColorOverride: Color = Color.Unspecified,
 ): ToggleGroupColors {
     val colors = RikkaTheme.colors
+
+    val baseForeground =
+        when {
+            selected && selectedColorOverride != Color.Unspecified ->
+                selectedColorOverride
+            !selected && unselectedColorOverride != Color.Unspecified ->
+                unselectedColorOverride
+            selected -> colors.foreground
+            else -> colors.mutedForeground
+        }
 
     return when (variant) {
         ToggleGroupVariant.Default -> {
             ToggleGroupColors(
                 background =
                     if (selected) colors.muted else Color.Transparent,
-                foreground =
-                    if (selected) colors.foreground else colors.mutedForeground,
+                foreground = baseForeground,
                 border = Color.Transparent,
             )
         }
@@ -248,10 +347,30 @@ private fun resolveColors(
             ToggleGroupColors(
                 background =
                     if (selected) colors.muted else Color.Transparent,
-                foreground =
-                    if (selected) colors.foreground else colors.mutedForeground,
+                foreground = baseForeground,
                 border = colors.border,
             )
         }
     }
 }
+
+// ─── Internal: Animation Spec Resolution ──────────────────
+
+/**
+ * Resolves a [ToggleGroupAnimation] to an [AnimationSpec] for color
+ * transitions, using the theme's motion duration tokens.
+ */
+@Composable
+private fun resolveColorAnimSpec(
+    animation: ToggleGroupAnimation,
+    durationMs: Int,
+): AnimationSpec<Color> =
+    when (animation) {
+        ToggleGroupAnimation.Spring ->
+            spring(
+                dampingRatio = Spring.DampingRatioMediumBouncy,
+                stiffness = Spring.StiffnessMediumLow,
+            )
+        ToggleGroupAnimation.Tween -> tween(durationMs)
+        ToggleGroupAnimation.None -> snap()
+    }

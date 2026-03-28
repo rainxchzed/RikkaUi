@@ -1,16 +1,46 @@
 package zed.rainxch.rikkaui.components.ui.icon
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
+
+// ─── Size ───────────────────────────────────────────────────
+
+/**
+ * Icon size variants.
+ *
+ * - [Xs] — 12dp. Tiny inline indicators.
+ * - [Sm] — 16dp. Compact icons for dense layouts.
+ * - [Default] — 20dp. Standard size matching most text.
+ * - [Lg] — 24dp. Prominent icons, toolbar actions.
+ * - [Xl] — 32dp. Large standalone icons.
+ */
+enum class IconSize(
+    val dp: Dp,
+) {
+    Xs(12.dp),
+    Sm(16.dp),
+    Default(20.dp),
+    Lg(24.dp),
+    Xl(32.dp),
+}
 
 // ─── Component ──────────────────────────────────────────────
 
@@ -42,7 +72,14 @@ import zed.rainxch.rikkaui.components.theme.RikkaTheme
  *     imageVector = RikkaIcons.Heart,
  *     contentDescription = "Favorite",
  *     tint = RikkaTheme.colors.destructive,
- *     modifier = Modifier.size(32.dp),
+ *     size = IconSize.Lg,
+ * )
+ *
+ * // Spinning loading icon
+ * Icon(
+ *     imageVector = RikkaIcons.Settings,
+ *     contentDescription = "Loading",
+ *     spin = true,
  * )
  * ```
  *
@@ -51,6 +88,9 @@ import zed.rainxch.rikkaui.components.theme.RikkaTheme
  * @param modifier Modifier applied to the root layout.
  * @param tint Color applied as a [ColorFilter] over the vector. Defaults to
  *   [RikkaTheme.colors.foreground].
+ * @param size Icon size variant. When `null`, uses the vector's default dimensions.
+ * @param spin When true, continuously rotates the icon. Useful for loading indicators
+ *   or refresh icons.
  */
 @Composable
 fun Icon(
@@ -58,6 +98,8 @@ fun Icon(
     contentDescription: String?,
     modifier: Modifier = Modifier,
     tint: Color = RikkaTheme.colors.foreground,
+    size: IconSize? = null,
+    spin: Boolean = false,
 ) {
     val painter = rememberVectorPainter(imageVector)
 
@@ -68,10 +110,42 @@ fun Icon(
             modifier
         }
 
+    val sizeModifier =
+        if (size != null) {
+            Modifier.size(size.dp)
+        } else {
+            Modifier.size(
+                imageVector.defaultWidth,
+                imageVector.defaultHeight,
+            )
+        }
+
+    val spinModifier =
+        if (spin) {
+            val motion = RikkaTheme.motion
+            val infiniteTransition = rememberInfiniteTransition()
+            val rotation by infiniteTransition.animateFloat(
+                initialValue = 0f,
+                targetValue = 360f,
+                animationSpec =
+                    infiniteRepeatable(
+                        animation =
+                            tween(
+                                durationMillis = motion.durationSlow * 4,
+                                easing = LinearEasing,
+                            ),
+                    ),
+            )
+            Modifier.graphicsLayer { rotationZ = rotation }
+        } else {
+            Modifier
+        }
+
     Box(
         modifier =
             semanticsModifier
-                .size(imageVector.defaultWidth, imageVector.defaultHeight),
+                .then(sizeModifier)
+                .then(spinModifier),
     ) {
         Image(
             painter = painter,

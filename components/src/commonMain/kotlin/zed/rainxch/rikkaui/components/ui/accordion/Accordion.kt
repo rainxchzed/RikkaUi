@@ -1,7 +1,11 @@
 package zed.rainxch.rikkaui.components.ui.accordion
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.snap
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
@@ -19,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -32,6 +37,49 @@ import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 
+// ─── Animation Enum ─────────────────────────────────────────
+
+/**
+ * Controls the expand/collapse animation style for [AccordionItem].
+ *
+ * Each option produces a different visual feel while reading
+ * duration and spring parameters from [RikkaTheme.motion] tokens
+ * so the animation stays consistent with the rest of the design
+ * system.
+ *
+ * ```
+ * AccordionItem(
+ *     title = "Details",
+ *     expanded = expanded,
+ *     onExpandedChange = { expanded = it },
+ *     animation = AccordionAnimation.Tween,
+ * ) {
+ *     Text("Smooth eased transition")
+ * }
+ * ```
+ */
+enum class AccordionAnimation {
+    /**
+     * Spring-physics expand/collapse with medium bounce.
+     * Handles interruptions gracefully and feels organic.
+     * This is the default.
+     */
+    Spring,
+
+    /**
+     * Duration-based eased expand/collapse using
+     * [RikkaTheme.motion] tween durations. Smoother and more
+     * predictable than [Spring], good for data-heavy UIs.
+     */
+    Tween,
+
+    /**
+     * Instant expand/collapse with no animation. Useful for
+     * reduced-motion preferences or performance-critical lists.
+     */
+    None,
+}
+
 // ─── Component ──────────────────────────────────────────────
 
 /**
@@ -42,6 +90,8 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
  * shadcn/ui's Accordion component.
  *
  * Features:
+ * - Configurable animation style via [AccordionAnimation]
+ * - Customizable chevron icon via [chevronIcon]
  * - Spring-physics chevron rotation (90 degrees when expanded)
  * - AnimatedVisibility with vertical expand/shrink transitions
  * - Bottom border separator for visual grouping
@@ -57,6 +107,17 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
  *     onExpandedChange = { expanded = it },
  * ) {
  *     Text("Yes. It adheres to the WAI-ARIA design pattern.")
+ * }
+ *
+ * // With tween animation and custom icon
+ * AccordionItem(
+ *     title = "Smooth section",
+ *     expanded = expanded,
+ *     onExpandedChange = { expanded = it },
+ *     animation = AccordionAnimation.Tween,
+ *     chevronIcon = RikkaIcons.ChevronDown,
+ * ) {
+ *     Text("Eased transition content")
  * }
  *
  * // Multiple items in a Column
@@ -76,8 +137,15 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
  *
  * @param title The header text displayed in the clickable title row.
  * @param expanded Whether the content section is currently visible.
- * @param onExpandedChange Called when the user clicks the title row to toggle.
+ * @param onExpandedChange Called when the user clicks the title row
+ *   to toggle.
  * @param modifier Modifier for layout and decoration.
+ * @param animation The expand/collapse animation style. Defaults to
+ *   [AccordionAnimation.Spring].
+ * @param chevronIcon The icon displayed as the expand indicator.
+ *   Defaults to [RikkaIcons.ChevronRight]. Rotates 90 degrees when
+ *   expanded. Pass [RikkaIcons.ChevronDown] for a vertical chevron
+ *   or any other [ImageVector].
  * @param content The expandable content slot.
  */
 @Composable
@@ -86,6 +154,8 @@ fun AccordionItem(
     expanded: Boolean,
     onExpandedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
+    animation: AccordionAnimation = AccordionAnimation.Spring,
+    chevronIcon: ImageVector = RikkaIcons.ChevronRight,
     content: @Composable () -> Unit,
 ) {
     val colors = RikkaTheme.colors
@@ -93,10 +163,10 @@ fun AccordionItem(
     val motion = RikkaTheme.motion
     val interactionSource = remember { MutableInteractionSource() }
 
-    // ─── Chevron rotation (spring physics) ───────────────
+    // ─── Chevron rotation ─────────────────────────────────
     val chevronRotation by animateFloatAsState(
         targetValue = if (expanded) 90f else 0f,
-        animationSpec = motion.springDefault,
+        animationSpec = resolveFloatSpec(animation, motion),
     )
 
     Column(
@@ -112,11 +182,11 @@ fun AccordionItem(
                         indication = null,
                         role = Role.Button,
                         onClick = { onExpandedChange(!expanded) },
-                    )
-                    .padding(vertical = spacing.lg)
+                    ).padding(vertical = spacing.lg)
                     .semantics(mergeDescendants = true) {
                         contentDescription = title
-                        stateDescription = if (expanded) "Expanded" else "Collapsed"
+                        stateDescription =
+                            if (expanded) "Expanded" else "Collapsed"
                     },
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -130,7 +200,7 @@ fun AccordionItem(
 
             // Chevron indicator — rotates 90 degrees when expanded.
             Icon(
-                imageVector = RikkaIcons.ChevronRight,
+                imageVector = chevronIcon,
                 contentDescription = null,
                 tint = colors.mutedForeground,
                 modifier =
@@ -143,8 +213,8 @@ fun AccordionItem(
         // ─── Expandable content ──────────────────────────
         AnimatedVisibility(
             visible = expanded,
-            enter = expandVertically(),
-            exit = shrinkVertically(),
+            enter = resolveEnter(animation, motion),
+            exit = resolveExit(animation, motion),
         ) {
             Box(
                 modifier =
@@ -166,3 +236,82 @@ fun AccordionItem(
         )
     }
 }
+
+// ─── Private animation resolution ───────────────────────────
+
+/**
+ * Resolves a [Float] animation spec from the [AccordionAnimation]
+ * and [RikkaTheme.motion] tokens. Used for the chevron rotation.
+ */
+@Composable
+private fun resolveFloatSpec(
+    animation: AccordionAnimation,
+    motion: zed.rainxch.rikkaui.components.theme.RikkaMotion,
+): androidx.compose.animation.core.AnimationSpec<Float> =
+    when (animation) {
+        AccordionAnimation.Spring -> motion.springDefault
+        AccordionAnimation.Tween -> motion.tweenDefault
+        AccordionAnimation.None -> snap()
+    }
+
+/**
+ * Resolves the [AnimatedVisibility] enter transition for the given
+ * animation style.
+ */
+@Composable
+private fun resolveEnter(
+    animation: AccordionAnimation,
+    motion: zed.rainxch.rikkaui.components.theme.RikkaMotion,
+): androidx.compose.animation.EnterTransition =
+    when (animation) {
+        AccordionAnimation.Spring ->
+            expandVertically(
+                animationSpec =
+                    spring(
+                        dampingRatio = Spring.DampingRatioMediumBouncy,
+                        stiffness = Spring.StiffnessMediumLow,
+                    ),
+            )
+        AccordionAnimation.Tween ->
+            expandVertically(
+                animationSpec =
+                    tween(
+                        durationMillis = motion.durationDefault,
+                    ),
+            )
+        AccordionAnimation.None ->
+            expandVertically(
+                animationSpec = snap(),
+            )
+    }
+
+/**
+ * Resolves the [AnimatedVisibility] exit transition for the given
+ * animation style.
+ */
+@Composable
+private fun resolveExit(
+    animation: AccordionAnimation,
+    motion: zed.rainxch.rikkaui.components.theme.RikkaMotion,
+): androidx.compose.animation.ExitTransition =
+    when (animation) {
+        AccordionAnimation.Spring ->
+            shrinkVertically(
+                animationSpec =
+                    spring(
+                        dampingRatio = Spring.DampingRatioMediumBouncy,
+                        stiffness = Spring.StiffnessMediumLow,
+                    ),
+            )
+        AccordionAnimation.Tween ->
+            shrinkVertically(
+                animationSpec =
+                    tween(
+                        durationMillis = motion.durationDefault,
+                    ),
+            )
+        AccordionAnimation.None ->
+            shrinkVertically(
+                animationSpec = snap(),
+            )
+    }
