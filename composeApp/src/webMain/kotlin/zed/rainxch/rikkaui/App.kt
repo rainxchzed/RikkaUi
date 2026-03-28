@@ -25,7 +25,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.ComposeViewport
-import rikkaui.composeapp.generated.resources.*
+import rikkaui.composeapp.generated.resources.Res
+import rikkaui.composeapp.generated.resources.inter_black
+import rikkaui.composeapp.generated.resources.inter_bold
+import rikkaui.composeapp.generated.resources.inter_light
+import rikkaui.composeapp.generated.resources.inter_medium
+import rikkaui.composeapp.generated.resources.inter_regular
+import rikkaui.composeapp.generated.resources.inter_semi_bold
 import zed.rainxch.rikkaui.components.theme.RikkaAccent
 import zed.rainxch.rikkaui.components.theme.RikkaAccentDark
 import zed.rainxch.rikkaui.components.theme.RikkaColors
@@ -40,16 +46,16 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.showcase.FooterSection
 import zed.rainxch.rikkaui.showcase.HeroSection
 import zed.rainxch.rikkaui.showcase.ThemeSection
-import zed.rainxch.rikkaui.showcase.examples.AuthSettingsExample
-import zed.rainxch.rikkaui.showcase.examples.ChatInputExample
-import zed.rainxch.rikkaui.showcase.examples.ComputeEnvironmentExample
-import zed.rainxch.rikkaui.showcase.examples.NavigationExample
-import zed.rainxch.rikkaui.showcase.examples.NotificationsExample
-import zed.rainxch.rikkaui.showcase.examples.PaymentFormExample
-import zed.rainxch.rikkaui.showcase.examples.PriceRangeExample
-import zed.rainxch.rikkaui.showcase.examples.SearchExample
-import zed.rainxch.rikkaui.showcase.examples.SurveyExample
-import zed.rainxch.rikkaui.showcase.examples.TeamMembersExample
+import zed.rainxch.rikkaui.showcase.examples.ActivityFeedExample
+import zed.rainxch.rikkaui.showcase.examples.ApiKeyManagerExample
+import zed.rainxch.rikkaui.showcase.examples.FeedbackFormExample
+import zed.rainxch.rikkaui.showcase.examples.FileExplorerExample
+import zed.rainxch.rikkaui.showcase.examples.MusicPlayerExample
+import zed.rainxch.rikkaui.showcase.examples.QuickNoteExample
+import zed.rainxch.rikkaui.showcase.examples.SystemStatusExample
+import zed.rainxch.rikkaui.showcase.examples.TaskBoardExample
+import zed.rainxch.rikkaui.showcase.examples.UserProfileExample
+import zed.rainxch.rikkaui.showcase.examples.WeatherDashboardExample
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
@@ -113,21 +119,6 @@ private fun ShowcaseApp(
         ) {
             HeroSection()
 
-            Separator()
-
-            ThemeSection(
-                isDark = isDark,
-                onDarkChange = onDarkChange,
-                paletteName = paletteName,
-                onPaletteChange = onPaletteChange,
-                accentName = accentName,
-                onAccentChange = onAccentChange,
-            )
-
-            Spacer(Modifier.height(RikkaTheme.spacing.xxxl))
-
-            Separator()
-
             Spacer(Modifier.height(RikkaTheme.spacing.xl))
 
             Text(
@@ -140,7 +131,9 @@ private fun ShowcaseApp(
             Spacer(Modifier.height(RikkaTheme.spacing.xs))
 
             Text(
-                text = "Real-world examples built with RikkaUI components.",
+                text =
+                    "Real-world interfaces built entirely with" +
+                        " RikkaUI components.",
                 variant = TextVariant.Muted,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
@@ -149,6 +142,41 @@ private fun ShowcaseApp(
             Spacer(Modifier.height(RikkaTheme.spacing.xxl))
 
             ExamplesGrid()
+
+            Spacer(Modifier.height(RikkaTheme.spacing.xxxl))
+
+            Separator()
+
+            Spacer(Modifier.height(RikkaTheme.spacing.xl))
+
+            Text(
+                text = "Make It Yours",
+                variant = TextVariant.H2,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth(),
+            )
+
+            Spacer(Modifier.height(RikkaTheme.spacing.xs))
+
+            Text(
+                text =
+                    "Pick a palette, choose an accent, toggle" +
+                        " dark mode. Watch everything update.",
+                variant = TextVariant.Muted,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth(),
+            )
+
+            Spacer(Modifier.height(RikkaTheme.spacing.xxl))
+
+            ThemeSection(
+                isDark = isDark,
+                onDarkChange = onDarkChange,
+                paletteName = paletteName,
+                onPaletteChange = onPaletteChange,
+                accentName = accentName,
+                onAccentChange = onAccentChange,
+            )
 
             Spacer(Modifier.height(RikkaTheme.spacing.xxxl))
 
@@ -170,8 +198,8 @@ private fun ExamplesGrid() {
             modifier = Modifier.weight(1.2f),
             verticalArrangement = Arrangement.spacedBy(gap),
         ) {
-            PaymentFormExample()
-            PriceRangeExample()
+            MusicPlayerExample()
+            WeatherDashboardExample()
         }
 
         // ── Column 2: Center ───────────────────────────
@@ -179,10 +207,10 @@ private fun ExamplesGrid() {
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(gap),
         ) {
-            TeamMembersExample()
-            NotificationsExample()
-            ChatInputExample()
-            SearchExample()
+            TaskBoardExample()
+            FileExplorerExample()
+            QuickNoteExample()
+            SystemStatusExample()
         }
 
         // ── Column 3: Right ────────────────────────────
@@ -190,10 +218,10 @@ private fun ExamplesGrid() {
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(gap),
         ) {
-            AuthSettingsExample()
-            ComputeEnvironmentExample()
-            SurveyExample()
-            NavigationExample()
+            UserProfileExample()
+            ApiKeyManagerExample()
+            FeedbackFormExample()
+            ActivityFeedExample()
         }
     }
 }

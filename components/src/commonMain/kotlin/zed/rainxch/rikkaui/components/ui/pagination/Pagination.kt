@@ -25,6 +25,8 @@ import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.components.ui.icon.Icon
+import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 
@@ -81,13 +83,18 @@ fun Pagination(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         // Previous button
-        PaginationButton(
-            text = "\u2190",
+        PaginationIconButton(
             onClick = { onPageChange(currentPage - 1) },
             enabled = currentPage > 1,
-            isActive = false,
             label = "Previous page",
-        )
+        ) { tint ->
+            Icon(
+                imageVector = RikkaIcons.ChevronLeft,
+                contentDescription = null,
+                tint = tint,
+                modifier = Modifier.size(16.dp),
+            )
+        }
 
         // Leading ellipsis
         if (pageRange.showLeadingEllipsis) {
@@ -125,13 +132,18 @@ fun Pagination(
         }
 
         // Next button
-        PaginationButton(
-            text = "\u2192",
+        PaginationIconButton(
             onClick = { onPageChange(currentPage + 1) },
             enabled = currentPage < totalPages,
-            isActive = false,
             label = "Next page",
-        )
+        ) { tint ->
+            Icon(
+                imageVector = RikkaIcons.ChevronRight,
+                contentDescription = null,
+                tint = tint,
+                modifier = Modifier.size(16.dp),
+            )
+        }
     }
 }
 
@@ -209,6 +221,78 @@ private fun PaginationButton(
             variant = TextVariant.Small,
             color = colors.foreground,
         )
+    }
+}
+
+// ─── PaginationIconButton ─────────────────────────────────
+
+/**
+ * Navigation button variant that accepts icon content instead of text.
+ * Used for Previous/Next buttons with [Icon] composables.
+ *
+ * @param onClick Called when the button is clicked.
+ * @param enabled Whether the button is interactive.
+ * @param label Accessibility label for screen readers.
+ * @param modifier Modifier for layout and decoration.
+ * @param content Icon content slot receiving the resolved foreground [Color].
+ */
+@Composable
+private fun PaginationIconButton(
+    onClick: () -> Unit,
+    enabled: Boolean,
+    label: String,
+    modifier: Modifier = Modifier,
+    content: @Composable (Color) -> Unit,
+) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isHovered by interactionSource.collectIsHoveredAsState()
+
+    val colors = resolveButtonColors(isActive = false, isHovered = isHovered)
+    val motion = RikkaTheme.motion
+    val shape = RikkaTheme.shapes.md
+
+    val animatedBackground by animateColorAsState(
+        targetValue = colors.background,
+        animationSpec = tween(motion.durationDefault),
+    )
+
+    val backgroundModifier =
+        if (colors.background != Color.Transparent) {
+            Modifier.background(animatedBackground, shape)
+        } else {
+            Modifier
+        }
+
+    val borderModifier =
+        if (colors.border != Color.Transparent) {
+            Modifier.border(1.dp, colors.border, shape)
+        } else {
+            Modifier
+        }
+
+    Box(
+        modifier =
+            modifier
+                .then(borderModifier)
+                .then(backgroundModifier)
+                .clip(shape)
+                .size(36.dp)
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null,
+                    enabled = enabled,
+                    role = Role.Button,
+                    onClick = onClick,
+                ).then(if (!enabled) Modifier.alpha(0.5f) else Modifier)
+                .semantics(mergeDescendants = true) {
+                    contentDescription = label
+                    if (!enabled) {
+                        disabled()
+                    }
+                },
+        contentAlignment = Alignment.Center,
+    ) {
+        content(colors.foreground)
     }
 }
 

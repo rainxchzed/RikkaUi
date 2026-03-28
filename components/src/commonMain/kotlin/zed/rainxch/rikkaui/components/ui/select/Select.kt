@@ -9,6 +9,9 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -41,6 +44,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.components.ui.icon.Icon
+import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 
@@ -169,10 +174,11 @@ fun Select(
                 },
                 modifier = Modifier.weight(1f),
             )
-            Text(
-                text = "\u25BE",
-                variant = TextVariant.Small,
-                color = colors.mutedForeground,
+            Icon(
+                imageVector = RikkaIcons.ChevronDown,
+                contentDescription = null,
+                tint = colors.mutedForeground,
+                modifier = Modifier.size(16.dp),
             )
         }
 
@@ -253,11 +259,16 @@ private fun SelectItem(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         // Check mark for selected item
-        Text(
-            text = if (isSelected) "\u2713" else "  ",
-            variant = TextVariant.Small,
-            color = colors.foreground,
-        )
+        if (isSelected) {
+            Icon(
+                imageVector = RikkaIcons.Check,
+                contentDescription = null,
+                tint = colors.foreground,
+                modifier = Modifier.size(16.dp),
+            )
+        } else {
+            Spacer(modifier = Modifier.width(16.dp))
+        }
         Text(
             text = option.label,
             variant = TextVariant.P,

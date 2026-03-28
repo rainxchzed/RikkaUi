@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -28,6 +27,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.components.ui.icon.Icon
+import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 
@@ -128,16 +129,14 @@ fun AccordionItem(
             )
 
             // Chevron indicator — rotates 90 degrees when expanded.
-            BasicText(
-                text = "\u25B8",
+            Icon(
+                imageVector = RikkaIcons.ChevronRight,
+                contentDescription = null,
+                tint = colors.mutedForeground,
                 modifier =
                     Modifier.graphicsLayer {
                         rotationZ = chevronRotation
                     },
-                style =
-                    RikkaTheme.typography.p.copy(
-                        color = colors.mutedForeground,
-                    ),
             )
         }
 

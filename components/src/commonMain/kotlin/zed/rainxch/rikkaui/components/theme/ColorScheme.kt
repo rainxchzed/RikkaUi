@@ -80,9 +80,9 @@ object RikkaPalettes {
     //  Slate — Sophisticated, blue-gray undertone
     // ═══════════════════════════════════════════════
 
-    /** Slate base palette, light variant. */
+    /** Slate base palette, light variant. Blue-gray undertone. */
     val SlateLight = RikkaColors(
-        background = Color(0xFFFFFFFF),
+        background = Color(0xFFF8FAFC),
         foreground = Color(0xFF020817),
         card = Color(0xFFFFFFFF),
         cardForeground = Color(0xFF020817),
@@ -90,16 +90,16 @@ object RikkaPalettes {
         popoverForeground = Color(0xFF020817),
         primary = Color(0xFF0F172A),
         primaryForeground = Color(0xFFF8FAFC),
-        secondary = Color(0xFFF1F5F9),
+        secondary = Color(0xFFE2E8F0),
         secondaryForeground = Color(0xFF0F172A),
         muted = Color(0xFFF1F5F9),
         mutedForeground = Color(0xFF64748B),
-        accent = Color(0xFFF1F5F9),
+        accent = Color(0xFFE2E8F0),
         accentForeground = Color(0xFF0F172A),
         destructive = Color(0xFFEF4444),
         destructiveForeground = Color(0xFFF8FAFC),
-        border = Color(0xFFE2E8F0),
-        input = Color(0xFFE2E8F0),
+        border = Color(0xFFCBD5E1),
+        input = Color(0xFFCBD5E1),
         ring = Color(0xFF020817),
     )
 
@@ -130,9 +130,9 @@ object RikkaPalettes {
     //  Stone — Warm, earthy, brown-tinted gray
     // ═══════════════════════════════════════════════
 
-    /** Stone base palette, light variant. */
+    /** Stone base palette, light variant. Warm, earthy undertone. */
     val StoneLight = RikkaColors(
-        background = Color(0xFFFFFFFF),
+        background = Color(0xFFFAFAF9),
         foreground = Color(0xFF0C0A09),
         card = Color(0xFFFFFFFF),
         cardForeground = Color(0xFF0C0A09),
@@ -140,16 +140,16 @@ object RikkaPalettes {
         popoverForeground = Color(0xFF0C0A09),
         primary = Color(0xFF1C1917),
         primaryForeground = Color(0xFFFAFAF9),
-        secondary = Color(0xFFF5F5F4),
+        secondary = Color(0xFFE7E5E4),
         secondaryForeground = Color(0xFF1C1917),
         muted = Color(0xFFF5F5F4),
         mutedForeground = Color(0xFF78716C),
-        accent = Color(0xFFF5F5F4),
+        accent = Color(0xFFE7E5E4),
         accentForeground = Color(0xFF1C1917),
         destructive = Color(0xFFEF4444),
         destructiveForeground = Color(0xFFFAFAF9),
-        border = Color(0xFFE7E5E4),
-        input = Color(0xFFE7E5E4),
+        border = Color(0xFFD6D3D1),
+        input = Color(0xFFD6D3D1),
         ring = Color(0xFF0C0A09),
     )
 
@@ -180,9 +180,9 @@ object RikkaPalettes {
     //  Gray — Balanced, true gray with slight cool cast
     // ═══════════════════════════════════════════════
 
-    /** Gray base palette, light variant. */
+    /** Gray base palette, light variant. Balanced cool cast. */
     val GrayLight = RikkaColors(
-        background = Color(0xFFFFFFFF),
+        background = Color(0xFFF9FAFB),
         foreground = Color(0xFF030712),
         card = Color(0xFFFFFFFF),
         cardForeground = Color(0xFF030712),
@@ -190,16 +190,16 @@ object RikkaPalettes {
         popoverForeground = Color(0xFF030712),
         primary = Color(0xFF111827),
         primaryForeground = Color(0xFFF9FAFB),
-        secondary = Color(0xFFF3F4F6),
+        secondary = Color(0xFFE5E7EB),
         secondaryForeground = Color(0xFF111827),
         muted = Color(0xFFF3F4F6),
         mutedForeground = Color(0xFF6B7280),
-        accent = Color(0xFFF3F4F6),
+        accent = Color(0xFFE5E7EB),
         accentForeground = Color(0xFF111827),
         destructive = Color(0xFFEF4444),
         destructiveForeground = Color(0xFFF9FAFB),
-        border = Color(0xFFE5E7EB),
-        input = Color(0xFFE5E7EB),
+        border = Color(0xFFD1D5DB),
+        input = Color(0xFFD1D5DB),
         ring = Color(0xFF030712),
     )
 
@@ -230,9 +230,9 @@ object RikkaPalettes {
     //  Neutral — Pure achromatic, no hue
     // ═══════════════════════════════════════════════
 
-    /** Neutral base palette, light variant. */
+    /** Neutral base palette, light variant. Pure achromatic. */
     val NeutralLight = RikkaColors(
-        background = Color(0xFFFFFFFF),
+        background = Color(0xFFFAFAFA),
         foreground = Color(0xFF0A0A0A),
         card = Color(0xFFFFFFFF),
         cardForeground = Color(0xFF0A0A0A),
@@ -240,16 +240,16 @@ object RikkaPalettes {
         popoverForeground = Color(0xFF0A0A0A),
         primary = Color(0xFF171717),
         primaryForeground = Color(0xFFFAFAFA),
-        secondary = Color(0xFFF5F5F5),
+        secondary = Color(0xFFE5E5E5),
         secondaryForeground = Color(0xFF171717),
         muted = Color(0xFFF5F5F5),
         mutedForeground = Color(0xFF737373),
-        accent = Color(0xFFF5F5F5),
+        accent = Color(0xFFE5E5E5),
         accentForeground = Color(0xFF171717),
         destructive = Color(0xFFEF4444),
         destructiveForeground = Color(0xFFFAFAFA),
-        border = Color(0xFFE5E5E5),
-        input = Color(0xFFE5E5E5),
+        border = Color(0xFFD4D4D4),
+        input = Color(0xFFD4D4D4),
         ring = Color(0xFF0A0A0A),
     )
 

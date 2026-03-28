@@ -141,7 +141,10 @@ fun Toggle(
                     .offset(x = sizeValues.thumbPadding + thumbOffset)
                     .size(sizeValues.thumbSize)
                     .clip(CircleShape)
-                    .background(Color.White, CircleShape),
+                    .background(
+                        if (checked) colors.primaryForeground else Color.White,
+                        CircleShape,
+                    ),
         )
     }
 }
