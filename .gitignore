@@ -3,3 +3,4 @@
 /build/
 /composeApp/build/
 /composeApp/build/classes/kotlin/wasmJs/main/
+/.kotlin
