@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "rikka-preview",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "composeApp/build/dist/wasmJs/developmentExecutable", "-l", "3000", "--no-clipboard"],
+      "port": 3000
+    }
+  ]
+}
