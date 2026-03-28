@@ -1,2 +1,2 @@
 
-<RikkaUi:creator>:#rikkaui.creator.generated.resources:zed.rainxch.rikkaui.creator
+<RikkaUi.feature:creator>:+rikkaui.feature.creator.generated.resources:zed.rainxch.rikkaui.creator:#zed.rainxch.rikkaui.creator.codegen:$zed.rainxch.rikkaui.creator.download:!zed.rainxch.rikkaui.creator.fonts:!zed.rainxch.rikkaui.creator.panel:#zed.rainxch.rikkaui.creator.preview

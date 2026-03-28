@@ -1,7 +1,7 @@
 {
-  "name": "RikkaUi-creator-test",
+  "name": "RikkaUi-feature-creator-test",
   "version": "0.0.0-unspecified",
-  "main": "RikkaUi-creator-test.mjs",
+  "main": "RikkaUi-feature-creator-test.mjs",
   "devDependencies": {},
   "dependencies": {},
   "peerDependencies": {},

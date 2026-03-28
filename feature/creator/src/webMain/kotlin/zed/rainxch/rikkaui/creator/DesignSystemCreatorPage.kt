@@ -23,6 +23,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.creator.codegen.generateReadme
+import zed.rainxch.rikkaui.creator.codegen.generateThemeCode
+import zed.rainxch.rikkaui.creator.download.downloadDesignSystemZip
+import zed.rainxch.rikkaui.creator.fonts.availableFonts
+import zed.rainxch.rikkaui.creator.panel.ConfigPanel
+import zed.rainxch.rikkaui.creator.preview.LivePreview
 
 /**
  * Root composable for the "Create Your Design System" page.
@@ -41,28 +47,32 @@ fun DesignSystemCreatorPage() {
     var previewDark by remember { mutableStateOf(true) }
     var fontId by remember { mutableStateOf("inter") }
 
-    val selectedFont = availableFonts.find { it.id == fontId }
-        ?: availableFonts.first()
+    val selectedFont =
+        availableFonts.find { it.id == fontId }
+            ?: availableFonts.first()
 
     val onDownload: () -> Unit = {
-        val themeCode = generateThemeCode(
-            paletteName = paletteName,
-            accentName = accentName,
-            stylePreset = stylePreset,
-            fontId = fontId,
-            fontDisplayName = selectedFont.displayName,
-        )
-        val readme = generateReadme(
-            paletteName = paletteName,
-            accentName = accentName,
-            stylePreset = stylePreset,
-            fontDisplayName = selectedFont.displayName,
-        )
+        val themeCode =
+            generateThemeCode(
+                paletteName = paletteName,
+                accentName = accentName,
+                stylePreset = stylePreset,
+                fontId = fontId,
+                fontDisplayName = selectedFont.displayName,
+            )
+        val readme =
+            generateReadme(
+                paletteName = paletteName,
+                accentName = accentName,
+                stylePreset = stylePreset,
+                fontDisplayName = selectedFont.displayName,
+            )
         downloadDesignSystemZip(
             zipName = "rikka-theme.zip",
             themeCode = themeCode,
             readmeContent = readme,
             fontId = fontId,
+            fontWeights = selectedFont.weights,
         )
     }
 
