@@ -12,6 +12,9 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/components" />
             <option value="$PROJECT_DIR$/composeApp" />
+            <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/creator" />
+            <option value="$PROJECT_DIR$/foundation" />
           </set>
         </option>
       </GradleProjectSettings>

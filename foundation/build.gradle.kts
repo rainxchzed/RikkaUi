@@ -18,7 +18,6 @@ kotlin {
             dependencies {
                 implementation(libs.compose.runtime)
                 implementation(libs.compose.foundation)
-                implementation(projects.foundation)
                 implementation(libs.compose.ui)
                 implementation(libs.compose.components.resources)
             }

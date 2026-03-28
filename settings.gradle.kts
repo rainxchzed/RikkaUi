@@ -30,4 +30,5 @@ dependencyResolutionManagement {
 
 include(":composeApp")
 include(":components")
-include(":creator")
+include(":foundation")
+include(":feature:creator")
