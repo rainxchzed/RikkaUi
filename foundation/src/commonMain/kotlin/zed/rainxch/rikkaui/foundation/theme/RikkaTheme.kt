@@ -99,6 +99,41 @@ fun RikkaTheme(
 }
 
 /**
+ * All-in-one overload: palette + accent + dark mode in a single call.
+ *
+ * The simplest way to set up a fully themed app:
+ * ```
+ * RikkaTheme(
+ *     palette = RikkaPalette.Zinc,
+ *     accent = RikkaAccentPreset.Blue,
+ *     isDark = true,
+ *     preset = RikkaStylePreset.Vega,
+ * ) { ... }
+ * ```
+ */
+@Composable
+fun RikkaTheme(
+    palette: RikkaPalette = RikkaPalette.Zinc,
+    accent: RikkaAccentPreset = RikkaAccentPreset.Default,
+    isDark: Boolean = false,
+    preset: RikkaStylePreset = RikkaStylePreset.Default,
+    typography: RikkaTypography = rikkaTypography(
+        scale = preset.typeScale,
+    ),
+    content: @Composable () -> Unit,
+) {
+    val colors = accent.applyTo(palette.resolve(isDark), isDark)
+    RikkaTheme(
+        colors = colors,
+        typography = typography,
+        spacing = preset.spacing,
+        shapes = preset.shapes,
+        motion = preset.motion,
+        content = content,
+    )
+}
+
+/**
  * Access point for the current RikkaUi theme values.
  *
  * Usage:

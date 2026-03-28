@@ -37,15 +37,7 @@ import zed.rainxch.rikkaui.navigation.DocsRoute
 import zed.rainxch.rikkaui.navigation.HomeRoute
 import zed.rainxch.rikkaui.shell.TopNavBar
 import zed.rainxch.rikkaui.showcase.ShowcaseApp
-import zed.rainxch.rikkaui.theme.resolveAccent
-import zed.rainxch.rikkaui.theme.resolvePalette
 
-/**
- * Application entry point.
- *
- * Uses Navigation 2 with type-safe `@Serializable` routes
- * and browser history integration.
- */
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
     ComposeViewport {
@@ -55,7 +47,6 @@ fun main() {
 
 @Composable
 private fun App() {
-    // ─── Global state ────────────────────────────────
     var isDark by remember { mutableStateOf(true) }
     var palette by remember { mutableStateOf(RikkaPalette.Zinc) }
     var accent by remember { mutableStateOf(RikkaAccentPreset.Default) }
@@ -63,9 +54,6 @@ private fun App() {
         mutableStateOf(RikkaStylePreset.Default)
     }
 
-    // ─── Theme resolution ────────────────────────────
-    val baseColors = resolvePalette(palette, isDark)
-    val colors = resolveAccent(baseColors, accent, isDark)
     val fontFamily =
         rememberRikkaFontFamily(
             light = Res.font.inter_light,
@@ -77,15 +65,15 @@ private fun App() {
         )
 
     RikkaTheme(
-        colors = colors,
+        palette = palette,
+        accent = accent,
+        isDark = isDark,
+        preset = stylePreset,
         typography =
             rikkaTypography(
-                fontFamily,
+                fontFamily = fontFamily,
                 scale = stylePreset.typeScale,
             ),
-        spacing = stylePreset.spacing,
-        shapes = stylePreset.shapes,
-        motion = stylePreset.motion,
     ) {
         val navController = rememberNavController()
 
@@ -117,7 +105,7 @@ private fun App() {
                         stylePreset = stylePreset,
                         onStyleChange = { stylePreset = it },
                         onNavigateToCreator = {
-                            navController.navigate(CreatorRoute)
+                            navController.navigate(DocsRoute)
                         },
                     )
                 }
@@ -147,6 +135,5 @@ private fun App() {
                 }
             }
         }
-
     }
 }

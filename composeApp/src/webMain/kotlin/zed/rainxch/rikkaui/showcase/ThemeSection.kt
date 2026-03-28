@@ -64,7 +64,6 @@ fun ThemeSection(
     Spacer(Modifier.height(RikkaTheme.spacing.md))
 
     Card(modifier = Modifier.fillMaxWidth()) {
-        // ─── Style ─────────────────────────────────────────
         Text(
             text = stringResource(Res.string.style_label),
             variant = TextVariant.Small,
@@ -94,7 +93,6 @@ fun ThemeSection(
 
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
-        // ─── Palette ───────────────────────────────────────
         Text(
             text = stringResource(Res.string.palette),
             variant = TextVariant.Small,
@@ -124,7 +122,6 @@ fun ThemeSection(
 
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
-        // ─── Accent ────────────────────────────────────────
         Text(
             text = stringResource(Res.string.accent),
             variant = TextVariant.Small,
@@ -176,35 +173,6 @@ fun ThemeSection(
                     )
                 }
             }
-        }
-
-        Spacer(Modifier.height(RikkaTheme.spacing.lg))
-
-        // ─── Dark Mode ─────────────────────────────────────
-        Text(
-            text = stringResource(Res.string.dark_mode_label),
-            variant = TextVariant.Small,
-        )
-        Spacer(Modifier.height(RikkaTheme.spacing.xs))
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement =
-                Arrangement.spacedBy(RikkaTheme.spacing.sm),
-        ) {
-            Toggle(
-                checked = isDark,
-                onCheckedChange = onDarkChange,
-                label = stringResource(Res.string.toggle_dark_mode),
-            )
-            Text(
-                text =
-                    if (isDark) {
-                        stringResource(Res.string.dark)
-                    } else {
-                        stringResource(Res.string.light)
-                    },
-                variant = TextVariant.Muted,
-            )
         }
     }
 

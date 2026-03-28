@@ -29,15 +29,6 @@ import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 
-/**
- * Root layout composable for the showcase website.
- *
- * Orchestrates the page flow:
- * 1. Hero section
- * 2. "Components in Action" — responsive example grid
- * 3. "Make It Yours" — interactive theme controls
- * 4. Footer
- */
 @Composable
 fun ShowcaseApp(
     isDark: Boolean,

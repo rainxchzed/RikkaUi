@@ -19,13 +19,6 @@ import zed.rainxch.rikkaui.showcase.examples.TaskBoardExample
 import zed.rainxch.rikkaui.showcase.examples.UserProfileExample
 import zed.rainxch.rikkaui.showcase.examples.WeatherDashboardExample
 
-/**
- * Responsive example grid that adapts to the current [WindowSizeClass].
- *
- * - **Compact**: single-column stack
- * - **Medium**: two-column masonry
- * - **Expanded**: three-column masonry (left column wider)
- */
 @Composable
 fun ExamplesGrid(sizeClass: WindowSizeClass) {
     val gap = RikkaTheme.spacing.md
@@ -91,7 +84,6 @@ private fun ExpandedGrid(gap: Dp) {
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(gap),
     ) {
-        // Column 1: Left (wider)
         Column(
             modifier = Modifier.weight(1.2f),
             verticalArrangement = Arrangement.spacedBy(gap),
@@ -100,7 +92,6 @@ private fun ExpandedGrid(gap: Dp) {
             WeatherDashboardExample()
         }
 
-        // Column 2: Center
         Column(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(gap),
@@ -111,7 +102,6 @@ private fun ExpandedGrid(gap: Dp) {
             SystemStatusExample()
         }
 
-        // Column 3: Right
         Column(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(gap),

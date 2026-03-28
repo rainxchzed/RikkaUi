@@ -34,23 +34,58 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
-import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.docs.catalog.ComponentCategory
 import zed.rainxch.rikkaui.docs.catalog.ComponentEntry
 import zed.rainxch.rikkaui.docs.catalog.ComponentRegistry
+import zed.rainxch.rikkaui.docs.pages.InstallationDoc
+import zed.rainxch.rikkaui.docs.pages.IntroductionDoc
+import zed.rainxch.rikkaui.docs.pages.ThemingDoc
+
+// ─── Getting Started Pages ───────────────────────────────────
+
+/**
+ * Sidebar entry for non-component pages (Getting Started section).
+ */
+private data class GuidePage(
+    val id: String,
+    val name: String,
+    val content: @Composable () -> Unit,
+)
+
+private val guidePages =
+    listOf(
+        GuidePage(
+            id = "introduction",
+            name = "Introduction",
+            content = { IntroductionDoc() },
+        ),
+        GuidePage(
+            id = "installation",
+            name = "Installation",
+            content = { InstallationDoc() },
+        ),
+        GuidePage(
+            id = "theming",
+            name = "Theming",
+            content = { ThemingDoc() },
+        ),
+    )
+
+// ─── DocsPage ────────────────────────────────────────────────
 
 /**
  * Docs page with sidebar navigation and content area.
  *
- * When [initialComponentId] is null, shows the components
- * overview (first component). When set, navigates directly
- * to that component's documentation.
+ * Includes two sidebar sections:
+ * 1. **Getting Started** — Introduction, Installation, Theming
+ * 2. **Components** — 41 components grouped by category
  *
- * @param navController App-level NavController (used by
- *   the sidebar to update browser URL via navigate()).
- * @param initialComponentId Optional component to show on load.
+ * @param navController App-level NavController.
+ * @param initialComponentId Component to show on load, or
+ *   a guide page id ("introduction", "installation", "theming").
+ *   When null, defaults to Introduction.
  */
 @Composable
 fun DocsPage(
@@ -61,20 +96,16 @@ fun DocsPage(
     val registry = ComponentRegistry
     var selectedId by remember {
         mutableStateOf(
-            initialComponentId
-                ?: registry.entries.first().id,
+            initialComponentId ?: "introduction",
         )
     }
 
-    // Sync if route changes
+    // Sync if route changes externally
     if (initialComponentId != null &&
         initialComponentId != selectedId
     ) {
         selectedId = initialComponentId
     }
-
-    val selectedEntry = registry.findById(selectedId)
-        ?: registry.entries.first()
 
     BoxWithConstraints(modifier = modifier.fillMaxSize()) {
         val isWide = maxWidth >= 800.dp
@@ -83,6 +114,7 @@ fun DocsPage(
             Row(Modifier.fillMaxSize()) {
                 // ─── Sidebar ─────────────────────────
                 DocsSidebar(
+                    guidePages = guidePages,
                     grouped = registry.groupedByCategory(),
                     selectedId = selectedId,
                     onSelect = { selectedId = it },
@@ -120,7 +152,10 @@ fun DocsPage(
                             )
                             .padding(RikkaTheme.spacing.xl),
                 ) {
-                    ComponentContent(selectedEntry)
+                    PageContent(
+                        selectedId = selectedId,
+                        registry = registry,
+                    )
                 }
             }
         } else {
@@ -132,8 +167,8 @@ fun DocsPage(
                         .verticalScroll(rememberScrollState())
                         .padding(RikkaTheme.spacing.md),
             ) {
-                // Compact sidebar as horizontal chips
-                CompactComponentSelector(
+                CompactSelector(
+                    guidePages = guidePages,
                     entries = registry.entries,
                     selectedId = selectedId,
                     onSelect = { selectedId = it },
@@ -141,8 +176,34 @@ fun DocsPage(
 
                 Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
-                ComponentContent(selectedEntry)
+                PageContent(
+                    selectedId = selectedId,
+                    registry = registry,
+                )
             }
+        }
+    }
+}
+
+// ─── Content Router ──────────────────────────────────────────
+
+@Composable
+private fun PageContent(
+    selectedId: String,
+    registry: ComponentRegistry,
+) {
+    Column(modifier = Modifier.widthIn(max = 900.dp)) {
+        // Check guide pages first
+        val guide = guidePages.find { it.id == selectedId }
+        if (guide != null) {
+            guide.content()
+            return@Column
+        }
+
+        // Then check component pages
+        val entry = registry.findById(selectedId)
+        if (entry != null) {
+            entry.content()
         }
     }
 }
@@ -151,6 +212,7 @@ fun DocsPage(
 
 @Composable
 private fun DocsSidebar(
+    guidePages: List<GuidePage>,
     grouped: Map<ComponentCategory, List<ComponentEntry>>,
     selectedId: String,
     onSelect: (String) -> Unit,
@@ -161,12 +223,31 @@ private fun DocsSidebar(
         verticalArrangement =
             Arrangement.spacedBy(RikkaTheme.spacing.xs),
     ) {
+        // ─── Getting Started section ─────────────
+        Text(
+            text = "Getting Started",
+            variant = TextVariant.H4,
+        )
+
+        Spacer(Modifier.height(RikkaTheme.spacing.xs))
+
+        guidePages.forEach { page ->
+            SidebarItem(
+                name = page.name,
+                isSelected = page.id == selectedId,
+                onClick = { onSelect(page.id) },
+            )
+        }
+
+        Spacer(Modifier.height(RikkaTheme.spacing.lg))
+
+        // ─── Components section ──────────────────
         Text(
             text = "Components",
             variant = TextVariant.H4,
         )
 
-        Spacer(Modifier.height(RikkaTheme.spacing.sm))
+        Spacer(Modifier.height(RikkaTheme.spacing.xs))
 
         grouped.forEach { (category, entries) ->
             Spacer(Modifier.height(RikkaTheme.spacing.sm))
@@ -178,7 +259,8 @@ private fun DocsSidebar(
                     RikkaTheme.typography.small.merge(
                         TextStyle(
                             color =
-                                RikkaTheme.colors.mutedForeground,
+                                RikkaTheme.colors
+                                    .mutedForeground,
                             fontWeight = FontWeight.SemiBold,
                         ),
                     ),
@@ -188,7 +270,6 @@ private fun DocsSidebar(
                     ),
             )
 
-            // Component links
             entries.forEach { entry ->
                 SidebarItem(
                     name = entry.name,
@@ -214,9 +295,8 @@ private fun SidebarItem(
     val bg =
         when {
             isSelected -> RikkaTheme.colors.muted
-            isHovered -> RikkaTheme.colors.muted.copy(
-                alpha = 0.5f,
-            )
+            isHovered ->
+                RikkaTheme.colors.muted.copy(alpha = 0.5f)
             else -> RikkaTheme.colors.background
         }
 
@@ -265,7 +345,8 @@ private fun SidebarItem(
 // ─── Compact Selector (narrow screens) ───────────────────────
 
 @Composable
-private fun CompactComponentSelector(
+private fun CompactSelector(
+    guidePages: List<GuidePage>,
     entries: List<ComponentEntry>,
     selectedId: String,
     onSelect: (String) -> Unit,
@@ -280,61 +361,71 @@ private fun CompactComponentSelector(
         horizontalArrangement =
             Arrangement.spacedBy(RikkaTheme.spacing.xs),
     ) {
+        // Guide pages first
+        guidePages.forEach { page ->
+            CompactChip(
+                text = page.name,
+                isActive = page.id == selectedId,
+                onClick = { onSelect(page.id) },
+            )
+        }
+
+        // Then component entries
         entries.forEach { entry ->
-            val isActive = entry.id == selectedId
-            val interactionSource =
-                remember { MutableInteractionSource() }
-            val isHovered by
-                interactionSource.collectIsHoveredAsState()
-
-            val bg =
-                when {
-                    isActive -> RikkaTheme.colors.primary
-                    isHovered -> RikkaTheme.colors.muted
-                    else -> RikkaTheme.colors.background
-                }
-            val fg =
-                if (isActive) {
-                    RikkaTheme.colors.primaryForeground
-                } else {
-                    RikkaTheme.colors.foreground
-                }
-
-            Box(
-                modifier =
-                    Modifier
-                        .hoverable(interactionSource)
-                        .clickable(
-                            interactionSource =
-                                interactionSource,
-                            indication = null,
-                        ) { onSelect(entry.id) }
-                        .background(bg, RikkaTheme.shapes.md)
-                        .padding(
-                            horizontal =
-                                RikkaTheme.spacing.sm,
-                            vertical = RikkaTheme.spacing.xs,
-                        ),
-            ) {
-                BasicText(
-                    text = entry.name,
-                    style =
-                        RikkaTheme.typography.small.merge(
-                            TextStyle(color = fg),
-                        ),
-                )
-            }
+            CompactChip(
+                text = entry.name,
+                isActive = entry.id == selectedId,
+                onClick = { onSelect(entry.id) },
+            )
         }
     }
 }
 
-// ─── Content Area ────────────────────────────────────────────
-
 @Composable
-private fun ComponentContent(entry: ComponentEntry) {
-    Column(
-        modifier = Modifier.widthIn(max = 900.dp),
+private fun CompactChip(
+    text: String,
+    isActive: Boolean,
+    onClick: () -> Unit,
+) {
+    val interactionSource =
+        remember { MutableInteractionSource() }
+    val isHovered by
+        interactionSource.collectIsHoveredAsState()
+
+    val bg =
+        when {
+            isActive -> RikkaTheme.colors.primary
+            isHovered -> RikkaTheme.colors.muted
+            else -> RikkaTheme.colors.background
+        }
+    val fg =
+        if (isActive) {
+            RikkaTheme.colors.primaryForeground
+        } else {
+            RikkaTheme.colors.foreground
+        }
+
+    Box(
+        modifier =
+            Modifier
+                .hoverable(interactionSource)
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null,
+                    onClick = onClick,
+                )
+                .background(bg, RikkaTheme.shapes.md)
+                .padding(
+                    horizontal = RikkaTheme.spacing.sm,
+                    vertical = RikkaTheme.spacing.xs,
+                ),
     ) {
-        entry.content()
+        BasicText(
+            text = text,
+            style =
+                RikkaTheme.typography.small.merge(
+                    TextStyle(color = fg),
+                ),
+        )
     }
 }

@@ -20,27 +20,22 @@ import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonSize
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
+import zed.rainxch.rikkaui.components.ui.icon.Icon
+import zed.rainxch.rikkaui.components.ui.icon.IconSize
+import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.toggle.Toggle
-import zed.rainxch.rikkaui.navigation.ComponentsRoute
 import zed.rainxch.rikkaui.navigation.CreatorRoute
+import zed.rainxch.rikkaui.navigation.DocsRoute
 import zed.rainxch.rikkaui.navigation.HomeRoute
 
-/**
- * Top-level navigation links for the nav bar.
- */
 private data class NavLink(
     val label: String,
     val route: Any,
     val matchPrefix: String,
 )
 
-/**
- * Persistent top navigation bar shown across all pages.
- *
- * Uses NavController for type-safe navigation.
- */
 @Composable
 fun TopNavBar(
     navController: NavController,
@@ -53,7 +48,7 @@ fun TopNavBar(
     val navLinks =
         listOf(
             NavLink("Home", HomeRoute, "home"),
-            NavLink("Components", ComponentsRoute, "docs"),
+            NavLink("Docs", DocsRoute, "docs"),
             NavLink("Create", CreatorRoute, "create"),
         )
 
@@ -68,7 +63,6 @@ fun TopNavBar(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        // Left: logo + nav links
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement =
@@ -84,7 +78,10 @@ fun TopNavBar(
 
             navLinks.forEach { link ->
                 val isActive =
-                    currentRoute.contains(link.matchPrefix)
+                    currentRoute == link.matchPrefix ||
+                        currentRoute.startsWith(
+                            link.matchPrefix + "/",
+                        )
                 Button(
                     text = link.label,
                     onClick = {
@@ -107,11 +104,23 @@ fun TopNavBar(
             }
         }
 
-        // Right: dark mode toggle
-        Toggle(
-            checked = isDark,
-            onCheckedChange = onDarkChange,
-            label = stringResource(Res.string.toggle_dark_mode),
-        )
+        Button(
+            onClick = {
+                onDarkChange(!isDark)
+            },
+            variant = ButtonVariant.Link,
+            size = ButtonSize.Icon,
+        ) {
+            Icon(
+                imageVector =
+                    if (isDark) {
+                        RikkaIcons.Sun
+                    } else {
+                        RikkaIcons.Moon
+                    },
+                contentDescription = stringResource(Res.string.toggle_dark_mode),
+                size = IconSize.Sm,
+            )
+        }
     }
 }
