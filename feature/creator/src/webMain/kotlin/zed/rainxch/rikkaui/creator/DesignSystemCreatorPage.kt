@@ -93,7 +93,7 @@ fun DesignSystemCreatorPage() {
             Row(
                 modifier =
                     Modifier
-                        .widthIn(max = 1400.dp)
+                        .widthIn(max = 1800.dp)
                         .fillMaxSize()
                         .padding(
                             horizontal = RikkaTheme.spacing.lg,
@@ -105,7 +105,7 @@ fun DesignSystemCreatorPage() {
                 Column(
                     modifier =
                         Modifier
-                            .weight(0.38f)
+                            .weight(0.28f)
                             .fillMaxHeight()
                             .verticalScroll(rememberScrollState()),
                 ) {
@@ -127,7 +127,7 @@ fun DesignSystemCreatorPage() {
                 Column(
                     modifier =
                         Modifier
-                            .weight(0.62f)
+                            .weight(0.72f)
                             .fillMaxHeight(),
                 ) {
                     LivePreview(

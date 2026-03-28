@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -38,18 +39,46 @@ import zed.rainxch.rikkaui.components.ui.checkbox.Checkbox
 import zed.rainxch.rikkaui.components.ui.input.Input
 import zed.rainxch.rikkaui.components.ui.progress.Progress
 import zed.rainxch.rikkaui.components.ui.separator.Separator
+import zed.rainxch.rikkaui.components.ui.slider.Slider
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.components.ui.textarea.Textarea
 import zed.rainxch.rikkaui.components.ui.toggle.Toggle
+import zed.rainxch.rikkaui.creator.fonts.availableFonts
 import zed.rainxch.rikkaui.creator.fonts.resolvePreviewFontFamily
+import zed.rainxch.rikkaui.creator.preview.examples.ExampleActivityLog
+import zed.rainxch.rikkaui.creator.preview.examples.ExampleApiKeyManager
+import zed.rainxch.rikkaui.creator.preview.examples.ExampleBookAppointment
+import zed.rainxch.rikkaui.creator.preview.examples.ExampleChatComposer
+import zed.rainxch.rikkaui.creator.preview.examples.ExampleCookieSettings
+import zed.rainxch.rikkaui.creator.preview.examples.ExampleEnvVariables
+import zed.rainxch.rikkaui.creator.preview.examples.ExampleFeedbackForm
+import zed.rainxch.rikkaui.creator.preview.examples.ExampleFileManager
+import zed.rainxch.rikkaui.creator.preview.examples.ExampleInviteTeam
+import zed.rainxch.rikkaui.creator.preview.examples.ExampleNotificationSettings
+import zed.rainxch.rikkaui.creator.preview.examples.ExampleOnboarding
+import zed.rainxch.rikkaui.creator.preview.examples.ExamplePaymentMethod
+import zed.rainxch.rikkaui.creator.preview.examples.ExamplePricingCard
+import zed.rainxch.rikkaui.creator.preview.examples.ExampleProfileSettings
+import zed.rainxch.rikkaui.creator.preview.examples.ExampleQuickNote
+import zed.rainxch.rikkaui.creator.preview.examples.ExampleReportBug
+import zed.rainxch.rikkaui.creator.preview.examples.ExampleSearchCommand
+import zed.rainxch.rikkaui.creator.preview.examples.ExampleShippingAddress
+import zed.rainxch.rikkaui.creator.preview.examples.ExampleTaskList
+import zed.rainxch.rikkaui.creator.preview.examples.ExampleUserDirectory
 import zed.rainxch.rikkaui.creator.resolveAccent
 import zed.rainxch.rikkaui.creator.resolvePalette
 
 /**
- * Live preview panel that renders real components inside a nested [RikkaTheme].
+ * Live preview panel that renders real components inside
+ * a nested [RikkaTheme].
  *
- * The nested theme applies the user's selected palette, accent, style preset,
- * and dark/light mode so the preview reflects their configuration in real time.
+ * Layout (top to bottom, scrollable):
+ * 1. Theme header (style + font name)
+ * 2. Color swatches (semantic color tokens)
+ * 3. Component strip (buttons, form elements, badges)
+ * 4. Typography preview (heading + body text)
+ * 5. Example cards grid (~20 real-world app cards)
  */
 @Composable
 fun LivePreview(
@@ -63,6 +92,9 @@ fun LivePreview(
     val baseColors = resolvePalette(paletteName, isDark)
     val colors = resolveAccent(baseColors, accentName, isDark)
     val rikkaFont = resolvePreviewFontFamily(fontId)
+    val fontDisplayName =
+        availableFonts.find { it.id == fontId }
+            ?.displayName ?: "Inter"
 
     RikkaTheme(
         colors = colors,
@@ -88,50 +120,82 @@ fun LivePreview(
                     .padding(RikkaTheme.spacing.lg)
                     .verticalScroll(rememberScrollState()),
         ) {
-            PreviewHeader()
+            // ── 1. Theme Header ──
+            ThemeHeader(
+                styleName = stylePreset.label,
+                fontName = fontDisplayName,
+            )
 
-            Spacer(Modifier.height(RikkaTheme.spacing.lg))
+            Spacer(Modifier.height(RikkaTheme.spacing.xl))
 
-            PreviewButtons()
+            // ── 2. Color Swatches ──
+            ColorSwatches()
 
-            Spacer(Modifier.height(RikkaTheme.spacing.lg))
+            Spacer(Modifier.height(RikkaTheme.spacing.xl))
             Separator()
-            Spacer(Modifier.height(RikkaTheme.spacing.lg))
+            Spacer(Modifier.height(RikkaTheme.spacing.xl))
 
-            PreviewCard()
+            // ── 3. Component Strip ──
+            ComponentStrip()
 
-            Spacer(Modifier.height(RikkaTheme.spacing.lg))
-
-            PreviewFormElements()
-
-            Spacer(Modifier.height(RikkaTheme.spacing.lg))
+            Spacer(Modifier.height(RikkaTheme.spacing.xl))
             Separator()
+            Spacer(Modifier.height(RikkaTheme.spacing.xl))
+
+            // ── 4. Typography Preview ──
+            TypographyPreview(fontDisplayName = fontDisplayName)
+
+            Spacer(Modifier.height(RikkaTheme.spacing.xxl))
+            Separator()
+            Spacer(Modifier.height(RikkaTheme.spacing.xxl))
+
+            // ── 5. Example Cards Grid ──
+            Text(
+                text = "Examples",
+                variant = TextVariant.H3,
+            )
+            Spacer(Modifier.height(RikkaTheme.spacing.xs))
+            Text(
+                text = "Real-world UI patterns built with" +
+                    " your theme configuration.",
+                variant = TextVariant.Muted,
+            )
             Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
-            PreviewBadges()
-
-            Spacer(Modifier.height(RikkaTheme.spacing.lg))
-
-            PreviewProgress()
+            ExampleCardsGrid()
         }
     }
 }
 
+// ────────────────────────────────────────────────────────
+// Theme Header
+// ────────────────────────────────────────────────────────
+
 @Composable
-private fun PreviewHeader() {
+private fun ThemeHeader(
+    styleName: String,
+    fontName: String,
+) {
     Text(
-        text = "Preview",
-        variant = TextVariant.H3,
+        text = "$styleName \u00B7 $fontName",
+        variant = TextVariant.H2,
     )
     Spacer(Modifier.height(RikkaTheme.spacing.xs))
     Text(
-        text = "This is how your design system will look.",
+        text = "This is a preview of your design system" +
+            " configuration. Every component below uses" +
+            " your selected theme.",
         variant = TextVariant.Muted,
     )
 }
 
+// ────────────────────────────────────────────────────────
+// Component Strip
+// ────────────────────────────────────────────────────────
+
 @Composable
-private fun PreviewButtons() {
+private fun ComponentStrip() {
+    // Buttons
     Text(text = "Buttons", variant = TextVariant.Small)
     Spacer(Modifier.height(RikkaTheme.spacing.sm))
     FlowRow(
@@ -140,7 +204,7 @@ private fun PreviewButtons() {
         verticalArrangement =
             Arrangement.spacedBy(RikkaTheme.spacing.sm),
     ) {
-        Button(text = "Primary", onClick = {})
+        Button(text = "Button", onClick = {})
         Button(
             text = "Secondary",
             onClick = {},
@@ -156,54 +220,60 @@ private fun PreviewButtons() {
             onClick = {},
             variant = ButtonVariant.Ghost,
         )
-        Button(
-            text = "Destructive",
-            onClick = {},
-            variant = ButtonVariant.Destructive,
-        )
     }
-}
 
-@Composable
-private fun PreviewCard() {
-    Card(modifier = Modifier.fillMaxWidth()) {
-        Text(text = "Card Title", variant = TextVariant.H4)
-        Spacer(Modifier.height(RikkaTheme.spacing.xs))
-        Text(
-            text =
-                "This is a sample card showing how content" +
-                    " looks inside a card component with your" +
-                    " selected theme configuration.",
-            variant = TextVariant.Muted,
-        )
-        Spacer(Modifier.height(RikkaTheme.spacing.md))
-        Row(
-            horizontalArrangement =
-                Arrangement.spacedBy(RikkaTheme.spacing.sm),
-        ) {
-            Button(text = "Action", onClick = {})
-            Button(
-                text = "Cancel",
-                onClick = {},
-                variant = ButtonVariant.Outline,
-            )
-        }
-    }
-}
+    Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
-@Composable
-private fun PreviewFormElements() {
-    Text(text = "Form Elements", variant = TextVariant.Small)
-    Spacer(Modifier.height(RikkaTheme.spacing.sm))
-
-    var inputValue by remember { mutableStateOf("") }
-    Input(
-        value = inputValue,
-        onValueChange = { inputValue = it },
-        placeholder = "Type something...",
-        label = "Input field",
+    // Form elements
+    var sliderVal by remember { mutableStateOf(0.5f) }
+    Slider(
+        value = sliderVal,
+        onValueChange = { sliderVal = it },
         modifier = Modifier.fillMaxWidth(),
     )
+
+    Spacer(Modifier.height(RikkaTheme.spacing.md))
+
+    var inputVal by remember { mutableStateOf("") }
+    Input(
+        value = inputVal,
+        onValueChange = { inputVal = it },
+        placeholder = "Name",
+        label = "Name",
+        modifier = Modifier.fillMaxWidth(),
+    )
+
+    Spacer(Modifier.height(RikkaTheme.spacing.sm))
+
+    var textareaVal by remember { mutableStateOf("") }
+    Textarea(
+        value = textareaVal,
+        onValueChange = { textareaVal = it },
+        placeholder = "Message",
+        label = "Message",
+        modifier = Modifier.fillMaxWidth(),
+    )
+
+    Spacer(Modifier.height(RikkaTheme.spacing.md))
+
+    // Badges + form controls row
+    FlowRow(
+        horizontalArrangement =
+            Arrangement.spacedBy(RikkaTheme.spacing.sm),
+        verticalArrangement =
+            Arrangement.spacedBy(RikkaTheme.spacing.sm),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Badge(text = "Badge")
+        Badge(
+            text = "Secondary",
+            variant = BadgeVariant.Secondary,
+        )
+        Badge(
+            text = "Outline",
+            variant = BadgeVariant.Outline,
+        )
+    }
 
     Spacer(Modifier.height(RikkaTheme.spacing.md))
 
@@ -212,45 +282,83 @@ private fun PreviewFormElements() {
             Arrangement.spacedBy(RikkaTheme.spacing.lg),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        var toggleState by remember { mutableStateOf(true) }
-        Toggle(
-            checked = toggleState,
-            onCheckedChange = { toggleState = it },
-            label = "Toggle option",
-        )
-
         var checkState by remember { mutableStateOf(true) }
         Checkbox(
             checked = checkState,
             onCheckedChange = { checkState = it },
-            label = "Checkbox",
+            label = "",
+        )
+
+        var toggleState by remember { mutableStateOf(false) }
+        Toggle(
+            checked = toggleState,
+            onCheckedChange = { toggleState = it },
+            label = "Toggle",
         )
     }
-}
 
-@Composable
-private fun PreviewBadges() {
-    Text(text = "Badges", variant = TextVariant.Small)
-    Spacer(Modifier.height(RikkaTheme.spacing.sm))
-    FlowRow(
-        horizontalArrangement =
-            Arrangement.spacedBy(RikkaTheme.spacing.sm),
-        verticalArrangement =
-            Arrangement.spacedBy(RikkaTheme.spacing.sm),
-    ) {
-        Badge(text = "Default")
-        Badge(text = "Secondary", variant = BadgeVariant.Secondary)
-        Badge(text = "Outline", variant = BadgeVariant.Outline)
-        Badge(text = "Destructive", variant = BadgeVariant.Destructive)
-    }
-}
+    Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-@Composable
-private fun PreviewProgress() {
-    Text(text = "Progress", variant = TextVariant.Small)
-    Spacer(Modifier.height(RikkaTheme.spacing.sm))
     Progress(
         progress = 0.65f,
         modifier = Modifier.fillMaxWidth(),
     )
+}
+
+// ────────────────────────────────────────────────────────
+// Example Cards Grid
+// ────────────────────────────────────────────────────────
+
+/**
+ * Responsive grid of ~20 real-world example cards.
+ *
+ * Uses [FlowRow] so cards wrap naturally. Each card has
+ * a fixed preferred width so they form columns on wide
+ * screens and stack on narrow ones.
+ */
+@Composable
+private fun ExampleCardsGrid() {
+    val cardModifier = Modifier.width(360.dp)
+
+    FlowRow(
+        horizontalArrangement =
+            Arrangement.spacedBy(RikkaTheme.spacing.md),
+        verticalArrangement =
+            Arrangement.spacedBy(RikkaTheme.spacing.md),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        // Row 1 — varied card types
+        ExampleEnvVariables(modifier = cardModifier)
+        ExampleBookAppointment(modifier = cardModifier)
+        ExampleFeedbackForm(modifier = cardModifier)
+
+        // Row 2
+        ExampleTaskList(modifier = cardModifier)
+        ExampleProfileSettings(modifier = cardModifier)
+        ExampleSearchCommand(modifier = cardModifier)
+
+        // Row 3
+        ExampleInviteTeam(modifier = cardModifier)
+        ExamplePricingCard(modifier = cardModifier)
+        ExampleNotificationSettings(modifier = cardModifier)
+
+        // Row 4
+        ExampleReportBug(modifier = cardModifier)
+        ExampleChatComposer(modifier = cardModifier)
+        ExampleApiKeyManager(modifier = cardModifier)
+
+        // Row 5
+        ExamplePaymentMethod(modifier = cardModifier)
+        ExampleFileManager(modifier = cardModifier)
+        ExampleUserDirectory(modifier = cardModifier)
+
+        // Row 6
+        ExampleShippingAddress(modifier = cardModifier)
+        ExampleCookieSettings(modifier = cardModifier)
+        ExampleOnboarding(modifier = cardModifier)
+
+        // Row 7
+        ExampleActivityLog(modifier = cardModifier)
+        ExampleQuickNote(modifier = cardModifier)
+    }
 }
