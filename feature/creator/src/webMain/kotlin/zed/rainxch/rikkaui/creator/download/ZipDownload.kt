@@ -18,19 +18,6 @@ package zed.rainxch.rikkaui.creator.download
  * @param fontWeights List of weight suffixes to include in the ZIP
  *     (e.g., ["light", "regular", "medium", "semi_bold", "bold", "black"]).
  */
-/**
- * Preloads all Creator font files into the browser cache.
- * Call once when the Creator page is first composed so that
- * font switching feels instant.
- */
-fun preloadAllFonts() {
-    callPreloadCreatorFonts()
-}
-
-@OptIn(kotlin.js.ExperimentalWasmJsInterop::class)
-@JsFun("() => { window.preloadCreatorFonts(); }")
-private external fun callPreloadCreatorFonts()
-
 fun downloadDesignSystemZip(
     zipName: String,
     themeCode: String,

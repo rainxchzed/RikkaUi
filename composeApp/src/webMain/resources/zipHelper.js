@@ -1,27 +1,4 @@
 /**
- * Preloads all font files into the browser cache so font switching
- * in the Creator is instant. Called once from Kotlin when the
- * Creator page is first composed.
- */
-window.preloadCreatorFonts = function() {
-    var base = "composeResources/rikkaui.feature.creator.generated.resources/font/";
-    var fonts = [
-        "inter", "dm_sans", "lato", "montserrat", "nunito",
-        "open_sans", "plus_jakarta_sans", "poppins",
-        "raleway", "source_sans3", "work_sans"
-    ];
-    var weights = [
-        "light", "regular", "medium", "semi_bold", "bold", "black"
-    ];
-    fonts.forEach(function(fontId) {
-        weights.forEach(function(weight) {
-            var url = base + fontId + "_" + weight + ".ttf";
-            fetch(url).catch(function() {});
-        });
-    });
-};
-
-/**
  * Creates a ZIP file with the given files and triggers download.
  * Called from Kotlin/Wasm via external declaration.
  *
