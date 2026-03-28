@@ -13,6 +13,11 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -20,6 +25,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
+import kotlinx.coroutines.delay
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 
 // ─── Animation ─────────────────────────────────────────────
@@ -151,10 +157,15 @@ fun Popover(
 
     val popupAlignment = resolvePlacement(placement)
 
+    var showPopup by remember { mutableStateOf(false) }
+    LaunchedEffect(expanded) {
+        if (expanded) showPopup = true
+    }
+
     Box(modifier = modifier) {
         trigger()
 
-        if (expanded) {
+        if (showPopup) {
             Popup(
                 alignment = popupAlignment,
                 onDismissRequest = onDismiss,
@@ -163,7 +174,7 @@ fun Popover(
                     PopoverAnimation.FadeExpand -> {
                         val expandFrom = resolveExpandFrom(placement)
                         AnimatedVisibility(
-                            visible = true,
+                            visible = expanded,
                             enter =
                                 fadeIn(
                                     animationSpec =
@@ -202,7 +213,7 @@ fun Popover(
 
                     PopoverAnimation.Fade -> {
                         AnimatedVisibility(
-                            visible = true,
+                            visible = expanded,
                             enter =
                                 fadeIn(
                                     animationSpec =
@@ -230,6 +241,13 @@ fun Popover(
                             maxWidth = maxWidth,
                             content = content,
                         )
+                    }
+                }
+
+                if (!expanded) {
+                    LaunchedEffect(Unit) {
+                        delay(motion.durationDefault.toLong() + 50L)
+                        showPopup = false
                     }
                 }
             }
