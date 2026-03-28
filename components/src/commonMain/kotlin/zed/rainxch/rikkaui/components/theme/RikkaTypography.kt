@@ -26,9 +26,10 @@ data class RikkaTypography(
     val muted: TextStyle,
 )
 
-val LocalRikkaTypography = staticCompositionLocalOf<RikkaTypography> {
-    error("No RikkaTypography provided. Wrap your content in RikkaTheme { ... }")
-}
+val LocalRikkaTypography =
+    staticCompositionLocalOf<RikkaTypography> {
+        error("No RikkaTypography provided. Wrap your content in RikkaTheme { ... }")
+    }
 
 /**
  * Creates a [RikkaTypography] wired to the given font family.
@@ -58,62 +59,71 @@ fun rikkaTypography(fontFamily: RikkaFontFamily = DefaultRikkaFontFamily): Rikka
     val family = fontFamily.fontFamily
 
     return RikkaTypography(
-        h1 = TextStyle(
-            fontFamily = family,
-            fontSize = 36.sp,
-            lineHeight = 40.sp,
-            fontWeight = FontWeight.ExtraBold,
-            letterSpacing = (-0.5).sp,
-        ),
-        h2 = TextStyle(
-            fontFamily = family,
-            fontSize = 30.sp,
-            lineHeight = 36.sp,
-            fontWeight = FontWeight.SemiBold,
-            letterSpacing = (-0.25).sp,
-        ),
-        h3 = TextStyle(
-            fontFamily = family,
-            fontSize = 24.sp,
-            lineHeight = 32.sp,
-            fontWeight = FontWeight.SemiBold,
-        ),
-        h4 = TextStyle(
-            fontFamily = family,
-            fontSize = 20.sp,
-            lineHeight = 28.sp,
-            fontWeight = FontWeight.SemiBold,
-        ),
-        p = TextStyle(
-            fontFamily = family,
-            fontSize = 16.sp,
-            lineHeight = 28.sp,
-            fontWeight = FontWeight.Normal,
-        ),
-        lead = TextStyle(
-            fontFamily = family,
-            fontSize = 20.sp,
-            lineHeight = 28.sp,
-            fontWeight = FontWeight.Normal,
-        ),
-        large = TextStyle(
-            fontFamily = family,
-            fontSize = 18.sp,
-            lineHeight = 28.sp,
-            fontWeight = FontWeight.SemiBold,
-        ),
-        small = TextStyle(
-            fontFamily = family,
-            fontSize = 14.sp,
-            lineHeight = 20.sp,
-            fontWeight = FontWeight.Medium,
-        ),
-        muted = TextStyle(
-            fontFamily = family,
-            fontSize = 14.sp,
-            lineHeight = 20.sp,
-            fontWeight = FontWeight.Normal,
-        ),
+        h1 =
+            TextStyle(
+                fontFamily = family,
+                fontSize = 36.sp,
+                lineHeight = 40.sp,
+                fontWeight = FontWeight.ExtraBold,
+                letterSpacing = (-0.5).sp,
+            ),
+        h2 =
+            TextStyle(
+                fontFamily = family,
+                fontSize = 30.sp,
+                lineHeight = 36.sp,
+                fontWeight = FontWeight.SemiBold,
+                letterSpacing = (-0.25).sp,
+            ),
+        h3 =
+            TextStyle(
+                fontFamily = family,
+                fontSize = 24.sp,
+                lineHeight = 32.sp,
+                fontWeight = FontWeight.SemiBold,
+            ),
+        h4 =
+            TextStyle(
+                fontFamily = family,
+                fontSize = 20.sp,
+                lineHeight = 28.sp,
+                fontWeight = FontWeight.SemiBold,
+            ),
+        p =
+            TextStyle(
+                fontFamily = family,
+                fontSize = 16.sp,
+                lineHeight = 28.sp,
+                fontWeight = FontWeight.Normal,
+            ),
+        lead =
+            TextStyle(
+                fontFamily = family,
+                fontSize = 20.sp,
+                lineHeight = 28.sp,
+                fontWeight = FontWeight.Normal,
+            ),
+        large =
+            TextStyle(
+                fontFamily = family,
+                fontSize = 18.sp,
+                lineHeight = 28.sp,
+                fontWeight = FontWeight.SemiBold,
+            ),
+        small =
+            TextStyle(
+                fontFamily = family,
+                fontSize = 14.sp,
+                lineHeight = 20.sp,
+                fontWeight = FontWeight.Medium,
+            ),
+        muted =
+            TextStyle(
+                fontFamily = family,
+                fontSize = 14.sp,
+                lineHeight = 20.sp,
+                fontWeight = FontWeight.Normal,
+            ),
     )
 }
 

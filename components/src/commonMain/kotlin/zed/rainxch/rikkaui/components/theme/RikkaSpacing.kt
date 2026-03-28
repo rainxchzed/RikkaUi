@@ -22,16 +22,18 @@ data class RikkaSpacing(
     val xxxl: Dp,
 )
 
-val LocalRikkaSpacing = staticCompositionLocalOf<RikkaSpacing> {
-    error("No RikkaSpacing provided. Wrap your content in RikkaTheme { ... }")
-}
+val LocalRikkaSpacing =
+    staticCompositionLocalOf<RikkaSpacing> {
+        error("No RikkaSpacing provided. Wrap your content in RikkaTheme { ... }")
+    }
 
-fun defaultRikkaSpacing(): RikkaSpacing = RikkaSpacing(
-    xs = 4.dp,
-    sm = 8.dp,
-    md = 12.dp,
-    lg = 16.dp,
-    xl = 24.dp,
-    xxl = 32.dp,
-    xxxl = 48.dp,
-)
+fun defaultRikkaSpacing(): RikkaSpacing =
+    RikkaSpacing(
+        xs = 4.dp,
+        sm = 8.dp,
+        md = 12.dp,
+        lg = 16.dp,
+        xl = 24.dp,
+        xxl = 32.dp,
+        xxxl = 48.dp,
+    )

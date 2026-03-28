@@ -48,7 +48,6 @@ fun RikkaTheme(
  * ```
  */
 object RikkaTheme {
-
     val colors: RikkaColors
         @Composable
         @ReadOnlyComposable

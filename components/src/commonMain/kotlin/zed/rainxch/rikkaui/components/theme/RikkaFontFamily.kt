@@ -62,14 +62,15 @@ fun rememberRikkaFontFamily(
     bold: FontResource,
     extraBold: FontResource,
 ): RikkaFontFamily {
-    val family = FontFamily(
-        Font(light, FontWeight.Light),
-        Font(regular, FontWeight.Normal),
-        Font(medium, FontWeight.Medium),
-        Font(semiBold, FontWeight.SemiBold),
-        Font(bold, FontWeight.Bold),
-        Font(extraBold, FontWeight.ExtraBold),
-    )
+    val family =
+        FontFamily(
+            Font(light, FontWeight.Light),
+            Font(regular, FontWeight.Normal),
+            Font(medium, FontWeight.Medium),
+            Font(semiBold, FontWeight.SemiBold),
+            Font(bold, FontWeight.Bold),
+            Font(extraBold, FontWeight.ExtraBold),
+        )
     return remember(family) { RikkaFontFamily(fontFamily = family) }
 }
 

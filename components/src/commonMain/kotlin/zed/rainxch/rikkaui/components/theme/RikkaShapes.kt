@@ -21,9 +21,10 @@ data class RikkaShapes(
     val full: Shape,
 )
 
-val LocalRikkaShapes = staticCompositionLocalOf<RikkaShapes> {
-    error("No RikkaShapes provided. Wrap your content in RikkaTheme { ... }")
-}
+val LocalRikkaShapes =
+    staticCompositionLocalOf<RikkaShapes> {
+        error("No RikkaShapes provided. Wrap your content in RikkaTheme { ... }")
+    }
 
 /**
  * Creates a RikkaShapes from a base radius value.
@@ -31,10 +32,11 @@ val LocalRikkaShapes = staticCompositionLocalOf<RikkaShapes> {
  *
  * @param baseRadius The base radius in dp (default: 10dp ≈ 0.625rem)
  */
-fun defaultRikkaShapes(baseRadius: Float = 10f): RikkaShapes = RikkaShapes(
-    sm = RoundedCornerShape((baseRadius - 4f).coerceAtLeast(0f).dp),
-    md = RoundedCornerShape((baseRadius - 2f).coerceAtLeast(0f).dp),
-    lg = RoundedCornerShape(baseRadius.dp),
-    xl = RoundedCornerShape((baseRadius + 4f).dp),
-    full = RoundedCornerShape(50),
-)
+fun defaultRikkaShapes(baseRadius: Float = 10f): RikkaShapes =
+    RikkaShapes(
+        sm = RoundedCornerShape((baseRadius - 4f).coerceAtLeast(0f).dp),
+        md = RoundedCornerShape((baseRadius - 2f).coerceAtLeast(0f).dp),
+        lg = RoundedCornerShape(baseRadius.dp),
+        xl = RoundedCornerShape((baseRadius + 4f).dp),
+        full = RoundedCornerShape(50),
+    )

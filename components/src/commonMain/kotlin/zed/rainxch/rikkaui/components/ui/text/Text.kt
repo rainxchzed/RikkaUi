@@ -61,15 +61,19 @@ fun Text(
     val baseStyle = variantStyle(variant)
     val resolvedColor = if (color != Color.Unspecified) color else variantColor(variant)
 
-    val textAlignStyle = if (textAlign != null) {
-        TextStyle(textAlign = textAlign)
-    } else {
-        TextStyle.Default
-    }
+    val textAlignStyle =
+        if (textAlign != null) {
+            TextStyle(textAlign = textAlign)
+        } else {
+            TextStyle.Default
+        }
 
-    val mergedStyle = baseStyle.merge(style).merge(
-        TextStyle(color = resolvedColor)
-    ).merge(textAlignStyle)
+    val mergedStyle =
+        baseStyle
+            .merge(style)
+            .merge(
+                TextStyle(color = resolvedColor),
+            ).merge(textAlignStyle)
 
     BasicText(
         text = text,
@@ -81,21 +85,23 @@ fun Text(
 }
 
 @Composable
-private fun variantStyle(variant: TextVariant): TextStyle = when (variant) {
-    TextVariant.H1 -> RikkaTheme.typography.h1
-    TextVariant.H2 -> RikkaTheme.typography.h2
-    TextVariant.H3 -> RikkaTheme.typography.h3
-    TextVariant.H4 -> RikkaTheme.typography.h4
-    TextVariant.P -> RikkaTheme.typography.p
-    TextVariant.Lead -> RikkaTheme.typography.lead
-    TextVariant.Large -> RikkaTheme.typography.large
-    TextVariant.Small -> RikkaTheme.typography.small
-    TextVariant.Muted -> RikkaTheme.typography.muted
-}
+private fun variantStyle(variant: TextVariant): TextStyle =
+    when (variant) {
+        TextVariant.H1 -> RikkaTheme.typography.h1
+        TextVariant.H2 -> RikkaTheme.typography.h2
+        TextVariant.H3 -> RikkaTheme.typography.h3
+        TextVariant.H4 -> RikkaTheme.typography.h4
+        TextVariant.P -> RikkaTheme.typography.p
+        TextVariant.Lead -> RikkaTheme.typography.lead
+        TextVariant.Large -> RikkaTheme.typography.large
+        TextVariant.Small -> RikkaTheme.typography.small
+        TextVariant.Muted -> RikkaTheme.typography.muted
+    }
 
 @Composable
-private fun variantColor(variant: TextVariant): Color = when (variant) {
-    TextVariant.Lead -> RikkaTheme.colors.mutedForeground
-    TextVariant.Muted -> RikkaTheme.colors.mutedForeground
-    else -> RikkaTheme.colors.foreground
-}
+private fun variantColor(variant: TextVariant): Color =
+    when (variant) {
+        TextVariant.Lead -> RikkaTheme.colors.mutedForeground
+        TextVariant.Muted -> RikkaTheme.colors.mutedForeground
+        else -> RikkaTheme.colors.foreground
+    }
