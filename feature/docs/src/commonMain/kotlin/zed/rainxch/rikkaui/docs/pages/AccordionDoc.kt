@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.accordion.AccordionAnimation
 import zed.rainxch.rikkaui.components.ui.accordion.AccordionItem
-import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.docs.components.CodeBlock
@@ -27,56 +26,75 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 /**
  * Documentation page for the Accordion component.
  *
- * Demonstrates expandable sections with different animation
- * styles and grouped accordion patterns.
+ * Demonstrates expandable sections with practical examples,
+ * animation styles, and multi-open patterns.
  */
 @Composable
 fun AccordionDoc() {
     ComponentPageHeader(
         name = "Accordion",
-        description = "Expandable content sections with animated chevron indicators.",
+        description = "Vertically stacked sections that expand"
+            + " and collapse. Use it for FAQs, settings"
+            + " panels, or any grouped content.",
     )
 
-    // ─── Basic Accordion ────────────────────────────────────
+    // ─── Basic Accordion ─────────────────────────────
     DocSection("Basic Accordion") {
         DemoBox {
             Column(modifier = Modifier.fillMaxWidth()) {
-                var faqOneOpen by remember { mutableStateOf(false) }
-                var faqTwoOpen by remember { mutableStateOf(false) }
-                var faqThreeOpen by remember { mutableStateOf(false) }
+                var notificationsOpen by remember {
+                    mutableStateOf(false)
+                }
+                var privacyOpen by remember {
+                    mutableStateOf(false)
+                }
+                var appearanceOpen by remember {
+                    mutableStateOf(false)
+                }
 
                 AccordionItem(
-                    title = "Is it accessible?",
-                    expanded = faqOneOpen,
-                    onExpandedChange = { faqOneOpen = it },
+                    title = "Notifications",
+                    expanded = notificationsOpen,
+                    onExpandedChange = {
+                        notificationsOpen = it
+                    },
                 ) {
                     Text(
-                        "Yes. It uses proper semantics with "
-                            + "contentDescription and stateDescription.",
+                        "Control which alerts you receive."
+                            + " Enable push notifications for"
+                            + " new messages, mentions, and"
+                            + " activity updates.",
                         variant = TextVariant.Muted,
                     )
                 }
 
                 AccordionItem(
-                    title = "Is it styled?",
-                    expanded = faqTwoOpen,
-                    onExpandedChange = { faqTwoOpen = it },
+                    title = "Privacy",
+                    expanded = privacyOpen,
+                    onExpandedChange = {
+                        privacyOpen = it
+                    },
                 ) {
                     Text(
-                        "Yes. It follows the RikkaUI design system "
-                            + "with theme tokens for colors and spacing.",
+                        "Manage who can see your profile"
+                            + " and activity. Choose between"
+                            + " public, friends-only, or"
+                            + " private visibility.",
                         variant = TextVariant.Muted,
                     )
                 }
 
                 AccordionItem(
-                    title = "Is it animated?",
-                    expanded = faqThreeOpen,
-                    onExpandedChange = { faqThreeOpen = it },
+                    title = "Appearance",
+                    expanded = appearanceOpen,
+                    onExpandedChange = {
+                        appearanceOpen = it
+                    },
                 ) {
                     Text(
-                        "Yes. Choose from Spring, Tween, or None "
-                            + "animation styles.",
+                        "Customize your theme, font size,"
+                            + " and color accent. Changes"
+                            + " apply across all devices.",
                         variant = TextVariant.Muted,
                     )
                 }
@@ -84,7 +102,7 @@ fun AccordionDoc() {
         }
     }
 
-    // ─── Animation Styles ───────────────────────────────────
+    // ─── Animation Styles ────────────────────────────
     DocSection("Animation Styles") {
         var selectedAnim by remember { mutableStateOf("Spring") }
 
@@ -104,7 +122,9 @@ fun AccordionDoc() {
 
         DemoBox {
             Column(modifier = Modifier.fillMaxWidth()) {
-                var expanded by remember { mutableStateOf(false) }
+                var expanded by remember {
+                    mutableStateOf(false)
+                }
 
                 AccordionItem(
                     title = "Animation: $selectedAnim",
@@ -113,8 +133,10 @@ fun AccordionDoc() {
                     animation = animation,
                 ) {
                     Text(
-                        "This section uses the $selectedAnim animation. "
-                            + "Toggle it to see the difference.",
+                        "Toggle this section to see the"
+                            + " $selectedAnim animation in"
+                            + " action. Try switching between"
+                            + " styles to compare.",
                         variant = TextVariant.Muted,
                     )
                 }
@@ -122,21 +144,62 @@ fun AccordionDoc() {
         }
     }
 
-    // ─── Custom Chevron Icon ────────────────────────────────
-    DocSection("Custom Chevron Icon") {
+    // ─── Multiple Open Items ─────────────────────────
+    DocSection("Multiple Open Items") {
         DemoBox {
             Column(modifier = Modifier.fillMaxWidth()) {
-                var expanded by remember { mutableStateOf(false) }
+                var generalOpen by remember {
+                    mutableStateOf(true)
+                }
+                var shippingOpen by remember {
+                    mutableStateOf(true)
+                }
+                var returnsOpen by remember {
+                    mutableStateOf(false)
+                }
 
                 AccordionItem(
-                    title = "With ChevronDown icon",
-                    expanded = expanded,
-                    onExpandedChange = { expanded = it },
-                    chevronIcon = RikkaIcons.ChevronDown,
+                    title = "General",
+                    expanded = generalOpen,
+                    onExpandedChange = {
+                        generalOpen = it
+                    },
                 ) {
                     Text(
-                        "This accordion uses ChevronDown instead "
-                            + "of the default ChevronRight.",
+                        "Each AccordionItem manages its"
+                            + " own state independently, so"
+                            + " multiple sections can stay"
+                            + " open at the same time.",
+                        variant = TextVariant.Muted,
+                    )
+                }
+
+                AccordionItem(
+                    title = "Shipping",
+                    expanded = shippingOpen,
+                    onExpandedChange = {
+                        shippingOpen = it
+                    },
+                ) {
+                    Text(
+                        "Free standard shipping on orders"
+                            + " over \$50. Express delivery"
+                            + " available at checkout.",
+                        variant = TextVariant.Muted,
+                    )
+                }
+
+                AccordionItem(
+                    title = "Returns",
+                    expanded = returnsOpen,
+                    onExpandedChange = {
+                        returnsOpen = it
+                    },
+                ) {
+                    Text(
+                        "30-day return policy for unused"
+                            + " items. Contact support to"
+                            + " start a return request.",
                         variant = TextVariant.Muted,
                     )
                 }
@@ -144,76 +207,60 @@ fun AccordionDoc() {
         }
     }
 
-    // ─── Usage ──────────────────────────────────────────────
+    // ─── Usage ───────────────────────────────────────
     DocSection("Usage") {
         CodeBlock(
             """
 var expanded by remember { mutableStateOf(false) }
 
 AccordionItem(
-    title = "Is it accessible?",
+    title = "Section title",
     expanded = expanded,
     onExpandedChange = { expanded = it },
 ) {
-    Text("Yes. It uses WAI-ARIA patterns.")
-}
-
-// With tween animation and custom icon
-AccordionItem(
-    title = "Details",
-    expanded = expanded,
-    onExpandedChange = { expanded = it },
-    animation = AccordionAnimation.Tween,
-    chevronIcon = RikkaIcons.ChevronDown,
-) {
-    Text("Smooth eased transition")
-}
-
-// Multiple items in a Column
-Column {
-    items.forEachIndexed { index, item ->
-        var open by remember { mutableStateOf(false) }
-        AccordionItem(
-            title = item.title,
-            expanded = open,
-            onExpandedChange = { open = it },
-        ) {
-            Text(item.description)
-        }
-    }
+    Text("Expandable content goes here.")
 }
             """.trimIndent(),
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    // ─── API Reference ───────────────────────────────
     DocSection("API Reference") {
         PropsTable(
             listOf(
                 PropInfo(
                     "title", "String", "required",
-                    "Header text in the clickable title row.",
+                    "Header text in the clickable"
+                        + " title row.",
                 ),
                 PropInfo(
                     "expanded", "Boolean", "required",
-                    "Whether the content section is visible.",
+                    "Whether the content section is"
+                        + " visible.",
                 ),
                 PropInfo(
-                    "onExpandedChange", "(Boolean) -> Unit", "required",
-                    "Called when the user toggles the section.",
+                    "onExpandedChange",
+                    "(Boolean) -> Unit", "required",
+                    "Called when the user toggles the"
+                        + " section.",
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier for layout and decoration.",
+                    "Modifier for layout and"
+                        + " decoration.",
                 ),
                 PropInfo(
-                    "animation", "AccordionAnimation", "Spring",
-                    "Animation style: Spring, Tween, None.",
+                    "animation", "AccordionAnimation",
+                    "Spring",
+                    "Animation style: Spring, Tween,"
+                        + " None.",
                 ),
                 PropInfo(
                     "chevronIcon", "ImageVector",
                     "RikkaIcons.ChevronRight",
-                    "Icon for the expand indicator. Rotates 90 degrees.",
+                    "Icon for the expand indicator."
+                        + " Rotates 90 degrees when"
+                        + " expanded.",
                 ),
                 PropInfo(
                     "content", "() -> Unit", "required",

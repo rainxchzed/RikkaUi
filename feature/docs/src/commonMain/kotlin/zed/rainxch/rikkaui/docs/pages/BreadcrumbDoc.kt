@@ -14,6 +14,8 @@ import zed.rainxch.rikkaui.components.ui.breadcrumb.BreadcrumbAnimation
 import zed.rainxch.rikkaui.components.ui.breadcrumb.BreadcrumbItem
 import zed.rainxch.rikkaui.components.ui.breadcrumb.BreadcrumbItemData
 import zed.rainxch.rikkaui.components.ui.breadcrumb.BreadcrumbSeparator
+import zed.rainxch.rikkaui.components.ui.text.Text
+import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.docs.components.CodeBlock
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
@@ -25,19 +27,32 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 /**
  * Documentation page for the Breadcrumb component.
  *
- * Demonstrates breadcrumb navigation with animations,
- * ellipsis collapsing, and custom separators.
+ * Covers basic usage, data-driven lists, ellipsis
+ * collapsing, code snippets, and full API reference.
  */
 @Composable
 fun BreadcrumbDoc() {
     ComponentPageHeader(
         name = "Breadcrumb",
-        description = "A navigation trail showing the user's "
-            + "location within a hierarchy.",
+        description = "Displays the user's current location in a"
+            + " page hierarchy with clickable navigation links.",
     )
 
-    // ─── Animation Variants ─────────────────────────────────
-    DocSection("Animations") {
+    // ─── Basic Usage ──────────────────────────────────────
+    DocSection("Basic Usage") {
+        DemoBox {
+            Breadcrumb {
+                BreadcrumbItem("Home", onClick = {})
+                BreadcrumbSeparator()
+                BreadcrumbItem("Products", onClick = {})
+                BreadcrumbSeparator()
+                BreadcrumbItem("Widgets")
+            }
+        }
+    }
+
+    // ─── Data-Driven ──────────────────────────────────────
+    DocSection("Data-Driven") {
         var selectedAnim by remember { mutableStateOf("None") }
 
         VariantSelector(
@@ -58,8 +73,14 @@ fun BreadcrumbDoc() {
             Breadcrumb(
                 items = listOf(
                     BreadcrumbItemData("Home", onClick = {}),
-                    BreadcrumbItemData("Products", onClick = {}),
-                    BreadcrumbItemData("Widgets", onClick = {}),
+                    BreadcrumbItemData(
+                        "Products",
+                        onClick = {},
+                    ),
+                    BreadcrumbItemData(
+                        "Widgets",
+                        onClick = {},
+                    ),
                     BreadcrumbItemData("Current Page"),
                 ),
                 animation = animation,
@@ -67,28 +88,24 @@ fun BreadcrumbDoc() {
         }
     }
 
-    // ─── Manual Composition ─────────────────────────────────
-    DocSection("Manual Composition") {
-        DemoBox {
-            Breadcrumb {
-                BreadcrumbItem("Home", onClick = {})
-                BreadcrumbSeparator()
-                BreadcrumbItem("Products", onClick = {})
-                BreadcrumbSeparator()
-                BreadcrumbItem("Widget")
-            }
-        }
-    }
-
-    // ─── Ellipsis Collapsing ────────────────────────────────
+    // ─── Ellipsis Collapsing ──────────────────────────────
     DocSection("Ellipsis Collapsing") {
         DemoBox {
             Breadcrumb(
                 items = listOf(
                     BreadcrumbItemData("Home", onClick = {}),
-                    BreadcrumbItemData("Documents", onClick = {}),
-                    BreadcrumbItemData("Projects", onClick = {}),
-                    BreadcrumbItemData("Design", onClick = {}),
+                    BreadcrumbItemData(
+                        "Documents",
+                        onClick = {},
+                    ),
+                    BreadcrumbItemData(
+                        "Projects",
+                        onClick = {},
+                    ),
+                    BreadcrumbItemData(
+                        "Design",
+                        onClick = {},
+                    ),
                     BreadcrumbItemData("Components"),
                 ),
                 maxVisibleItems = 3,
@@ -96,11 +113,20 @@ fun BreadcrumbDoc() {
         }
     }
 
-    // ─── Usage ──────────────────────────────────────────────
+    // ─── Usage ────────────────────────────────────────────
     DocSection("Usage") {
         CodeBlock(
             """
-// Data-driven with animation
+// Manual composition — full control
+Breadcrumb {
+    BreadcrumbItem("Home", onClick = { nav() })
+    BreadcrumbSeparator()
+    BreadcrumbItem("Products", onClick = { nav() })
+    BreadcrumbSeparator()
+    BreadcrumbItem("Current Page")
+}
+
+// Data-driven — pass a list, get separators for free
 Breadcrumb(
     items = listOf(
         BreadcrumbItemData("Home", onClick = { nav() }),
@@ -110,44 +136,78 @@ Breadcrumb(
     animation = BreadcrumbAnimation.Fade,
     maxVisibleItems = 3,
 )
-
-// Manual composition
-Breadcrumb {
-    BreadcrumbItem("Home", onClick = { nav() })
-    BreadcrumbSeparator()
-    BreadcrumbItem("Current")
-}
             """.trimIndent(),
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    // ─── API Reference ────────────────────────────────────
     DocSection("API Reference") {
         PropsTable(
             listOf(
                 PropInfo(
-                    "items", "List<BreadcrumbItemData>", "required",
+                    "items",
+                    "List<BreadcrumbItemData>",
+                    "required",
                     "List of breadcrumb items to display.",
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     "Modifier for layout and decoration.",
                 ),
                 PropInfo(
-                    "animation", "BreadcrumbAnimation", "None",
+                    "animation",
+                    "BreadcrumbAnimation",
+                    "None",
                     "Entrance animation: None, Fade, Slide.",
                 ),
                 PropInfo(
-                    "separator", "(() -> Unit)?", "null",
-                    "Custom separator composable. Defaults to /.",
+                    "separator",
+                    "(@Composable () -> Unit)?",
+                    "null",
+                    "Custom separator composable. Defaults"
+                        + " to /.",
                 ),
                 PropInfo(
-                    "maxVisibleItems", "Int", "0",
-                    "Max items before collapsing to ellipsis. 0 = show all.",
+                    "maxVisibleItems",
+                    "Int",
+                    "0",
+                    "Max items before collapsing middle"
+                        + " items into an ellipsis. 0 = show all.",
                 ),
                 PropInfo(
-                    "onEllipsisClick", "(() -> Unit)?", "null",
+                    "onEllipsisClick",
+                    "(() -> Unit)?",
+                    "null",
                     "Click handler for the ellipsis element.",
+                ),
+            ),
+        )
+
+        Spacer(Modifier.height(RikkaTheme.spacing.lg))
+
+        Text(
+            "BreadcrumbItemData",
+            variant = TextVariant.Large,
+        )
+
+        Spacer(Modifier.height(RikkaTheme.spacing.sm))
+
+        PropsTable(
+            listOf(
+                PropInfo(
+                    "label",
+                    "String",
+                    "required",
+                    "Display text for the breadcrumb item.",
+                ),
+                PropInfo(
+                    "onClick",
+                    "(() -> Unit)?",
+                    "null",
+                    "Click handler. Null = current page"
+                        + " (non-clickable).",
                 ),
             ),
         )

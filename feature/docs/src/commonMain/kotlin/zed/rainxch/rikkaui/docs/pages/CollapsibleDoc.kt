@@ -15,9 +15,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
-import zed.rainxch.rikkaui.components.ui.button.Button
-import zed.rainxch.rikkaui.components.ui.button.ButtonSize
-import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
 import zed.rainxch.rikkaui.components.ui.collapsible.Collapsible
 import zed.rainxch.rikkaui.components.ui.collapsible.CollapsibleAnimation
 import zed.rainxch.rikkaui.components.ui.collapsible.CollapsibleContent
@@ -44,8 +41,9 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 fun CollapsibleDoc() {
     ComponentPageHeader(
         name = "Collapsible",
-        description = "A simple expand/collapse container. Simpler than "
-            + "Accordion -- single item, no group behavior, no built-in chrome.",
+        description = "A primitive expand/collapse container. Unlike "
+            + "Accordion, it has no built-in header \u2014 you compose "
+            + "the trigger and content yourself.",
     )
 
     // ─── Controlled Usage ───────────────────────────────────
@@ -61,29 +59,20 @@ fun CollapsibleDoc() {
                 CollapsibleTrigger(
                     onClick = { open = !open },
                     expanded = open,
-                    label = "Toggle repositories",
                 ) {
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = RikkaTheme.spacing.sm),
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(
+                                vertical = RikkaTheme.spacing.sm,
+                            ),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         Text(
-                            "Starred repositories",
+                            "3 starred repositories",
                             variant = TextVariant.P,
                         )
-                        Button(
-                            onClick = { open = !open },
-                            variant = ButtonVariant.Ghost,
-                            size = ButtonSize.Sm,
-                        ) {
-                            Icon(
-                                RikkaIcons.ChevronDown,
-                                "Toggle",
-                            )
-                        }
+                        Icon(RikkaIcons.ChevronDown, "Toggle")
                     }
                 }
 
@@ -124,15 +113,18 @@ fun CollapsibleDoc() {
             ) {
                 trigger {
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = RikkaTheme.spacing.sm),
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(
+                                vertical = RikkaTheme.spacing.sm,
+                            ),
                         verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         Text(
-                            "Click to expand (DSL syntax)",
+                            "Click to expand (DSL)",
                             variant = TextVariant.P,
                         )
+                        Icon(RikkaIcons.ChevronDown, "Toggle")
                     }
                 }
                 content {
@@ -183,9 +175,10 @@ fun CollapsibleDoc() {
                     expanded = open,
                 ) {
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = RikkaTheme.spacing.sm),
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(
+                                vertical = RikkaTheme.spacing.sm,
+                            ),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
@@ -205,7 +198,8 @@ fun CollapsibleDoc() {
                         ),
                     ) {
                         Text(
-                            "Toggle to see the $selectedAnim animation.",
+                            "Toggle to see the "
+                                + "$selectedAnim animation.",
                             variant = TextVariant.Muted,
                         )
                     }
@@ -225,11 +219,23 @@ Collapsible(
     open = open,
     onOpenChange = { open = it },
 ) {
-    CollapsibleTrigger(onClick = { open = !open }) {
-        Text("Toggle section")
+    CollapsibleTrigger(
+        onClick = { open = !open },
+        expanded = open,
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Text("3 starred repositories")
+            Icon(RikkaIcons.ChevronDown, "Toggle")
+        }
     }
     CollapsibleContent(open = open) {
-        Text("Hidden content revealed on toggle")
+        Text("@rikka/components")
+        Text("@rikka/theme")
+        Text("@rikka/icons")
     }
 }
 
@@ -255,19 +261,21 @@ Collapsible(
             listOf(
                 PropInfo(
                     "open", "Boolean", "required",
-                    "Whether the content is currently expanded.",
+                    "Whether the content is expanded.",
                 ),
                 PropInfo(
-                    "onOpenChange", "(Boolean) -> Unit", "required",
-                    "Called when expanded state should change.",
+                    "onOpenChange", "(Boolean) -> Unit",
+                    "required",
+                    "Called when expanded state changes.",
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier applied to the outer container.",
+                    "Modifier applied to the container.",
                 ),
                 PropInfo(
                     "content", "() -> Unit", "required",
-                    "Builder with CollapsibleTrigger + CollapsibleContent.",
+                    "Builder with CollapsibleTrigger "
+                        + "+ CollapsibleContent.",
                 ),
             ),
         )
@@ -286,19 +294,21 @@ Collapsible(
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier applied to the trigger container.",
+                    "Modifier applied to the trigger.",
                 ),
                 PropInfo(
-                    "label", "String", "\"Toggle section\"",
+                    "label", "String",
+                    "\"Toggle section\"",
                     "Accessibility content description.",
                 ),
                 PropInfo(
                     "expanded", "Boolean?", "null",
-                    "Current state for a11y stateDescription.",
+                    "Current state for a11y "
+                        + "stateDescription.",
                 ),
                 PropInfo(
                     "content", "() -> Unit", "required",
-                    "Composable rendered inside the trigger.",
+                    "Composable inside the trigger.",
                 ),
             ),
         )
@@ -317,10 +327,11 @@ Collapsible(
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier applied to the inner wrapper.",
+                    "Modifier applied to the wrapper.",
                 ),
                 PropInfo(
-                    "animation", "CollapsibleAnimation", "Spring",
+                    "animation", "CollapsibleAnimation",
+                    "Spring",
                     "Animation style: Spring, Tween, None.",
                 ),
                 PropInfo(

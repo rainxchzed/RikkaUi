@@ -131,7 +131,7 @@ fun Icon(
                     infiniteRepeatable(
                         animation =
                             tween(
-                                durationMillis = motion.durationSlow * 4,
+                                durationMillis = 800,
                                 easing = LinearEasing,
                             ),
                     ),
