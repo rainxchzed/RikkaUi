@@ -3,6 +3,7 @@ package zed.rainxch.rikkaui.components.ui.tabs
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
@@ -11,6 +12,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -24,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
@@ -94,8 +97,9 @@ fun TabList(
             modifier
                 .background(RikkaTheme.colors.muted, shape)
                 .clip(shape)
-                .padding(4.dp),
-        horizontalArrangement = Arrangement.spacedBy(2.dp),
+                .padding(RikkaTheme.spacing.xs),
+        horizontalArrangement =
+            Arrangement.spacedBy(RikkaTheme.spacing.xs),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         content()
@@ -187,6 +191,8 @@ fun Tab(
     // ─── Resolve animation spec ───────────────────────────
     val colorAnimSpec: AnimationSpec<Color> =
         resolveColorAnimSpec(animation, motion.durationDefault)
+    val dpAnimSpec: AnimationSpec<Dp> =
+        resolveDpAnimSpec(animation, motion.durationDefault)
 
     // ─── Animated colors ──────────────────────────────────
     val backgroundColor by animateColorAsState(
@@ -201,18 +207,15 @@ fun Tab(
         animationSpec = colorAnimSpec,
     )
 
-    // ─── Shadow modifier for selected state ───────────────
-    val shadowModifier =
-        if (selected) {
-            Modifier.shadow(1.dp, shape)
-        } else {
-            Modifier
-        }
+    val shadowElevation by animateDpAsState(
+        targetValue = if (selected) 1.dp else 0.dp,
+        animationSpec = dpAnimSpec,
+    )
 
     Box(
         modifier =
             modifier
-                .then(shadowModifier)
+                .shadow(shadowElevation, shape)
                 .background(backgroundColor, shape)
                 .clip(shape)
                 .clickable(
@@ -261,7 +264,7 @@ fun TabContent(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
-    Box(
+    Column(
         modifier =
             modifier
                 .padding(top = RikkaTheme.spacing.md),
@@ -284,8 +287,23 @@ private fun resolveColorAnimSpec(
     when (animation) {
         TabAnimation.Spring ->
             spring(
-                dampingRatio = Spring.DampingRatioMediumBouncy,
-                stiffness = Spring.StiffnessMediumLow,
+                dampingRatio = Spring.DampingRatioNoBouncy,
+                stiffness = Spring.StiffnessMedium,
+            )
+        TabAnimation.Tween -> tween(durationMs)
+        TabAnimation.None -> snap()
+    }
+
+@Composable
+private fun resolveDpAnimSpec(
+    animation: TabAnimation,
+    durationMs: Int,
+): AnimationSpec<Dp> =
+    when (animation) {
+        TabAnimation.Spring ->
+            spring(
+                dampingRatio = Spring.DampingRatioNoBouncy,
+                stiffness = Spring.StiffnessMedium,
             )
         TabAnimation.Tween -> tween(durationMs)
         TabAnimation.None -> snap()

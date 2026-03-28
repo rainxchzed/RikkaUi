@@ -98,8 +98,8 @@ fun Spinner(
     size: SpinnerSize = SpinnerSize.Default,
     animation: SpinnerAnimation = SpinnerAnimation.Spin,
     color: Color = RikkaTheme.colors.primary,
-    trackColor: Color? = null,
-    sweepAngle: Float = 270f,
+    trackColor: Color? = RikkaTheme.colors.muted,
+    sweepAngle: Float = 240f,
     label: String = "Loading",
 ) {
     val motion = RikkaTheme.motion
@@ -164,7 +164,7 @@ private fun resolveSpinnerAnimation(
                     infiniteRepeatable(
                         animation =
                             tween(
-                                durationMillis = motion.durationSlow * 4,
+                                durationMillis = 800,
                                 easing = LinearEasing,
                             ),
                     ),
@@ -180,9 +180,7 @@ private fun resolveSpinnerAnimation(
                 animationSpec =
                     infiniteRepeatable(
                         animation =
-                            tween(
-                                durationMillis = motion.durationSlow * 4,
-                            ),
+                            tween(durationMillis = 1000),
                         repeatMode = RepeatMode.Reverse,
                     ),
             )

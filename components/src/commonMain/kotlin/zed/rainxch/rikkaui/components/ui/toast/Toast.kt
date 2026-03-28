@@ -421,6 +421,10 @@ private fun ToastItem(
     var elapsed by remember { mutableStateOf(0L) }
     val isFiniteDuration = data.duration != TOAST_DURATION_INFINITE
 
+    // Track visibility for exit animation
+    var visible by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) { visible = true }
+
     // Auto-dismiss timer with pause support
     LaunchedEffect(data.id) {
         if (!isFiniteDuration) return@LaunchedEffect
@@ -431,6 +435,9 @@ private fun ToastItem(
                 elapsed += tickInterval
             }
         }
+        // Trigger exit animation, then actually remove
+        visible = false
+        delay(motion.durationDefault.toLong() + 50L)
         onDismiss()
     }
 
@@ -465,7 +472,7 @@ private fun ToastItem(
         )
 
     AnimatedVisibility(
-        visible = true,
+        visible = visible,
         enter = enter,
         exit = exit,
     ) {
@@ -480,7 +487,14 @@ private fun ToastItem(
                                 if (swipeOffset.value.absoluteValue >
                                     SWIPE_DISMISS_THRESHOLD
                                 ) {
-                                    onDismiss()
+                                    visible = false
+                                    swipeScope.launch {
+                                        delay(
+                                            motion.durationDefault
+                                                .toLong() + 50L,
+                                        )
+                                        onDismiss()
+                                    }
                                 } else {
                                     swipeScope.launch {
                                         swipeOffset.animateTo(
@@ -506,7 +520,13 @@ private fun ToastItem(
         Toast(
             message = data.message,
             variant = data.variant,
-            onDismiss = onDismiss,
+            onDismiss = {
+                visible = false
+                swipeScope.launch {
+                    delay(motion.durationDefault.toLong() + 50L)
+                    onDismiss()
+                }
+            },
             actionLabel = data.actionLabel,
             onAction = data.onAction,
             showProgressBar = showProgressBar && isFiniteDuration,
@@ -782,32 +802,21 @@ fun Toast(
 
         // ─── Progress bar ────────────────────────────────
         if (showProgressBar) {
-            val progressColor =
-                when (variant) {
-                    ToastVariant.Default -> colors.primary
-                    ToastVariant.Success -> Color(0xFF22C55E)
-                    ToastVariant.Destructive -> colors.destructive
-                    ToastVariant.Warning -> Color(0xFFF59E0B)
-                }
-
             Box(
                 modifier = Modifier.fillMaxWidth().height(2.dp),
             ) {
-                // Track background
                 Box(
                     modifier =
                         Modifier
                             .fillMaxSize()
                             .background(colors.muted),
                 )
-                // Active bar — graphicsLayer for perf
                 Box(
                     modifier =
                         Modifier
                             .fillMaxWidth(progressFraction)
                             .height(2.dp)
-                            .graphicsLayer { alpha = 1f }
-                            .background(progressColor),
+                            .background(resolved.accent.takeIf { it != Color.Transparent } ?: colors.primary),
                 )
             }
         }
@@ -827,19 +836,13 @@ private fun resolveColors(variant: ToastVariant): ToastColors {
 
     return when (variant) {
         ToastVariant.Default ->
-            ToastColors(
-                accent = Color.Transparent,
-            )
+            ToastColors(accent = Color.Transparent)
 
         ToastVariant.Success ->
-            ToastColors(
-                accent = Color(0xFF22C55E),
-            )
+            ToastColors(accent = colors.primary)
 
         ToastVariant.Destructive ->
-            ToastColors(
-                accent = colors.destructive,
-            )
+            ToastColors(accent = colors.destructive)
 
         ToastVariant.Warning ->
             ToastColors(
