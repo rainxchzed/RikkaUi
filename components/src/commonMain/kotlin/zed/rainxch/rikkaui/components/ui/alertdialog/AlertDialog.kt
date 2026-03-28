@@ -21,7 +21,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import kotlinx.coroutines.delay
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -148,7 +153,11 @@ fun AlertDialog(
     maxWidth: Dp = 520.dp,
     content: @Composable () -> Unit,
 ) {
-    if (!open) return
+    var showPopup by remember { mutableStateOf(false) }
+    LaunchedEffect(open) {
+        if (open) showPopup = true
+    }
+    if (!showPopup) return
 
     val colors = RikkaTheme.colors
     val shapes = RikkaTheme.shapes
@@ -170,7 +179,7 @@ fun AlertDialog(
         ) {
             // ─── Scrim (non-dismissing) ───────────────
             AnimatedVisibility(
-                visible = true,
+                visible = open,
                 enter =
                     fadeIn(
                         animationSpec = tween(motion.durationEnter),
@@ -201,7 +210,7 @@ fun AlertDialog(
 
             // ─── Dialog card ──────────────────────────
             AnimatedVisibility(
-                visible = true,
+                visible = open,
                 enter = cardEnter,
                 exit = cardExit,
             ) {
@@ -227,6 +236,14 @@ fun AlertDialog(
                         ),
                 ) {
                     content()
+                }
+            }
+
+            // ─── Cleanup: remove Popup after exit animation ──
+            if (!open) {
+                LaunchedEffect(Unit) {
+                    delay(motion.durationEnter.toLong() + 50L)
+                    showPopup = false
                 }
             }
         }
