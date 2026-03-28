@@ -28,8 +28,9 @@ components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/
     RikkaSpacing.kt       — 7-level spacing scale (xs=4dp through xxxl=48dp, 4dp base grid)
     RikkaShapes.kt        — 5-level shape scale (sm/md/lg/xl/full) from base radius
     RikkaMotion.kt        — Animation token system (springs, tweens, durations, press scales)
+    RikkaStyle.kt         — Bundled style presets (RikkaStyle + RikkaStylePresets: Default/Nova/Vega/Aurora/Nebula)
     RikkaFontFamily.kt    — Font wrapper with rememberRikkaFontFamily() composable
-    RikkaTheme.kt         — CompositionLocalProvider + RikkaTheme object with @ReadOnlyComposable getters
+    RikkaTheme.kt         — CompositionLocalProvider + RikkaTheme object + convenience style overload
   ui/
     text/Text.kt          — BasicText wrapper with TextVariant enum, heading accessibility
     button/Button.kt      — 6 variants (Default/Secondary/Destructive/Outline/Ghost/Link), 4 sizes (Default/Sm/Lg/Icon), 3 animations
@@ -73,13 +74,19 @@ components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/
 
 ```
 composeApp/src/webMain/kotlin/zed/rainxch/rikkaui/
-  App.kt                — Main entry, ShowcaseApp layout, ExamplesGrid (3-column mosaic), theme resolution
+  App.kt                  — Slim entry point: main(), state, ComposeViewport + RikkaTheme wiring
+  theme/
+    ThemeConfig.kt        — resolvePalette(), resolveAccent(), accentPreviewColor()
+    StylePresets.kt       — stylePresetNames, StylePreset data class, resolveStyle()
   showcase/
-    HeroSection.kt      — Landing hero with title, description, CTA buttons
-    ThemeSection.kt      — Interactive palette/accent/dark-mode switcher
-    FooterSection.kt     — Footer with tagline
-    SectionHeader.kt     — Reusable section header
-    examples/            — 10 realistic example cards in 3-column mosaic grid:
+    ShowcaseApp.kt        — Root layout composable (page flow orchestration)
+    ExamplesGrid.kt       — Responsive grid layouts (Compact/Medium/Expanded)
+    HeroSection.kt        — Landing hero with title, description, CTA buttons
+    ThemeSection.kt       — Interactive style/palette/accent/dark-mode switcher
+    FooterSection.kt      — Footer with tagline
+    SectionHeader.kt      — Reusable section header
+    WindowSizeClass.kt    — Breakpoint utility (Compact/Medium/Expanded)
+    examples/             — 10 realistic example cards in 3-column mosaic grid:
       MusicPlayerExample.kt       — Col1: Music player (Progress, Slider, Toggle, Badge)
       WeatherDashboardExample.kt  — Col1: Weather dashboard (Table, Badge, Progress)
       TaskBoardExample.kt         — Col2: Sprint tasks (Checkbox, Badge variants, Avatar)
@@ -133,13 +140,16 @@ Every theme token is customizable at 3 levels: presets, factory functions, or fu
 - **Spacing:** `rikkaSpacing(base = 4.dp)` — generates proportional scale (xs=1x, sm=2x, md=3x, lg=4x, xl=6x, xxl=8x, xxxl=12x). Presets: `RikkaSpacingPresets.compact()` (3dp), `.comfortable()` (5dp), `.spacious()` (6dp).
 - **Shapes:** `rikkaShapes(radius = 10.dp)` — generates sm/md/lg/xl/full from one base radius. Presets: `RikkaShapesPresets.square()` (0dp), `.sharp()` (4dp), `.rounded()` (16dp), `.pill()` (24dp).
 - **Motion:** `RikkaMotion(...)` with all params having defaults. Presets: `RikkaMotionPresets.snappy()` (no bounce, fast), `.playful()` (bouncy, slow), `.minimal()` (subtle, short).
-- **Website demo:** ThemeSection has named style presets (Default/Nova/Vega/Aurora/Nebula) + palette/accent/dark-mode controls. No raw sliders — presets bundle radius, spacing, motion, and type scale into cohesive named styles, like shadcn does.
-- **Style presets defined in App.kt** via `resolveStyle()` function and `StylePreset` data class. Each preset bundles shapes + spacing + motion + typeScale.
-  - Default: radius 10dp, spacing 4dp, balanced motion, scale 1.0
-  - Nova: radius 4dp, spacing 3dp, snappy motion, scale 0.9 (sharp, dense)
-  - Vega: radius 20dp, spacing 5dp, playful motion, scale 1.05 (rounded, bouncy)
-  - Aurora: radius 14dp, spacing 5dp, default motion, scale 1.1 (spacious, large)
-  - Nebula: radius 0dp, spacing 3dp, minimal motion, scale 0.85 (square, tight)
+- **Style presets (in `:components` library):** `RikkaStyle` data class bundles shapes + spacing + motion + typeScale. `RikkaStylePresets` object provides named presets usable by any consumer:
+  - `default()`: radius 10dp, spacing 4dp, balanced motion, scale 1.0
+  - `nova()`: radius 4dp, spacing 3dp, snappy motion, scale 0.9 (sharp, dense)
+  - `vega()`: radius 20dp, spacing 5dp, playful motion, scale 1.05 (rounded, bouncy)
+  - `aurora()`: radius 14dp, spacing 5dp, default motion, scale 1.1 (spacious, large)
+  - `nebula()`: radius 0dp, spacing 3dp, minimal motion, scale 0.85 (square, tight)
+  - `fromName("Nova")`: resolve by string name
+  - `names`: list of all preset names
+- **Convenience `RikkaTheme` overload:** `RikkaTheme(colors, style, typography) { ... }` accepts a `RikkaStyle` directly, extracts shapes/spacing/motion from it.
+- **Website demo:** ThemeSection uses `RikkaStylePresets` from the library + palette/accent/dark-mode controls.
 
 ## Build & Run
 
