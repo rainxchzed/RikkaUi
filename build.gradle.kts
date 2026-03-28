@@ -21,9 +21,3 @@ subprojects {
         }
     }
 }
-
-plugins.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin> {
-    extensions.configure<NodeJsEnvSpec> {
-        version = "20.11.0"
-    }
-}
