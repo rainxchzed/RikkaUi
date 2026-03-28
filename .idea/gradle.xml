@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/composeApp" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/creator" />
+            <option value="$PROJECT_DIR$/feature/docs" />
             <option value="$PROJECT_DIR$/foundation" />
           </set>
         </option>
