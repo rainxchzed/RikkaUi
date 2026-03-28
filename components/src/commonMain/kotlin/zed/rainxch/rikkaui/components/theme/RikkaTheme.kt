@@ -10,7 +10,7 @@ import androidx.compose.runtime.ReadOnlyComposable
  * Usage:
  * ```
  * RikkaTheme(
- *     colors = RikkaPalettes.NeutralLight,  // or NeutralDark, ZincLight, RoseLight, etc.
+ *     colors = RikkaPalettes.ZincLight,  // or ZincDark, SlateLight, NeutralDark, etc.
  * ) {
  *     // Your app content — access tokens via RikkaTheme.colors, RikkaTheme.typography, etc.
  *     Button(...)
