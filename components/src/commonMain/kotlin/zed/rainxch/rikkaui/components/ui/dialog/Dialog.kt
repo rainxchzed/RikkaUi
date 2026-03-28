@@ -21,7 +21,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import kotlinx.coroutines.delay
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -123,7 +128,13 @@ fun Dialog(
     maxWidth: Dp = 480.dp,
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    if (!open) return
+    // Track whether the Popup should stay in composition (true during exit animation)
+    var showPopup by remember { mutableStateOf(false) }
+    LaunchedEffect(open) {
+        if (open) showPopup = true
+    }
+
+    if (!showPopup) return
 
     val colors = RikkaTheme.colors
     val shapes = RikkaTheme.shapes
@@ -145,7 +156,7 @@ fun Dialog(
         ) {
             // ─── Scrim ───────────────────────────────────
             AnimatedVisibility(
-                visible = true,
+                visible = open,
                 enter =
                     fadeIn(
                         animationSpec = tween(motion.durationEnter),
@@ -173,7 +184,7 @@ fun Dialog(
 
             // ─── Dialog card ─────────────────────────────
             AnimatedVisibility(
-                visible = true,
+                visible = open,
                 enter = cardEnter,
                 exit = cardExit,
             ) {
@@ -197,6 +208,14 @@ fun Dialog(
                         ),
                     content = content,
                 )
+            }
+        }
+
+        // Remove popup from composition after exit animation completes
+        if (!open) {
+            LaunchedEffect(Unit) {
+                delay(motion.durationEnter.toLong() + 50L)
+                showPopup = false
             }
         }
     }
