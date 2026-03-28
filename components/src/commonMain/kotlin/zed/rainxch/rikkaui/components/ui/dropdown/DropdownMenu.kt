@@ -37,9 +37,11 @@ import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.components.ui.PopupAnimation
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 
 // ─── Component ──────────────────────────────────────────────
@@ -57,9 +59,10 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
  *
  * Features:
  * - Click-triggered with outside-click dismiss
- * - Scrollable when content exceeds 300dp
+ * - Scrollable when content exceeds max height
  * - Hover highlight on menu items
  * - Separator and label sub-components
+ * - Configurable animation, min/max width, and max height
  * - No Material3 dependency
  *
  * Usage:
@@ -79,11 +82,27 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
  *     DropdownMenuSeparator()
  *     DropdownMenuItem("Delete", onClick = { delete(); open = false })
  * }
+ *
+ * // Instant popup with wider menu:
+ * DropdownMenu(
+ *     expanded = open,
+ *     onDismiss = { open = false },
+ *     animation = PopupAnimation.None,
+ *     minWidth = 220.dp,
+ *     maxWidth = 360.dp,
+ *     trigger = { Button("Wide", onClick = { open = true }) },
+ * ) { ... }
  * ```
  *
  * @param expanded Whether the dropdown popup is currently visible.
  * @param onDismiss Called when the user clicks outside the popup to dismiss it.
  * @param modifier Modifier applied to the outer trigger wrapper.
+ * @param animation Controls how the popup enters and exits.
+ *     Defaults to [PopupAnimation.FadeExpand].
+ * @param minWidth Minimum width of the dropdown panel. Defaults to 180.dp.
+ * @param maxWidth Maximum width of the dropdown panel. Defaults to 280.dp.
+ * @param maxHeight Maximum height before the panel becomes scrollable.
+ *     Defaults to 300.dp.
  * @param trigger The composable that anchors the menu. Rendered inline.
  * @param content Column-scoped builder for menu items, labels, and separators.
  */
@@ -92,6 +111,10 @@ fun DropdownMenu(
     expanded: Boolean,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
+    animation: PopupAnimation = PopupAnimation.FadeExpand,
+    minWidth: Dp = 180.dp,
+    maxWidth: Dp = 280.dp,
+    maxHeight: Dp = 300.dp,
     trigger: @Composable () -> Unit,
     content: @Composable ColumnScope.() -> Unit,
 ) {
@@ -108,59 +131,95 @@ fun DropdownMenu(
                 alignment = Alignment.BottomStart,
                 onDismissRequest = onDismiss,
             ) {
-                AnimatedVisibility(
-                    visible = true,
-                    enter = fadeIn(
-                        animationSpec = tween(
-                            motion.durationFast,
-                        ),
-                    ) + expandVertically(
-                        animationSpec = tween(
-                            motion.durationDefault,
-                        ),
-                        expandFrom = Alignment.Top,
-                    ),
-                    exit = fadeOut(
-                        animationSpec = tween(
-                            motion.durationFast,
-                        ),
-                    ) + shrinkVertically(
-                        animationSpec = tween(
-                            motion.durationDefault,
-                        ),
-                        shrinkTowards = Alignment.Top,
-                    ),
-                ) {
+                val panelContent: @Composable () -> Unit = {
                     Column(
                         modifier =
                             Modifier
                                 .defaultMinSize(
-                                    minWidth = 180.dp,
-                                )
-                                .widthIn(max = 280.dp)
-                                .heightIn(max = 300.dp)
+                                    minWidth = minWidth,
+                                ).widthIn(max = maxWidth)
+                                .heightIn(max = maxHeight)
                                 .shadow(
                                     8.dp,
                                     shapes.md,
-                                )
-                                .border(
+                                ).border(
                                     1.dp,
                                     colors.border,
                                     shapes.md,
-                                )
-                                .background(
+                                ).background(
                                     colors.popover,
                                     shapes.md,
-                                )
-                                .clip(shapes.md)
+                                ).clip(shapes.md)
                                 .verticalScroll(
                                     rememberScrollState(),
-                                )
-                                .padding(
+                                ).padding(
                                     vertical = spacing.xs,
                                 ),
                         content = content,
                     )
+                }
+
+                when (animation) {
+                    PopupAnimation.None -> panelContent()
+
+                    PopupAnimation.Fade -> {
+                        AnimatedVisibility(
+                            visible = true,
+                            enter =
+                                fadeIn(
+                                    animationSpec =
+                                        tween(
+                                            motion.durationFast,
+                                        ),
+                                ),
+                            exit =
+                                fadeOut(
+                                    animationSpec =
+                                        tween(
+                                            motion.durationFast,
+                                        ),
+                                ),
+                        ) {
+                            panelContent()
+                        }
+                    }
+
+                    PopupAnimation.FadeExpand -> {
+                        AnimatedVisibility(
+                            visible = true,
+                            enter =
+                                fadeIn(
+                                    animationSpec =
+                                        tween(
+                                            motion.durationFast,
+                                        ),
+                                ) +
+                                    expandVertically(
+                                        animationSpec =
+                                            tween(
+                                                motion.durationDefault,
+                                            ),
+                                        expandFrom = Alignment.Top,
+                                    ),
+                            exit =
+                                fadeOut(
+                                    animationSpec =
+                                        tween(
+                                            motion.durationFast,
+                                        ),
+                                ) +
+                                    shrinkVertically(
+                                        animationSpec =
+                                            tween(
+                                                motion.durationDefault,
+                                            ),
+                                        shrinkTowards =
+                                            Alignment.Top,
+                                    ),
+                        ) {
+                            panelContent()
+                        }
+                    }
                 }
             }
         }

@@ -40,6 +40,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntRect
 import androidx.compose.ui.unit.IntSize
@@ -48,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.components.ui.PopupAnimation
 import zed.rainxch.rikkaui.components.ui.icon.Icon
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.text.Text
@@ -99,6 +101,15 @@ data class SelectOption(
  *     placeholder = "Choose theme...",
  *     label = "Theme selector",
  * )
+ *
+ * // Fade-only animation with custom max height:
+ * Select(
+ *     selectedValue = selected,
+ *     onValueChange = { selected = it },
+ *     options = options,
+ *     animation = PopupAnimation.Fade,
+ *     maxHeight = 300.dp,
+ * )
  * ```
  *
  * @param selectedValue The currently selected value
@@ -110,6 +121,10 @@ data class SelectOption(
  * @param placeholder Text shown when no option is selected.
  * @param enabled Whether the select is interactive.
  * @param label Accessibility label for screen readers.
+ * @param animation Controls how the dropdown popup enters and exits.
+ *     Defaults to [PopupAnimation.FadeExpand].
+ * @param maxHeight Maximum height of the dropdown list before scrolling.
+ *     Defaults to 200.dp.
  */
 @Composable
 fun Select(
@@ -120,6 +135,8 @@ fun Select(
     placeholder: String = "Select...",
     enabled: Boolean = true,
     label: String = "",
+    animation: PopupAnimation = PopupAnimation.FadeExpand,
+    maxHeight: Dp = 200.dp,
 ) {
     val colors = RikkaTheme.colors
     val shapes = RikkaTheme.shapes
@@ -139,54 +156,52 @@ fun Select(
     // ─── Trigger ─────────────────────────────────────
     Box(modifier = modifier) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .defaultMinSize(minHeight = 40.dp)
-                .onGloballyPositioned { coordinates ->
-                    triggerWidth = coordinates.size.width
-                }
-                .border(1.dp, colors.input, shapes.md)
-                .background(colors.background, shapes.md)
-                .clip(shapes.md)
-                .clickable(
-                    interactionSource =
-                        remember { MutableInteractionSource() },
-                    indication = null,
-                    enabled = enabled,
-                    role = Role.DropdownList,
-                    onClick = { expanded = !expanded },
-                )
-                .padding(
-                    horizontal = spacing.md,
-                    vertical = spacing.sm,
-                )
-                .then(
-                    if (!enabled) {
-                        Modifier.alpha(0.5f)
-                    } else {
-                        Modifier
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .defaultMinSize(minHeight = 40.dp)
+                    .onGloballyPositioned { coordinates ->
+                        triggerWidth = coordinates.size.width
+                    }.border(1.dp, colors.input, shapes.md)
+                    .background(colors.background, shapes.md)
+                    .clip(shapes.md)
+                    .clickable(
+                        interactionSource =
+                            remember { MutableInteractionSource() },
+                        indication = null,
+                        enabled = enabled,
+                        role = Role.DropdownList,
+                        onClick = { expanded = !expanded },
+                    ).padding(
+                        horizontal = spacing.md,
+                        vertical = spacing.sm,
+                    ).then(
+                        if (!enabled) {
+                            Modifier.alpha(0.5f)
+                        } else {
+                            Modifier
+                        },
+                    ).semantics(mergeDescendants = true) {
+                        if (accessibilityLabel.isNotEmpty()) {
+                            contentDescription =
+                                accessibilityLabel
+                        }
+                        if (!enabled) {
+                            disabled()
+                        }
                     },
-                )
-                .semantics(mergeDescendants = true) {
-                    if (accessibilityLabel.isNotEmpty()) {
-                        contentDescription =
-                            accessibilityLabel
-                    }
-                    if (!enabled) {
-                        disabled()
-                    }
-                },
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 text = displayText,
                 variant = TextVariant.P,
-                color = if (isPlaceholder) {
-                    colors.mutedForeground
-                } else {
-                    colors.foreground
-                },
+                color =
+                    if (isPlaceholder) {
+                        colors.mutedForeground
+                    } else {
+                        colors.foreground
+                    },
                 modifier = Modifier.weight(1f),
                 maxLines = 1,
             )
@@ -206,64 +221,132 @@ fun Select(
             Popup(
                 onDismissRequest = { expanded = false },
                 popupPositionProvider =
-                    DropdownPositionProvider,
+                DropdownPositionProvider,
             ) {
-                AnimatedVisibility(
-                    visible = true,
-                    enter = fadeIn(
-                        animationSpec = tween(
-                            motion.durationFast,
-                        ),
-                    ) + expandVertically(
-                        animationSpec = tween(
-                            motion.durationDefault,
-                        ),
-                        expandFrom = Alignment.Top,
+                SelectDropdownContent(
+                    animation = animation,
+                    triggerWidthDp = triggerWidthDp,
+                    maxHeight = maxHeight,
+                    options = options,
+                    selectedValue = selectedValue,
+                    onValueChange = onValueChange,
+                    onDismiss = { expanded = false },
+                )
+            }
+        }
+    }
+}
+
+// ─── Internal: Animated dropdown wrapper ────────────────────
+
+/**
+ * Renders the dropdown list content with the requested
+ * [PopupAnimation] style.
+ */
+@Composable
+private fun SelectDropdownContent(
+    animation: PopupAnimation,
+    triggerWidthDp: Dp,
+    maxHeight: Dp,
+    options: List<SelectOption>,
+    selectedValue: String,
+    onValueChange: (String) -> Unit,
+    onDismiss: () -> Unit,
+) {
+    val colors = RikkaTheme.colors
+    val shapes = RikkaTheme.shapes
+    val spacing = RikkaTheme.spacing
+    val motion = RikkaTheme.motion
+
+    val listContent: @Composable () -> Unit = {
+        LazyColumn(
+            modifier =
+                Modifier
+                    .width(triggerWidthDp)
+                    .heightIn(max = maxHeight)
+                    .shadow(8.dp, shapes.md)
+                    .border(
+                        1.dp,
+                        colors.border,
+                        shapes.md,
+                    ).background(
+                        colors.popover,
+                        shapes.md,
+                    ).clip(shapes.md)
+                    .padding(vertical = spacing.xs),
+        ) {
+            items(options) { option ->
+                SelectItem(
+                    option = option,
+                    isSelected =
+                        option.value == selectedValue,
+                    onClick = {
+                        onValueChange(option.value)
+                        onDismiss()
+                    },
+                )
+            }
+        }
+    }
+
+    when (animation) {
+        PopupAnimation.None -> listContent()
+
+        PopupAnimation.Fade -> {
+            AnimatedVisibility(
+                visible = true,
+                enter =
+                    fadeIn(
+                        animationSpec =
+                            tween(
+                                motion.durationFast,
+                            ),
                     ),
-                    exit = fadeOut(
-                        animationSpec = tween(
-                            motion.durationFast,
-                        ),
-                    ) + shrinkVertically(
-                        animationSpec = tween(
-                            motion.durationDefault,
-                        ),
-                        shrinkTowards = Alignment.Top,
+                exit =
+                    fadeOut(
+                        animationSpec =
+                            tween(
+                                motion.durationFast,
+                            ),
                     ),
-                ) {
-                    LazyColumn(
-                        modifier = Modifier
-                            .width(triggerWidthDp)
-                            .heightIn(max = 200.dp)
-                            .shadow(8.dp, shapes.md)
-                            .border(
-                                1.dp,
-                                colors.border,
-                                shapes.md,
-                            )
-                            .background(
-                                colors.popover,
-                                shapes.md,
-                            )
-                            .clip(shapes.md)
-                            .padding(vertical = spacing.xs),
-                    ) {
-                        items(options) { option ->
-                            SelectItem(
-                                option = option,
-                                isSelected =
-                                    option.value ==
-                                        selectedValue,
-                                onClick = {
-                                    onValueChange(
-                                        option.value,
-                                    )
-                                    expanded = false
-                                },
-                            )
-                        }
-                    }
-                }
+            ) {
+                listContent()
+            }
+        }
+
+        PopupAnimation.FadeExpand -> {
+            AnimatedVisibility(
+                visible = true,
+                enter =
+                    fadeIn(
+                        animationSpec =
+                            tween(
+                                motion.durationFast,
+                            ),
+                    ) +
+                        expandVertically(
+                            animationSpec =
+                                tween(
+                                    motion.durationDefault,
+                                ),
+                            expandFrom = Alignment.Top,
+                        ),
+                exit =
+                    fadeOut(
+                        animationSpec =
+                            tween(
+                                motion.durationFast,
+                            ),
+                    ) +
+                        shrinkVertically(
+                            animationSpec =
+                                tween(
+                                    motion.durationDefault,
+                                ),
+                            shrinkTowards = Alignment.Top,
+                        ),
+            ) {
+                listContent()
             }
         }
     }
@@ -290,26 +373,27 @@ private fun SelectItem(
         interactionSource.collectIsHoveredAsState()
 
     val backgroundColor by animateColorAsState(
-        targetValue = when {
-            isHovered -> colors.accent
-            else -> colors.popover
-        },
+        targetValue =
+            when {
+                isHovered -> colors.accent
+                else -> colors.popover
+            },
         animationSpec = tween(motion.durationFast),
     )
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(backgroundColor)
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null,
-                onClick = onClick,
-            )
-            .padding(
-                horizontal = spacing.md,
-                vertical = spacing.sm,
-            ),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .background(backgroundColor)
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null,
+                    onClick = onClick,
+                ).padding(
+                    horizontal = spacing.md,
+                    vertical = spacing.sm,
+                ),
         horizontalArrangement =
             Arrangement.spacedBy(spacing.sm),
         verticalAlignment = Alignment.CenterVertically,
@@ -328,11 +412,12 @@ private fun SelectItem(
         Text(
             text = option.label,
             variant = TextVariant.P,
-            color = if (isHovered) {
-                colors.accentForeground
-            } else {
-                colors.popoverForeground
-            },
+            color =
+                if (isHovered) {
+                    colors.accentForeground
+                } else {
+                    colors.popoverForeground
+                },
             maxLines = 1,
         )
     }

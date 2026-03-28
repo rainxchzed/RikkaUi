@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -44,10 +43,11 @@ import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
-import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.components.ui.PopupAnimation
 
 // ─── Component ──────────────────────────────────────────────
 
@@ -65,10 +65,11 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
  * Features:
  * - Long-press triggered (cross-platform)
  * - Outside-click dismiss via Popup
- * - Scrollable when content exceeds 300dp
+ * - Scrollable when content exceeds max height
  * - Hover highlight on menu items
  * - Trailing shortcut text support
  * - Separator and label sub-components
+ * - Configurable animation, min/max width, and max height
  * - No Material3 dependency
  *
  * Usage:
@@ -90,16 +91,32 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
  *         Text("Long-press or right-click me")
  *     }
  * }
+ *
+ * // Instant popup:
+ * ContextMenu(
+ *     animation = PopupAnimation.None,
+ *     menuContent = { ... },
+ * ) { ... }
  * ```
  *
  * @param menuContent Column-scoped builder for items, labels, separators.
  * @param modifier Modifier applied to the outer trigger wrapper.
+ * @param animation Controls how the popup enters and exits.
+ *     Defaults to [PopupAnimation.FadeExpand].
+ * @param minWidth Minimum width of the context menu panel. Defaults to 200.dp.
+ * @param maxWidth Maximum width of the context menu panel. Defaults to 280.dp.
+ * @param maxHeight Maximum height before the panel becomes scrollable.
+ *     Defaults to 300.dp.
  * @param content The trigger area that responds to long-press / right-click.
  */
 @Composable
 fun ContextMenu(
     menuContent: @Composable ColumnScope.() -> Unit,
     modifier: Modifier = Modifier,
+    animation: PopupAnimation = PopupAnimation.FadeExpand,
+    minWidth: Dp = 200.dp,
+    maxWidth: Dp = 280.dp,
+    maxHeight: Dp = 300.dp,
     content: @Composable () -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -111,11 +128,12 @@ fun ContextMenu(
 
     Box(modifier = modifier) {
         Box(
-            modifier = Modifier.pointerInput(Unit) {
-                detectTapGestures(
-                    onLongPress = { expanded = true },
-                )
-            },
+            modifier =
+                Modifier.pointerInput(Unit) {
+                    detectTapGestures(
+                        onLongPress = { expanded = true },
+                    )
+                },
         ) {
             content()
         }
@@ -125,60 +143,13 @@ fun ContextMenu(
                 alignment = Alignment.TopStart,
                 onDismissRequest = { expanded = false },
             ) {
-                AnimatedVisibility(
-                    visible = true,
-                    enter = fadeIn(
-                        animationSpec = tween(
-                            motion.durationFast,
-                        ),
-                    ) + expandVertically(
-                        animationSpec = tween(
-                            motion.durationDefault,
-                        ),
-                        expandFrom = Alignment.Top,
-                    ),
-                    exit = fadeOut(
-                        animationSpec = tween(
-                            motion.durationFast,
-                        ),
-                    ) + shrinkVertically(
-                        animationSpec = tween(
-                            motion.durationDefault,
-                        ),
-                        shrinkTowards = Alignment.Top,
-                    ),
-                ) {
-                    Column(
-                        modifier =
-                            Modifier
-                                .defaultMinSize(
-                                    minWidth = 200.dp,
-                                )
-                                .widthIn(max = 280.dp)
-                                .heightIn(max = 300.dp)
-                                .shadow(
-                                    8.dp,
-                                    shapes.md,
-                                )
-                                .border(
-                                    1.dp,
-                                    colors.border,
-                                    shapes.md,
-                                )
-                                .background(
-                                    colors.popover,
-                                    shapes.md,
-                                )
-                                .clip(shapes.md)
-                                .verticalScroll(
-                                    rememberScrollState(),
-                                )
-                                .padding(
-                                    vertical = spacing.xs,
-                                ),
-                        content = menuContent,
-                    )
-                }
+                ContextMenuPanel(
+                    animation = animation,
+                    minWidth = minWidth,
+                    maxWidth = maxWidth,
+                    maxHeight = maxHeight,
+                    menuContent = menuContent,
+                )
             }
         }
     }
@@ -211,6 +182,12 @@ fun ContextMenu(
  * @param onDismiss Called when the user clicks outside the popup.
  * @param menuContent Column-scoped builder for items, labels, separators.
  * @param modifier Modifier applied to the outer wrapper.
+ * @param animation Controls how the popup enters and exits.
+ *     Defaults to [PopupAnimation.FadeExpand].
+ * @param minWidth Minimum width of the context menu panel. Defaults to 200.dp.
+ * @param maxWidth Maximum width of the context menu panel. Defaults to 280.dp.
+ * @param maxHeight Maximum height before the panel becomes scrollable.
+ *     Defaults to 300.dp.
  * @param content The trigger area.
  */
 @Composable
@@ -219,13 +196,12 @@ fun ControlledContextMenu(
     onDismiss: () -> Unit,
     menuContent: @Composable ColumnScope.() -> Unit,
     modifier: Modifier = Modifier,
+    animation: PopupAnimation = PopupAnimation.FadeExpand,
+    minWidth: Dp = 200.dp,
+    maxWidth: Dp = 280.dp,
+    maxHeight: Dp = 300.dp,
     content: @Composable () -> Unit,
 ) {
-    val colors = RikkaTheme.colors
-    val shapes = RikkaTheme.shapes
-    val spacing = RikkaTheme.spacing
-    val motion = RikkaTheme.motion
-
     Box(modifier = modifier) {
         content()
 
@@ -234,60 +210,124 @@ fun ControlledContextMenu(
                 alignment = Alignment.TopStart,
                 onDismissRequest = onDismiss,
             ) {
-                AnimatedVisibility(
-                    visible = true,
-                    enter = fadeIn(
-                        animationSpec = tween(
-                            motion.durationFast,
-                        ),
-                    ) + expandVertically(
-                        animationSpec = tween(
-                            motion.durationDefault,
-                        ),
-                        expandFrom = Alignment.Top,
+                ContextMenuPanel(
+                    animation = animation,
+                    minWidth = minWidth,
+                    maxWidth = maxWidth,
+                    maxHeight = maxHeight,
+                    menuContent = menuContent,
+                )
+            }
+        }
+    }
+}
+
+// ─── Internal: Animated panel ───────────────────────────────
+
+/**
+ * Shared panel rendering for both [ContextMenu] and
+ * [ControlledContextMenu], applying the requested
+ * [PopupAnimation].
+ */
+@Composable
+private fun ContextMenuPanel(
+    animation: PopupAnimation,
+    minWidth: Dp,
+    maxWidth: Dp,
+    maxHeight: Dp,
+    menuContent: @Composable ColumnScope.() -> Unit,
+) {
+    val colors = RikkaTheme.colors
+    val shapes = RikkaTheme.shapes
+    val spacing = RikkaTheme.spacing
+    val motion = RikkaTheme.motion
+
+    val panelContent: @Composable () -> Unit = {
+        Column(
+            modifier =
+                Modifier
+                    .defaultMinSize(
+                        minWidth = minWidth,
+                    ).widthIn(max = maxWidth)
+                    .heightIn(max = maxHeight)
+                    .shadow(
+                        8.dp,
+                        shapes.md,
+                    ).border(
+                        1.dp,
+                        colors.border,
+                        shapes.md,
+                    ).background(
+                        colors.popover,
+                        shapes.md,
+                    ).clip(shapes.md)
+                    .verticalScroll(
+                        rememberScrollState(),
+                    ).padding(
+                        vertical = spacing.xs,
                     ),
-                    exit = fadeOut(
-                        animationSpec = tween(
-                            motion.durationFast,
-                        ),
-                    ) + shrinkVertically(
-                        animationSpec = tween(
-                            motion.durationDefault,
-                        ),
-                        shrinkTowards = Alignment.Top,
+            content = menuContent,
+        )
+    }
+
+    when (animation) {
+        PopupAnimation.None -> panelContent()
+
+        PopupAnimation.Fade -> {
+            AnimatedVisibility(
+                visible = true,
+                enter =
+                    fadeIn(
+                        animationSpec =
+                            tween(
+                                motion.durationFast,
+                            ),
                     ),
-                ) {
-                    Column(
-                        modifier =
-                            Modifier
-                                .defaultMinSize(
-                                    minWidth = 200.dp,
-                                )
-                                .widthIn(max = 280.dp)
-                                .heightIn(max = 300.dp)
-                                .shadow(
-                                    8.dp,
-                                    shapes.md,
-                                )
-                                .border(
-                                    1.dp,
-                                    colors.border,
-                                    shapes.md,
-                                )
-                                .background(
-                                    colors.popover,
-                                    shapes.md,
-                                )
-                                .clip(shapes.md)
-                                .verticalScroll(
-                                    rememberScrollState(),
-                                )
-                                .padding(
-                                    vertical = spacing.xs,
+                exit =
+                    fadeOut(
+                        animationSpec =
+                            tween(
+                                motion.durationFast,
+                            ),
+                    ),
+            ) {
+                panelContent()
+            }
+        }
+
+        PopupAnimation.FadeExpand -> {
+            AnimatedVisibility(
+                visible = true,
+                enter =
+                    fadeIn(
+                        animationSpec =
+                            tween(
+                                motion.durationFast,
+                            ),
+                    ) +
+                        expandVertically(
+                            animationSpec =
+                                tween(
+                                    motion.durationDefault,
                                 ),
-                        content = menuContent,
-                    )
-                }
+                            expandFrom = Alignment.Top,
+                        ),
+                exit =
+                    fadeOut(
+                        animationSpec =
+                            tween(
+                                motion.durationFast,
+                            ),
+                    ) +
+                        shrinkVertically(
+                            animationSpec =
+                                tween(
+                                    motion.durationDefault,
+                                ),
+                            shrinkTowards = Alignment.Top,
+                        ),
+            ) {
+                panelContent()
             }
         }
     }
@@ -346,13 +386,11 @@ fun ContextMenuItem(
                     enabled = enabled,
                     role = Role.Button,
                     onClick = onClick,
-                )
-                .background(backgroundColor)
+                ).background(backgroundColor)
                 .padding(
                     horizontal = spacing.md,
                     vertical = spacing.sm,
-                )
-                .then(
+                ).then(
                     if (!enabled) {
                         Modifier
                             .alpha(0.5f)
