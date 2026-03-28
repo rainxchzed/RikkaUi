@@ -4,6 +4,11 @@ composeMultiplatform = "1.10.0"
 junit = "4.13.2"
 kotlin = "2.3.0"
 material3 = "1.10.0-alpha05"
+agp = "9.1.0"
+kotlinStdlib = "2.3.0"
+runner = "1.5.2"
+core = "1.5.0"
+junitVersion = "1.1.5"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -17,8 +22,14 @@ compose-material3 = { module = "org.jetbrains.compose.material3:material3", vers
 compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatform" }
 compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "composeMultiplatform" }
 compose-uiToolingPreview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "composeMultiplatform" }
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlinStdlib" }
+androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
+androidx-core = { group = "androidx.test", name = "core", version.ref = "core" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 
 [plugins]
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+androidKotlinMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+androidLint = { id = "com.android.lint", version.ref = "agp" }

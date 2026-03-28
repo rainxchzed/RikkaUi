@@ -1,47 +1,24 @@
 package zed.rainxch.rikkaui
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.painterResource
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.window.ComposeViewport
+import zed.rainxch.rikkaui.components.theme.RikkaColors
+import zed.rainxch.rikkaui.components.theme.RikkaPalettes
+import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.components.theme.RikkaTypography
+import zed.rainxch.rikkaui.components.ui.button.Button
+import zed.rainxch.rikkaui.components.ui.button.ButtonAnimation
+import zed.rainxch.rikkaui.components.ui.text.Text
+import zed.rainxch.rikkaui.components.ui.text.TextVariant
 
-import rikkaui.composeapp.generated.resources.Res
-import rikkaui.composeapp.generated.resources.compose_multiplatform
-
-@Composable
-fun App() {
-    MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.primaryContainer)
-                .safeContentPadding()
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
+@OptIn(ExperimentalComposeUiApi::class)
+fun main() {
+    ComposeViewport {
+        RikkaTheme(
+            colors = RikkaPalettes.ZincDark
         ) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
-                }
-            }
+
         }
     }
 }

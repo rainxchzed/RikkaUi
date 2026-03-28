@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="components-wasm-js">
+    <output-path>$PROJECT_DIR$/components/build/libs</output-path>
+    <root id="archive" name="components-wasm-js.jar">
+      <element id="module-output" name="RikkaUi.components.wasmJsMain" />
+    </root>
+  </artifact>
+</component>
