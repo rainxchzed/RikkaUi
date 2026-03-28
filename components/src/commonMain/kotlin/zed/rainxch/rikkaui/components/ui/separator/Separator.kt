@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
@@ -79,11 +79,13 @@ fun Separator(
             }
         }
 
+    // Separators are purely decorative — clear all semantics so
+    // screen readers skip them entirely instead of announcing "empty".
     Box(
         modifier =
             modifier
                 .then(sizeModifier)
                 .background(resolvedColor)
-                .semantics { },
+                .clearAndSetSemantics { },
     )
 }

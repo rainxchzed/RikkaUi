@@ -11,6 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 
@@ -51,12 +53,14 @@ enum class CardVariant {
  *
  * @param modifier Modifier for layout and decoration.
  * @param variant Visual variant — controls background, border, and shadow.
+ * @param label Accessibility label for screen readers. Describes the card's purpose.
  * @param content Card content — use [CardHeader], [CardContent], [CardFooter] for structured layout.
  */
 @Composable
 fun Card(
     modifier: Modifier = Modifier,
     variant: CardVariant = CardVariant.Default,
+    label: String = "",
     content: @Composable ColumnScope.() -> Unit,
 ) {
     val colors = RikkaTheme.colors
@@ -85,9 +89,21 @@ fun Card(
             Modifier
         }
 
+    // Cards group related content — merge descendants so screen readers
+    // treat the card as a single navigable unit with all its content.
+    val semanticsModifier =
+        if (label.isNotEmpty()) {
+            Modifier.semantics(mergeDescendants = true) {
+                contentDescription = label
+            }
+        } else {
+            Modifier.semantics(mergeDescendants = true) {}
+        }
+
     Column(
         modifier =
             modifier
+                .then(semanticsModifier)
                 .then(shadowModifier)
                 .then(borderModifier)
                 .then(backgroundModifier)

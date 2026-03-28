@@ -1,9 +1,7 @@
 package zed.rainxch.rikkaui.components.ui.toggle
 
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -87,10 +85,11 @@ fun Toggle(
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val colors = RikkaTheme.colors
+    val motion = RikkaTheme.motion
 
     val sizeValues = resolveSizeValues(size)
 
-    // ─── Animated values ─────────────────────────────────
+    // ─── Animated values (from theme motion tokens) ──────
     val backgroundColor by animateColorAsState(
         targetValue =
             when {
@@ -99,7 +98,7 @@ fun Toggle(
                 checked -> colors.primary
                 else -> colors.input
             },
-        animationSpec = tween(150),
+        animationSpec = tween(motion.durationDefault),
     )
 
     val thumbOffset by animateDpAsState(
@@ -109,11 +108,7 @@ fun Toggle(
             } else {
                 0.dp
             },
-        animationSpec =
-            spring(
-                dampingRatio = Spring.DampingRatioMediumBouncy,
-                stiffness = Spring.StiffnessMediumLow,
-            ),
+        animationSpec = motion.springDefaultDp,
     )
 
     // ─── Track ───────────────────────────────────────────

@@ -1,7 +1,6 @@
 package zed.rainxch.rikkaui.components.ui.button
 
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
@@ -25,6 +24,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.Dp
@@ -132,6 +134,7 @@ enum class ButtonAnimation {
  * @param size Controls height, padding, and min width.
  * @param animation Press animation style. Defaults to [ButtonAnimation.Scale].
  * @param enabled Whether the button is interactive.
+ * @param label Accessibility label for screen readers. When set, overrides content description.
  * @param content Button content — typically [Text] and/or icons.
  */
 @Composable
@@ -142,6 +145,7 @@ fun Button(
     size: ButtonSize = ButtonSize.Default,
     animation: ButtonAnimation = ButtonAnimation.Scale,
     enabled: Boolean = true,
+    label: String = "",
     content: @Composable () -> Unit,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -156,7 +160,9 @@ fun Button(
             else -> RikkaTheme.shapes.lg
         }
 
-    // ─── Animation values ───────────────────────────────
+    // ─── Animation values (from theme motion tokens) ────
+    val motion = RikkaTheme.motion
+
     val animationSpec =
         when (animation) {
             ButtonAnimation.None -> {
@@ -164,17 +170,11 @@ fun Button(
             }
 
             ButtonAnimation.Scale -> {
-                spring<Float>(
-                    dampingRatio = Spring.DampingRatioMediumBouncy,
-                    stiffness = Spring.StiffnessMediumLow,
-                )
+                motion.springDefault
             }
 
             ButtonAnimation.Bounce -> {
-                spring<Float>(
-                    dampingRatio = Spring.DampingRatioLowBouncy,
-                    stiffness = Spring.StiffnessLow,
-                )
+                motion.springBouncy
             }
         }
 
@@ -190,8 +190,8 @@ fun Button(
 
             isPressed -> {
                 when (animation) {
-                    ButtonAnimation.Scale -> 0.97f
-                    ButtonAnimation.Bounce -> 0.93f
+                    ButtonAnimation.Scale -> motion.pressScaleSubtle
+                    ButtonAnimation.Bounce -> motion.pressScaleBouncy
                     ButtonAnimation.None -> 1f
                 }
             }
@@ -206,10 +206,10 @@ fun Button(
         animationSpec = animationSpec ?: spring(),
     )
 
-    // ─── Color animations ───────────────────────────────
+    // ─── Color animations (from theme motion tokens) ────
     val animatedBackground by animateColorAsState(
         targetValue = colors.background,
-        animationSpec = tween(150),
+        animationSpec = tween(motion.durationDefault),
     )
 
     // ─── Modifiers ──────────────────────────────────────
@@ -256,7 +256,15 @@ fun Button(
                 ).padding(
                     horizontal = sizeValues.horizontalPadding,
                     vertical = sizeValues.verticalPadding,
-                ).then(if (!enabled) Modifier.alpha(0.5f) else Modifier),
+                ).then(if (!enabled) Modifier.alpha(0.5f) else Modifier)
+                .semantics(mergeDescendants = true) {
+                    if (label.isNotEmpty()) {
+                        contentDescription = label
+                    }
+                    if (!enabled) {
+                        disabled()
+                    }
+                },
         horizontalArrangement =
             Arrangement.spacedBy(
                 sizeValues.contentSpacing,

@@ -20,6 +20,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
@@ -67,6 +70,7 @@ import zed.rainxch.rikkaui.components.theme.RikkaTheme
  * @param keyboardOptions Software keyboard configuration.
  * @param keyboardActions IME action handlers.
  * @param visualTransformation Visual transformation (e.g., password masking).
+ * @param label Accessibility label for screen readers. Describes the input's purpose.
  * @param style Override text style. Merged on top of theme's paragraph style.
  */
 @Composable
@@ -81,15 +85,17 @@ fun Input(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
+    label: String = "",
     style: TextStyle = TextStyle.Default,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
 
     val colors = RikkaTheme.colors
+    val motion = RikkaTheme.motion
     val shape = RikkaTheme.shapes.md
 
-    // ─── Animated border ─────────────────────────────────
+    // ─── Animated border (from theme motion tokens) ──────
     val borderColor by animateColorAsState(
         targetValue =
             when {
@@ -97,7 +103,7 @@ fun Input(
                 isFocused -> colors.ring
                 else -> colors.input
             },
-        animationSpec = tween(150),
+        animationSpec = tween(motion.durationDefault),
     )
 
     val textStyle =
@@ -111,13 +117,26 @@ fun Input(
             TextStyle(color = colors.mutedForeground),
         )
 
+    // ─── Accessibility ─────────────────────────────────
+    val accessibilityLabel = label.ifEmpty { placeholder }
+    val semanticsModifier =
+        Modifier.semantics {
+            if (accessibilityLabel.isNotEmpty()) {
+                contentDescription = accessibilityLabel
+            }
+            if (!enabled) {
+                disabled()
+            }
+        }
+
     BasicTextField(
         value = value,
         onValueChange = onValueChange,
         modifier =
             modifier
                 .fillMaxWidth()
-                .defaultMinSize(minHeight = 40.dp),
+                .defaultMinSize(minHeight = 40.dp)
+                .then(semanticsModifier),
         enabled = enabled,
         readOnly = readOnly,
         textStyle = textStyle,

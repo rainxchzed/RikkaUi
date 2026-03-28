@@ -4,6 +4,8 @@ import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -75,9 +77,20 @@ fun Text(
                 TextStyle(color = resolvedColor),
             ).merge(textAlignStyle)
 
+    // Heading variants get accessibility heading semantics,
+    // enabling screen reader heading navigation (swipe up/down on TalkBack,
+    // rotor on VoiceOver).
+    val isHeading = variant in setOf(TextVariant.H1, TextVariant.H2, TextVariant.H3, TextVariant.H4)
+    val semanticsModifier =
+        if (isHeading) {
+            modifier.semantics { heading() }
+        } else {
+            modifier
+        }
+
     BasicText(
         text = text,
-        modifier = modifier,
+        modifier = semanticsModifier,
         style = mergedStyle,
         overflow = overflow,
         maxLines = maxLines,
