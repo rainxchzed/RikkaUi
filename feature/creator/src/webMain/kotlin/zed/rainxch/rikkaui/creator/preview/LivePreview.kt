@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -310,55 +309,42 @@ private fun ComponentStrip() {
 // ────────────────────────────────────────────────────────
 
 /**
- * Responsive grid of ~20 real-world example cards.
+ * Staggered (masonry) grid of ~20 real-world example cards.
  *
- * Uses [FlowRow] so cards wrap naturally. Each card has
- * a fixed preferred width so they form columns on wide
- * screens and stack on narrow ones.
+ * Cards are distributed across 3 columns round-robin,
+ * allowing different-height cards to pack tightly without
+ * gaps — like shadcn's "Create" page.
  */
 @Composable
 private fun ExampleCardsGrid() {
-    val cardModifier = Modifier.width(360.dp)
-
-    FlowRow(
-        horizontalArrangement =
-            Arrangement.spacedBy(RikkaTheme.spacing.md),
-        verticalArrangement =
-            Arrangement.spacedBy(RikkaTheme.spacing.md),
-        modifier = Modifier.fillMaxWidth(),
+    StaggeredGrid(
+        columns = 3,
+        spacing = RikkaTheme.spacing.md,
     ) {
-        // Row 1 — varied card types
-        ExampleEnvVariables(modifier = cardModifier)
-        ExampleBookAppointment(modifier = cardModifier)
-        ExampleFeedbackForm(modifier = cardModifier)
+        // Column 1: cards 1, 4, 7, 10, 13, 16, 19
+        item { ExampleEnvVariables() }
+        item { ExampleTaskList() }
+        item { ExampleInviteTeam() }
+        item { ExampleReportBug() }
+        item { ExamplePaymentMethod() }
+        item { ExampleShippingAddress() }
+        item { ExampleActivityLog() }
 
-        // Row 2
-        ExampleTaskList(modifier = cardModifier)
-        ExampleProfileSettings(modifier = cardModifier)
-        ExampleSearchCommand(modifier = cardModifier)
+        // Column 2: cards 2, 5, 8, 11, 14, 17, 20
+        item { ExampleBookAppointment() }
+        item { ExampleProfileSettings() }
+        item { ExamplePricingCard() }
+        item { ExampleChatComposer() }
+        item { ExampleFileManager() }
+        item { ExampleCookieSettings() }
+        item { ExampleQuickNote() }
 
-        // Row 3
-        ExampleInviteTeam(modifier = cardModifier)
-        ExamplePricingCard(modifier = cardModifier)
-        ExampleNotificationSettings(modifier = cardModifier)
-
-        // Row 4
-        ExampleReportBug(modifier = cardModifier)
-        ExampleChatComposer(modifier = cardModifier)
-        ExampleApiKeyManager(modifier = cardModifier)
-
-        // Row 5
-        ExamplePaymentMethod(modifier = cardModifier)
-        ExampleFileManager(modifier = cardModifier)
-        ExampleUserDirectory(modifier = cardModifier)
-
-        // Row 6
-        ExampleShippingAddress(modifier = cardModifier)
-        ExampleCookieSettings(modifier = cardModifier)
-        ExampleOnboarding(modifier = cardModifier)
-
-        // Row 7
-        ExampleActivityLog(modifier = cardModifier)
-        ExampleQuickNote(modifier = cardModifier)
+        // Column 3: cards 3, 6, 9, 12, 15, 18
+        item { ExampleFeedbackForm() }
+        item { ExampleSearchCommand() }
+        item { ExampleNotificationSettings() }
+        item { ExampleApiKeyManager() }
+        item { ExampleUserDirectory() }
+        item { ExampleOnboarding() }
     }
 }

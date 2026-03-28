@@ -91,7 +91,8 @@ fun ExampleEnvVariables(modifier: Modifier = Modifier) {
 private fun EnvRow(key: String, value: String) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
+        horizontalArrangement =
+            Arrangement.spacedBy(RikkaTheme.spacing.md),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
@@ -99,9 +100,11 @@ private fun EnvRow(key: String, value: String) {
             variant = TextVariant.Small,
             color = RikkaTheme.colors.foreground,
         )
+        Spacer(Modifier.weight(1f))
         Text(
             text = value,
             variant = TextVariant.Muted,
+            maxLines = 1,
         )
     }
 }
