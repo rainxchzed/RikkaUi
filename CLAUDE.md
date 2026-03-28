@@ -121,16 +121,19 @@ composeApp/src/webMain/kotlin/zed/rainxch/rikkaui/
 - Spring animations as default for interactions (handles interruptions)
 - Lambda-based `Modifier.offset {}` to defer reads to placement step
 
-### Theme System
+### Theme System (Fully Customizable)
+
+Every theme token is customizable at 3 levels: presets, factory functions, or full override.
 
 - **Colors:** 20 semantic tokens in bg/fg pairs. 5 base palettes x light/dark = 10 schemes. 7 accent colors x light/dark = 14 accents. Composable via `withAccent()`.
-- **Light palettes:** Zinc uses pure white background. Slate/Stone/Gray/Neutral use slightly tinted backgrounds (0xFFF8FAFC, 0xFFFAFAF9, etc.) with darker borders/secondary for visible differentiation.
+- **Light palettes:** Zinc uses pure white background. Slate/Stone/Gray/Neutral use slightly tinted backgrounds with darker borders/secondary for visible differentiation.
 - **Dark palettes:** Each palette has distinct background tints and border colors.
 - **Accent system:** `RikkaAccentColor` overrides primary/primaryForeground/ring. Applied via `base.withAccent(accent)`.
-- **Typography:** 9 styles wired to RikkaFontFamily. Change font once, updates everywhere.
-- **Spacing:** 4dp base grid. xs(4) sm(8) md(12) lg(16) xl(24) xxl(32) xxxl(48).
-- **Shapes:** Generated from base radius (default 10dp). sm/md/lg/xl/full.
-- **Motion:** Springs (default/bouncy/snap), tweens (fast/default/slow/enter), duration ints, press scale targets.
+- **Typography:** `rikkaTypography(fontFamily, scale, h1Size, h2Size, ...)` — font, proportional scale factor (0.85=compact, 1.15=large), or individual size overrides. Line heights auto-calculated from font size ratios.
+- **Spacing:** `rikkaSpacing(base = 4.dp)` — generates proportional scale (xs=1x, sm=2x, md=3x, lg=4x, xl=6x, xxl=8x, xxxl=12x). Presets: `RikkaSpacingPresets.compact()` (3dp), `.comfortable()` (5dp), `.spacious()` (6dp).
+- **Shapes:** `rikkaShapes(radius = 10.dp)` — generates sm/md/lg/xl/full from one base radius. Presets: `RikkaShapesPresets.square()` (0dp), `.sharp()` (4dp), `.rounded()` (16dp), `.pill()` (24dp).
+- **Motion:** `RikkaMotion(...)` with all params having defaults. Presets: `RikkaMotionPresets.snappy()` (no bounce, fast), `.playful()` (bouncy, slow), `.minimal()` (subtle, short).
+- **Website demo:** ThemeSection has live sliders for radius and spacing base, plus palette/accent/dark-mode controls.
 
 ## Build & Run
 
