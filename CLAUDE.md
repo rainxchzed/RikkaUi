@@ -133,7 +133,13 @@ Every theme token is customizable at 3 levels: presets, factory functions, or fu
 - **Spacing:** `rikkaSpacing(base = 4.dp)` — generates proportional scale (xs=1x, sm=2x, md=3x, lg=4x, xl=6x, xxl=8x, xxxl=12x). Presets: `RikkaSpacingPresets.compact()` (3dp), `.comfortable()` (5dp), `.spacious()` (6dp).
 - **Shapes:** `rikkaShapes(radius = 10.dp)` — generates sm/md/lg/xl/full from one base radius. Presets: `RikkaShapesPresets.square()` (0dp), `.sharp()` (4dp), `.rounded()` (16dp), `.pill()` (24dp).
 - **Motion:** `RikkaMotion(...)` with all params having defaults. Presets: `RikkaMotionPresets.snappy()` (no bounce, fast), `.playful()` (bouncy, slow), `.minimal()` (subtle, short).
-- **Website demo:** ThemeSection has live sliders for radius and spacing base, plus palette/accent/dark-mode controls.
+- **Website demo:** ThemeSection has named style presets (Default/Nova/Vega/Aurora/Nebula) + palette/accent/dark-mode controls. No raw sliders — presets bundle radius, spacing, motion, and type scale into cohesive named styles, like shadcn does.
+- **Style presets defined in App.kt** via `resolveStyle()` function and `StylePreset` data class. Each preset bundles shapes + spacing + motion + typeScale.
+  - Default: radius 10dp, spacing 4dp, balanced motion, scale 1.0
+  - Nova: radius 4dp, spacing 3dp, snappy motion, scale 0.9 (sharp, dense)
+  - Vega: radius 20dp, spacing 5dp, playful motion, scale 1.05 (rounded, bouncy)
+  - Aurora: radius 14dp, spacing 5dp, default motion, scale 1.1 (spacious, large)
+  - Nebula: radius 0dp, spacing 3dp, minimal motion, scale 0.85 (square, tight)
 
 ## Build & Run
 
