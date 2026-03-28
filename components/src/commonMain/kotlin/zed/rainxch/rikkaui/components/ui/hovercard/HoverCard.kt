@@ -8,6 +8,7 @@ import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -110,9 +111,17 @@ fun HoverCard(
                         Modifier
                             .hoverable(cardInteraction)
                             .defaultMinSize(minWidth = 250.dp)
-                            .shadow(4.dp, shapes.md)
-                            .border(1.dp, colors.border, shapes.md)
-                            .background(colors.popover, shapes.md)
+                            .widthIn(max = 360.dp)
+                            .shadow(8.dp, shapes.md)
+                            .border(
+                                1.dp,
+                                colors.border,
+                                shapes.md,
+                            )
+                            .background(
+                                colors.popover,
+                                shapes.md,
+                            )
                             .clip(shapes.md)
                             .padding(spacing.lg),
                 ) {

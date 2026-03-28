@@ -1,7 +1,12 @@
 package zed.rainxch.rikkaui.components.ui.select
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -9,15 +14,14 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -73,8 +77,9 @@ data class SelectOption(
  *
  * Features:
  * - Input-like trigger with chevron indicator
- * - Popup dropdown with scrollable option list
+ * - Animated popup dropdown with smooth expand/fade
  * - Hover highlighting and check mark for selected option
+ * - Popup width matches trigger width exactly
  * - Full keyboard and accessibility support
  * - No Material dependency
  *
@@ -96,8 +101,10 @@ data class SelectOption(
  * )
  * ```
  *
- * @param selectedValue The currently selected value (matches [SelectOption.value]).
- * @param onValueChange Called with the new value when the user selects an option.
+ * @param selectedValue The currently selected value
+ *     (matches [SelectOption.value]).
+ * @param onValueChange Called with the new value when
+ *     the user selects an option.
  * @param options The list of available options.
  * @param modifier Modifier applied to the trigger.
  * @param placeholder Text shown when no option is selected.
@@ -142,7 +149,8 @@ fun Select(
                 .background(colors.background, shapes.md)
                 .clip(shapes.md)
                 .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
+                    interactionSource =
+                        remember { MutableInteractionSource() },
                     indication = null,
                     enabled = enabled,
                     role = Role.DropdownList,
@@ -152,10 +160,17 @@ fun Select(
                     horizontal = spacing.md,
                     vertical = spacing.sm,
                 )
-                .then(if (!enabled) Modifier.alpha(0.5f) else Modifier)
+                .then(
+                    if (!enabled) {
+                        Modifier.alpha(0.5f)
+                    } else {
+                        Modifier
+                    },
+                )
                 .semantics(mergeDescendants = true) {
                     if (accessibilityLabel.isNotEmpty()) {
-                        contentDescription = accessibilityLabel
+                        contentDescription =
+                            accessibilityLabel
                     }
                     if (!enabled) {
                         disabled()
@@ -173,6 +188,7 @@ fun Select(
                     colors.foreground
                 },
                 modifier = Modifier.weight(1f),
+                maxLines = 1,
             )
             Icon(
                 imageVector = RikkaIcons.ChevronDown,
@@ -184,31 +200,68 @@ fun Select(
 
         // ─── Dropdown popup ──────────────────────────
         if (expanded) {
-            val triggerWidthDp = with(density) { triggerWidth.toDp() }
+            val triggerWidthDp =
+                with(density) { triggerWidth.toDp() }
 
             Popup(
                 onDismissRequest = { expanded = false },
-                popupPositionProvider = DropdownPositionProvider,
+                popupPositionProvider =
+                    DropdownPositionProvider,
             ) {
-                LazyColumn(
-                    modifier = Modifier
-                        .widthIn(min = triggerWidthDp)
-                        .heightIn(max = 200.dp)
-                        .shadow(4.dp, shapes.md)
-                        .border(1.dp, colors.border, shapes.md)
-                        .background(colors.card, shapes.md)
-                        .clip(shapes.md)
-                        .padding(vertical = spacing.xs),
+                AnimatedVisibility(
+                    visible = true,
+                    enter = fadeIn(
+                        animationSpec = tween(
+                            motion.durationFast,
+                        ),
+                    ) + expandVertically(
+                        animationSpec = tween(
+                            motion.durationDefault,
+                        ),
+                        expandFrom = Alignment.Top,
+                    ),
+                    exit = fadeOut(
+                        animationSpec = tween(
+                            motion.durationFast,
+                        ),
+                    ) + shrinkVertically(
+                        animationSpec = tween(
+                            motion.durationDefault,
+                        ),
+                        shrinkTowards = Alignment.Top,
+                    ),
                 ) {
-                    items(options) { option ->
-                        SelectItem(
-                            option = option,
-                            isSelected = option.value == selectedValue,
-                            onClick = {
-                                onValueChange(option.value)
-                                expanded = false
-                            },
-                        )
+                    LazyColumn(
+                        modifier = Modifier
+                            .width(triggerWidthDp)
+                            .heightIn(max = 200.dp)
+                            .shadow(8.dp, shapes.md)
+                            .border(
+                                1.dp,
+                                colors.border,
+                                shapes.md,
+                            )
+                            .background(
+                                colors.popover,
+                                shapes.md,
+                            )
+                            .clip(shapes.md)
+                            .padding(vertical = spacing.xs),
+                    ) {
+                        items(options) { option ->
+                            SelectItem(
+                                option = option,
+                                isSelected =
+                                    option.value ==
+                                        selectedValue,
+                                onClick = {
+                                    onValueChange(
+                                        option.value,
+                                    )
+                                    expanded = false
+                                },
+                            )
+                        }
                     }
                 }
             }
@@ -231,13 +284,15 @@ private fun SelectItem(
     val spacing = RikkaTheme.spacing
     val motion = RikkaTheme.motion
 
-    val interactionSource = remember { MutableInteractionSource() }
-    val isHovered by interactionSource.collectIsHoveredAsState()
+    val interactionSource =
+        remember { MutableInteractionSource() }
+    val isHovered by
+        interactionSource.collectIsHoveredAsState()
 
     val backgroundColor by animateColorAsState(
         targetValue = when {
-            isHovered -> colors.muted
-            else -> colors.card
+            isHovered -> colors.accent
+            else -> colors.popover
         },
         animationSpec = tween(motion.durationFast),
     )
@@ -255,7 +310,8 @@ private fun SelectItem(
                 horizontal = spacing.md,
                 vertical = spacing.sm,
             ),
-        horizontalArrangement = Arrangement.spacedBy(spacing.sm),
+        horizontalArrangement =
+            Arrangement.spacedBy(spacing.sm),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         // Check mark for selected item
@@ -272,7 +328,12 @@ private fun SelectItem(
         Text(
             text = option.label,
             variant = TextVariant.P,
-            color = colors.foreground,
+            color = if (isHovered) {
+                colors.accentForeground
+            } else {
+                colors.popoverForeground
+            },
+            maxLines = 1,
         )
     }
 }
@@ -280,7 +341,8 @@ private fun SelectItem(
 // ─── Internal: Position Provider ────────────────────────────
 
 /**
- * Positions the dropdown popup directly below the trigger (anchor).
+ * Positions the dropdown popup directly below the trigger,
+ * with a 4px gap.
  */
 private object DropdownPositionProvider : PopupPositionProvider {
     override fun calculatePosition(
@@ -288,8 +350,9 @@ private object DropdownPositionProvider : PopupPositionProvider {
         windowSize: IntSize,
         layoutDirection: LayoutDirection,
         popupContentSize: IntSize,
-    ): IntOffset = IntOffset(
-        x = anchorBounds.left,
-        y = anchorBounds.bottom,
-    )
+    ): IntOffset {
+        val x = anchorBounds.left
+        val y = anchorBounds.bottom + 4
+        return IntOffset(x = x, y = y)
+    }
 }

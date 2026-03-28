@@ -14,9 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -109,15 +107,14 @@ fun LivePreview(
         Column(
             modifier =
                 modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
                     .clip(RoundedCornerShape(12.dp))
                     .border(
                         width = 1.dp,
                         color = RikkaTheme.colors.border,
                         shape = RoundedCornerShape(12.dp),
                     ).background(RikkaTheme.colors.background)
-                    .padding(RikkaTheme.spacing.lg)
-                    .verticalScroll(rememberScrollState()),
+                    .padding(RikkaTheme.spacing.lg),
         ) {
             // ── 1. Theme Header ──
             ThemeHeader(

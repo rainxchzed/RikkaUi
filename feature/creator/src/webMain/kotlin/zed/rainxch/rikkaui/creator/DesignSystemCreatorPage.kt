@@ -128,7 +128,8 @@ fun DesignSystemCreatorPage() {
                     modifier =
                         Modifier
                             .weight(0.72f)
-                            .fillMaxHeight(),
+                            .fillMaxHeight()
+                            .verticalScroll(rememberScrollState()),
                 ) {
                     LivePreview(
                         stylePreset = stylePreset,

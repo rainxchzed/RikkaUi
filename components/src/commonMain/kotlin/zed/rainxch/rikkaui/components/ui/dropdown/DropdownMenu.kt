@@ -1,5 +1,11 @@
 package zed.rainxch.rikkaui.components.ui.dropdown
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -14,6 +20,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.verticalScroll
@@ -91,6 +98,7 @@ fun DropdownMenu(
     val colors = RikkaTheme.colors
     val shapes = RikkaTheme.shapes
     val spacing = RikkaTheme.spacing
+    val motion = RikkaTheme.motion
 
     Box(modifier = modifier) {
         trigger()
@@ -100,19 +108,60 @@ fun DropdownMenu(
                 alignment = Alignment.BottomStart,
                 onDismissRequest = onDismiss,
             ) {
-                Column(
-                    modifier =
-                        Modifier
-                            .defaultMinSize(minWidth = 180.dp)
-                            .heightIn(max = 300.dp)
-                            .shadow(4.dp, shapes.md)
-                            .border(1.dp, colors.border, shapes.md)
-                            .background(colors.popover, shapes.md)
-                            .clip(shapes.md)
-                            .verticalScroll(rememberScrollState())
-                            .padding(vertical = spacing.xs),
-                    content = content,
-                )
+                AnimatedVisibility(
+                    visible = true,
+                    enter = fadeIn(
+                        animationSpec = tween(
+                            motion.durationFast,
+                        ),
+                    ) + expandVertically(
+                        animationSpec = tween(
+                            motion.durationDefault,
+                        ),
+                        expandFrom = Alignment.Top,
+                    ),
+                    exit = fadeOut(
+                        animationSpec = tween(
+                            motion.durationFast,
+                        ),
+                    ) + shrinkVertically(
+                        animationSpec = tween(
+                            motion.durationDefault,
+                        ),
+                        shrinkTowards = Alignment.Top,
+                    ),
+                ) {
+                    Column(
+                        modifier =
+                            Modifier
+                                .defaultMinSize(
+                                    minWidth = 180.dp,
+                                )
+                                .widthIn(max = 280.dp)
+                                .heightIn(max = 300.dp)
+                                .shadow(
+                                    8.dp,
+                                    shapes.md,
+                                )
+                                .border(
+                                    1.dp,
+                                    colors.border,
+                                    shapes.md,
+                                )
+                                .background(
+                                    colors.popover,
+                                    shapes.md,
+                                )
+                                .clip(shapes.md)
+                                .verticalScroll(
+                                    rememberScrollState(),
+                                )
+                                .padding(
+                                    vertical = spacing.xs,
+                                ),
+                        content = content,
+                    )
+                }
             }
         }
     }

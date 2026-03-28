@@ -336,29 +336,22 @@ fun ExampleReportBug(modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth(),
             )
 
-            Row(
+            Select(
+                selectedValue = severity,
+                onValueChange = { severity = it },
+                options = severityOptions,
+                placeholder = "Severity",
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.sm,
-                ),
-            ) {
-                Select(
-                    selectedValue = severity,
-                    onValueChange = { severity = it },
-                    options = severityOptions,
-                    placeholder = "Severity",
-                    modifier = Modifier.weight(1f),
-                    label = "Severity",
-                )
-                Select(
-                    selectedValue = component,
-                    onValueChange = { component = it },
-                    options = componentOptions,
-                    placeholder = "Component",
-                    modifier = Modifier.weight(1f),
-                    label = "Component",
-                )
-            }
+                label = "Severity",
+            )
+            Select(
+                selectedValue = component,
+                onValueChange = { component = it },
+                options = componentOptions,
+                placeholder = "Component",
+                modifier = Modifier.fillMaxWidth(),
+                label = "Component",
+            )
 
             Textarea(
                 value = steps,
