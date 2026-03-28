@@ -29,7 +29,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import kotlinx.coroutines.delay
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -169,7 +174,11 @@ fun Sheet(
     panelWidth: Dp = 320.dp,
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    if (!open) return
+    var showPopup by remember { mutableStateOf(false) }
+    LaunchedEffect(open) {
+        if (open) showPopup = true
+    }
+    if (!showPopup) return
 
     val colors = RikkaTheme.colors
     val spacing = RikkaTheme.spacing
@@ -192,7 +201,7 @@ fun Sheet(
         ) {
             // ─── Scrim ───────────────────────────────────
             AnimatedVisibility(
-                visible = true,
+                visible = open,
                 enter =
                     fadeIn(
                         animationSpec = tween(motion.durationEnter),
@@ -220,7 +229,7 @@ fun Sheet(
 
             // ─── Sheet panel ─────────────────────────────
             AnimatedVisibility(
-                visible = true,
+                visible = open,
                 enter = enterTransition,
                 exit = exitTransition,
             ) {
@@ -257,6 +266,13 @@ fun Sheet(
                         ),
                     content = content,
                 )
+            }
+
+            if (!open) {
+                LaunchedEffect(Unit) {
+                    delay(motion.durationEnter.toLong() + 50L)
+                    showPopup = false
+                }
             }
         }
     }
