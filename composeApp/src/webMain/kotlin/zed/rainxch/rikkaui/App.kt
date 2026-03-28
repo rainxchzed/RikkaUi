@@ -15,7 +15,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -44,6 +43,10 @@ import zed.rainxch.rikkaui.components.theme.RikkaColors
 import zed.rainxch.rikkaui.components.theme.RikkaPalettes
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.theme.rememberRikkaFontFamily
+import zed.rainxch.rikkaui.components.theme.RikkaMotion
+import zed.rainxch.rikkaui.components.theme.RikkaMotionPresets
+import zed.rainxch.rikkaui.components.theme.RikkaShapes
+import zed.rainxch.rikkaui.components.theme.RikkaSpacing
 import zed.rainxch.rikkaui.components.theme.rikkaShapes
 import zed.rainxch.rikkaui.components.theme.rikkaSpacing
 import zed.rainxch.rikkaui.components.theme.rikkaTypography
@@ -72,8 +75,7 @@ fun main() {
         var isDark by remember { mutableStateOf(true) }
         var paletteName by remember { mutableStateOf("Zinc") }
         var accentName by remember { mutableStateOf("Default") }
-        var radius by remember { mutableFloatStateOf(10f) }
-        var spacingBase by remember { mutableFloatStateOf(4f) }
+        var styleName by remember { mutableStateOf("Default") }
 
         val baseColors = resolvePalette(paletteName, isDark)
         val colors = resolveAccent(baseColors, accentName, isDark)
@@ -86,12 +88,14 @@ fun main() {
                 bold = Res.font.inter_bold,
                 extraBold = Res.font.inter_black,
             )
+        val style = resolveStyle(styleName)
 
         RikkaTheme(
             colors = colors,
-            typography = rikkaTypography(fontFamily),
-            shapes = rikkaShapes(radius = radius.dp),
-            spacing = rikkaSpacing(base = spacingBase.dp),
+            typography = rikkaTypography(fontFamily, scale = style.typeScale),
+            shapes = style.shapes,
+            spacing = style.spacing,
+            motion = style.motion,
         ) {
             ShowcaseApp(
                 isDark = isDark,
@@ -100,10 +104,8 @@ fun main() {
                 onPaletteChange = { paletteName = it },
                 accentName = accentName,
                 onAccentChange = { accentName = it },
-                radius = radius,
-                onRadiusChange = { radius = it },
-                spacingBase = spacingBase,
-                onSpacingBaseChange = { spacingBase = it },
+                styleName = styleName,
+                onStyleChange = { styleName = it },
             )
         }
     }
@@ -117,10 +119,8 @@ private fun ShowcaseApp(
     onPaletteChange: (String) -> Unit,
     accentName: String,
     onAccentChange: (String) -> Unit,
-    radius: Float,
-    onRadiusChange: (Float) -> Unit,
-    spacingBase: Float,
-    onSpacingBaseChange: (Float) -> Unit,
+    styleName: String,
+    onStyleChange: (String) -> Unit,
 ) {
     BoxWithConstraints(
         modifier =
@@ -201,10 +201,8 @@ private fun ShowcaseApp(
                 onPaletteChange = onPaletteChange,
                 accentName = accentName,
                 onAccentChange = onAccentChange,
-                radius = radius,
-                onRadiusChange = onRadiusChange,
-                spacingBase = spacingBase,
-                onSpacingBaseChange = onSpacingBaseChange,
+                styleName = styleName,
+                onStyleChange = onStyleChange,
             )
 
             Spacer(Modifier.height(RikkaTheme.spacing.xxxl))
@@ -369,4 +367,52 @@ fun accentPreviewColor(name: String): Color =
         "Yellow" -> Color(0xFFFACC15)
         "Violet" -> Color(0xFF7C3AED)
         else -> Color.Transparent
+    }
+
+// ─── Style Presets ─────────────────────────────────────────
+
+/** Named style preset names shown in the UI. */
+val stylePresetNames = listOf(
+    "Default", "Nova", "Vega", "Aurora", "Nebula",
+)
+
+private data class StylePreset(
+    val shapes: RikkaShapes,
+    val spacing: RikkaSpacing,
+    val motion: RikkaMotion,
+    val typeScale: Float,
+)
+
+private fun resolveStyle(name: String): StylePreset =
+    when (name) {
+        "Nova" -> StylePreset(
+            shapes = rikkaShapes(radius = 4.dp),
+            spacing = rikkaSpacing(base = 3.dp),
+            motion = RikkaMotionPresets.snappy(),
+            typeScale = 0.9f,
+        )
+        "Vega" -> StylePreset(
+            shapes = rikkaShapes(radius = 20.dp),
+            spacing = rikkaSpacing(base = 5.dp),
+            motion = RikkaMotionPresets.playful(),
+            typeScale = 1.05f,
+        )
+        "Aurora" -> StylePreset(
+            shapes = rikkaShapes(radius = 14.dp),
+            spacing = rikkaSpacing(base = 5.dp),
+            motion = RikkaMotion(),
+            typeScale = 1.1f,
+        )
+        "Nebula" -> StylePreset(
+            shapes = rikkaShapes(radius = 0.dp),
+            spacing = rikkaSpacing(base = 3.dp),
+            motion = RikkaMotionPresets.minimal(),
+            typeScale = 0.85f,
+        )
+        else -> StylePreset(
+            shapes = rikkaShapes(),
+            spacing = rikkaSpacing(),
+            motion = RikkaMotion(),
+            typeScale = 1f,
+        )
     }
