@@ -1,6 +1,5 @@
 package zed.rainxch.rikkaui.showcase
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -47,12 +46,10 @@ fun ShowcaseApp(
     onAccentChange: (String) -> Unit,
     stylePreset: RikkaStylePreset,
     onStyleChange: (RikkaStylePreset) -> Unit,
+    onNavigateToCreator: () -> Unit = {},
 ) {
     BoxWithConstraints(
-        modifier =
-            Modifier
-                .fillMaxSize()
-                .background(RikkaTheme.colors.background),
+        modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.TopCenter,
     ) {
         val sizeClass = WindowSizeClass.fromWidth(maxWidth)
@@ -72,7 +69,7 @@ fun ShowcaseApp(
                     .padding(horizontal = horizontalPadding),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            HeroSection()
+            HeroSection(onGetStarted = onNavigateToCreator)
 
             Spacer(Modifier.height(RikkaTheme.spacing.xl))
 
@@ -86,9 +83,10 @@ fun ShowcaseApp(
             Spacer(Modifier.height(RikkaTheme.spacing.xs))
 
             Text(
-                text = stringResource(
-                    Res.string.components_in_action_desc,
-                ),
+                text =
+                    stringResource(
+                        Res.string.components_in_action_desc,
+                    ),
                 variant = TextVariant.Muted,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),

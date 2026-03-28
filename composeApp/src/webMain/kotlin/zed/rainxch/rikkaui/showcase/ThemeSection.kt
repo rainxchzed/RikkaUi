@@ -105,9 +105,14 @@ fun ThemeSection(
             verticalArrangement =
                 Arrangement.spacedBy(RikkaTheme.spacing.sm),
         ) {
-            val palettes = listOf(
-                "Zinc", "Slate", "Stone", "Gray", "Neutral",
-            )
+            val palettes =
+                listOf(
+                    "Zinc",
+                    "Slate",
+                    "Stone",
+                    "Gray",
+                    "Neutral",
+                )
             palettes.forEach { name ->
                 Button(
                     text = name,
@@ -138,10 +143,17 @@ fun ThemeSection(
             verticalArrangement =
                 Arrangement.spacedBy(RikkaTheme.spacing.sm),
         ) {
-            val accents = listOf(
-                "Default", "Blue", "Green", "Orange",
-                "Red", "Rose", "Violet", "Yellow",
-            )
+            val accents =
+                listOf(
+                    "Default",
+                    "Blue",
+                    "Green",
+                    "Orange",
+                    "Red",
+                    "Rose",
+                    "Violet",
+                    "Yellow",
+                )
             accents.forEach { name ->
                 Button(
                     onClick = { onAccentChange(name) },
@@ -202,11 +214,12 @@ fun ThemeSection(
                 label = stringResource(Res.string.toggle_dark_mode),
             )
             Text(
-                text = if (isDark) {
-                    stringResource(Res.string.dark)
-                } else {
-                    stringResource(Res.string.light)
-                },
+                text =
+                    if (isDark) {
+                        stringResource(Res.string.dark)
+                    } else {
+                        stringResource(Res.string.light)
+                    },
                 variant = TextVariant.Muted,
             )
         }

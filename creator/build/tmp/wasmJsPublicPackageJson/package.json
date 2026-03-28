@@ -1,0 +1,10 @@
+{
+  "name": "RikkaUi-creator",
+  "version": "0.0.0-unspecified",
+  "main": "RikkaUi-creator.mjs",
+  "devDependencies": {},
+  "dependencies": {},
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "bundledDependencies": []
+}

@@ -30,7 +30,7 @@ import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 
 @Composable
-fun HeroSection() {
+fun HeroSection(onGetStarted: () -> Unit = {}) {
     Spacer(Modifier.height(RikkaTheme.spacing.xxxl))
 
     Badge(
@@ -78,7 +78,7 @@ fun HeroSection() {
     ) {
         Button(
             text = stringResource(Res.string.get_started),
-            onClick = {},
+            onClick = onGetStarted,
             animation = ButtonAnimation.Bounce,
         )
         Button(
