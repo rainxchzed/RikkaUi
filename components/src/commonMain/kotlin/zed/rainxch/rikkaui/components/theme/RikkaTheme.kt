@@ -39,15 +39,14 @@ fun RikkaTheme(
 }
 
 /**
- * Convenience overload that applies a [RikkaStyle] preset.
+ * Convenience overload that applies a [RikkaStyle] directly.
  *
  * Usage:
  * ```
- * val style = RikkaStylePresets.nova()
  * RikkaTheme(
  *     colors = RikkaPalettes.ZincDark,
- *     style = style,
- *     typography = rikkaTypography(myFont, scale = style.typeScale),
+ *     style = RikkaStylePreset.Nova.style,
+ *     typography = rikkaTypography(myFont, scale = RikkaStylePreset.Nova.typeScale),
  * ) { ... }
  * ```
  *
@@ -57,7 +56,7 @@ fun RikkaTheme(
 @Composable
 fun RikkaTheme(
     colors: RikkaColors = RikkaPalettes.NeutralLight,
-    style: RikkaStyle = RikkaStylePresets.default(),
+    style: RikkaStyle = RikkaStylePreset.Default.style,
     typography: RikkaTypography = rikkaTypography(scale = style.typeScale),
     content: @Composable () -> Unit,
 ) {
@@ -67,6 +66,34 @@ fun RikkaTheme(
         spacing = style.spacing,
         shapes = style.shapes,
         motion = style.motion,
+        content = content,
+    )
+}
+
+/**
+ * Convenience overload that applies a [RikkaStylePreset] enum directly.
+ *
+ * The simplest way to theme your entire app:
+ * ```
+ * RikkaTheme(
+ *     colors = RikkaPalettes.ZincDark,
+ *     preset = RikkaStylePreset.Nova,
+ * ) { ... }
+ * ```
+ */
+@Composable
+fun RikkaTheme(
+    colors: RikkaColors = RikkaPalettes.NeutralLight,
+    preset: RikkaStylePreset = RikkaStylePreset.Default,
+    typography: RikkaTypography = rikkaTypography(scale = preset.typeScale),
+    content: @Composable () -> Unit,
+) {
+    RikkaTheme(
+        colors = colors,
+        typography = typography,
+        spacing = preset.spacing,
+        shapes = preset.shapes,
+        motion = preset.motion,
         content = content,
     )
 }
