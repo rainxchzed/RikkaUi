@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.gradle.ktlint)
 }
 
 kotlin {
@@ -12,7 +13,7 @@ kotlin {
         browser()
         binaries.executable()
     }
-    
+
     sourceSets {
         commonMain.dependencies {
             implementation(libs.compose.runtime)
@@ -26,5 +27,3 @@ kotlin {
         }
     }
 }
-
-

@@ -150,34 +150,56 @@ fun Button(
 
     val colors = resolveColors(variant, isHovered, isPressed)
     val sizeValues = resolveSizeValues(size)
-    val shape = when (size) {
-        ButtonSize.Sm -> RikkaTheme.shapes.md
-        else -> RikkaTheme.shapes.lg
-    }
+    val shape =
+        when (size) {
+            ButtonSize.Sm -> RikkaTheme.shapes.md
+            else -> RikkaTheme.shapes.lg
+        }
 
     // ─── Animation values ───────────────────────────────
-    val animationSpec = when (animation) {
-        ButtonAnimation.None -> null
-        ButtonAnimation.Scale -> spring<Float>(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessMediumLow,
-        )
-        ButtonAnimation.Bounce -> spring<Float>(
-            dampingRatio = Spring.DampingRatioLowBouncy,
-            stiffness = Spring.StiffnessLow,
-        )
-    }
+    val animationSpec =
+        when (animation) {
+            ButtonAnimation.None -> {
+                null
+            }
 
-    val targetScale = when {
-        !enabled -> 1f
-        animation == ButtonAnimation.None -> 1f
-        isPressed -> when (animation) {
-            ButtonAnimation.Scale -> 0.97f
-            ButtonAnimation.Bounce -> 0.93f
-            ButtonAnimation.None -> 1f
+            ButtonAnimation.Scale -> {
+                spring<Float>(
+                    dampingRatio = Spring.DampingRatioMediumBouncy,
+                    stiffness = Spring.StiffnessMediumLow,
+                )
+            }
+
+            ButtonAnimation.Bounce -> {
+                spring<Float>(
+                    dampingRatio = Spring.DampingRatioLowBouncy,
+                    stiffness = Spring.StiffnessLow,
+                )
+            }
         }
-        else -> 1f
-    }
+
+    val targetScale =
+        when {
+            !enabled -> {
+                1f
+            }
+
+            animation == ButtonAnimation.None -> {
+                1f
+            }
+
+            isPressed -> {
+                when (animation) {
+                    ButtonAnimation.Scale -> 0.97f
+                    ButtonAnimation.Bounce -> 0.93f
+                    ButtonAnimation.None -> 1f
+                }
+            }
+
+            else -> {
+                1f
+            }
+        }
 
     val scale by animateFloatAsState(
         targetValue = targetScale,
@@ -191,53 +213,55 @@ fun Button(
     )
 
     // ─── Modifiers ──────────────────────────────────────
-    val backgroundModifier = if (colors.background != Color.Transparent) {
-        Modifier.background(animatedBackground, shape)
-    } else {
-        Modifier
-    }
-
-    val borderModifier = if (colors.border != Color.Transparent) {
-        Modifier.border(1.dp, colors.border, shape)
-    } else {
-        Modifier
-    }
-
-    val animationModifier = if (animation != ButtonAnimation.None) {
-        Modifier.graphicsLayer {
-            scaleX = scale
-            scaleY = scale
+    val backgroundModifier =
+        if (colors.background != Color.Transparent) {
+            Modifier.background(animatedBackground, shape)
+        } else {
+            Modifier
         }
-    } else {
-        Modifier
-    }
+
+    val borderModifier =
+        if (colors.border != Color.Transparent) {
+            Modifier.border(1.dp, colors.border, shape)
+        } else {
+            Modifier
+        }
+
+    val animationModifier =
+        if (animation != ButtonAnimation.None) {
+            Modifier.graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+            }
+        } else {
+            Modifier
+        }
 
     Row(
-        modifier = modifier
-            .then(animationModifier)
-            .then(borderModifier)
-            .then(backgroundModifier)
-            .clip(shape)
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null,
-                enabled = enabled,
-                role = Role.Button,
-                onClick = onClick,
-            )
-            .defaultMinSize(
-                minHeight = sizeValues.minHeight,
-                minWidth = sizeValues.minWidth,
-            )
-            .padding(
-                horizontal = sizeValues.horizontalPadding,
-                vertical = sizeValues.verticalPadding,
-            )
-            .then(if (!enabled) Modifier.alpha(0.5f) else Modifier),
-        horizontalArrangement = Arrangement.spacedBy(
-            sizeValues.contentSpacing,
-            Alignment.CenterHorizontally,
-        ),
+        modifier =
+            modifier
+                .then(animationModifier)
+                .then(borderModifier)
+                .then(backgroundModifier)
+                .clip(shape)
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null,
+                    enabled = enabled,
+                    role = Role.Button,
+                    onClick = onClick,
+                ).defaultMinSize(
+                    minHeight = sizeValues.minHeight,
+                    minWidth = sizeValues.minWidth,
+                ).padding(
+                    horizontal = sizeValues.horizontalPadding,
+                    vertical = sizeValues.verticalPadding,
+                ).then(if (!enabled) Modifier.alpha(0.5f) else Modifier),
+        horizontalArrangement =
+            Arrangement.spacedBy(
+                sizeValues.contentSpacing,
+                Alignment.CenterHorizontally,
+            ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         content()
@@ -273,11 +297,12 @@ fun Button(
         animation = animation,
         enabled = enabled,
     ) {
-        val textStyle = if (variant == ButtonVariant.Link) {
-            TextStyle(textDecoration = TextDecoration.None)
-        } else {
-            TextStyle.Default
-        }
+        val textStyle =
+            if (variant == ButtonVariant.Link) {
+                TextStyle(textDecoration = TextDecoration.None)
+            } else {
+                TextStyle.Default
+            }
 
         Text(
             text = text,
@@ -304,61 +329,78 @@ private fun resolveColors(
     val colors = RikkaTheme.colors
 
     return when (variant) {
-        ButtonVariant.Default -> ButtonColors(
-            background = when {
-                isPressed -> colors.primary.copy(alpha = 0.7f)
-                isHovered -> colors.primary.copy(alpha = 0.8f)
-                else -> colors.primary
-            },
-            foreground = colors.primaryForeground,
-            border = Color.Transparent,
-        )
+        ButtonVariant.Default -> {
+            ButtonColors(
+                background =
+                    when {
+                        isPressed -> colors.primary.copy(alpha = 0.7f)
+                        isHovered -> colors.primary.copy(alpha = 0.8f)
+                        else -> colors.primary
+                    },
+                foreground = colors.primaryForeground,
+                border = Color.Transparent,
+            )
+        }
 
-        ButtonVariant.Outline -> ButtonColors(
-            background = when {
-                isPressed -> colors.muted.copy(alpha = 0.8f)
-                isHovered -> colors.muted
-                else -> Color.Transparent
-            },
-            foreground = colors.foreground,
-            border = colors.border,
-        )
+        ButtonVariant.Outline -> {
+            ButtonColors(
+                background =
+                    when {
+                        isPressed -> colors.muted.copy(alpha = 0.8f)
+                        isHovered -> colors.muted
+                        else -> Color.Transparent
+                    },
+                foreground = colors.foreground,
+                border = colors.border,
+            )
+        }
 
-        ButtonVariant.Secondary -> ButtonColors(
-            background = when {
-                isPressed -> colors.secondary.copy(alpha = 0.7f)
-                isHovered -> colors.secondary.copy(alpha = 0.8f)
-                else -> colors.secondary
-            },
-            foreground = colors.secondaryForeground,
-            border = Color.Transparent,
-        )
+        ButtonVariant.Secondary -> {
+            ButtonColors(
+                background =
+                    when {
+                        isPressed -> colors.secondary.copy(alpha = 0.7f)
+                        isHovered -> colors.secondary.copy(alpha = 0.8f)
+                        else -> colors.secondary
+                    },
+                foreground = colors.secondaryForeground,
+                border = Color.Transparent,
+            )
+        }
 
-        ButtonVariant.Ghost -> ButtonColors(
-            background = when {
-                isPressed -> colors.muted.copy(alpha = 0.6f)
-                isHovered -> colors.muted
-                else -> Color.Transparent
-            },
-            foreground = colors.foreground,
-            border = Color.Transparent,
-        )
+        ButtonVariant.Ghost -> {
+            ButtonColors(
+                background =
+                    when {
+                        isPressed -> colors.muted.copy(alpha = 0.6f)
+                        isHovered -> colors.muted
+                        else -> Color.Transparent
+                    },
+                foreground = colors.foreground,
+                border = Color.Transparent,
+            )
+        }
 
-        ButtonVariant.Destructive -> ButtonColors(
-            background = when {
-                isPressed -> colors.destructive.copy(alpha = 0.2f)
-                isHovered -> colors.destructive.copy(alpha = 0.15f)
-                else -> colors.destructive.copy(alpha = 0.1f)
-            },
-            foreground = colors.destructive,
-            border = Color.Transparent,
-        )
+        ButtonVariant.Destructive -> {
+            ButtonColors(
+                background =
+                    when {
+                        isPressed -> colors.destructive.copy(alpha = 0.2f)
+                        isHovered -> colors.destructive.copy(alpha = 0.15f)
+                        else -> colors.destructive.copy(alpha = 0.1f)
+                    },
+                foreground = colors.destructive,
+                border = Color.Transparent,
+            )
+        }
 
-        ButtonVariant.Link -> ButtonColors(
-            background = Color.Transparent,
-            foreground = colors.primary,
-            border = Color.Transparent,
-        )
+        ButtonVariant.Link -> {
+            ButtonColors(
+                background = Color.Transparent,
+                foreground = colors.primary,
+                border = Color.Transparent,
+            )
+        }
     }
 }
 
@@ -373,36 +415,45 @@ private data class SizeValues(
 )
 
 @Composable
-private fun resolveSizeValues(size: ButtonSize): SizeValues = when (size) {
-    ButtonSize.Default -> SizeValues(
-        minHeight = 36.dp,
-        minWidth = 0.dp,
-        horizontalPadding = RikkaTheme.spacing.md,
-        verticalPadding = RikkaTheme.spacing.sm,
-        contentSpacing = 6.dp,
-    )
+private fun resolveSizeValues(size: ButtonSize): SizeValues =
+    when (size) {
+        ButtonSize.Default -> {
+            SizeValues(
+                minHeight = 36.dp,
+                minWidth = 0.dp,
+                horizontalPadding = RikkaTheme.spacing.md,
+                verticalPadding = RikkaTheme.spacing.sm,
+                contentSpacing = 6.dp,
+            )
+        }
 
-    ButtonSize.Sm -> SizeValues(
-        minHeight = 28.dp,
-        minWidth = 0.dp,
-        horizontalPadding = RikkaTheme.spacing.sm,
-        verticalPadding = 4.dp,
-        contentSpacing = 4.dp,
-    )
+        ButtonSize.Sm -> {
+            SizeValues(
+                minHeight = 28.dp,
+                minWidth = 0.dp,
+                horizontalPadding = RikkaTheme.spacing.sm,
+                verticalPadding = 4.dp,
+                contentSpacing = 4.dp,
+            )
+        }
 
-    ButtonSize.Lg -> SizeValues(
-        minHeight = 44.dp,
-        minWidth = 0.dp,
-        horizontalPadding = RikkaTheme.spacing.lg,
-        verticalPadding = RikkaTheme.spacing.sm,
-        contentSpacing = 6.dp,
-    )
+        ButtonSize.Lg -> {
+            SizeValues(
+                minHeight = 44.dp,
+                minWidth = 0.dp,
+                horizontalPadding = RikkaTheme.spacing.lg,
+                verticalPadding = RikkaTheme.spacing.sm,
+                contentSpacing = 6.dp,
+            )
+        }
 
-    ButtonSize.Icon -> SizeValues(
-        minHeight = 36.dp,
-        minWidth = 36.dp,
-        horizontalPadding = 0.dp,
-        verticalPadding = 0.dp,
-        contentSpacing = 0.dp,
-    )
-}
+        ButtonSize.Icon -> {
+            SizeValues(
+                minHeight = 36.dp,
+                minWidth = 36.dp,
+                horizontalPadding = 0.dp,
+                verticalPadding = 0.dp,
+                contentSpacing = 0.dp,
+            )
+        }
+    }
