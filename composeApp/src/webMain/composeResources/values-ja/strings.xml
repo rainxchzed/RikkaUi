@@ -26,6 +26,7 @@
     <string name="dark">ダーク</string>
     <string name="light">ライト</string>
     <string name="toggle_dark_mode">ダークモード切替</string>
+    <string name="style_label">スタイル</string>
     <string name="language_label">言語</string>
 
     <!-- Music Player -->

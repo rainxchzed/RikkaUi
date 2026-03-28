@@ -26,6 +26,7 @@
     <string name="dark">Dark</string>
     <string name="light">Light</string>
     <string name="toggle_dark_mode">Toggle dark mode</string>
+    <string name="style_label">Style</string>
     <string name="language_label">Language</string>
 
     <!-- Music Player -->

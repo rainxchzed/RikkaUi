@@ -39,6 +39,39 @@ fun RikkaTheme(
 }
 
 /**
+ * Convenience overload that applies a [RikkaStyle] preset.
+ *
+ * Usage:
+ * ```
+ * val style = RikkaStylePresets.nova()
+ * RikkaTheme(
+ *     colors = RikkaPalettes.ZincDark,
+ *     style = style,
+ *     typography = rikkaTypography(myFont, scale = style.typeScale),
+ * ) { ... }
+ * ```
+ *
+ * The [style] provides shapes, spacing, and motion. You still supply
+ * colors and typography separately since they depend on font/palette choice.
+ */
+@Composable
+fun RikkaTheme(
+    colors: RikkaColors = RikkaPalettes.NeutralLight,
+    style: RikkaStyle = RikkaStylePresets.default(),
+    typography: RikkaTypography = rikkaTypography(scale = style.typeScale),
+    content: @Composable () -> Unit,
+) {
+    RikkaTheme(
+        colors = colors,
+        typography = typography,
+        spacing = style.spacing,
+        shapes = style.shapes,
+        motion = style.motion,
+        content = content,
+    )
+}
+
+/**
  * Access point for the current RikkaUi theme values.
  *
  * Usage:
