@@ -25,8 +25,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import kotlinx.coroutines.delay
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -123,10 +127,15 @@ fun DropdownMenu(
     val spacing = RikkaTheme.spacing
     val motion = RikkaTheme.motion
 
+    var showPopup by remember { mutableStateOf(false) }
+    LaunchedEffect(expanded) {
+        if (expanded) showPopup = true
+    }
+
     Box(modifier = modifier) {
         trigger()
 
-        if (expanded) {
+        if (showPopup) {
             Popup(
                 alignment = Alignment.BottomStart,
                 onDismissRequest = onDismiss,
@@ -164,7 +173,7 @@ fun DropdownMenu(
 
                     PopupAnimation.Fade -> {
                         AnimatedVisibility(
-                            visible = true,
+                            visible = expanded,
                             enter =
                                 fadeIn(
                                     animationSpec =
@@ -186,7 +195,7 @@ fun DropdownMenu(
 
                     PopupAnimation.FadeExpand -> {
                         AnimatedVisibility(
-                            visible = true,
+                            visible = expanded,
                             enter =
                                 fadeIn(
                                     animationSpec =
@@ -219,6 +228,13 @@ fun DropdownMenu(
                         ) {
                             panelContent()
                         }
+                    }
+                }
+
+                if (!expanded) {
+                    LaunchedEffect(Unit) {
+                        delay(motion.durationDefault.toLong() + 50L)
+                        showPopup = false
                     }
                 }
             }

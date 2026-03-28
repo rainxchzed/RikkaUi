@@ -28,10 +28,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.delay
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -120,11 +122,12 @@ fun ContextMenu(
     content: @Composable () -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
-
-    val colors = RikkaTheme.colors
-    val shapes = RikkaTheme.shapes
-    val spacing = RikkaTheme.spacing
     val motion = RikkaTheme.motion
+
+    var showPopup by remember { mutableStateOf(false) }
+    LaunchedEffect(expanded) {
+        if (expanded) showPopup = true
+    }
 
     Box(modifier = modifier) {
         Box(
@@ -138,18 +141,26 @@ fun ContextMenu(
             content()
         }
 
-        if (expanded) {
+        if (showPopup) {
             Popup(
                 alignment = Alignment.TopStart,
                 onDismissRequest = { expanded = false },
             ) {
                 ContextMenuPanel(
+                    visible = expanded,
                     animation = animation,
                     minWidth = minWidth,
                     maxWidth = maxWidth,
                     maxHeight = maxHeight,
                     menuContent = menuContent,
                 )
+
+                if (!expanded) {
+                    LaunchedEffect(Unit) {
+                        delay(motion.durationDefault.toLong() + 50L)
+                        showPopup = false
+                    }
+                }
             }
         }
     }
@@ -202,21 +213,36 @@ fun ControlledContextMenu(
     maxHeight: Dp = 300.dp,
     content: @Composable () -> Unit,
 ) {
+    val motion = RikkaTheme.motion
+
+    var showPopup by remember { mutableStateOf(false) }
+    LaunchedEffect(expanded) {
+        if (expanded) showPopup = true
+    }
+
     Box(modifier = modifier) {
         content()
 
-        if (expanded) {
+        if (showPopup) {
             Popup(
                 alignment = Alignment.TopStart,
                 onDismissRequest = onDismiss,
             ) {
                 ContextMenuPanel(
+                    visible = expanded,
                     animation = animation,
                     minWidth = minWidth,
                     maxWidth = maxWidth,
                     maxHeight = maxHeight,
                     menuContent = menuContent,
                 )
+
+                if (!expanded) {
+                    LaunchedEffect(Unit) {
+                        delay(motion.durationDefault.toLong() + 50L)
+                        showPopup = false
+                    }
+                }
             }
         }
     }
@@ -231,6 +257,7 @@ fun ControlledContextMenu(
  */
 @Composable
 private fun ContextMenuPanel(
+    visible: Boolean,
     animation: PopupAnimation,
     minWidth: Dp,
     maxWidth: Dp,
@@ -275,7 +302,7 @@ private fun ContextMenuPanel(
 
         PopupAnimation.Fade -> {
             AnimatedVisibility(
-                visible = true,
+                visible = visible,
                 enter =
                     fadeIn(
                         animationSpec =
@@ -297,7 +324,7 @@ private fun ContextMenuPanel(
 
         PopupAnimation.FadeExpand -> {
             AnimatedVisibility(
-                visible = true,
+                visible = visible,
                 enter =
                     fadeIn(
                         animationSpec =
