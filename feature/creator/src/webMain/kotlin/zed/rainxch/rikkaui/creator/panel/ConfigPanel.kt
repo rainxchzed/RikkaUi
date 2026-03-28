@@ -19,6 +19,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import zed.rainxch.rikkaui.components.theme.RikkaAccentPreset
+import zed.rainxch.rikkaui.components.theme.RikkaPalette
 import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.button.Button
@@ -29,10 +31,7 @@ import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.toggle.Toggle
-import zed.rainxch.rikkaui.creator.accentNames
-import zed.rainxch.rikkaui.creator.accentPreviewColor
 import zed.rainxch.rikkaui.creator.fonts.availableFonts
-import zed.rainxch.rikkaui.creator.paletteNames
 
 /**
  * Configuration panel for the Design System Creator.
@@ -44,10 +43,10 @@ import zed.rainxch.rikkaui.creator.paletteNames
 fun ConfigPanel(
     stylePreset: RikkaStylePreset,
     onStyleChange: (RikkaStylePreset) -> Unit,
-    paletteName: String,
-    onPaletteChange: (String) -> Unit,
-    accentName: String,
-    onAccentChange: (String) -> Unit,
+    palette: RikkaPalette,
+    onPaletteChange: (RikkaPalette) -> Unit,
+    accent: RikkaAccentPreset,
+    onAccentChange: (RikkaAccentPreset) -> Unit,
     previewDark: Boolean,
     onPreviewDarkChange: (Boolean) -> Unit,
     fontId: String,
@@ -111,12 +110,12 @@ fun ConfigPanel(
         verticalArrangement =
             Arrangement.spacedBy(RikkaTheme.spacing.sm),
     ) {
-        paletteNames.forEach { name ->
+        RikkaPalette.entries.forEach { entry ->
             Button(
-                text = name,
-                onClick = { onPaletteChange(name) },
+                text = entry.label,
+                onClick = { onPaletteChange(entry) },
                 variant =
-                    if (paletteName == name) {
+                    if (palette == entry) {
                         ButtonVariant.Default
                     } else {
                         ButtonVariant.Outline
@@ -140,11 +139,11 @@ fun ConfigPanel(
         verticalArrangement =
             Arrangement.spacedBy(RikkaTheme.spacing.sm),
     ) {
-        accentNames.forEach { name ->
+        RikkaAccentPreset.entries.forEach { entry ->
             Button(
-                onClick = { onAccentChange(name) },
+                onClick = { onAccentChange(entry) },
                 variant =
-                    if (accentName == name) {
+                    if (accent == entry) {
                         ButtonVariant.Default
                     } else {
                         ButtonVariant.Outline
@@ -152,21 +151,21 @@ fun ConfigPanel(
                 size = ButtonSize.Sm,
                 animation = ButtonAnimation.Scale,
             ) {
-                val previewColor = accentPreviewColor(name)
-                if (previewColor != null) {
+                val swatch = entry.previewColor
+                if (swatch != null) {
                     Box(
                         modifier =
                             Modifier
                                 .size(12.dp)
                                 .clip(CircleShape)
-                                .background(previewColor, CircleShape),
+                                .background(swatch, CircleShape),
                     )
                     Spacer(Modifier.width(RikkaTheme.spacing.xs))
                 }
                 Text(
-                    text = name,
+                    text = entry.label,
                     color =
-                        if (accentName == name) {
+                        if (accent == entry) {
                             RikkaTheme.colors.primaryForeground
                         } else {
                             RikkaTheme.colors.foreground

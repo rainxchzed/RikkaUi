@@ -450,3 +450,106 @@ fun RikkaColors.withAccent(accent: RikkaAccentColor): RikkaColors = copy(
     primaryForeground = accent.primaryForeground,
     ring = accent.ring,
 )
+
+/**
+ * Type-safe enum for selecting a base color palette.
+ *
+ * Each entry maps to a light/dark pair in [RikkaPalettes].
+ * Use [resolve] to obtain the corresponding [RikkaColors].
+ *
+ * ### Usage
+ * ```
+ * val colors = RikkaPalette.Zinc.resolve(isDark = true)
+ * RikkaTheme(colors = colors) { ... }
+ * ```
+ */
+enum class RikkaPalette(val label: String) {
+    Zinc("Zinc"),
+    Slate("Slate"),
+    Stone("Stone"),
+    Gray("Gray"),
+    Neutral("Neutral"),
+    ;
+
+    /** Resolves to a [RikkaColors] for the given dark-mode flag. */
+    fun resolve(isDark: Boolean): RikkaColors = when (this) {
+        Zinc -> if (isDark) RikkaPalettes.ZincDark else RikkaPalettes.ZincLight
+        Slate -> if (isDark) RikkaPalettes.SlateDark else RikkaPalettes.SlateLight
+        Stone -> if (isDark) RikkaPalettes.StoneDark else RikkaPalettes.StoneLight
+        Gray -> if (isDark) RikkaPalettes.GrayDark else RikkaPalettes.GrayLight
+        Neutral -> if (isDark) RikkaPalettes.NeutralDark else RikkaPalettes.NeutralLight
+    }
+}
+
+/**
+ * Type-safe enum for selecting an accent color.
+ *
+ * [Default] means no accent override (use the palette's built-in primary).
+ * All other entries map to light/dark pairs in [RikkaAccent] / [RikkaAccentDark].
+ *
+ * ### Usage
+ * ```
+ * val base = RikkaPalette.Zinc.resolve(isDark = true)
+ * val colors = RikkaAccentPreset.Blue.applyTo(base, isDark = true)
+ * RikkaTheme(colors = colors) { ... }
+ * ```
+ */
+enum class RikkaAccentPreset(val label: String) {
+    Default("Default"),
+    Blue("Blue"),
+    Green("Green"),
+    Orange("Orange"),
+    Red("Red"),
+    Rose("Rose"),
+    Violet("Violet"),
+    Yellow("Yellow"),
+    ;
+
+    /**
+     * Returns a preview swatch [Color] for this accent,
+     * or `null` for [Default].
+     */
+    val previewColor: Color?
+        get() = when (this) {
+            Default -> null
+            Red -> Color(0xFFDC2626)
+            Rose -> Color(0xFFE11D48)
+            Orange -> Color(0xFFF97316)
+            Green -> Color(0xFF16A34A)
+            Blue -> Color(0xFF2563EB)
+            Yellow -> Color(0xFFFACC15)
+            Violet -> Color(0xFF7C3AED)
+        }
+
+    /**
+     * Applies this accent to a base [RikkaColors].
+     * Returns the base unchanged for [Default].
+     */
+    fun applyTo(base: RikkaColors, isDark: Boolean): RikkaColors {
+        if (this == Default) return base
+        val accent = if (isDark) {
+            when (this) {
+                Red -> RikkaAccentDark.Red
+                Rose -> RikkaAccentDark.Rose
+                Orange -> RikkaAccentDark.Orange
+                Green -> RikkaAccentDark.Green
+                Blue -> RikkaAccentDark.Blue
+                Yellow -> RikkaAccentDark.Yellow
+                Violet -> RikkaAccentDark.Violet
+                Default -> error("unreachable")
+            }
+        } else {
+            when (this) {
+                Red -> RikkaAccent.Red
+                Rose -> RikkaAccent.Rose
+                Orange -> RikkaAccent.Orange
+                Green -> RikkaAccent.Green
+                Blue -> RikkaAccent.Blue
+                Yellow -> RikkaAccent.Yellow
+                Violet -> RikkaAccent.Violet
+                Default -> error("unreachable")
+            }
+        }
+        return base.withAccent(accent)
+    }
+}

@@ -17,6 +17,8 @@ import rikkaui.composeapp.generated.resources.inter_light
 import rikkaui.composeapp.generated.resources.inter_medium
 import rikkaui.composeapp.generated.resources.inter_regular
 import rikkaui.composeapp.generated.resources.inter_semi_bold
+import zed.rainxch.rikkaui.components.theme.RikkaAccentPreset
+import zed.rainxch.rikkaui.components.theme.RikkaPalette
 import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.theme.rememberRikkaFontFamily
@@ -42,8 +44,8 @@ fun main() {
     ComposeViewport {
         // ─── Global state ────────────────────────────────
         var isDark by remember { mutableStateOf(true) }
-        var paletteName by remember { mutableStateOf("Zinc") }
-        var accentName by remember { mutableStateOf("Default") }
+        var palette by remember { mutableStateOf(RikkaPalette.Zinc) }
+        var accent by remember { mutableStateOf(RikkaAccentPreset.Default) }
         var stylePreset by remember { mutableStateOf(RikkaStylePreset.Default) }
 
         val routeState = remember { mutableStateOf(AppRoute.Home) }
@@ -51,8 +53,8 @@ fun main() {
         val currentRoute = routeState.value
 
         // ─── Theme resolution ────────────────────────────
-        val baseColors = resolvePalette(paletteName, isDark)
-        val colors = resolveAccent(baseColors, accentName, isDark)
+        val baseColors = resolvePalette(palette, isDark)
+        val colors = resolveAccent(baseColors, accent, isDark)
         val fontFamily =
             rememberRikkaFontFamily(
                 light = Res.font.inter_light,
@@ -92,10 +94,10 @@ fun main() {
                         ShowcaseApp(
                             isDark = isDark,
                             onDarkChange = { isDark = it },
-                            paletteName = paletteName,
-                            onPaletteChange = { paletteName = it },
-                            accentName = accentName,
-                            onAccentChange = { accentName = it },
+                            palette = palette,
+                            onPaletteChange = { palette = it },
+                            accent = accent,
+                            onAccentChange = { accent = it },
                             stylePreset = stylePreset,
                             onStyleChange = { stylePreset = it },
                             onNavigateToCreator = {

@@ -21,6 +21,8 @@ import rikkaui.composeapp.generated.resources.components_in_action
 import rikkaui.composeapp.generated.resources.components_in_action_desc
 import rikkaui.composeapp.generated.resources.make_it_yours
 import rikkaui.composeapp.generated.resources.make_it_yours_desc
+import zed.rainxch.rikkaui.components.theme.RikkaAccentPreset
+import zed.rainxch.rikkaui.components.theme.RikkaPalette
 import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.separator.Separator
@@ -40,10 +42,10 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
 fun ShowcaseApp(
     isDark: Boolean,
     onDarkChange: (Boolean) -> Unit,
-    paletteName: String,
-    onPaletteChange: (String) -> Unit,
-    accentName: String,
-    onAccentChange: (String) -> Unit,
+    palette: RikkaPalette,
+    onPaletteChange: (RikkaPalette) -> Unit,
+    accent: RikkaAccentPreset,
+    onAccentChange: (RikkaAccentPreset) -> Unit,
     stylePreset: RikkaStylePreset,
     onStyleChange: (RikkaStylePreset) -> Unit,
     onNavigateToCreator: () -> Unit = {},
@@ -123,9 +125,9 @@ fun ShowcaseApp(
             ThemeSection(
                 isDark = isDark,
                 onDarkChange = onDarkChange,
-                paletteName = paletteName,
+                palette = palette,
                 onPaletteChange = onPaletteChange,
-                accentName = accentName,
+                accent = accent,
                 onAccentChange = onAccentChange,
                 stylePreset = stylePreset,
                 onStyleChange = onStyleChange,

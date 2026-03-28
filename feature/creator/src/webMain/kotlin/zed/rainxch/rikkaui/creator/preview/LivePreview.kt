@@ -27,6 +27,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import zed.rainxch.rikkaui.components.theme.RikkaAccentPreset
+import zed.rainxch.rikkaui.components.theme.RikkaPalette
 import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.theme.rikkaTypography
@@ -83,14 +85,14 @@ import zed.rainxch.rikkaui.creator.resolvePalette
 @Composable
 fun LivePreview(
     stylePreset: RikkaStylePreset,
-    paletteName: String,
-    accentName: String,
+    palette: RikkaPalette,
+    accent: RikkaAccentPreset,
     isDark: Boolean,
     fontId: String = "inter",
     modifier: Modifier = Modifier,
 ) {
-    val baseColors = resolvePalette(paletteName, isDark)
-    val colors = resolveAccent(baseColors, accentName, isDark)
+    val baseColors = resolvePalette(palette, isDark)
+    val colors = resolveAccent(baseColors, accent, isDark)
     val rikkaFont = resolvePreviewFontFamily(fontId)
     val fontDisplayName =
         availableFonts.find { it.id == fontId }

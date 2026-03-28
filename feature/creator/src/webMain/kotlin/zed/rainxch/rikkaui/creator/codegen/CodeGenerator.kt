@@ -1,5 +1,7 @@
 package zed.rainxch.rikkaui.creator.codegen
 
+import zed.rainxch.rikkaui.components.theme.RikkaAccentPreset
+import zed.rainxch.rikkaui.components.theme.RikkaPalette
 import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
 
 /** The base package for the future `:foundation` module. */
@@ -16,15 +18,15 @@ private const val FOUNDATION_PKG = "zed.rainxch.rikkaui.foundation.theme"
  * All imports reference `rikkaui:foundation` — the theme-only module.
  */
 fun generateThemeCode(
-    paletteName: String,
-    accentName: String,
+    palette: RikkaPalette,
+    accent: RikkaAccentPreset,
     stylePreset: RikkaStylePreset,
     fontId: String,
     fontDisplayName: String,
 ): String {
     val fontResourceNames = buildFontResourceNames(fontId)
-    val accentImport = buildAccentImport(accentName)
-    val accentApplication = buildAccentApplication(accentName)
+    val accentImport = buildAccentImport(accent)
+    val accentApplication = buildAccentApplication(accent)
 
     return buildString {
         appendLine("package com.example.app.theme")
@@ -43,8 +45,8 @@ fun generateThemeCode(
                 " Design System Creator.",
         )
         appendLine(" *")
-        appendLine(" * Palette: $paletteName")
-        appendLine(" * Accent: $accentName")
+        appendLine(" * Palette: ${palette.label}")
+        appendLine(" * Accent: ${accent.label}")
         appendLine(" * Style: ${stylePreset.label}")
         appendLine(" * Font: $fontDisplayName")
         appendLine(" */")
@@ -59,7 +61,7 @@ fun generateThemeCode(
         )
         appendLine()
         appendLine("    // ── Colors ──")
-        appendLine(buildColorResolution(paletteName))
+        appendLine(buildColorResolution(palette))
         appendLine(accentApplication)
         appendLine()
         appendLine("    // ── Typography ──")
@@ -93,8 +95,8 @@ fun generateThemeCode(
 
 /** Generates a README.md with setup instructions. */
 fun generateReadme(
-    paletteName: String,
-    accentName: String,
+    palette: RikkaPalette,
+    accent: RikkaAccentPreset,
     stylePreset: RikkaStylePreset,
     fontDisplayName: String,
 ): String =
@@ -110,8 +112,8 @@ fun generateReadme(
         appendLine()
         appendLine("| Setting | Value |")
         appendLine("|---------|-------|")
-        appendLine("| Palette | $paletteName |")
-        appendLine("| Accent  | $accentName |")
+        appendLine("| Palette | ${palette.label} |")
+        appendLine("| Accent  | ${accent.label} |")
         appendLine("| Style   | ${stylePreset.label} |")
         appendLine("| Font    | $fontDisplayName |")
         appendLine()
@@ -209,25 +211,26 @@ fun generateReadme(
 
 private fun buildFontResourceNames(fontId: String): Pair<String, String> = Pair("${fontId}_regular", "${fontId}_bold")
 
-private fun buildAccentImport(accent: String): String {
-    if (accent == "Default") return ""
+private fun buildAccentImport(accent: RikkaAccentPreset): String {
+    if (accent == RikkaAccentPreset.Default) return ""
     return "import $FOUNDATION_PKG.RikkaAccent\n" +
         "import $FOUNDATION_PKG.RikkaAccentDark\n" +
         "import $FOUNDATION_PKG.withAccent"
 }
 
-private fun buildColorResolution(palette: String): String {
-    val lightVal = "${palette}Light"
-    val darkVal = "${palette}Dark"
+private fun buildColorResolution(palette: RikkaPalette): String {
+    val lightVal = "${palette.name}Light"
+    val darkVal = "${palette.name}Dark"
     return "    val baseColors = if (isDark) " +
         "RikkaPalettes.$darkVal else RikkaPalettes.$lightVal"
 }
 
-private fun buildAccentApplication(accent: String): String {
-    if (accent == "Default") {
+private fun buildAccentApplication(accent: RikkaAccentPreset): String {
+    if (accent == RikkaAccentPreset.Default) {
         return "    val colors = baseColors"
     }
     return "    val accent = if (isDark) " +
-        "RikkaAccentDark.$accent else RikkaAccent.$accent\n" +
+        "RikkaAccentDark.${accent.name} " +
+        "else RikkaAccent.${accent.name}\n" +
         "    val colors = baseColors.withAccent(accent)"
 }

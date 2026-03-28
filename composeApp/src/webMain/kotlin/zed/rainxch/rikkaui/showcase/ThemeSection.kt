@@ -30,6 +30,8 @@ import rikkaui.composeapp.generated.resources.style_label
 import rikkaui.composeapp.generated.resources.theme_description
 import rikkaui.composeapp.generated.resources.theme_title
 import rikkaui.composeapp.generated.resources.toggle_dark_mode
+import zed.rainxch.rikkaui.components.theme.RikkaAccentPreset
+import zed.rainxch.rikkaui.components.theme.RikkaPalette
 import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.button.Button
@@ -40,16 +42,15 @@ import zed.rainxch.rikkaui.components.ui.card.Card
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.toggle.Toggle
-import zed.rainxch.rikkaui.theme.accentPreviewColor
 
 @Composable
 fun ThemeSection(
     isDark: Boolean,
     onDarkChange: (Boolean) -> Unit,
-    paletteName: String,
-    onPaletteChange: (String) -> Unit,
-    accentName: String,
-    onAccentChange: (String) -> Unit,
+    palette: RikkaPalette,
+    onPaletteChange: (RikkaPalette) -> Unit,
+    accent: RikkaAccentPreset,
+    onAccentChange: (RikkaAccentPreset) -> Unit,
     stylePreset: RikkaStylePreset,
     onStyleChange: (RikkaStylePreset) -> Unit,
 ) {
@@ -105,20 +106,12 @@ fun ThemeSection(
             verticalArrangement =
                 Arrangement.spacedBy(RikkaTheme.spacing.sm),
         ) {
-            val palettes =
-                listOf(
-                    "Zinc",
-                    "Slate",
-                    "Stone",
-                    "Gray",
-                    "Neutral",
-                )
-            palettes.forEach { name ->
+            RikkaPalette.entries.forEach { entry ->
                 Button(
-                    text = name,
-                    onClick = { onPaletteChange(name) },
+                    text = entry.label,
+                    onClick = { onPaletteChange(entry) },
                     variant =
-                        if (paletteName == name) {
+                        if (palette == entry) {
                             ButtonVariant.Default
                         } else {
                             ButtonVariant.Outline
@@ -143,22 +136,11 @@ fun ThemeSection(
             verticalArrangement =
                 Arrangement.spacedBy(RikkaTheme.spacing.sm),
         ) {
-            val accents =
-                listOf(
-                    "Default",
-                    "Blue",
-                    "Green",
-                    "Orange",
-                    "Red",
-                    "Rose",
-                    "Violet",
-                    "Yellow",
-                )
-            accents.forEach { name ->
+            RikkaAccentPreset.entries.forEach { entry ->
                 Button(
-                    onClick = { onAccentChange(name) },
+                    onClick = { onAccentChange(entry) },
                     variant =
-                        if (accentName == name) {
+                        if (accent == entry) {
                             ButtonVariant.Default
                         } else {
                             ButtonVariant.Outline
@@ -166,14 +148,15 @@ fun ThemeSection(
                     size = ButtonSize.Sm,
                     animation = ButtonAnimation.Scale,
                 ) {
-                    if (name != "Default") {
+                    val swatch = entry.previewColor
+                    if (swatch != null) {
                         Box(
                             modifier =
                                 Modifier
                                     .size(12.dp)
                                     .clip(CircleShape)
                                     .background(
-                                        accentPreviewColor(name),
+                                        swatch,
                                         CircleShape,
                                     ),
                         )
@@ -182,9 +165,9 @@ fun ThemeSection(
                         )
                     }
                     Text(
-                        text = name,
+                        text = entry.label,
                         color =
-                            if (accentName == name) {
+                            if (accent == entry) {
                                 RikkaTheme.colors.primaryForeground
                             } else {
                                 RikkaTheme.colors.foreground

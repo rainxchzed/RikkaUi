@@ -21,6 +21,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import zed.rainxch.rikkaui.components.theme.RikkaAccentPreset
+import zed.rainxch.rikkaui.components.theme.RikkaPalette
 import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.creator.codegen.generateReadme
@@ -43,8 +45,8 @@ import zed.rainxch.rikkaui.creator.preview.LivePreview
 @Composable
 fun DesignSystemCreatorPage() {
     var stylePreset by remember { mutableStateOf(RikkaStylePreset.Default) }
-    var paletteName by remember { mutableStateOf("Zinc") }
-    var accentName by remember { mutableStateOf("Default") }
+    var palette by remember { mutableStateOf(RikkaPalette.Zinc) }
+    var accent by remember { mutableStateOf(RikkaAccentPreset.Default) }
     var previewDark by remember { mutableStateOf(true) }
     var fontId by remember { mutableStateOf("inter") }
 
@@ -61,16 +63,16 @@ fun DesignSystemCreatorPage() {
     val onDownload: () -> Unit = {
         val themeCode =
             generateThemeCode(
-                paletteName = paletteName,
-                accentName = accentName,
+                palette = palette,
+                accent = accent,
                 stylePreset = stylePreset,
                 fontId = fontId,
                 fontDisplayName = selectedFont.displayName,
             )
         val readme =
             generateReadme(
-                paletteName = paletteName,
-                accentName = accentName,
+                palette = palette,
+                accent = accent,
                 stylePreset = stylePreset,
                 fontDisplayName = selectedFont.displayName,
             )
@@ -112,10 +114,10 @@ fun DesignSystemCreatorPage() {
                     ConfigPanel(
                         stylePreset = stylePreset,
                         onStyleChange = { stylePreset = it },
-                        paletteName = paletteName,
-                        onPaletteChange = { paletteName = it },
-                        accentName = accentName,
-                        onAccentChange = { accentName = it },
+                        palette = palette,
+                        onPaletteChange = { palette = it },
+                        accent = accent,
+                        onAccentChange = { accent = it },
                         previewDark = previewDark,
                         onPreviewDarkChange = { previewDark = it },
                         fontId = fontId,
@@ -133,8 +135,8 @@ fun DesignSystemCreatorPage() {
                 ) {
                     LivePreview(
                         stylePreset = stylePreset,
-                        paletteName = paletteName,
-                        accentName = accentName,
+                        palette = palette,
+                        accent = accent,
                         isDark = previewDark,
                         fontId = fontId,
                     )
@@ -156,10 +158,10 @@ fun DesignSystemCreatorPage() {
                 ConfigPanel(
                     stylePreset = stylePreset,
                     onStyleChange = { stylePreset = it },
-                    paletteName = paletteName,
-                    onPaletteChange = { paletteName = it },
-                    accentName = accentName,
-                    onAccentChange = { accentName = it },
+                    palette = palette,
+                    onPaletteChange = { palette = it },
+                    accent = accent,
+                    onAccentChange = { accent = it },
                     previewDark = previewDark,
                     onPreviewDarkChange = { previewDark = it },
                     fontId = fontId,
@@ -171,8 +173,8 @@ fun DesignSystemCreatorPage() {
 
                 LivePreview(
                     stylePreset = stylePreset,
-                    paletteName = paletteName,
-                    accentName = accentName,
+                    palette = palette,
+                    accent = accent,
                     isDark = previewDark,
                     fontId = fontId,
                     modifier = Modifier.fillMaxWidth(),
