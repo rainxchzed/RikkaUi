@@ -1,5 +1,6 @@
 package zed.rainxch.rikkaui.components.ui.tabs
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.Spring
@@ -7,6 +8,11 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -244,32 +250,53 @@ fun Tab(
 /**
  * Content panel displayed below a [TabList].
  *
- * A simple wrapper that adds top padding to separate the tab content
- * from the triggers.
+ * Adds top padding and optionally animates content transitions
+ * when the [selectedIndex] changes. The content fades and slides
+ * in from the bottom for a polished tab-switch experience.
  *
  * Usage:
  * ```
  * TabList { ... }
  *
- * TabContent {
- *     Text("Content for the selected tab.")
+ * TabContent(selectedIndex = selectedTab) {
+ *     when (selectedTab) {
+ *         0 -> Text("Account settings")
+ *         1 -> Text("Password settings")
+ *     }
  * }
  * ```
  *
+ * @param selectedIndex The currently selected tab index, used as
+ *   the animation key. Content animates when this value changes.
  * @param modifier Modifier for layout and decoration.
  * @param content The tab panel content.
  */
 @Composable
 fun TabContent(
+    selectedIndex: Int = 0,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
+    val motion = RikkaTheme.motion
+
     Column(
         modifier =
             modifier
                 .padding(top = RikkaTheme.spacing.md),
     ) {
-        content()
+        AnimatedContent(
+            targetState = selectedIndex,
+            transitionSpec = {
+                (fadeIn(tween(motion.durationDefault)) +
+                    slideInVertically(tween(motion.durationDefault)) { it / 8 })
+                    .togetherWith(
+                        fadeOut(tween(motion.durationFast)) +
+                            slideOutVertically(tween(motion.durationFast)) { -it / 8 },
+                    )
+            },
+        ) {
+            content()
+        }
     }
 }
 

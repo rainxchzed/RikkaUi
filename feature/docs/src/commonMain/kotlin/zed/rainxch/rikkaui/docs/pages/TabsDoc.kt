@@ -1,5 +1,6 @@
 package zed.rainxch.rikkaui.docs.pages
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
@@ -57,41 +58,43 @@ fun TabsDoc() {
         }
 
         DemoBox {
-            TabList {
-                Tab(
-                    selected = selectedTab == 0,
-                    onClick = { selectedTab = 0 },
-                    text = "Account",
-                    animation = animation,
-                )
-                Tab(
-                    selected = selectedTab == 1,
-                    onClick = { selectedTab = 1 },
-                    text = "Password",
-                    animation = animation,
-                )
-                Tab(
-                    selected = selectedTab == 2,
-                    onClick = { selectedTab = 2 },
-                    text = "Settings",
-                    animation = animation,
-                )
-            }
+            Column {
+                TabList {
+                    Tab(
+                        selected = selectedTab == 0,
+                        onClick = { selectedTab = 0 },
+                        text = "Account",
+                        animation = animation,
+                    )
+                    Tab(
+                        selected = selectedTab == 1,
+                        onClick = { selectedTab = 1 },
+                        text = "Password",
+                        animation = animation,
+                    )
+                    Tab(
+                        selected = selectedTab == 2,
+                        onClick = { selectedTab = 2 },
+                        text = "Settings",
+                        animation = animation,
+                    )
+                }
 
-            TabContent {
-                when (selectedTab) {
-                    0 -> Text(
-                        "Manage your account details.",
-                        variant = TextVariant.P,
-                    )
-                    1 -> Text(
-                        "Change your password here.",
-                        variant = TextVariant.P,
-                    )
-                    2 -> Text(
-                        "Configure your preferences.",
-                        variant = TextVariant.P,
-                    )
+                TabContent(selectedIndex = selectedTab) {
+                    when (selectedTab) {
+                        0 -> Text(
+                            "Manage your account details.",
+                            variant = TextVariant.P,
+                        )
+                        1 -> Text(
+                            "Change your password here.",
+                            variant = TextVariant.P,
+                        )
+                        2 -> Text(
+                            "Configure your preferences.",
+                            variant = TextVariant.P,
+                        )
+                    }
                 }
             }
         }
@@ -102,29 +105,31 @@ fun TabsDoc() {
         var selectedTab by remember { mutableStateOf(0) }
 
         DemoBox {
-            TabList {
-                Tab(
-                    selected = selectedTab == 0,
-                    onClick = { selectedTab = 0 },
-                    text = "Overview",
-                )
-                Tab(
-                    selected = selectedTab == 1,
-                    onClick = { selectedTab = 1 },
-                    text = "Analytics",
-                )
-            }
+            Column {
+                TabList {
+                    Tab(
+                        selected = selectedTab == 0,
+                        onClick = { selectedTab = 0 },
+                        text = "Overview",
+                    )
+                    Tab(
+                        selected = selectedTab == 1,
+                        onClick = { selectedTab = 1 },
+                        text = "Analytics",
+                    )
+                }
 
-            TabContent {
-                when (selectedTab) {
-                    0 -> Text(
-                        "Overview content panel.",
-                        variant = TextVariant.P,
-                    )
-                    1 -> Text(
-                        "Analytics content panel.",
-                        variant = TextVariant.P,
-                    )
+                TabContent(selectedIndex = selectedTab) {
+                    when (selectedTab) {
+                        0 -> Text(
+                            "Overview content panel.",
+                            variant = TextVariant.P,
+                        )
+                        1 -> Text(
+                            "Analytics content panel.",
+                            variant = TextVariant.P,
+                        )
+                    }
                 }
             }
         }
