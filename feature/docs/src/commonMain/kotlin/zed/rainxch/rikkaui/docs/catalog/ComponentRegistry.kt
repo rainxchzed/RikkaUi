@@ -16,6 +16,7 @@ import zed.rainxch.rikkaui.docs.pages.DropdownMenuDoc
 import zed.rainxch.rikkaui.docs.pages.HoverCardDoc
 import zed.rainxch.rikkaui.docs.pages.InputDoc
 import zed.rainxch.rikkaui.docs.pages.KbdDoc
+import zed.rainxch.rikkaui.docs.pages.ListDoc
 import zed.rainxch.rikkaui.docs.pages.LabelDoc
 import zed.rainxch.rikkaui.docs.pages.NavigationBarDoc
 import zed.rainxch.rikkaui.docs.pages.PaginationDoc
@@ -217,6 +218,15 @@ object ComponentRegistry {
                     "Keyboard shortcut indicator.",
                 category = ComponentCategory.DataDisplay,
                 content = { KbdDoc() },
+            ),
+            ComponentEntry(
+                id = "list",
+                name = "List",
+                description =
+                    "Styled lists with bullets, numbers, "
+                        + "or custom content.",
+                category = ComponentCategory.DataDisplay,
+                content = { ListDoc() },
             ),
             // ─── Feedback ────────────────────────────
             ComponentEntry(
