@@ -23,16 +23,18 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
@@ -71,20 +73,38 @@ private val guidePages =
         ),
     )
 
+/**
+ * Documentation page with MVI state management.
+ *
+ * Uses [DocsViewModel] for robust, unidirectional state management.
+ * Supports deep-linking via [initialComponentId] from navigation routes.
+ *
+ * @param initialComponentId Optional component ID from navigation deep-link.
+ *   When null, defaults to the "introduction" guide page.
+ */
 @Composable
 fun DocsPage(initialComponentId: String? = null) {
-    val registry = ComponentRegistry
-    var selectedId by remember {
-        mutableStateOf(
-            initialComponentId ?: "introduction",
+    val viewModel: DocsViewModel =
+        viewModel(
+            factory =
+                viewModelFactory {
+                    initializer {
+                        DocsViewModel(initialComponentId)
+                    }
+                },
         )
+
+    val state by viewModel.state.collectAsState()
+
+    LaunchedEffect(initialComponentId) {
+        if (initialComponentId != null) {
+            viewModel.onAction(
+                DocsAction.NavigateToComponent(initialComponentId),
+            )
+        }
     }
 
-    if (initialComponentId != null &&
-        initialComponentId != selectedId
-    ) {
-        selectedId = initialComponentId
-    }
+    val registry = ComponentRegistry
 
     BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
         val isWide = maxWidth >= 800.dp
@@ -94,8 +114,10 @@ fun DocsPage(initialComponentId: String? = null) {
                 DocsSidebar(
                     guidePages = guidePages,
                     grouped = registry.groupedByCategory(),
-                    selectedId = selectedId,
-                    onSelect = { selectedId = it },
+                    selectedId = state.selectedId,
+                    onSelect = {
+                        viewModel.onAction(DocsAction.SelectPage(it))
+                    },
                     modifier =
                         Modifier
                             .width(240.dp)
@@ -127,7 +149,7 @@ fun DocsPage(initialComponentId: String? = null) {
                             ).padding(RikkaTheme.spacing.xl),
                 ) {
                     PageContent(
-                        selectedId = selectedId,
+                        selectedId = state.selectedId,
                         registry = registry,
                     )
                 }
@@ -143,14 +165,16 @@ fun DocsPage(initialComponentId: String? = null) {
                 CompactSelector(
                     guidePages = guidePages,
                     entries = registry.entries,
-                    selectedId = selectedId,
-                    onSelect = { selectedId = it },
+                    selectedId = state.selectedId,
+                    onSelect = {
+                        viewModel.onAction(DocsAction.SelectPage(it))
+                    },
                 )
 
                 Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
                 PageContent(
-                    selectedId = selectedId,
+                    selectedId = state.selectedId,
                     registry = registry,
                 )
             }
