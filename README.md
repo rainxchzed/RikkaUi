@@ -1,17 +1,21 @@
 <div align="center">
 <br/>
-
 <img src="https://img.shields.io/badge/六花-RikkaUI-white?style=for-the-badge&labelColor=18181b&color=fafafa" height="40"/>
-
 <br/>
 <br/>
 
 # RikkaUI
 
-**A shadcn/ui-inspired component library & design system for Compose Multiplatform**
+**The shadcn/ui of Compose Multiplatform.**
 
-*Composing elements into harmony*
+*Beautiful, production-ready components. Zero Material3. Full ownership.*
 
+<br/>
+
+<!-- Replace with an actual screenshot or GIF of your theme configurator -->
+<img src="docs/preview.png" width="80%" alt="RikkaUI component preview"/>
+
+<br/>
 <br/>
 
 <p>
@@ -19,7 +23,6 @@
   <img alt="Compose Multiplatform" src="https://img.shields.io/static/v1?style=for-the-badge&message=Compose+Multiplatform&color=4285F4&logo=Jetpack+Compose&logoColor=FFFFFF&label="/>
   <img alt="No Material3" src="https://img.shields.io/badge/No%20Material3-Foundation%20Only-18181b?style=for-the-badge"/>
 </p>
-
 <p>
   <img alt="Maven Central" src="https://img.shields.io/maven-central/v/dev.rikkaui/components?style=for-the-badge&logo=apachemaven&logoColor=white&label=Maven%20Central&color=a503fc"/>
   <img alt="License" src="https://img.shields.io/github/license/rainxchzed/RikkaUi?style=for-the-badge&color=4285F4"/>
@@ -30,47 +33,51 @@
 
 <br/>
 
-<a href="https://www.rikkaui.dev"><strong>Live Demo & Docs</strong></a> &nbsp;&bull;&nbsp; <a href="#-quick-start"><strong>Quick Start</strong></a> &nbsp;&bull;&nbsp; <a href="#-theme-system"><strong>Theming</strong></a>
+[**Live Demo & Docs**](https://www.rikkaui.dev) &nbsp;&bull;&nbsp; [**Quick Start**](#-quick-start) &nbsp;&bull;&nbsp; [**Theming**](#-theme-system) &nbsp;&bull;&nbsp; [**Components**](#-components)
 
 <br/>
-<br/>
-
 </div>
 
 ---
 
-## Why RikkaUI?
+## The Problem
 
-**40+ production-ready components** for Android, iOS, Desktop, and Web — built entirely on Compose Foundation with **zero Material3 dependency**.
+Every Compose developer is stuck between two bad options: fight Material3's opinions on every screen, or build everything from scratch. There's been nothing in between.
 
-- Beautiful defaults, fully customizable theme system
-- 5 palettes, 7 accent colors, 5 style presets — one line changes your app's personality
-- Copy-paste ownership: no dependency lock-in
-- Accessibility-first with spring physics animations
+RikkaUI is the third option. **40+ production-ready components** built on `compose.foundation` only — no Material3 anywhere. Copy the source into your project, own it fully, and customize without limits.
 
-<br/>
+The same philosophy shadcn/ui brought to the web, now for Compose Multiplatform.
+
+---
 
 ## Quick Start
 
+**Option 1 — Gradle dependency** *(fastest, great for prototyping)*
+
 ```kotlin
+// build.gradle.kts
 dependencies {
-    implementation("dev.rikkaui:components:0.1.0")
+    implementation("dev.rikkaui:foundation:0.1.0") // theme system
+    implementation("dev.rikkaui:components:0.1.0") // all components
 }
 ```
 
-> Works out of the box for **native Android** projects — no KMP setup needed.
-> For Compose Multiplatform, add to your `commonMain` source set.
-
 ```kotlin
-RikkaTheme(
-    palette = RikkaPalette.Zinc,
-    isDark = true,
-) {
+RikkaTheme {
     Button(text = "Get Started", onClick = { })
 }
 ```
 
-<br/>
+> Works out of the box for native Android projects — no KMP setup needed.
+> For Compose Multiplatform, add to your `commonMain` source set.
+
+**Option 2 — Copy-paste** *(Coming soon, full ownership, recommended)*
+
+Browse components at [rikkaui.dev](https://www.rikkaui.dev), copy any component directly into your project. You own the source. No version conflicts, no breaking updates, no opinions you can't change.
+
+Only `foundation` is required as a Gradle dependency — it provides the theme system your components build on.
+
+---
 
 ## Theme System
 
@@ -84,45 +91,39 @@ RikkaTheme(preset = RikkaStylePreset.Aurora)   // Spacious & large
 RikkaTheme(preset = RikkaStylePreset.Nebula)   // Square & tight
 ```
 
-5 base palettes x 7 accent colors x light/dark = endless combinations.
+5 palettes × 7 accent colors × light/dark mode. Every token is overridable.
+Try it interactively at [rikkaui.dev/create](https://www.rikkaui.dev/create).
 
-Explore all options interactively at [rikkaui.dev](https://www.rikkaui.dev).
+---
 
-<br/>
+## Components
+
+| Category | Components |
+|----------|------------|
+| Layout | Card, Separator, Scaffold, Scroll Area, Accordion, Collapsible |
+| Forms | Button, Input, Textarea, Select, Checkbox, Radio, Toggle, Slider, Label |
+| Data Display | Text, Badge, Avatar, Progress, Tooltip |
+| Navigation | Tabs, Bottom Navigation |
+| Feedback | Dialog, Bottom Sheet, Snackbar, Loading |
+
+Full docs and live previews at [rikkaui.dev](https://www.rikkaui.dev).
+
+---
 
 ## Platform Support
 
 | Platform | Status |
 |----------|--------|
-| Android | Stable |
-| Desktop (JVM) | Stable |
-| iOS | Stable |
-| Web (WasmJs) | Stable |
-
-<br/>
-
-## Links
-
-| | |
-|---|---|
-| Website, Docs & Live Demo | [rikkaui.dev](https://www.rikkaui.dev) |
-| Maven Central | [dev.rikkaui](https://central.sonatype.com/namespace/dev.rikkaui) |
-
-<br/>
+| Android | ✅ Stable |
+| iOS | ✅ Stable |
+| Desktop (JVM) | ✅ Stable |
+| Web (WasmJs) | ✅ Stable |
 
 ---
 
 ## License
 
-```
-Copyright 2026 rainxchzed
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this project except in compliance with the License.
-You may obtain a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-```
+Apache 2.0 — see [LICENSE](LICENSE).
 
 <div align="center">
 <br/>
