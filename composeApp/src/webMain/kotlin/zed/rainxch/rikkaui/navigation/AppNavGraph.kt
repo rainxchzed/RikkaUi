@@ -18,18 +18,14 @@ sealed class AppNavGraph {
     data object DocsRoute : AppNavGraph()
 
     @Serializable
-    @SerialName("docs/{guideId}")
+    @SerialName("docs/guide")
     data class DocsGuideRoute(
         val guideId: String,
     ) : AppNavGraph()
 
     @Serializable
     @SerialName("docs/components")
-    data object ComponentsRoute : AppNavGraph()
-
-    @Serializable
-    @SerialName("docs/components/{componentId}")
     data class ComponentDetailRoute(
         val componentId: String,
-    )
+    ) : AppNavGraph()
 }

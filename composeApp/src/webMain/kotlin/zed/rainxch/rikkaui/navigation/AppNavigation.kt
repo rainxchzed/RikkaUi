@@ -10,7 +10,6 @@ import androidx.navigation.toRoute
 import zed.rainxch.rikkaui.creator.DesignSystemCreatorPage
 import zed.rainxch.rikkaui.docs.DocsPage
 import zed.rainxch.rikkaui.navigation.AppNavGraph.ComponentDetailRoute
-import zed.rainxch.rikkaui.navigation.AppNavGraph.ComponentsRoute
 import zed.rainxch.rikkaui.navigation.AppNavGraph.CreatorRoute
 import zed.rainxch.rikkaui.navigation.AppNavGraph.DocsGuideRoute
 import zed.rainxch.rikkaui.navigation.AppNavGraph.DocsRoute
@@ -35,7 +34,7 @@ fun ColumnScope.AppNavigation(
                     navController.navigate(CreatorRoute)
                 },
                 onNavigateToComponents = {
-                    navController.navigate(ComponentsRoute)
+                    navController.navigate(DocsRoute)
                 },
             )
         }
@@ -72,22 +71,6 @@ fun ColumnScope.AppNavigation(
                 onNavigateToGuide = { guideId ->
                     navController.navigate(DocsGuideRoute(guideId)) {
                         popUpTo<DocsGuideRoute> { inclusive = true }
-                    }
-                },
-            )
-        }
-
-        composable<ComponentsRoute> {
-            DocsPage(
-                initialComponentId = null,
-                onNavigateToComponent = { id ->
-                    navController.navigate(ComponentDetailRoute(id)) {
-                        popUpTo<ComponentsRoute> { inclusive = true }
-                    }
-                },
-                onNavigateToGuide = { guideId ->
-                    navController.navigate(DocsGuideRoute(guideId)) {
-                        popUpTo<ComponentsRoute> { inclusive = true }
                     }
                 },
             )
