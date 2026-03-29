@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!-- ConfigPanel                                             -->
+    <!-- ════════════════════════════════════════════════════════ -->
+    <string name="config_title">Create Your Design System</string>
+    <string name="config_description">Configure your theme and preview it live. When you\'re happy, download the generated code.</string>
+    <string name="config_label_style">Style</string>
+    <string name="config_label_base_color">Base Color</string>
+    <string name="config_label_accent">Accent</string>
+    <string name="config_label_font">Font</string>
+    <string name="config_font_preview">Aa</string>
+    <string name="config_toggle_dark_mode">Toggle preview dark mode</string>
+    <string name="config_preview_dark">Preview: Dark</string>
+    <string name="config_preview_light">Preview: Light</string>
+    <string name="config_download_theme">Download Theme</string>
+    <string name="config_selected">Selected</string>
+
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!-- LivePreview                                             -->
+    <!-- ════════════════════════════════════════════════════════ -->
+    <string name="preview_examples_heading">Examples</string>
+    <string name="preview_examples_description">Real-world UI patterns built with your theme configuration.</string>
+    <string name="preview_theme_header">%1$s \u00B7 %2$s</string>
+    <string name="preview_theme_description">This is a preview of your design system configuration. Every component below uses your selected theme.</string>
+    <string name="preview_buttons_heading">Buttons</string>
+    <string name="preview_button_default">Button</string>
+    <string name="preview_button_secondary">Secondary</string>
+    <string name="preview_button_outline">Outline</string>
+    <string name="preview_button_ghost">Ghost</string>
+    <string name="preview_input_name_label">Name</string>
+    <string name="preview_textarea_message_label">Message</string>
+    <string name="preview_badge_default">Badge</string>
+    <string name="preview_badge_secondary">Secondary</string>
+    <string name="preview_badge_outline">Outline</string>
+    <string name="preview_toggle_label">Toggle</string>
+
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!-- ColorSwatches                                           -->
+    <!-- ════════════════════════════════════════════════════════ -->
+    <string name="colors_heading">Colors</string>
+    <string name="color_background">background</string>
+    <string name="color_foreground">foreground</string>
+    <string name="color_primary">primary</string>
+    <string name="color_secondary">secondary</string>
+    <string name="color_muted">muted</string>
+    <string name="color_accent">accent</string>
+    <string name="color_card">card</string>
+    <string name="color_border">border</string>
+    <string name="color_destructive">destructive</string>
+    <string name="color_input">input</string>
+    <string name="color_ring">ring</string>
+
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!-- TypographyPreview                                       -->
+    <!-- ════════════════════════════════════════════════════════ -->
+    <string name="typography_heading">Designing with rhythm and hierarchy.</string>
+    <string name="typography_body">A strong body style keeps long-form content readable and balances the visual weight of headings.</string>
+    <string name="typography_muted">Thoughtful spacing and cadence help paragraphs scan quickly without feeling dense.</string>
+    <string name="typography_sample_button">Sample Button</string>
+
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!-- ExampleCards1 — Environment Variables                   -->
+    <!-- ════════════════════════════════════════════════════════ -->
+    <string name="example_env_title">Environment Variables</string>
+    <string name="example_env_subtitle">Production \u00B7 8 variables</string>
+    <string name="example_env_key_database">DATABASE_URL</string>
+    <string name="example_env_value_masked">\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022</string>
+    <string name="example_env_key_api">NEXT_PUBLIC_API</string>
+    <string name="example_env_value_api">https://api.example.com/v1</string>
+    <string name="example_env_key_stripe">STRIPE_SECRET</string>
+    <string name="example_env_button_edit">Edit</string>
+    <string name="example_env_button_deploy">Deploy</string>
+
+    <!-- ExampleCards1 — Book Appointment -->
+    <string name="example_appt_title">Book Appointment</string>
+    <string name="example_appt_doctor">Dr. Sarah Chen \u00B7 Cardiology</string>
+    <string name="example_appt_date">Available on March 28, 2026</string>
+    <string name="example_appt_time_900">9:00 AM</string>
+    <string name="example_appt_time_1030">10:30 AM</string>
+    <string name="example_appt_time_1100">11:00 AM</string>
+    <string name="example_appt_time_130">1:30 PM</string>
+    <string name="example_appt_alert">New patient? Please arrive 15 minutes early.</string>
+    <string name="example_appt_button">Book Appointment</string>
+
+    <!-- ExampleCards1 — Invite Team -->
+    <string name="example_invite_title">Invite Team</string>
+    <string name="example_invite_description">Add members to your workspace</string>
+    <string name="example_invite_email1">alex@example.com</string>
+    <string name="example_invite_email2">sam@example.com</string>
+    <string name="example_invite_role_admin">Admin</string>
+    <string name="example_invite_role_editor">Editor</string>
+    <string name="example_invite_role_viewer">Viewer</string>
+    <string name="example_invite_add_another">+ Add another</string>
+    <string name="example_invite_share_link">Or share invite link</string>
+    <string name="example_invite_link_value">https://app.co/invite/x8f2k</string>
+    <string name="example_invite_link_label">Invite link</string>
+    <string name="example_invite_copy_link">Copy invite link</string>
+    <string name="example_invite_email_label">Email address</string>
+    <string name="example_invite_role_label">Role</string>
+    <string name="example_invite_send_button">Send Invites</string>
+
+    <!-- ExampleCards1 — Report Bug -->
+    <string name="example_bug_title">Report Bug</string>
+    <string name="example_bug_description">Help us fix issues faster.</string>
+    <string name="example_bug_title_placeholder">Brief description of the issue</string>
+    <string name="example_bug_title_label">Title</string>
+    <string name="example_bug_severity_low">Low</string>
+    <string name="example_bug_severity_medium">Medium</string>
+    <string name="example_bug_severity_high">High</string>
+    <string name="example_bug_severity_critical">Critical</string>
+    <string name="example_bug_severity_label">Severity</string>
+    <string name="example_bug_component_dashboard">Dashboard</string>
+    <string name="example_bug_component_auth">Authentication</string>
+    <string name="example_bug_component_api">API</string>
+    <string name="example_bug_component_ui">UI Components</string>
+    <string name="example_bug_component_label">Component</string>
+    <string name="example_bug_steps_placeholder">1. Go to\n2. Click on\n3. Observe...</string>
+    <string name="example_bug_steps_label">Steps to reproduce</string>
+    <string name="example_bug_submit">Submit Bug Report</string>
+
+    <!-- ExampleCards1 — Profile Settings -->
+    <string name="example_profile_title">Profile</string>
+    <string name="example_profile_description">Manage your profile information.</string>
+    <string name="example_profile_name_default">shadcn</string>
+    <string name="example_profile_email_default">m@example.com</string>
+    <string name="example_profile_name_placeholder">Your name</string>
+    <string name="example_profile_name_label">Name</string>
+    <string name="example_profile_email_placeholder">Email address</string>
+    <string name="example_profile_email_label">Email</string>
+    <string name="example_profile_private_label">Make profile private and hide activity</string>
+    <string name="example_profile_private_description">When enabled, your profile and activity will be hidden from other users.</string>
+    <string name="example_profile_save">Save Changes</string>
+
+    <!-- ExampleCards1 — Feedback Form -->
+    <string name="example_feedback_title">Feedback</string>
+    <string name="example_feedback_placeholder">Your feedback helps us improve...</string>
+    <string name="example_feedback_label">Feedback</string>
+    <string name="example_feedback_submit">Submit</string>
+
+    <!-- ExampleCards1 — Notification Settings -->
+    <string name="example_notif_title">Notification Settings</string>
+    <string name="example_notif_description">Manage how you receive notifications.</string>
+    <string name="example_notif_push">Push notifications</string>
+    <string name="example_notif_email_digest">Email digest</string>
+    <string name="example_notif_marketing">Marketing emails</string>
+    <string name="example_notif_quiet_hours">Quiet hours</string>
+    <string name="example_notif_quiet_hours_time">From 10:00 PM to 7:00 AM</string>
+    <string name="example_notif_toggle_suffix">%1$s toggle</string>
+
+    <!-- ExampleCards1 — Shipping Address -->
+    <string name="example_shipping_title">Shipping Address</string>
+    <string name="example_shipping_description">Where should we deliver?</string>
+    <string name="example_shipping_street_placeholder">123 Main Street</string>
+    <string name="example_shipping_street_label">Street address</string>
+    <string name="example_shipping_city_placeholder">City</string>
+    <string name="example_shipping_city_label">City</string>
+    <string name="example_shipping_state_placeholder">State</string>
+    <string name="example_shipping_state_label">State</string>
+    <string name="example_shipping_zip_placeholder">ZIP code</string>
+    <string name="example_shipping_zip_label">ZIP code</string>
+    <string name="example_shipping_save">Save Address</string>
+
+    <!-- ExampleCards1 — Cookie Settings -->
+    <string name="example_cookie_title">Cookie Settings</string>
+    <string name="example_cookie_description">Manage your cookie preferences.</string>
+    <string name="example_cookie_essential">Essential</string>
+    <string name="example_cookie_essential_desc">Required for the website to function</string>
+    <string name="example_cookie_analytics">Analytics</string>
+    <string name="example_cookie_analytics_desc">Help us understand usage patterns</string>
+    <string name="example_cookie_marketing">Marketing</string>
+    <string name="example_cookie_marketing_desc">Personalized ads and recommendations</string>
+    <string name="example_cookie_save">Save Preferences</string>
+    <string name="example_cookie_toggle_suffix">%1$s cookies toggle</string>
+
+    <!-- ExampleCards1 — Payment Method -->
+    <string name="example_payment_title">Payment Method</string>
+    <string name="example_payment_description">Choose your preferred payment method.</string>
+    <string name="example_payment_credit_card">Credit Card</string>
+    <string name="example_payment_paypal">PayPal</string>
+    <string name="example_payment_bank_transfer">Bank Transfer</string>
+    <string name="example_payment_card_placeholder">4242 4242 4242 4242</string>
+    <string name="example_payment_card_label">Card number</string>
+    <string name="example_payment_expiry_placeholder">MM / YY</string>
+    <string name="example_payment_expiry_label">Expiry date</string>
+    <string name="example_payment_continue">Continue</string>
+
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!-- ExampleCards2 — Sprint Tasks                            -->
+    <!-- ════════════════════════════════════════════════════════ -->
+    <string name="example_tasks_title">Sprint Tasks</string>
+    <string name="example_tasks_progress">3 of 5 completed</string>
+    <string name="example_tasks_ci">Setup CI pipeline</string>
+    <string name="example_tasks_api_docs">Write API docs</string>
+    <string name="example_tasks_staging">Deploy to staging</string>
+    <string name="example_tasks_review">Code review</string>
+    <string name="example_tasks_auth_bug">Fix auth bug</string>
+    <string name="example_tasks_done">Done</string>
+    <string name="example_tasks_in_progress">In Progress</string>
+    <string name="example_tasks_pending">Pending</string>
+
+    <!-- ExampleCards2 — API Keys -->
+    <string name="example_api_title">API Keys</string>
+    <string name="example_api_description">Manage your application keys.</string>
+    <string name="example_api_production">Production</string>
+    <string name="example_api_staging">Staging</string>
+    <string name="example_api_development">Development</string>
+    <string name="example_api_masked_a3f9">sk-...a3f9</string>
+    <string name="example_api_masked_7b2e">sk-...7b2e</string>
+    <string name="example_api_masked_1d4c">sk-...1d4c</string>
+    <string name="example_api_deleted_warning">Deleted keys cannot be recovered.</string>
+    <string name="example_api_copy_key">Copy %1$s key</string>
+    <string name="example_api_delete_key">Delete %1$s key</string>
+
+    <!-- ExampleCards2 — Chat / Messages -->
+    <string name="example_chat_title">Messages</string>
+    <string name="example_chat_msg1">Hey, how\'s the project going?</string>
+    <string name="example_chat_msg2">Did you push the latest changes?</string>
+    <string name="example_chat_msg3">Yes! Just deployed to staging.</string>
+    <string name="example_chat_input_placeholder">Type a message...</string>
+    <string name="example_chat_input_label">Message input</string>
+    <string name="example_chat_send">Send message</string>
+
+    <!-- ExampleCards2 — Documents / File Manager -->
+    <string name="example_files_title">Documents</string>
+    <string name="example_files_subtitle">Recent files</string>
+    <string name="example_files_name1">Project Brief.doc</string>
+    <string name="example_files_size1">2.4 MB</string>
+    <string name="example_files_name2">app.config</string>
+    <string name="example_files_size2">12 KB</string>
+    <string name="example_files_name3">assets-v2.zip</string>
+    <string name="example_files_size3">8.1 MB</string>
+    <string name="example_files_name4">Meeting Notes.doc</string>
+    <string name="example_files_size4">1.8 MB</string>
+    <string name="example_files_summary">4 files \u00B7 12.3 MB</string>
+    <string name="example_files_options">File options</string>
+
+    <!-- ExampleCards2 — Team / User Directory -->
+    <string name="example_team_title">Team</string>
+    <string name="example_team_count">8 members</string>
+    <string name="example_team_name1">Alice Chen</string>
+    <string name="example_team_role1">Engineering Lead</string>
+    <string name="example_team_name2">Bob Kim</string>
+    <string name="example_team_role2">Designer</string>
+    <string name="example_team_name3">Carol Davis</string>
+    <string name="example_team_role3">PM</string>
+    <string name="example_team_name4">Dan Park</string>
+    <string name="example_team_role4">Intern</string>
+    <string name="example_team_status_active">Active</string>
+    <string name="example_team_status_away">Away</string>
+    <string name="example_team_status_offline">Offline</string>
+
+    <!-- ExampleCards2 — Pricing Card -->
+    <string name="example_pricing_title">Pro Plan</string>
+    <string name="example_pricing_popular">Popular</string>
+    <string name="example_pricing_price">$29/month</string>
+    <string name="example_pricing_description">Everything you need to scale.</string>
+    <string name="example_pricing_feature1">Unlimited projects</string>
+    <string name="example_pricing_feature2">Priority support</string>
+    <string name="example_pricing_feature3">Advanced analytics</string>
+    <string name="example_pricing_feature4">Custom domains</string>
+    <string name="example_pricing_feature5">API access</string>
+    <string name="example_pricing_upgrade">Upgrade to Pro</string>
+    <string name="example_pricing_cancel">Cancel anytime</string>
+
+    <!-- ExampleCards2 — Search Command -->
+    <string name="example_search_title">Search</string>
+    <string name="example_search_placeholder">Search commands...</string>
+    <string name="example_search_label">Command search</string>
+    <string name="example_search_files">Search files</string>
+    <string name="example_search_files_shortcut">Ctrl+P</string>
+    <string name="example_search_settings">Open settings</string>
+    <string name="example_search_settings_shortcut">Ctrl+,</string>
+    <string name="example_search_account">Switch account</string>
+    <string name="example_search_account_shortcut">Ctrl+K</string>
+    <string name="example_search_theme">Toggle theme</string>
+    <string name="example_search_theme_shortcut">Ctrl+T</string>
+
+    <!-- ExampleCards2 — Onboarding -->
+    <string name="example_onboarding_title">Welcome to RikkaUI</string>
+    <string name="example_onboarding_description">Let\'s get you set up in a few steps.</string>
+    <string name="example_onboarding_step1">Create your project</string>
+    <string name="example_onboarding_step2">Configure theme</string>
+    <string name="example_onboarding_step3">Add components</string>
+    <string name="example_onboarding_continue">Continue Setup</string>
+    <string name="example_onboarding_completed">Completed</string>
+
+    <!-- ExampleCards2 — Activity Log -->
+    <string name="example_activity_title">Activity</string>
+    <string name="example_activity_subtitle">Recent events</string>
+    <string name="example_activity_event1">Deployed v2.1.0 to production</string>
+    <string name="example_activity_time1">2 min ago</string>
+    <string name="example_activity_event2">Merged PR #142</string>
+    <string name="example_activity_time2">15 min ago</string>
+    <string name="example_activity_event3">Updated environment variables</string>
+    <string name="example_activity_time3">1 hour ago</string>
+    <string name="example_activity_event4">Added team member</string>
+    <string name="example_activity_time4">3 hours ago</string>
+    <string name="example_activity_event5">Created new API key</string>
+    <string name="example_activity_time5">Yesterday</string>
+
+    <!-- ExampleCards2 — Quick Note -->
+    <string name="example_note_title">Quick Note</string>
+    <string name="example_note_default_text">Remember to update the API docs before the release. Also check the migration guide for breaking changes.</string>
+    <string name="example_note_placeholder">Write something...</string>
+    <string name="example_note_label">Note content</string>
+    <string name="example_note_bold">Bold</string>
+    <string name="example_note_italic">Italic</string>
+    <string name="example_note_code">Code</string>
+    <string name="example_note_auto_saved">Auto-saved</string>
+    <string name="example_note_last_edited">Last edited 2 min ago</string>
+</resources>

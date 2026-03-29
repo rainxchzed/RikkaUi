@@ -19,6 +19,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.creator.generated.resources.Res
+import rikkaui.feature.creator.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
@@ -33,7 +36,7 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
 fun ColorSwatches(modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         Text(
-            text = "Colors",
+            text = stringResource(Res.string.colors_heading),
             variant = TextVariant.Small,
         )
         Spacer(Modifier.height(RikkaTheme.spacing.sm))
@@ -47,57 +50,57 @@ fun ColorSwatches(modifier: Modifier = Modifier) {
                 Arrangement.spacedBy(RikkaTheme.spacing.sm),
         ) {
             ColorSwatch(
-                "background",
+                stringResource(Res.string.color_background),
                 RikkaTheme.colors.background,
                 shape,
             )
             ColorSwatch(
-                "foreground",
+                stringResource(Res.string.color_foreground),
                 RikkaTheme.colors.foreground,
                 shape,
             )
             ColorSwatch(
-                "primary",
+                stringResource(Res.string.color_primary),
                 RikkaTheme.colors.primary,
                 shape,
             )
             ColorSwatch(
-                "secondary",
+                stringResource(Res.string.color_secondary),
                 RikkaTheme.colors.secondary,
                 shape,
             )
             ColorSwatch(
-                "muted",
+                stringResource(Res.string.color_muted),
                 RikkaTheme.colors.muted,
                 shape,
             )
             ColorSwatch(
-                "accent",
+                stringResource(Res.string.color_accent),
                 RikkaTheme.colors.accent,
                 shape,
             )
             ColorSwatch(
-                "card",
+                stringResource(Res.string.color_card),
                 RikkaTheme.colors.card,
                 shape,
             )
             ColorSwatch(
-                "border",
+                stringResource(Res.string.color_border),
                 RikkaTheme.colors.border,
                 shape,
             )
             ColorSwatch(
-                "destructive",
+                stringResource(Res.string.color_destructive),
                 RikkaTheme.colors.destructive,
                 shape,
             )
             ColorSwatch(
-                "input",
+                stringResource(Res.string.color_input),
                 RikkaTheme.colors.input,
                 shape,
             )
             ColorSwatch(
-                "ring",
+                stringResource(Res.string.color_ring),
                 RikkaTheme.colors.ring,
                 shape,
             )

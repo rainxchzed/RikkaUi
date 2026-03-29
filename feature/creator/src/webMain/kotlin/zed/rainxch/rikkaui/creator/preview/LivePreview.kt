@@ -46,6 +46,9 @@ import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.textarea.Textarea
 import zed.rainxch.rikkaui.components.ui.toggle.Toggle
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.creator.generated.resources.Res
+import rikkaui.feature.creator.generated.resources.*
 import zed.rainxch.rikkaui.creator.fonts.availableFonts
 import zed.rainxch.rikkaui.creator.fonts.resolvePreviewFontFamily
 import zed.rainxch.rikkaui.creator.preview.examples.ExampleActivityLog
@@ -152,13 +155,12 @@ fun LivePreview(
 
             // ── 5. Example Cards Grid ──
             Text(
-                text = "Examples",
+                text = stringResource(Res.string.preview_examples_heading),
                 variant = TextVariant.H3,
             )
             Spacer(Modifier.height(RikkaTheme.spacing.xs))
             Text(
-                text = "Real-world UI patterns built with" +
-                    " your theme configuration.",
+                text = stringResource(Res.string.preview_examples_description),
                 variant = TextVariant.Muted,
             )
             Spacer(Modifier.height(RikkaTheme.spacing.lg))
@@ -178,14 +180,12 @@ private fun ThemeHeader(
     fontName: String,
 ) {
     Text(
-        text = "$styleName \u00B7 $fontName",
+        text = stringResource(Res.string.preview_theme_header, styleName, fontName),
         variant = TextVariant.H2,
     )
     Spacer(Modifier.height(RikkaTheme.spacing.xs))
     Text(
-        text = "This is a preview of your design system" +
-            " configuration. Every component below uses" +
-            " your selected theme.",
+        text = stringResource(Res.string.preview_theme_description),
         variant = TextVariant.Muted,
     )
 }
@@ -197,7 +197,7 @@ private fun ThemeHeader(
 @Composable
 private fun ComponentStrip() {
     // Buttons
-    Text(text = "Buttons", variant = TextVariant.Small)
+    Text(text = stringResource(Res.string.preview_buttons_heading), variant = TextVariant.Small)
     Spacer(Modifier.height(RikkaTheme.spacing.sm))
     FlowRow(
         horizontalArrangement =
@@ -205,19 +205,19 @@ private fun ComponentStrip() {
         verticalArrangement =
             Arrangement.spacedBy(RikkaTheme.spacing.sm),
     ) {
-        Button(text = "Button", onClick = {})
+        Button(text = stringResource(Res.string.preview_button_default), onClick = {})
         Button(
-            text = "Secondary",
+            text = stringResource(Res.string.preview_button_secondary),
             onClick = {},
             variant = ButtonVariant.Secondary,
         )
         Button(
-            text = "Outline",
+            text = stringResource(Res.string.preview_button_outline),
             onClick = {},
             variant = ButtonVariant.Outline,
         )
         Button(
-            text = "Ghost",
+            text = stringResource(Res.string.preview_button_ghost),
             onClick = {},
             variant = ButtonVariant.Ghost,
         )
@@ -239,8 +239,8 @@ private fun ComponentStrip() {
     Input(
         value = inputVal,
         onValueChange = { inputVal = it },
-        placeholder = "Name",
-        label = "Name",
+        placeholder = stringResource(Res.string.preview_input_name_label),
+        label = stringResource(Res.string.preview_input_name_label),
         modifier = Modifier.fillMaxWidth(),
     )
 
@@ -250,8 +250,8 @@ private fun ComponentStrip() {
     Textarea(
         value = textareaVal,
         onValueChange = { textareaVal = it },
-        placeholder = "Message",
-        label = "Message",
+        placeholder = stringResource(Res.string.preview_textarea_message_label),
+        label = stringResource(Res.string.preview_textarea_message_label),
         modifier = Modifier.fillMaxWidth(),
     )
 
@@ -265,13 +265,13 @@ private fun ComponentStrip() {
             Arrangement.spacedBy(RikkaTheme.spacing.sm),
         modifier = Modifier.fillMaxWidth(),
     ) {
-        Badge(text = "Badge")
+        Badge(text = stringResource(Res.string.preview_badge_default))
         Badge(
-            text = "Secondary",
+            text = stringResource(Res.string.preview_badge_secondary),
             variant = BadgeVariant.Secondary,
         )
         Badge(
-            text = "Outline",
+            text = stringResource(Res.string.preview_badge_outline),
             variant = BadgeVariant.Outline,
         )
     }
@@ -294,7 +294,7 @@ private fun ComponentStrip() {
         Toggle(
             checked = toggleState,
             onCheckedChange = { toggleState = it },
-            label = "Toggle",
+            label = stringResource(Res.string.preview_toggle_label),
         )
     }
 

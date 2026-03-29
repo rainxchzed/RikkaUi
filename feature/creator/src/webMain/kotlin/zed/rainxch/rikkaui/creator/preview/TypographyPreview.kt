@@ -6,6 +6,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.creator.generated.resources.Res
+import rikkaui.feature.creator.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
@@ -32,33 +35,28 @@ fun TypographyPreview(
         Spacer(Modifier.height(RikkaTheme.spacing.sm))
 
         Text(
-            text = "Designing with rhythm" +
-                " and hierarchy.",
+            text = stringResource(Res.string.typography_heading),
             variant = TextVariant.H2,
         )
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
         Text(
-            text = "A strong body style keeps long-form" +
-                " content readable and balances the" +
-                " visual weight of headings.",
+            text = stringResource(Res.string.typography_body),
             variant = TextVariant.P,
         )
 
         Spacer(Modifier.height(RikkaTheme.spacing.sm))
 
         Text(
-            text = "Thoughtful spacing and cadence help" +
-                " paragraphs scan quickly without" +
-                " feeling dense.",
+            text = stringResource(Res.string.typography_muted),
             variant = TextVariant.Muted,
         )
 
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
         Button(
-            text = "Sample Button",
+            text = stringResource(Res.string.typography_sample_button),
             onClick = {},
             variant = ButtonVariant.Outline,
             modifier = Modifier.fillMaxWidth(),

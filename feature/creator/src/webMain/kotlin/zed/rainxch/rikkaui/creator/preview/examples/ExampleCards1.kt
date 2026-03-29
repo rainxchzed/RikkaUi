@@ -37,6 +37,9 @@ import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.textarea.Textarea
 import zed.rainxch.rikkaui.components.ui.toggle.Toggle
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.creator.generated.resources.Res
+import rikkaui.feature.creator.generated.resources.*
 
 // ─── 1. Environment Variables ──────────────────────────────
 
@@ -49,20 +52,26 @@ fun ExampleEnvVariables(modifier: Modifier = Modifier) {
                 .padding(RikkaTheme.spacing.lg),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
-            Text(text = "Environment Variables", variant = TextVariant.H4)
+            Text(text = stringResource(Res.string.example_env_title), variant = TextVariant.H4)
             Text(
-                text = "Production \u00B7 8 variables",
+                text = stringResource(Res.string.example_env_subtitle),
                 variant = TextVariant.Muted,
             )
 
             Spacer(modifier = Modifier.height(RikkaTheme.spacing.xs))
 
-            EnvRow(key = "DATABASE_URL", value = "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022")
             EnvRow(
-                key = "NEXT_PUBLIC_API",
-                value = "https://api.example.com/v1",
+                key = stringResource(Res.string.example_env_key_database),
+                value = stringResource(Res.string.example_env_value_masked),
             )
-            EnvRow(key = "STRIPE_SECRET", value = "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022")
+            EnvRow(
+                key = stringResource(Res.string.example_env_key_api),
+                value = stringResource(Res.string.example_env_value_api),
+            )
+            EnvRow(
+                key = stringResource(Res.string.example_env_key_stripe),
+                value = stringResource(Res.string.example_env_value_masked),
+            )
 
             Spacer(modifier = Modifier.height(RikkaTheme.spacing.xs))
 
@@ -74,12 +83,12 @@ fun ExampleEnvVariables(modifier: Modifier = Modifier) {
                 ),
             ) {
                 Button(
-                    text = "Edit",
+                    text = stringResource(Res.string.example_env_button_edit),
                     onClick = { },
                     variant = ButtonVariant.Outline,
                 )
                 Button(
-                    text = "Deploy",
+                    text = stringResource(Res.string.example_env_button_deploy),
                     onClick = { },
                     variant = ButtonVariant.Default,
                 )
@@ -114,8 +123,14 @@ private fun EnvRow(key: String, value: String) {
 
 @Composable
 fun ExampleBookAppointment(modifier: Modifier = Modifier) {
-    var selectedSlot by remember { mutableStateOf("10:30 AM") }
-    val timeSlots = listOf("9:00 AM", "10:30 AM", "11:00 AM", "1:30 PM")
+    val timeSlot1030 = stringResource(Res.string.example_appt_time_1030)
+    var selectedSlot by remember { mutableStateOf(timeSlot1030) }
+    val timeSlots = listOf(
+        stringResource(Res.string.example_appt_time_900),
+        timeSlot1030,
+        stringResource(Res.string.example_appt_time_1100),
+        stringResource(Res.string.example_appt_time_130),
+    )
 
     Card(modifier = modifier) {
         Column(
@@ -124,13 +139,13 @@ fun ExampleBookAppointment(modifier: Modifier = Modifier) {
                 .padding(RikkaTheme.spacing.lg),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
-            Text(text = "Book Appointment", variant = TextVariant.H4)
+            Text(text = stringResource(Res.string.example_appt_title), variant = TextVariant.H4)
             Text(
-                text = "Dr. Sarah Chen \u00B7 Cardiology",
+                text = stringResource(Res.string.example_appt_doctor),
                 variant = TextVariant.Muted,
             )
             Text(
-                text = "Available on March 28, 2026",
+                text = stringResource(Res.string.example_appt_date),
                 variant = TextVariant.Small,
             )
 
@@ -158,12 +173,12 @@ fun ExampleBookAppointment(modifier: Modifier = Modifier) {
 
             Alert(variant = AlertVariant.Default) {
                 AlertDescription(
-                    "New patient? Please arrive 15 minutes early.",
+                    stringResource(Res.string.example_appt_alert),
                 )
             }
 
             Button(
-                text = "Book Appointment",
+                text = stringResource(Res.string.example_appt_button),
                 onClick = { },
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -179,9 +194,9 @@ fun ExampleInviteTeam(modifier: Modifier = Modifier) {
     var role2 by remember { mutableStateOf("viewer") }
 
     val roleOptions = listOf(
-        SelectOption("admin", "Admin"),
-        SelectOption("editor", "Editor"),
-        SelectOption("viewer", "Viewer"),
+        SelectOption("admin", stringResource(Res.string.example_invite_role_admin)),
+        SelectOption("editor", stringResource(Res.string.example_invite_role_editor)),
+        SelectOption("viewer", stringResource(Res.string.example_invite_role_viewer)),
     )
 
     Card(modifier = modifier) {
@@ -191,29 +206,29 @@ fun ExampleInviteTeam(modifier: Modifier = Modifier) {
                 .padding(RikkaTheme.spacing.lg),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
-            Text(text = "Invite Team", variant = TextVariant.H4)
+            Text(text = stringResource(Res.string.example_invite_title), variant = TextVariant.H4)
             Text(
-                text = "Add members to your workspace",
+                text = stringResource(Res.string.example_invite_description),
                 variant = TextVariant.Muted,
             )
 
             Spacer(modifier = Modifier.height(RikkaTheme.spacing.xs))
 
             InviteRow(
-                email = "alex@example.com",
+                email = stringResource(Res.string.example_invite_email1),
                 selectedRole = role1,
                 onRoleChange = { role1 = it },
                 options = roleOptions,
             )
             InviteRow(
-                email = "sam@example.com",
+                email = stringResource(Res.string.example_invite_email2),
                 selectedRole = role2,
                 onRoleChange = { role2 = it },
                 options = roleOptions,
             )
 
             Button(
-                text = "+ Add another",
+                text = stringResource(Res.string.example_invite_add_another),
                 onClick = { },
                 variant = ButtonVariant.Ghost,
                 size = ButtonSize.Sm,
@@ -222,7 +237,7 @@ fun ExampleInviteTeam(modifier: Modifier = Modifier) {
             Separator()
 
             Text(
-                text = "Or share invite link",
+                text = stringResource(Res.string.example_invite_share_link),
                 variant = TextVariant.Small,
                 color = RikkaTheme.colors.mutedForeground,
             )
@@ -235,22 +250,22 @@ fun ExampleInviteTeam(modifier: Modifier = Modifier) {
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Input(
-                    value = "https://app.co/invite/x8f2k",
+                    value = stringResource(Res.string.example_invite_link_value),
                     onValueChange = { },
                     readOnly = true,
                     modifier = Modifier.weight(1f),
-                    label = "Invite link",
+                    label = stringResource(Res.string.example_invite_link_label),
                 )
                 IconButton(
                     icon = RikkaIcons.Copy,
-                    contentDescription = "Copy invite link",
+                    contentDescription = stringResource(Res.string.example_invite_copy_link),
                     onClick = { },
                     variant = ButtonVariant.Outline,
                 )
             }
 
             Button(
-                text = "Send Invites",
+                text = stringResource(Res.string.example_invite_send_button),
                 onClick = { },
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -277,14 +292,14 @@ private fun InviteRow(
             onValueChange = { },
             readOnly = true,
             modifier = Modifier.weight(1f),
-            label = "Email address",
+            label = stringResource(Res.string.example_invite_email_label),
         )
         Select(
             selectedValue = selectedRole,
             onValueChange = onRoleChange,
             options = options,
             modifier = Modifier.width(120.dp),
-            label = "Role",
+            label = stringResource(Res.string.example_invite_role_label),
         )
     }
 }
@@ -299,16 +314,16 @@ fun ExampleReportBug(modifier: Modifier = Modifier) {
     var steps by remember { mutableStateOf("") }
 
     val severityOptions = listOf(
-        SelectOption("low", "Low"),
-        SelectOption("medium", "Medium"),
-        SelectOption("high", "High"),
-        SelectOption("critical", "Critical"),
+        SelectOption("low", stringResource(Res.string.example_bug_severity_low)),
+        SelectOption("medium", stringResource(Res.string.example_bug_severity_medium)),
+        SelectOption("high", stringResource(Res.string.example_bug_severity_high)),
+        SelectOption("critical", stringResource(Res.string.example_bug_severity_critical)),
     )
     val componentOptions = listOf(
-        SelectOption("dashboard", "Dashboard"),
-        SelectOption("auth", "Authentication"),
-        SelectOption("api", "API"),
-        SelectOption("ui", "UI Components"),
+        SelectOption("dashboard", stringResource(Res.string.example_bug_component_dashboard)),
+        SelectOption("auth", stringResource(Res.string.example_bug_component_auth)),
+        SelectOption("api", stringResource(Res.string.example_bug_component_api)),
+        SelectOption("ui", stringResource(Res.string.example_bug_component_ui)),
     )
 
     Card(modifier = modifier) {
@@ -318,17 +333,17 @@ fun ExampleReportBug(modifier: Modifier = Modifier) {
                 .padding(RikkaTheme.spacing.lg),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
-            Text(text = "Report Bug", variant = TextVariant.H4)
+            Text(text = stringResource(Res.string.example_bug_title), variant = TextVariant.H4)
             Text(
-                text = "Help us fix issues faster.",
+                text = stringResource(Res.string.example_bug_description),
                 variant = TextVariant.Muted,
             )
 
             Input(
                 value = title,
                 onValueChange = { title = it },
-                placeholder = "Brief description of the issue",
-                label = "Title",
+                placeholder = stringResource(Res.string.example_bug_title_placeholder),
+                label = stringResource(Res.string.example_bug_title_label),
                 modifier = Modifier.fillMaxWidth(),
             )
 
@@ -336,29 +351,29 @@ fun ExampleReportBug(modifier: Modifier = Modifier) {
                 selectedValue = severity,
                 onValueChange = { severity = it },
                 options = severityOptions,
-                placeholder = "Severity",
+                placeholder = stringResource(Res.string.example_bug_severity_label),
                 modifier = Modifier.fillMaxWidth(),
-                label = "Severity",
+                label = stringResource(Res.string.example_bug_severity_label),
             )
             Select(
                 selectedValue = component,
                 onValueChange = { component = it },
                 options = componentOptions,
-                placeholder = "Component",
+                placeholder = stringResource(Res.string.example_bug_component_label),
                 modifier = Modifier.fillMaxWidth(),
-                label = "Component",
+                label = stringResource(Res.string.example_bug_component_label),
             )
 
             Textarea(
                 value = steps,
                 onValueChange = { steps = it },
-                placeholder = "1. Go to\n2. Click on\n3. Observe...",
-                label = "Steps to reproduce",
+                placeholder = stringResource(Res.string.example_bug_steps_placeholder),
+                label = stringResource(Res.string.example_bug_steps_label),
                 modifier = Modifier.fillMaxWidth(),
             )
 
             Button(
-                text = "Submit Bug Report",
+                text = stringResource(Res.string.example_bug_submit),
                 onClick = { },
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -370,8 +385,10 @@ fun ExampleReportBug(modifier: Modifier = Modifier) {
 
 @Composable
 fun ExampleProfileSettings(modifier: Modifier = Modifier) {
-    var name by remember { mutableStateOf("shadcn") }
-    var email by remember { mutableStateOf("m@example.com") }
+    val defaultName = stringResource(Res.string.example_profile_name_default)
+    val defaultEmail = stringResource(Res.string.example_profile_email_default)
+    var name by remember { mutableStateOf(defaultName) }
+    var email by remember { mutableStateOf(defaultEmail) }
     var isPrivate by remember { mutableStateOf(false) }
 
     Card(modifier = modifier) {
@@ -381,25 +398,25 @@ fun ExampleProfileSettings(modifier: Modifier = Modifier) {
                 .padding(RikkaTheme.spacing.lg),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
-            Text(text = "Profile", variant = TextVariant.H4)
+            Text(text = stringResource(Res.string.example_profile_title), variant = TextVariant.H4)
             Text(
-                text = "Manage your profile information.",
+                text = stringResource(Res.string.example_profile_description),
                 variant = TextVariant.Muted,
             )
 
             Input(
                 value = name,
                 onValueChange = { name = it },
-                placeholder = "Your name",
-                label = "Name",
+                placeholder = stringResource(Res.string.example_profile_name_placeholder),
+                label = stringResource(Res.string.example_profile_name_label),
                 modifier = Modifier.fillMaxWidth(),
             )
 
             Input(
                 value = email,
                 onValueChange = { email = it },
-                placeholder = "Email address",
-                label = "Email",
+                placeholder = stringResource(Res.string.example_profile_email_placeholder),
+                label = stringResource(Res.string.example_profile_email_label),
                 modifier = Modifier.fillMaxWidth(),
             )
 
@@ -411,17 +428,16 @@ fun ExampleProfileSettings(modifier: Modifier = Modifier) {
                 Checkbox(
                     checked = isPrivate,
                     onCheckedChange = { isPrivate = it },
-                    label = "Make profile private and hide activity",
+                    label = stringResource(Res.string.example_profile_private_label),
                 )
                 Text(
-                    text = "When enabled, your profile and activity "
-                        + "will be hidden from other users.",
+                    text = stringResource(Res.string.example_profile_private_description),
                     variant = TextVariant.Muted,
                 )
             }
 
             Button(
-                text = "Save Changes",
+                text = stringResource(Res.string.example_profile_save),
                 onClick = { },
             )
         }
@@ -441,18 +457,18 @@ fun ExampleFeedbackForm(modifier: Modifier = Modifier) {
                 .padding(RikkaTheme.spacing.lg),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
-            Text(text = "Feedback", variant = TextVariant.H4)
+            Text(text = stringResource(Res.string.example_feedback_title), variant = TextVariant.H4)
 
             Textarea(
                 value = feedback,
                 onValueChange = { feedback = it },
-                placeholder = "Your feedback helps us improve...",
-                label = "Feedback",
+                placeholder = stringResource(Res.string.example_feedback_placeholder),
+                label = stringResource(Res.string.example_feedback_label),
                 modifier = Modifier.fillMaxWidth(),
             )
 
             Button(
-                text = "Submit",
+                text = stringResource(Res.string.example_feedback_submit),
                 onClick = { },
             )
         }
@@ -476,28 +492,28 @@ fun ExampleNotificationSettings(modifier: Modifier = Modifier) {
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(
-                text = "Notification Settings",
+                text = stringResource(Res.string.example_notif_title),
                 variant = TextVariant.H4,
             )
             Text(
-                text = "Manage how you receive notifications.",
+                text = stringResource(Res.string.example_notif_description),
                 variant = TextVariant.Muted,
             )
 
             Spacer(modifier = Modifier.height(RikkaTheme.spacing.xs))
 
             NotificationRow(
-                title = "Push notifications",
+                title = stringResource(Res.string.example_notif_push),
                 checked = pushEnabled,
                 onCheckedChange = { pushEnabled = it },
             )
             NotificationRow(
-                title = "Email digest",
+                title = stringResource(Res.string.example_notif_email_digest),
                 checked = emailDigest,
                 onCheckedChange = { emailDigest = it },
             )
             NotificationRow(
-                title = "Marketing emails",
+                title = stringResource(Res.string.example_notif_marketing),
                 checked = marketing,
                 onCheckedChange = { marketing = it },
             )
@@ -505,12 +521,12 @@ fun ExampleNotificationSettings(modifier: Modifier = Modifier) {
             Separator()
 
             Text(
-                text = "Quiet hours",
+                text = stringResource(Res.string.example_notif_quiet_hours),
                 variant = TextVariant.Large,
             )
 
             NotificationRow(
-                title = "From 10:00 PM to 7:00 AM",
+                title = stringResource(Res.string.example_notif_quiet_hours_time),
                 checked = quietHours,
                 onCheckedChange = { quietHours = it },
             )
@@ -533,7 +549,7 @@ private fun NotificationRow(
         Toggle(
             checked = checked,
             onCheckedChange = onCheckedChange,
-            label = "$title toggle",
+            label = stringResource(Res.string.example_notif_toggle_suffix, title),
         )
     }
 }
@@ -554,17 +570,17 @@ fun ExampleShippingAddress(modifier: Modifier = Modifier) {
                 .padding(RikkaTheme.spacing.lg),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
-            Text(text = "Shipping Address", variant = TextVariant.H4)
+            Text(text = stringResource(Res.string.example_shipping_title), variant = TextVariant.H4)
             Text(
-                text = "Where should we deliver?",
+                text = stringResource(Res.string.example_shipping_description),
                 variant = TextVariant.Muted,
             )
 
             Input(
                 value = street,
                 onValueChange = { street = it },
-                placeholder = "123 Main Street",
-                label = "Street address",
+                placeholder = stringResource(Res.string.example_shipping_street_placeholder),
+                label = stringResource(Res.string.example_shipping_street_label),
                 modifier = Modifier.fillMaxWidth(),
             )
 
@@ -577,15 +593,15 @@ fun ExampleShippingAddress(modifier: Modifier = Modifier) {
                 Input(
                     value = city,
                     onValueChange = { city = it },
-                    placeholder = "City",
-                    label = "City",
+                    placeholder = stringResource(Res.string.example_shipping_city_placeholder),
+                    label = stringResource(Res.string.example_shipping_city_label),
                     modifier = Modifier.weight(1f),
                 )
                 Input(
                     value = state,
                     onValueChange = { state = it },
-                    placeholder = "State",
-                    label = "State",
+                    placeholder = stringResource(Res.string.example_shipping_state_placeholder),
+                    label = stringResource(Res.string.example_shipping_state_label),
                     modifier = Modifier.weight(1f),
                 )
             }
@@ -593,13 +609,13 @@ fun ExampleShippingAddress(modifier: Modifier = Modifier) {
             Input(
                 value = zip,
                 onValueChange = { zip = it },
-                placeholder = "ZIP code",
-                label = "ZIP code",
+                placeholder = stringResource(Res.string.example_shipping_zip_placeholder),
+                label = stringResource(Res.string.example_shipping_zip_label),
                 modifier = Modifier.fillMaxWidth(),
             )
 
             Button(
-                text = "Save Address",
+                text = stringResource(Res.string.example_shipping_save),
                 onClick = { },
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -622,29 +638,29 @@ fun ExampleCookieSettings(modifier: Modifier = Modifier) {
                 .padding(RikkaTheme.spacing.lg),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
-            Text(text = "Cookie Settings", variant = TextVariant.H4)
+            Text(text = stringResource(Res.string.example_cookie_title), variant = TextVariant.H4)
             Text(
-                text = "Manage your cookie preferences.",
+                text = stringResource(Res.string.example_cookie_description),
                 variant = TextVariant.Muted,
             )
 
             Spacer(modifier = Modifier.height(RikkaTheme.spacing.xs))
 
             CookieRow(
-                title = "Essential",
-                description = "Required for the website to function",
+                title = stringResource(Res.string.example_cookie_essential),
+                description = stringResource(Res.string.example_cookie_essential_desc),
                 checked = essential,
                 onCheckedChange = { essential = it },
             )
             CookieRow(
-                title = "Analytics",
-                description = "Help us understand usage patterns",
+                title = stringResource(Res.string.example_cookie_analytics),
+                description = stringResource(Res.string.example_cookie_analytics_desc),
                 checked = analytics,
                 onCheckedChange = { analytics = it },
             )
             CookieRow(
-                title = "Marketing",
-                description = "Personalized ads and recommendations",
+                title = stringResource(Res.string.example_cookie_marketing),
+                description = stringResource(Res.string.example_cookie_marketing_desc),
                 checked = marketingCookies,
                 onCheckedChange = { marketingCookies = it },
             )
@@ -652,7 +668,7 @@ fun ExampleCookieSettings(modifier: Modifier = Modifier) {
             Separator()
 
             Button(
-                text = "Save Preferences",
+                text = stringResource(Res.string.example_cookie_save),
                 onClick = { },
             )
         }
@@ -683,7 +699,7 @@ private fun CookieRow(
         Toggle(
             checked = checked,
             onCheckedChange = onCheckedChange,
-            label = "$title cookies toggle",
+            label = stringResource(Res.string.example_cookie_toggle_suffix, title),
         )
     }
 }
@@ -703,9 +719,9 @@ fun ExamplePaymentMethod(modifier: Modifier = Modifier) {
                 .padding(RikkaTheme.spacing.lg),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
-            Text(text = "Payment Method", variant = TextVariant.H4)
+            Text(text = stringResource(Res.string.example_payment_title), variant = TextVariant.H4)
             Text(
-                text = "Choose your preferred payment method.",
+                text = stringResource(Res.string.example_payment_description),
                 variant = TextVariant.Muted,
             )
 
@@ -714,17 +730,17 @@ fun ExamplePaymentMethod(modifier: Modifier = Modifier) {
             RadioButton(
                 selected = selectedMethod == 0,
                 onClick = { selectedMethod = 0 },
-                label = "Credit Card",
+                label = stringResource(Res.string.example_payment_credit_card),
             )
             RadioButton(
                 selected = selectedMethod == 1,
                 onClick = { selectedMethod = 1 },
-                label = "PayPal",
+                label = stringResource(Res.string.example_payment_paypal),
             )
             RadioButton(
                 selected = selectedMethod == 2,
                 onClick = { selectedMethod = 2 },
-                label = "Bank Transfer",
+                label = stringResource(Res.string.example_payment_bank_transfer),
             )
 
             if (selectedMethod == 0) {
@@ -733,21 +749,21 @@ fun ExamplePaymentMethod(modifier: Modifier = Modifier) {
                 Input(
                     value = cardNumber,
                     onValueChange = { cardNumber = it },
-                    placeholder = "4242 4242 4242 4242",
-                    label = "Card number",
+                    placeholder = stringResource(Res.string.example_payment_card_placeholder),
+                    label = stringResource(Res.string.example_payment_card_label),
                     modifier = Modifier.fillMaxWidth(),
                 )
                 Input(
                     value = expiry,
                     onValueChange = { expiry = it },
-                    placeholder = "MM / YY",
-                    label = "Expiry date",
+                    placeholder = stringResource(Res.string.example_payment_expiry_placeholder),
+                    label = stringResource(Res.string.example_payment_expiry_label),
                     modifier = Modifier.fillMaxWidth(),
                 )
             }
 
             Button(
-                text = "Continue",
+                text = stringResource(Res.string.example_payment_continue),
                 onClick = { },
                 modifier = Modifier.fillMaxWidth(),
             )

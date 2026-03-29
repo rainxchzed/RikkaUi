@@ -43,6 +43,9 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.textarea.Textarea
 import zed.rainxch.rikkaui.components.ui.togglegroup.ToggleGroup
 import zed.rainxch.rikkaui.components.ui.togglegroup.ToggleGroupItem
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.creator.generated.resources.Res
+import rikkaui.feature.creator.generated.resources.*
 
 // ─── 11. ExampleTaskList ────────────────────────────────────
 
@@ -55,10 +58,10 @@ fun ExampleTaskList(modifier: Modifier = Modifier) {
     var task5 by remember { mutableStateOf(true) }
 
     Card(modifier = modifier) {
-        Text(text = "Sprint Tasks", variant = TextVariant.H4)
+        Text(text = stringResource(Res.string.example_tasks_title), variant = TextVariant.H4)
         Spacer(Modifier.height(RikkaTheme.spacing.xs))
         Text(
-            text = "3 of 5 completed",
+            text = stringResource(Res.string.example_tasks_progress),
             variant = TextVariant.Muted,
         )
 
@@ -76,36 +79,36 @@ fun ExampleTaskList(modifier: Modifier = Modifier) {
             TaskRow(
                 checked = task1,
                 onCheckedChange = { task1 = it },
-                label = "Setup CI pipeline",
-                badgeText = "Done",
+                label = stringResource(Res.string.example_tasks_ci),
+                badgeText = stringResource(Res.string.example_tasks_done),
                 badgeVariant = BadgeVariant.Default,
             )
             TaskRow(
                 checked = task2,
                 onCheckedChange = { task2 = it },
-                label = "Write API docs",
-                badgeText = "Done",
+                label = stringResource(Res.string.example_tasks_api_docs),
+                badgeText = stringResource(Res.string.example_tasks_done),
                 badgeVariant = BadgeVariant.Default,
             )
             TaskRow(
                 checked = task3,
                 onCheckedChange = { task3 = it },
-                label = "Deploy to staging",
-                badgeText = "In Progress",
+                label = stringResource(Res.string.example_tasks_staging),
+                badgeText = stringResource(Res.string.example_tasks_in_progress),
                 badgeVariant = BadgeVariant.Secondary,
             )
             TaskRow(
                 checked = task4,
                 onCheckedChange = { task4 = it },
-                label = "Code review",
-                badgeText = "Pending",
+                label = stringResource(Res.string.example_tasks_review),
+                badgeText = stringResource(Res.string.example_tasks_pending),
                 badgeVariant = BadgeVariant.Outline,
             )
             TaskRow(
                 checked = task5,
                 onCheckedChange = { task5 = it },
-                label = "Fix auth bug",
-                badgeText = "Done",
+                label = stringResource(Res.string.example_tasks_auth_bug),
+                badgeText = stringResource(Res.string.example_tasks_done),
                 badgeVariant = BadgeVariant.Default,
             )
         }
@@ -141,10 +144,10 @@ private fun TaskRow(
 @Composable
 fun ExampleApiKeyManager(modifier: Modifier = Modifier) {
     Card(modifier = modifier) {
-        Text(text = "API Keys", variant = TextVariant.H4)
+        Text(text = stringResource(Res.string.example_api_title), variant = TextVariant.H4)
         Spacer(Modifier.height(RikkaTheme.spacing.xs))
         Text(
-            text = "Manage your application keys.",
+            text = stringResource(Res.string.example_api_description),
             variant = TextVariant.Muted,
         )
 
@@ -153,18 +156,24 @@ fun ExampleApiKeyManager(modifier: Modifier = Modifier) {
             verticalArrangement =
                 Arrangement.spacedBy(RikkaTheme.spacing.sm),
         ) {
-            ApiKeyRow(name = "Production", masked = "sk-...a3f9")
-            ApiKeyRow(name = "Staging", masked = "sk-...7b2e")
             ApiKeyRow(
-                name = "Development",
-                masked = "sk-...1d4c",
+                name = stringResource(Res.string.example_api_production),
+                masked = stringResource(Res.string.example_api_masked_a3f9),
+            )
+            ApiKeyRow(
+                name = stringResource(Res.string.example_api_staging),
+                masked = stringResource(Res.string.example_api_masked_7b2e),
+            )
+            ApiKeyRow(
+                name = stringResource(Res.string.example_api_development),
+                masked = stringResource(Res.string.example_api_masked_1d4c),
             )
         }
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
         Alert(variant = AlertVariant.Destructive) {
             AlertDescription(
-                text = "Deleted keys cannot be recovered.",
+                text = stringResource(Res.string.example_api_deleted_warning),
                 variant = AlertVariant.Destructive,
             )
         }
@@ -190,12 +199,12 @@ private fun ApiKeyRow(
         Kbd(text = masked)
         IconButton(
             icon = RikkaIcons.Copy,
-            contentDescription = "Copy $name key",
+            contentDescription = stringResource(Res.string.example_api_copy_key, name),
             onClick = {},
         )
         IconButton(
             icon = RikkaIcons.Trash,
-            contentDescription = "Delete $name key",
+            contentDescription = stringResource(Res.string.example_api_delete_key, name),
             onClick = {},
         )
     }
@@ -208,7 +217,7 @@ fun ExampleChatComposer(modifier: Modifier = Modifier) {
     var messageText by remember { mutableStateOf("") }
 
     Card(modifier = modifier) {
-        Text(text = "Messages", variant = TextVariant.H4)
+        Text(text = stringResource(Res.string.example_chat_title), variant = TextVariant.H4)
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
         Column(
@@ -217,17 +226,17 @@ fun ExampleChatComposer(modifier: Modifier = Modifier) {
         ) {
             // Other person's message (left-aligned)
             ChatBubble(
-                text = "Hey, how's the project going?",
+                text = stringResource(Res.string.example_chat_msg1),
                 isFromUser = false,
             )
             // Other person's message (left-aligned)
             ChatBubble(
-                text = "Did you push the latest changes?",
+                text = stringResource(Res.string.example_chat_msg2),
                 isFromUser = false,
             )
             // User's message (right-aligned)
             ChatBubble(
-                text = "Yes! Just deployed to staging.",
+                text = stringResource(Res.string.example_chat_msg3),
                 isFromUser = true,
             )
         }
@@ -242,13 +251,13 @@ fun ExampleChatComposer(modifier: Modifier = Modifier) {
             Input(
                 value = messageText,
                 onValueChange = { messageText = it },
-                placeholder = "Type a message...",
-                label = "Message input",
+                placeholder = stringResource(Res.string.example_chat_input_placeholder),
+                label = stringResource(Res.string.example_chat_input_label),
                 modifier = Modifier.weight(1f),
             )
             IconButton(
                 icon = RikkaIcons.Send,
-                contentDescription = "Send message",
+                contentDescription = stringResource(Res.string.example_chat_send),
                 onClick = {},
             )
         }
@@ -307,10 +316,10 @@ private fun ChatBubble(
 @Composable
 fun ExampleFileManager(modifier: Modifier = Modifier) {
     Card(modifier = modifier) {
-        Text(text = "Documents", variant = TextVariant.H4)
+        Text(text = stringResource(Res.string.example_files_title), variant = TextVariant.H4)
         Spacer(Modifier.height(RikkaTheme.spacing.xs))
         Text(
-            text = "Recent files",
+            text = stringResource(Res.string.example_files_subtitle),
             variant = TextVariant.Muted,
         )
 
@@ -318,32 +327,32 @@ fun ExampleFileManager(modifier: Modifier = Modifier) {
         Column {
             FileRow(
                 icon = RikkaIcons.Edit,
-                name = "Project Brief.doc",
-                size = "2.4 MB",
+                name = stringResource(Res.string.example_files_name1),
+                size = stringResource(Res.string.example_files_size1),
             )
             Separator()
             FileRow(
                 icon = RikkaIcons.Settings,
-                name = "app.config",
-                size = "12 KB",
+                name = stringResource(Res.string.example_files_name2),
+                size = stringResource(Res.string.example_files_size2),
             )
             Separator()
             FileRow(
                 icon = RikkaIcons.Download,
-                name = "assets-v2.zip",
-                size = "8.1 MB",
+                name = stringResource(Res.string.example_files_name3),
+                size = stringResource(Res.string.example_files_size3),
             )
             Separator()
             FileRow(
                 icon = RikkaIcons.Edit,
-                name = "Meeting Notes.doc",
-                size = "1.8 MB",
+                name = stringResource(Res.string.example_files_name4),
+                size = stringResource(Res.string.example_files_size4),
             )
         }
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
         Text(
-            text = "4 files \u00B7 12.3 MB",
+            text = stringResource(Res.string.example_files_summary),
             variant = TextVariant.Muted,
         )
     }
@@ -379,7 +388,7 @@ private fun FileRow(
         )
         IconButton(
             icon = RikkaIcons.MoreHorizontal,
-            contentDescription = "File options",
+            contentDescription = stringResource(Res.string.example_files_options),
             onClick = {},
         )
     }
@@ -395,8 +404,8 @@ fun ExampleUserDirectory(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(text = "Team", variant = TextVariant.H4)
-            Badge(text = "8 members")
+            Text(text = stringResource(Res.string.example_team_title), variant = TextVariant.H4)
+            Badge(text = stringResource(Res.string.example_team_count))
         }
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
@@ -406,30 +415,30 @@ fun ExampleUserDirectory(modifier: Modifier = Modifier) {
         ) {
             UserRow(
                 initials = "AC",
-                name = "Alice Chen",
-                role = "Engineering Lead",
-                status = "Active",
+                name = stringResource(Res.string.example_team_name1),
+                role = stringResource(Res.string.example_team_role1),
+                status = stringResource(Res.string.example_team_status_active),
                 statusVariant = BadgeVariant.Default,
             )
             UserRow(
                 initials = "BK",
-                name = "Bob Kim",
-                role = "Designer",
-                status = "Active",
+                name = stringResource(Res.string.example_team_name2),
+                role = stringResource(Res.string.example_team_role2),
+                status = stringResource(Res.string.example_team_status_active),
                 statusVariant = BadgeVariant.Default,
             )
             UserRow(
                 initials = "CD",
-                name = "Carol Davis",
-                role = "PM",
-                status = "Away",
+                name = stringResource(Res.string.example_team_name3),
+                role = stringResource(Res.string.example_team_role3),
+                status = stringResource(Res.string.example_team_status_away),
                 statusVariant = BadgeVariant.Secondary,
             )
             UserRow(
                 initials = "DP",
-                name = "Dan Park",
-                role = "Intern",
-                status = "Offline",
+                name = stringResource(Res.string.example_team_name4),
+                role = stringResource(Res.string.example_team_role4),
+                status = stringResource(Res.string.example_team_status_offline),
                 statusVariant = BadgeVariant.Outline,
             )
         }
@@ -472,15 +481,15 @@ fun ExamplePricingCard(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(text = "Pro Plan", variant = TextVariant.H4)
-            Badge(text = "Popular")
+            Text(text = stringResource(Res.string.example_pricing_title), variant = TextVariant.H4)
+            Badge(text = stringResource(Res.string.example_pricing_popular))
         }
 
         Spacer(Modifier.height(RikkaTheme.spacing.sm))
-        Text(text = "$29/month", variant = TextVariant.H2)
+        Text(text = stringResource(Res.string.example_pricing_price), variant = TextVariant.H2)
         Spacer(Modifier.height(RikkaTheme.spacing.xs))
         Text(
-            text = "Everything you need to scale.",
+            text = stringResource(Res.string.example_pricing_description),
             variant = TextVariant.Muted,
         )
 
@@ -489,16 +498,16 @@ fun ExamplePricingCard(modifier: Modifier = Modifier) {
             verticalArrangement =
                 Arrangement.spacedBy(RikkaTheme.spacing.sm),
         ) {
-            FeatureItem(text = "Unlimited projects")
-            FeatureItem(text = "Priority support")
-            FeatureItem(text = "Advanced analytics")
-            FeatureItem(text = "Custom domains")
-            FeatureItem(text = "API access")
+            FeatureItem(text = stringResource(Res.string.example_pricing_feature1))
+            FeatureItem(text = stringResource(Res.string.example_pricing_feature2))
+            FeatureItem(text = stringResource(Res.string.example_pricing_feature3))
+            FeatureItem(text = stringResource(Res.string.example_pricing_feature4))
+            FeatureItem(text = stringResource(Res.string.example_pricing_feature5))
         }
 
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
         Button(
-            text = "Upgrade to Pro",
+            text = stringResource(Res.string.example_pricing_upgrade),
             onClick = {},
             modifier = Modifier.fillMaxWidth(),
         )
@@ -508,7 +517,7 @@ fun ExamplePricingCard(modifier: Modifier = Modifier) {
             contentAlignment = Alignment.Center,
         ) {
             Text(
-                text = "Cancel anytime",
+                text = stringResource(Res.string.example_pricing_cancel),
                 variant = TextVariant.Muted,
             )
         }
@@ -539,14 +548,14 @@ fun ExampleSearchCommand(modifier: Modifier = Modifier) {
     var searchText by remember { mutableStateOf("") }
 
     Card(modifier = modifier) {
-        Text(text = "Search", variant = TextVariant.H4)
+        Text(text = stringResource(Res.string.example_search_title), variant = TextVariant.H4)
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
         Input(
             value = searchText,
             onValueChange = { searchText = it },
-            placeholder = "Search commands...",
-            label = "Command search",
+            placeholder = stringResource(Res.string.example_search_placeholder),
+            label = stringResource(Res.string.example_search_label),
             modifier = Modifier.fillMaxWidth(),
         )
 
@@ -557,23 +566,23 @@ fun ExampleSearchCommand(modifier: Modifier = Modifier) {
         ) {
             CommandRow(
                 icon = RikkaIcons.Search,
-                label = "Search files",
-                shortcut = "Ctrl+P",
+                label = stringResource(Res.string.example_search_files),
+                shortcut = stringResource(Res.string.example_search_files_shortcut),
             )
             CommandRow(
                 icon = RikkaIcons.Settings,
-                label = "Open settings",
-                shortcut = "Ctrl+,",
+                label = stringResource(Res.string.example_search_settings),
+                shortcut = stringResource(Res.string.example_search_settings_shortcut),
             )
             CommandRow(
                 icon = RikkaIcons.User,
-                label = "Switch account",
-                shortcut = "Ctrl+K",
+                label = stringResource(Res.string.example_search_account),
+                shortcut = stringResource(Res.string.example_search_account_shortcut),
             )
             CommandRow(
                 icon = RikkaIcons.Moon,
-                label = "Toggle theme",
-                shortcut = "Ctrl+T",
+                label = stringResource(Res.string.example_search_theme),
+                shortcut = stringResource(Res.string.example_search_theme_shortcut),
             )
         }
     }
@@ -620,12 +629,12 @@ private fun CommandRow(
 fun ExampleOnboarding(modifier: Modifier = Modifier) {
     Card(modifier = modifier) {
         Text(
-            text = "Welcome to RikkaUI",
+            text = stringResource(Res.string.example_onboarding_title),
             variant = TextVariant.H4,
         )
         Spacer(Modifier.height(RikkaTheme.spacing.xs))
         Text(
-            text = "Let's get you set up in a few steps.",
+            text = stringResource(Res.string.example_onboarding_description),
             variant = TextVariant.Muted,
         )
 
@@ -636,17 +645,17 @@ fun ExampleOnboarding(modifier: Modifier = Modifier) {
         ) {
             OnboardingStep(
                 number = "1",
-                title = "Create your project",
+                title = stringResource(Res.string.example_onboarding_step1),
                 isCompleted = true,
             )
             OnboardingStep(
                 number = "2",
-                title = "Configure theme",
+                title = stringResource(Res.string.example_onboarding_step2),
                 isCompleted = true,
             )
             OnboardingStep(
                 number = "3",
-                title = "Add components",
+                title = stringResource(Res.string.example_onboarding_step3),
                 isCompleted = false,
             )
         }
@@ -659,7 +668,7 @@ fun ExampleOnboarding(modifier: Modifier = Modifier) {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
         Button(
-            text = "Continue Setup",
+            text = stringResource(Res.string.example_onboarding_continue),
             onClick = {},
             modifier = Modifier.fillMaxWidth(),
         )
@@ -700,7 +709,7 @@ private fun OnboardingStep(
         if (isCompleted) {
             Icon(
                 imageVector = RikkaIcons.Check,
-                contentDescription = "Completed",
+                contentDescription = stringResource(Res.string.example_onboarding_completed),
                 tint = RikkaTheme.colors.primary,
                 modifier = Modifier.size(16.dp),
             )
@@ -713,10 +722,10 @@ private fun OnboardingStep(
 @Composable
 fun ExampleActivityLog(modifier: Modifier = Modifier) {
     Card(modifier = modifier) {
-        Text(text = "Activity", variant = TextVariant.H4)
+        Text(text = stringResource(Res.string.example_activity_title), variant = TextVariant.H4)
         Spacer(Modifier.height(RikkaTheme.spacing.xs))
         Text(
-            text = "Recent events",
+            text = stringResource(Res.string.example_activity_subtitle),
             variant = TextVariant.Muted,
         )
 
@@ -726,24 +735,24 @@ fun ExampleActivityLog(modifier: Modifier = Modifier) {
                 Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             ActivityEntry(
-                text = "Deployed v2.1.0 to production",
-                timestamp = "2 min ago",
+                text = stringResource(Res.string.example_activity_event1),
+                timestamp = stringResource(Res.string.example_activity_time1),
             )
             ActivityEntry(
-                text = "Merged PR #142",
-                timestamp = "15 min ago",
+                text = stringResource(Res.string.example_activity_event2),
+                timestamp = stringResource(Res.string.example_activity_time2),
             )
             ActivityEntry(
-                text = "Updated environment variables",
-                timestamp = "1 hour ago",
+                text = stringResource(Res.string.example_activity_event3),
+                timestamp = stringResource(Res.string.example_activity_time3),
             )
             ActivityEntry(
-                text = "Added team member",
-                timestamp = "3 hours ago",
+                text = stringResource(Res.string.example_activity_event4),
+                timestamp = stringResource(Res.string.example_activity_time4),
             )
             ActivityEntry(
-                text = "Created new API key",
-                timestamp = "Yesterday",
+                text = stringResource(Res.string.example_activity_event5),
+                timestamp = stringResource(Res.string.example_activity_time5),
             )
         }
     }
@@ -783,43 +792,41 @@ private fun ActivityEntry(
 
 @Composable
 fun ExampleQuickNote(modifier: Modifier = Modifier) {
-    var noteText by remember {
-        mutableStateOf(
-            "Remember to update the API docs before" +
-                " the release. Also check the migration" +
-                " guide for breaking changes.",
-        )
-    }
-    var selectedFormat by remember { mutableStateOf("Bold") }
+    val defaultNote = stringResource(Res.string.example_note_default_text)
+    var noteText by remember { mutableStateOf(defaultNote) }
+    val boldLabel = stringResource(Res.string.example_note_bold)
+    var selectedFormat by remember { mutableStateOf(boldLabel) }
 
     Card(modifier = modifier) {
-        Text(text = "Quick Note", variant = TextVariant.H4)
+        Text(text = stringResource(Res.string.example_note_title), variant = TextVariant.H4)
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
         Textarea(
             value = noteText,
             onValueChange = { noteText = it },
-            placeholder = "Write something...",
-            label = "Note content",
+            placeholder = stringResource(Res.string.example_note_placeholder),
+            label = stringResource(Res.string.example_note_label),
             modifier = Modifier.fillMaxWidth(),
         )
 
         Spacer(Modifier.height(RikkaTheme.spacing.sm))
+        val italicLabel = stringResource(Res.string.example_note_italic)
+        val codeLabel = stringResource(Res.string.example_note_code)
         ToggleGroup {
             ToggleGroupItem(
-                text = "Bold",
-                selected = selectedFormat == "Bold",
-                onClick = { selectedFormat = "Bold" },
+                text = boldLabel,
+                selected = selectedFormat == boldLabel,
+                onClick = { selectedFormat = boldLabel },
             )
             ToggleGroupItem(
-                text = "Italic",
-                selected = selectedFormat == "Italic",
-                onClick = { selectedFormat = "Italic" },
+                text = italicLabel,
+                selected = selectedFormat == italicLabel,
+                onClick = { selectedFormat = italicLabel },
             )
             ToggleGroupItem(
-                text = "Code",
-                selected = selectedFormat == "Code",
-                onClick = { selectedFormat = "Code" },
+                text = codeLabel,
+                selected = selectedFormat == codeLabel,
+                onClick = { selectedFormat = codeLabel },
             )
         }
 
@@ -830,11 +837,11 @@ fun ExampleQuickNote(modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Badge(
-                text = "Auto-saved",
+                text = stringResource(Res.string.example_note_auto_saved),
                 variant = BadgeVariant.Secondary,
             )
             Text(
-                text = "Last edited 2 min ago",
+                text = stringResource(Res.string.example_note_last_edited),
                 variant = TextVariant.Muted,
             )
         }

@@ -39,6 +39,9 @@ import zed.rainxch.rikkaui.components.ui.popover.PopoverPlacement
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.toggle.Toggle
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.creator.generated.resources.Res
+import rikkaui.feature.creator.generated.resources.*
 import zed.rainxch.rikkaui.creator.fonts.availableFonts
 
 /**
@@ -63,7 +66,7 @@ fun ConfigPanel(
     modifier: Modifier = Modifier,
 ) {
     Text(
-        text = "Create Your Design System",
+        text = stringResource(Res.string.config_title),
         variant = TextVariant.H3,
         modifier = modifier.fillMaxWidth(),
     )
@@ -71,9 +74,7 @@ fun ConfigPanel(
     Spacer(Modifier.height(RikkaTheme.spacing.xs))
 
     Text(
-        text =
-            "Configure your theme and preview it live." +
-                " When you're happy, download the generated code.",
+        text = stringResource(Res.string.config_description),
         variant = TextVariant.Muted,
         modifier = Modifier.fillMaxWidth(),
     )
@@ -82,7 +83,7 @@ fun ConfigPanel(
 
     // ─── Style ──────────────────────────────────────
     PickerCard(
-        label = "Style",
+        label = stringResource(Res.string.config_label_style),
         value = stylePreset.label,
     ) { onDismiss ->
         RikkaStylePreset.entries.forEach { preset ->
@@ -101,7 +102,7 @@ fun ConfigPanel(
 
     // ─── Palette ────────────────────────────────────
     PickerCard(
-        label = "Base Color",
+        label = stringResource(Res.string.config_label_base_color),
         value = palette.label,
         trailing = {
             Box(
@@ -129,7 +130,7 @@ fun ConfigPanel(
 
     // ─── Accent ─────────────────────────────────────
     PickerCard(
-        label = "Accent",
+        label = stringResource(Res.string.config_label_accent),
         value = accent.label,
         trailing = {
             val swatch = accent.previewColor
@@ -174,11 +175,11 @@ fun ConfigPanel(
     // ─── Font ───────────────────────────────────────
     val currentFont = availableFonts.find { it.id == fontId }
     PickerCard(
-        label = "Font",
+        label = stringResource(Res.string.config_label_font),
         value = currentFont?.displayName ?: fontId,
         trailing = {
             Text(
-                text = "Aa",
+                text = stringResource(Res.string.config_font_preview),
                 style = RikkaTheme.typography.small,
                 color = RikkaTheme.colors.mutedForeground,
             )
@@ -207,10 +208,14 @@ fun ConfigPanel(
         Toggle(
             checked = previewDark,
             onCheckedChange = onPreviewDarkChange,
-            label = "Toggle preview dark mode",
+            label = stringResource(Res.string.config_toggle_dark_mode),
         )
         Text(
-            text = if (previewDark) "Preview: Dark" else "Preview: Light",
+            text = if (previewDark) {
+                stringResource(Res.string.config_preview_dark)
+            } else {
+                stringResource(Res.string.config_preview_light)
+            },
             variant = TextVariant.Muted,
         )
     }
@@ -219,7 +224,7 @@ fun ConfigPanel(
 
     // ─── Download Button ────────────────────────────
     Button(
-        text = "Download Theme",
+        text = stringResource(Res.string.config_download_theme),
         onClick = onDownload,
         animation = ButtonAnimation.Bounce,
         modifier = Modifier.fillMaxWidth(),
@@ -319,7 +324,7 @@ private fun PickerItem(
             if (selected) {
                 Icon(
                     RikkaIcons.Check,
-                    contentDescription = "Selected",
+                    contentDescription = stringResource(Res.string.config_selected),
                     size = IconSize.Sm,
                     tint = foreground,
                 )
