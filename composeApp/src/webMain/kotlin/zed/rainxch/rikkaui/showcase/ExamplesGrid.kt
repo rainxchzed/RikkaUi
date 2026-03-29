@@ -18,6 +18,7 @@ import zed.rainxch.rikkaui.showcase.examples.SystemStatusExample
 import zed.rainxch.rikkaui.showcase.examples.TaskBoardExample
 import zed.rainxch.rikkaui.showcase.examples.UserProfileExample
 import zed.rainxch.rikkaui.showcase.examples.WeatherDashboardExample
+import zed.rainxch.rikkaui.utils.WindowSizeClass
 
 @Composable
 fun ExamplesGrid(sizeClass: WindowSizeClass) {

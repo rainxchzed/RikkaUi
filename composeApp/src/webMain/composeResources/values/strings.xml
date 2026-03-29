@@ -10,7 +10,8 @@
     <string name="app_name">RikkaUI</string>
     <string name="hero_subtitle">Composing elements into harmony</string>
     <string name="hero_description">A shadcn/ui-inspired component library and design system for Compose Multiplatform. Copy-paste components you own, zero Material dependency.</string>
-    <string name="get_started">Browse Components</string>
+    <string name="get_started">Get started</string>
+    <string name="new_project">New project</string>
     <string name="github">GitHub</string>
 
     <!-- Footer -->
@@ -85,6 +86,7 @@
     <string name="low">Low</string>
     <string name="assigned_to_you">Assigned to you</string>
     <string name="view_board">View Board</string>
+    <string name="view_components">View Components</string>
 
     <!-- File Explorer -->
     <string name="file_browser_label">Project file browser</string>

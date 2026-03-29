@@ -1,4 +1,4 @@
-package zed.rainxch.rikkaui.showcase
+package zed.rainxch.rikkaui.utils
 
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp

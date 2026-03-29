@@ -15,9 +15,19 @@ fun SectionHeader(
     title: String,
     description: String,
 ) {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Text(text = title, variant = TextVariant.H3)
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Text(
+            text = title,
+            variant = TextVariant.H3,
+        )
+
         Spacer(Modifier.height(RikkaTheme.spacing.xs))
-        Text(text = description, variant = TextVariant.Muted)
+
+        Text(
+            text = description,
+            variant = TextVariant.Muted,
+        )
     }
 }

@@ -35,10 +35,6 @@ import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.popover.Popover
 import zed.rainxch.rikkaui.components.ui.text.Text
 
-/**
- * Compact theme customization toolbar displayed above the examples grid.
- * Each option opens a Popover with choices — inspired by shadcn's theme switcher.
- */
 @Composable
 fun ThemeToolbar(
     palette: RikkaPalette,
@@ -54,13 +50,16 @@ fun ThemeToolbar(
         horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
         verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
     ) {
-        // Style picker
         ToolbarPopover(
             label = "Style: ${stylePreset.label}",
             icon = { Icon(RikkaIcons.Settings, "Style", size = IconSize.Sm) },
         ) { onDismiss ->
             Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs)) {
-                Text(text = "Style", style = RikkaTheme.typography.small, color = RikkaTheme.colors.mutedForeground)
+                Text(
+                    text = "Style",
+                    style = RikkaTheme.typography.small,
+                    color = RikkaTheme.colors.mutedForeground,
+                )
                 Spacer(Modifier.height(RikkaTheme.spacing.xs))
                 RikkaStylePreset.entries.forEach { preset ->
                     Button(
@@ -77,7 +76,6 @@ fun ThemeToolbar(
             }
         }
 
-        // Palette picker
         ToolbarPopover(
             label = palette.label,
             icon = {
@@ -91,7 +89,11 @@ fun ThemeToolbar(
             },
         ) { onDismiss ->
             Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs)) {
-                Text(text = "Palette", style = RikkaTheme.typography.small, color = RikkaTheme.colors.mutedForeground)
+                Text(
+                    text = "Palette",
+                    style = RikkaTheme.typography.small,
+                    color = RikkaTheme.colors.mutedForeground,
+                )
                 Spacer(Modifier.height(RikkaTheme.spacing.xs))
                 RikkaPalette.entries.forEach { entry ->
                     Button(
@@ -108,7 +110,6 @@ fun ThemeToolbar(
             }
         }
 
-        // Accent picker
         ToolbarPopover(
             label = accent.label,
             icon = {
@@ -133,7 +134,11 @@ fun ThemeToolbar(
             },
         ) { onDismiss ->
             Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs)) {
-                Text(text = "Accent", style = RikkaTheme.typography.small, color = RikkaTheme.colors.mutedForeground)
+                Text(
+                    text = "Accent",
+                    style = RikkaTheme.typography.small,
+                    color = RikkaTheme.colors.mutedForeground,
+                )
                 Spacer(Modifier.height(RikkaTheme.spacing.xs))
                 RikkaAccentPreset.entries.forEach { entry ->
                     Button(

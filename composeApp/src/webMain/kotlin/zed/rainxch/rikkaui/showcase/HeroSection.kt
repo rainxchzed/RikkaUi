@@ -11,28 +11,28 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
 import org.jetbrains.compose.resources.stringResource
 import rikkaui.composeapp.generated.resources.Res
 import rikkaui.composeapp.generated.resources.app_name
-import rikkaui.composeapp.generated.resources.get_started
-import rikkaui.composeapp.generated.resources.github
 import rikkaui.composeapp.generated.resources.hero_description
 import rikkaui.composeapp.generated.resources.hero_subtitle
+import rikkaui.composeapp.generated.resources.new_project
 import rikkaui.composeapp.generated.resources.preview
+import rikkaui.composeapp.generated.resources.view_components
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.badge.Badge
 import zed.rainxch.rikkaui.components.ui.badge.BadgeVariant
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonAnimation
-import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 
 @Composable
-fun HeroSection(onGetStarted: () -> Unit = {}) {
-    val uriHandler = LocalUriHandler.current
+fun HeroSection(
+    onNewProjectClick: () -> Unit,
+    onViewComponentsClick: () -> Unit,
+) {
     Spacer(Modifier.height(RikkaTheme.spacing.xxxl))
 
     Badge(
@@ -79,16 +79,15 @@ fun HeroSection(onGetStarted: () -> Unit = {}) {
         modifier = Modifier.fillMaxWidth(),
     ) {
         Button(
-            text = stringResource(Res.string.get_started),
-            onClick = onGetStarted,
+            text = stringResource(Res.string.new_project),
+            onClick = onNewProjectClick,
             animation = ButtonAnimation.Bounce,
         )
+
         Button(
-            text = stringResource(Res.string.github),
-            onClick = {
-                uriHandler.openUri("https://github.com/rainxchzed/RikkaUi")
-            },
-            variant = ButtonVariant.Outline,
+            text = stringResource(Res.string.view_components),
+            onClick = onViewComponentsClick,
+            animation = ButtonAnimation.Bounce,
         )
     }
 

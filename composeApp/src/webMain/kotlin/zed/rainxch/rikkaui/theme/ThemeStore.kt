@@ -2,9 +2,6 @@ package zed.rainxch.rikkaui.theme
 
 import kotlinx.browser.localStorage
 
-/**
- * Persists theme preferences to browser localStorage.
- */
 object ThemeStore {
     private const val KEY_IS_DARK = "rikkaui_is_dark"
 

@@ -26,27 +26,21 @@ import rikkaui.composeapp.generated.resources.Res
 import rikkaui.composeapp.generated.resources.components_in_action
 import rikkaui.composeapp.generated.resources.components_in_action_desc
 import zed.rainxch.rikkaui.components.theme.RikkaAccentPreset
-import zed.rainxch.rikkaui.components.theme.RikkaFontFamily
 import zed.rainxch.rikkaui.components.theme.RikkaPalette
 import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.theme.rikkaTypography
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.utils.ThemeUtils
+import zed.rainxch.rikkaui.utils.WindowSizeClass
 
-/**
- * Showcase landing page with its own local preview state.
- *
- * Theme changes here (palette, accent, style) only affect the
- * example cards — they do NOT bleed into other screens.
- */
 @Composable
 fun ShowcaseApp(
     isDark: Boolean,
-    fontFamily: RikkaFontFamily,
-    onNavigateToCreator: () -> Unit = {},
+    onNavigateToCreator: () -> Unit,
+    onNavigateToComponents: () -> Unit,
 ) {
-    // ─── Local preview state (screen-scoped, not persisted) ───
     var palette by remember { mutableStateOf(RikkaPalette.Zinc) }
     var accent by remember { mutableStateOf(RikkaAccentPreset.Default) }
     var stylePreset by remember { mutableStateOf(RikkaStylePreset.Default) }
@@ -72,11 +66,13 @@ fun ShowcaseApp(
                     .padding(horizontal = horizontalPadding),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            HeroSection(onGetStarted = onNavigateToCreator)
+            HeroSection(
+                onNewProjectClick = onNavigateToCreator,
+                onViewComponentsClick = onNavigateToComponents,
+            )
 
             Spacer(Modifier.height(RikkaTheme.spacing.xl))
 
-            // Section title
             Text(
                 text = stringResource(Res.string.components_in_action),
                 variant = TextVariant.H2,
@@ -95,7 +91,6 @@ fun ShowcaseApp(
 
             Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
-            // Theme toolbar — compact popovers above examples
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center,
@@ -112,7 +107,6 @@ fun ShowcaseApp(
 
             Spacer(Modifier.height(RikkaTheme.spacing.xxl))
 
-            // Nested RikkaTheme — preview changes only affect examples
             RikkaTheme(
                 palette = palette,
                 accent = accent,
@@ -120,7 +114,7 @@ fun ShowcaseApp(
                 preset = stylePreset,
                 typography =
                     rikkaTypography(
-                        fontFamily = fontFamily,
+                        fontFamily = ThemeUtils.getFontFamily(),
                         scale = stylePreset.typeScale,
                     ),
             ) {

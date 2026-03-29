@@ -43,8 +43,6 @@ import zed.rainxch.rikkaui.docs.pages.InstallationDoc
 import zed.rainxch.rikkaui.docs.pages.IntroductionDoc
 import zed.rainxch.rikkaui.docs.pages.ThemingDoc
 
-// ─── Getting Started Pages ───────────────────────────────────
-
 /**
  * Sidebar entry for non-component pages (Getting Started section).
  */
@@ -73,26 +71,8 @@ private val guidePages =
         ),
     )
 
-// ─── DocsPage ────────────────────────────────────────────────
-
-/**
- * Docs page with sidebar navigation and content area.
- *
- * Includes two sidebar sections:
- * 1. **Getting Started** — Introduction, Installation, Theming
- * 2. **Components** — 41 components grouped by category
- *
- * @param navController App-level NavController.
- * @param initialComponentId Component to show on load, or
- *   a guide page id ("introduction", "installation", "theming").
- *   When null, defaults to Introduction.
- */
 @Composable
-fun DocsPage(
-    navController: Any? = null,
-    initialComponentId: String? = null,
-    modifier: Modifier = Modifier,
-) {
+fun DocsPage(initialComponentId: String? = null) {
     val registry = ComponentRegistry
     var selectedId by remember {
         mutableStateOf(
@@ -100,19 +80,17 @@ fun DocsPage(
         )
     }
 
-    // Sync if route changes externally
     if (initialComponentId != null &&
         initialComponentId != selectedId
     ) {
         selectedId = initialComponentId
     }
 
-    BoxWithConstraints(modifier = modifier.fillMaxSize()) {
+    BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
         val isWide = maxWidth >= 800.dp
 
         if (isWide) {
             Row(Modifier.fillMaxSize()) {
-                // ─── Sidebar ─────────────────────────
                 DocsSidebar(
                     guidePages = guidePages,
                     grouped = registry.groupedByCategory(),
@@ -124,8 +102,7 @@ fun DocsPage(
                             .fillMaxHeight()
                             .verticalScroll(
                                 rememberScrollState(),
-                            )
-                            .padding(
+                            ).padding(
                                 start = RikkaTheme.spacing.lg,
                                 top = RikkaTheme.spacing.lg,
                                 bottom = RikkaTheme.spacing.lg,
@@ -133,7 +110,6 @@ fun DocsPage(
                             ),
                 )
 
-                // Vertical separator
                 Box(
                     Modifier
                         .width(1.dp)
@@ -141,7 +117,6 @@ fun DocsPage(
                         .background(RikkaTheme.colors.border),
                 )
 
-                // ─── Content ─────────────────────────
                 Column(
                     modifier =
                         Modifier
@@ -149,8 +124,7 @@ fun DocsPage(
                             .fillMaxHeight()
                             .verticalScroll(
                                 rememberScrollState(),
-                            )
-                            .padding(RikkaTheme.spacing.xl),
+                            ).padding(RikkaTheme.spacing.xl),
                 ) {
                     PageContent(
                         selectedId = selectedId,
@@ -159,7 +133,6 @@ fun DocsPage(
                 }
             }
         } else {
-            // Narrow: stacked layout
             Column(
                 modifier =
                     Modifier
@@ -185,30 +158,24 @@ fun DocsPage(
     }
 }
 
-// ─── Content Router ──────────────────────────────────────────
-
 @Composable
 private fun PageContent(
     selectedId: String,
     registry: ComponentRegistry,
 ) {
     Column(modifier = Modifier.widthIn(max = 900.dp)) {
-        // Check guide pages first
         val guide = guidePages.find { it.id == selectedId }
         if (guide != null) {
             guide.content()
             return@Column
         }
 
-        // Then check component pages
         val entry = registry.findById(selectedId)
         if (entry != null) {
             entry.content()
         }
     }
 }
-
-// ─── Sidebar ─────────────────────────────────────────────────
 
 @Composable
 private fun DocsSidebar(
@@ -223,7 +190,6 @@ private fun DocsSidebar(
         verticalArrangement =
             Arrangement.spacedBy(RikkaTheme.spacing.xs),
     ) {
-        // ─── Getting Started section ─────────────
         Text(
             text = "Getting Started",
             variant = TextVariant.H4,
@@ -241,7 +207,6 @@ private fun DocsSidebar(
 
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
-        // ─── Components section ──────────────────
         Text(
             text = "Components",
             variant = TextVariant.H4,
@@ -252,7 +217,6 @@ private fun DocsSidebar(
         grouped.forEach { (category, entries) ->
             Spacer(Modifier.height(RikkaTheme.spacing.sm))
 
-            // Category header
             BasicText(
                 text = category.label,
                 style =
@@ -294,10 +258,17 @@ private fun SidebarItem(
 
     val bg =
         when {
-            isSelected -> RikkaTheme.colors.muted
-            isHovered ->
+            isSelected -> {
+                RikkaTheme.colors.muted
+            }
+
+            isHovered -> {
                 RikkaTheme.colors.muted.copy(alpha = 0.5f)
-            else -> RikkaTheme.colors.background
+            }
+
+            else -> {
+                RikkaTheme.colors.background
+            }
         }
 
     val fg =
@@ -316,8 +287,7 @@ private fun SidebarItem(
                     interactionSource = interactionSource,
                     indication = null,
                     onClick = onClick,
-                )
-                .background(bg, RikkaTheme.shapes.md)
+                ).background(bg, RikkaTheme.shapes.md)
                 .clip(RikkaTheme.shapes.md)
                 .padding(
                     horizontal = RikkaTheme.spacing.sm,
@@ -342,8 +312,6 @@ private fun SidebarItem(
     }
 }
 
-// ─── Compact Selector (narrow screens) ───────────────────────
-
 @Composable
 private fun CompactSelector(
     guidePages: List<GuidePage>,
@@ -361,7 +329,6 @@ private fun CompactSelector(
         horizontalArrangement =
             Arrangement.spacedBy(RikkaTheme.spacing.xs),
     ) {
-        // Guide pages first
         guidePages.forEach { page ->
             CompactChip(
                 text = page.name,
@@ -370,7 +337,6 @@ private fun CompactSelector(
             )
         }
 
-        // Then component entries
         entries.forEach { entry ->
             CompactChip(
                 text = entry.name,
@@ -413,8 +379,7 @@ private fun CompactChip(
                     interactionSource = interactionSource,
                     indication = null,
                     onClick = onClick,
-                )
-                .background(bg, RikkaTheme.shapes.md)
+                ).background(bg, RikkaTheme.shapes.md)
                 .padding(
                     horizontal = RikkaTheme.spacing.sm,
                     vertical = RikkaTheme.spacing.xs,

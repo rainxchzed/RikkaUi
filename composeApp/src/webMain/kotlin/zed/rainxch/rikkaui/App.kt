@@ -10,36 +10,22 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.ComposeViewport
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.ExperimentalBrowserHistoryApi
 import androidx.navigation.NavController
 import androidx.navigation.bindToBrowserNavigation
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
-import rikkaui.composeapp.generated.resources.Res
-import rikkaui.composeapp.generated.resources.inter_black
-import rikkaui.composeapp.generated.resources.inter_bold
-import rikkaui.composeapp.generated.resources.inter_light
-import rikkaui.composeapp.generated.resources.inter_medium
-import rikkaui.composeapp.generated.resources.inter_regular
-import rikkaui.composeapp.generated.resources.inter_semi_bold
+import zed.rainxch.rikkaui.components.TopNavBar
 import zed.rainxch.rikkaui.components.theme.RikkaPalette
 import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
-import zed.rainxch.rikkaui.components.theme.rememberRikkaFontFamily
 import zed.rainxch.rikkaui.components.theme.rikkaTypography
-import zed.rainxch.rikkaui.creator.DesignSystemCreatorPage
-import zed.rainxch.rikkaui.docs.DocsPage
-import zed.rainxch.rikkaui.navigation.ComponentDetailRoute
-import zed.rainxch.rikkaui.navigation.ComponentsRoute
-import zed.rainxch.rikkaui.navigation.CreatorRoute
-import zed.rainxch.rikkaui.navigation.DocsRoute
-import zed.rainxch.rikkaui.navigation.HomeRoute
-import zed.rainxch.rikkaui.shell.TopNavBar
-import zed.rainxch.rikkaui.showcase.ShowcaseApp
-import zed.rainxch.rikkaui.theme.ThemeIntent
-import zed.rainxch.rikkaui.theme.rememberThemeViewModel
+import zed.rainxch.rikkaui.navigation.AppNavigation
+import zed.rainxch.rikkaui.theme.ThemeAction
+import zed.rainxch.rikkaui.theme.ThemeViewModel
+import zed.rainxch.rikkaui.utils.ThemeUtils
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalBrowserHistoryApi::class)
 fun main() {
@@ -52,35 +38,32 @@ fun main() {
 
 @Composable
 private fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
-    val viewModel = rememberThemeViewModel()
-    val themeState by viewModel.state.collectAsState()
-
-    val fontFamily =
-        rememberRikkaFontFamily(
-            light = Res.font.inter_light,
-            regular = Res.font.inter_regular,
-            medium = Res.font.inter_medium,
-            semiBold = Res.font.inter_semi_bold,
-            bold = Res.font.inter_bold,
-            extraBold = Res.font.inter_black,
+    val navController = rememberNavController()
+    val viewModel: ThemeViewModel =
+        viewModel(
+            factory =
+                viewModelFactory {
+                    initializer {
+                        ThemeViewModel()
+                    }
+                },
         )
 
-    // App-level theme: only isDark is persisted.
-    // Uses default palette/accent/style for shell (TopNavBar, Docs, etc.)
+    val themeState by viewModel.state.collectAsState()
+
+    LaunchedEffect(navController) {
+        onNavHostReady(navController)
+    }
+
     RikkaTheme(
         palette = RikkaPalette.Zinc,
         isDark = themeState.isDark,
         preset = RikkaStylePreset.Default,
         typography =
             rikkaTypography(
-                fontFamily = fontFamily,
+                fontFamily = ThemeUtils.getFontFamily(),
             ),
     ) {
-        val navController = rememberNavController()
-        LaunchedEffect(navController) {
-            onNavHostReady(navController)
-        }
-
         Column(
             modifier =
                 Modifier
@@ -91,50 +74,14 @@ private fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
                 navController = navController,
                 isDark = themeState.isDark,
                 onDarkChange = {
-                    viewModel.onIntent(ThemeIntent.SetDarkMode(it))
+                    viewModel.onAction(ThemeAction.SetDarkMode(it))
                 },
             )
 
-            NavHost(
+            AppNavigation(
                 navController = navController,
-                startDestination = HomeRoute,
-                modifier = Modifier.weight(1f),
-            ) {
-                composable<HomeRoute> {
-                    // Showcase has its own local preview state
-                    ShowcaseApp(
-                        isDark = themeState.isDark,
-                        fontFamily = fontFamily,
-                        onNavigateToCreator = {
-                            navController.navigate(DocsRoute)
-                        },
-                    )
-                }
-
-                composable<CreatorRoute> {
-                    DesignSystemCreatorPage()
-                }
-
-                composable<DocsRoute> {
-                    DocsPage(navController = navController)
-                }
-
-                composable<ComponentsRoute> {
-                    DocsPage(
-                        navController = navController,
-                        initialComponentId = null,
-                    )
-                }
-
-                composable<ComponentDetailRoute> { backStackEntry ->
-                    val route: ComponentDetailRoute =
-                        backStackEntry.toRoute()
-                    DocsPage(
-                        navController = navController,
-                        initialComponentId = route.componentId,
-                    )
-                }
-            }
+                themeState = themeState,
+            )
         }
     }
 }
