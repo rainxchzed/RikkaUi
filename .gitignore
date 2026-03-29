@@ -4,3 +4,6 @@
 
 # Build outputs (all modules)
 **/build/
+
+# Generated registry JSON
+composeApp/src/webMain/resources/r/

@@ -8,6 +8,33 @@ plugins {
     alias(libs.plugins.gradle.ktlint)
 }
 
+// ---------------------------------------------------------------------------
+// Registry JSON generation: reads component .kt files, outputs static JSON
+// to /r/ so the website and future CLI share one source of truth.
+// ---------------------------------------------------------------------------
+
+val generateRegistryJson by tasks.registering(GenerateRegistryJsonTask::class) {
+    componentsUiDir.set(
+        layout.projectDirectory.dir(
+            "../components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/ui",
+        ),
+    )
+    outputDir.set(
+        layout.projectDirectory.dir("src/webMain/resources/r"),
+    )
+    foundationVersion.set(
+        providers.gradleProperty("VERSION_NAME"),
+    )
+}
+
+tasks.matching { it.name.contains("wasmJsBrowser") && it.name.contains("Distribution") }.configureEach {
+    dependsOn(generateRegistryJson)
+}
+
+tasks.matching { it.name == "wasmJsProcessResources" }.configureEach {
+    dependsOn(generateRegistryJson)
+}
+
 kotlin {
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
