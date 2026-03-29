@@ -8,7 +8,7 @@ curl -sL https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17
   | tar -xz -C $JAVA_HOME --strip-components=1
 export PATH=$JAVA_HOME/bin:$PATH
 
-# Remove cached incompatible Node.js versions (v25 requires libatomic)
-rm -rf ~/.gradle/nodejs/node-v25*
+# Ensure yarn is available (Kotlin/JS uses yarn for npm resolution)
+npm install -g yarn
 
 ./gradlew wasmJsBrowserDistribution
