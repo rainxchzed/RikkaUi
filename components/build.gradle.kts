@@ -56,6 +56,14 @@ ktlint {
     ignoreFailures = true
 }
 
+signing {
+    useInMemoryPgpKeys(
+        findProperty("signingInMemoryKeyId") as String?,
+        findProperty("signingInMemoryKey") as String?,
+        findProperty("signingInMemoryKeyPassword") as String?,
+    )
+}
+
 mavenPublishing {
     pom {
         name = "RikkaUI Components"
