@@ -8,6 +8,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
@@ -36,13 +39,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun SheetDoc() {
     ComponentPageHeader(
-        name = "Sheet",
-        description = "A panel that slides in from any edge of the "
-            + "screen with a dismissible scrim overlay.",
+        name = stringResource(Res.string.component_sheet_name),
+        description = stringResource(Res.string.sheet_page_desc),
     )
 
     // ─── Side Variants ──────────────────────────────────────
-    DocSection("Sides") {
+    DocSection(stringResource(Res.string.sheet_section_sides)) {
         var selectedSide by remember { mutableStateOf("Right") }
         var open by remember { mutableStateOf(false) }
 
@@ -63,7 +65,7 @@ fun SheetDoc() {
 
         DemoBox {
             Button(
-                "Open $selectedSide Sheet",
+                stringResource(Res.string.sheet_demo_open_sheet, selectedSide),
                 onClick = { open = true },
             )
 
@@ -73,29 +75,29 @@ fun SheetDoc() {
                 side = side,
             ) {
                 SheetHeader(
-                    title = "Settings",
-                    description = "Adjust your preferences.",
+                    title = stringResource(Res.string.sheet_demo_settings),
+                    description = stringResource(Res.string.sheet_demo_adjust_prefs),
                 )
                 SheetContent {
                     Text(
-                        "Sheet sliding from the $selectedSide side.",
+                        stringResource(Res.string.sheet_demo_sliding_from, selectedSide),
                         variant = TextVariant.P,
                     )
                 }
                 SheetFooter {
                     Button(
-                        "Cancel",
+                        stringResource(Res.string.sheet_demo_cancel),
                         onClick = { open = false },
                         variant = ButtonVariant.Outline,
                     )
-                    Button("Apply", onClick = { open = false })
+                    Button(stringResource(Res.string.sheet_demo_apply), onClick = { open = false })
                 }
             }
         }
     }
 
     // ─── Animation Variants ─────────────────────────────────
-    DocSection("Animations") {
+    DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("Slide") }
         var open by remember { mutableStateOf(false) }
 
@@ -116,7 +118,7 @@ fun SheetDoc() {
 
         DemoBox {
             Button(
-                "Open Sheet",
+                stringResource(Res.string.sheet_demo_open),
                 onClick = { open = true },
             )
 
@@ -125,10 +127,10 @@ fun SheetDoc() {
                 onDismiss = { open = false },
                 animation = animation,
             ) {
-                SheetHeader(title = "Navigation")
+                SheetHeader(title = stringResource(Res.string.sheet_demo_navigation))
                 SheetContent {
                     Text(
-                        "Animation: $selectedAnim",
+                        stringResource(Res.string.sheet_demo_animation_label, selectedAnim),
                         variant = TextVariant.P,
                     )
                 }
@@ -137,7 +139,7 @@ fun SheetDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 var open by remember { mutableStateOf(false) }
@@ -166,44 +168,44 @@ Sheet(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "open", "Boolean", "required",
-                    "Whether the sheet is visible.",
+                    stringResource(Res.string.sheet_prop_open_desc),
                 ),
                 PropInfo(
                     "onDismiss", "() -> Unit", "required",
-                    "Called when the user dismisses the sheet.",
+                    stringResource(Res.string.sheet_prop_on_dismiss_desc),
                 ),
                 PropInfo(
                     "side", "SheetSide", "Right",
-                    "Edge to slide from: Right, Left, Top, Bottom.",
+                    stringResource(Res.string.sheet_prop_side_desc),
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier applied to the sheet panel.",
+                    stringResource(Res.string.sheet_prop_modifier_desc),
                 ),
                 PropInfo(
                     "label", "String", "\"Sheet\"",
-                    "Accessibility label for the sheet.",
+                    stringResource(Res.string.sheet_prop_label_desc),
                 ),
                 PropInfo(
                     "animation", "SheetAnimation", "Slide",
-                    "Enter/exit animation: Slide, FadeScale, Fade, None.",
+                    stringResource(Res.string.sheet_prop_animation_desc),
                 ),
                 PropInfo(
                     "scrimColor", "Color", "Black(0.5f)",
-                    "Color of the backdrop scrim.",
+                    stringResource(Res.string.sheet_prop_scrim_desc),
                 ),
                 PropInfo(
                     "panelWidth", "Dp", "320.dp",
-                    "Width for Left/Right sheets.",
+                    stringResource(Res.string.sheet_prop_panel_width_desc),
                 ),
                 PropInfo(
                     "content", "ColumnScope.() -> Unit", "required",
-                    "Sheet content. Use SheetHeader/Content/Footer.",
+                    stringResource(Res.string.sheet_prop_content_desc),
                 ),
             ),
         )

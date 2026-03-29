@@ -9,6 +9,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.hovercard.HoverCard
 import zed.rainxch.rikkaui.components.ui.hovercard.HoverCardAnimation
@@ -32,14 +35,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun HoverCardDoc() {
     ComponentPageHeader(
-        name = "HoverCard",
-        description = "A floating card that appears when hovering "
-            + "over a trigger element. Stays visible while the "
-            + "cursor is on the trigger or card.",
+        name = stringResource(Res.string.component_hover_card_name),
+        description = stringResource(Res.string.hover_card_page_desc),
     )
 
     // ─── Animation Variants ─────────────────────────────────
-    DocSection("Animations") {
+    DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("FadeScale") }
 
         VariantSelector(
@@ -68,11 +69,13 @@ fun HoverCardDoc() {
                 },
             ) {
                 Column {
-                    Text("RikkaUI", variant = TextVariant.Large)
+                    Text(
+                        stringResource(Res.string.hover_card_demo_rikkaui),
+                        variant = TextVariant.Large,
+                    )
                     Spacer(Modifier.height(RikkaTheme.spacing.xs))
                     Text(
-                        "A shadcn-inspired component library "
-                            + "for Compose Multiplatform.",
+                        stringResource(Res.string.hover_card_demo_desc),
                         variant = TextVariant.Muted,
                     )
                 }
@@ -81,7 +84,7 @@ fun HoverCardDoc() {
     }
 
     // ─── Placements ─────────────────────────────────────────
-    DocSection("Placements") {
+    DocSection(stringResource(Res.string.section_placements)) {
         var selectedPlacement by remember {
             mutableStateOf("BottomStart")
         }
@@ -109,14 +112,20 @@ fun HoverCardDoc() {
                 placement = placement,
                 trigger = {
                     Text(
-                        "Hover me ($selectedPlacement)",
+                        stringResource(
+                            Res.string.hover_card_demo_hover_me,
+                            selectedPlacement,
+                        ),
                         variant = TextVariant.P,
                         color = RikkaTheme.colors.primary,
                     )
                 },
             ) {
                 Text(
-                    "Card at $selectedPlacement",
+                    stringResource(
+                        Res.string.hover_card_demo_card_at,
+                        selectedPlacement,
+                    ),
                     variant = TextVariant.P,
                 )
             }
@@ -124,7 +133,7 @@ fun HoverCardDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 HoverCard(
@@ -154,40 +163,40 @@ HoverCard(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier applied to the outer wrapper.",
+                    stringResource(Res.string.hover_card_prop_modifier_desc),
                 ),
                 PropInfo(
                     "animation", "HoverCardAnimation", "FadeScale",
-                    "Animation style: FadeScale, Fade, None.",
+                    stringResource(Res.string.hover_card_prop_animation_desc),
                 ),
                 PropInfo(
                     "placement", "HoverCardPlacement", "BottomStart",
-                    "Popup position: BottomStart/End, TopStart/End.",
+                    stringResource(Res.string.hover_card_prop_placement_desc),
                 ),
                 PropInfo(
                     "showDelayMs", "Long", "300L",
-                    "Delay in ms before showing the card.",
+                    stringResource(Res.string.hover_card_prop_show_delay_desc),
                 ),
                 PropInfo(
                     "hideDelayMs", "Long", "200L",
-                    "Delay in ms before hiding the card.",
+                    stringResource(Res.string.hover_card_prop_hide_delay_desc),
                 ),
                 PropInfo(
                     "maxWidth", "Dp", "360.dp",
-                    "Maximum width of the popup card.",
+                    stringResource(Res.string.hover_card_prop_max_width_desc),
                 ),
                 PropInfo(
                     "trigger", "() -> Unit", "required",
-                    "The composable that triggers on hover.",
+                    stringResource(Res.string.hover_card_prop_trigger_desc),
                 ),
                 PropInfo(
                     "content", "() -> Unit", "required",
-                    "Content displayed inside the floating card.",
+                    stringResource(Res.string.hover_card_prop_content_desc),
                 ),
             ),
         )

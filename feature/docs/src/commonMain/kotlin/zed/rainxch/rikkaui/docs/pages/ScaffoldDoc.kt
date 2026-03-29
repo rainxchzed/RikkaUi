@@ -13,6 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.button.IconButton
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
@@ -36,14 +39,12 @@ import zed.rainxch.rikkaui.docs.components.PropsTable
 @Composable
 fun ScaffoldDoc() {
     ComponentPageHeader(
-        name = "Scaffold",
-        description =
-            "Page-level slot-based layout structure with top bar, " +
-                "bottom bar, FAB, and snackbar host.",
+        name = stringResource(Res.string.component_scaffold_name),
+        description = stringResource(Res.string.scaffold_page_desc),
     )
 
     // ─── Basic Scaffold ─────────────────────────────────────
-    DocSection("Basic Layout") {
+    DocSection(stringResource(Res.string.scaffold_section_basic)) {
         DemoBox {
             Box(
                 modifier =
@@ -65,7 +66,10 @@ fun ScaffoldDoc() {
                                     .background(RikkaTheme.colors.card)
                                     .padding(RikkaTheme.spacing.md),
                         ) {
-                            Text("Top Bar", variant = TextVariant.H4)
+                            Text(
+                                stringResource(Res.string.scaffold_demo_top_bar),
+                                variant = TextVariant.H4,
+                            )
                         }
                     },
                     bottomBar = {
@@ -78,7 +82,7 @@ fun ScaffoldDoc() {
                             contentAlignment = Alignment.Center,
                         ) {
                             Text(
-                                "Bottom Bar",
+                                stringResource(Res.string.scaffold_demo_bottom_bar),
                                 variant = TextVariant.Small,
                             )
                         }
@@ -91,8 +95,7 @@ fun ScaffoldDoc() {
                                 .padding(RikkaTheme.spacing.md),
                     ) {
                         Text(
-                            "Content area receives PaddingValues " +
-                                "that account for bar heights.",
+                            stringResource(Res.string.scaffold_demo_content_padding),
                             variant = TextVariant.P,
                         )
                     }
@@ -102,7 +105,7 @@ fun ScaffoldDoc() {
     }
 
     // ─── With FAB ───────────────────────────────────────────
-    DocSection("With Floating Action Button") {
+    DocSection(stringResource(Res.string.scaffold_section_fab)) {
         DemoBox {
             Box(
                 modifier =
@@ -124,13 +127,16 @@ fun ScaffoldDoc() {
                                     .background(RikkaTheme.colors.card)
                                     .padding(RikkaTheme.spacing.md),
                         ) {
-                            Text("My App", variant = TextVariant.H4)
+                            Text(
+                                stringResource(Res.string.scaffold_demo_my_app),
+                                variant = TextVariant.H4,
+                            )
                         }
                     },
                     floatingActionButton = {
                         IconButton(
                             icon = RikkaIcons.Plus,
-                            contentDescription = "Add",
+                            contentDescription = stringResource(Res.string.scaffold_demo_add),
                             onClick = {},
                         )
                     },
@@ -142,8 +148,7 @@ fun ScaffoldDoc() {
                                 .padding(RikkaTheme.spacing.md),
                     ) {
                         Text(
-                            "The FAB is positioned at the bottom-end " +
-                                "with theme-based padding.",
+                            stringResource(Res.string.scaffold_demo_fab_position),
                             variant = TextVariant.P,
                         )
                     }
@@ -153,7 +158,7 @@ fun ScaffoldDoc() {
     }
 
     // ─── With Window Insets ─────────────────────────────────
-    DocSection("Content Window Insets") {
+    DocSection(stringResource(Res.string.scaffold_section_insets)) {
         DemoBox {
             Box(
                 modifier =
@@ -178,8 +183,7 @@ fun ScaffoldDoc() {
                         modifier = Modifier.padding(paddingValues),
                     ) {
                         Text(
-                            "Content respects custom insets " +
-                                "(16dp left/right, 24dp bottom).",
+                            stringResource(Res.string.scaffold_demo_custom_insets),
                             variant = TextVariant.P,
                         )
                     }
@@ -189,7 +193,7 @@ fun ScaffoldDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 Scaffold(
@@ -222,62 +226,62 @@ Scaffold(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "modifier",
                     "Modifier",
                     "Modifier",
-                    "Modifier applied to the outer container.",
+                    stringResource(Res.string.scaffold_prop_modifier_desc),
                 ),
                 PropInfo(
                     "topBar",
                     "() -> Unit",
                     "{}",
-                    "Slot rendered at the top, spanning full width.",
+                    stringResource(Res.string.scaffold_prop_top_bar_desc),
                 ),
                 PropInfo(
                     "bottomBar",
                     "() -> Unit",
                     "{}",
-                    "Slot rendered at the bottom, spanning full width.",
+                    stringResource(Res.string.scaffold_prop_bottom_bar_desc),
                 ),
                 PropInfo(
                     "floatingActionButton",
                     "() -> Unit",
                     "{}",
-                    "FAB slot at bottom-end above the bottom bar.",
+                    stringResource(Res.string.scaffold_prop_fab_desc),
                 ),
                 PropInfo(
                     "snackbarHost",
                     "() -> Unit",
                     "{}",
-                    "Snackbar/toast host above bottom bar and FAB.",
+                    stringResource(Res.string.scaffold_prop_snackbar_desc),
                 ),
                 PropInfo(
                     "containerColor",
                     "Color",
                     "background",
-                    "Background color for the scaffold.",
+                    stringResource(Res.string.scaffold_prop_container_color_desc),
                 ),
                 PropInfo(
                     "contentColor",
                     "Color",
                     "foreground",
-                    "Foreground color hint for content.",
+                    stringResource(Res.string.scaffold_prop_content_color_desc),
                 ),
                 PropInfo(
                     "contentWindowInsets",
                     "ScaffoldWindowInsets",
                     "ScaffoldWindowInsets()",
-                    "Insets added to content PaddingValues.",
+                    stringResource(Res.string.scaffold_prop_insets_desc),
                 ),
                 PropInfo(
                     "content",
                     "(PaddingValues) -> Unit",
                     "required",
-                    "Main content. Receives PaddingValues for bars + insets.",
+                    stringResource(Res.string.scaffold_prop_content_desc),
                 ),
             ),
         )

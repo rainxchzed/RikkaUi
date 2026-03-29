@@ -9,6 +9,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
@@ -33,13 +36,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun ToggleGroupDoc() {
     ComponentPageHeader(
-        name = "ToggleGroup",
-        description = "A horizontal group of toggle buttons for "
-            + "mutually exclusive selection.",
+        name = stringResource(Res.string.component_toggle_group_name),
+        description = stringResource(Res.string.toggle_group_page_desc),
     )
 
     // ─── Variants ───────────────────────────────────────────
-    DocSection("Variants") {
+    DocSection(stringResource(Res.string.section_variants)) {
         var selectedVariant by remember { mutableStateOf("Default") }
         var selected by remember { mutableStateOf(0) }
 
@@ -59,19 +61,19 @@ fun ToggleGroupDoc() {
         DemoBox {
             ToggleGroup {
                 ToggleGroupItem(
-                    text = "Bold",
+                    text = stringResource(Res.string.toggle_group_demo_bold),
                     selected = selected == 0,
                     onClick = { selected = 0 },
                     variant = variant,
                 )
                 ToggleGroupItem(
-                    text = "Italic",
+                    text = stringResource(Res.string.toggle_group_demo_italic),
                     selected = selected == 1,
                     onClick = { selected = 1 },
                     variant = variant,
                 )
                 ToggleGroupItem(
-                    text = "Underline",
+                    text = stringResource(Res.string.toggle_group_demo_underline),
                     selected = selected == 2,
                     onClick = { selected = 2 },
                     variant = variant,
@@ -81,7 +83,7 @@ fun ToggleGroupDoc() {
     }
 
     // ─── Animation Variants ─────────────────────────────────
-    DocSection("Animations") {
+    DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("Spring") }
         var selected by remember { mutableStateOf(0) }
 
@@ -102,19 +104,19 @@ fun ToggleGroupDoc() {
         DemoBox {
             ToggleGroup {
                 ToggleGroupItem(
-                    text = "Day",
+                    text = stringResource(Res.string.toggle_group_demo_day),
                     selected = selected == 0,
                     onClick = { selected = 0 },
                     animation = animation,
                 )
                 ToggleGroupItem(
-                    text = "Week",
+                    text = stringResource(Res.string.toggle_group_demo_week),
                     selected = selected == 1,
                     onClick = { selected = 1 },
                     animation = animation,
                 )
                 ToggleGroupItem(
-                    text = "Month",
+                    text = stringResource(Res.string.toggle_group_demo_month),
                     selected = selected == 2,
                     onClick = { selected = 2 },
                     animation = animation,
@@ -124,9 +126,13 @@ fun ToggleGroupDoc() {
     }
 
     // ─── Outline with Selection Text ────────────────────────
-    DocSection("Outline Variant") {
+    DocSection(stringResource(Res.string.toggle_group_section_outline)) {
         var selected by remember { mutableStateOf(0) }
-        val options = listOf("Left", "Center", "Right")
+        val options = listOf(
+            stringResource(Res.string.toggle_group_demo_left),
+            stringResource(Res.string.toggle_group_demo_center),
+            stringResource(Res.string.toggle_group_demo_right),
+        )
 
         DemoBox {
             Column {
@@ -142,7 +148,10 @@ fun ToggleGroupDoc() {
                 }
                 Spacer(Modifier.height(RikkaTheme.spacing.sm))
                 Text(
-                    "Selected: ${options[selected]}",
+                    stringResource(
+                        Res.string.toggle_group_demo_selected,
+                        options[selected],
+                    ),
                     variant = TextVariant.Muted,
                 )
             }
@@ -150,7 +159,7 @@ fun ToggleGroupDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 var selected by remember { mutableStateOf(0) }
@@ -179,40 +188,40 @@ ToggleGroup {
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "text", "String", "required",
-                    "Label text displayed in the toggle item.",
+                    stringResource(Res.string.toggle_group_prop_text_desc),
                 ),
                 PropInfo(
                     "selected", "Boolean", "required",
-                    "Whether this item is currently active.",
+                    stringResource(Res.string.toggle_group_prop_selected_desc),
                 ),
                 PropInfo(
                     "onClick", "() -> Unit", "required",
-                    "Called when the item is clicked.",
+                    stringResource(Res.string.toggle_group_prop_onclick_desc),
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier for layout and decoration.",
+                    stringResource(Res.string.toggle_group_prop_modifier_desc),
                 ),
                 PropInfo(
                     "variant", "ToggleGroupVariant", "Default",
-                    "Visual variant: Default, Outline.",
+                    stringResource(Res.string.toggle_group_prop_variant_desc),
                 ),
                 PropInfo(
                     "animation", "ToggleGroupAnimation", "Spring",
-                    "Animation strategy: Spring, Tween, None.",
+                    stringResource(Res.string.toggle_group_prop_animation_desc),
                 ),
                 PropInfo(
                     "selectedColor", "Color", "foreground",
-                    "Override for selected foreground color.",
+                    stringResource(Res.string.toggle_group_prop_selected_color_desc),
                 ),
                 PropInfo(
                     "unselectedColor", "Color", "mutedForeground",
-                    "Override for unselected foreground color.",
+                    stringResource(Res.string.toggle_group_prop_unselected_color_desc),
                 ),
             ),
         )

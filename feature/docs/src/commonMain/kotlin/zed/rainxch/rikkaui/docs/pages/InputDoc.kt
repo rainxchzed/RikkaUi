@@ -12,6 +12,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.input.Input
@@ -33,13 +36,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun InputDoc() {
     ComponentPageHeader(
-        name = "Input",
-        description = "A single-line text field with animated focus states, " +
-            "icon slots, and optional character count.",
+        name = stringResource(Res.string.component_input_name),
+        description = stringResource(Res.string.input_page_desc),
     )
 
     // ─── Focus Animations Demo ──────────────────────────────
-    DocSection("Focus Animations") {
+    DocSection(stringResource(Res.string.input_section_focus)) {
         var selectedAnim by remember {
             mutableStateOf(InputAnimation.Glow.name)
         }
@@ -59,7 +61,7 @@ fun InputDoc() {
             Input(
                 value = text,
                 onValueChange = { text = it },
-                placeholder = "Click to see focus animation...",
+                placeholder = stringResource(Res.string.input_demo_focus_placeholder),
                 animation = animation,
                 modifier = Modifier.width(320.dp),
             )
@@ -67,14 +69,14 @@ fun InputDoc() {
     }
 
     // ─── With Icons Demo ────────────────────────────────────
-    DocSection("With Icons") {
+    DocSection(stringResource(Res.string.input_section_icons)) {
         var search by remember { mutableStateOf("") }
 
         DemoBox {
             Input(
                 value = search,
                 onValueChange = { search = it },
-                placeholder = "Search...",
+                placeholder = stringResource(Res.string.input_demo_search_placeholder),
                 leadingIcon = RikkaIcons.Search,
                 clearable = true,
                 modifier = Modifier.width(320.dp),
@@ -83,14 +85,14 @@ fun InputDoc() {
     }
 
     // ─── Character Count Demo ───────────────────────────────
-    DocSection("Character Count") {
+    DocSection(stringResource(Res.string.input_section_char_count)) {
         var username by remember { mutableStateOf("") }
 
         DemoBox {
             Input(
                 value = username,
                 onValueChange = { username = it },
-                placeholder = "Username",
+                placeholder = stringResource(Res.string.input_demo_username_placeholder),
                 maxLength = 32,
                 showCharCount = true,
                 modifier = Modifier.width(320.dp),
@@ -99,10 +101,10 @@ fun InputDoc() {
     }
 
     // ─── Disabled State ─────────────────────────────────────
-    DocSection("Disabled") {
+    DocSection(stringResource(Res.string.section_disabled)) {
         DemoBox {
             Input(
-                value = "Read only content",
+                value = stringResource(Res.string.input_demo_disabled_value),
                 onValueChange = {},
                 enabled = false,
                 modifier = Modifier.width(320.dp),
@@ -111,7 +113,7 @@ fun InputDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 var text by remember { mutableStateOf("") }
@@ -135,68 +137,68 @@ Input(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "value",
                     "String",
                     "-",
-                    "Current text value.",
+                    stringResource(Res.string.input_prop_value_desc),
                 ),
                 PropInfo(
                     "onValueChange",
                     "(String) -> Unit",
                     "-",
-                    "Called when the text changes.",
+                    stringResource(Res.string.input_prop_on_value_change_desc),
                 ),
                 PropInfo(
                     "placeholder",
                     "String",
                     "\"\"",
-                    "Placeholder text shown when empty.",
+                    stringResource(Res.string.input_prop_placeholder_desc),
                 ),
                 PropInfo(
                     "animation",
                     "InputAnimation",
                     "Glow",
-                    "Focus animation: Glow, Color, None.",
+                    stringResource(Res.string.input_prop_animation_desc),
                 ),
                 PropInfo(
                     "leadingIcon",
                     "ImageVector?",
                     "null",
-                    "Icon displayed before the text field.",
+                    stringResource(Res.string.input_prop_leading_icon_desc),
                 ),
                 PropInfo(
                     "trailingIcon",
                     "ImageVector?",
                     "null",
-                    "Icon displayed after the text field.",
+                    stringResource(Res.string.input_prop_trailing_icon_desc),
                 ),
                 PropInfo(
                     "clearable",
                     "Boolean",
                     "false",
-                    "Shows a clear (X) button when text is non-empty.",
+                    stringResource(Res.string.input_prop_clearable_desc),
                 ),
                 PropInfo(
                     "maxLength",
                     "Int?",
                     "null",
-                    "Maximum character limit.",
+                    stringResource(Res.string.input_prop_max_length_desc),
                 ),
                 PropInfo(
                     "showCharCount",
                     "Boolean",
                     "false",
-                    "Displays character count when maxLength is set.",
+                    stringResource(Res.string.input_prop_show_char_count_desc),
                 ),
                 PropInfo(
                     "enabled",
                     "Boolean",
                     "true",
-                    "Whether the input is interactive.",
+                    stringResource(Res.string.input_prop_enabled_desc),
                 ),
             ),
         )

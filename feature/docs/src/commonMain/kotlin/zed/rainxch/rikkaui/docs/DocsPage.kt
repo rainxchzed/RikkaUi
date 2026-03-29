@@ -35,6 +35,14 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.docs_components
+import rikkaui.feature.docs.generated.resources.docs_getting_started
+import rikkaui.feature.docs.generated.resources.guide_installation
+import rikkaui.feature.docs.generated.resources.guide_introduction
+import rikkaui.feature.docs.generated.resources.guide_theming
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
@@ -47,7 +55,7 @@ import zed.rainxch.rikkaui.docs.pages.ThemingDoc
 
 private data class GuidePage(
     val id: String,
-    val name: String,
+    val nameRes: StringResource,
     val content: @Composable () -> Unit,
 )
 
@@ -55,17 +63,17 @@ private val guidePages =
     listOf(
         GuidePage(
             id = "introduction",
-            name = "Introduction",
+            nameRes = Res.string.guide_introduction,
             content = { IntroductionDoc() },
         ),
         GuidePage(
             id = "installation",
-            name = "Installation",
+            nameRes = Res.string.guide_installation,
             content = { InstallationDoc() },
         ),
         GuidePage(
             id = "theming",
-            name = "Theming",
+            nameRes = Res.string.guide_theming,
             content = { ThemingDoc() },
         ),
     )
@@ -213,7 +221,7 @@ private fun DocsSidebar(
             Arrangement.spacedBy(RikkaTheme.spacing.xs),
     ) {
         Text(
-            text = "Getting Started",
+            text = stringResource(Res.string.docs_getting_started),
             variant = TextVariant.H4,
         )
 
@@ -221,7 +229,7 @@ private fun DocsSidebar(
 
         guidePages.forEach { page ->
             SidebarItem(
-                name = page.name,
+                name = stringResource(page.nameRes),
                 isSelected = page.id == selectedId,
                 onClick = { onSelect(page.id) },
             )
@@ -230,7 +238,7 @@ private fun DocsSidebar(
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
         Text(
-            text = "Components",
+            text = stringResource(Res.string.docs_components),
             variant = TextVariant.H4,
         )
 
@@ -240,7 +248,7 @@ private fun DocsSidebar(
             Spacer(Modifier.height(RikkaTheme.spacing.sm))
 
             BasicText(
-                text = category.label,
+                text = stringResource(category.labelRes),
                 style =
                     RikkaTheme.typography.small.merge(
                         TextStyle(
@@ -258,7 +266,7 @@ private fun DocsSidebar(
 
             entries.forEach { entry ->
                 SidebarItem(
-                    name = entry.name,
+                    name = stringResource(entry.nameRes),
                     isSelected = entry.id == selectedId,
                     onClick = { onSelect(entry.id) },
                 )
@@ -353,7 +361,7 @@ private fun CompactSelector(
     ) {
         guidePages.forEach { page ->
             CompactChip(
-                text = page.name,
+                text = stringResource(page.nameRes),
                 isActive = page.id == selectedId,
                 onClick = { onSelect(page.id) },
             )
@@ -361,7 +369,7 @@ private fun CompactSelector(
 
         entries.forEach { entry ->
             CompactChip(
-                text = entry.name,
+                text = stringResource(entry.nameRes),
                 isActive = entry.id == selectedId,
                 onClick = { onSelect(entry.id) },
             )

@@ -16,6 +16,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.scrollarea.HorizontalScrollArea
 import zed.rainxch.rikkaui.components.ui.scrollarea.ScrollArea
@@ -39,12 +42,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun ScrollAreaDoc() {
     ComponentPageHeader(
-        name = "ScrollArea",
-        description = "Scrollable container with a custom scrollbar indicator.",
+        name = stringResource(Res.string.component_scroll_area_name),
+        description = stringResource(Res.string.scroll_area_page_desc),
     )
 
     // ─── Scrollbar Animations ───────────────────────────────
-    DocSection("Scrollbar Animations") {
+    DocSection(stringResource(Res.string.scroll_area_section_scrollbar_anims)) {
         var selectedAnim by remember { mutableStateOf("Fade") }
 
         VariantSelector(
@@ -74,7 +77,7 @@ fun ScrollAreaDoc() {
                 ) {
                     repeat(20) { index ->
                         Text(
-                            "Item ${index + 1}",
+                            stringResource(Res.string.scroll_area_demo_item, index + 1),
                             variant = TextVariant.P,
                         )
                     }
@@ -84,7 +87,7 @@ fun ScrollAreaDoc() {
     }
 
     // ─── Horizontal ScrollArea ──────────────────────────────
-    DocSection("Horizontal ScrollArea") {
+    DocSection(stringResource(Res.string.scroll_area_section_horizontal)) {
         DemoBox {
             HorizontalScrollArea(
                 modifier = Modifier.fillMaxWidth().height(80.dp),
@@ -112,7 +115,7 @@ fun ScrollAreaDoc() {
     }
 
     // ─── Custom Scrollbar ───────────────────────────────────
-    DocSection("Custom Scrollbar") {
+    DocSection(stringResource(Res.string.scroll_area_section_custom)) {
         DemoBox {
             ScrollArea(
                 modifier = Modifier.fillMaxWidth().height(160.dp),
@@ -128,7 +131,7 @@ fun ScrollAreaDoc() {
                 ) {
                     repeat(15) { index ->
                         Text(
-                            "Row ${index + 1} with primary-colored scrollbar",
+                            stringResource(Res.string.scroll_area_demo_row_scrollbar, index + 1),
                             variant = TextVariant.P,
                         )
                     }
@@ -138,7 +141,7 @@ fun ScrollAreaDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 // Vertical scroll area (default fade scrollbar)
@@ -168,9 +171,9 @@ HorizontalScrollArea(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         Text(
-            "ScrollArea (Vertical)",
+            stringResource(Res.string.scroll_area_subsection_vertical),
             variant = TextVariant.H4,
         )
 
@@ -180,24 +183,24 @@ HorizontalScrollArea(
             listOf(
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier for layout and decoration.",
+                    stringResource(Res.string.scroll_area_prop_modifier_desc),
                 ),
                 PropInfo(
                     "scrollbarAnimation", "ScrollbarAnimation",
                     "Fade",
-                    "Scrollbar visibility: Fade, Always, None.",
+                    stringResource(Res.string.scroll_area_prop_animation_desc),
                 ),
                 PropInfo(
                     "scrollbarWidth", "Dp", "4.dp",
-                    "Thickness of the scrollbar track and thumb.",
+                    stringResource(Res.string.scroll_area_prop_width_desc),
                 ),
                 PropInfo(
                     "scrollbarColor", "Color?", "null",
-                    "Optional thumb color override. Defaults to mutedForeground.",
+                    stringResource(Res.string.scroll_area_prop_color_desc),
                 ),
                 PropInfo(
                     "content", "ColumnScope.() -> Unit", "required",
-                    "Scrollable column content.",
+                    stringResource(Res.string.scroll_area_prop_content_vertical_desc),
                 ),
             ),
         )
@@ -205,7 +208,7 @@ HorizontalScrollArea(
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
         Text(
-            "HorizontalScrollArea",
+            stringResource(Res.string.scroll_area_subsection_horizontal),
             variant = TextVariant.H4,
         )
 
@@ -215,24 +218,24 @@ HorizontalScrollArea(
             listOf(
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier for layout and decoration.",
+                    stringResource(Res.string.scroll_area_prop_modifier_desc),
                 ),
                 PropInfo(
                     "scrollbarAnimation", "ScrollbarAnimation",
                     "Fade",
-                    "Scrollbar visibility: Fade, Always, None.",
+                    stringResource(Res.string.scroll_area_prop_animation_desc),
                 ),
                 PropInfo(
                     "scrollbarWidth", "Dp", "4.dp",
-                    "Thickness of the scrollbar track and thumb.",
+                    stringResource(Res.string.scroll_area_prop_width_desc),
                 ),
                 PropInfo(
                     "scrollbarColor", "Color?", "null",
-                    "Optional thumb color override. Defaults to mutedForeground.",
+                    stringResource(Res.string.scroll_area_prop_color_desc),
                 ),
                 PropInfo(
                     "content", "RowScope.() -> Unit", "required",
-                    "Scrollable row content.",
+                    stringResource(Res.string.scroll_area_prop_content_horizontal_desc),
                 ),
             ),
         )

@@ -10,6 +10,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.tooltip.Tooltip
@@ -32,13 +35,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun TooltipDoc() {
     ComponentPageHeader(
-        name = "Tooltip",
-        description = "A small popup label that appears on hover "
-            + "with inverted theme colors for contrast.",
+        name = stringResource(Res.string.component_tooltip_name),
+        description = stringResource(Res.string.tooltip_page_desc),
     )
 
     // ─── Animation Variants ─────────────────────────────────
-    DocSection("Animations") {
+    DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("FadeScale") }
 
         VariantSelector(
@@ -57,16 +59,19 @@ fun TooltipDoc() {
 
         DemoBox {
             Tooltip(
-                tooltip = "Save your changes",
+                tooltip = stringResource(Res.string.tooltip_demo_save_changes),
                 animation = animation,
             ) {
-                Button("Hover me", onClick = {})
+                Button(
+                    stringResource(Res.string.tooltip_demo_hover_me),
+                    onClick = {},
+                )
             }
         }
     }
 
     // ─── Placements ─────────────────────────────────────────
-    DocSection("Placements") {
+    DocSection(stringResource(Res.string.section_placements)) {
         DemoBox {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(
@@ -74,35 +79,47 @@ fun TooltipDoc() {
                 ),
             ) {
                 Tooltip(
-                    tooltip = "Top tooltip",
+                    tooltip = stringResource(Res.string.tooltip_demo_top_tooltip),
                     placement = TooltipPlacement.Top,
                 ) {
-                    Button("Top", onClick = {})
+                    Button(
+                        stringResource(Res.string.tooltip_demo_top),
+                        onClick = {},
+                    )
                 }
                 Tooltip(
-                    tooltip = "Bottom tooltip",
+                    tooltip = stringResource(Res.string.tooltip_demo_bottom_tooltip),
                     placement = TooltipPlacement.Bottom,
                 ) {
-                    Button("Bottom", onClick = {})
+                    Button(
+                        stringResource(Res.string.tooltip_demo_bottom),
+                        onClick = {},
+                    )
                 }
                 Tooltip(
-                    tooltip = "Start tooltip",
+                    tooltip = stringResource(Res.string.tooltip_demo_start_tooltip),
                     placement = TooltipPlacement.Start,
                 ) {
-                    Button("Start", onClick = {})
+                    Button(
+                        stringResource(Res.string.tooltip_demo_start),
+                        onClick = {},
+                    )
                 }
                 Tooltip(
-                    tooltip = "End tooltip",
+                    tooltip = stringResource(Res.string.tooltip_demo_end_tooltip),
                     placement = TooltipPlacement.End,
                 ) {
-                    Button("End", onClick = {})
+                    Button(
+                        stringResource(Res.string.tooltip_demo_end),
+                        onClick = {},
+                    )
                 }
             }
         }
     }
 
     // ─── Custom Delay ───────────────────────────────────────
-    DocSection("Custom Show Delay") {
+    DocSection(stringResource(Res.string.tooltip_section_custom_delay)) {
         DemoBox {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(
@@ -110,23 +127,29 @@ fun TooltipDoc() {
                 ),
             ) {
                 Tooltip(
-                    tooltip = "Instant (0ms)",
+                    tooltip = stringResource(Res.string.tooltip_demo_instant),
                     showDelayMs = 0L,
                 ) {
-                    Button("No delay", onClick = {})
+                    Button(
+                        stringResource(Res.string.tooltip_demo_no_delay),
+                        onClick = {},
+                    )
                 }
                 Tooltip(
-                    tooltip = "Slow (800ms)",
+                    tooltip = stringResource(Res.string.tooltip_demo_slow),
                     showDelayMs = 800L,
                 ) {
-                    Button("Slow delay", onClick = {})
+                    Button(
+                        stringResource(Res.string.tooltip_demo_slow_delay),
+                        onClick = {},
+                    )
                 }
             }
         }
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 Tooltip(tooltip = "Save changes") {
@@ -147,32 +170,32 @@ Tooltip(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "tooltip", "String", "required",
-                    "Text displayed inside the tooltip popup.",
+                    stringResource(Res.string.tooltip_prop_tooltip_desc),
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier applied to the outer wrapper.",
+                    stringResource(Res.string.tooltip_prop_modifier_desc),
                 ),
                 PropInfo(
                     "animation", "TooltipAnimation", "FadeScale",
-                    "Animation style: FadeScale, Fade, None.",
+                    stringResource(Res.string.tooltip_prop_animation_desc),
                 ),
                 PropInfo(
                     "placement", "TooltipPlacement", "Top",
-                    "Position relative to content: Top, Bottom, Start, End.",
+                    stringResource(Res.string.tooltip_prop_placement_desc),
                 ),
                 PropInfo(
                     "showDelayMs", "Long", "400L",
-                    "Delay in ms before showing the tooltip.",
+                    stringResource(Res.string.tooltip_prop_show_delay_desc),
                 ),
                 PropInfo(
                     "content", "() -> Unit", "required",
-                    "The composable that triggers the tooltip on hover.",
+                    stringResource(Res.string.tooltip_prop_content_desc),
                 ),
             ),
         )

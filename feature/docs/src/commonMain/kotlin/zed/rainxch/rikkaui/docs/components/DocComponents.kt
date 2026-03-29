@@ -31,6 +31,12 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.prop_header_default
+import rikkaui.feature.docs.generated.resources.prop_header_description
+import rikkaui.feature.docs.generated.resources.prop_header_prop
+import rikkaui.feature.docs.generated.resources.prop_header_type
 import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
@@ -275,11 +281,20 @@ fun PropsTable(
                         vertical = RikkaTheme.spacing.sm,
                     ),
         ) {
-            PropHeaderCell("Prop", Modifier.weight(0.2f))
-            PropHeaderCell("Type", Modifier.weight(0.2f))
-            PropHeaderCell("Default", Modifier.weight(0.15f))
             PropHeaderCell(
-                "Description",
+                stringResource(Res.string.prop_header_prop),
+                Modifier.weight(0.2f),
+            )
+            PropHeaderCell(
+                stringResource(Res.string.prop_header_type),
+                Modifier.weight(0.2f),
+            )
+            PropHeaderCell(
+                stringResource(Res.string.prop_header_default),
+                Modifier.weight(0.15f),
+            )
+            PropHeaderCell(
+                stringResource(Res.string.prop_header_description),
                 Modifier.weight(0.45f),
             )
         }

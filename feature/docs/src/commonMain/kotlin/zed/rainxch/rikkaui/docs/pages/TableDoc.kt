@@ -8,6 +8,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.table.Table
 import zed.rainxch.rikkaui.components.ui.table.TableAnimation
@@ -33,13 +36,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun TableDoc() {
     ComponentPageHeader(
-        name = "Table",
-        description = "A structured data table with hover highlights, "
-            + "striped rows, and configurable border styles.",
+        name = stringResource(Res.string.component_table_name),
+        description = stringResource(Res.string.table_page_desc),
     )
 
     // ─── Animation Modes ────────────────────────────────────
-    DocSection("Animation Modes") {
+    DocSection(stringResource(Res.string.table_section_animation_modes)) {
         var selectedAnim by remember { mutableStateOf("Hover") }
 
         VariantSelector(
@@ -59,9 +61,9 @@ fun TableDoc() {
         DemoBox {
             Table(animation = animation) {
                 TableHeader {
-                    TableHeaderCell("Invoice", Modifier.weight(1f))
-                    TableHeaderCell("Status", Modifier.weight(1f))
-                    TableHeaderCell("Amount", Modifier.weight(1f))
+                    TableHeaderCell(stringResource(Res.string.table_demo_invoice), Modifier.weight(1f))
+                    TableHeaderCell(stringResource(Res.string.table_demo_status), Modifier.weight(1f))
+                    TableHeaderCell(stringResource(Res.string.table_demo_amount), Modifier.weight(1f))
                 }
                 TableRow(rowIndex = 0) {
                     TableCell("INV001", Modifier.weight(1f))
@@ -83,7 +85,7 @@ fun TableDoc() {
     }
 
     // ─── Border Styles ──────────────────────────────────────
-    DocSection("Border Styles") {
+    DocSection(stringResource(Res.string.table_section_border_styles)) {
         var selectedBorder by remember { mutableStateOf("Outlined") }
 
         VariantSelector(
@@ -103,8 +105,8 @@ fun TableDoc() {
         DemoBox {
             Table(borderStyle = borderStyle) {
                 TableHeader {
-                    TableHeaderCell("Name", Modifier.weight(1f))
-                    TableHeaderCell("Role", Modifier.weight(1f))
+                    TableHeaderCell(stringResource(Res.string.table_demo_name), Modifier.weight(1f))
+                    TableHeaderCell(stringResource(Res.string.table_demo_role), Modifier.weight(1f))
                 }
                 TableRow(rowIndex = 0) {
                     TableCell("Alice", Modifier.weight(1f))

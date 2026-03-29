@@ -8,6 +8,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.PopupAnimation
 import zed.rainxch.rikkaui.components.ui.button.Button
@@ -32,13 +35,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun DropdownMenuDoc() {
     ComponentPageHeader(
-        name = "DropdownMenu",
-        description = "A click-triggered overlay menu with scrollable "
-            + "actions, labels, and separators.",
+        name = stringResource(Res.string.component_dropdown_menu_name),
+        description = stringResource(Res.string.dropdown_page_desc),
     )
 
     // ─── Animation Variants ─────────────────────────────────
-    DocSection("Animations") {
+    DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("FadeExpand") }
         var open by remember { mutableStateOf(false) }
 
@@ -62,26 +64,33 @@ fun DropdownMenuDoc() {
                 onDismiss = { open = false },
                 animation = animation,
                 trigger = {
-                    Button("Actions", onClick = { open = !open })
+                    Button(
+                        stringResource(Res.string.dropdown_demo_actions),
+                        onClick = { open = !open },
+                    )
                 },
             ) {
-                DropdownMenuLabel("File")
+                DropdownMenuLabel(
+                    stringResource(Res.string.dropdown_demo_file),
+                )
                 DropdownMenuItem(
-                    "New",
+                    stringResource(Res.string.dropdown_demo_new),
                     onClick = { open = false },
                 )
                 DropdownMenuItem(
-                    "Open",
+                    stringResource(Res.string.dropdown_demo_open),
                     onClick = { open = false },
                 )
                 DropdownMenuSeparator()
-                DropdownMenuLabel("Edit")
+                DropdownMenuLabel(
+                    stringResource(Res.string.dropdown_demo_edit),
+                )
                 DropdownMenuItem(
-                    "Copy",
+                    stringResource(Res.string.dropdown_demo_copy),
                     onClick = { open = false },
                 )
                 DropdownMenuItem(
-                    "Paste",
+                    stringResource(Res.string.dropdown_demo_paste),
                     onClick = { open = false },
                 )
             }
@@ -89,7 +98,7 @@ fun DropdownMenuDoc() {
     }
 
     // ─── With Disabled Items ────────────────────────────────
-    DocSection("Disabled Items") {
+    DocSection(stringResource(Res.string.dropdown_section_disabled)) {
         var open by remember { mutableStateOf(false) }
 
         DemoBox {
@@ -97,20 +106,23 @@ fun DropdownMenuDoc() {
                 expanded = open,
                 onDismiss = { open = false },
                 trigger = {
-                    Button("More", onClick = { open = !open })
+                    Button(
+                        stringResource(Res.string.dropdown_demo_more),
+                        onClick = { open = !open },
+                    )
                 },
             ) {
                 DropdownMenuItem(
-                    "Edit",
+                    stringResource(Res.string.dropdown_demo_edit),
                     onClick = { open = false },
                 )
                 DropdownMenuItem(
-                    "Duplicate",
+                    stringResource(Res.string.dropdown_demo_duplicate),
                     onClick = { open = false },
                 )
                 DropdownMenuSeparator()
                 DropdownMenuItem(
-                    "Delete",
+                    stringResource(Res.string.dropdown_demo_delete),
                     onClick = {},
                     enabled = false,
                 )
@@ -119,7 +131,7 @@ fun DropdownMenuDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 var open by remember { mutableStateOf(false) }
@@ -143,44 +155,44 @@ DropdownMenu(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "expanded", "Boolean", "required",
-                    "Whether the dropdown popup is visible.",
+                    stringResource(Res.string.dropdown_prop_expanded_desc),
                 ),
                 PropInfo(
                     "onDismiss", "() -> Unit", "required",
-                    "Called when clicking outside to dismiss.",
+                    stringResource(Res.string.dropdown_prop_on_dismiss_desc),
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier applied to the trigger wrapper.",
+                    stringResource(Res.string.dropdown_prop_modifier_desc),
                 ),
                 PropInfo(
                     "animation", "PopupAnimation", "FadeExpand",
-                    "Animation style: FadeExpand, Fade, None.",
+                    stringResource(Res.string.dropdown_prop_animation_desc),
                 ),
                 PropInfo(
                     "minWidth", "Dp", "180.dp",
-                    "Minimum width of the dropdown panel.",
+                    stringResource(Res.string.dropdown_prop_min_width_desc),
                 ),
                 PropInfo(
                     "maxWidth", "Dp", "280.dp",
-                    "Maximum width of the dropdown panel.",
+                    stringResource(Res.string.dropdown_prop_max_width_desc),
                 ),
                 PropInfo(
                     "maxHeight", "Dp", "300.dp",
-                    "Max height before scrolling.",
+                    stringResource(Res.string.dropdown_prop_max_height_desc),
                 ),
                 PropInfo(
                     "trigger", "() -> Unit", "required",
-                    "The composable that anchors the menu.",
+                    stringResource(Res.string.dropdown_prop_trigger_desc),
                 ),
                 PropInfo(
                     "content", "ColumnScope.() -> Unit", "required",
-                    "Menu items, labels, and separators.",
+                    stringResource(Res.string.dropdown_prop_content_desc),
                 ),
             ),
         )

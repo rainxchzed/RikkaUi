@@ -10,6 +10,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.PopupAnimation
 import zed.rainxch.rikkaui.components.ui.select.Select
@@ -31,27 +34,26 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun SelectDoc() {
     val themeOptions = listOf(
-        SelectOption("light", "Light"),
-        SelectOption("dark", "Dark"),
-        SelectOption("system", "System"),
+        SelectOption("light", stringResource(Res.string.select_demo_light)),
+        SelectOption("dark", stringResource(Res.string.select_demo_dark)),
+        SelectOption("system", stringResource(Res.string.select_demo_system)),
     )
 
     val fruitOptions = listOf(
-        SelectOption("apple", "Apple"),
-        SelectOption("banana", "Banana"),
-        SelectOption("cherry", "Cherry"),
-        SelectOption("grape", "Grape"),
-        SelectOption("mango", "Mango"),
+        SelectOption("apple", stringResource(Res.string.select_demo_apple)),
+        SelectOption("banana", stringResource(Res.string.select_demo_banana)),
+        SelectOption("cherry", stringResource(Res.string.select_demo_cherry)),
+        SelectOption("grape", stringResource(Res.string.select_demo_grape)),
+        SelectOption("mango", stringResource(Res.string.select_demo_mango)),
     )
 
     ComponentPageHeader(
-        name = "Select",
-        description = "A dropdown select component with animated popup, " +
-            "hover highlighting, and selection indicators.",
+        name = stringResource(Res.string.component_select_name),
+        description = stringResource(Res.string.select_page_desc),
     )
 
     // ─── Popup Animations Demo ──────────────────────────────
-    DocSection("Popup Animations") {
+    DocSection(stringResource(Res.string.select_section_popup_anims)) {
         var selectedAnim by remember {
             mutableStateOf(PopupAnimation.FadeExpand.name)
         }
@@ -72,7 +74,7 @@ fun SelectDoc() {
                 selectedValue = selected,
                 onValueChange = { selected = it },
                 options = themeOptions,
-                placeholder = "Choose theme...",
+                placeholder = stringResource(Res.string.select_demo_choose_theme),
                 animation = animation,
                 modifier = Modifier.width(280.dp),
             )
@@ -80,7 +82,7 @@ fun SelectDoc() {
     }
 
     // ─── Scrollable List Demo ───────────────────────────────
-    DocSection("With Many Options") {
+    DocSection(stringResource(Res.string.select_section_many_options)) {
         var selected by remember { mutableStateOf("") }
 
         DemoBox {
@@ -88,7 +90,7 @@ fun SelectDoc() {
                 selectedValue = selected,
                 onValueChange = { selected = it },
                 options = fruitOptions,
-                placeholder = "Pick a fruit...",
+                placeholder = stringResource(Res.string.select_demo_pick_fruit),
                 maxHeight = 150.dp,
                 modifier = Modifier.width(280.dp),
             )
@@ -96,7 +98,7 @@ fun SelectDoc() {
     }
 
     // ─── Disabled State ─────────────────────────────────────
-    DocSection("Disabled") {
+    DocSection(stringResource(Res.string.section_disabled)) {
         DemoBox {
             Select(
                 selectedValue = "light",
@@ -109,7 +111,7 @@ fun SelectDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 val options = listOf(
@@ -138,56 +140,56 @@ Select(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "selectedValue",
                     "String",
                     "-",
-                    "Currently selected value (matches SelectOption.value).",
+                    stringResource(Res.string.select_prop_selected_value_desc),
                 ),
                 PropInfo(
                     "onValueChange",
                     "(String) -> Unit",
                     "-",
-                    "Called with the new value on selection.",
+                    stringResource(Res.string.select_prop_on_value_change_desc),
                 ),
                 PropInfo(
                     "options",
                     "List<SelectOption>",
                     "-",
-                    "Available options with value and label.",
+                    stringResource(Res.string.select_prop_options_desc),
                 ),
                 PropInfo(
                     "placeholder",
                     "String",
                     "\"Select...\"",
-                    "Text shown when no option is selected.",
+                    stringResource(Res.string.select_prop_placeholder_desc),
                 ),
                 PropInfo(
                     "animation",
                     "PopupAnimation",
                     "FadeExpand",
-                    "Popup animation: FadeExpand, Fade, None.",
+                    stringResource(Res.string.select_prop_animation_desc),
                 ),
                 PropInfo(
                     "maxHeight",
                     "Dp",
                     "200.dp",
-                    "Maximum dropdown height before scrolling.",
+                    stringResource(Res.string.select_prop_max_height_desc),
                 ),
                 PropInfo(
                     "enabled",
                     "Boolean",
                     "true",
-                    "Whether the select is interactive.",
+                    stringResource(Res.string.select_prop_enabled_desc),
                 ),
                 PropInfo(
                     "label",
                     "String",
                     "\"\"",
-                    "Accessibility label for screen readers.",
+                    stringResource(Res.string.select_prop_label_desc),
                 ),
             ),
         )

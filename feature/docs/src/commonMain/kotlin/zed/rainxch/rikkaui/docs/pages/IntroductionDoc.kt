@@ -8,6 +8,42 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.intro_badge_android
+import rikkaui.feature.docs.generated.resources.intro_badge_desktop
+import rikkaui.feature.docs.generated.resources.intro_badge_ios
+import rikkaui.feature.docs.generated.resources.intro_badge_web
+import rikkaui.feature.docs.generated.resources.intro_desc
+import rikkaui.feature.docs.generated.resources.intro_feature_copy_paste_desc
+import rikkaui.feature.docs.generated.resources.intro_feature_copy_paste_title
+import rikkaui.feature.docs.generated.resources.intro_feature_cross_platform_desc
+import rikkaui.feature.docs.generated.resources.intro_feature_cross_platform_title
+import rikkaui.feature.docs.generated.resources.intro_feature_no_material_desc
+import rikkaui.feature.docs.generated.resources.intro_feature_no_material_title
+import rikkaui.feature.docs.generated.resources.intro_feature_spring_desc
+import rikkaui.feature.docs.generated.resources.intro_feature_spring_title
+import rikkaui.feature.docs.generated.resources.intro_feature_theme_desc
+import rikkaui.feature.docs.generated.resources.intro_feature_theme_title
+import rikkaui.feature.docs.generated.resources.intro_name_meaning
+import rikkaui.feature.docs.generated.resources.intro_platform_body
+import rikkaui.feature.docs.generated.resources.intro_section_component_count
+import rikkaui.feature.docs.generated.resources.intro_section_platform_support
+import rikkaui.feature.docs.generated.resources.intro_section_quick_example
+import rikkaui.feature.docs.generated.resources.intro_section_what_is
+import rikkaui.feature.docs.generated.resources.intro_section_why
+import rikkaui.feature.docs.generated.resources.intro_stat_accent_colors
+import rikkaui.feature.docs.generated.resources.intro_stat_accent_colors_value
+import rikkaui.feature.docs.generated.resources.intro_stat_animation_enums
+import rikkaui.feature.docs.generated.resources.intro_stat_animation_enums_value
+import rikkaui.feature.docs.generated.resources.intro_stat_color_palettes
+import rikkaui.feature.docs.generated.resources.intro_stat_color_palettes_value
+import rikkaui.feature.docs.generated.resources.intro_stat_style_presets
+import rikkaui.feature.docs.generated.resources.intro_stat_style_presets_value
+import rikkaui.feature.docs.generated.resources.intro_stat_total_components
+import rikkaui.feature.docs.generated.resources.intro_stat_total_components_value
+import rikkaui.feature.docs.generated.resources.intro_title
+import rikkaui.feature.docs.generated.resources.intro_what_is_body
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.badge.Badge
 import zed.rainxch.rikkaui.components.ui.badge.BadgeVariant
@@ -24,81 +60,75 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 @Composable
 fun IntroductionDoc() {
     ComponentPageHeader(
-        name = "Introduction",
-        description =
-            "A shadcn/ui-inspired component library " +
-                "and design system for Compose " +
-                "Multiplatform.",
+        name = stringResource(Res.string.intro_title),
+        description = stringResource(Res.string.intro_desc),
     )
 
-    DocSection("What is RikkaUI?") {
+    DocSection(stringResource(Res.string.intro_section_what_is)) {
         Text(
-            text =
-                "RikkaUI provides beautifully styled, " +
-                    "copy-paste components for Jetpack " +
-                    "Compose and Compose Multiplatform. " +
-                    "Built entirely on compose.foundation " +
-                    "with zero Material3 dependency.",
+            text = stringResource(Res.string.intro_what_is_body),
             variant = TextVariant.P,
         )
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
         Text(
-            text =
-                "The name means \"snowflake\" (\u516D\u82B1) " +
-                    "or \"composing elements into harmony\" " +
-                    "(\u7ACB\u82B1).",
+            text = stringResource(Res.string.intro_name_meaning),
             variant = TextVariant.Muted,
         )
     }
 
-    DocSection("Why RikkaUI?") {
+    DocSection(stringResource(Res.string.intro_section_why)) {
         Column(
             verticalArrangement =
                 Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             FeatureItem(
-                title = "No Material3 Lock-in",
-                description =
-                    "Every component is built on " +
-                        "compose.foundation only. You get " +
-                        "full control over styling without " +
-                        "fighting Material3 defaults.",
+                title = stringResource(
+                    Res.string.intro_feature_no_material_title,
+                ),
+                description = stringResource(
+                    Res.string.intro_feature_no_material_desc,
+                ),
             )
             FeatureItem(
-                title = "Copy-Paste Ownership",
-                description =
-                    "Components are designed to be copied " +
-                        "into your project. No dependency " +
-                        "lock-in \u2014 you own the code.",
+                title = stringResource(
+                    Res.string.intro_feature_copy_paste_title,
+                ),
+                description = stringResource(
+                    Res.string.intro_feature_copy_paste_desc,
+                ),
             )
             FeatureItem(
-                title = "Spring-Physics Animations",
-                description =
-                    "Every interactive component has " +
-                        "configurable animation enums " +
-                        "(Spring, Tween, None). This is " +
-                        "something shadcn/ui can\u2019t do.",
+                title = stringResource(
+                    Res.string.intro_feature_spring_title,
+                ),
+                description = stringResource(
+                    Res.string.intro_feature_spring_desc,
+                ),
             )
             FeatureItem(
-                title = "Cross-Platform",
-                description =
-                    "Works on Android, iOS, Desktop " +
-                        "(JVM), and Web (Wasm). Same " +
-                        "components, same API, everywhere.",
+                title = stringResource(
+                    Res.string.intro_feature_cross_platform_title,
+                ),
+                description = stringResource(
+                    Res.string.intro_feature_cross_platform_desc,
+                ),
             )
             FeatureItem(
-                title = "Fully Customizable Theme",
-                description =
-                    "20 semantic color tokens, 5 palettes, " +
-                        "7 accent colors, 5 style presets. " +
-                        "Every token is overridable.",
+                title = stringResource(
+                    Res.string.intro_feature_theme_title,
+                ),
+                description = stringResource(
+                    Res.string.intro_feature_theme_desc,
+                ),
             )
         }
     }
 
-    DocSection("Platform Support") {
+    DocSection(
+        stringResource(Res.string.intro_section_platform_support),
+    ) {
         DemoBox {
             Row(
                 horizontalArrangement =
@@ -106,28 +136,40 @@ fun IntroductionDoc() {
                         RikkaTheme.spacing.sm,
                     ),
             ) {
-                Badge(text = "Android")
-                Badge(text = "iOS")
-                Badge(text = "Desktop (JVM)")
-                Badge(text = "Web (Wasm)")
+                Badge(
+                    text = stringResource(
+                        Res.string.intro_badge_android,
+                    ),
+                )
+                Badge(
+                    text = stringResource(
+                        Res.string.intro_badge_ios,
+                    ),
+                )
+                Badge(
+                    text = stringResource(
+                        Res.string.intro_badge_desktop,
+                    ),
+                )
+                Badge(
+                    text = stringResource(
+                        Res.string.intro_badge_web,
+                    ),
+                )
             }
         }
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
         Text(
-            text =
-                "RikkaUI works in both Compose " +
-                    "Multiplatform (KMP) projects and " +
-                    "native Android projects that use " +
-                    "Jetpack Compose. No KMP setup " +
-                    "required for Android-only projects " +
-                    "\u2014 just add the dependency and go.",
+            text = stringResource(Res.string.intro_platform_body),
             variant = TextVariant.P,
         )
     }
 
-    DocSection("Component Count") {
+    DocSection(
+        stringResource(Res.string.intro_section_component_count),
+    ) {
         DemoBox {
             Column(
                 verticalArrangement =
@@ -135,16 +177,53 @@ fun IntroductionDoc() {
                         RikkaTheme.spacing.sm,
                     ),
             ) {
-                StatRow("Total Components", "41")
-                StatRow("Animation Enums", "20+")
-                StatRow("Style Presets", "5")
-                StatRow("Color Palettes", "5")
-                StatRow("Accent Colors", "7")
+                StatRow(
+                    stringResource(
+                        Res.string.intro_stat_total_components,
+                    ),
+                    stringResource(
+                        Res.string.intro_stat_total_components_value,
+                    ),
+                )
+                StatRow(
+                    stringResource(
+                        Res.string.intro_stat_animation_enums,
+                    ),
+                    stringResource(
+                        Res.string.intro_stat_animation_enums_value,
+                    ),
+                )
+                StatRow(
+                    stringResource(
+                        Res.string.intro_stat_style_presets,
+                    ),
+                    stringResource(
+                        Res.string.intro_stat_style_presets_value,
+                    ),
+                )
+                StatRow(
+                    stringResource(
+                        Res.string.intro_stat_color_palettes,
+                    ),
+                    stringResource(
+                        Res.string.intro_stat_color_palettes_value,
+                    ),
+                )
+                StatRow(
+                    stringResource(
+                        Res.string.intro_stat_accent_colors,
+                    ),
+                    stringResource(
+                        Res.string.intro_stat_accent_colors_value,
+                    ),
+                )
             }
         }
     }
 
-    DocSection("Quick Example") {
+    DocSection(
+        stringResource(Res.string.intro_section_quick_example),
+    ) {
         CodeBlock(
             """
 RikkaTheme(

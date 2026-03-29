@@ -10,6 +10,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.spinner.Spinner
 import zed.rainxch.rikkaui.components.ui.spinner.SpinnerAnimation
@@ -31,13 +34,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun SpinnerDoc() {
     ComponentPageHeader(
-        name = "Spinner",
-        description = "A circular loading indicator with configurable "
-            + "animation, size, and color.",
+        name = stringResource(Res.string.component_spinner_name),
+        description = stringResource(Res.string.spinner_page_desc),
     )
 
     // ─── Sizes ──────────────────────────────────────────────
-    DocSection("Sizes") {
+    DocSection(stringResource(Res.string.section_sizes)) {
         DemoBox {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(
@@ -52,7 +54,7 @@ fun SpinnerDoc() {
     }
 
     // ─── Animations ─────────────────────────────────────────
-    DocSection("Animations") {
+    DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("Spin") }
 
         VariantSelector(
@@ -86,7 +88,7 @@ fun SpinnerDoc() {
     }
 
     // ─── Custom Sweep Angle ─────────────────────────────────
-    DocSection("Custom Sweep Angle") {
+    DocSection(stringResource(Res.string.spinner_section_custom_sweep)) {
         DemoBox {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(
@@ -101,7 +103,7 @@ fun SpinnerDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 Spinner()
@@ -122,36 +124,36 @@ Spinner(sweepAngle = 180f)
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier for layout and decoration.",
+                    stringResource(Res.string.spinner_prop_modifier_desc),
                 ),
                 PropInfo(
                     "size", "SpinnerSize", "Default",
-                    "Size variant: Sm (16dp), Default (24dp), Lg (32dp).",
+                    stringResource(Res.string.spinner_prop_size_desc),
                 ),
                 PropInfo(
                     "animation", "SpinnerAnimation", "Spin",
-                    "Animation style: Spin, Pulse, None.",
+                    stringResource(Res.string.spinner_prop_animation_desc),
                 ),
                 PropInfo(
                     "color", "Color", "primary",
-                    "Arc color. Defaults to theme primary.",
+                    stringResource(Res.string.spinner_prop_color_desc),
                 ),
                 PropInfo(
                     "trackColor", "Color?", "null",
-                    "Background track ring color. Null for no track.",
+                    stringResource(Res.string.spinner_prop_track_color_desc),
                 ),
                 PropInfo(
                     "sweepAngle", "Float", "270f",
-                    "Arc sweep angle in degrees.",
+                    stringResource(Res.string.spinner_prop_sweep_angle_desc),
                 ),
                 PropInfo(
                     "label", "String", "\"Loading\"",
-                    "Accessibility content description.",
+                    stringResource(Res.string.spinner_prop_label_desc),
                 ),
             ),
         )

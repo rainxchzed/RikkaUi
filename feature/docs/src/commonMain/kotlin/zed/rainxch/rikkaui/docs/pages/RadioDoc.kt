@@ -11,6 +11,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.radio.RadioAnimation
 import zed.rainxch.rikkaui.components.ui.radio.RadioButton
@@ -31,13 +34,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun RadioDoc() {
     ComponentPageHeader(
-        name = "RadioButton",
-        description = "A selection control rendered as a circle with an animated " +
-            "inner dot. Use in groups for single-choice selection.",
+        name = stringResource(Res.string.component_radio_name),
+        description = stringResource(Res.string.radio_page_desc),
     )
 
     // ─── Animations Demo ────────────────────────────────────
-    DocSection("Animations") {
+    DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember {
             mutableStateOf(RadioAnimation.Spring.name)
         }
@@ -62,19 +64,19 @@ fun RadioDoc() {
                 RadioButton(
                     selected = selected == 0,
                     onClick = { selected = 0 },
-                    label = "Option A",
+                    label = stringResource(Res.string.radio_demo_option_a),
                     animation = animation,
                 )
                 RadioButton(
                     selected = selected == 1,
                     onClick = { selected = 1 },
-                    label = "Option B",
+                    label = stringResource(Res.string.radio_demo_option_b),
                     animation = animation,
                 )
                 RadioButton(
                     selected = selected == 2,
                     onClick = { selected = 2 },
-                    label = "Option C",
+                    label = stringResource(Res.string.radio_demo_option_c),
                     animation = animation,
                 )
             }
@@ -82,7 +84,7 @@ fun RadioDoc() {
     }
 
     // ─── Radio Group Demo ───────────────────────────────────
-    DocSection("Radio Group") {
+    DocSection(stringResource(Res.string.radio_section_radio_group)) {
         var plan by remember { mutableIntStateOf(1) }
 
         DemoBox {
@@ -94,24 +96,24 @@ fun RadioDoc() {
                 RadioButton(
                     selected = plan == 0,
                     onClick = { plan = 0 },
-                    label = "Free",
+                    label = stringResource(Res.string.radio_demo_free),
                 )
                 RadioButton(
                     selected = plan == 1,
                     onClick = { plan = 1 },
-                    label = "Pro - \$9/mo",
+                    label = stringResource(Res.string.radio_demo_pro),
                 )
                 RadioButton(
                     selected = plan == 2,
                     onClick = { plan = 2 },
-                    label = "Enterprise - \$29/mo",
+                    label = stringResource(Res.string.radio_demo_enterprise),
                 )
             }
         }
     }
 
     // ─── Disabled State ─────────────────────────────────────
-    DocSection("Disabled") {
+    DocSection(stringResource(Res.string.section_disabled)) {
         DemoBox {
             Column(
                 verticalArrangement = Arrangement.spacedBy(
@@ -121,13 +123,13 @@ fun RadioDoc() {
                 RadioButton(
                     selected = true,
                     onClick = {},
-                    label = "Selected & disabled",
+                    label = stringResource(Res.string.radio_demo_selected_disabled),
                     enabled = false,
                 )
                 RadioButton(
                     selected = false,
                     onClick = {},
-                    label = "Unselected & disabled",
+                    label = stringResource(Res.string.radio_demo_unselected_disabled),
                     enabled = false,
                 )
             }
@@ -135,7 +137,7 @@ fun RadioDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 var selected by remember { mutableIntStateOf(0) }
@@ -156,38 +158,38 @@ RadioButton(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "selected",
                     "Boolean",
                     "-",
-                    "Whether the radio button is selected.",
+                    stringResource(Res.string.radio_prop_selected_desc),
                 ),
                 PropInfo(
                     "onClick",
                     "() -> Unit",
                     "-",
-                    "Called when the radio button is clicked.",
+                    stringResource(Res.string.radio_prop_onclick_desc),
                 ),
                 PropInfo(
                     "animation",
                     "RadioAnimation",
                     "Spring",
-                    "Animation: Spring, Tween, None.",
+                    stringResource(Res.string.radio_prop_animation_desc),
                 ),
                 PropInfo(
                     "enabled",
                     "Boolean",
                     "true",
-                    "Whether the radio button is interactive.",
+                    stringResource(Res.string.radio_prop_enabled_desc),
                 ),
                 PropInfo(
                     "label",
                     "String",
                     "\"\"",
-                    "Label text rendered beside the circle and used for accessibility.",
+                    stringResource(Res.string.radio_prop_label_desc),
                 ),
             ),
         )

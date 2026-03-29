@@ -11,6 +11,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.kbd.Kbd
 import zed.rainxch.rikkaui.components.ui.kbd.KbdCombo
@@ -32,13 +35,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun KbdDoc() {
     ComponentPageHeader(
-        name = "Kbd",
-        description = "A styled inline indicator for keyboard "
-            + "shortcuts and key combinations.",
+        name = stringResource(Res.string.component_kbd_name),
+        description = stringResource(Res.string.kbd_page_desc),
     )
 
     // ─── Sizes ──────────────────────────────────────────────
-    DocSection("Sizes") {
+    DocSection(stringResource(Res.string.section_sizes)) {
         var selectedSize by remember { mutableStateOf("Default") }
 
         VariantSelector(
@@ -69,7 +71,7 @@ fun KbdDoc() {
     }
 
     // ─── Kbd Combo ──────────────────────────────────────────
-    DocSection("Key Combinations") {
+    DocSection(stringResource(Res.string.kbd_section_combos)) {
         DemoBox {
             Column(
                 verticalArrangement = Arrangement.spacedBy(
@@ -87,7 +89,7 @@ fun KbdDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 Kbd("\u2318K")
@@ -103,20 +105,20 @@ KbdCombo(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "text", "String", "required",
-                    "The key label to display (e.g. \"\u2318K\").",
+                    stringResource(Res.string.kbd_prop_text_desc),
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier for layout and decoration.",
+                    stringResource(Res.string.kbd_prop_modifier_desc),
                 ),
                 PropInfo(
                     "size", "KbdSize", "Default",
-                    "Size variant: Sm, Default, Lg.",
+                    stringResource(Res.string.kbd_prop_size_desc),
                 ),
             ),
         )
@@ -127,15 +129,15 @@ KbdCombo(
             listOf(
                 PropInfo(
                     "keys", "List<String>", "required",
-                    "List of individual key labels for KbdCombo.",
+                    stringResource(Res.string.kbd_prop_keys_desc),
                 ),
                 PropInfo(
                     "separator", "String", "\"+\"",
-                    "Text displayed between keys.",
+                    stringResource(Res.string.kbd_prop_separator_desc),
                 ),
                 PropInfo(
                     "size", "KbdSize", "Default",
-                    "Size variant applied to each key badge.",
+                    stringResource(Res.string.kbd_prop_combo_size_desc),
                 ),
             ),
         )

@@ -1,5 +1,86 @@
 package zed.rainxch.rikkaui.docs.catalog
 
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.component_accordion_desc
+import rikkaui.feature.docs.generated.resources.component_accordion_name
+import rikkaui.feature.docs.generated.resources.component_alert_desc
+import rikkaui.feature.docs.generated.resources.component_alert_dialog_desc
+import rikkaui.feature.docs.generated.resources.component_alert_dialog_name
+import rikkaui.feature.docs.generated.resources.component_alert_name
+import rikkaui.feature.docs.generated.resources.component_avatar_desc
+import rikkaui.feature.docs.generated.resources.component_avatar_name
+import rikkaui.feature.docs.generated.resources.component_badge_desc
+import rikkaui.feature.docs.generated.resources.component_badge_name
+import rikkaui.feature.docs.generated.resources.component_breadcrumb_desc
+import rikkaui.feature.docs.generated.resources.component_breadcrumb_name
+import rikkaui.feature.docs.generated.resources.component_button_desc
+import rikkaui.feature.docs.generated.resources.component_button_name
+import rikkaui.feature.docs.generated.resources.component_card_desc
+import rikkaui.feature.docs.generated.resources.component_card_name
+import rikkaui.feature.docs.generated.resources.component_checkbox_desc
+import rikkaui.feature.docs.generated.resources.component_checkbox_name
+import rikkaui.feature.docs.generated.resources.component_collapsible_desc
+import rikkaui.feature.docs.generated.resources.component_collapsible_name
+import rikkaui.feature.docs.generated.resources.component_context_menu_desc
+import rikkaui.feature.docs.generated.resources.component_context_menu_name
+import rikkaui.feature.docs.generated.resources.component_dialog_desc
+import rikkaui.feature.docs.generated.resources.component_dialog_name
+import rikkaui.feature.docs.generated.resources.component_dropdown_menu_desc
+import rikkaui.feature.docs.generated.resources.component_dropdown_menu_name
+import rikkaui.feature.docs.generated.resources.component_hover_card_desc
+import rikkaui.feature.docs.generated.resources.component_hover_card_name
+import rikkaui.feature.docs.generated.resources.component_input_desc
+import rikkaui.feature.docs.generated.resources.component_input_name
+import rikkaui.feature.docs.generated.resources.component_kbd_desc
+import rikkaui.feature.docs.generated.resources.component_kbd_name
+import rikkaui.feature.docs.generated.resources.component_label_desc
+import rikkaui.feature.docs.generated.resources.component_label_name
+import rikkaui.feature.docs.generated.resources.component_list_desc
+import rikkaui.feature.docs.generated.resources.component_list_name
+import rikkaui.feature.docs.generated.resources.component_navigation_bar_desc
+import rikkaui.feature.docs.generated.resources.component_navigation_bar_name
+import rikkaui.feature.docs.generated.resources.component_pagination_desc
+import rikkaui.feature.docs.generated.resources.component_pagination_name
+import rikkaui.feature.docs.generated.resources.component_popover_desc
+import rikkaui.feature.docs.generated.resources.component_popover_name
+import rikkaui.feature.docs.generated.resources.component_progress_desc
+import rikkaui.feature.docs.generated.resources.component_progress_name
+import rikkaui.feature.docs.generated.resources.component_radio_desc
+import rikkaui.feature.docs.generated.resources.component_radio_name
+import rikkaui.feature.docs.generated.resources.component_scaffold_desc
+import rikkaui.feature.docs.generated.resources.component_scaffold_name
+import rikkaui.feature.docs.generated.resources.component_scroll_area_desc
+import rikkaui.feature.docs.generated.resources.component_scroll_area_name
+import rikkaui.feature.docs.generated.resources.component_select_desc
+import rikkaui.feature.docs.generated.resources.component_select_name
+import rikkaui.feature.docs.generated.resources.component_separator_desc
+import rikkaui.feature.docs.generated.resources.component_separator_name
+import rikkaui.feature.docs.generated.resources.component_sheet_desc
+import rikkaui.feature.docs.generated.resources.component_sheet_name
+import rikkaui.feature.docs.generated.resources.component_skeleton_desc
+import rikkaui.feature.docs.generated.resources.component_skeleton_name
+import rikkaui.feature.docs.generated.resources.component_slider_desc
+import rikkaui.feature.docs.generated.resources.component_slider_name
+import rikkaui.feature.docs.generated.resources.component_spinner_desc
+import rikkaui.feature.docs.generated.resources.component_spinner_name
+import rikkaui.feature.docs.generated.resources.component_table_desc
+import rikkaui.feature.docs.generated.resources.component_table_name
+import rikkaui.feature.docs.generated.resources.component_tabs_desc
+import rikkaui.feature.docs.generated.resources.component_tabs_name
+import rikkaui.feature.docs.generated.resources.component_text_desc
+import rikkaui.feature.docs.generated.resources.component_text_name
+import rikkaui.feature.docs.generated.resources.component_textarea_desc
+import rikkaui.feature.docs.generated.resources.component_textarea_name
+import rikkaui.feature.docs.generated.resources.component_toast_desc
+import rikkaui.feature.docs.generated.resources.component_toast_name
+import rikkaui.feature.docs.generated.resources.component_toggle_desc
+import rikkaui.feature.docs.generated.resources.component_toggle_group_desc
+import rikkaui.feature.docs.generated.resources.component_toggle_group_name
+import rikkaui.feature.docs.generated.resources.component_toggle_name
+import rikkaui.feature.docs.generated.resources.component_tooltip_desc
+import rikkaui.feature.docs.generated.resources.component_tooltip_name
+import rikkaui.feature.docs.generated.resources.component_top_app_bar_desc
+import rikkaui.feature.docs.generated.resources.component_top_app_bar_name
 import zed.rainxch.rikkaui.docs.pages.AccordionDoc
 import zed.rainxch.rikkaui.docs.pages.AlertDialogDoc
 import zed.rainxch.rikkaui.docs.pages.AlertDoc
@@ -16,8 +97,8 @@ import zed.rainxch.rikkaui.docs.pages.DropdownMenuDoc
 import zed.rainxch.rikkaui.docs.pages.HoverCardDoc
 import zed.rainxch.rikkaui.docs.pages.InputDoc
 import zed.rainxch.rikkaui.docs.pages.KbdDoc
-import zed.rainxch.rikkaui.docs.pages.ListDoc
 import zed.rainxch.rikkaui.docs.pages.LabelDoc
+import zed.rainxch.rikkaui.docs.pages.ListDoc
 import zed.rainxch.rikkaui.docs.pages.NavigationBarDoc
 import zed.rainxch.rikkaui.docs.pages.PaginationDoc
 import zed.rainxch.rikkaui.docs.pages.PopoverDoc
@@ -31,8 +112,8 @@ import zed.rainxch.rikkaui.docs.pages.SheetDoc
 import zed.rainxch.rikkaui.docs.pages.SkeletonDoc
 import zed.rainxch.rikkaui.docs.pages.SliderDoc
 import zed.rainxch.rikkaui.docs.pages.SpinnerDoc
-import zed.rainxch.rikkaui.docs.pages.TableDoc
 import zed.rainxch.rikkaui.docs.pages.TabsDoc
+import zed.rainxch.rikkaui.docs.pages.TableDoc
 import zed.rainxch.rikkaui.docs.pages.TextDoc
 import zed.rainxch.rikkaui.docs.pages.TextareaDoc
 import zed.rainxch.rikkaui.docs.pages.ToastDoc
@@ -53,332 +134,336 @@ object ComponentRegistry {
             // ─── Layout ──────────────────────────────
             ComponentEntry(
                 id = "card",
-                name = "Card",
-                description =
-                    "A container with border, shadow, " +
-                        "and structured sections.",
+                nameRes = Res.string.component_card_name,
+                descriptionRes = Res.string.component_card_desc,
                 category = ComponentCategory.Layout,
                 content = { CardDoc() },
             ),
             ComponentEntry(
                 id = "separator",
-                name = "Separator",
-                description = "A horizontal or vertical divider.",
+                nameRes = Res.string.component_separator_name,
+                descriptionRes =
+                    Res.string.component_separator_desc,
                 category = ComponentCategory.Layout,
                 content = { SeparatorDoc() },
             ),
             ComponentEntry(
                 id = "scaffold",
-                name = "Scaffold",
-                description =
-                    "Page layout with top bar, bottom bar, " +
-                        "and FAB slots.",
+                nameRes = Res.string.component_scaffold_name,
+                descriptionRes =
+                    Res.string.component_scaffold_desc,
                 category = ComponentCategory.Layout,
                 content = { ScaffoldDoc() },
             ),
             ComponentEntry(
                 id = "scroll-area",
-                name = "Scroll Area",
-                description =
-                    "Custom scrollbar container for " +
-                        "scrollable content.",
+                nameRes =
+                    Res.string.component_scroll_area_name,
+                descriptionRes =
+                    Res.string.component_scroll_area_desc,
                 category = ComponentCategory.Layout,
                 content = { ScrollAreaDoc() },
             ),
             ComponentEntry(
                 id = "accordion",
-                name = "Accordion",
-                description = "Expandable content sections.",
+                nameRes = Res.string.component_accordion_name,
+                descriptionRes =
+                    Res.string.component_accordion_desc,
                 category = ComponentCategory.Layout,
                 content = { AccordionDoc() },
             ),
             ComponentEntry(
                 id = "collapsible",
-                name = "Collapsible",
-                description =
-                    "Toggle content visibility with a trigger.",
+                nameRes =
+                    Res.string.component_collapsible_name,
+                descriptionRes =
+                    Res.string.component_collapsible_desc,
                 category = ComponentCategory.Layout,
                 content = { CollapsibleDoc() },
             ),
             // ─── Forms ───────────────────────────────
             ComponentEntry(
                 id = "button",
-                name = "Button",
-                description =
-                    "Interactive button with 6 variants, " +
-                        "4 sizes, and 3 animations.",
+                nameRes = Res.string.component_button_name,
+                descriptionRes =
+                    Res.string.component_button_desc,
                 category = ComponentCategory.Forms,
                 content = { ButtonDoc() },
             ),
             ComponentEntry(
                 id = "input",
-                name = "Input",
-                description =
-                    "Single-line text input with focus " +
-                        "animations.",
+                nameRes = Res.string.component_input_name,
+                descriptionRes =
+                    Res.string.component_input_desc,
                 category = ComponentCategory.Forms,
                 content = { InputDoc() },
             ),
             ComponentEntry(
                 id = "textarea",
-                name = "Textarea",
-                description =
-                    "Multi-line text input with char count.",
+                nameRes = Res.string.component_textarea_name,
+                descriptionRes =
+                    Res.string.component_textarea_desc,
                 category = ComponentCategory.Forms,
                 content = { TextareaDoc() },
             ),
             ComponentEntry(
                 id = "select",
-                name = "Select",
-                description =
-                    "Dropdown select with search " +
-                        "and animations.",
+                nameRes = Res.string.component_select_name,
+                descriptionRes =
+                    Res.string.component_select_desc,
                 category = ComponentCategory.Forms,
                 content = { SelectDoc() },
             ),
             ComponentEntry(
                 id = "checkbox",
-                name = "Checkbox",
-                description =
-                    "Animated checkmark with label.",
+                nameRes = Res.string.component_checkbox_name,
+                descriptionRes =
+                    Res.string.component_checkbox_desc,
                 category = ComponentCategory.Forms,
                 content = { CheckboxDoc() },
             ),
             ComponentEntry(
                 id = "radio",
-                name = "Radio",
-                description = "Radio selection control.",
+                nameRes = Res.string.component_radio_name,
+                descriptionRes =
+                    Res.string.component_radio_desc,
                 category = ComponentCategory.Forms,
                 content = { RadioDoc() },
             ),
             ComponentEntry(
                 id = "toggle",
-                name = "Toggle",
-                description =
-                    "Spring-animated switch with 2 sizes.",
+                nameRes = Res.string.component_toggle_name,
+                descriptionRes =
+                    Res.string.component_toggle_desc,
                 category = ComponentCategory.Forms,
                 content = { ToggleDoc() },
             ),
             ComponentEntry(
                 id = "slider",
-                name = "Slider",
-                description =
-                    "Draggable range input with " +
-                        "customizable track.",
+                nameRes = Res.string.component_slider_name,
+                descriptionRes =
+                    Res.string.component_slider_desc,
                 category = ComponentCategory.Forms,
                 content = { SliderDoc() },
             ),
             ComponentEntry(
                 id = "label",
-                name = "Label",
-                description =
-                    "Form label with required indicator.",
+                nameRes = Res.string.component_label_name,
+                descriptionRes =
+                    Res.string.component_label_desc,
                 category = ComponentCategory.Forms,
                 content = { LabelDoc() },
             ),
             // ─── Data Display ────────────────────────
             ComponentEntry(
                 id = "text",
-                name = "Text",
-                description =
-                    "Typography component with 9 variants.",
+                nameRes = Res.string.component_text_name,
+                descriptionRes =
+                    Res.string.component_text_desc,
                 category = ComponentCategory.DataDisplay,
                 content = { TextDoc() },
             ),
             ComponentEntry(
                 id = "badge",
-                name = "Badge",
-                description =
-                    "Small status indicator with " +
-                        "4 variants and 3 sizes.",
+                nameRes = Res.string.component_badge_name,
+                descriptionRes =
+                    Res.string.component_badge_desc,
                 category = ComponentCategory.DataDisplay,
                 content = { BadgeDoc() },
             ),
             ComponentEntry(
                 id = "avatar",
-                name = "Avatar",
-                description =
-                    "Fallback initials with status indicator.",
+                nameRes = Res.string.component_avatar_name,
+                descriptionRes =
+                    Res.string.component_avatar_desc,
                 category = ComponentCategory.DataDisplay,
                 content = { AvatarDoc() },
             ),
             ComponentEntry(
                 id = "table",
-                name = "Table",
-                description =
-                    "Data table with hover, stripe, " +
-                        "and border styles.",
+                nameRes = Res.string.component_table_name,
+                descriptionRes =
+                    Res.string.component_table_desc,
                 category = ComponentCategory.DataDisplay,
                 content = { TableDoc() },
             ),
             ComponentEntry(
                 id = "kbd",
-                name = "Kbd",
-                description =
-                    "Keyboard shortcut indicator.",
+                nameRes = Res.string.component_kbd_name,
+                descriptionRes =
+                    Res.string.component_kbd_desc,
                 category = ComponentCategory.DataDisplay,
                 content = { KbdDoc() },
             ),
             ComponentEntry(
                 id = "list",
-                name = "List",
-                description =
-                    "Styled lists with bullets, numbers, "
-                        + "or custom content.",
+                nameRes = Res.string.component_list_name,
+                descriptionRes =
+                    Res.string.component_list_desc,
                 category = ComponentCategory.DataDisplay,
                 content = { ListDoc() },
             ),
             // ─── Feedback ────────────────────────────
             ComponentEntry(
                 id = "alert",
-                name = "Alert",
-                description =
-                    "Callout for important messages.",
+                nameRes = Res.string.component_alert_name,
+                descriptionRes =
+                    Res.string.component_alert_desc,
                 category = ComponentCategory.Feedback,
                 content = { AlertDoc() },
             ),
             ComponentEntry(
                 id = "toast",
-                name = "Toast",
-                description =
-                    "Temporary notification with " +
-                        "swipe-to-dismiss.",
+                nameRes = Res.string.component_toast_name,
+                descriptionRes =
+                    Res.string.component_toast_desc,
                 category = ComponentCategory.Feedback,
                 content = { ToastDoc() },
             ),
             ComponentEntry(
                 id = "progress",
-                name = "Progress",
-                description = "Animated progress bar.",
+                nameRes = Res.string.component_progress_name,
+                descriptionRes =
+                    Res.string.component_progress_desc,
                 category = ComponentCategory.Feedback,
                 content = { ProgressDoc() },
             ),
             ComponentEntry(
                 id = "skeleton",
-                name = "Skeleton",
-                description = "Pulsing loading placeholder.",
+                nameRes = Res.string.component_skeleton_name,
+                descriptionRes =
+                    Res.string.component_skeleton_desc,
                 category = ComponentCategory.Feedback,
                 content = { SkeletonDoc() },
             ),
             ComponentEntry(
                 id = "spinner",
-                name = "Spinner",
-                description = "Rotating loading indicator.",
+                nameRes = Res.string.component_spinner_name,
+                descriptionRes =
+                    Res.string.component_spinner_desc,
                 category = ComponentCategory.Feedback,
                 content = { SpinnerDoc() },
             ),
             // ─── Overlays ────────────────────────────
             ComponentEntry(
                 id = "dialog",
-                name = "Dialog",
-                description =
-                    "Modal dialog with header and footer.",
+                nameRes = Res.string.component_dialog_name,
+                descriptionRes =
+                    Res.string.component_dialog_desc,
                 category = ComponentCategory.Overlays,
                 content = { DialogDoc() },
             ),
             ComponentEntry(
                 id = "alert-dialog",
-                name = "Alert Dialog",
-                description =
-                    "Non-dismissable confirmation dialog.",
+                nameRes =
+                    Res.string.component_alert_dialog_name,
+                descriptionRes =
+                    Res.string.component_alert_dialog_desc,
                 category = ComponentCategory.Overlays,
                 content = { AlertDialogDoc() },
             ),
             ComponentEntry(
                 id = "sheet",
-                name = "Sheet",
-                description =
-                    "Slide-in panel from any edge.",
+                nameRes = Res.string.component_sheet_name,
+                descriptionRes =
+                    Res.string.component_sheet_desc,
                 category = ComponentCategory.Overlays,
                 content = { SheetDoc() },
             ),
             ComponentEntry(
                 id = "popover",
-                name = "Popover",
-                description =
-                    "Click-triggered floating content.",
+                nameRes = Res.string.component_popover_name,
+                descriptionRes =
+                    Res.string.component_popover_desc,
                 category = ComponentCategory.Overlays,
                 content = { PopoverDoc() },
             ),
             ComponentEntry(
                 id = "tooltip",
-                name = "Tooltip",
-                description =
-                    "Hover-triggered informational popup.",
+                nameRes = Res.string.component_tooltip_name,
+                descriptionRes =
+                    Res.string.component_tooltip_desc,
                 category = ComponentCategory.Overlays,
                 content = { TooltipDoc() },
             ),
             ComponentEntry(
                 id = "hover-card",
-                name = "Hover Card",
-                description =
-                    "Rich hover-triggered preview card.",
+                nameRes =
+                    Res.string.component_hover_card_name,
+                descriptionRes =
+                    Res.string.component_hover_card_desc,
                 category = ComponentCategory.Overlays,
                 content = { HoverCardDoc() },
             ),
             ComponentEntry(
                 id = "dropdown-menu",
-                name = "Dropdown Menu",
-                description =
-                    "Action menu with items and labels.",
+                nameRes =
+                    Res.string.component_dropdown_menu_name,
+                descriptionRes =
+                    Res.string.component_dropdown_menu_desc,
                 category = ComponentCategory.Overlays,
                 content = { DropdownMenuDoc() },
             ),
             ComponentEntry(
                 id = "context-menu",
-                name = "Context Menu",
-                description =
-                    "Long-press/right-click action menu.",
+                nameRes =
+                    Res.string.component_context_menu_name,
+                descriptionRes =
+                    Res.string.component_context_menu_desc,
                 category = ComponentCategory.Overlays,
                 content = { ContextMenuDoc() },
             ),
             // ─── Navigation ──────────────────────────
             ComponentEntry(
                 id = "tabs",
-                name = "Tabs",
-                description =
-                    "Tab-based content switching.",
+                nameRes = Res.string.component_tabs_name,
+                descriptionRes =
+                    Res.string.component_tabs_desc,
                 category = ComponentCategory.Navigation,
                 content = { TabsDoc() },
             ),
             ComponentEntry(
                 id = "breadcrumb",
-                name = "Breadcrumb",
-                description =
-                    "Navigation trail with auto-separators.",
+                nameRes =
+                    Res.string.component_breadcrumb_name,
+                descriptionRes =
+                    Res.string.component_breadcrumb_desc,
                 category = ComponentCategory.Navigation,
                 content = { BreadcrumbDoc() },
             ),
             ComponentEntry(
                 id = "pagination",
-                name = "Pagination",
-                description =
-                    "Page navigation with smart ranges.",
+                nameRes =
+                    Res.string.component_pagination_name,
+                descriptionRes =
+                    Res.string.component_pagination_desc,
                 category = ComponentCategory.Navigation,
                 content = { PaginationDoc() },
             ),
             ComponentEntry(
                 id = "navigation-bar",
-                name = "Navigation Bar",
-                description =
-                    "Bottom navigation with animated " +
-                        "pill indicator.",
+                nameRes =
+                    Res.string.component_navigation_bar_name,
+                descriptionRes =
+                    Res.string.component_navigation_bar_desc,
                 category = ComponentCategory.Navigation,
                 content = { NavigationBarDoc() },
             ),
             ComponentEntry(
                 id = "top-app-bar",
-                name = "Top App Bar",
-                description =
-                    "Header bar with title and actions.",
+                nameRes =
+                    Res.string.component_top_app_bar_name,
+                descriptionRes =
+                    Res.string.component_top_app_bar_desc,
                 category = ComponentCategory.Navigation,
                 content = { TopAppBarDoc() },
             ),
             ComponentEntry(
                 id = "toggle-group",
-                name = "Toggle Group",
-                description =
-                    "Grouped toggle buttons.",
+                nameRes =
+                    Res.string.component_toggle_group_name,
+                descriptionRes =
+                    Res.string.component_toggle_group_desc,
                 category = ComponentCategory.Navigation,
                 content = { ToggleGroupDoc() },
             ),

@@ -16,6 +16,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
@@ -45,13 +48,12 @@ fun ToastDoc() {
     val scope = rememberCoroutineScope()
 
     ComponentPageHeader(
-        name = "Toast",
-        description = "A non-intrusive notification system with "
-            + "auto-dismiss, swipe gestures, and variant accents.",
+        name = stringResource(Res.string.component_toast_name),
+        description = stringResource(Res.string.toast_page_desc),
     )
 
     // ─── Variants ───────────────────────────────────────────
-    DocSection("Variants") {
+    DocSection(stringResource(Res.string.section_variants)) {
         var selectedVariant by remember { mutableStateOf("Default") }
 
         VariantSelector(
@@ -63,6 +65,15 @@ fun ToastDoc() {
         )
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
+
+        val variantNotification = stringResource(
+            Res.string.toast_demo_variant_notification,
+            selectedVariant,
+        )
+        val showVariantLabel = stringResource(
+            Res.string.toast_demo_show_variant,
+            selectedVariant,
+        )
 
         DemoBox {
             Column(
@@ -79,19 +90,19 @@ fun ToastDoc() {
                     }
                     scope.launch {
                         toastState.show(
-                            message = "$selectedVariant toast notification",
+                            message = variantNotification,
                             variant = variant,
                         )
                     }
                 }) { color ->
-                    Text("Show $selectedVariant Toast", color = color)
+                    Text(showVariantLabel, color = color)
                 }
             }
         }
     }
 
     // ─── Animations ─────────────────────────────────────────
-    DocSection("Animations") {
+    DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("SlideIn") }
 
         VariantSelector(
@@ -102,37 +113,47 @@ fun ToastDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
+        val animationMessage = stringResource(
+            Res.string.toast_demo_animation_message,
+            selectedAnim,
+        )
+        val showAnimatedLabel = stringResource(Res.string.toast_demo_show_animated)
+
         DemoBox {
             Button(onClick = {
                 scope.launch {
                     toastState.show(
-                        message = "Animation: $selectedAnim",
+                        message = animationMessage,
                         variant = ToastVariant.Success,
                     )
                 }
             }) { color ->
-                Text("Show Animated Toast", color = color)
+                Text(showAnimatedLabel, color = color)
             }
         }
     }
 
     // ─── With Action ────────────────────────────────────────
-    DocSection("With Action Button") {
+    DocSection(stringResource(Res.string.toast_section_with_action)) {
+        val itemDeletedMessage = stringResource(Res.string.toast_demo_item_deleted)
+        val undoLabel = stringResource(Res.string.toast_demo_undo)
+        val showWithActionLabel = stringResource(Res.string.toast_demo_show_with_action)
+
         DemoBox {
             Button(
                 onClick = {
                     scope.launch {
                         toastState.show(
-                            message = "Item deleted",
+                            message = itemDeletedMessage,
                             variant = ToastVariant.Destructive,
-                            actionLabel = "Undo",
+                            actionLabel = undoLabel,
                             onAction = {},
                         )
                     }
                 },
                 variant = ButtonVariant.Outline,
             ) { color ->
-                Text("Show Toast with Action", color = color)
+                Text(showWithActionLabel, color = color)
             }
         }
     }
@@ -148,7 +169,7 @@ fun ToastDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 val toastState = rememberToastHostState()
@@ -187,37 +208,36 @@ Box(Modifier.fillMaxSize()) {
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "hostState", "ToastHostState", "required",
-                    "State holder managing the toast queue.",
+                    stringResource(Res.string.toast_prop_host_state_desc),
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier applied to the host container.",
+                    stringResource(Res.string.toast_prop_modifier_desc),
                 ),
                 PropInfo(
                     "position", "ToastPosition", "BottomRight",
-                    "Anchor position: TopCenter, TopRight, "
-                        + "BottomCenter, BottomRight.",
+                    stringResource(Res.string.toast_prop_position_desc),
                 ),
                 PropInfo(
                     "animation", "ToastAnimation", "SlideIn",
-                    "Enter/exit animation: SlideIn, Fade, Scale, None.",
+                    stringResource(Res.string.toast_prop_animation_desc),
                 ),
                 PropInfo(
                     "maxVisibleToasts", "Int", "5",
-                    "Max simultaneously visible toasts.",
+                    stringResource(Res.string.toast_prop_max_visible_desc),
                 ),
                 PropInfo(
                     "swipeToDismiss", "Boolean", "true",
-                    "Enable horizontal swipe to dismiss.",
+                    stringResource(Res.string.toast_prop_swipe_dismiss_desc),
                 ),
                 PropInfo(
                     "showProgressBar", "Boolean", "false",
-                    "Show countdown progress bar on each toast.",
+                    stringResource(Res.string.toast_prop_progress_bar_desc),
                 ),
             ),
         )

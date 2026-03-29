@@ -10,6 +10,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.checkbox.Checkbox
 import zed.rainxch.rikkaui.components.ui.checkbox.CheckboxAnimation
@@ -30,13 +33,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun CheckboxDoc() {
     ComponentPageHeader(
-        name = "Checkbox",
-        description = "A boolean toggle rendered as a square box with an " +
-            "animated checkmark. Supports spring, tween, and instant animations.",
+        name = stringResource(Res.string.component_checkbox_name),
+        description = stringResource(Res.string.checkbox_page_desc),
     )
 
     // ─── Animations Demo ────────────────────────────────────
-    DocSection("Animations") {
+    DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember {
             mutableStateOf(CheckboxAnimation.Spring.name)
         }
@@ -56,14 +58,14 @@ fun CheckboxDoc() {
             Checkbox(
                 checked = checked,
                 onCheckedChange = { checked = it },
-                label = "Accept terms and conditions",
+                label = stringResource(Res.string.checkbox_demo_accept_terms),
                 animation = animation,
             )
         }
     }
 
     // ─── With Labels Demo ───────────────────────────────────
-    DocSection("With Labels") {
+    DocSection(stringResource(Res.string.checkbox_section_with_labels)) {
         var optionA by remember { mutableStateOf(true) }
         var optionB by remember { mutableStateOf(false) }
         var optionC by remember { mutableStateOf(false) }
@@ -77,24 +79,24 @@ fun CheckboxDoc() {
                 Checkbox(
                     checked = optionA,
                     onCheckedChange = { optionA = it },
-                    label = "Email notifications",
+                    label = stringResource(Res.string.checkbox_demo_email_notifications),
                 )
                 Checkbox(
                     checked = optionB,
                     onCheckedChange = { optionB = it },
-                    label = "SMS notifications",
+                    label = stringResource(Res.string.checkbox_demo_sms_notifications),
                 )
                 Checkbox(
                     checked = optionC,
                     onCheckedChange = { optionC = it },
-                    label = "Push notifications",
+                    label = stringResource(Res.string.checkbox_demo_push_notifications),
                 )
             }
         }
     }
 
     // ─── Disabled State ─────────────────────────────────────
-    DocSection("Disabled") {
+    DocSection(stringResource(Res.string.section_disabled)) {
         DemoBox {
             Column(
                 verticalArrangement = Arrangement.spacedBy(
@@ -104,13 +106,13 @@ fun CheckboxDoc() {
                 Checkbox(
                     checked = true,
                     onCheckedChange = {},
-                    label = "Checked & disabled",
+                    label = stringResource(Res.string.checkbox_demo_checked_disabled),
                     enabled = false,
                 )
                 Checkbox(
                     checked = false,
                     onCheckedChange = {},
-                    label = "Unchecked & disabled",
+                    label = stringResource(Res.string.checkbox_demo_unchecked_disabled),
                     enabled = false,
                 )
             }
@@ -118,7 +120,7 @@ fun CheckboxDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 var accepted by remember { mutableStateOf(false) }
@@ -139,38 +141,38 @@ Checkbox(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "checked",
                     "Boolean",
                     "-",
-                    "Whether the checkbox is checked.",
+                    stringResource(Res.string.checkbox_prop_checked_desc),
                 ),
                 PropInfo(
                     "onCheckedChange",
                     "(Boolean) -> Unit",
                     "-",
-                    "Called when the checkbox state changes.",
+                    stringResource(Res.string.checkbox_prop_on_checked_change_desc),
                 ),
                 PropInfo(
                     "animation",
                     "CheckboxAnimation",
                     "Spring",
-                    "Animation: Spring, Tween, None.",
+                    stringResource(Res.string.checkbox_prop_animation_desc),
                 ),
                 PropInfo(
                     "enabled",
                     "Boolean",
                     "true",
-                    "Whether the checkbox is interactive.",
+                    stringResource(Res.string.checkbox_prop_enabled_desc),
                 ),
                 PropInfo(
                     "label",
                     "String",
                     "\"\"",
-                    "Label text rendered beside the checkbox and used for accessibility.",
+                    stringResource(Res.string.checkbox_prop_label_desc),
                 ),
             ),
         )

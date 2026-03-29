@@ -10,6 +10,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.avatar_page_desc
+import rikkaui.feature.docs.generated.resources.avatar_prop_animation_desc
+import rikkaui.feature.docs.generated.resources.avatar_prop_fallback_desc
+import rikkaui.feature.docs.generated.resources.avatar_prop_modifier_desc
+import rikkaui.feature.docs.generated.resources.avatar_prop_size_desc
+import rikkaui.feature.docs.generated.resources.avatar_prop_status_desc
+import rikkaui.feature.docs.generated.resources.avatar_section_status
+import rikkaui.feature.docs.generated.resources.component_avatar_name
+import rikkaui.feature.docs.generated.resources.section_animations
+import rikkaui.feature.docs.generated.resources.section_api_reference
+import rikkaui.feature.docs.generated.resources.section_sizes
+import rikkaui.feature.docs.generated.resources.section_usage
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.avatar.Avatar
 import zed.rainxch.rikkaui.components.ui.avatar.AvatarAnimation
@@ -23,21 +37,14 @@ import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 
-/**
- * Documentation page for the Avatar component.
- *
- * Demonstrates sizes, animations, and status indicators.
- */
 @Composable
 fun AvatarDoc() {
     ComponentPageHeader(
-        name = "Avatar",
-        description = "A circular container displaying user initials "
-            + "with optional status indicator and entrance animation.",
+        name = stringResource(Res.string.component_avatar_name),
+        description = stringResource(Res.string.avatar_page_desc),
     )
 
-    // ─── Sizes ──────────────────────────────────────────────
-    DocSection("Sizes") {
+    DocSection(stringResource(Res.string.section_sizes)) {
         DemoBox {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(
@@ -51,33 +58,24 @@ fun AvatarDoc() {
         }
     }
 
-    // ─── Status Indicators ──────────────────────────────────
-    DocSection("Status Indicators") {
+    DocSection(
+        stringResource(Res.string.avatar_section_status),
+    ) {
         DemoBox {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(
                     RikkaTheme.spacing.md,
                 ),
             ) {
-                Avatar(
-                    fallback = "ON",
-                    status = AvatarStatus.Online,
-                )
-                Avatar(
-                    fallback = "OF",
-                    status = AvatarStatus.Offline,
-                )
-                Avatar(
-                    fallback = "BY",
-                    status = AvatarStatus.Busy,
-                )
+                Avatar(fallback = "ON", status = AvatarStatus.Online)
+                Avatar(fallback = "OF", status = AvatarStatus.Offline)
+                Avatar(fallback = "BY", status = AvatarStatus.Busy)
                 Avatar(fallback = "NS")
             }
         }
     }
 
-    // ─── Animations ─────────────────────────────────────────
-    DocSection("Animations") {
+    DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("FadeIn") }
 
         VariantSelector(
@@ -114,8 +112,7 @@ fun AvatarDoc() {
         }
     }
 
-    // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 Avatar(fallback = "JD")
@@ -130,29 +127,28 @@ Avatar(
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "fallback", "String", "required",
-                    "1-2 character initials shown as avatar content.",
+                    stringResource(Res.string.avatar_prop_fallback_desc),
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier for layout and decoration.",
+                    stringResource(Res.string.avatar_prop_modifier_desc),
                 ),
                 PropInfo(
                     "size", "AvatarSize", "Default",
-                    "Size variant: Sm (32dp), Default (40dp), Lg (48dp).",
+                    stringResource(Res.string.avatar_prop_size_desc),
                 ),
                 PropInfo(
                     "animation", "AvatarAnimation", "FadeIn",
-                    "Entrance animation: FadeIn, Scale, None.",
+                    stringResource(Res.string.avatar_prop_animation_desc),
                 ),
                 PropInfo(
                     "status", "AvatarStatus?", "null",
-                    "Status dot: Online, Offline, Busy, or null.",
+                    stringResource(Res.string.avatar_prop_status_desc),
                 ),
             ),
         )

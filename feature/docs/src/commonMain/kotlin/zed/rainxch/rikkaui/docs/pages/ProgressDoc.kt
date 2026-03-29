@@ -12,6 +12,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.progress.Progress
@@ -34,13 +37,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun ProgressDoc() {
     ComponentPageHeader(
-        name = "Progress",
-        description = "An animated horizontal progress bar that fills "
-            + "from left to right to indicate completion.",
+        name = stringResource(Res.string.component_progress_name),
+        description = stringResource(Res.string.progress_page_desc),
     )
 
     // ─── Animation Modes ────────────────────────────────────
-    DocSection("Animation Modes") {
+    DocSection(stringResource(Res.string.progress_section_animation_modes)) {
         var selectedAnim by remember { mutableStateOf("Spring") }
         var progress by remember { mutableStateOf(0.6f) }
 
@@ -72,14 +74,17 @@ fun ProgressDoc() {
                 Button(onClick = {
                     progress = if (progress >= 1f) 0.1f else progress + 0.2f
                 }) { color ->
-                    Text("Advance", color = color)
+                    Text(
+                        stringResource(Res.string.progress_demo_advance),
+                        color = color,
+                    )
                 }
             }
         }
     }
 
     // ─── Custom Height ──────────────────────────────────────
-    DocSection("Custom Height") {
+    DocSection(stringResource(Res.string.progress_section_custom_height)) {
         DemoBox {
             Column(
                 verticalArrangement = Arrangement.spacedBy(
@@ -106,7 +111,7 @@ fun ProgressDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 Progress(progress = 0.6f)
@@ -129,36 +134,36 @@ Progress(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "progress", "Float", "required",
-                    "Current progress value, clamped to 0f..1f.",
+                    stringResource(Res.string.progress_prop_progress_desc),
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier for layout and decoration.",
+                    stringResource(Res.string.progress_prop_modifier_desc),
                 ),
                 PropInfo(
                     "trackColor", "Color", "Unspecified",
-                    "Background track color. Defaults to theme muted.",
+                    stringResource(Res.string.progress_prop_track_color_desc),
                 ),
                 PropInfo(
                     "fillColor", "Color", "Unspecified",
-                    "Fill bar color. Defaults to theme primary.",
+                    stringResource(Res.string.progress_prop_fill_color_desc),
                 ),
                 PropInfo(
                     "height", "Dp", "8.dp",
-                    "Height of the progress bar.",
+                    stringResource(Res.string.progress_prop_height_desc),
                 ),
                 PropInfo(
                     "animation", "ProgressAnimation", "Spring",
-                    "Animation style: Spring, Tween, None.",
+                    stringResource(Res.string.progress_prop_animation_desc),
                 ),
                 PropInfo(
                     "label", "String", "\"\"",
-                    "Accessibility label for screen readers.",
+                    stringResource(Res.string.progress_prop_label_desc),
                 ),
             ),
         )

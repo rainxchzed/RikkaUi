@@ -13,6 +13,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
@@ -36,13 +39,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun ToggleDoc() {
     ComponentPageHeader(
-        name = "Toggle",
-        description = "A boolean on/off switch with spring-animated thumb " +
-            "and smooth color transitions. Two sizes available.",
+        name = stringResource(Res.string.component_toggle_name),
+        description = stringResource(Res.string.toggle_page_desc),
     )
 
     // ─── Animations Demo ────────────────────────────────────
-    DocSection("Animations") {
+    DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember {
             mutableStateOf(ToggleAnimation.Spring.name)
         }
@@ -66,7 +68,7 @@ fun ToggleDoc() {
                 ),
             ) {
                 Text(
-                    text = "Dark mode",
+                    text = stringResource(Res.string.toggle_demo_dark_mode),
                     variant = TextVariant.Small,
                 )
                 Toggle(
@@ -79,7 +81,7 @@ fun ToggleDoc() {
     }
 
     // ─── Sizes Demo ─────────────────────────────────────────
-    DocSection("Sizes") {
+    DocSection(stringResource(Res.string.section_sizes)) {
         var defaultChecked by remember { mutableStateOf(true) }
         var smChecked by remember { mutableStateOf(false) }
 
@@ -128,7 +130,7 @@ fun ToggleDoc() {
     }
 
     // ─── Disabled State ─────────────────────────────────────
-    DocSection("Disabled") {
+    DocSection(stringResource(Res.string.section_disabled)) {
         DemoBox {
             Column(
                 verticalArrangement = Arrangement.spacedBy(
@@ -139,20 +141,20 @@ fun ToggleDoc() {
                     checked = true,
                     onCheckedChange = {},
                     enabled = false,
-                    label = "On & disabled",
+                    label = stringResource(Res.string.toggle_demo_on_disabled),
                 )
                 Toggle(
                     checked = false,
                     onCheckedChange = {},
                     enabled = false,
-                    label = "Off & disabled",
+                    label = stringResource(Res.string.toggle_demo_off_disabled),
                 )
             }
         }
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 var enabled by remember { mutableStateOf(false) }
@@ -173,44 +175,44 @@ Toggle(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "checked",
                     "Boolean",
                     "-",
-                    "Whether the toggle is on.",
+                    stringResource(Res.string.toggle_prop_checked_desc),
                 ),
                 PropInfo(
                     "onCheckedChange",
                     "(Boolean) -> Unit",
                     "-",
-                    "Called when the toggle state changes.",
+                    stringResource(Res.string.toggle_prop_on_checked_change_desc),
                 ),
                 PropInfo(
                     "size",
                     "ToggleSize",
                     "Default",
-                    "Size: Default (44x24dp), Sm (36x20dp).",
+                    stringResource(Res.string.toggle_prop_size_desc),
                 ),
                 PropInfo(
                     "animation",
                     "ToggleAnimation",
                     "Spring",
-                    "Animation: Spring, Tween, None.",
+                    stringResource(Res.string.toggle_prop_animation_desc),
                 ),
                 PropInfo(
                     "enabled",
                     "Boolean",
                     "true",
-                    "Whether the toggle is interactive.",
+                    stringResource(Res.string.toggle_prop_enabled_desc),
                 ),
                 PropInfo(
                     "label",
                     "String",
                     "\"\"",
-                    "Accessibility label for screen readers.",
+                    stringResource(Res.string.toggle_prop_label_desc),
                 ),
             ),
         )

@@ -8,6 +8,32 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.breadcrumb_demo_components
+import rikkaui.feature.docs.generated.resources.breadcrumb_demo_current_page
+import rikkaui.feature.docs.generated.resources.breadcrumb_demo_design
+import rikkaui.feature.docs.generated.resources.breadcrumb_demo_documents
+import rikkaui.feature.docs.generated.resources.breadcrumb_demo_home
+import rikkaui.feature.docs.generated.resources.breadcrumb_demo_products
+import rikkaui.feature.docs.generated.resources.breadcrumb_demo_projects
+import rikkaui.feature.docs.generated.resources.breadcrumb_demo_widgets
+import rikkaui.feature.docs.generated.resources.breadcrumb_page_desc
+import rikkaui.feature.docs.generated.resources.breadcrumb_prop_animation_desc
+import rikkaui.feature.docs.generated.resources.breadcrumb_prop_ellipsis_click_desc
+import rikkaui.feature.docs.generated.resources.breadcrumb_prop_items_desc
+import rikkaui.feature.docs.generated.resources.breadcrumb_prop_label_desc
+import rikkaui.feature.docs.generated.resources.breadcrumb_prop_max_visible_desc
+import rikkaui.feature.docs.generated.resources.breadcrumb_prop_modifier_desc
+import rikkaui.feature.docs.generated.resources.breadcrumb_prop_onclick_desc
+import rikkaui.feature.docs.generated.resources.breadcrumb_prop_separator_desc
+import rikkaui.feature.docs.generated.resources.breadcrumb_section_basic
+import rikkaui.feature.docs.generated.resources.breadcrumb_section_data_driven
+import rikkaui.feature.docs.generated.resources.breadcrumb_section_ellipsis
+import rikkaui.feature.docs.generated.resources.breadcrumb_subsection_item_data
+import rikkaui.feature.docs.generated.resources.component_breadcrumb_name
+import rikkaui.feature.docs.generated.resources.section_api_reference
+import rikkaui.feature.docs.generated.resources.section_usage
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.breadcrumb.Breadcrumb
 import zed.rainxch.rikkaui.components.ui.breadcrumb.BreadcrumbAnimation
@@ -24,35 +50,38 @@ import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 
-/**
- * Documentation page for the Breadcrumb component.
- *
- * Covers basic usage, data-driven lists, ellipsis
- * collapsing, code snippets, and full API reference.
- */
 @Composable
 fun BreadcrumbDoc() {
     ComponentPageHeader(
-        name = "Breadcrumb",
-        description = "Displays the user's current location in a"
-            + " page hierarchy with clickable navigation links.",
+        name = stringResource(Res.string.component_breadcrumb_name),
+        description = stringResource(Res.string.breadcrumb_page_desc),
     )
 
-    // ─── Basic Usage ──────────────────────────────────────
-    DocSection("Basic Usage") {
+    DocSection(
+        stringResource(Res.string.breadcrumb_section_basic),
+    ) {
         DemoBox {
             Breadcrumb {
-                BreadcrumbItem("Home", onClick = {})
+                BreadcrumbItem(
+                    stringResource(Res.string.breadcrumb_demo_home),
+                    onClick = {},
+                )
                 BreadcrumbSeparator()
-                BreadcrumbItem("Products", onClick = {})
+                BreadcrumbItem(
+                    stringResource(Res.string.breadcrumb_demo_products),
+                    onClick = {},
+                )
                 BreadcrumbSeparator()
-                BreadcrumbItem("Widgets")
+                BreadcrumbItem(
+                    stringResource(Res.string.breadcrumb_demo_widgets),
+                )
             }
         }
     }
 
-    // ─── Data-Driven ──────────────────────────────────────
-    DocSection("Data-Driven") {
+    DocSection(
+        stringResource(Res.string.breadcrumb_section_data_driven),
+    ) {
         var selectedAnim by remember { mutableStateOf("None") }
 
         VariantSelector(
@@ -72,49 +101,59 @@ fun BreadcrumbDoc() {
         DemoBox {
             Breadcrumb(
                 items = listOf(
-                    BreadcrumbItemData("Home", onClick = {}),
                     BreadcrumbItemData(
-                        "Products",
+                        stringResource(Res.string.breadcrumb_demo_home),
                         onClick = {},
                     ),
                     BreadcrumbItemData(
-                        "Widgets",
+                        stringResource(Res.string.breadcrumb_demo_products),
                         onClick = {},
                     ),
-                    BreadcrumbItemData("Current Page"),
+                    BreadcrumbItemData(
+                        stringResource(Res.string.breadcrumb_demo_widgets),
+                        onClick = {},
+                    ),
+                    BreadcrumbItemData(
+                        stringResource(Res.string.breadcrumb_demo_current_page),
+                    ),
                 ),
                 animation = animation,
             )
         }
     }
 
-    // ─── Ellipsis Collapsing ──────────────────────────────
-    DocSection("Ellipsis Collapsing") {
+    DocSection(
+        stringResource(Res.string.breadcrumb_section_ellipsis),
+    ) {
         DemoBox {
             Breadcrumb(
                 items = listOf(
-                    BreadcrumbItemData("Home", onClick = {}),
                     BreadcrumbItemData(
-                        "Documents",
+                        stringResource(Res.string.breadcrumb_demo_home),
                         onClick = {},
                     ),
                     BreadcrumbItemData(
-                        "Projects",
+                        stringResource(Res.string.breadcrumb_demo_documents),
                         onClick = {},
                     ),
                     BreadcrumbItemData(
-                        "Design",
+                        stringResource(Res.string.breadcrumb_demo_projects),
                         onClick = {},
                     ),
-                    BreadcrumbItemData("Components"),
+                    BreadcrumbItemData(
+                        stringResource(Res.string.breadcrumb_demo_design),
+                        onClick = {},
+                    ),
+                    BreadcrumbItemData(
+                        stringResource(Res.string.breadcrumb_demo_components),
+                    ),
                 ),
                 maxVisibleItems = 3,
             )
         }
     }
 
-    // ─── Usage ────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 // Manual composition — full control
@@ -140,47 +179,32 @@ Breadcrumb(
         )
     }
 
-    // ─── API Reference ────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
-                    "items",
-                    "List<BreadcrumbItemData>",
-                    "required",
-                    "List of breadcrumb items to display.",
+                    "items", "List<BreadcrumbItemData>", "required",
+                    stringResource(Res.string.breadcrumb_prop_items_desc),
                 ),
                 PropInfo(
-                    "modifier",
-                    "Modifier",
-                    "Modifier",
-                    "Modifier for layout and decoration.",
+                    "modifier", "Modifier", "Modifier",
+                    stringResource(Res.string.breadcrumb_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "animation",
-                    "BreadcrumbAnimation",
-                    "None",
-                    "Entrance animation: None, Fade, Slide.",
+                    "animation", "BreadcrumbAnimation", "None",
+                    stringResource(Res.string.breadcrumb_prop_animation_desc),
                 ),
                 PropInfo(
-                    "separator",
-                    "(@Composable () -> Unit)?",
-                    "null",
-                    "Custom separator composable. Defaults"
-                        + " to /.",
+                    "separator", "(@Composable () -> Unit)?", "null",
+                    stringResource(Res.string.breadcrumb_prop_separator_desc),
                 ),
                 PropInfo(
-                    "maxVisibleItems",
-                    "Int",
-                    "0",
-                    "Max items before collapsing middle"
-                        + " items into an ellipsis. 0 = show all.",
+                    "maxVisibleItems", "Int", "0",
+                    stringResource(Res.string.breadcrumb_prop_max_visible_desc),
                 ),
                 PropInfo(
-                    "onEllipsisClick",
-                    "(() -> Unit)?",
-                    "null",
-                    "Click handler for the ellipsis element.",
+                    "onEllipsisClick", "(() -> Unit)?", "null",
+                    stringResource(Res.string.breadcrumb_prop_ellipsis_click_desc),
                 ),
             ),
         )
@@ -188,7 +212,7 @@ Breadcrumb(
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
         Text(
-            "BreadcrumbItemData",
+            stringResource(Res.string.breadcrumb_subsection_item_data),
             variant = TextVariant.Large,
         )
 
@@ -197,17 +221,12 @@ Breadcrumb(
         PropsTable(
             listOf(
                 PropInfo(
-                    "label",
-                    "String",
-                    "required",
-                    "Display text for the breadcrumb item.",
+                    "label", "String", "required",
+                    stringResource(Res.string.breadcrumb_prop_label_desc),
                 ),
                 PropInfo(
-                    "onClick",
-                    "(() -> Unit)?",
-                    "null",
-                    "Click handler. Null = current page"
-                        + " (non-clickable).",
+                    "onClick", "(() -> Unit)?", "null",
+                    stringResource(Res.string.breadcrumb_prop_onclick_desc),
                 ),
             ),
         )

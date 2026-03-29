@@ -10,6 +10,36 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.accordion_demo_animation_body
+import rikkaui.feature.docs.generated.resources.accordion_demo_animation_title
+import rikkaui.feature.docs.generated.resources.accordion_demo_appearance
+import rikkaui.feature.docs.generated.resources.accordion_demo_appearance_desc
+import rikkaui.feature.docs.generated.resources.accordion_demo_general
+import rikkaui.feature.docs.generated.resources.accordion_demo_general_desc
+import rikkaui.feature.docs.generated.resources.accordion_demo_notifications
+import rikkaui.feature.docs.generated.resources.accordion_demo_notifications_desc
+import rikkaui.feature.docs.generated.resources.accordion_demo_privacy
+import rikkaui.feature.docs.generated.resources.accordion_demo_privacy_desc
+import rikkaui.feature.docs.generated.resources.accordion_demo_returns
+import rikkaui.feature.docs.generated.resources.accordion_demo_returns_desc
+import rikkaui.feature.docs.generated.resources.accordion_demo_shipping
+import rikkaui.feature.docs.generated.resources.accordion_demo_shipping_desc
+import rikkaui.feature.docs.generated.resources.accordion_page_desc
+import rikkaui.feature.docs.generated.resources.accordion_prop_animation_desc
+import rikkaui.feature.docs.generated.resources.accordion_prop_chevron_desc
+import rikkaui.feature.docs.generated.resources.accordion_prop_content_desc
+import rikkaui.feature.docs.generated.resources.accordion_prop_expanded_desc
+import rikkaui.feature.docs.generated.resources.accordion_prop_modifier_desc
+import rikkaui.feature.docs.generated.resources.accordion_prop_on_expanded_change_desc
+import rikkaui.feature.docs.generated.resources.accordion_prop_title_desc
+import rikkaui.feature.docs.generated.resources.accordion_section_animation_styles
+import rikkaui.feature.docs.generated.resources.accordion_section_basic
+import rikkaui.feature.docs.generated.resources.accordion_section_multiple_open
+import rikkaui.feature.docs.generated.resources.component_accordion_name
+import rikkaui.feature.docs.generated.resources.section_api_reference
+import rikkaui.feature.docs.generated.resources.section_usage
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.accordion.AccordionAnimation
 import zed.rainxch.rikkaui.components.ui.accordion.AccordionItem
@@ -32,14 +62,18 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun AccordionDoc() {
     ComponentPageHeader(
-        name = "Accordion",
-        description = "Vertically stacked sections that expand"
-            + " and collapse. Use it for FAQs, settings"
-            + " panels, or any grouped content.",
+        name = stringResource(
+            Res.string.component_accordion_name,
+        ),
+        description = stringResource(
+            Res.string.accordion_page_desc,
+        ),
     )
 
     // ─── Basic Accordion ─────────────────────────────
-    DocSection("Basic Accordion") {
+    DocSection(
+        stringResource(Res.string.accordion_section_basic),
+    ) {
         DemoBox {
             Column(modifier = Modifier.fillMaxWidth()) {
                 var notificationsOpen by remember {
@@ -53,48 +87,52 @@ fun AccordionDoc() {
                 }
 
                 AccordionItem(
-                    title = "Notifications",
+                    title = stringResource(
+                        Res.string.accordion_demo_notifications,
+                    ),
                     expanded = notificationsOpen,
                     onExpandedChange = {
                         notificationsOpen = it
                     },
                 ) {
                     Text(
-                        "Control which alerts you receive."
-                            + " Enable push notifications for"
-                            + " new messages, mentions, and"
-                            + " activity updates.",
+                        stringResource(
+                            Res.string.accordion_demo_notifications_desc,
+                        ),
                         variant = TextVariant.Muted,
                     )
                 }
 
                 AccordionItem(
-                    title = "Privacy",
+                    title = stringResource(
+                        Res.string.accordion_demo_privacy,
+                    ),
                     expanded = privacyOpen,
                     onExpandedChange = {
                         privacyOpen = it
                     },
                 ) {
                     Text(
-                        "Manage who can see your profile"
-                            + " and activity. Choose between"
-                            + " public, friends-only, or"
-                            + " private visibility.",
+                        stringResource(
+                            Res.string.accordion_demo_privacy_desc,
+                        ),
                         variant = TextVariant.Muted,
                     )
                 }
 
                 AccordionItem(
-                    title = "Appearance",
+                    title = stringResource(
+                        Res.string.accordion_demo_appearance,
+                    ),
                     expanded = appearanceOpen,
                     onExpandedChange = {
                         appearanceOpen = it
                     },
                 ) {
                     Text(
-                        "Customize your theme, font size,"
-                            + " and color accent. Changes"
-                            + " apply across all devices.",
+                        stringResource(
+                            Res.string.accordion_demo_appearance_desc,
+                        ),
                         variant = TextVariant.Muted,
                     )
                 }
@@ -103,7 +141,11 @@ fun AccordionDoc() {
     }
 
     // ─── Animation Styles ────────────────────────────
-    DocSection("Animation Styles") {
+    DocSection(
+        stringResource(
+            Res.string.accordion_section_animation_styles,
+        ),
+    ) {
         var selectedAnim by remember { mutableStateOf("Spring") }
 
         VariantSelector(
@@ -127,16 +169,19 @@ fun AccordionDoc() {
                 }
 
                 AccordionItem(
-                    title = "Animation: $selectedAnim",
+                    title = stringResource(
+                        Res.string.accordion_demo_animation_title,
+                        selectedAnim,
+                    ),
                     expanded = expanded,
                     onExpandedChange = { expanded = it },
                     animation = animation,
                 ) {
                     Text(
-                        "Toggle this section to see the"
-                            + " $selectedAnim animation in"
-                            + " action. Try switching between"
-                            + " styles to compare.",
+                        stringResource(
+                            Res.string.accordion_demo_animation_body,
+                            selectedAnim,
+                        ),
                         variant = TextVariant.Muted,
                     )
                 }
@@ -145,7 +190,11 @@ fun AccordionDoc() {
     }
 
     // ─── Multiple Open Items ─────────────────────────
-    DocSection("Multiple Open Items") {
+    DocSection(
+        stringResource(
+            Res.string.accordion_section_multiple_open,
+        ),
+    ) {
         DemoBox {
             Column(modifier = Modifier.fillMaxWidth()) {
                 var generalOpen by remember {
@@ -159,47 +208,52 @@ fun AccordionDoc() {
                 }
 
                 AccordionItem(
-                    title = "General",
+                    title = stringResource(
+                        Res.string.accordion_demo_general,
+                    ),
                     expanded = generalOpen,
                     onExpandedChange = {
                         generalOpen = it
                     },
                 ) {
                     Text(
-                        "Each AccordionItem manages its"
-                            + " own state independently, so"
-                            + " multiple sections can stay"
-                            + " open at the same time.",
+                        stringResource(
+                            Res.string.accordion_demo_general_desc,
+                        ),
                         variant = TextVariant.Muted,
                     )
                 }
 
                 AccordionItem(
-                    title = "Shipping",
+                    title = stringResource(
+                        Res.string.accordion_demo_shipping,
+                    ),
                     expanded = shippingOpen,
                     onExpandedChange = {
                         shippingOpen = it
                     },
                 ) {
                     Text(
-                        "Free standard shipping on orders"
-                            + " over \$50. Express delivery"
-                            + " available at checkout.",
+                        stringResource(
+                            Res.string.accordion_demo_shipping_desc,
+                        ),
                         variant = TextVariant.Muted,
                     )
                 }
 
                 AccordionItem(
-                    title = "Returns",
+                    title = stringResource(
+                        Res.string.accordion_demo_returns,
+                    ),
                     expanded = returnsOpen,
                     onExpandedChange = {
                         returnsOpen = it
                     },
                 ) {
                     Text(
-                        "30-day return policy for unused"
-                            + " items. Contact support to"
-                            + " start a return request.",
+                        stringResource(
+                            Res.string.accordion_demo_returns_desc,
+                        ),
                         variant = TextVariant.Muted,
                     )
                 }
@@ -208,7 +262,7 @@ fun AccordionDoc() {
     }
 
     // ─── Usage ───────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 var expanded by remember { mutableStateOf(false) }
@@ -225,46 +279,55 @@ AccordionItem(
     }
 
     // ─── API Reference ───────────────────────────────
-    DocSection("API Reference") {
+    DocSection(
+        stringResource(Res.string.section_api_reference),
+    ) {
         PropsTable(
             listOf(
                 PropInfo(
                     "title", "String", "required",
-                    "Header text in the clickable"
-                        + " title row.",
+                    stringResource(
+                        Res.string.accordion_prop_title_desc,
+                    ),
                 ),
                 PropInfo(
                     "expanded", "Boolean", "required",
-                    "Whether the content section is"
-                        + " visible.",
+                    stringResource(
+                        Res.string.accordion_prop_expanded_desc,
+                    ),
                 ),
                 PropInfo(
                     "onExpandedChange",
                     "(Boolean) -> Unit", "required",
-                    "Called when the user toggles the"
-                        + " section.",
+                    stringResource(
+                        Res.string.accordion_prop_on_expanded_change_desc,
+                    ),
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier for layout and"
-                        + " decoration.",
+                    stringResource(
+                        Res.string.accordion_prop_modifier_desc,
+                    ),
                 ),
                 PropInfo(
                     "animation", "AccordionAnimation",
                     "Spring",
-                    "Animation style: Spring, Tween,"
-                        + " None.",
+                    stringResource(
+                        Res.string.accordion_prop_animation_desc,
+                    ),
                 ),
                 PropInfo(
                     "chevronIcon", "ImageVector",
                     "RikkaIcons.ChevronRight",
-                    "Icon for the expand indicator."
-                        + " Rotates 90 degrees when"
-                        + " expanded.",
+                    stringResource(
+                        Res.string.accordion_prop_chevron_desc,
+                    ),
                 ),
                 PropInfo(
                     "content", "() -> Unit", "required",
-                    "The expandable content slot.",
+                    stringResource(
+                        Res.string.accordion_prop_content_desc,
+                    ),
                 ),
             ),
         )

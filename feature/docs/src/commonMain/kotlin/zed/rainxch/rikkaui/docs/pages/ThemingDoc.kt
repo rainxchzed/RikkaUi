@@ -14,6 +14,63 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.theming_accent_blue_desc
+import rikkaui.feature.docs.generated.resources.theming_accent_default_desc
+import rikkaui.feature.docs.generated.resources.theming_accent_green_desc
+import rikkaui.feature.docs.generated.resources.theming_accent_orange_desc
+import rikkaui.feature.docs.generated.resources.theming_accent_red_desc
+import rikkaui.feature.docs.generated.resources.theming_accent_rose_desc
+import rikkaui.feature.docs.generated.resources.theming_accent_violet_desc
+import rikkaui.feature.docs.generated.resources.theming_accent_yellow_desc
+import rikkaui.feature.docs.generated.resources.theming_accents_body
+import rikkaui.feature.docs.generated.resources.theming_color_tokens_body
+import rikkaui.feature.docs.generated.resources.theming_desc
+import rikkaui.feature.docs.generated.resources.theming_palette_gray_desc
+import rikkaui.feature.docs.generated.resources.theming_palette_neutral_desc
+import rikkaui.feature.docs.generated.resources.theming_palette_slate_desc
+import rikkaui.feature.docs.generated.resources.theming_palette_stone_desc
+import rikkaui.feature.docs.generated.resources.theming_palette_zinc_desc
+import rikkaui.feature.docs.generated.resources.theming_palettes_body
+import rikkaui.feature.docs.generated.resources.theming_preset_aurora_desc
+import rikkaui.feature.docs.generated.resources.theming_preset_default_desc
+import rikkaui.feature.docs.generated.resources.theming_preset_nebula_desc
+import rikkaui.feature.docs.generated.resources.theming_preset_nova_desc
+import rikkaui.feature.docs.generated.resources.theming_preset_vega_desc
+import rikkaui.feature.docs.generated.resources.theming_quick_start_body
+import rikkaui.feature.docs.generated.resources.theming_section_accent_colors
+import rikkaui.feature.docs.generated.resources.theming_section_color_palettes
+import rikkaui.feature.docs.generated.resources.theming_section_color_tokens
+import rikkaui.feature.docs.generated.resources.theming_section_quick_start
+import rikkaui.feature.docs.generated.resources.theming_section_style_presets
+import rikkaui.feature.docs.generated.resources.theming_section_token_overrides
+import rikkaui.feature.docs.generated.resources.theming_style_presets_body
+import rikkaui.feature.docs.generated.resources.theming_subsection_border_colors
+import rikkaui.feature.docs.generated.resources.theming_subsection_interactive_colors
+import rikkaui.feature.docs.generated.resources.theming_subsection_subtle_colors
+import rikkaui.feature.docs.generated.resources.theming_subsection_surface_colors
+import rikkaui.feature.docs.generated.resources.theming_title
+import rikkaui.feature.docs.generated.resources.theming_token_accent_desc
+import rikkaui.feature.docs.generated.resources.theming_token_accent_foreground_desc
+import rikkaui.feature.docs.generated.resources.theming_token_background_desc
+import rikkaui.feature.docs.generated.resources.theming_token_border_desc
+import rikkaui.feature.docs.generated.resources.theming_token_card_desc
+import rikkaui.feature.docs.generated.resources.theming_token_card_foreground_desc
+import rikkaui.feature.docs.generated.resources.theming_token_destructive_desc
+import rikkaui.feature.docs.generated.resources.theming_token_destructive_foreground_desc
+import rikkaui.feature.docs.generated.resources.theming_token_foreground_desc
+import rikkaui.feature.docs.generated.resources.theming_token_input_desc
+import rikkaui.feature.docs.generated.resources.theming_token_muted_desc
+import rikkaui.feature.docs.generated.resources.theming_token_muted_foreground_desc
+import rikkaui.feature.docs.generated.resources.theming_token_overrides_body
+import rikkaui.feature.docs.generated.resources.theming_token_popover_desc
+import rikkaui.feature.docs.generated.resources.theming_token_popover_foreground_desc
+import rikkaui.feature.docs.generated.resources.theming_token_primary_desc
+import rikkaui.feature.docs.generated.resources.theming_token_primary_foreground_desc
+import rikkaui.feature.docs.generated.resources.theming_token_ring_desc
+import rikkaui.feature.docs.generated.resources.theming_token_secondary_desc
+import rikkaui.feature.docs.generated.resources.theming_token_secondary_foreground_desc
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
@@ -33,20 +90,17 @@ import zed.rainxch.rikkaui.docs.components.PropsTable
 @Composable
 fun ThemingDoc() {
     ComponentPageHeader(
-        name = "Theming",
-        description =
-            "Customize every aspect of RikkaUI with " +
-                "palettes, accents, style presets, and " +
-                "individual token overrides.",
+        name = stringResource(Res.string.theming_title),
+        description = stringResource(Res.string.theming_desc),
     )
 
-    DocSection("Quick Start") {
+    DocSection(
+        stringResource(Res.string.theming_section_quick_start),
+    ) {
         Text(
-            text =
-                "Wrap your app in RikkaTheme. " +
-                    "One function call gives you colors, " +
-                    "typography, spacing, shapes, and " +
-                    "motion tokens for all components.",
+            text = stringResource(
+                Res.string.theming_quick_start_body,
+            ),
             variant = TextVariant.P,
         )
 
@@ -75,13 +129,13 @@ RikkaTheme(
         )
     }
 
-    DocSection("Color Palettes") {
+    DocSection(
+        stringResource(Res.string.theming_section_color_palettes),
+    ) {
         Text(
-            text =
-                "5 base palettes, each with light and " +
-                    "dark variants. Each palette defines " +
-                    "20 semantic color tokens in " +
-                    "background/foreground pairs.",
+            text = stringResource(
+                Res.string.theming_palettes_body,
+            ),
             variant = TextVariant.P,
         )
 
@@ -94,32 +148,41 @@ RikkaTheme(
                         "Zinc",
                         "RikkaPalette",
                         "Default",
-                        "Pure white bg (light), neutral " +
-                            "dark bg. Clean, minimal.",
+                        stringResource(
+                            Res.string.theming_palette_zinc_desc,
+                        ),
                     ),
                     PropInfo(
                         "Slate",
                         "RikkaPalette",
                         "\u2014",
-                        "Cool blue-gray tint. Professional.",
+                        stringResource(
+                            Res.string.theming_palette_slate_desc,
+                        ),
                     ),
                     PropInfo(
                         "Stone",
                         "RikkaPalette",
                         "\u2014",
-                        "Warm brown-gray tint. Earthy.",
+                        stringResource(
+                            Res.string.theming_palette_stone_desc,
+                        ),
                     ),
                     PropInfo(
                         "Gray",
                         "RikkaPalette",
                         "\u2014",
-                        "True neutral gray. Balanced.",
+                        stringResource(
+                            Res.string.theming_palette_gray_desc,
+                        ),
                     ),
                     PropInfo(
                         "Neutral",
                         "RikkaPalette",
                         "\u2014",
-                        "Slightly warm neutral. Soft.",
+                        stringResource(
+                            Res.string.theming_palette_neutral_desc,
+                        ),
                     ),
                 ),
         )
@@ -136,14 +199,13 @@ RikkaTheme(palette = RikkaPalette.Slate, isDark = true) {
         )
     }
 
-    DocSection("Accent Colors") {
+    DocSection(
+        stringResource(Res.string.theming_section_accent_colors),
+    ) {
         Text(
-            text =
-                "7 accent presets override the primary, " +
-                    "primaryForeground, and ring tokens. " +
-                    "Layer on top of any palette to change " +
-                    "the brand color without touching " +
-                    "everything else.",
+            text = stringResource(
+                Res.string.theming_accents_body,
+            ),
             variant = TextVariant.P,
         )
 
@@ -157,7 +219,9 @@ RikkaTheme(palette = RikkaPalette.Slate, isDark = true) {
                     ),
             ) {
                 AccentSwatch(
-                    "Default",
+                    stringResource(
+                        Res.string.theming_accent_default_desc,
+                    ).substringBefore("."),
                     RikkaTheme.colors.primary,
                 )
             }
@@ -185,63 +249,77 @@ RikkaTheme(
                         "Default",
                         "RikkaAccentPreset",
                         "Yes",
-                        "Uses the palette\u2019s built-in " +
-                            "primary color. No override.",
+                        stringResource(
+                            Res.string.theming_accent_default_desc,
+                        ),
                     ),
                     PropInfo(
                         "Blue",
                         "RikkaAccentPreset",
                         "\u2014",
-                        "Vivid blue accent.",
+                        stringResource(
+                            Res.string.theming_accent_blue_desc,
+                        ),
                     ),
                     PropInfo(
                         "Green",
                         "RikkaAccentPreset",
                         "\u2014",
-                        "Fresh green accent.",
+                        stringResource(
+                            Res.string.theming_accent_green_desc,
+                        ),
                     ),
                     PropInfo(
                         "Orange",
                         "RikkaAccentPreset",
                         "\u2014",
-                        "Warm orange accent.",
+                        stringResource(
+                            Res.string.theming_accent_orange_desc,
+                        ),
                     ),
                     PropInfo(
                         "Red",
                         "RikkaAccentPreset",
                         "\u2014",
-                        "Bold red accent.",
+                        stringResource(
+                            Res.string.theming_accent_red_desc,
+                        ),
                     ),
                     PropInfo(
                         "Rose",
                         "RikkaAccentPreset",
                         "\u2014",
-                        "Soft pink accent.",
+                        stringResource(
+                            Res.string.theming_accent_rose_desc,
+                        ),
                     ),
                     PropInfo(
                         "Violet",
                         "RikkaAccentPreset",
                         "\u2014",
-                        "Rich purple accent.",
+                        stringResource(
+                            Res.string.theming_accent_violet_desc,
+                        ),
                     ),
                     PropInfo(
                         "Yellow",
                         "RikkaAccentPreset",
                         "\u2014",
-                        "Bright yellow accent.",
+                        stringResource(
+                            Res.string.theming_accent_yellow_desc,
+                        ),
                     ),
                 ),
         )
     }
 
-    DocSection("Style Presets") {
+    DocSection(
+        stringResource(Res.string.theming_section_style_presets),
+    ) {
         Text(
-            text =
-                "Style presets bundle shapes, spacing, " +
-                    "motion, and type scale into a " +
-                    "single choice. Pass a preset to " +
-                    "RikkaTheme to change the entire " +
-                    "visual feel.",
+            text = stringResource(
+                Res.string.theming_style_presets_body,
+            ),
             variant = TextVariant.P,
         )
 
@@ -267,52 +345,53 @@ RikkaTheme(
                         "Default",
                         "RikkaStylePreset",
                         "Yes",
-                        "10dp radius, 4dp spacing, " +
-                            "balanced motion, scale 1.0.",
+                        stringResource(
+                            Res.string.theming_preset_default_desc,
+                        ),
                     ),
                     PropInfo(
                         "Nova",
                         "RikkaStylePreset",
                         "\u2014",
-                        "4dp radius, 3dp spacing, " +
-                            "snappy motion, scale 0.9. " +
-                            "Sharp, dense.",
+                        stringResource(
+                            Res.string.theming_preset_nova_desc,
+                        ),
                     ),
                     PropInfo(
                         "Vega",
                         "RikkaStylePreset",
                         "\u2014",
-                        "20dp radius, 5dp spacing, " +
-                            "playful motion, scale 1.05. " +
-                            "Rounded, bouncy.",
+                        stringResource(
+                            Res.string.theming_preset_vega_desc,
+                        ),
                     ),
                     PropInfo(
                         "Aurora",
                         "RikkaStylePreset",
                         "\u2014",
-                        "14dp radius, 5dp spacing, " +
-                            "default motion, scale 1.1. " +
-                            "Spacious, large.",
+                        stringResource(
+                            Res.string.theming_preset_aurora_desc,
+                        ),
                     ),
                     PropInfo(
                         "Nebula",
                         "RikkaStylePreset",
                         "\u2014",
-                        "0dp radius, 3dp spacing, " +
-                            "minimal motion, scale 0.85. " +
-                            "Square, tight.",
+                        stringResource(
+                            Res.string.theming_preset_nebula_desc,
+                        ),
                     ),
                 ),
         )
     }
 
-    DocSection("Individual Token Overrides") {
+    DocSection(
+        stringResource(Res.string.theming_section_token_overrides),
+    ) {
         Text(
-            text =
-                "For full control, override individual " +
-                    "token factories. The palette + " +
-                    "accent overload still works " +
-                    "alongside manual overrides.",
+            text = stringResource(
+                Res.string.theming_token_overrides_body,
+            ),
             variant = TextVariant.P,
         )
 
@@ -352,21 +431,22 @@ RikkaTheme(
         )
     }
 
-    DocSection("Color Tokens Reference") {
+    DocSection(
+        stringResource(Res.string.theming_section_color_tokens),
+    ) {
         Text(
-            text =
-                "Every palette provides 20 semantic " +
-                    "color tokens. Components use these " +
-                    "tokens instead of raw colors, so " +
-                    "switching palettes automatically " +
-                    "updates your entire UI.",
+            text = stringResource(
+                Res.string.theming_color_tokens_body,
+            ),
             variant = TextVariant.P,
         )
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
         Text(
-            text = "Surface Colors",
+            text = stringResource(
+                Res.string.theming_subsection_surface_colors,
+            ),
             variant = TextVariant.H4,
         )
 
@@ -379,47 +459,49 @@ RikkaTheme(
                         "background",
                         "Color",
                         "\u2014",
-                        "The main page/screen background. " +
-                            "Used for the root surface of " +
-                            "your app.",
+                        stringResource(
+                            Res.string.theming_token_background_desc,
+                        ),
                     ),
                     PropInfo(
                         "foreground",
                         "Color",
                         "\u2014",
-                        "Default text color on the " +
-                            "background. Used for body " +
-                            "text, headings, and icons.",
+                        stringResource(
+                            Res.string.theming_token_foreground_desc,
+                        ),
                     ),
                     PropInfo(
                         "card",
                         "Color",
                         "\u2014",
-                        "Background for Card, Dialog, and " +
-                            "Sheet surfaces. Slightly " +
-                            "elevated from background.",
+                        stringResource(
+                            Res.string.theming_token_card_desc,
+                        ),
                     ),
                     PropInfo(
                         "cardForeground",
                         "Color",
                         "\u2014",
-                        "Text color inside cards, dialogs, " +
-                            "and sheets.",
+                        stringResource(
+                            Res.string.theming_token_card_foreground_desc,
+                        ),
                     ),
                     PropInfo(
                         "popover",
                         "Color",
                         "\u2014",
-                        "Background for floating surfaces " +
-                            "like Popover, Tooltip, Select " +
-                            "dropdown, and DropdownMenu.",
+                        stringResource(
+                            Res.string.theming_token_popover_desc,
+                        ),
                     ),
                     PropInfo(
                         "popoverForeground",
                         "Color",
                         "\u2014",
-                        "Text color inside floating " +
-                            "surfaces.",
+                        stringResource(
+                            Res.string.theming_token_popover_foreground_desc,
+                        ),
                     ),
                 ),
         )
@@ -427,7 +509,9 @@ RikkaTheme(
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
         Text(
-            text = "Interactive Colors",
+            text = stringResource(
+                Res.string.theming_subsection_interactive_colors,
+            ),
             variant = TextVariant.H4,
         )
 
@@ -440,49 +524,49 @@ RikkaTheme(
                         "primary",
                         "Color",
                         "\u2014",
-                        "Your brand/accent color. Used " +
-                            "for default Button, Toggle " +
-                            "checked state, Progress bar, " +
-                            "and focused inputs.",
+                        stringResource(
+                            Res.string.theming_token_primary_desc,
+                        ),
                     ),
                     PropInfo(
                         "primaryForeground",
                         "Color",
                         "\u2014",
-                        "Text/icon color on primary " +
-                            "surfaces. Must contrast with " +
-                            "primary (e.g., white on blue).",
+                        stringResource(
+                            Res.string.theming_token_primary_foreground_desc,
+                        ),
                     ),
                     PropInfo(
                         "secondary",
                         "Color",
                         "\u2014",
-                        "Background for less prominent " +
-                            "actions. Used by Button " +
-                            "Secondary variant and Badge " +
-                            "Secondary.",
+                        stringResource(
+                            Res.string.theming_token_secondary_desc,
+                        ),
                     ),
                     PropInfo(
                         "secondaryForeground",
                         "Color",
                         "\u2014",
-                        "Text color on secondary surfaces.",
+                        stringResource(
+                            Res.string.theming_token_secondary_foreground_desc,
+                        ),
                     ),
                     PropInfo(
                         "destructive",
                         "Color",
                         "\u2014",
-                        "Danger/error color. Used by " +
-                            "Button Destructive, Alert " +
-                            "Destructive, and Badge " +
-                            "Destructive.",
+                        stringResource(
+                            Res.string.theming_token_destructive_desc,
+                        ),
                     ),
                     PropInfo(
                         "destructiveForeground",
                         "Color",
                         "\u2014",
-                        "Text color on destructive " +
-                            "surfaces.",
+                        stringResource(
+                            Res.string.theming_token_destructive_foreground_desc,
+                        ),
                     ),
                 ),
         )
@@ -490,7 +574,9 @@ RikkaTheme(
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
         Text(
-            text = "Subtle & Muted Colors",
+            text = stringResource(
+                Res.string.theming_subsection_subtle_colors,
+            ),
             variant = TextVariant.H4,
         )
 
@@ -503,33 +589,33 @@ RikkaTheme(
                         "muted",
                         "Color",
                         "\u2014",
-                        "Subdued background for disabled " +
-                            "states, Skeleton placeholders, " +
-                            "and inactive tab backgrounds.",
+                        stringResource(
+                            Res.string.theming_token_muted_desc,
+                        ),
                     ),
                     PropInfo(
                         "mutedForeground",
                         "Color",
                         "\u2014",
-                        "Low-emphasis text color. Used " +
-                            "for placeholder text, " +
-                            "descriptions, and labels.",
+                        stringResource(
+                            Res.string.theming_token_muted_foreground_desc,
+                        ),
                     ),
                     PropInfo(
                         "accent",
                         "Color",
                         "\u2014",
-                        "Subtle highlight for hover " +
-                            "states. Used by Ghost buttons " +
-                            "on hover and dropdown item " +
-                            "highlights.",
+                        stringResource(
+                            Res.string.theming_token_accent_desc,
+                        ),
                     ),
                     PropInfo(
                         "accentForeground",
                         "Color",
                         "\u2014",
-                        "Text color on accent-highlighted " +
-                            "surfaces.",
+                        stringResource(
+                            Res.string.theming_token_accent_foreground_desc,
+                        ),
                     ),
                 ),
         )
@@ -537,7 +623,9 @@ RikkaTheme(
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
         Text(
-            text = "Border & Focus Colors",
+            text = stringResource(
+                Res.string.theming_subsection_border_colors,
+            ),
             variant = TextVariant.H4,
         )
 
@@ -550,26 +638,25 @@ RikkaTheme(
                         "border",
                         "Color",
                         "\u2014",
-                        "Default border for Card, Table, " +
-                            "Separator, and dividers.",
+                        stringResource(
+                            Res.string.theming_token_border_desc,
+                        ),
                     ),
                     PropInfo(
                         "input",
                         "Color",
                         "\u2014",
-                        "Border color for Input, Textarea, " +
-                            "Select, and other form " +
-                            "controls in their resting " +
-                            "state.",
+                        stringResource(
+                            Res.string.theming_token_input_desc,
+                        ),
                     ),
                     PropInfo(
                         "ring",
                         "Color",
                         "\u2014",
-                        "Focus ring color shown around " +
-                            "interactive elements when " +
-                            "focused. Accent overrides " +
-                            "change this token too.",
+                        stringResource(
+                            Res.string.theming_token_ring_desc,
+                        ),
                     ),
                 ),
         )

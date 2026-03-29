@@ -10,6 +10,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.textarea.Textarea
 import zed.rainxch.rikkaui.components.ui.textarea.TextareaAnimation
@@ -30,13 +33,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun TextareaDoc() {
     ComponentPageHeader(
-        name = "Textarea",
-        description = "A multi-line text input with animated focus states " +
-            "and optional character count.",
+        name = stringResource(Res.string.component_textarea_name),
+        description = stringResource(Res.string.textarea_page_desc),
     )
 
     // ─── Focus Animations Demo ──────────────────────────────
-    DocSection("Focus Animations") {
+    DocSection(stringResource(Res.string.textarea_section_focus)) {
         var selectedAnim by remember {
             mutableStateOf(TextareaAnimation.Glow.name)
         }
@@ -56,7 +58,7 @@ fun TextareaDoc() {
             Textarea(
                 value = text,
                 onValueChange = { text = it },
-                placeholder = "Write something...",
+                placeholder = stringResource(Res.string.textarea_demo_write_placeholder),
                 animation = animation,
                 modifier = Modifier.width(400.dp),
             )
@@ -64,14 +66,14 @@ fun TextareaDoc() {
     }
 
     // ─── Character Count Demo ───────────────────────────────
-    DocSection("Character Count") {
+    DocSection(stringResource(Res.string.textarea_section_char_count)) {
         var bio by remember { mutableStateOf("") }
 
         DemoBox {
             Textarea(
                 value = bio,
                 onValueChange = { bio = it },
-                placeholder = "Bio (max 280 chars)...",
+                placeholder = stringResource(Res.string.textarea_demo_bio_placeholder),
                 maxLength = 280,
                 showCharCount = true,
                 minLines = 4,
@@ -81,10 +83,10 @@ fun TextareaDoc() {
     }
 
     // ─── Disabled State ─────────────────────────────────────
-    DocSection("Disabled") {
+    DocSection(stringResource(Res.string.section_disabled)) {
         DemoBox {
             Textarea(
-                value = "This textarea is disabled.",
+                value = stringResource(Res.string.textarea_demo_disabled_value),
                 onValueChange = {},
                 enabled = false,
                 modifier = Modifier.width(400.dp),
@@ -93,7 +95,7 @@ fun TextareaDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 var text by remember { mutableStateOf("") }
@@ -118,68 +120,68 @@ Textarea(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "value",
                     "String",
                     "-",
-                    "Current text value.",
+                    stringResource(Res.string.textarea_prop_value_desc),
                 ),
                 PropInfo(
                     "onValueChange",
                     "(String) -> Unit",
                     "-",
-                    "Called when the text changes.",
+                    stringResource(Res.string.textarea_prop_on_value_change_desc),
                 ),
                 PropInfo(
                     "placeholder",
                     "String",
                     "\"\"",
-                    "Placeholder text shown when empty.",
+                    stringResource(Res.string.textarea_prop_placeholder_desc),
                 ),
                 PropInfo(
                     "animation",
                     "TextareaAnimation",
                     "Glow",
-                    "Focus animation: Glow, Color, None.",
+                    stringResource(Res.string.textarea_prop_animation_desc),
                 ),
                 PropInfo(
                     "minLines",
                     "Int",
                     "3",
-                    "Minimum number of visible lines.",
+                    stringResource(Res.string.textarea_prop_min_lines_desc),
                 ),
                 PropInfo(
                     "maxLines",
                     "Int",
                     "5",
-                    "Maximum number of visible lines.",
+                    stringResource(Res.string.textarea_prop_max_lines_desc),
                 ),
                 PropInfo(
                     "maxLength",
                     "Int?",
                     "null",
-                    "Maximum character limit.",
+                    stringResource(Res.string.textarea_prop_max_length_desc),
                 ),
                 PropInfo(
                     "showCharCount",
                     "Boolean",
                     "false",
-                    "Displays character count when maxLength is set.",
+                    stringResource(Res.string.textarea_prop_show_char_count_desc),
                 ),
                 PropInfo(
                     "enabled",
                     "Boolean",
                     "true",
-                    "Whether the textarea is interactive.",
+                    stringResource(Res.string.textarea_prop_enabled_desc),
                 ),
                 PropInfo(
                     "readOnly",
                     "Boolean",
                     "false",
-                    "Whether the textarea is read-only.",
+                    stringResource(Res.string.textarea_prop_read_only_desc),
                 ),
             ),
         )

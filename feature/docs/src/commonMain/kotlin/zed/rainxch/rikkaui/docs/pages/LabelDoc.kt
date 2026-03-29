@@ -12,6 +12,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.input.Input
 import zed.rainxch.rikkaui.components.ui.label.Label
@@ -31,28 +34,33 @@ import zed.rainxch.rikkaui.docs.components.PropsTable
 @Composable
 fun LabelDoc() {
     ComponentPageHeader(
-        name = "Label",
-        description = "A text label for form elements with optional required " +
-            "indicator and disabled state.",
+        name = stringResource(Res.string.component_label_name),
+        description = stringResource(Res.string.label_page_desc),
     )
 
     // ─── Basic Labels Demo ──────────────────────────────────
-    DocSection("Examples") {
+    DocSection(stringResource(Res.string.label_section_examples)) {
         DemoBox {
             Column(
                 verticalArrangement = Arrangement.spacedBy(
                     RikkaTheme.spacing.md,
                 ),
             ) {
-                Label(text = "Email")
-                Label(text = "Password", required = true)
-                Label(text = "Username", disabled = true)
+                Label(text = stringResource(Res.string.label_demo_email))
+                Label(
+                    text = stringResource(Res.string.label_demo_password),
+                    required = true,
+                )
+                Label(
+                    text = stringResource(Res.string.label_demo_username),
+                    disabled = true,
+                )
             }
         }
     }
 
     // ─── With Input Demo ────────────────────────────────────
-    DocSection("With Input") {
+    DocSection(stringResource(Res.string.label_section_with_input)) {
         var email by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
 
@@ -68,11 +76,11 @@ fun LabelDoc() {
                         RikkaTheme.spacing.xs,
                     ),
                 ) {
-                    Label(text = "Email")
+                    Label(text = stringResource(Res.string.label_demo_email))
                     Input(
                         value = email,
                         onValueChange = { email = it },
-                        placeholder = "you@example.com",
+                        placeholder = stringResource(Res.string.label_demo_email_placeholder),
                     )
                 }
                 Column(
@@ -80,11 +88,14 @@ fun LabelDoc() {
                         RikkaTheme.spacing.xs,
                     ),
                 ) {
-                    Label(text = "Password", required = true)
+                    Label(
+                        text = stringResource(Res.string.label_demo_password),
+                        required = true,
+                    )
                     Input(
                         value = password,
                         onValueChange = { password = it },
-                        placeholder = "Enter password...",
+                        placeholder = stringResource(Res.string.label_demo_password_placeholder),
                     )
                 }
             }
@@ -92,7 +103,7 @@ fun LabelDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 Label("Email")
@@ -113,26 +124,26 @@ Column {
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "text",
                     "String",
                     "-",
-                    "The label text to display.",
+                    stringResource(Res.string.label_prop_text_desc),
                 ),
                 PropInfo(
                     "disabled",
                     "Boolean",
                     "false",
-                    "When true, the label is dimmed with mutedForeground color.",
+                    stringResource(Res.string.label_prop_disabled_desc),
                 ),
                 PropInfo(
                     "required",
                     "Boolean",
                     "false",
-                    "When true, a red asterisk (*) is appended.",
+                    stringResource(Res.string.label_prop_required_desc),
                 ),
             ),
         )

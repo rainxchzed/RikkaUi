@@ -9,6 +9,35 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.component_list_name
+import rikkaui.feature.docs.generated.resources.list_demo_accessible
+import rikkaui.feature.docs.generated.resources.list_demo_add_dep
+import rikkaui.feature.docs.generated.resources.list_demo_all_platforms
+import rikkaui.feature.docs.generated.resources.list_demo_clone_repo
+import rikkaui.feature.docs.generated.resources.list_demo_composable_dsl
+import rikkaui.feature.docs.generated.resources.list_demo_customize_tokens
+import rikkaui.feature.docs.generated.resources.list_demo_features_title
+import rikkaui.feature.docs.generated.resources.list_demo_full_theme
+import rikkaui.feature.docs.generated.resources.list_demo_install_deps
+import rikkaui.feature.docs.generated.resources.list_demo_no_material
+import rikkaui.feature.docs.generated.resources.list_demo_run_dev
+import rikkaui.feature.docs.generated.resources.list_demo_spring_anims
+import rikkaui.feature.docs.generated.resources.list_demo_theme_aware
+import rikkaui.feature.docs.generated.resources.list_demo_use_component
+import rikkaui.feature.docs.generated.resources.list_demo_wrap_theme
+import rikkaui.feature.docs.generated.resources.list_page_desc
+import rikkaui.feature.docs.generated.resources.list_prop_items_desc
+import rikkaui.feature.docs.generated.resources.list_prop_modifier_desc
+import rikkaui.feature.docs.generated.resources.list_prop_text_variant_desc
+import rikkaui.feature.docs.generated.resources.list_prop_variant_desc
+import rikkaui.feature.docs.generated.resources.list_section_custom
+import rikkaui.feature.docs.generated.resources.list_section_ordered
+import rikkaui.feature.docs.generated.resources.list_section_unordered
+import rikkaui.feature.docs.generated.resources.section_api_reference
+import rikkaui.feature.docs.generated.resources.section_usage
+import rikkaui.feature.docs.generated.resources.section_variants
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.list.ListVariant
 import zed.rainxch.rikkaui.components.ui.list.RikkaList
@@ -22,22 +51,14 @@ import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 
-/**
- * Documentation page for the RikkaList component.
- *
- * Showcases unordered, ordered, and unstyled list variants
- * with live demos, code snippets, and an API reference.
- */
 @Composable
 fun ListDoc() {
     ComponentPageHeader(
-        name = "List",
-        description = "Styled lists with bullet points, numbers, "
-            + "or custom content per item.",
+        name = stringResource(Res.string.component_list_name),
+        description = stringResource(Res.string.list_page_desc),
     )
 
-    // ─── Variants ─────────────────────────────────────────
-    DocSection("Variants") {
+    DocSection(stringResource(Res.string.section_variants)) {
         var selected by remember { mutableStateOf("Unordered") }
 
         VariantSelector(
@@ -57,69 +78,72 @@ fun ListDoc() {
         DemoBox {
             RikkaList(
                 items = listOf(
-                    "Clone the repository",
-                    "Install dependencies",
-                    "Run the development server",
+                    stringResource(Res.string.list_demo_clone_repo),
+                    stringResource(Res.string.list_demo_install_deps),
+                    stringResource(Res.string.list_demo_run_dev),
                 ),
                 variant = variant,
             )
         }
     }
 
-    // ─── Unordered List ───────────────────────────────────
-    DocSection("Unordered List") {
+    DocSection(
+        stringResource(Res.string.list_section_unordered),
+    ) {
         DemoBox {
             RikkaList(
                 items = listOf(
-                    "Foundation-only, no Material3",
-                    "Spring-physics animations",
-                    "Full theme customization",
-                    "Works on all platforms",
+                    stringResource(Res.string.list_demo_no_material),
+                    stringResource(Res.string.list_demo_spring_anims),
+                    stringResource(Res.string.list_demo_full_theme),
+                    stringResource(Res.string.list_demo_all_platforms),
                 ),
             )
         }
     }
 
-    // ─── Ordered List ─────────────────────────────────────
-    DocSection("Ordered List") {
+    DocSection(
+        stringResource(Res.string.list_section_ordered),
+    ) {
         DemoBox {
             RikkaList(
                 items = listOf(
-                    "Add the dependency to your project",
-                    "Wrap your app in RikkaTheme",
-                    "Use any component from the library",
-                    "Customize with theme tokens",
+                    stringResource(Res.string.list_demo_add_dep),
+                    stringResource(Res.string.list_demo_wrap_theme),
+                    stringResource(Res.string.list_demo_use_component),
+                    stringResource(Res.string.list_demo_customize_tokens),
                 ),
                 variant = ListVariant.Ordered,
             )
         }
     }
 
-    // ─── Custom Content ───────────────────────────────────
-    DocSection("Custom Content") {
+    DocSection(
+        stringResource(Res.string.list_section_custom),
+    ) {
         DemoBox {
             Column {
                 Text(
-                    "Features",
+                    stringResource(Res.string.list_demo_features_title),
                     variant = TextVariant.H4,
                 )
                 Spacer(Modifier.height(RikkaTheme.spacing.sm))
                 RikkaList {
                     ListItem {
                         Text(
-                            "Composable DSL for complex list items",
+                            stringResource(Res.string.list_demo_composable_dsl),
                             variant = TextVariant.P,
                         )
                     }
                     ListItem {
                         Text(
-                            "Theme-aware spacing and typography",
+                            stringResource(Res.string.list_demo_theme_aware),
                             variant = TextVariant.P,
                         )
                     }
                     ListItem {
                         Text(
-                            "Accessible by default",
+                            stringResource(Res.string.list_demo_accessible),
                             variant = TextVariant.P,
                         )
                     }
@@ -128,8 +152,7 @@ fun ListDoc() {
         }
     }
 
-    // ─── Usage ────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 // Bullet list (default)
@@ -152,33 +175,24 @@ RikkaList(variant = ListVariant.Unordered) {
         )
     }
 
-    // ─── API Reference ────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
-                    "items",
-                    "List<String>",
-                    "-",
-                    "List of string items to render.",
+                    "items", "List<String>", "-",
+                    stringResource(Res.string.list_prop_items_desc),
                 ),
                 PropInfo(
-                    "variant",
-                    "ListVariant",
-                    "Unordered",
-                    "List style: Unordered, Ordered, None.",
+                    "variant", "ListVariant", "Unordered",
+                    stringResource(Res.string.list_prop_variant_desc),
                 ),
                 PropInfo(
-                    "textVariant",
-                    "TextVariant",
-                    "P",
-                    "Typography variant for item text.",
+                    "textVariant", "TextVariant", "P",
+                    stringResource(Res.string.list_prop_text_variant_desc),
                 ),
                 PropInfo(
-                    "modifier",
-                    "Modifier",
-                    "Modifier",
-                    "Modifier for layout and decoration.",
+                    "modifier", "Modifier", "Modifier",
+                    stringResource(Res.string.list_prop_modifier_desc),
                 ),
             ),
         )

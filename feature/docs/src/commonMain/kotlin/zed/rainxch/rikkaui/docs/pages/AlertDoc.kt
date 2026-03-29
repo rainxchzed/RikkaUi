@@ -11,6 +11,28 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.alert_demo_check_network
+import rikkaui.feature.docs.generated.resources.alert_demo_cli_hint
+import rikkaui.feature.docs.generated.resources.alert_demo_connection_lost
+import rikkaui.feature.docs.generated.resources.alert_demo_error
+import rikkaui.feature.docs.generated.resources.alert_demo_heads_up
+import rikkaui.feature.docs.generated.resources.alert_demo_new_update
+import rikkaui.feature.docs.generated.resources.alert_demo_new_version
+import rikkaui.feature.docs.generated.resources.alert_demo_session_expired
+import rikkaui.feature.docs.generated.resources.alert_page_desc
+import rikkaui.feature.docs.generated.resources.alert_prop_animation_desc
+import rikkaui.feature.docs.generated.resources.alert_prop_content_desc
+import rikkaui.feature.docs.generated.resources.alert_prop_icon_desc
+import rikkaui.feature.docs.generated.resources.alert_prop_label_desc
+import rikkaui.feature.docs.generated.resources.alert_prop_modifier_desc
+import rikkaui.feature.docs.generated.resources.alert_prop_variant_desc
+import rikkaui.feature.docs.generated.resources.component_alert_name
+import rikkaui.feature.docs.generated.resources.section_animations
+import rikkaui.feature.docs.generated.resources.section_api_reference
+import rikkaui.feature.docs.generated.resources.section_usage
+import rikkaui.feature.docs.generated.resources.section_variants
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.alert.Alert
 import zed.rainxch.rikkaui.components.ui.alert.AlertAnimation
@@ -34,13 +56,14 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun AlertDoc() {
     ComponentPageHeader(
-        name = "Alert",
-        description = "A status container for displaying important "
-            + "messages with optional icon and entrance animation.",
+        name = stringResource(Res.string.component_alert_name),
+        description = stringResource(
+            Res.string.alert_page_desc,
+        ),
     )
 
     // ─── Variants ───────────────────────────────────────────
-    DocSection("Variants") {
+    DocSection(stringResource(Res.string.section_variants)) {
         var selectedVariant by remember { mutableStateOf("Default") }
 
         VariantSelector(
@@ -63,17 +86,21 @@ fun AlertDoc() {
             ) {
                 AlertTitle(
                     text = if (variant == AlertVariant.Destructive) {
-                        "Error"
+                        stringResource(Res.string.alert_demo_error)
                     } else {
-                        "Heads up!"
+                        stringResource(Res.string.alert_demo_heads_up)
                     },
                     variant = variant,
                 )
                 AlertDescription(
                     text = if (variant == AlertVariant.Destructive) {
-                        "Your session has expired. Please log in again."
+                        stringResource(
+                            Res.string.alert_demo_session_expired,
+                        )
                     } else {
-                        "You can add components using the CLI."
+                        stringResource(
+                            Res.string.alert_demo_cli_hint,
+                        )
                     },
                     variant = variant,
                 )
@@ -82,7 +109,7 @@ fun AlertDoc() {
     }
 
     // ─── Animations ─────────────────────────────────────────
-    DocSection("Animations") {
+    DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("None") }
 
         VariantSelector(
@@ -109,9 +136,15 @@ fun AlertDoc() {
                     animation = animation,
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    AlertTitle("New update available")
+                    AlertTitle(
+                        stringResource(
+                            Res.string.alert_demo_new_update,
+                        ),
+                    )
                     AlertDescription(
-                        "A new version has been released.",
+                        stringResource(
+                            Res.string.alert_demo_new_version,
+                        ),
                     )
                 }
                 Alert(
@@ -120,11 +153,15 @@ fun AlertDoc() {
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     AlertTitle(
-                        "Connection lost",
+                        stringResource(
+                            Res.string.alert_demo_connection_lost,
+                        ),
                         variant = AlertVariant.Destructive,
                     )
                     AlertDescription(
-                        "Please check your network settings.",
+                        stringResource(
+                            Res.string.alert_demo_check_network,
+                        ),
                         variant = AlertVariant.Destructive,
                     )
                 }
@@ -133,7 +170,7 @@ fun AlertDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 Alert {
@@ -159,32 +196,47 @@ Alert(animation = AlertAnimation.SlideIn) {
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(
+        stringResource(Res.string.section_api_reference),
+    ) {
         PropsTable(
             listOf(
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier for layout and decoration.",
+                    stringResource(
+                        Res.string.alert_prop_modifier_desc,
+                    ),
                 ),
                 PropInfo(
                     "variant", "AlertVariant", "Default",
-                    "Visual variant: Default, Destructive.",
+                    stringResource(
+                        Res.string.alert_prop_variant_desc,
+                    ),
                 ),
                 PropInfo(
                     "animation", "AlertAnimation", "None",
-                    "Entrance animation: SlideIn, Fade, None.",
+                    stringResource(
+                        Res.string.alert_prop_animation_desc,
+                    ),
                 ),
                 PropInfo(
                     "icon", "(@Composable () -> Unit)?", "null",
-                    "Optional leading icon composable (16-20dp).",
+                    stringResource(
+                        Res.string.alert_prop_icon_desc,
+                    ),
                 ),
                 PropInfo(
                     "label", "String", "\"\"",
-                    "Accessibility label for screen readers.",
+                    stringResource(
+                        Res.string.alert_prop_label_desc,
+                    ),
                 ),
                 PropInfo(
-                    "content", "ColumnScope.() -> Unit", "required",
-                    "Content: use AlertTitle + AlertDescription.",
+                    "content", "ColumnScope.() -> Unit",
+                    "required",
+                    stringResource(
+                        Res.string.alert_prop_content_desc,
+                    ),
                 ),
             ),
         )

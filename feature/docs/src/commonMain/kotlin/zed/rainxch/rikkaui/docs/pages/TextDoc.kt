@@ -10,6 +10,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
@@ -30,13 +33,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun TextDoc() {
     ComponentPageHeader(
-        name = "Text",
-        description = "A typography component that renders text with "
-            + "theme-aware styles and heading semantics.",
+        name = stringResource(Res.string.component_text_name),
+        description = stringResource(Res.string.text_page_desc),
     )
 
     // ─── Variants ───────────────────────────────────────────
-    DocSection("Variants") {
+    DocSection(stringResource(Res.string.section_variants)) {
         var selected by remember { mutableStateOf("P") }
 
         VariantSelector(
@@ -64,38 +66,38 @@ fun TextDoc() {
 
         DemoBox {
             Text(
-                text = "The quick brown fox jumps over the lazy dog",
+                text = stringResource(Res.string.text_demo_quick_fox),
                 variant = variant,
             )
         }
     }
 
     // ─── All Variants Preview ───────────────────────────────
-    DocSection("All Variants") {
+    DocSection(stringResource(Res.string.text_section_all_variants)) {
         DemoBox {
             Column(
                 verticalArrangement = Arrangement.spacedBy(
                     RikkaTheme.spacing.sm,
                 ),
             ) {
-                Text("Heading 1", variant = TextVariant.H1)
-                Text("Heading 2", variant = TextVariant.H2)
-                Text("Heading 3", variant = TextVariant.H3)
-                Text("Heading 4", variant = TextVariant.H4)
-                Text("Paragraph text", variant = TextVariant.P)
-                Text("Lead text for introductions", variant = TextVariant.Lead)
-                Text("Large text", variant = TextVariant.Large)
-                Text("Small text", variant = TextVariant.Small)
-                Text("Muted text for secondary info", variant = TextVariant.Muted)
+                Text(stringResource(Res.string.text_demo_heading_1), variant = TextVariant.H1)
+                Text(stringResource(Res.string.text_demo_heading_2), variant = TextVariant.H2)
+                Text(stringResource(Res.string.text_demo_heading_3), variant = TextVariant.H3)
+                Text(stringResource(Res.string.text_demo_heading_4), variant = TextVariant.H4)
+                Text(stringResource(Res.string.text_demo_paragraph), variant = TextVariant.P)
+                Text(stringResource(Res.string.text_demo_lead), variant = TextVariant.Lead)
+                Text(stringResource(Res.string.text_demo_large), variant = TextVariant.Large)
+                Text(stringResource(Res.string.text_demo_small), variant = TextVariant.Small)
+                Text(stringResource(Res.string.text_demo_muted), variant = TextVariant.Muted)
             }
         }
     }
 
     // ─── Selectable Text ────────────────────────────────────
-    DocSection("Selectable Text") {
+    DocSection(stringResource(Res.string.text_section_selectable)) {
         DemoBox {
             Text(
-                text = "This text can be selected and copied.",
+                text = stringResource(Res.string.text_demo_selectable),
                 variant = TextVariant.P,
                 selectable = true,
             )
@@ -103,7 +105,7 @@ fun TextDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 Text("Hello world")
@@ -116,49 +118,48 @@ Text("Selectable", selectable = true)
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "text", "String", "required",
-                    "The text content to display.",
+                    stringResource(Res.string.text_prop_text_desc),
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier for layout and decoration.",
+                    stringResource(Res.string.text_prop_modifier_desc),
                 ),
                 PropInfo(
                     "variant", "TextVariant", "P",
-                    "Typography variant: H1, H2, H3, H4, P, "
-                        + "Lead, Large, Small, Muted.",
+                    stringResource(Res.string.text_prop_variant_desc),
                 ),
                 PropInfo(
                     "color", "Color", "Unspecified",
-                    "Override color. Uses variant default when unspecified.",
+                    stringResource(Res.string.text_prop_color_desc),
                 ),
                 PropInfo(
                     "textAlign", "TextAlign?", "null",
-                    "Text alignment within the composable.",
+                    stringResource(Res.string.text_prop_text_align_desc),
                 ),
                 PropInfo(
                     "overflow", "TextOverflow", "Clip",
-                    "How to handle text overflow.",
+                    stringResource(Res.string.text_prop_overflow_desc),
                 ),
                 PropInfo(
                     "maxLines", "Int", "Int.MAX_VALUE",
-                    "Maximum number of lines to display.",
+                    stringResource(Res.string.text_prop_max_lines_desc),
                 ),
                 PropInfo(
                     "minLines", "Int", "1",
-                    "Minimum number of lines to occupy.",
+                    stringResource(Res.string.text_prop_min_lines_desc),
                 ),
                 PropInfo(
                     "selectable", "Boolean", "false",
-                    "When true, wraps text in a SelectionContainer.",
+                    stringResource(Res.string.text_prop_selectable_desc),
                 ),
                 PropInfo(
                     "style", "TextStyle", "TextStyle.Default",
-                    "Override style merged on top of variant style.",
+                    stringResource(Res.string.text_prop_style_desc),
                 ),
             ),
         )

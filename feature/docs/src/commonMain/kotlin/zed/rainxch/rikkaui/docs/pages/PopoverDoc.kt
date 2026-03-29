@@ -9,6 +9,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.popover.Popover
@@ -33,13 +36,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun PopoverDoc() {
     ComponentPageHeader(
-        name = "Popover",
-        description = "A click-triggered floating card anchored to a "
-            + "trigger element. Dismisses on outside click.",
+        name = stringResource(Res.string.component_popover_name),
+        description = stringResource(Res.string.popover_page_desc),
     )
 
     // ─── Animation Variants ─────────────────────────────────
-    DocSection("Animations") {
+    DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("FadeExpand") }
         var open by remember { mutableStateOf(false) }
 
@@ -63,14 +65,20 @@ fun PopoverDoc() {
                 onDismiss = { open = false },
                 animation = animation,
                 trigger = {
-                    Button("Open Popover", onClick = { open = !open })
+                    Button(
+                        stringResource(Res.string.popover_demo_open),
+                        onClick = { open = !open },
+                    )
                 },
             ) {
                 Column {
-                    Text("Popover Content", variant = TextVariant.Large)
+                    Text(
+                        stringResource(Res.string.popover_demo_content_title),
+                        variant = TextVariant.Large,
+                    )
                     Spacer(Modifier.height(RikkaTheme.spacing.xs))
                     Text(
-                        "Animation: $selectedAnim",
+                        stringResource(Res.string.popover_demo_animation_label, selectedAnim),
                         variant = TextVariant.Muted,
                     )
                 }
@@ -79,7 +87,7 @@ fun PopoverDoc() {
     }
 
     // ─── Placements ─────────────────────────────────────────
-    DocSection("Placements") {
+    DocSection(stringResource(Res.string.section_placements)) {
         var selectedPlacement by remember {
             mutableStateOf("BottomStart")
         }
@@ -112,13 +120,13 @@ fun PopoverDoc() {
                 placement = placement,
                 trigger = {
                     Button(
-                        "Placement: $selectedPlacement",
+                        stringResource(Res.string.popover_demo_placement_label, selectedPlacement),
                         onClick = { open = !open },
                     )
                 },
             ) {
                 Text(
-                    "Placed at $selectedPlacement",
+                    stringResource(Res.string.popover_demo_placed_at, selectedPlacement),
                     variant = TextVariant.P,
                 )
             }
@@ -126,7 +134,7 @@ fun PopoverDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 var open by remember { mutableStateOf(false) }
@@ -147,40 +155,40 @@ Popover(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "expanded", "Boolean", "required",
-                    "Whether the popover popup is visible.",
+                    stringResource(Res.string.popover_prop_expanded_desc),
                 ),
                 PropInfo(
                     "onDismiss", "() -> Unit", "required",
-                    "Called when clicking outside to dismiss.",
+                    stringResource(Res.string.popover_prop_on_dismiss_desc),
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier applied to the trigger wrapper.",
+                    stringResource(Res.string.popover_prop_modifier_desc),
                 ),
                 PropInfo(
                     "animation", "PopoverAnimation", "FadeExpand",
-                    "Animation style: FadeExpand, Fade, None.",
+                    stringResource(Res.string.popover_prop_animation_desc),
                 ),
                 PropInfo(
                     "placement", "PopoverPlacement", "BottomStart",
-                    "Popup position relative to trigger.",
+                    stringResource(Res.string.popover_prop_placement_desc),
                 ),
                 PropInfo(
                     "maxWidth", "Dp", "360.dp",
-                    "Maximum width of the popup card.",
+                    stringResource(Res.string.popover_prop_max_width_desc),
                 ),
                 PropInfo(
                     "trigger", "() -> Unit", "required",
-                    "The composable that anchors the popover.",
+                    stringResource(Res.string.popover_prop_trigger_desc),
                 ),
                 PropInfo(
                     "content", "() -> Unit", "required",
-                    "Content displayed inside the floating card.",
+                    stringResource(Res.string.popover_prop_content_desc),
                 ),
             ),
         )

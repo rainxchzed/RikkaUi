@@ -14,6 +14,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.collapsible.Collapsible
 import zed.rainxch.rikkaui.components.ui.collapsible.CollapsibleAnimation
@@ -40,14 +43,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun CollapsibleDoc() {
     ComponentPageHeader(
-        name = "Collapsible",
-        description = "A primitive expand/collapse container. Unlike "
-            + "Accordion, it has no built-in header \u2014 you compose "
-            + "the trigger and content yourself.",
+        name = stringResource(Res.string.component_collapsible_name),
+        description = stringResource(Res.string.collapsible_page_desc),
     )
 
     // ─── Controlled Usage ───────────────────────────────────
-    DocSection("Controlled Usage") {
+    DocSection(stringResource(Res.string.collapsible_section_controlled)) {
         DemoBox {
             var open by remember { mutableStateOf(false) }
 
@@ -69,10 +70,13 @@ fun CollapsibleDoc() {
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         Text(
-                            "3 starred repositories",
+                            stringResource(Res.string.collapsible_demo_starred_repos),
                             variant = TextVariant.P,
                         )
-                        Icon(RikkaIcons.ChevronDown, "Toggle")
+                        Icon(
+                            RikkaIcons.ChevronDown,
+                            stringResource(Res.string.collapsible_demo_toggle),
+                        )
                     }
                 }
 
@@ -104,7 +108,7 @@ fun CollapsibleDoc() {
     }
 
     // ─── DSL Builder ────────────────────────────────────────
-    DocSection("DSL Builder") {
+    DocSection(stringResource(Res.string.collapsible_section_dsl)) {
         DemoBox {
             Collapsible(
                 modifier = Modifier.fillMaxWidth(),
@@ -121,10 +125,13 @@ fun CollapsibleDoc() {
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         Text(
-                            "Click to expand (DSL)",
+                            stringResource(Res.string.collapsible_demo_expand_dsl),
                             variant = TextVariant.P,
                         )
-                        Icon(RikkaIcons.ChevronDown, "Toggle")
+                        Icon(
+                            RikkaIcons.ChevronDown,
+                            stringResource(Res.string.collapsible_demo_toggle),
+                        )
                     }
                 }
                 content {
@@ -134,8 +141,7 @@ fun CollapsibleDoc() {
                         ),
                     ) {
                         Text(
-                            "This collapsible uses the DSL builder "
-                                + "with internally-managed state.",
+                            stringResource(Res.string.collapsible_demo_dsl_body),
                             variant = TextVariant.Muted,
                         )
                     }
@@ -145,7 +151,7 @@ fun CollapsibleDoc() {
     }
 
     // ─── Animation Styles ───────────────────────────────────
-    DocSection("Animation Styles") {
+    DocSection(stringResource(Res.string.collapsible_section_animation_styles)) {
         var selectedAnim by remember { mutableStateOf("Spring") }
 
         VariantSelector(
@@ -182,7 +188,10 @@ fun CollapsibleDoc() {
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
-                            "Animation: $selectedAnim",
+                            stringResource(
+                                Res.string.collapsible_demo_animation_title,
+                                selectedAnim,
+                            ),
                             variant = TextVariant.P,
                         )
                     }
@@ -198,8 +207,10 @@ fun CollapsibleDoc() {
                         ),
                     ) {
                         Text(
-                            "Toggle to see the "
-                                + "$selectedAnim animation.",
+                            stringResource(
+                                Res.string.collapsible_demo_animation_body,
+                                selectedAnim,
+                            ),
                             variant = TextVariant.Muted,
                         )
                     }
@@ -209,7 +220,7 @@ fun CollapsibleDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 // Controlled usage
@@ -252,8 +263,11 @@ Collapsible(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
-        Text("Collapsible (controlled)", variant = TextVariant.H4)
+    DocSection(stringResource(Res.string.section_api_reference)) {
+        Text(
+            stringResource(Res.string.collapsible_subsection_controlled),
+            variant = TextVariant.H4,
+        )
 
         Spacer(Modifier.height(RikkaTheme.spacing.sm))
 
@@ -261,28 +275,30 @@ Collapsible(
             listOf(
                 PropInfo(
                     "open", "Boolean", "required",
-                    "Whether the content is expanded.",
+                    stringResource(Res.string.collapsible_prop_open_desc),
                 ),
                 PropInfo(
                     "onOpenChange", "(Boolean) -> Unit",
                     "required",
-                    "Called when expanded state changes.",
+                    stringResource(Res.string.collapsible_prop_on_open_change_desc),
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier applied to the container.",
+                    stringResource(Res.string.collapsible_prop_modifier_desc),
                 ),
                 PropInfo(
                     "content", "() -> Unit", "required",
-                    "Builder with CollapsibleTrigger "
-                        + "+ CollapsibleContent.",
+                    stringResource(Res.string.collapsible_prop_content_desc),
                 ),
             ),
         )
 
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
-        Text("CollapsibleTrigger", variant = TextVariant.H4)
+        Text(
+            stringResource(Res.string.collapsible_subsection_trigger),
+            variant = TextVariant.H4,
+        )
 
         Spacer(Modifier.height(RikkaTheme.spacing.sm))
 
@@ -290,32 +306,34 @@ Collapsible(
             listOf(
                 PropInfo(
                     "onClick", "() -> Unit", "required",
-                    "Called when the trigger is clicked.",
+                    stringResource(Res.string.collapsible_prop_trigger_onclick_desc),
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier applied to the trigger.",
+                    stringResource(Res.string.collapsible_prop_trigger_modifier_desc),
                 ),
                 PropInfo(
                     "label", "String",
                     "\"Toggle section\"",
-                    "Accessibility content description.",
+                    stringResource(Res.string.collapsible_prop_trigger_label_desc),
                 ),
                 PropInfo(
                     "expanded", "Boolean?", "null",
-                    "Current state for a11y "
-                        + "stateDescription.",
+                    stringResource(Res.string.collapsible_prop_trigger_expanded_desc),
                 ),
                 PropInfo(
                     "content", "() -> Unit", "required",
-                    "Composable inside the trigger.",
+                    stringResource(Res.string.collapsible_prop_trigger_content_desc),
                 ),
             ),
         )
 
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
-        Text("CollapsibleContent", variant = TextVariant.H4)
+        Text(
+            stringResource(Res.string.collapsible_subsection_content),
+            variant = TextVariant.H4,
+        )
 
         Spacer(Modifier.height(RikkaTheme.spacing.sm))
 
@@ -323,20 +341,20 @@ Collapsible(
             listOf(
                 PropInfo(
                     "open", "Boolean", "required",
-                    "Whether the content is visible.",
+                    stringResource(Res.string.collapsible_prop_content_open_desc),
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier applied to the wrapper.",
+                    stringResource(Res.string.collapsible_prop_content_modifier_desc),
                 ),
                 PropInfo(
                     "animation", "CollapsibleAnimation",
                     "Spring",
-                    "Animation style: Spring, Tween, None.",
+                    stringResource(Res.string.collapsible_prop_content_animation_desc),
                 ),
                 PropInfo(
                     "content", "() -> Unit", "required",
-                    "Composable content to show/hide.",
+                    stringResource(Res.string.collapsible_prop_content_content_desc),
                 ),
             ),
         )

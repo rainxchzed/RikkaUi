@@ -13,6 +13,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
@@ -41,12 +44,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun CardDoc() {
     ComponentPageHeader(
-        name = "Card",
-        description = "A container that groups related content with visual separation.",
+        name = stringResource(Res.string.component_card_name),
+        description = stringResource(Res.string.card_page_desc),
     )
 
     // ─── Variants ───────────────────────────────────────────
-    DocSection("Variants") {
+    DocSection(stringResource(Res.string.section_variants)) {
         var selectedVariant by remember { mutableStateOf("Default") }
 
         VariantSelector(
@@ -66,15 +69,21 @@ fun CardDoc() {
         DemoBox {
             Card(variant = variant) {
                 CardHeader {
-                    Text("Card Title", variant = TextVariant.H4)
                     Text(
-                        "Card description goes here.",
+                        stringResource(Res.string.card_demo_title),
+                        variant = TextVariant.H4,
+                    )
+                    Text(
+                        stringResource(Res.string.card_demo_description),
                         variant = TextVariant.Muted,
                     )
                 }
                 CardContent {
                     Text(
-                        "This is the $selectedVariant variant.",
+                        stringResource(
+                            Res.string.card_demo_variant_text,
+                            selectedVariant,
+                        ),
                         variant = TextVariant.P,
                     )
                 }
@@ -83,20 +92,22 @@ fun CardDoc() {
     }
 
     // ─── Structured Sections ────────────────────────────────
-    DocSection("Structured Sections") {
+    DocSection(stringResource(Res.string.card_section_structured)) {
         DemoBox {
             Card {
                 CardHeader {
-                    Text("Project Settings", variant = TextVariant.H4)
                     Text(
-                        "Manage your project configuration.",
+                        stringResource(Res.string.card_demo_project_settings),
+                        variant = TextVariant.H4,
+                    )
+                    Text(
+                        stringResource(Res.string.card_demo_manage_config),
                         variant = TextVariant.Muted,
                     )
                 }
                 CardContent {
                     Text(
-                        "Your project is using the default theme "
-                            + "with Zinc palette and Blue accent.",
+                        stringResource(Res.string.card_demo_project_theme),
                         variant = TextVariant.P,
                     )
                 }
@@ -109,9 +120,17 @@ fun CardDoc() {
                         Button(
                             onClick = {},
                             variant = ButtonVariant.Outline,
-                        ) { color -> Text("Cancel", color = color) }
+                        ) { color ->
+                            Text(
+                                stringResource(Res.string.card_demo_cancel),
+                                color = color,
+                            )
+                        }
                         Button(onClick = {}) { color ->
-                            Text("Save", color = color)
+                            Text(
+                                stringResource(Res.string.card_demo_save),
+                                color = color,
+                            )
                         }
                     }
                 }
@@ -120,7 +139,7 @@ fun CardDoc() {
     }
 
     // ─── Clickable with Animations ──────────────────────────
-    DocSection("Clickable with Animations") {
+    DocSection(stringResource(Res.string.card_section_clickable)) {
         var selectedAnim by remember { mutableStateOf("Hover") }
 
         VariantSelector(
@@ -148,9 +167,15 @@ fun CardDoc() {
                     animation = animation,
                     label = "Interactive card",
                 ) {
-                    Text("Click or hover me", variant = TextVariant.H4)
                     Text(
-                        "Animation: $selectedAnim",
+                        stringResource(Res.string.card_demo_click_hover),
+                        variant = TextVariant.H4,
+                    )
+                    Text(
+                        stringResource(
+                            Res.string.card_demo_animation_label,
+                            selectedAnim,
+                        ),
                         variant = TextVariant.Muted,
                     )
                 }
@@ -161,9 +186,12 @@ fun CardDoc() {
                     elevation = 2.dp,
                     label = "Elevated interactive card",
                 ) {
-                    Text("With custom elevation", variant = TextVariant.H4)
                     Text(
-                        "elevation = 2.dp",
+                        stringResource(Res.string.card_demo_custom_elevation),
+                        variant = TextVariant.H4,
+                    )
+                    Text(
+                        stringResource(Res.string.card_demo_elevation_value),
                         variant = TextVariant.Muted,
                     )
                 }
@@ -172,7 +200,7 @@ fun CardDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 Card {
@@ -201,36 +229,36 @@ Card(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier for layout and decoration.",
+                    stringResource(Res.string.card_prop_modifier_desc),
                 ),
                 PropInfo(
                     "variant", "CardVariant", "Default",
-                    "Visual variant: Default, Elevated, Ghost.",
+                    stringResource(Res.string.card_prop_variant_desc),
                 ),
                 PropInfo(
                     "onClick", "(() -> Unit)?", "null",
-                    "Click handler. When non-null the card is clickable.",
+                    stringResource(Res.string.card_prop_onclick_desc),
                 ),
                 PropInfo(
                     "animation", "CardAnimation", "Hover",
-                    "Interaction animation: Hover, Press, None.",
+                    stringResource(Res.string.card_prop_animation_desc),
                 ),
                 PropInfo(
                     "elevation", "Dp?", "null",
-                    "Custom shadow elevation. Overrides variant default.",
+                    stringResource(Res.string.card_prop_elevation_desc),
                 ),
                 PropInfo(
                     "label", "String", "\"\"",
-                    "Accessibility label for screen readers.",
+                    stringResource(Res.string.card_prop_label_desc),
                 ),
                 PropInfo(
                     "content", "ColumnScope.() -> Unit", "required",
-                    "Card content. Use CardHeader/CardContent/CardFooter.",
+                    stringResource(Res.string.card_prop_content_desc),
                 ),
             ),
         )

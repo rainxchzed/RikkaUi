@@ -8,6 +8,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.pagination.Pagination
 import zed.rainxch.rikkaui.components.ui.pagination.PaginationAnimation
@@ -29,13 +32,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun PaginationDoc() {
     ComponentPageHeader(
-        name = "Pagination",
-        description = "A smart page navigation component with "
-            + "automatic ellipsis and Previous/Next buttons.",
+        name = stringResource(Res.string.component_pagination_name),
+        description = stringResource(Res.string.pagination_page_desc),
     )
 
     // ─── Animation Variants ─────────────────────────────────
-    DocSection("Animations") {
+    DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("Scale") }
         var currentPage by remember { mutableStateOf(1) }
 
@@ -64,7 +66,7 @@ fun PaginationDoc() {
     }
 
     // ─── Button Sizes ───────────────────────────────────────
-    DocSection("Sizes") {
+    DocSection(stringResource(Res.string.section_sizes)) {
         var selectedSize by remember { mutableStateOf("Default") }
         var currentPage by remember { mutableStateOf(1) }
 
@@ -93,7 +95,7 @@ fun PaginationDoc() {
     }
 
     // ─── Few Pages ──────────────────────────────────────────
-    DocSection("Few Pages (No Ellipsis)") {
+    DocSection(stringResource(Res.string.pagination_section_few_pages)) {
         var currentPage by remember { mutableStateOf(1) }
 
         DemoBox {
@@ -106,7 +108,7 @@ fun PaginationDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 var currentPage by remember { mutableStateOf(1) }
@@ -123,44 +125,44 @@ Pagination(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "currentPage", "Int", "required",
-                    "The currently active page (1-indexed).",
+                    stringResource(Res.string.pagination_prop_current_page_desc),
                 ),
                 PropInfo(
                     "totalPages", "Int", "required",
-                    "Total number of pages.",
+                    stringResource(Res.string.pagination_prop_total_pages_desc),
                 ),
                 PropInfo(
                     "onPageChange", "(Int) -> Unit", "required",
-                    "Called when a different page is selected.",
+                    stringResource(Res.string.pagination_prop_on_page_change_desc),
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier for layout and decoration.",
+                    stringResource(Res.string.pagination_prop_modifier_desc),
                 ),
                 PropInfo(
                     "maxVisiblePages", "Int", "5",
-                    "Max page buttons visible at once.",
+                    stringResource(Res.string.pagination_prop_max_visible_desc),
                 ),
                 PropInfo(
                     "animation", "PaginationAnimation", "Scale",
-                    "Active page animation: Scale, Fade, None.",
+                    stringResource(Res.string.pagination_prop_animation_desc),
                 ),
                 PropInfo(
                     "buttonSize", "PaginationSize", "Default",
-                    "Button size: Small (28dp), Default (36dp), Large (44dp).",
+                    stringResource(Res.string.pagination_prop_button_size_desc),
                 ),
                 PropInfo(
                     "previousContent", "((Color) -> Unit)?", "null",
-                    "Custom content for the previous button.",
+                    stringResource(Res.string.pagination_prop_previous_desc),
                 ),
                 PropInfo(
                     "nextContent", "((Color) -> Unit)?", "null",
-                    "Custom content for the next button.",
+                    stringResource(Res.string.pagination_prop_next_desc),
                 ),
             ),
         )

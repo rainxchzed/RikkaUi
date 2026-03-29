@@ -6,6 +6,33 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.install_android_body
+import rikkaui.feature.docs.generated.resources.install_android_note
+import rikkaui.feature.docs.generated.resources.install_copy_paste_body
+import rikkaui.feature.docs.generated.resources.install_desc
+import rikkaui.feature.docs.generated.resources.install_kmp_body
+import rikkaui.feature.docs.generated.resources.install_kmp_note
+import rikkaui.feature.docs.generated.resources.install_module_components_desc
+import rikkaui.feature.docs.generated.resources.install_module_foundation_desc
+import rikkaui.feature.docs.generated.resources.install_modules_body
+import rikkaui.feature.docs.generated.resources.install_req_compose_desc
+import rikkaui.feature.docs.generated.resources.install_req_kotlin_desc
+import rikkaui.feature.docs.generated.resources.install_req_material3_desc
+import rikkaui.feature.docs.generated.resources.install_req_minsdk_desc
+import rikkaui.feature.docs.generated.resources.install_section_android
+import rikkaui.feature.docs.generated.resources.install_section_copy_paste
+import rikkaui.feature.docs.generated.resources.install_section_kmp
+import rikkaui.feature.docs.generated.resources.install_section_modules
+import rikkaui.feature.docs.generated.resources.install_section_requirements
+import rikkaui.feature.docs.generated.resources.install_section_verify
+import rikkaui.feature.docs.generated.resources.install_step_1
+import rikkaui.feature.docs.generated.resources.install_step_2
+import rikkaui.feature.docs.generated.resources.install_step_3
+import rikkaui.feature.docs.generated.resources.install_step_4
+import rikkaui.feature.docs.generated.resources.install_title
+import rikkaui.feature.docs.generated.resources.install_verify_body
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
@@ -24,19 +51,17 @@ import zed.rainxch.rikkaui.docs.components.PropsTable
 @Composable
 fun InstallationDoc() {
     ComponentPageHeader(
-        name = "Installation",
-        description =
-            "Add RikkaUI to your Compose Multiplatform " +
-                "or native Android project.",
+        name = stringResource(Res.string.install_title),
+        description = stringResource(Res.string.install_desc),
     )
 
-    DocSection("Modules") {
+    DocSection(
+        stringResource(Res.string.install_section_modules),
+    ) {
         Text(
-            text =
-                "RikkaUI is split into two modules. " +
-                    "You only need to depend on " +
-                    ":components \u2014 it transitively " +
-                    "includes :foundation.",
+            text = stringResource(
+                Res.string.install_modules_body,
+            ),
             variant = TextVariant.P,
         )
 
@@ -49,29 +74,27 @@ fun InstallationDoc() {
                         name = ":foundation",
                         type = "Theme System",
                         default = "\u2014",
-                        description =
-                            "Colors, typography, spacing, " +
-                                "shapes, motion tokens. " +
-                                "RikkaTheme provider.",
+                        description = stringResource(
+                            Res.string.install_module_foundation_desc,
+                        ),
                     ),
                     PropInfo(
                         name = ":components",
                         type = "UI Components",
                         default = "\u2014",
-                        description =
-                            "41 styled components built on " +
-                                "compose.foundation. " +
-                                "Depends on :foundation.",
+                        description = stringResource(
+                            Res.string.install_module_components_desc,
+                        ),
                     ),
                 ),
         )
     }
 
-    DocSection("Compose Multiplatform (KMP)") {
+    DocSection(
+        stringResource(Res.string.install_section_kmp),
+    ) {
         Text(
-            text =
-                "For KMP projects targeting Android, " +
-                    "iOS, Desktop, and/or Web:",
+            text = stringResource(Res.string.install_kmp_body),
             variant = TextVariant.P,
         )
 
@@ -100,23 +123,18 @@ kotlin {
         Spacer(Modifier.height(RikkaTheme.spacing.sm))
 
         Text(
-            text =
-                "The KMP Gradle plugin automatically " +
-                    "resolves the correct platform " +
-                    "artifact for each target " +
-                    "(Android, iOS, JVM, WasmJs).",
+            text = stringResource(Res.string.install_kmp_note),
             variant = TextVariant.Muted,
         )
     }
 
-    DocSection("Native Android (Jetpack Compose)") {
+    DocSection(
+        stringResource(Res.string.install_section_android),
+    ) {
         Text(
-            text =
-                "RikkaUI works in standard Android " +
-                    "projects that use Jetpack Compose. " +
-                    "No KMP setup required \u2014 Gradle " +
-                    "resolves the Android artifact " +
-                    "automatically.",
+            text = stringResource(
+                Res.string.install_android_body,
+            ),
             variant = TextVariant.P,
         )
 
@@ -136,25 +154,20 @@ dependencies {
         Spacer(Modifier.height(RikkaTheme.spacing.sm))
 
         Text(
-            text =
-                "The API is identical across all " +
-                    "platforms. Components, theme tokens, " +
-                    "and animations work the same way " +
-                    "whether you\u2019re targeting Android " +
-                    "only or going multiplatform.",
+            text = stringResource(
+                Res.string.install_android_note,
+            ),
             variant = TextVariant.Muted,
         )
     }
 
-    DocSection("Copy-Paste (No Dependency)") {
+    DocSection(
+        stringResource(Res.string.install_section_copy_paste),
+    ) {
         Text(
-            text =
-                "Like shadcn/ui, you can also copy " +
-                    "component source files directly " +
-                    "into your project. Each component " +
-                    "is self-contained and depends only " +
-                    "on compose.foundation and the " +
-                    "RikkaUI theme tokens.",
+            text = stringResource(
+                Res.string.install_copy_paste_body,
+            ),
             variant = TextVariant.P,
         )
 
@@ -166,32 +179,34 @@ dependencies {
         ) {
             StepItem(
                 step = "1",
-                text =
-                    "Copy the theme files from " +
-                        ":foundation into your project.",
+                text = stringResource(
+                    Res.string.install_step_1,
+                ),
             )
             StepItem(
                 step = "2",
-                text =
-                    "Copy the component files you need " +
-                        "from :components.",
+                text = stringResource(
+                    Res.string.install_step_2,
+                ),
             )
             StepItem(
                 step = "3",
-                text =
-                    "Update package names to match " +
-                        "your project structure.",
+                text = stringResource(
+                    Res.string.install_step_3,
+                ),
             )
             StepItem(
                 step = "4",
-                text =
-                    "Customize colors, typography, " +
-                        "and spacing to your brand.",
+                text = stringResource(
+                    Res.string.install_step_4,
+                ),
             )
         }
     }
 
-    DocSection("Requirements") {
+    DocSection(
+        stringResource(Res.string.install_section_requirements),
+    ) {
         PropsTable(
             props =
                 listOf(
@@ -199,43 +214,45 @@ dependencies {
                         name = "Kotlin",
                         type = "2.0+",
                         default = "\u2014",
-                        description =
-                            "Required for Compose Compiler " +
-                                "plugin.",
+                        description = stringResource(
+                            Res.string.install_req_kotlin_desc,
+                        ),
                     ),
                     PropInfo(
                         name = "Compose",
                         type = "1.7+",
                         default = "\u2014",
-                        description =
-                            "Compose Multiplatform " +
-                                "or Jetpack Compose.",
+                        description = stringResource(
+                            Res.string.install_req_compose_desc,
+                        ),
                     ),
                     PropInfo(
                         name = "Material3",
                         type = "Not needed",
                         default = "\u2014",
-                        description =
-                            "RikkaUI has zero Material3 " +
-                                "dependency. Uses " +
-                                "compose.foundation only.",
+                        description = stringResource(
+                            Res.string.install_req_material3_desc,
+                        ),
                     ),
                     PropInfo(
                         name = "minSdk",
                         type = "24 (Android)",
                         default = "\u2014",
-                        description =
-                            "Android minimum SDK version.",
+                        description = stringResource(
+                            Res.string.install_req_minsdk_desc,
+                        ),
                     ),
                 ),
         )
     }
 
-    DocSection("Verify Installation") {
+    DocSection(
+        stringResource(Res.string.install_section_verify),
+    ) {
         Text(
-            text =
-                "After adding the dependency, verify " +
-                    "it works with a minimal example:",
+            text = stringResource(
+                Res.string.install_verify_body,
+            ),
             variant = TextVariant.P,
         )
 

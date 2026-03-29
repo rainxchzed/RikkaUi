@@ -14,6 +14,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.skeleton.Skeleton
 import zed.rainxch.rikkaui.components.ui.skeleton.SkeletonAnimation
@@ -34,13 +37,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun SkeletonDoc() {
     ComponentPageHeader(
-        name = "Skeleton",
-        description = "An animated loading placeholder that indicates "
-            + "content is being loaded.",
+        name = stringResource(Res.string.component_skeleton_name),
+        description = stringResource(Res.string.skeleton_page_desc),
     )
 
     // ─── Animation Modes ────────────────────────────────────
-    DocSection("Animation Modes") {
+    DocSection(stringResource(Res.string.skeleton_section_animation_modes)) {
         var selectedAnim by remember { mutableStateOf("Pulse") }
 
         VariantSelector(
@@ -80,7 +82,7 @@ fun SkeletonDoc() {
     }
 
     // ─── Card Placeholder ───────────────────────────────────
-    DocSection("Card Placeholder") {
+    DocSection(stringResource(Res.string.skeleton_section_card_placeholder)) {
         DemoBox {
             Column(
                 verticalArrangement = Arrangement.spacedBy(
@@ -122,7 +124,7 @@ fun SkeletonDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 // Text line placeholder
@@ -146,20 +148,20 @@ Skeleton(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier for layout. Set size via Modifier.size/height.",
+                    stringResource(Res.string.skeleton_prop_modifier_desc),
                 ),
                 PropInfo(
                     "animation", "SkeletonAnimation", "Pulse",
-                    "Animation style: Pulse, Shimmer, None.",
+                    stringResource(Res.string.skeleton_prop_animation_desc),
                 ),
                 PropInfo(
                     "shape", "Shape", "RikkaTheme.shapes.md",
-                    "Clip shape. Use shapes.full for circular.",
+                    stringResource(Res.string.skeleton_prop_shape_desc),
                 ),
             ),
         )

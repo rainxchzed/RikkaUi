@@ -10,6 +10,24 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.badge_demo_default
+import rikkaui.feature.docs.generated.resources.badge_demo_large
+import rikkaui.feature.docs.generated.resources.badge_demo_new
+import rikkaui.feature.docs.generated.resources.badge_demo_small
+import rikkaui.feature.docs.generated.resources.badge_page_desc
+import rikkaui.feature.docs.generated.resources.badge_prop_animation_desc
+import rikkaui.feature.docs.generated.resources.badge_prop_modifier_desc
+import rikkaui.feature.docs.generated.resources.badge_prop_size_desc
+import rikkaui.feature.docs.generated.resources.badge_prop_text_desc
+import rikkaui.feature.docs.generated.resources.badge_prop_variant_desc
+import rikkaui.feature.docs.generated.resources.component_badge_name
+import rikkaui.feature.docs.generated.resources.section_animations
+import rikkaui.feature.docs.generated.resources.section_api_reference
+import rikkaui.feature.docs.generated.resources.section_sizes
+import rikkaui.feature.docs.generated.resources.section_usage
+import rikkaui.feature.docs.generated.resources.section_variants
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.badge.Badge
 import zed.rainxch.rikkaui.components.ui.badge.BadgeAnimation
@@ -23,21 +41,14 @@ import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 
-/**
- * Documentation page for the Badge component.
- *
- * Demonstrates all badge variants, sizes, and animations.
- */
 @Composable
 fun BadgeDoc() {
     ComponentPageHeader(
-        name = "Badge",
-        description = "A small status indicator or label for tags, "
-            + "counts, and notifications.",
+        name = stringResource(Res.string.component_badge_name),
+        description = stringResource(Res.string.badge_page_desc),
     )
 
-    // ─── Variants ───────────────────────────────────────────
-    DocSection("Variants") {
+    DocSection(stringResource(Res.string.section_variants)) {
         var selectedVariant by remember { mutableStateOf("Default") }
 
         VariantSelector(
@@ -62,23 +73,30 @@ fun BadgeDoc() {
         }
     }
 
-    // ─── Sizes ──────────────────────────────────────────────
-    DocSection("Sizes") {
+    DocSection(stringResource(Res.string.section_sizes)) {
         DemoBox {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(
                     RikkaTheme.spacing.sm,
                 ),
             ) {
-                Badge(text = "Small", size = BadgeSize.Sm)
-                Badge(text = "Default", size = BadgeSize.Default)
-                Badge(text = "Large", size = BadgeSize.Lg)
+                Badge(
+                    text = stringResource(Res.string.badge_demo_small),
+                    size = BadgeSize.Sm,
+                )
+                Badge(
+                    text = stringResource(Res.string.badge_demo_default),
+                    size = BadgeSize.Default,
+                )
+                Badge(
+                    text = stringResource(Res.string.badge_demo_large),
+                    size = BadgeSize.Lg,
+                )
             }
         }
     }
 
-    // ─── Animations ─────────────────────────────────────────
-    DocSection("Animations") {
+    DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("None") }
 
         VariantSelector(
@@ -102,7 +120,7 @@ fun BadgeDoc() {
                 ),
             ) {
                 Badge(
-                    text = "New",
+                    text = stringResource(Res.string.badge_demo_new),
                     variant = BadgeVariant.Default,
                     animation = animation,
                 )
@@ -115,8 +133,7 @@ fun BadgeDoc() {
         }
     }
 
-    // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 Badge("New")
@@ -134,30 +151,28 @@ Badge(
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "text", "String", "required",
-                    "The label text displayed in the badge.",
+                    stringResource(Res.string.badge_prop_text_desc),
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier for layout and decoration.",
+                    stringResource(Res.string.badge_prop_modifier_desc),
                 ),
                 PropInfo(
                     "variant", "BadgeVariant", "Default",
-                    "Visual variant: Default, Secondary, "
-                        + "Destructive, Outline.",
+                    stringResource(Res.string.badge_prop_variant_desc),
                 ),
                 PropInfo(
                     "animation", "BadgeAnimation", "None",
-                    "Entrance animation: Pulse, Scale, None.",
+                    stringResource(Res.string.badge_prop_animation_desc),
                 ),
                 PropInfo(
                     "size", "BadgeSize", "Default",
-                    "Size preset: Sm, Default, Lg.",
+                    stringResource(Res.string.badge_prop_size_desc),
                 ),
             ),
         )

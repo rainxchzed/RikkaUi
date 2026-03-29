@@ -8,6 +8,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.navigationbar.NavigationBar
@@ -30,14 +33,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun NavigationBarDoc() {
     ComponentPageHeader(
-        name = "NavigationBar",
-        description = "A bottom navigation bar for app-level "
-            + "navigation with icon + label items and an "
-            + "animated indicator pill.",
+        name = stringResource(Res.string.component_navigation_bar_name),
+        description = stringResource(Res.string.nav_bar_page_desc),
     )
 
     // ─── Animation Variants ─────────────────────────────────
-    DocSection("Animations") {
+    DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("Spring") }
         var selectedIndex by remember { mutableStateOf(0) }
 
@@ -61,21 +62,21 @@ fun NavigationBarDoc() {
                     selected = selectedIndex == 0,
                     onClick = { selectedIndex = 0 },
                     icon = RikkaIcons.User,
-                    label = "Home",
+                    label = stringResource(Res.string.nav_bar_demo_home),
                     animation = animation,
                 )
                 NavigationBarItem(
                     selected = selectedIndex == 1,
                     onClick = { selectedIndex = 1 },
                     icon = RikkaIcons.Search,
-                    label = "Search",
+                    label = stringResource(Res.string.nav_bar_demo_search),
                     animation = animation,
                 )
                 NavigationBarItem(
                     selected = selectedIndex == 2,
                     onClick = { selectedIndex = 2 },
                     icon = RikkaIcons.Settings,
-                    label = "Settings",
+                    label = stringResource(Res.string.nav_bar_demo_settings),
                     animation = animation,
                 )
             }
@@ -83,7 +84,7 @@ fun NavigationBarDoc() {
     }
 
     // ─── Four Items ─────────────────────────────────────────
-    DocSection("Four Items") {
+    DocSection(stringResource(Res.string.nav_bar_section_four_items)) {
         var selectedIndex by remember { mutableStateOf(0) }
 
         DemoBox {
@@ -92,32 +93,32 @@ fun NavigationBarDoc() {
                     selected = selectedIndex == 0,
                     onClick = { selectedIndex = 0 },
                     icon = RikkaIcons.User,
-                    label = "Home",
+                    label = stringResource(Res.string.nav_bar_demo_home),
                 )
                 NavigationBarItem(
                     selected = selectedIndex == 1,
                     onClick = { selectedIndex = 1 },
                     icon = RikkaIcons.Search,
-                    label = "Search",
+                    label = stringResource(Res.string.nav_bar_demo_search),
                 )
                 NavigationBarItem(
                     selected = selectedIndex == 2,
                     onClick = { selectedIndex = 2 },
                     icon = RikkaIcons.Heart,
-                    label = "Favorites",
+                    label = stringResource(Res.string.nav_bar_demo_favorites),
                 )
                 NavigationBarItem(
                     selected = selectedIndex == 3,
                     onClick = { selectedIndex = 3 },
                     icon = RikkaIcons.Settings,
-                    label = "Settings",
+                    label = stringResource(Res.string.nav_bar_demo_settings),
                 )
             }
         }
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 var selectedIndex by remember { mutableStateOf(0) }
@@ -142,48 +143,48 @@ NavigationBar {
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "selected", "Boolean", "required",
-                    "Whether this item is currently active.",
+                    stringResource(Res.string.nav_bar_prop_selected_desc),
                 ),
                 PropInfo(
                     "onClick", "() -> Unit", "required",
-                    "Called when the item is tapped.",
+                    stringResource(Res.string.nav_bar_prop_onclick_desc),
                 ),
                 PropInfo(
                     "icon", "ImageVector", "required",
-                    "The icon to display.",
+                    stringResource(Res.string.nav_bar_prop_icon_desc),
                 ),
                 PropInfo(
                     "label", "String", "required",
-                    "Text label displayed below the icon.",
+                    stringResource(Res.string.nav_bar_prop_label_desc),
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier for layout and decoration.",
+                    stringResource(Res.string.nav_bar_prop_modifier_desc),
                 ),
                 PropInfo(
                     "selectedIcon", "ImageVector?", "null",
-                    "Different icon for selected state.",
+                    stringResource(Res.string.nav_bar_prop_selected_icon_desc),
                 ),
                 PropInfo(
                     "enabled", "Boolean", "true",
-                    "Whether the item is interactive.",
+                    stringResource(Res.string.nav_bar_prop_enabled_desc),
                 ),
                 PropInfo(
                     "alwaysShowLabel", "Boolean", "true",
-                    "When false, label fades when not selected.",
+                    stringResource(Res.string.nav_bar_prop_always_show_label_desc),
                 ),
                 PropInfo(
                     "animation", "NavigationBarAnimation", "Spring",
-                    "Animation strategy: Spring, Tween, None.",
+                    stringResource(Res.string.nav_bar_prop_animation_desc),
                 ),
                 PropInfo(
                     "indicatorColor", "Color", "accent",
-                    "Override for the pill indicator color.",
+                    stringResource(Res.string.nav_bar_prop_indicator_color_desc),
                 ),
             ),
         )

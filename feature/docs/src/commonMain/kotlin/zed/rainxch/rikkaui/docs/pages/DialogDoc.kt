@@ -11,6 +11,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
@@ -37,13 +40,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun DialogDoc() {
     ComponentPageHeader(
-        name = "Dialog",
-        description = "A modal overlay that displays content in a "
-            + "centered card with a dismissible scrim.",
+        name = stringResource(Res.string.component_dialog_name),
+        description = stringResource(Res.string.dialog_page_desc),
     )
 
     // ─── Animation Variants ─────────────────────────────────
-    DocSection("Animations") {
+    DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("FadeScale") }
         var open by remember { mutableStateOf(false) }
 
@@ -62,7 +64,10 @@ fun DialogDoc() {
         }
 
         DemoBox {
-            Button("Open Dialog", onClick = { open = true })
+            Button(
+                stringResource(Res.string.dialog_demo_open_dialog),
+                onClick = { open = true },
+            )
 
             Dialog(
                 open = open,
@@ -70,32 +75,35 @@ fun DialogDoc() {
                 animation = animation,
             ) {
                 DialogHeader(
-                    title = "Edit Profile",
-                    description = "Make changes to your profile here.",
+                    title = stringResource(Res.string.dialog_demo_edit_profile),
+                    description = stringResource(Res.string.dialog_demo_edit_profile_desc),
                 )
                 Text(
-                    "Your name and avatar will be visible to others.",
+                    stringResource(Res.string.dialog_demo_visible_to_others),
                     variant = TextVariant.P,
                 )
                 DialogFooter {
                     Button(
-                        "Cancel",
+                        stringResource(Res.string.dialog_demo_cancel),
                         onClick = { open = false },
                         variant = ButtonVariant.Outline,
                     )
-                    Button("Save", onClick = { open = false })
+                    Button(
+                        stringResource(Res.string.dialog_demo_save),
+                        onClick = { open = false },
+                    )
                 }
             }
         }
     }
 
     // ─── Structured Sections ────────────────────────────────
-    DocSection("With Header and Footer") {
+    DocSection(stringResource(Res.string.dialog_section_header_footer)) {
         var open by remember { mutableStateOf(false) }
 
         DemoBox {
             Button(
-                "Open Confirmation",
+                stringResource(Res.string.dialog_demo_open_confirmation),
                 onClick = { open = true },
             )
 
@@ -104,17 +112,17 @@ fun DialogDoc() {
                 onDismiss = { open = false },
             ) {
                 DialogHeader(
-                    title = "Confirm Action",
-                    description = "This action cannot be undone.",
+                    title = stringResource(Res.string.dialog_demo_confirm_action),
+                    description = stringResource(Res.string.dialog_demo_cannot_undo),
                 )
                 DialogFooter {
                     Button(
-                        "Cancel",
+                        stringResource(Res.string.dialog_demo_cancel),
                         onClick = { open = false },
                         variant = ButtonVariant.Outline,
                     )
                     Button(
-                        "Confirm",
+                        stringResource(Res.string.dialog_demo_confirm),
                         onClick = { open = false },
                     )
                 }
@@ -123,29 +131,35 @@ fun DialogDoc() {
     }
 
     // ─── Simple Content ─────────────────────────────────────
-    DocSection("Simple Content") {
+    DocSection(stringResource(Res.string.dialog_section_simple)) {
         var open by remember { mutableStateOf(false) }
 
         DemoBox {
-            Button("Open Simple", onClick = { open = true })
+            Button(
+                stringResource(Res.string.dialog_demo_open_simple),
+                onClick = { open = true },
+            )
 
             Dialog(
                 open = open,
                 onDismiss = { open = false },
             ) {
                 Text(
-                    "This is a simple dialog with just text content.",
+                    stringResource(Res.string.dialog_demo_simple_text),
                     variant = TextVariant.P,
                 )
                 DialogFooter {
-                    Button("Close", onClick = { open = false })
+                    Button(
+                        stringResource(Res.string.dialog_demo_close),
+                        onClick = { open = false },
+                    )
                 }
             }
         }
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 var open by remember { mutableStateOf(false) }
@@ -176,40 +190,40 @@ Dialog(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "open", "Boolean", "required",
-                    "Whether the dialog is visible.",
+                    stringResource(Res.string.dialog_prop_open_desc),
                 ),
                 PropInfo(
                     "onDismiss", "() -> Unit", "required",
-                    "Called when the user dismisses the dialog.",
+                    stringResource(Res.string.dialog_prop_on_dismiss_desc),
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier applied to the dialog card.",
+                    stringResource(Res.string.dialog_prop_modifier_desc),
                 ),
                 PropInfo(
                     "label", "String", "\"Dialog\"",
-                    "Accessibility label for the dialog.",
+                    stringResource(Res.string.dialog_prop_label_desc),
                 ),
                 PropInfo(
                     "animation", "DialogAnimation", "FadeScale",
-                    "Enter/exit animation: FadeScale, Fade, None.",
+                    stringResource(Res.string.dialog_prop_animation_desc),
                 ),
                 PropInfo(
                     "scrimColor", "Color", "Black(0.5f)",
-                    "Color of the backdrop scrim.",
+                    stringResource(Res.string.dialog_prop_scrim_desc),
                 ),
                 PropInfo(
                     "maxWidth", "Dp", "480.dp",
-                    "Maximum width of the dialog card.",
+                    stringResource(Res.string.dialog_prop_max_width_desc),
                 ),
                 PropInfo(
                     "content", "ColumnScope.() -> Unit", "required",
-                    "Dialog content. Use DialogHeader/DialogFooter.",
+                    stringResource(Res.string.dialog_prop_content_desc),
                 ),
             ),
         )

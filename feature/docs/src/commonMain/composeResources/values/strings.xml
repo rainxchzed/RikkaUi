@@ -1,0 +1,971 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- ─── Sidebar / Navigation ─────────────────────────────── -->
+    <string name="docs_getting_started">Getting Started</string>
+    <string name="docs_components">Components</string>
+
+    <!-- ─── Categories ───────────────────────────────────────── -->
+    <string name="category_layout">Layout</string>
+    <string name="category_forms">Forms</string>
+    <string name="category_data_display">Data Display</string>
+    <string name="category_feedback">Feedback</string>
+    <string name="category_overlays">Overlays</string>
+    <string name="category_navigation">Navigation</string>
+
+    <!-- ─── Guide Page Names ─────────────────────────────────── -->
+    <string name="guide_introduction">Introduction</string>
+    <string name="guide_installation">Installation</string>
+    <string name="guide_theming">Theming</string>
+
+    <!-- ─── Props Table Headers ──────────────────────────────── -->
+    <string name="prop_header_prop">Prop</string>
+    <string name="prop_header_type">Type</string>
+    <string name="prop_header_default">Default</string>
+    <string name="prop_header_description">Description</string>
+
+    <!-- ─── Common Section Titles ────────────────────────────── -->
+    <string name="section_variants">Variants</string>
+    <string name="section_sizes">Sizes</string>
+    <string name="section_animations">Animations</string>
+    <string name="section_usage">Usage</string>
+    <string name="section_api_reference">API Reference</string>
+    <string name="section_disabled">Disabled</string>
+    <string name="section_states">States</string>
+    <string name="section_placements">Placements</string>
+
+    <!-- ─── Component Names ──────────────────────────────────── -->
+    <string name="component_card_name">Card</string>
+    <string name="component_separator_name">Separator</string>
+    <string name="component_scaffold_name">Scaffold</string>
+    <string name="component_scroll_area_name">Scroll Area</string>
+    <string name="component_accordion_name">Accordion</string>
+    <string name="component_collapsible_name">Collapsible</string>
+    <string name="component_button_name">Button</string>
+    <string name="component_input_name">Input</string>
+    <string name="component_textarea_name">Textarea</string>
+    <string name="component_select_name">Select</string>
+    <string name="component_checkbox_name">Checkbox</string>
+    <string name="component_radio_name">Radio</string>
+    <string name="component_toggle_name">Toggle</string>
+    <string name="component_slider_name">Slider</string>
+    <string name="component_label_name">Label</string>
+    <string name="component_text_name">Text</string>
+    <string name="component_badge_name">Badge</string>
+    <string name="component_avatar_name">Avatar</string>
+    <string name="component_table_name">Table</string>
+    <string name="component_kbd_name">Kbd</string>
+    <string name="component_list_name">List</string>
+    <string name="component_alert_name">Alert</string>
+    <string name="component_toast_name">Toast</string>
+    <string name="component_progress_name">Progress</string>
+    <string name="component_skeleton_name">Skeleton</string>
+    <string name="component_spinner_name">Spinner</string>
+    <string name="component_dialog_name">Dialog</string>
+    <string name="component_alert_dialog_name">Alert Dialog</string>
+    <string name="component_sheet_name">Sheet</string>
+    <string name="component_popover_name">Popover</string>
+    <string name="component_tooltip_name">Tooltip</string>
+    <string name="component_hover_card_name">Hover Card</string>
+    <string name="component_dropdown_menu_name">Dropdown Menu</string>
+    <string name="component_context_menu_name">Context Menu</string>
+    <string name="component_tabs_name">Tabs</string>
+    <string name="component_breadcrumb_name">Breadcrumb</string>
+    <string name="component_pagination_name">Pagination</string>
+    <string name="component_navigation_bar_name">Navigation Bar</string>
+    <string name="component_top_app_bar_name">Top App Bar</string>
+    <string name="component_toggle_group_name">Toggle Group</string>
+
+    <!-- ─── Component Descriptions ───────────────────────────── -->
+    <string name="component_card_desc">A container with border, shadow, and structured sections.</string>
+    <string name="component_separator_desc">A horizontal or vertical divider.</string>
+    <string name="component_scaffold_desc">Page layout with top bar, bottom bar, and FAB slots.</string>
+    <string name="component_scroll_area_desc">Custom scrollbar container for scrollable content.</string>
+    <string name="component_accordion_desc">Expandable content sections.</string>
+    <string name="component_collapsible_desc">Toggle content visibility with a trigger.</string>
+    <string name="component_button_desc">Interactive button with 6 variants, 4 sizes, and 3 animations.</string>
+    <string name="component_input_desc">Single-line text input with focus animations.</string>
+    <string name="component_textarea_desc">Multi-line text input with char count.</string>
+    <string name="component_select_desc">Dropdown select with search and animations.</string>
+    <string name="component_checkbox_desc">Animated checkmark with label.</string>
+    <string name="component_radio_desc">Radio selection control.</string>
+    <string name="component_toggle_desc">Spring-animated switch with 2 sizes.</string>
+    <string name="component_slider_desc">Draggable range input with customizable track.</string>
+    <string name="component_label_desc">Form label with required indicator.</string>
+    <string name="component_text_desc">Typography component with 9 variants.</string>
+    <string name="component_badge_desc">Small status indicator with 4 variants and 3 sizes.</string>
+    <string name="component_avatar_desc">Fallback initials with status indicator.</string>
+    <string name="component_table_desc">Data table with hover, stripe, and border styles.</string>
+    <string name="component_kbd_desc">Keyboard shortcut indicator.</string>
+    <string name="component_list_desc">Styled lists with bullets, numbers, or custom content.</string>
+    <string name="component_alert_desc">Callout for important messages.</string>
+    <string name="component_toast_desc">Temporary notification with swipe-to-dismiss.</string>
+    <string name="component_progress_desc">Animated progress bar.</string>
+    <string name="component_skeleton_desc">Pulsing loading placeholder.</string>
+    <string name="component_spinner_desc">Rotating loading indicator.</string>
+    <string name="component_dialog_desc">Modal dialog with header and footer.</string>
+    <string name="component_alert_dialog_desc">Non-dismissable confirmation dialog.</string>
+    <string name="component_sheet_desc">Slide-in panel from any edge.</string>
+    <string name="component_popover_desc">Click-triggered floating content.</string>
+    <string name="component_tooltip_desc">Hover-triggered informational popup.</string>
+    <string name="component_hover_card_desc">Rich hover-triggered preview card.</string>
+    <string name="component_dropdown_menu_desc">Action menu with items and labels.</string>
+    <string name="component_context_menu_desc">Long-press/right-click action menu.</string>
+    <string name="component_tabs_desc">Tab-based content switching.</string>
+    <string name="component_breadcrumb_desc">Navigation trail with auto-separators.</string>
+    <string name="component_pagination_desc">Page navigation with smart ranges.</string>
+    <string name="component_navigation_bar_desc">Bottom navigation with animated pill indicator.</string>
+    <string name="component_top_app_bar_desc">Header bar with title and actions.</string>
+    <string name="component_toggle_group_desc">Grouped toggle buttons.</string>
+
+    <!-- ─── Introduction Page ────────────────────────────────── -->
+    <string name="intro_title">Introduction</string>
+    <string name="intro_desc">A shadcn/ui-inspired component library and design system for Compose Multiplatform.</string>
+    <string name="intro_section_what_is">What is RikkaUI?</string>
+    <string name="intro_what_is_body">RikkaUI provides beautifully styled, copy-paste components for Jetpack Compose and Compose Multiplatform. Built entirely on compose.foundation with zero Material3 dependency.</string>
+    <string name="intro_name_meaning">The name means \"snowflake\" (\u516D\u82B1) or \"composing elements into harmony\" (\u7ACB\u82B1).</string>
+    <string name="intro_section_why">Why RikkaUI?</string>
+    <string name="intro_feature_no_material_title">No Material3 Lock-in</string>
+    <string name="intro_feature_no_material_desc">Every component is built on compose.foundation only. You get full control over styling without fighting Material3 defaults.</string>
+    <string name="intro_feature_copy_paste_title">Copy-Paste Ownership</string>
+    <string name="intro_feature_copy_paste_desc">Components are designed to be copied into your project. No dependency lock-in \u2014 you own the code.</string>
+    <string name="intro_feature_spring_title">Spring-Physics Animations</string>
+    <string name="intro_feature_spring_desc">Every interactive component has configurable animation enums (Spring, Tween, None). This is something shadcn/ui can\u2019t do.</string>
+    <string name="intro_feature_cross_platform_title">Cross-Platform</string>
+    <string name="intro_feature_cross_platform_desc">Works on Android, iOS, Desktop (JVM), and Web (Wasm). Same components, same API, everywhere.</string>
+    <string name="intro_feature_theme_title">Fully Customizable Theme</string>
+    <string name="intro_feature_theme_desc">20 semantic color tokens, 5 palettes, 7 accent colors, 5 style presets. Every token is overridable.</string>
+    <string name="intro_section_platform_support">Platform Support</string>
+    <string name="intro_badge_android">Android</string>
+    <string name="intro_badge_ios">iOS</string>
+    <string name="intro_badge_desktop">Desktop (JVM)</string>
+    <string name="intro_badge_web">Web (Wasm)</string>
+    <string name="intro_platform_body">RikkaUI works in both Compose Multiplatform (KMP) projects and native Android projects that use Jetpack Compose. No KMP setup required for Android-only projects \u2014 just add the dependency and go.</string>
+    <string name="intro_section_component_count">Component Count</string>
+    <string name="intro_stat_total_components">Total Components</string>
+    <string name="intro_stat_total_components_value">41</string>
+    <string name="intro_stat_animation_enums">Animation Enums</string>
+    <string name="intro_stat_animation_enums_value">20+</string>
+    <string name="intro_stat_style_presets">Style Presets</string>
+    <string name="intro_stat_style_presets_value">5</string>
+    <string name="intro_stat_color_palettes">Color Palettes</string>
+    <string name="intro_stat_color_palettes_value">5</string>
+    <string name="intro_stat_accent_colors">Accent Colors</string>
+    <string name="intro_stat_accent_colors_value">7</string>
+    <string name="intro_section_quick_example">Quick Example</string>
+
+    <!-- ─── Installation Page ────────────────────────────────── -->
+    <string name="install_title">Installation</string>
+    <string name="install_desc">Add RikkaUI to your Compose Multiplatform or native Android project.</string>
+    <string name="install_section_modules">Modules</string>
+    <string name="install_modules_body">RikkaUI is split into two modules. You only need to depend on :components \u2014 it transitively includes :foundation.</string>
+    <string name="install_module_foundation_desc">Colors, typography, spacing, shapes, motion tokens. RikkaTheme provider.</string>
+    <string name="install_module_components_desc">41 styled components built on compose.foundation. Depends on :foundation.</string>
+    <string name="install_section_kmp">Compose Multiplatform (KMP)</string>
+    <string name="install_kmp_body">For KMP projects targeting Android, iOS, Desktop, and/or Web:</string>
+    <string name="install_kmp_note">The KMP Gradle plugin automatically resolves the correct platform artifact for each target (Android, iOS, JVM, WasmJs).</string>
+    <string name="install_section_android">Native Android (Jetpack Compose)</string>
+    <string name="install_android_body">RikkaUI works in standard Android projects that use Jetpack Compose. No KMP setup required \u2014 Gradle resolves the Android artifact automatically.</string>
+    <string name="install_android_note">The API is identical across all platforms. Components, theme tokens, and animations work the same way whether you\u2019re targeting Android only or going multiplatform.</string>
+    <string name="install_section_copy_paste">Copy-Paste (No Dependency)</string>
+    <string name="install_copy_paste_body">Like shadcn/ui, you can also copy component source files directly into your project. Each component is self-contained and depends only on compose.foundation and the RikkaUI theme tokens.</string>
+    <string name="install_step_1">Copy the theme files from :foundation into your project.</string>
+    <string name="install_step_2">Copy the component files you need from :components.</string>
+    <string name="install_step_3">Update package names to match your project structure.</string>
+    <string name="install_step_4">Customize colors, typography, and spacing to your brand.</string>
+    <string name="install_section_requirements">Requirements</string>
+    <string name="install_req_kotlin_desc">Required for Compose Compiler plugin.</string>
+    <string name="install_req_compose_desc">Compose Multiplatform or Jetpack Compose.</string>
+    <string name="install_req_material3_desc">RikkaUI has zero Material3 dependency. Uses compose.foundation only.</string>
+    <string name="install_req_minsdk_desc">Android minimum SDK version.</string>
+    <string name="install_section_verify">Verify Installation</string>
+    <string name="install_verify_body">After adding the dependency, verify it works with a minimal example:</string>
+
+    <!-- ─── Theming Page ─────────────────────────────────────── -->
+    <string name="theming_title">Theming</string>
+    <string name="theming_desc">Customize every aspect of RikkaUI with palettes, accents, style presets, and individual token overrides.</string>
+    <string name="theming_section_quick_start">Quick Start</string>
+    <string name="theming_quick_start_body">Wrap your app in RikkaTheme. One function call gives you colors, typography, spacing, shapes, and motion tokens for all components.</string>
+    <string name="theming_section_color_palettes">Color Palettes</string>
+    <string name="theming_palettes_body">5 base palettes, each with light and dark variants. Each palette defines 20 semantic color tokens in background/foreground pairs.</string>
+    <string name="theming_palette_zinc_desc">Pure white bg (light), neutral dark bg. Clean, minimal.</string>
+    <string name="theming_palette_slate_desc">Cool blue-gray tint. Professional.</string>
+    <string name="theming_palette_stone_desc">Warm brown-gray tint. Earthy.</string>
+    <string name="theming_palette_gray_desc">True neutral gray. Balanced.</string>
+    <string name="theming_palette_neutral_desc">Slightly warm neutral. Soft.</string>
+    <string name="theming_section_accent_colors">Accent Colors</string>
+    <string name="theming_accents_body">7 accent presets override the primary, primaryForeground, and ring tokens. Layer on top of any palette to change the brand color without touching everything else.</string>
+    <string name="theming_accent_default_desc">Uses the palette\u2019s built-in primary color. No override.</string>
+    <string name="theming_accent_blue_desc">Vivid blue accent.</string>
+    <string name="theming_accent_green_desc">Fresh green accent.</string>
+    <string name="theming_accent_orange_desc">Warm orange accent.</string>
+    <string name="theming_accent_red_desc">Bold red accent.</string>
+    <string name="theming_accent_rose_desc">Soft pink accent.</string>
+    <string name="theming_accent_violet_desc">Rich purple accent.</string>
+    <string name="theming_accent_yellow_desc">Bright yellow accent.</string>
+    <string name="theming_section_style_presets">Style Presets</string>
+    <string name="theming_style_presets_body">Style presets bundle shapes, spacing, motion, and type scale into a single choice. Pass a preset to RikkaTheme to change the entire visual feel.</string>
+    <string name="theming_preset_default_desc">10dp radius, 4dp spacing, balanced motion, scale 1.0.</string>
+    <string name="theming_preset_nova_desc">4dp radius, 3dp spacing, snappy motion, scale 0.9. Sharp, dense.</string>
+    <string name="theming_preset_vega_desc">20dp radius, 5dp spacing, playful motion, scale 1.05. Rounded, bouncy.</string>
+    <string name="theming_preset_aurora_desc">14dp radius, 5dp spacing, default motion, scale 1.1. Spacious, large.</string>
+    <string name="theming_preset_nebula_desc">0dp radius, 3dp spacing, minimal motion, scale 0.85. Square, tight.</string>
+    <string name="theming_section_token_overrides">Individual Token Overrides</string>
+    <string name="theming_token_overrides_body">For full control, override individual token factories. The palette + accent overload still works alongside manual overrides.</string>
+    <string name="theming_section_color_tokens">Color Tokens Reference</string>
+    <string name="theming_color_tokens_body">Every palette provides 20 semantic color tokens. Components use these tokens instead of raw colors, so switching palettes automatically updates your entire UI.</string>
+    <string name="theming_subsection_surface_colors">Surface Colors</string>
+    <string name="theming_token_background_desc">The main page/screen background. Used for the root surface of your app.</string>
+    <string name="theming_token_foreground_desc">Default text color on the background. Used for body text, headings, and icons.</string>
+    <string name="theming_token_card_desc">Background for Card, Dialog, and Sheet surfaces. Slightly elevated from background.</string>
+    <string name="theming_token_card_foreground_desc">Text color inside cards, dialogs, and sheets.</string>
+    <string name="theming_token_popover_desc">Background for floating surfaces like Popover, Tooltip, Select dropdown, and DropdownMenu.</string>
+    <string name="theming_token_popover_foreground_desc">Text color inside floating surfaces.</string>
+    <string name="theming_subsection_interactive_colors">Interactive Colors</string>
+    <string name="theming_token_primary_desc">Your brand/accent color. Used for default Button, Toggle checked state, Progress bar, and focused inputs.</string>
+    <string name="theming_token_primary_foreground_desc">Text/icon color on primary surfaces. Must contrast with primary (e.g., white on blue).</string>
+    <string name="theming_token_secondary_desc">Background for less prominent actions. Used by Button Secondary variant and Badge Secondary.</string>
+    <string name="theming_token_secondary_foreground_desc">Text color on secondary surfaces.</string>
+    <string name="theming_token_destructive_desc">Danger/error color. Used by Button Destructive, Alert Destructive, and Badge Destructive.</string>
+    <string name="theming_token_destructive_foreground_desc">Text color on destructive surfaces.</string>
+    <string name="theming_subsection_subtle_colors">Subtle &amp; Muted Colors</string>
+    <string name="theming_token_muted_desc">Subdued background for disabled states, Skeleton placeholders, and inactive tab backgrounds.</string>
+    <string name="theming_token_muted_foreground_desc">Low-emphasis text color. Used for placeholder text, descriptions, and labels.</string>
+    <string name="theming_token_accent_desc">Subtle highlight for hover states. Used by Ghost buttons on hover and dropdown item highlights.</string>
+    <string name="theming_token_accent_foreground_desc">Text color on accent-highlighted surfaces.</string>
+    <string name="theming_subsection_border_colors">Border &amp; Focus Colors</string>
+    <string name="theming_token_border_desc">Default border for Card, Table, Separator, and dividers.</string>
+    <string name="theming_token_input_desc">Border color for Input, Textarea, Select, and other form controls in their resting state.</string>
+    <string name="theming_token_ring_desc">Focus ring color shown around interactive elements when focused. Accent overrides change this token too.</string>
+
+    <!-- ─── Button Page ──────────────────────────────────────── -->
+    <string name="button_page_desc">Triggers an action or event. Supports 6 visual variants, 4 sizes, and 3 press animation styles.</string>
+    <string name="button_demo_press_me">Press me</string>
+    <string name="button_demo_outline">Outline</string>
+    <string name="button_demo_enabled">Enabled</string>
+    <string name="button_demo_disabled">Disabled</string>
+    <string name="button_demo_loading">Loading...</string>
+    <string name="button_prop_onclick_desc">Called when the button is clicked.</string>
+    <string name="button_prop_variant_desc">Visual variant: Default, Outline, Secondary, Ghost, Destructive, Link.</string>
+    <string name="button_prop_size_desc">Size: Default, Sm, Lg, Icon.</string>
+    <string name="button_prop_animation_desc">Press animation: None, Scale, Bounce.</string>
+    <string name="button_prop_enabled_desc">Whether the button is interactive.</string>
+    <string name="button_prop_loading_desc">Shows a Spinner and disables interaction.</string>
+    <string name="button_prop_label_desc">Accessibility label for screen readers.</string>
+    <string name="button_prop_content_desc">Button content. Receives the resolved foreground Color for children.</string>
+
+    <!-- ─── Card Page ────────────────────────────────────────── -->
+    <string name="card_page_desc">A container that groups related content with visual separation.</string>
+    <string name="card_section_structured">Structured Sections</string>
+    <string name="card_section_clickable">Clickable with Animations</string>
+    <string name="card_demo_title">Card Title</string>
+    <string name="card_demo_description">Card description goes here.</string>
+    <string name="card_demo_variant_text">This is the %1$s variant.</string>
+    <string name="card_demo_project_settings">Project Settings</string>
+    <string name="card_demo_manage_config">Manage your project configuration.</string>
+    <string name="card_demo_project_theme">Your project is using the default theme with Zinc palette and Blue accent.</string>
+    <string name="card_demo_cancel">Cancel</string>
+    <string name="card_demo_save">Save</string>
+    <string name="card_demo_click_hover">Click or hover me</string>
+    <string name="card_demo_animation_label">Animation: %1$s</string>
+    <string name="card_demo_custom_elevation">With custom elevation</string>
+    <string name="card_demo_elevation_value">elevation = 2.dp</string>
+    <string name="card_prop_modifier_desc">Modifier for layout and decoration.</string>
+    <string name="card_prop_variant_desc">Visual variant: Default, Elevated, Ghost.</string>
+    <string name="card_prop_onclick_desc">Click handler. When non-null the card is clickable.</string>
+    <string name="card_prop_animation_desc">Interaction animation: Hover, Press, None.</string>
+    <string name="card_prop_elevation_desc">Custom shadow elevation. Overrides variant default.</string>
+    <string name="card_prop_label_desc">Accessibility label for screen readers.</string>
+    <string name="card_prop_content_desc">Card content. Use CardHeader/CardContent/CardFooter.</string>
+
+    <!-- ─── Accordion Page ───────────────────────────────────── -->
+    <string name="accordion_page_desc">Vertically stacked sections that expand and collapse. Use it for FAQs, settings panels, or any grouped content.</string>
+    <string name="accordion_section_basic">Basic Accordion</string>
+    <string name="accordion_section_animation_styles">Animation Styles</string>
+    <string name="accordion_section_multiple_open">Multiple Open Items</string>
+    <string name="accordion_demo_notifications">Notifications</string>
+    <string name="accordion_demo_notifications_desc">Control which alerts you receive. Enable push notifications for new messages, mentions, and activity updates.</string>
+    <string name="accordion_demo_privacy">Privacy</string>
+    <string name="accordion_demo_privacy_desc">Manage who can see your profile and activity. Choose between public, friends-only, or private visibility.</string>
+    <string name="accordion_demo_appearance">Appearance</string>
+    <string name="accordion_demo_appearance_desc">Customize your theme, font size, and color accent. Changes apply across all devices.</string>
+    <string name="accordion_demo_animation_title">Animation: %1$s</string>
+    <string name="accordion_demo_animation_body">Toggle this section to see the %1$s animation in action. Try switching between styles to compare.</string>
+    <string name="accordion_demo_general">General</string>
+    <string name="accordion_demo_general_desc">Each AccordionItem manages its own state independently, so multiple sections can stay open at the same time.</string>
+    <string name="accordion_demo_shipping">Shipping</string>
+    <string name="accordion_demo_shipping_desc">Free standard shipping on orders over $50. Express delivery available at checkout.</string>
+    <string name="accordion_demo_returns">Returns</string>
+    <string name="accordion_demo_returns_desc">30-day return policy for unused items. Contact support to start a return request.</string>
+    <string name="accordion_prop_title_desc">Header text in the clickable title row.</string>
+    <string name="accordion_prop_expanded_desc">Whether the content section is visible.</string>
+    <string name="accordion_prop_on_expanded_change_desc">Called when the user toggles the section.</string>
+    <string name="accordion_prop_modifier_desc">Modifier for layout and decoration.</string>
+    <string name="accordion_prop_animation_desc">Animation style: Spring, Tween, None.</string>
+    <string name="accordion_prop_chevron_desc">Icon for the expand indicator. Rotates 90 degrees when expanded.</string>
+    <string name="accordion_prop_content_desc">The expandable content slot.</string>
+
+    <!-- ─── Alert Page ───────────────────────────────────────── -->
+    <string name="alert_page_desc">A status container for displaying important messages with optional icon and entrance animation.</string>
+    <string name="alert_demo_heads_up">Heads up!</string>
+    <string name="alert_demo_error">Error</string>
+    <string name="alert_demo_session_expired">Your session has expired. Please log in again.</string>
+    <string name="alert_demo_cli_hint">You can add components using the CLI.</string>
+    <string name="alert_demo_new_update">New update available</string>
+    <string name="alert_demo_new_version">A new version has been released.</string>
+    <string name="alert_demo_connection_lost">Connection lost</string>
+    <string name="alert_demo_check_network">Please check your network settings.</string>
+    <string name="alert_prop_modifier_desc">Modifier for layout and decoration.</string>
+    <string name="alert_prop_variant_desc">Visual variant: Default, Destructive.</string>
+    <string name="alert_prop_animation_desc">Entrance animation: SlideIn, Fade, None.</string>
+    <string name="alert_prop_icon_desc">Optional leading icon composable (16-20dp).</string>
+    <string name="alert_prop_label_desc">Accessibility label for screen readers.</string>
+    <string name="alert_prop_content_desc">Content: use AlertTitle + AlertDescription.</string>
+
+    <!-- ─── Alert Dialog Page ────────────────────────────────── -->
+    <string name="alert_dialog_page_desc">A modal dialog for destructive-action confirmations. The scrim does not dismiss -- users must choose an action.</string>
+    <string name="alert_dialog_section_default_action">Default Action Variant</string>
+    <string name="alert_dialog_demo_delete_account">Delete Account</string>
+    <string name="alert_dialog_demo_are_you_sure">Are you absolutely sure?</string>
+    <string name="alert_dialog_demo_cannot_undo">This action cannot be undone. This will permanently delete your account and remove your data.</string>
+    <string name="alert_dialog_demo_continue_setup">Continue Setup</string>
+    <string name="alert_dialog_demo_continue_question">Continue with setup?</string>
+    <string name="alert_dialog_demo_configure_workspace">This will configure your workspace with the recommended settings.</string>
+    <string name="alert_dialog_demo_continue">Continue</string>
+    <string name="alert_dialog_prop_open_desc">Whether the alert dialog is visible.</string>
+    <string name="alert_dialog_prop_on_dismiss_desc">Called when cancel action is triggered.</string>
+    <string name="alert_dialog_prop_on_confirm_desc">Called when confirm action is triggered.</string>
+    <string name="alert_dialog_prop_modifier_desc">Modifier applied to the dialog card.</string>
+    <string name="alert_dialog_prop_label_desc">Accessibility label for the dialog.</string>
+    <string name="alert_dialog_prop_animation_desc">Enter/exit animation: FadeScale, Fade, None.</string>
+    <string name="alert_dialog_prop_scrim_desc">Color of the non-dismissible scrim.</string>
+    <string name="alert_dialog_prop_max_width_desc">Maximum width of the dialog card.</string>
+    <string name="alert_dialog_prop_content_desc">Dialog content. Use AlertDialogHeader/Footer.</string>
+
+    <!-- ─── Avatar Page ──────────────────────────────────────── -->
+    <string name="avatar_page_desc">A circular container displaying user initials with optional status indicator and entrance animation.</string>
+    <string name="avatar_section_status">Status Indicators</string>
+    <string name="avatar_prop_fallback_desc">1-2 character initials shown as avatar content.</string>
+    <string name="avatar_prop_modifier_desc">Modifier for layout and decoration.</string>
+    <string name="avatar_prop_size_desc">Size variant: Sm (32dp), Default (40dp), Lg (48dp).</string>
+    <string name="avatar_prop_animation_desc">Entrance animation: FadeIn, Scale, None.</string>
+    <string name="avatar_prop_status_desc">Status dot: Online, Offline, Busy, or null.</string>
+
+    <!-- ─── Badge Page ───────────────────────────────────────── -->
+    <string name="badge_page_desc">A small status indicator or label for tags, counts, and notifications.</string>
+    <string name="badge_demo_small">Small</string>
+    <string name="badge_demo_default">Default</string>
+    <string name="badge_demo_large">Large</string>
+    <string name="badge_demo_new">New</string>
+    <string name="badge_prop_text_desc">The label text displayed in the badge.</string>
+    <string name="badge_prop_modifier_desc">Modifier for layout and decoration.</string>
+    <string name="badge_prop_variant_desc">Visual variant: Default, Secondary, Destructive, Outline.</string>
+    <string name="badge_prop_animation_desc">Entrance animation: Pulse, Scale, None.</string>
+    <string name="badge_prop_size_desc">Size preset: Sm, Default, Lg.</string>
+
+    <!-- ─── Breadcrumb Page ──────────────────────────────────── -->
+    <string name="breadcrumb_page_desc">Displays the user\'s current location in a page hierarchy with clickable navigation links.</string>
+    <string name="breadcrumb_section_basic">Basic Usage</string>
+    <string name="breadcrumb_section_data_driven">Data-Driven</string>
+    <string name="breadcrumb_section_ellipsis">Ellipsis Collapsing</string>
+    <string name="breadcrumb_demo_home">Home</string>
+    <string name="breadcrumb_demo_products">Products</string>
+    <string name="breadcrumb_demo_widgets">Widgets</string>
+    <string name="breadcrumb_demo_current_page">Current Page</string>
+    <string name="breadcrumb_demo_documents">Documents</string>
+    <string name="breadcrumb_demo_projects">Projects</string>
+    <string name="breadcrumb_demo_design">Design</string>
+    <string name="breadcrumb_demo_components">Components</string>
+    <string name="breadcrumb_subsection_item_data">BreadcrumbItemData</string>
+    <string name="breadcrumb_prop_items_desc">List of breadcrumb items to display.</string>
+    <string name="breadcrumb_prop_modifier_desc">Modifier for layout and decoration.</string>
+    <string name="breadcrumb_prop_animation_desc">Entrance animation: None, Fade, Slide.</string>
+    <string name="breadcrumb_prop_separator_desc">Custom separator composable. Defaults to /.</string>
+    <string name="breadcrumb_prop_max_visible_desc">Max items before collapsing middle items into an ellipsis. 0 = show all.</string>
+    <string name="breadcrumb_prop_ellipsis_click_desc">Click handler for the ellipsis element.</string>
+    <string name="breadcrumb_prop_label_desc">Display text for the breadcrumb item.</string>
+    <string name="breadcrumb_prop_onclick_desc">Click handler. Null = current page (non-clickable).</string>
+
+    <!-- ─── Checkbox Page ────────────────────────────────────── -->
+    <string name="checkbox_page_desc">A boolean toggle rendered as a square box with an animated checkmark. Supports spring, tween, and instant animations.</string>
+    <string name="checkbox_section_with_labels">With Labels</string>
+    <string name="checkbox_demo_accept_terms">Accept terms and conditions</string>
+    <string name="checkbox_demo_email_notifications">Email notifications</string>
+    <string name="checkbox_demo_sms_notifications">SMS notifications</string>
+    <string name="checkbox_demo_push_notifications">Push notifications</string>
+    <string name="checkbox_demo_checked_disabled">Checked &amp; disabled</string>
+    <string name="checkbox_demo_unchecked_disabled">Unchecked &amp; disabled</string>
+    <string name="checkbox_prop_checked_desc">Whether the checkbox is checked.</string>
+    <string name="checkbox_prop_on_checked_change_desc">Called when the checkbox state changes.</string>
+    <string name="checkbox_prop_animation_desc">Animation: Spring, Tween, None.</string>
+    <string name="checkbox_prop_enabled_desc">Whether the checkbox is interactive.</string>
+    <string name="checkbox_prop_label_desc">Label text rendered beside the checkbox and used for accessibility.</string>
+
+    <!-- ─── Collapsible Page ─────────────────────────────────── -->
+    <string name="collapsible_page_desc">A primitive expand/collapse container. Unlike Accordion, it has no built-in header \u2014 you compose the trigger and content yourself.</string>
+    <string name="collapsible_section_controlled">Controlled Usage</string>
+    <string name="collapsible_section_dsl">DSL Builder</string>
+    <string name="collapsible_section_animation_styles">Animation Styles</string>
+    <string name="collapsible_demo_starred_repos">3 starred repositories</string>
+    <string name="collapsible_demo_toggle">Toggle</string>
+    <string name="collapsible_demo_expand_dsl">Click to expand (DSL)</string>
+    <string name="collapsible_demo_dsl_body">This collapsible uses the DSL builder with internally-managed state.</string>
+    <string name="collapsible_demo_animation_title">Animation: %1$s</string>
+    <string name="collapsible_demo_animation_body">Toggle to see the %1$s animation.</string>
+    <string name="collapsible_subsection_controlled">Collapsible (controlled)</string>
+    <string name="collapsible_subsection_trigger">CollapsibleTrigger</string>
+    <string name="collapsible_subsection_content">CollapsibleContent</string>
+    <string name="collapsible_prop_open_desc">Whether the content is expanded.</string>
+    <string name="collapsible_prop_on_open_change_desc">Called when expanded state changes.</string>
+    <string name="collapsible_prop_modifier_desc">Modifier applied to the container.</string>
+    <string name="collapsible_prop_content_desc">Builder with CollapsibleTrigger + CollapsibleContent.</string>
+    <string name="collapsible_prop_trigger_onclick_desc">Called when the trigger is clicked.</string>
+    <string name="collapsible_prop_trigger_modifier_desc">Modifier applied to the trigger.</string>
+    <string name="collapsible_prop_trigger_label_desc">Accessibility content description.</string>
+    <string name="collapsible_prop_trigger_expanded_desc">Current state for a11y stateDescription.</string>
+    <string name="collapsible_prop_trigger_content_desc">Composable inside the trigger.</string>
+    <string name="collapsible_prop_content_open_desc">Whether the content is visible.</string>
+    <string name="collapsible_prop_content_modifier_desc">Modifier applied to the wrapper.</string>
+    <string name="collapsible_prop_content_animation_desc">Animation style: Spring, Tween, None.</string>
+    <string name="collapsible_prop_content_content_desc">Composable content to show/hide.</string>
+
+    <!-- ─── Context Menu Page ────────────────────────────────── -->
+    <string name="context_menu_page_desc">A long-press triggered overlay menu. On desktop/web maps to right-click, on mobile to long-press.</string>
+    <string name="context_menu_section_disabled">Disabled Items &amp; Shortcuts</string>
+    <string name="context_menu_demo_long_press">Long-press or right-click me</string>
+    <string name="context_menu_demo_right_click">Right-click for actions</string>
+    <string name="context_menu_demo_edit">Edit</string>
+    <string name="context_menu_demo_cut">Cut</string>
+    <string name="context_menu_demo_copy">Copy</string>
+    <string name="context_menu_demo_paste">Paste</string>
+    <string name="context_menu_demo_delete">Delete</string>
+    <string name="context_menu_demo_actions">Actions</string>
+    <string name="context_menu_demo_duplicate">Duplicate</string>
+    <string name="context_menu_prop_menu_content_desc">Builder for items, labels, and separators.</string>
+    <string name="context_menu_prop_modifier_desc">Modifier applied to the trigger wrapper.</string>
+    <string name="context_menu_prop_animation_desc">Animation style: FadeExpand, Fade, None.</string>
+    <string name="context_menu_prop_min_width_desc">Minimum width of the context menu.</string>
+    <string name="context_menu_prop_max_width_desc">Maximum width of the context menu.</string>
+    <string name="context_menu_prop_max_height_desc">Max height before scrolling.</string>
+    <string name="context_menu_prop_content_desc">Trigger area that responds to long-press.</string>
+
+    <!-- ─── Dialog Page ──────────────────────────────────────── -->
+    <string name="dialog_page_desc">A modal overlay that displays content in a centered card with a dismissible scrim.</string>
+    <string name="dialog_section_header_footer">With Header and Footer</string>
+    <string name="dialog_section_simple">Simple Content</string>
+    <string name="dialog_demo_open_dialog">Open Dialog</string>
+    <string name="dialog_demo_edit_profile">Edit Profile</string>
+    <string name="dialog_demo_edit_profile_desc">Make changes to your profile here.</string>
+    <string name="dialog_demo_visible_to_others">Your name and avatar will be visible to others.</string>
+    <string name="dialog_demo_cancel">Cancel</string>
+    <string name="dialog_demo_save">Save</string>
+    <string name="dialog_demo_open_confirmation">Open Confirmation</string>
+    <string name="dialog_demo_confirm_action">Confirm Action</string>
+    <string name="dialog_demo_cannot_undo">This action cannot be undone.</string>
+    <string name="dialog_demo_confirm">Confirm</string>
+    <string name="dialog_demo_open_simple">Open Simple</string>
+    <string name="dialog_demo_simple_text">This is a simple dialog with just text content.</string>
+    <string name="dialog_demo_close">Close</string>
+    <string name="dialog_prop_open_desc">Whether the dialog is visible.</string>
+    <string name="dialog_prop_on_dismiss_desc">Called when the user dismisses the dialog.</string>
+    <string name="dialog_prop_modifier_desc">Modifier applied to the dialog card.</string>
+    <string name="dialog_prop_label_desc">Accessibility label for the dialog.</string>
+    <string name="dialog_prop_animation_desc">Enter/exit animation: FadeScale, Fade, None.</string>
+    <string name="dialog_prop_scrim_desc">Color of the backdrop scrim.</string>
+    <string name="dialog_prop_max_width_desc">Maximum width of the dialog card.</string>
+    <string name="dialog_prop_content_desc">Dialog content. Use DialogHeader/DialogFooter.</string>
+
+    <!-- ─── Dropdown Menu Page ───────────────────────────────── -->
+    <string name="dropdown_page_desc">A click-triggered overlay menu with scrollable actions, labels, and separators.</string>
+    <string name="dropdown_section_disabled">Disabled Items</string>
+    <string name="dropdown_demo_actions">Actions</string>
+    <string name="dropdown_demo_file">File</string>
+    <string name="dropdown_demo_new">New</string>
+    <string name="dropdown_demo_open">Open</string>
+    <string name="dropdown_demo_edit">Edit</string>
+    <string name="dropdown_demo_copy">Copy</string>
+    <string name="dropdown_demo_paste">Paste</string>
+    <string name="dropdown_demo_more">More</string>
+    <string name="dropdown_demo_duplicate">Duplicate</string>
+    <string name="dropdown_demo_delete">Delete</string>
+    <string name="dropdown_prop_expanded_desc">Whether the dropdown popup is visible.</string>
+    <string name="dropdown_prop_on_dismiss_desc">Called when clicking outside to dismiss.</string>
+    <string name="dropdown_prop_modifier_desc">Modifier applied to the trigger wrapper.</string>
+    <string name="dropdown_prop_animation_desc">Animation style: FadeExpand, Fade, None.</string>
+    <string name="dropdown_prop_min_width_desc">Minimum width of the dropdown panel.</string>
+    <string name="dropdown_prop_max_width_desc">Maximum width of the dropdown panel.</string>
+    <string name="dropdown_prop_max_height_desc">Max height before scrolling.</string>
+    <string name="dropdown_prop_trigger_desc">The composable that anchors the menu.</string>
+    <string name="dropdown_prop_content_desc">Menu items, labels, and separators.</string>
+
+    <!-- ─── Hover Card Page ──────────────────────────────────── -->
+    <string name="hover_card_page_desc">A floating card that appears when hovering over a trigger element. Stays visible while the cursor is on the trigger or card.</string>
+    <string name="hover_card_demo_rikkaui">RikkaUI</string>
+    <string name="hover_card_demo_desc">A shadcn-inspired component library for Compose Multiplatform.</string>
+    <string name="hover_card_demo_hover_me">Hover me (%1$s)</string>
+    <string name="hover_card_demo_card_at">Card at %1$s</string>
+    <string name="hover_card_prop_modifier_desc">Modifier applied to the outer wrapper.</string>
+    <string name="hover_card_prop_animation_desc">Animation style: FadeScale, Fade, None.</string>
+    <string name="hover_card_prop_placement_desc">Popup position: BottomStart/End, TopStart/End.</string>
+    <string name="hover_card_prop_show_delay_desc">Delay in ms before showing the card.</string>
+    <string name="hover_card_prop_hide_delay_desc">Delay in ms before hiding the card.</string>
+    <string name="hover_card_prop_max_width_desc">Maximum width of the popup card.</string>
+    <string name="hover_card_prop_trigger_desc">The composable that triggers on hover.</string>
+    <string name="hover_card_prop_content_desc">Content displayed inside the floating card.</string>
+
+    <!-- ─── Input Page ───────────────────────────────────────── -->
+    <string name="input_page_desc">A single-line text field with animated focus states, icon slots, and optional character count.</string>
+    <string name="input_section_focus">Focus Animations</string>
+    <string name="input_section_icons">With Icons</string>
+    <string name="input_section_char_count">Character Count</string>
+    <string name="input_demo_focus_placeholder">Click to see focus animation...</string>
+    <string name="input_demo_search_placeholder">Search...</string>
+    <string name="input_demo_username_placeholder">Username</string>
+    <string name="input_demo_disabled_value">Read only content</string>
+    <string name="input_prop_value_desc">Current text value.</string>
+    <string name="input_prop_on_value_change_desc">Called when the text changes.</string>
+    <string name="input_prop_placeholder_desc">Placeholder text shown when empty.</string>
+    <string name="input_prop_animation_desc">Focus animation: Glow, Color, None.</string>
+    <string name="input_prop_leading_icon_desc">Icon displayed before the text field.</string>
+    <string name="input_prop_trailing_icon_desc">Icon displayed after the text field.</string>
+    <string name="input_prop_clearable_desc">Shows a clear (X) button when text is non-empty.</string>
+    <string name="input_prop_max_length_desc">Maximum character limit.</string>
+    <string name="input_prop_show_char_count_desc">Displays character count when maxLength is set.</string>
+    <string name="input_prop_enabled_desc">Whether the input is interactive.</string>
+
+    <!-- ─── Kbd Page ─────────────────────────────────────────── -->
+    <string name="kbd_page_desc">A styled inline indicator for keyboard shortcuts and key combinations.</string>
+    <string name="kbd_section_combos">Key Combinations</string>
+    <string name="kbd_prop_text_desc">The key label to display (e.g. \"\u2318K\").</string>
+    <string name="kbd_prop_modifier_desc">Modifier for layout and decoration.</string>
+    <string name="kbd_prop_size_desc">Size variant: Sm, Default, Lg.</string>
+    <string name="kbd_prop_keys_desc">List of individual key labels for KbdCombo.</string>
+    <string name="kbd_prop_separator_desc">Text displayed between keys.</string>
+    <string name="kbd_prop_combo_size_desc">Size variant applied to each key badge.</string>
+
+    <!-- ─── Label Page ───────────────────────────────────────── -->
+    <string name="label_page_desc">A text label for form elements with optional required indicator and disabled state.</string>
+    <string name="label_section_examples">Examples</string>
+    <string name="label_section_with_input">With Input</string>
+    <string name="label_demo_email">Email</string>
+    <string name="label_demo_password">Password</string>
+    <string name="label_demo_username">Username</string>
+    <string name="label_demo_email_placeholder">you@example.com</string>
+    <string name="label_demo_password_placeholder">Enter password...</string>
+    <string name="label_prop_text_desc">The label text to display.</string>
+    <string name="label_prop_disabled_desc">When true, the label is dimmed with mutedForeground color.</string>
+    <string name="label_prop_required_desc">When true, a red asterisk (*) is appended.</string>
+
+    <!-- ─── List Page ────────────────────────────────────────── -->
+    <string name="list_page_desc">Styled lists with bullet points, numbers, or custom content per item.</string>
+    <string name="list_section_unordered">Unordered List</string>
+    <string name="list_section_ordered">Ordered List</string>
+    <string name="list_section_custom">Custom Content</string>
+    <string name="list_demo_clone_repo">Clone the repository</string>
+    <string name="list_demo_install_deps">Install dependencies</string>
+    <string name="list_demo_run_dev">Run the development server</string>
+    <string name="list_demo_no_material">Foundation-only, no Material3</string>
+    <string name="list_demo_spring_anims">Spring-physics animations</string>
+    <string name="list_demo_full_theme">Full theme customization</string>
+    <string name="list_demo_all_platforms">Works on all platforms</string>
+    <string name="list_demo_add_dep">Add the dependency to your project</string>
+    <string name="list_demo_wrap_theme">Wrap your app in RikkaTheme</string>
+    <string name="list_demo_use_component">Use any component from the library</string>
+    <string name="list_demo_customize_tokens">Customize with theme tokens</string>
+    <string name="list_demo_features_title">Features</string>
+    <string name="list_demo_composable_dsl">Composable DSL for complex list items</string>
+    <string name="list_demo_theme_aware">Theme-aware spacing and typography</string>
+    <string name="list_demo_accessible">Accessible by default</string>
+    <string name="list_prop_items_desc">List of string items to render.</string>
+    <string name="list_prop_variant_desc">List style: Unordered, Ordered, None.</string>
+    <string name="list_prop_text_variant_desc">Typography variant for item text.</string>
+    <string name="list_prop_modifier_desc">Modifier for layout and decoration.</string>
+
+    <!-- ─── Navigation Bar Page ──────────────────────────────── -->
+    <string name="nav_bar_page_desc">A bottom navigation bar for app-level navigation with icon + label items and an animated indicator pill.</string>
+    <string name="nav_bar_section_four_items">Four Items</string>
+    <string name="nav_bar_demo_home">Home</string>
+    <string name="nav_bar_demo_search">Search</string>
+    <string name="nav_bar_demo_settings">Settings</string>
+    <string name="nav_bar_demo_favorites">Favorites</string>
+    <string name="nav_bar_prop_selected_desc">Whether this item is currently active.</string>
+    <string name="nav_bar_prop_onclick_desc">Called when the item is tapped.</string>
+    <string name="nav_bar_prop_icon_desc">The icon to display.</string>
+    <string name="nav_bar_prop_label_desc">Text label displayed below the icon.</string>
+    <string name="nav_bar_prop_modifier_desc">Modifier for layout and decoration.</string>
+    <string name="nav_bar_prop_selected_icon_desc">Different icon for selected state.</string>
+    <string name="nav_bar_prop_enabled_desc">Whether the item is interactive.</string>
+    <string name="nav_bar_prop_always_show_label_desc">When false, label fades when not selected.</string>
+    <string name="nav_bar_prop_animation_desc">Animation strategy: Spring, Tween, None.</string>
+    <string name="nav_bar_prop_indicator_color_desc">Override for the pill indicator color.</string>
+
+    <!-- ─── Pagination Page ──────────────────────────────────── -->
+    <string name="pagination_page_desc">A smart page navigation component with automatic ellipsis and Previous/Next buttons.</string>
+    <string name="pagination_section_few_pages">Few Pages (No Ellipsis)</string>
+    <string name="pagination_prop_current_page_desc">The currently active page (1-indexed).</string>
+    <string name="pagination_prop_total_pages_desc">Total number of pages.</string>
+    <string name="pagination_prop_on_page_change_desc">Called when a different page is selected.</string>
+    <string name="pagination_prop_modifier_desc">Modifier for layout and decoration.</string>
+    <string name="pagination_prop_max_visible_desc">Max page buttons visible at once.</string>
+    <string name="pagination_prop_animation_desc">Active page animation: Scale, Fade, None.</string>
+    <string name="pagination_prop_button_size_desc">Button size: Small (28dp), Default (36dp), Large (44dp).</string>
+    <string name="pagination_prop_previous_desc">Custom content for the previous button.</string>
+    <string name="pagination_prop_next_desc">Custom content for the next button.</string>
+
+    <!-- ─── Popover Page ─────────────────────────────────────── -->
+    <string name="popover_page_desc">A click-triggered floating card anchored to a trigger element. Dismisses on outside click.</string>
+    <string name="popover_demo_open">Open Popover</string>
+    <string name="popover_demo_content_title">Popover Content</string>
+    <string name="popover_demo_animation_label">Animation: %1$s</string>
+    <string name="popover_demo_placement_label">Placement: %1$s</string>
+    <string name="popover_demo_placed_at">Placed at %1$s</string>
+    <string name="popover_prop_expanded_desc">Whether the popover popup is visible.</string>
+    <string name="popover_prop_on_dismiss_desc">Called when clicking outside to dismiss.</string>
+    <string name="popover_prop_modifier_desc">Modifier applied to the trigger wrapper.</string>
+    <string name="popover_prop_animation_desc">Animation style: FadeExpand, Fade, None.</string>
+    <string name="popover_prop_placement_desc">Popup position relative to trigger.</string>
+    <string name="popover_prop_max_width_desc">Maximum width of the popup card.</string>
+    <string name="popover_prop_trigger_desc">The composable that anchors the popover.</string>
+    <string name="popover_prop_content_desc">Content displayed inside the floating card.</string>
+
+    <!-- ─── Progress Page ────────────────────────────────────── -->
+    <string name="progress_page_desc">An animated horizontal progress bar that fills from left to right to indicate completion.</string>
+    <string name="progress_section_animation_modes">Animation Modes</string>
+    <string name="progress_section_custom_height">Custom Height</string>
+    <string name="progress_demo_advance">Advance</string>
+    <string name="progress_prop_progress_desc">Current progress value, clamped to 0f..1f.</string>
+    <string name="progress_prop_modifier_desc">Modifier for layout and decoration.</string>
+    <string name="progress_prop_track_color_desc">Background track color. Defaults to theme muted.</string>
+    <string name="progress_prop_fill_color_desc">Fill bar color. Defaults to theme primary.</string>
+    <string name="progress_prop_height_desc">Height of the progress bar.</string>
+    <string name="progress_prop_animation_desc">Animation style: Spring, Tween, None.</string>
+    <string name="progress_prop_label_desc">Accessibility label for screen readers.</string>
+
+    <!-- ─── Radio Page ───────────────────────────────────────── -->
+    <string name="radio_page_desc">A selection control rendered as a circle with an animated inner dot. Use in groups for single-choice selection.</string>
+    <string name="radio_section_radio_group">Radio Group</string>
+    <string name="radio_demo_option_a">Option A</string>
+    <string name="radio_demo_option_b">Option B</string>
+    <string name="radio_demo_option_c">Option C</string>
+    <string name="radio_demo_free">Free</string>
+    <string name="radio_demo_pro">Pro - $9/mo</string>
+    <string name="radio_demo_enterprise">Enterprise - $29/mo</string>
+    <string name="radio_demo_selected_disabled">Selected &amp; disabled</string>
+    <string name="radio_demo_unselected_disabled">Unselected &amp; disabled</string>
+    <string name="radio_prop_selected_desc">Whether the radio button is selected.</string>
+    <string name="radio_prop_onclick_desc">Called when the radio button is clicked.</string>
+    <string name="radio_prop_animation_desc">Animation: Spring, Tween, None.</string>
+    <string name="radio_prop_enabled_desc">Whether the radio button is interactive.</string>
+    <string name="radio_prop_label_desc">Label text rendered beside the circle and used for accessibility.</string>
+
+    <!-- ─── Scaffold Page ────────────────────────────────────── -->
+    <string name="scaffold_page_desc">Page-level slot-based layout structure with top bar, bottom bar, FAB, and snackbar host.</string>
+    <string name="scaffold_section_basic">Basic Layout</string>
+    <string name="scaffold_section_fab">With Floating Action Button</string>
+    <string name="scaffold_section_insets">Content Window Insets</string>
+    <string name="scaffold_demo_top_bar">Top Bar</string>
+    <string name="scaffold_demo_bottom_bar">Bottom Bar</string>
+    <string name="scaffold_demo_content_padding">Content area receives PaddingValues that account for bar heights.</string>
+    <string name="scaffold_demo_my_app">My App</string>
+    <string name="scaffold_demo_add">Add</string>
+    <string name="scaffold_demo_fab_position">The FAB is positioned at the bottom-end with theme-based padding.</string>
+    <string name="scaffold_demo_custom_insets">Content respects custom insets (16dp left/right, 24dp bottom).</string>
+    <string name="scaffold_prop_modifier_desc">Modifier applied to the outer container.</string>
+    <string name="scaffold_prop_top_bar_desc">Slot rendered at the top, spanning full width.</string>
+    <string name="scaffold_prop_bottom_bar_desc">Slot rendered at the bottom, spanning full width.</string>
+    <string name="scaffold_prop_fab_desc">FAB slot at bottom-end above the bottom bar.</string>
+    <string name="scaffold_prop_snackbar_desc">Snackbar/toast host above bottom bar and FAB.</string>
+    <string name="scaffold_prop_container_color_desc">Background color for the scaffold.</string>
+    <string name="scaffold_prop_content_color_desc">Foreground color hint for content.</string>
+    <string name="scaffold_prop_insets_desc">Insets added to content PaddingValues.</string>
+    <string name="scaffold_prop_content_desc">Main content. Receives PaddingValues for bars + insets.</string>
+
+    <!-- ─── Scroll Area Page ─────────────────────────────────── -->
+    <string name="scroll_area_page_desc">Scrollable container with a custom scrollbar indicator.</string>
+    <string name="scroll_area_section_scrollbar_anims">Scrollbar Animations</string>
+    <string name="scroll_area_section_horizontal">Horizontal ScrollArea</string>
+    <string name="scroll_area_section_custom">Custom Scrollbar</string>
+    <string name="scroll_area_demo_item">Item %1$d</string>
+    <string name="scroll_area_demo_row_scrollbar">Row %1$d with primary-colored scrollbar</string>
+    <string name="scroll_area_subsection_vertical">ScrollArea (Vertical)</string>
+    <string name="scroll_area_subsection_horizontal">HorizontalScrollArea</string>
+    <string name="scroll_area_prop_modifier_desc">Modifier for layout and decoration.</string>
+    <string name="scroll_area_prop_animation_desc">Scrollbar visibility: Fade, Always, None.</string>
+    <string name="scroll_area_prop_width_desc">Thickness of the scrollbar track and thumb.</string>
+    <string name="scroll_area_prop_color_desc">Optional thumb color override. Defaults to mutedForeground.</string>
+    <string name="scroll_area_prop_content_vertical_desc">Scrollable column content.</string>
+    <string name="scroll_area_prop_content_horizontal_desc">Scrollable row content.</string>
+
+    <!-- ─── Select Page ──────────────────────────────────────── -->
+    <string name="select_page_desc">A dropdown select component with animated popup, hover highlighting, and selection indicators.</string>
+    <string name="select_section_popup_anims">Popup Animations</string>
+    <string name="select_section_many_options">With Many Options</string>
+    <string name="select_demo_choose_theme">Choose theme...</string>
+    <string name="select_demo_pick_fruit">Pick a fruit...</string>
+    <string name="select_demo_light">Light</string>
+    <string name="select_demo_dark">Dark</string>
+    <string name="select_demo_system">System</string>
+    <string name="select_demo_apple">Apple</string>
+    <string name="select_demo_banana">Banana</string>
+    <string name="select_demo_cherry">Cherry</string>
+    <string name="select_demo_grape">Grape</string>
+    <string name="select_demo_mango">Mango</string>
+    <string name="select_prop_selected_value_desc">Currently selected value (matches SelectOption.value).</string>
+    <string name="select_prop_on_value_change_desc">Called with the new value on selection.</string>
+    <string name="select_prop_options_desc">Available options with value and label.</string>
+    <string name="select_prop_placeholder_desc">Text shown when no option is selected.</string>
+    <string name="select_prop_animation_desc">Popup animation: FadeExpand, Fade, None.</string>
+    <string name="select_prop_max_height_desc">Maximum dropdown height before scrolling.</string>
+    <string name="select_prop_enabled_desc">Whether the select is interactive.</string>
+    <string name="select_prop_label_desc">Accessibility label for screen readers.</string>
+
+    <!-- ─── Separator Page ───────────────────────────────────── -->
+    <string name="separator_page_desc">A thin line that visually divides content sections.</string>
+    <string name="separator_section_line_styles">Line Styles</string>
+    <string name="separator_section_vertical">Vertical Orientation</string>
+    <string name="separator_section_thickness">Custom Thickness</string>
+    <string name="separator_demo_content_above">Content above</string>
+    <string name="separator_demo_content_below">Content below</string>
+    <string name="separator_demo_left">Left</string>
+    <string name="separator_demo_center">Center</string>
+    <string name="separator_demo_right">Right</string>
+    <string name="separator_demo_1dp_default">1dp (default)</string>
+    <string name="separator_demo_2dp">2dp</string>
+    <string name="separator_demo_4dp">4dp</string>
+    <string name="separator_prop_modifier_desc">Modifier for layout and decoration.</string>
+    <string name="separator_prop_orientation_desc">Horizontal (full-width) or Vertical (full-height).</string>
+    <string name="separator_prop_color_desc">Override color. Defaults to theme border color.</string>
+    <string name="separator_prop_thickness_desc">Line thickness in dp.</string>
+    <string name="separator_prop_style_desc">Line style: Solid, Dashed, or Dotted.</string>
+
+    <!-- ─── Sheet Page ───────────────────────────────────────── -->
+    <string name="sheet_page_desc">A panel that slides in from any edge of the screen with a dismissible scrim overlay.</string>
+    <string name="sheet_section_sides">Sides</string>
+    <string name="sheet_demo_open_sheet">Open %1$s Sheet</string>
+    <string name="sheet_demo_settings">Settings</string>
+    <string name="sheet_demo_adjust_prefs">Adjust your preferences.</string>
+    <string name="sheet_demo_sliding_from">Sheet sliding from the %1$s side.</string>
+    <string name="sheet_demo_cancel">Cancel</string>
+    <string name="sheet_demo_apply">Apply</string>
+    <string name="sheet_demo_open">Open Sheet</string>
+    <string name="sheet_demo_navigation">Navigation</string>
+    <string name="sheet_demo_animation_label">Animation: %1$s</string>
+    <string name="sheet_prop_open_desc">Whether the sheet is visible.</string>
+    <string name="sheet_prop_on_dismiss_desc">Called when the user dismisses the sheet.</string>
+    <string name="sheet_prop_side_desc">Edge to slide from: Right, Left, Top, Bottom.</string>
+    <string name="sheet_prop_modifier_desc">Modifier applied to the sheet panel.</string>
+    <string name="sheet_prop_label_desc">Accessibility label for the sheet.</string>
+    <string name="sheet_prop_animation_desc">Enter/exit animation: Slide, FadeScale, Fade, None.</string>
+    <string name="sheet_prop_scrim_desc">Color of the backdrop scrim.</string>
+    <string name="sheet_prop_panel_width_desc">Width for Left/Right sheets.</string>
+    <string name="sheet_prop_content_desc">Sheet content. Use SheetHeader/Content/Footer.</string>
+
+    <!-- ─── Skeleton Page ────────────────────────────────────── -->
+    <string name="skeleton_page_desc">An animated loading placeholder that indicates content is being loaded.</string>
+    <string name="skeleton_section_animation_modes">Animation Modes</string>
+    <string name="skeleton_section_card_placeholder">Card Placeholder</string>
+    <string name="skeleton_prop_modifier_desc">Modifier for layout. Set size via Modifier.size/height.</string>
+    <string name="skeleton_prop_animation_desc">Animation style: Pulse, Shimmer, None.</string>
+    <string name="skeleton_prop_shape_desc">Clip shape. Use shapes.full for circular.</string>
+
+    <!-- ─── Slider Page ──────────────────────────────────────── -->
+    <string name="slider_page_desc">A draggable range input for selecting a value between 0 and 1. Supports tap-to-seek and configurable animations.</string>
+    <string name="slider_section_custom_sizes">Custom Sizes</string>
+    <string name="slider_prop_value_desc">Current value, clamped to 0f..1f.</string>
+    <string name="slider_prop_on_value_change_desc">Called when the user drags or taps to change the value.</string>
+    <string name="slider_prop_animation_desc">Animation: Spring, Tween, None.</string>
+    <string name="slider_prop_thumb_size_desc">Diameter of the thumb circle.</string>
+    <string name="slider_prop_track_height_desc">Height of the track bar.</string>
+    <string name="slider_prop_track_color_desc">Background track color. Defaults to theme muted.</string>
+    <string name="slider_prop_fill_color_desc">Filled track color. Defaults to theme primary.</string>
+    <string name="slider_prop_thumb_color_desc">Thumb fill color. Defaults to theme background.</string>
+    <string name="slider_prop_enabled_desc">Whether the slider is interactive.</string>
+
+    <!-- ─── Spinner Page ─────────────────────────────────────── -->
+    <string name="spinner_page_desc">A circular loading indicator with configurable animation, size, and color.</string>
+    <string name="spinner_section_custom_sweep">Custom Sweep Angle</string>
+    <string name="spinner_prop_modifier_desc">Modifier for layout and decoration.</string>
+    <string name="spinner_prop_size_desc">Size variant: Sm (16dp), Default (24dp), Lg (32dp).</string>
+    <string name="spinner_prop_animation_desc">Animation style: Spin, Pulse, None.</string>
+    <string name="spinner_prop_color_desc">Arc color. Defaults to theme primary.</string>
+    <string name="spinner_prop_track_color_desc">Background track ring color. Null for no track.</string>
+    <string name="spinner_prop_sweep_angle_desc">Arc sweep angle in degrees.</string>
+    <string name="spinner_prop_label_desc">Accessibility content description.</string>
+
+    <!-- ─── Table Page ───────────────────────────────────────── -->
+    <string name="table_page_desc">A structured data table with hover highlights, striped rows, and configurable border styles.</string>
+    <string name="table_section_animation_modes">Animation Modes</string>
+    <string name="table_section_border_styles">Border Styles</string>
+    <string name="table_demo_invoice">Invoice</string>
+    <string name="table_demo_status">Status</string>
+    <string name="table_demo_amount">Amount</string>
+    <string name="table_demo_name">Name</string>
+    <string name="table_demo_role">Role</string>
+    <string name="table_prop_modifier_desc">Modifier for layout and decoration.</string>
+    <string name="table_prop_animation_desc">Row visual effect: Hover, Stripe, None.</string>
+    <string name="table_prop_border_style_desc">Border rendering: Outlined, Bordered, Borderless.</string>
+    <string name="table_prop_sticky_header_desc">Sticky header in scrollable parent.</string>
+    <string name="table_prop_content_desc">Table content: TableHeader + TableRow composables.</string>
+
+    <!-- ─── Tabs Page ────────────────────────────────────────── -->
+    <string name="tabs_page_desc">A set of layered sections of content that display one panel at a time.</string>
+    <string name="tabs_section_basic">Basic Tabs</string>
+    <string name="tabs_demo_account">Account</string>
+    <string name="tabs_demo_password">Password</string>
+    <string name="tabs_demo_settings">Settings</string>
+    <string name="tabs_demo_account_content">Manage your account details.</string>
+    <string name="tabs_demo_password_content">Change your password here.</string>
+    <string name="tabs_demo_settings_content">Configure your preferences.</string>
+    <string name="tabs_demo_overview">Overview</string>
+    <string name="tabs_demo_analytics">Analytics</string>
+    <string name="tabs_demo_overview_content">Overview content panel.</string>
+    <string name="tabs_demo_analytics_content">Analytics content panel.</string>
+    <string name="tabs_prop_selected_desc">Whether this tab is currently active.</string>
+    <string name="tabs_prop_onclick_desc">Called when the tab is clicked.</string>
+    <string name="tabs_prop_text_desc">Label text displayed in the tab.</string>
+    <string name="tabs_prop_modifier_desc">Modifier for layout and decoration.</string>
+    <string name="tabs_prop_animation_desc">Animation strategy: Spring, Tween, None.</string>
+    <string name="tabs_prop_active_color_desc">Override for selected text color.</string>
+    <string name="tabs_prop_inactive_color_desc">Override for unselected text color.</string>
+    <string name="tabs_prop_active_bg_desc">Override for selected background.</string>
+    <string name="tabs_prop_inactive_bg_desc">Override for unselected background.</string>
+
+    <!-- ─── Text Page ────────────────────────────────────────── -->
+    <string name="text_page_desc">A typography component that renders text with theme-aware styles and heading semantics.</string>
+    <string name="text_section_all_variants">All Variants</string>
+    <string name="text_section_selectable">Selectable Text</string>
+    <string name="text_demo_quick_fox">The quick brown fox jumps over the lazy dog</string>
+    <string name="text_demo_heading_1">Heading 1</string>
+    <string name="text_demo_heading_2">Heading 2</string>
+    <string name="text_demo_heading_3">Heading 3</string>
+    <string name="text_demo_heading_4">Heading 4</string>
+    <string name="text_demo_paragraph">Paragraph text</string>
+    <string name="text_demo_lead">Lead text for introductions</string>
+    <string name="text_demo_large">Large text</string>
+    <string name="text_demo_small">Small text</string>
+    <string name="text_demo_muted">Muted text for secondary info</string>
+    <string name="text_demo_selectable">This text can be selected and copied.</string>
+    <string name="text_prop_text_desc">The text content to display.</string>
+    <string name="text_prop_modifier_desc">Modifier for layout and decoration.</string>
+    <string name="text_prop_variant_desc">Typography variant: H1, H2, H3, H4, P, Lead, Large, Small, Muted.</string>
+    <string name="text_prop_color_desc">Override color. Uses variant default when unspecified.</string>
+    <string name="text_prop_text_align_desc">Text alignment within the composable.</string>
+    <string name="text_prop_overflow_desc">How to handle text overflow.</string>
+    <string name="text_prop_max_lines_desc">Maximum number of lines to display.</string>
+    <string name="text_prop_min_lines_desc">Minimum number of lines to occupy.</string>
+    <string name="text_prop_selectable_desc">When true, wraps text in a SelectionContainer.</string>
+    <string name="text_prop_style_desc">Override style merged on top of variant style.</string>
+
+    <!-- ─── Textarea Page ────────────────────────────────────── -->
+    <string name="textarea_page_desc">A multi-line text input with animated focus states and optional character count.</string>
+    <string name="textarea_section_focus">Focus Animations</string>
+    <string name="textarea_section_char_count">Character Count</string>
+    <string name="textarea_demo_write_placeholder">Write something...</string>
+    <string name="textarea_demo_bio_placeholder">Bio (max 280 chars)...</string>
+    <string name="textarea_demo_disabled_value">This textarea is disabled.</string>
+    <string name="textarea_prop_value_desc">Current text value.</string>
+    <string name="textarea_prop_on_value_change_desc">Called when the text changes.</string>
+    <string name="textarea_prop_placeholder_desc">Placeholder text shown when empty.</string>
+    <string name="textarea_prop_animation_desc">Focus animation: Glow, Color, None.</string>
+    <string name="textarea_prop_min_lines_desc">Minimum number of visible lines.</string>
+    <string name="textarea_prop_max_lines_desc">Maximum number of visible lines.</string>
+    <string name="textarea_prop_max_length_desc">Maximum character limit.</string>
+    <string name="textarea_prop_show_char_count_desc">Displays character count when maxLength is set.</string>
+    <string name="textarea_prop_enabled_desc">Whether the textarea is interactive.</string>
+    <string name="textarea_prop_read_only_desc">Whether the textarea is read-only.</string>
+
+    <!-- ─── Toast Page ───────────────────────────────────────── -->
+    <string name="toast_page_desc">A non-intrusive notification system with auto-dismiss, swipe gestures, and variant accents.</string>
+    <string name="toast_section_with_action">With Action Button</string>
+    <string name="toast_demo_variant_notification">%1$s toast notification</string>
+    <string name="toast_demo_show_variant">Show %1$s Toast</string>
+    <string name="toast_demo_animation_message">Animation: %1$s</string>
+    <string name="toast_demo_show_animated">Show Animated Toast</string>
+    <string name="toast_demo_item_deleted">Item deleted</string>
+    <string name="toast_demo_undo">Undo</string>
+    <string name="toast_demo_show_with_action">Show Toast with Action</string>
+    <string name="toast_prop_host_state_desc">State holder managing the toast queue.</string>
+    <string name="toast_prop_modifier_desc">Modifier applied to the host container.</string>
+    <string name="toast_prop_position_desc">Anchor position: TopCenter, TopRight, BottomCenter, BottomRight.</string>
+    <string name="toast_prop_animation_desc">Enter/exit animation: SlideIn, Fade, Scale, None.</string>
+    <string name="toast_prop_max_visible_desc">Max simultaneously visible toasts.</string>
+    <string name="toast_prop_swipe_dismiss_desc">Enable horizontal swipe to dismiss.</string>
+    <string name="toast_prop_progress_bar_desc">Show countdown progress bar on each toast.</string>
+
+    <!-- ─── Toggle Page ──────────────────────────────────────── -->
+    <string name="toggle_page_desc">A boolean on/off switch with spring-animated thumb and smooth color transitions. Two sizes available.</string>
+    <string name="toggle_demo_dark_mode">Dark mode</string>
+    <string name="toggle_demo_on_disabled">On &amp; disabled</string>
+    <string name="toggle_demo_off_disabled">Off &amp; disabled</string>
+    <string name="toggle_prop_checked_desc">Whether the toggle is on.</string>
+    <string name="toggle_prop_on_checked_change_desc">Called when the toggle state changes.</string>
+    <string name="toggle_prop_size_desc">Size: Default (44x24dp), Sm (36x20dp).</string>
+    <string name="toggle_prop_animation_desc">Animation: Spring, Tween, None.</string>
+    <string name="toggle_prop_enabled_desc">Whether the toggle is interactive.</string>
+    <string name="toggle_prop_label_desc">Accessibility label for screen readers.</string>
+
+    <!-- ─── Toggle Group Page ────────────────────────────────── -->
+    <string name="toggle_group_page_desc">A horizontal group of toggle buttons for mutually exclusive selection.</string>
+    <string name="toggle_group_section_outline">Outline Variant</string>
+    <string name="toggle_group_demo_bold">Bold</string>
+    <string name="toggle_group_demo_italic">Italic</string>
+    <string name="toggle_group_demo_underline">Underline</string>
+    <string name="toggle_group_demo_day">Day</string>
+    <string name="toggle_group_demo_week">Week</string>
+    <string name="toggle_group_demo_month">Month</string>
+    <string name="toggle_group_demo_left">Left</string>
+    <string name="toggle_group_demo_center">Center</string>
+    <string name="toggle_group_demo_right">Right</string>
+    <string name="toggle_group_demo_selected">Selected: %1$s</string>
+    <string name="toggle_group_prop_text_desc">Label text displayed in the toggle item.</string>
+    <string name="toggle_group_prop_selected_desc">Whether this item is currently active.</string>
+    <string name="toggle_group_prop_onclick_desc">Called when the item is clicked.</string>
+    <string name="toggle_group_prop_modifier_desc">Modifier for layout and decoration.</string>
+    <string name="toggle_group_prop_variant_desc">Visual variant: Default, Outline.</string>
+    <string name="toggle_group_prop_animation_desc">Animation strategy: Spring, Tween, None.</string>
+    <string name="toggle_group_prop_selected_color_desc">Override for selected foreground color.</string>
+    <string name="toggle_group_prop_unselected_color_desc">Override for unselected foreground color.</string>
+
+    <!-- ─── Tooltip Page ─────────────────────────────────────── -->
+    <string name="tooltip_page_desc">A small popup label that appears on hover with inverted theme colors for contrast.</string>
+    <string name="tooltip_section_custom_delay">Custom Show Delay</string>
+    <string name="tooltip_demo_save_changes">Save your changes</string>
+    <string name="tooltip_demo_hover_me">Hover me</string>
+    <string name="tooltip_demo_top_tooltip">Top tooltip</string>
+    <string name="tooltip_demo_bottom_tooltip">Bottom tooltip</string>
+    <string name="tooltip_demo_start_tooltip">Start tooltip</string>
+    <string name="tooltip_demo_end_tooltip">End tooltip</string>
+    <string name="tooltip_demo_top">Top</string>
+    <string name="tooltip_demo_bottom">Bottom</string>
+    <string name="tooltip_demo_start">Start</string>
+    <string name="tooltip_demo_end">End</string>
+    <string name="tooltip_demo_instant">Instant (0ms)</string>
+    <string name="tooltip_demo_slow">Slow (800ms)</string>
+    <string name="tooltip_demo_no_delay">No delay</string>
+    <string name="tooltip_demo_slow_delay">Slow delay</string>
+    <string name="tooltip_prop_tooltip_desc">Text displayed inside the tooltip popup.</string>
+    <string name="tooltip_prop_modifier_desc">Modifier applied to the outer wrapper.</string>
+    <string name="tooltip_prop_animation_desc">Animation style: FadeScale, Fade, None.</string>
+    <string name="tooltip_prop_placement_desc">Position relative to content: Top, Bottom, Start, End.</string>
+    <string name="tooltip_prop_show_delay_desc">Delay in ms before showing the tooltip.</string>
+    <string name="tooltip_prop_content_desc">The composable that triggers the tooltip on hover.</string>
+
+    <!-- ─── Top App Bar Page ─────────────────────────────────── -->
+    <string name="top_app_bar_page_desc">A header bar with title, navigation icon, and action slots. Supports solid and transparent variants.</string>
+    <string name="top_app_bar_section_nav_actions">Navigation Icon &amp; Actions</string>
+    <string name="top_app_bar_demo_dashboard">Dashboard</string>
+    <string name="top_app_bar_demo_settings">Settings</string>
+    <string name="top_app_bar_demo_profile">Profile</string>
+    <string name="top_app_bar_demo_back">Back</string>
+    <string name="top_app_bar_prop_title_desc">Title text or composable slot.</string>
+    <string name="top_app_bar_prop_modifier_desc">Modifier for layout and decoration.</string>
+    <string name="top_app_bar_prop_nav_icon_desc">Leading icon slot (e.g. back arrow).</string>
+    <string name="top_app_bar_prop_actions_desc">Trailing actions slot.</string>
+    <string name="top_app_bar_prop_variant_desc">Visual variant: Default, Transparent.</string>
+    <string name="top_app_bar_prop_size_desc">Bar size: Small (56dp), Medium (64dp).</string>
+    <string name="top_app_bar_prop_center_title_desc">When true, title is centered horizontally.</string>
+    <string name="top_app_bar_prop_elevation_desc">Shadow elevation beneath the bar.</string>
+    <string name="top_app_bar_prop_color_transition_desc">Background animation: None, Smooth, Snap.</string>
+
+    <!-- ─── Common prop descriptions (reusable) ──────────────── -->
+    <string name="common_prop_modifier_desc">Modifier for layout and decoration.</string>
+</resources>

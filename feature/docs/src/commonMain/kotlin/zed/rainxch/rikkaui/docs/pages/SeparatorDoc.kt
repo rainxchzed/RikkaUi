@@ -13,6 +13,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.*
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.separator.SeparatorOrientation
@@ -36,12 +39,12 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun SeparatorDoc() {
     ComponentPageHeader(
-        name = "Separator",
-        description = "A thin line that visually divides content sections.",
+        name = stringResource(Res.string.component_separator_name),
+        description = stringResource(Res.string.separator_page_desc),
     )
 
     // ─── Line Styles ────────────────────────────────────────
-    DocSection("Line Styles") {
+    DocSection(stringResource(Res.string.separator_section_line_styles)) {
         var selectedStyle by remember { mutableStateOf("Solid") }
 
         VariantSelector(
@@ -64,58 +67,58 @@ fun SeparatorDoc() {
                     RikkaTheme.spacing.md,
                 ),
             ) {
-                Text("Content above", variant = TextVariant.P)
+                Text(stringResource(Res.string.separator_demo_content_above), variant = TextVariant.P)
                 Separator(style = style)
-                Text("Content below", variant = TextVariant.P)
+                Text(stringResource(Res.string.separator_demo_content_below), variant = TextVariant.P)
             }
         }
     }
 
     // ─── Vertical Orientation ───────────────────────────────
-    DocSection("Vertical Orientation") {
+    DocSection(stringResource(Res.string.separator_section_vertical)) {
         DemoBox {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(
                     RikkaTheme.spacing.md,
                 ),
             ) {
-                Text("Left", variant = TextVariant.P)
+                Text(stringResource(Res.string.separator_demo_left), variant = TextVariant.P)
                 Separator(
                     orientation = SeparatorOrientation.Vertical,
                     modifier = Modifier.height(40.dp),
                 )
-                Text("Center", variant = TextVariant.P)
+                Text(stringResource(Res.string.separator_demo_center), variant = TextVariant.P)
                 Separator(
                     orientation = SeparatorOrientation.Vertical,
                     modifier = Modifier.height(40.dp),
                 )
-                Text("Right", variant = TextVariant.P)
+                Text(stringResource(Res.string.separator_demo_right), variant = TextVariant.P)
             }
         }
     }
 
     // ─── Custom Thickness ───────────────────────────────────
-    DocSection("Custom Thickness") {
+    DocSection(stringResource(Res.string.separator_section_thickness)) {
         DemoBox {
             Column(
                 verticalArrangement = Arrangement.spacedBy(
                     RikkaTheme.spacing.md,
                 ),
             ) {
-                Text("1dp (default)", variant = TextVariant.Small)
+                Text(stringResource(Res.string.separator_demo_1dp_default), variant = TextVariant.Small)
                 Separator(thickness = 1.dp)
 
-                Text("2dp", variant = TextVariant.Small)
+                Text(stringResource(Res.string.separator_demo_2dp), variant = TextVariant.Small)
                 Separator(thickness = 2.dp)
 
-                Text("4dp", variant = TextVariant.Small)
+                Text(stringResource(Res.string.separator_demo_4dp), variant = TextVariant.Small)
                 Separator(thickness = 4.dp, style = SeparatorStyle.Dashed)
             }
         }
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 // Horizontal separator (default)
@@ -144,29 +147,29 @@ Separator(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier for layout and decoration.",
+                    stringResource(Res.string.separator_prop_modifier_desc),
                 ),
                 PropInfo(
                     "orientation", "SeparatorOrientation",
                     "Horizontal",
-                    "Horizontal (full-width) or Vertical (full-height).",
+                    stringResource(Res.string.separator_prop_orientation_desc),
                 ),
                 PropInfo(
                     "color", "Color", "Color.Unspecified",
-                    "Override color. Defaults to theme border color.",
+                    stringResource(Res.string.separator_prop_color_desc),
                 ),
                 PropInfo(
                     "thickness", "Dp", "1.dp",
-                    "Line thickness in dp.",
+                    stringResource(Res.string.separator_prop_thickness_desc),
                 ),
                 PropInfo(
                     "style", "SeparatorStyle", "Solid",
-                    "Line style: Solid, Dashed, or Dotted.",
+                    stringResource(Res.string.separator_prop_style_desc),
                 ),
             ),
         )

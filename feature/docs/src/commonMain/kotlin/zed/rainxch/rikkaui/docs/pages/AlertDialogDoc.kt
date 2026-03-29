@@ -8,6 +8,30 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.Res
+import rikkaui.feature.docs.generated.resources.alert_dialog_demo_are_you_sure
+import rikkaui.feature.docs.generated.resources.alert_dialog_demo_cannot_undo
+import rikkaui.feature.docs.generated.resources.alert_dialog_demo_configure_workspace
+import rikkaui.feature.docs.generated.resources.alert_dialog_demo_continue
+import rikkaui.feature.docs.generated.resources.alert_dialog_demo_continue_question
+import rikkaui.feature.docs.generated.resources.alert_dialog_demo_continue_setup
+import rikkaui.feature.docs.generated.resources.alert_dialog_demo_delete_account
+import rikkaui.feature.docs.generated.resources.alert_dialog_page_desc
+import rikkaui.feature.docs.generated.resources.alert_dialog_prop_animation_desc
+import rikkaui.feature.docs.generated.resources.alert_dialog_prop_content_desc
+import rikkaui.feature.docs.generated.resources.alert_dialog_prop_label_desc
+import rikkaui.feature.docs.generated.resources.alert_dialog_prop_max_width_desc
+import rikkaui.feature.docs.generated.resources.alert_dialog_prop_modifier_desc
+import rikkaui.feature.docs.generated.resources.alert_dialog_prop_on_confirm_desc
+import rikkaui.feature.docs.generated.resources.alert_dialog_prop_on_dismiss_desc
+import rikkaui.feature.docs.generated.resources.alert_dialog_prop_open_desc
+import rikkaui.feature.docs.generated.resources.alert_dialog_prop_scrim_desc
+import rikkaui.feature.docs.generated.resources.alert_dialog_section_default_action
+import rikkaui.feature.docs.generated.resources.component_alert_dialog_name
+import rikkaui.feature.docs.generated.resources.section_animations
+import rikkaui.feature.docs.generated.resources.section_api_reference
+import rikkaui.feature.docs.generated.resources.section_usage
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.alertdialog.AlertDialog
 import zed.rainxch.rikkaui.components.ui.alertdialog.AlertDialogAction
@@ -35,13 +59,16 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun AlertDialogDoc() {
     ComponentPageHeader(
-        name = "AlertDialog",
-        description = "A modal dialog for destructive-action confirmations. "
-            + "The scrim does not dismiss -- users must choose an action.",
+        name = stringResource(
+            Res.string.component_alert_dialog_name,
+        ),
+        description = stringResource(
+            Res.string.alert_dialog_page_desc,
+        ),
     )
 
     // ─── Animation Variants ─────────────────────────────────
-    DocSection("Animations") {
+    DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("FadeScale") }
         var open by remember { mutableStateOf(false) }
 
@@ -61,7 +88,9 @@ fun AlertDialogDoc() {
 
         DemoBox {
             Button(
-                "Delete Account",
+                stringResource(
+                    Res.string.alert_dialog_demo_delete_account,
+                ),
                 onClick = { open = true },
                 variant = ButtonVariant.Destructive,
             )
@@ -73,15 +102,19 @@ fun AlertDialogDoc() {
                 animation = animation,
             ) {
                 AlertDialogHeader(
-                    title = "Are you absolutely sure?",
-                    description = "This action cannot be undone. "
-                        + "This will permanently delete your "
-                        + "account and remove your data.",
+                    title = stringResource(
+                        Res.string.alert_dialog_demo_are_you_sure,
+                    ),
+                    description = stringResource(
+                        Res.string.alert_dialog_demo_cannot_undo,
+                    ),
                 )
                 AlertDialogFooter {
                     AlertDialogCancel(onClick = { open = false })
                     AlertDialogAction(
-                        text = "Delete Account",
+                        text = stringResource(
+                            Res.string.alert_dialog_demo_delete_account,
+                        ),
                         onClick = { open = false },
                         variant = AlertDialogActionVariant.Destructive,
                     )
@@ -91,12 +124,18 @@ fun AlertDialogDoc() {
     }
 
     // ─── Default Action ─────────────────────────────────────
-    DocSection("Default Action Variant") {
+    DocSection(
+        stringResource(
+            Res.string.alert_dialog_section_default_action,
+        ),
+    ) {
         var open by remember { mutableStateOf(false) }
 
         DemoBox {
             Button(
-                "Continue Setup",
+                stringResource(
+                    Res.string.alert_dialog_demo_continue_setup,
+                ),
                 onClick = { open = true },
             )
 
@@ -106,14 +145,19 @@ fun AlertDialogDoc() {
                 onConfirm = { open = false },
             ) {
                 AlertDialogHeader(
-                    title = "Continue with setup?",
-                    description = "This will configure your workspace "
-                        + "with the recommended settings.",
+                    title = stringResource(
+                        Res.string.alert_dialog_demo_continue_question,
+                    ),
+                    description = stringResource(
+                        Res.string.alert_dialog_demo_configure_workspace,
+                    ),
                 )
                 AlertDialogFooter {
                     AlertDialogCancel(onClick = { open = false })
                     AlertDialogAction(
-                        text = "Continue",
+                        text = stringResource(
+                            Res.string.alert_dialog_demo_continue,
+                        ),
                         onClick = { open = false },
                     )
                 }
@@ -122,7 +166,7 @@ fun AlertDialogDoc() {
     }
 
     // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 var open by remember { mutableStateOf(false) }
@@ -153,44 +197,65 @@ AlertDialog(
     }
 
     // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(
+        stringResource(Res.string.section_api_reference),
+    ) {
         PropsTable(
             listOf(
                 PropInfo(
                     "open", "Boolean", "required",
-                    "Whether the alert dialog is visible.",
+                    stringResource(
+                        Res.string.alert_dialog_prop_open_desc,
+                    ),
                 ),
                 PropInfo(
                     "onDismiss", "() -> Unit", "required",
-                    "Called when cancel action is triggered.",
+                    stringResource(
+                        Res.string.alert_dialog_prop_on_dismiss_desc,
+                    ),
                 ),
                 PropInfo(
                     "onConfirm", "() -> Unit", "required",
-                    "Called when confirm action is triggered.",
+                    stringResource(
+                        Res.string.alert_dialog_prop_on_confirm_desc,
+                    ),
                 ),
                 PropInfo(
                     "modifier", "Modifier", "Modifier",
-                    "Modifier applied to the dialog card.",
+                    stringResource(
+                        Res.string.alert_dialog_prop_modifier_desc,
+                    ),
                 ),
                 PropInfo(
                     "label", "String", "\"Alert Dialog\"",
-                    "Accessibility label for the dialog.",
+                    stringResource(
+                        Res.string.alert_dialog_prop_label_desc,
+                    ),
                 ),
                 PropInfo(
-                    "animation", "AlertDialogAnimation", "FadeScale",
-                    "Enter/exit animation: FadeScale, Fade, None.",
+                    "animation", "AlertDialogAnimation",
+                    "FadeScale",
+                    stringResource(
+                        Res.string.alert_dialog_prop_animation_desc,
+                    ),
                 ),
                 PropInfo(
                     "scrimColor", "Color", "Black(0.5f)",
-                    "Color of the non-dismissible scrim.",
+                    stringResource(
+                        Res.string.alert_dialog_prop_scrim_desc,
+                    ),
                 ),
                 PropInfo(
                     "maxWidth", "Dp", "520.dp",
-                    "Maximum width of the dialog card.",
+                    stringResource(
+                        Res.string.alert_dialog_prop_max_width_desc,
+                    ),
                 ),
                 PropInfo(
                     "content", "() -> Unit", "required",
-                    "Dialog content. Use AlertDialogHeader/Footer.",
+                    stringResource(
+                        Res.string.alert_dialog_prop_content_desc,
+                    ),
                 ),
             ),
         )
