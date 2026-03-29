@@ -32,7 +32,6 @@ import rikkaui.feature.docs.generated.resources.component_alert_dialog_name
 import rikkaui.feature.docs.generated.resources.section_animations
 import rikkaui.feature.docs.generated.resources.section_api_reference
 import rikkaui.feature.docs.generated.resources.section_usage
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.alertdialog.AlertDialog
 import zed.rainxch.rikkaui.components.ui.alertdialog.AlertDialogAction
 import zed.rainxch.rikkaui.components.ui.alertdialog.AlertDialogActionVariant
@@ -49,6 +48,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the AlertDialog component.
@@ -59,12 +59,14 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun AlertDialogDoc() {
     ComponentPageHeader(
-        name = stringResource(
-            Res.string.component_alert_dialog_name,
-        ),
-        description = stringResource(
-            Res.string.alert_dialog_page_desc,
-        ),
+        name =
+            stringResource(
+                Res.string.component_alert_dialog_name,
+            ),
+        description =
+            stringResource(
+                Res.string.alert_dialog_page_desc,
+            ),
     )
 
     // ─── Animation Variants ─────────────────────────────────
@@ -80,11 +82,12 @@ fun AlertDialogDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "Fade" -> AlertDialogAnimation.Fade
-            "None" -> AlertDialogAnimation.None
-            else -> AlertDialogAnimation.FadeScale
-        }
+        val animation =
+            when (selectedAnim) {
+                "Fade" -> AlertDialogAnimation.Fade
+                "None" -> AlertDialogAnimation.None
+                else -> AlertDialogAnimation.FadeScale
+            }
 
         DemoBox {
             Button(
@@ -102,19 +105,22 @@ fun AlertDialogDoc() {
                 animation = animation,
             ) {
                 AlertDialogHeader(
-                    title = stringResource(
-                        Res.string.alert_dialog_demo_are_you_sure,
-                    ),
-                    description = stringResource(
-                        Res.string.alert_dialog_demo_cannot_undo,
-                    ),
+                    title =
+                        stringResource(
+                            Res.string.alert_dialog_demo_are_you_sure,
+                        ),
+                    description =
+                        stringResource(
+                            Res.string.alert_dialog_demo_cannot_undo,
+                        ),
                 )
                 AlertDialogFooter {
                     AlertDialogCancel(onClick = { open = false })
                     AlertDialogAction(
-                        text = stringResource(
-                            Res.string.alert_dialog_demo_delete_account,
-                        ),
+                        text =
+                            stringResource(
+                                Res.string.alert_dialog_demo_delete_account,
+                            ),
                         onClick = { open = false },
                         variant = AlertDialogActionVariant.Destructive,
                     )
@@ -145,19 +151,22 @@ fun AlertDialogDoc() {
                 onConfirm = { open = false },
             ) {
                 AlertDialogHeader(
-                    title = stringResource(
-                        Res.string.alert_dialog_demo_continue_question,
-                    ),
-                    description = stringResource(
-                        Res.string.alert_dialog_demo_configure_workspace,
-                    ),
+                    title =
+                        stringResource(
+                            Res.string.alert_dialog_demo_continue_question,
+                        ),
+                    description =
+                        stringResource(
+                            Res.string.alert_dialog_demo_configure_workspace,
+                        ),
                 )
                 AlertDialogFooter {
                     AlertDialogCancel(onClick = { open = false })
                     AlertDialogAction(
-                        text = stringResource(
-                            Res.string.alert_dialog_demo_continue,
-                        ),
+                        text =
+                            stringResource(
+                                Res.string.alert_dialog_demo_continue,
+                            ),
                         onClick = { open = false },
                     )
                 }
@@ -203,56 +212,73 @@ AlertDialog(
         PropsTable(
             listOf(
                 PropInfo(
-                    "open", "Boolean", "required",
+                    "open",
+                    "Boolean",
+                    "required",
                     stringResource(
                         Res.string.alert_dialog_prop_open_desc,
                     ),
                 ),
                 PropInfo(
-                    "onDismiss", "() -> Unit", "required",
+                    "onDismiss",
+                    "() -> Unit",
+                    "required",
                     stringResource(
                         Res.string.alert_dialog_prop_on_dismiss_desc,
                     ),
                 ),
                 PropInfo(
-                    "onConfirm", "() -> Unit", "required",
+                    "onConfirm",
+                    "() -> Unit",
+                    "required",
                     stringResource(
                         Res.string.alert_dialog_prop_on_confirm_desc,
                     ),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(
                         Res.string.alert_dialog_prop_modifier_desc,
                     ),
                 ),
                 PropInfo(
-                    "label", "String", "\"Alert Dialog\"",
+                    "label",
+                    "String",
+                    "\"Alert Dialog\"",
                     stringResource(
                         Res.string.alert_dialog_prop_label_desc,
                     ),
                 ),
                 PropInfo(
-                    "animation", "AlertDialogAnimation",
+                    "animation",
+                    "AlertDialogAnimation",
                     "FadeScale",
                     stringResource(
                         Res.string.alert_dialog_prop_animation_desc,
                     ),
                 ),
                 PropInfo(
-                    "scrimColor", "Color", "Black(0.5f)",
+                    "scrimColor",
+                    "Color",
+                    "Black(0.5f)",
                     stringResource(
                         Res.string.alert_dialog_prop_scrim_desc,
                     ),
                 ),
                 PropInfo(
-                    "maxWidth", "Dp", "520.dp",
+                    "maxWidth",
+                    "Dp",
+                    "520.dp",
                     stringResource(
                         Res.string.alert_dialog_prop_max_width_desc,
                     ),
                 ),
                 PropInfo(
-                    "content", "() -> Unit", "required",
+                    "content",
+                    "() -> Unit",
+                    "required",
                     stringResource(
                         Res.string.alert_dialog_prop_content_desc,
                     ),

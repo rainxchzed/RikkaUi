@@ -24,7 +24,6 @@ import rikkaui.composeapp.generated.resources.carol_time
 import rikkaui.composeapp.generated.resources.dave_action
 import rikkaui.composeapp.generated.resources.dave_time
 import rikkaui.composeapp.generated.resources.recent_activity
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.avatar.Avatar
 import zed.rainxch.rikkaui.components.ui.avatar.AvatarSize
 import zed.rainxch.rikkaui.components.ui.card.Card
@@ -34,6 +33,7 @@ import zed.rainxch.rikkaui.components.ui.pagination.Pagination
 import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 @Composable
 fun ActivityFeedExample() {

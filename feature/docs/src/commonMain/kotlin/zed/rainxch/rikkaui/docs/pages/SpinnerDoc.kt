@@ -11,9 +11,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.spinner.Spinner
 import zed.rainxch.rikkaui.components.ui.spinner.SpinnerAnimation
 import zed.rainxch.rikkaui.components.ui.spinner.SpinnerSize
@@ -24,6 +23,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the Spinner component.
@@ -42,9 +42,10 @@ fun SpinnerDoc() {
     DocSection(stringResource(Res.string.section_sizes)) {
         DemoBox {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.lg,
-                ),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.lg,
+                    ),
             ) {
                 Spinner(size = SpinnerSize.Sm)
                 Spinner(size = SpinnerSize.Default)
@@ -65,17 +66,19 @@ fun SpinnerDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "Pulse" -> SpinnerAnimation.Pulse
-            "None" -> SpinnerAnimation.None
-            else -> SpinnerAnimation.Spin
-        }
+        val animation =
+            when (selectedAnim) {
+                "Pulse" -> SpinnerAnimation.Pulse
+                "None" -> SpinnerAnimation.None
+                else -> SpinnerAnimation.Spin
+            }
 
         DemoBox {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.lg,
-                ),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.lg,
+                    ),
             ) {
                 Spinner(animation = animation)
                 Spinner(
@@ -91,9 +94,10 @@ fun SpinnerDoc() {
     DocSection(stringResource(Res.string.spinner_section_custom_sweep)) {
         DemoBox {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.lg,
-                ),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.lg,
+                    ),
             ) {
                 Spinner(sweepAngle = 90f, size = SpinnerSize.Lg)
                 Spinner(sweepAngle = 180f, size = SpinnerSize.Lg)
@@ -128,31 +132,45 @@ Spinner(sweepAngle = 180f)
         PropsTable(
             listOf(
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.spinner_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "size", "SpinnerSize", "Default",
+                    "size",
+                    "SpinnerSize",
+                    "Default",
                     stringResource(Res.string.spinner_prop_size_desc),
                 ),
                 PropInfo(
-                    "animation", "SpinnerAnimation", "Spin",
+                    "animation",
+                    "SpinnerAnimation",
+                    "Spin",
                     stringResource(Res.string.spinner_prop_animation_desc),
                 ),
                 PropInfo(
-                    "color", "Color", "primary",
+                    "color",
+                    "Color",
+                    "primary",
                     stringResource(Res.string.spinner_prop_color_desc),
                 ),
                 PropInfo(
-                    "trackColor", "Color?", "null",
+                    "trackColor",
+                    "Color?",
+                    "null",
                     stringResource(Res.string.spinner_prop_track_color_desc),
                 ),
                 PropInfo(
-                    "sweepAngle", "Float", "270f",
+                    "sweepAngle",
+                    "Float",
+                    "270f",
                     stringResource(Res.string.spinner_prop_sweep_angle_desc),
                 ),
                 PropInfo(
-                    "label", "String", "\"Loading\"",
+                    "label",
+                    "String",
+                    "\"Loading\"",
                     stringResource(Res.string.spinner_prop_label_desc),
                 ),
             ),

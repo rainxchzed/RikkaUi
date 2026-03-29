@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.window.Popup
 import kotlinx.coroutines.delay
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ─────────────────────────────────────────────
 
@@ -162,10 +162,13 @@ fun Tooltip(
     val scale by animateFloatAsState(
         targetValue =
             when (animation) {
-                TooltipAnimation.FadeScale ->
+                TooltipAnimation.FadeScale -> {
                     if (isVisible) 1f else 0.95f
+                }
 
-                else -> 1f
+                else -> {
+                    1f
+                }
             },
         animationSpec =
             when (animation) {

@@ -25,7 +25,6 @@ import rikkaui.composeapp.generated.resources.task_board_label
 import rikkaui.composeapp.generated.resources.update_docs
 import rikkaui.composeapp.generated.resources.view_board
 import rikkaui.composeapp.generated.resources.write_unit_tests
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.avatar.Avatar
 import zed.rainxch.rikkaui.components.ui.avatar.AvatarSize
 import zed.rainxch.rikkaui.components.ui.badge.Badge
@@ -40,6 +39,7 @@ import zed.rainxch.rikkaui.components.ui.checkbox.Checkbox
 import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 @Composable
 fun TaskBoardExample() {

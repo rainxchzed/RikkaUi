@@ -22,10 +22,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaAccentPreset
-import zed.rainxch.rikkaui.components.theme.RikkaPalette
-import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.creator.generated.resources.*
+import rikkaui.feature.creator.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonAnimation
 import zed.rainxch.rikkaui.components.ui.button.ButtonSize
@@ -39,10 +38,11 @@ import zed.rainxch.rikkaui.components.ui.popover.PopoverPlacement
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.toggle.Toggle
-import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.creator.generated.resources.Res
-import rikkaui.feature.creator.generated.resources.*
 import zed.rainxch.rikkaui.creator.fonts.availableFonts
+import zed.rainxch.rikkaui.foundation.RikkaAccentPreset
+import zed.rainxch.rikkaui.foundation.RikkaPalette
+import zed.rainxch.rikkaui.foundation.RikkaStylePreset
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Configuration panel for the Design System Creator.
@@ -211,11 +211,12 @@ fun ConfigPanel(
             label = stringResource(Res.string.config_toggle_dark_mode),
         )
         Text(
-            text = if (previewDark) {
-                stringResource(Res.string.config_preview_dark)
-            } else {
-                stringResource(Res.string.config_preview_light)
-            },
+            text =
+                if (previewDark) {
+                    stringResource(Res.string.config_preview_dark)
+                } else {
+                    stringResource(Res.string.config_preview_light)
+                },
             variant = TextVariant.Muted,
         )
     }

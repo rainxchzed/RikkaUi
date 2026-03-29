@@ -34,7 +34,6 @@ import rikkaui.feature.docs.generated.resources.breadcrumb_subsection_item_data
 import rikkaui.feature.docs.generated.resources.component_breadcrumb_name
 import rikkaui.feature.docs.generated.resources.section_api_reference
 import rikkaui.feature.docs.generated.resources.section_usage
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.breadcrumb.Breadcrumb
 import zed.rainxch.rikkaui.components.ui.breadcrumb.BreadcrumbAnimation
 import zed.rainxch.rikkaui.components.ui.breadcrumb.BreadcrumbItem
@@ -49,6 +48,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 @Composable
 fun BreadcrumbDoc() {
@@ -92,31 +92,33 @@ fun BreadcrumbDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "Fade" -> BreadcrumbAnimation.Fade
-            "Slide" -> BreadcrumbAnimation.Slide
-            else -> BreadcrumbAnimation.None
-        }
+        val animation =
+            when (selectedAnim) {
+                "Fade" -> BreadcrumbAnimation.Fade
+                "Slide" -> BreadcrumbAnimation.Slide
+                else -> BreadcrumbAnimation.None
+            }
 
         DemoBox {
             Breadcrumb(
-                items = listOf(
-                    BreadcrumbItemData(
-                        stringResource(Res.string.breadcrumb_demo_home),
-                        onClick = {},
+                items =
+                    listOf(
+                        BreadcrumbItemData(
+                            stringResource(Res.string.breadcrumb_demo_home),
+                            onClick = {},
+                        ),
+                        BreadcrumbItemData(
+                            stringResource(Res.string.breadcrumb_demo_products),
+                            onClick = {},
+                        ),
+                        BreadcrumbItemData(
+                            stringResource(Res.string.breadcrumb_demo_widgets),
+                            onClick = {},
+                        ),
+                        BreadcrumbItemData(
+                            stringResource(Res.string.breadcrumb_demo_current_page),
+                        ),
                     ),
-                    BreadcrumbItemData(
-                        stringResource(Res.string.breadcrumb_demo_products),
-                        onClick = {},
-                    ),
-                    BreadcrumbItemData(
-                        stringResource(Res.string.breadcrumb_demo_widgets),
-                        onClick = {},
-                    ),
-                    BreadcrumbItemData(
-                        stringResource(Res.string.breadcrumb_demo_current_page),
-                    ),
-                ),
                 animation = animation,
             )
         }
@@ -127,27 +129,28 @@ fun BreadcrumbDoc() {
     ) {
         DemoBox {
             Breadcrumb(
-                items = listOf(
-                    BreadcrumbItemData(
-                        stringResource(Res.string.breadcrumb_demo_home),
-                        onClick = {},
+                items =
+                    listOf(
+                        BreadcrumbItemData(
+                            stringResource(Res.string.breadcrumb_demo_home),
+                            onClick = {},
+                        ),
+                        BreadcrumbItemData(
+                            stringResource(Res.string.breadcrumb_demo_documents),
+                            onClick = {},
+                        ),
+                        BreadcrumbItemData(
+                            stringResource(Res.string.breadcrumb_demo_projects),
+                            onClick = {},
+                        ),
+                        BreadcrumbItemData(
+                            stringResource(Res.string.breadcrumb_demo_design),
+                            onClick = {},
+                        ),
+                        BreadcrumbItemData(
+                            stringResource(Res.string.breadcrumb_demo_components),
+                        ),
                     ),
-                    BreadcrumbItemData(
-                        stringResource(Res.string.breadcrumb_demo_documents),
-                        onClick = {},
-                    ),
-                    BreadcrumbItemData(
-                        stringResource(Res.string.breadcrumb_demo_projects),
-                        onClick = {},
-                    ),
-                    BreadcrumbItemData(
-                        stringResource(Res.string.breadcrumb_demo_design),
-                        onClick = {},
-                    ),
-                    BreadcrumbItemData(
-                        stringResource(Res.string.breadcrumb_demo_components),
-                    ),
-                ),
                 maxVisibleItems = 3,
             )
         }
@@ -183,27 +186,39 @@ Breadcrumb(
         PropsTable(
             listOf(
                 PropInfo(
-                    "items", "List<BreadcrumbItemData>", "required",
+                    "items",
+                    "List<BreadcrumbItemData>",
+                    "required",
                     stringResource(Res.string.breadcrumb_prop_items_desc),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.breadcrumb_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "animation", "BreadcrumbAnimation", "None",
+                    "animation",
+                    "BreadcrumbAnimation",
+                    "None",
                     stringResource(Res.string.breadcrumb_prop_animation_desc),
                 ),
                 PropInfo(
-                    "separator", "(@Composable () -> Unit)?", "null",
+                    "separator",
+                    "(@Composable () -> Unit)?",
+                    "null",
                     stringResource(Res.string.breadcrumb_prop_separator_desc),
                 ),
                 PropInfo(
-                    "maxVisibleItems", "Int", "0",
+                    "maxVisibleItems",
+                    "Int",
+                    "0",
                     stringResource(Res.string.breadcrumb_prop_max_visible_desc),
                 ),
                 PropInfo(
-                    "onEllipsisClick", "(() -> Unit)?", "null",
+                    "onEllipsisClick",
+                    "(() -> Unit)?",
+                    "null",
                     stringResource(Res.string.breadcrumb_prop_ellipsis_click_desc),
                 ),
             ),
@@ -221,11 +236,15 @@ Breadcrumb(
         PropsTable(
             listOf(
                 PropInfo(
-                    "label", "String", "required",
+                    "label",
+                    "String",
+                    "required",
                     stringResource(Res.string.breadcrumb_prop_label_desc),
                 ),
                 PropInfo(
-                    "onClick", "(() -> Unit)?", "null",
+                    "onClick",
+                    "(() -> Unit)?",
+                    "null",
                     stringResource(Res.string.breadcrumb_prop_onclick_desc),
                 ),
             ),

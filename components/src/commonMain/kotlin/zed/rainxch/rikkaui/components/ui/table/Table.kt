@@ -27,9 +27,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── TableAnimation ───────────────────────────────────────
 
@@ -160,12 +160,15 @@ fun Table(
         when (borderStyle) {
             TableBorderStyle.Outlined,
             TableBorderStyle.Bordered,
-            ->
+            -> {
                 baseModifier
                     .border(1.dp, RikkaTheme.colors.border, shape)
                     .clip(shape)
+            }
 
-            TableBorderStyle.Borderless -> baseModifier.clip(shape)
+            TableBorderStyle.Borderless -> {
+                baseModifier.clip(shape)
+            }
         }
 
     CompositionLocalProvider(

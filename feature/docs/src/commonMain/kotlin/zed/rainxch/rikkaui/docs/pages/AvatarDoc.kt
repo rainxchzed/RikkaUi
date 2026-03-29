@@ -24,7 +24,6 @@ import rikkaui.feature.docs.generated.resources.section_animations
 import rikkaui.feature.docs.generated.resources.section_api_reference
 import rikkaui.feature.docs.generated.resources.section_sizes
 import rikkaui.feature.docs.generated.resources.section_usage
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.avatar.Avatar
 import zed.rainxch.rikkaui.components.ui.avatar.AvatarAnimation
 import zed.rainxch.rikkaui.components.ui.avatar.AvatarSize
@@ -36,6 +35,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 @Composable
 fun AvatarDoc() {
@@ -47,9 +47,10 @@ fun AvatarDoc() {
     DocSection(stringResource(Res.string.section_sizes)) {
         DemoBox {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.md,
-                ),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.md,
+                    ),
             ) {
                 Avatar(fallback = "S", size = AvatarSize.Sm)
                 Avatar(fallback = "JD", size = AvatarSize.Default)
@@ -63,9 +64,10 @@ fun AvatarDoc() {
     ) {
         DemoBox {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.md,
-                ),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.md,
+                    ),
             ) {
                 Avatar(fallback = "ON", status = AvatarStatus.Online)
                 Avatar(fallback = "OF", status = AvatarStatus.Offline)
@@ -86,17 +88,19 @@ fun AvatarDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "Scale" -> AvatarAnimation.Scale
-            "None" -> AvatarAnimation.None
-            else -> AvatarAnimation.FadeIn
-        }
+        val animation =
+            when (selectedAnim) {
+                "Scale" -> AvatarAnimation.Scale
+                "None" -> AvatarAnimation.None
+                else -> AvatarAnimation.FadeIn
+            }
 
         DemoBox {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.md,
-                ),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.md,
+                    ),
             ) {
                 Avatar(
                     fallback = "A",
@@ -131,23 +135,33 @@ Avatar(
         PropsTable(
             listOf(
                 PropInfo(
-                    "fallback", "String", "required",
+                    "fallback",
+                    "String",
+                    "required",
                     stringResource(Res.string.avatar_prop_fallback_desc),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.avatar_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "size", "AvatarSize", "Default",
+                    "size",
+                    "AvatarSize",
+                    "Default",
                     stringResource(Res.string.avatar_prop_size_desc),
                 ),
                 PropInfo(
-                    "animation", "AvatarAnimation", "FadeIn",
+                    "animation",
+                    "AvatarAnimation",
+                    "FadeIn",
                     stringResource(Res.string.avatar_prop_animation_desc),
                 ),
                 PropInfo(
-                    "status", "AvatarStatus?", "null",
+                    "status",
+                    "AvatarStatus?",
+                    "null",
                     stringResource(Res.string.avatar_prop_status_desc),
                 ),
             ),

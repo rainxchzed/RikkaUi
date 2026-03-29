@@ -6,7 +6,7 @@ package zed.rainxch.rikkaui.components.ui
  * [ContextMenu][zed.rainxch.rikkaui.components.ui.contextmenu.ContextMenu].
  *
  * Controls how the popup content enters and exits.
- * All timed animations reference [RikkaTheme.motion][zed.rainxch.rikkaui.components.theme.RikkaTheme]
+ * All timed animations reference [RikkaTheme.motion][zed.rainxch.rikkaui.foundation.RikkaTheme]
  * tokens so they respect the active motion preset.
  *
  * Usage:

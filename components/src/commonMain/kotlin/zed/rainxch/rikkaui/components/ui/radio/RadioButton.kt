@@ -28,8 +28,8 @@ import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ──────────────────────────────────────────────
 
@@ -239,52 +239,60 @@ private fun resolveRadioColors(
     val colors = RikkaTheme.colors
 
     return when {
-        !enabled && selected ->
+        !enabled && selected -> {
             RadioColors(
                 ring = colors.primary.copy(alpha = 0.5f),
                 dot = colors.primary.copy(alpha = 0.5f),
             )
+        }
 
-        !enabled ->
+        !enabled -> {
             RadioColors(
                 ring = colors.border.copy(alpha = 0.5f),
                 dot = androidx.compose.ui.graphics.Color.Transparent,
             )
+        }
 
-        selected && isPressed ->
+        selected && isPressed -> {
             RadioColors(
                 ring = colors.primary.copy(alpha = 0.8f),
                 dot = colors.primary.copy(alpha = 0.8f),
             )
+        }
 
-        selected && isHovered ->
+        selected && isHovered -> {
             RadioColors(
                 ring = colors.primary.copy(alpha = 0.9f),
                 dot = colors.primary.copy(alpha = 0.9f),
             )
+        }
 
-        selected ->
+        selected -> {
             RadioColors(
                 ring = colors.primary,
                 dot = colors.primary,
             )
+        }
 
-        isPressed ->
+        isPressed -> {
             RadioColors(
                 ring = colors.primary.copy(alpha = 0.6f),
                 dot = androidx.compose.ui.graphics.Color.Transparent,
             )
+        }
 
-        isHovered ->
+        isHovered -> {
             RadioColors(
                 ring = colors.primary.copy(alpha = 0.4f),
                 dot = androidx.compose.ui.graphics.Color.Transparent,
             )
+        }
 
-        else ->
+        else -> {
             RadioColors(
                 ring = colors.border,
                 dot = androidx.compose.ui.graphics.Color.Transparent,
             )
+        }
     }
 }

@@ -34,9 +34,9 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ────────────────────────────────────────────
 
@@ -313,13 +313,20 @@ private fun resolveColorAnimSpec(
     durationMs: Int,
 ): AnimationSpec<Color> =
     when (animation) {
-        TabAnimation.Spring ->
+        TabAnimation.Spring -> {
             spring(
                 dampingRatio = Spring.DampingRatioNoBouncy,
                 stiffness = Spring.StiffnessMedium,
             )
-        TabAnimation.Tween -> tween(durationMs)
-        TabAnimation.None -> snap()
+        }
+
+        TabAnimation.Tween -> {
+            tween(durationMs)
+        }
+
+        TabAnimation.None -> {
+            snap()
+        }
     }
 
 @Composable
@@ -328,11 +335,18 @@ private fun resolveDpAnimSpec(
     durationMs: Int,
 ): AnimationSpec<Dp> =
     when (animation) {
-        TabAnimation.Spring ->
+        TabAnimation.Spring -> {
             spring(
                 dampingRatio = Spring.DampingRatioNoBouncy,
                 stiffness = Spring.StiffnessMedium,
             )
-        TabAnimation.Tween -> tween(durationMs)
-        TabAnimation.None -> snap()
+        }
+
+        TabAnimation.Tween -> {
+            tween(durationMs)
+        }
+
+        TabAnimation.None -> {
+            snap()
+        }
     }

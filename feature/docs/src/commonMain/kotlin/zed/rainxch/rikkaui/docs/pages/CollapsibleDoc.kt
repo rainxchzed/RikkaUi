@@ -15,9 +15,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.collapsible.Collapsible
 import zed.rainxch.rikkaui.components.ui.collapsible.CollapsibleAnimation
 import zed.rainxch.rikkaui.components.ui.collapsible.CollapsibleContent
@@ -33,6 +32,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the Collapsible component.
@@ -62,10 +62,12 @@ fun CollapsibleDoc() {
                     expanded = open,
                 ) {
                     Row(
-                        modifier = Modifier.fillMaxWidth()
-                            .padding(
-                                vertical = RikkaTheme.spacing.sm,
-                            ),
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(
+                                    vertical = RikkaTheme.spacing.sm,
+                                ),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
@@ -82,12 +84,14 @@ fun CollapsibleDoc() {
 
                 CollapsibleContent(open = open) {
                     Column(
-                        verticalArrangement = Arrangement.spacedBy(
-                            RikkaTheme.spacing.xs,
-                        ),
-                        modifier = Modifier.padding(
-                            bottom = RikkaTheme.spacing.sm,
-                        ),
+                        verticalArrangement =
+                            Arrangement.spacedBy(
+                                RikkaTheme.spacing.xs,
+                            ),
+                        modifier =
+                            Modifier.padding(
+                                bottom = RikkaTheme.spacing.sm,
+                            ),
                     ) {
                         Text(
                             "@rikka/components",
@@ -117,10 +121,12 @@ fun CollapsibleDoc() {
             ) {
                 trigger {
                     Row(
-                        modifier = Modifier.fillMaxWidth()
-                            .padding(
-                                vertical = RikkaTheme.spacing.sm,
-                            ),
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(
+                                    vertical = RikkaTheme.spacing.sm,
+                                ),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
@@ -136,9 +142,10 @@ fun CollapsibleDoc() {
                 }
                 content {
                     Column(
-                        modifier = Modifier.padding(
-                            bottom = RikkaTheme.spacing.sm,
-                        ),
+                        modifier =
+                            Modifier.padding(
+                                bottom = RikkaTheme.spacing.sm,
+                            ),
                     ) {
                         Text(
                             stringResource(Res.string.collapsible_demo_dsl_body),
@@ -162,11 +169,12 @@ fun CollapsibleDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "Tween" -> CollapsibleAnimation.Tween
-            "None" -> CollapsibleAnimation.None
-            else -> CollapsibleAnimation.Spring
-        }
+        val animation =
+            when (selectedAnim) {
+                "Tween" -> CollapsibleAnimation.Tween
+                "None" -> CollapsibleAnimation.None
+                else -> CollapsibleAnimation.Spring
+            }
 
         DemoBox {
             var open by remember { mutableStateOf(false) }
@@ -181,10 +189,12 @@ fun CollapsibleDoc() {
                     expanded = open,
                 ) {
                     Row(
-                        modifier = Modifier.fillMaxWidth()
-                            .padding(
-                                vertical = RikkaTheme.spacing.sm,
-                            ),
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(
+                                    vertical = RikkaTheme.spacing.sm,
+                                ),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
@@ -202,9 +212,10 @@ fun CollapsibleDoc() {
                     animation = animation,
                 ) {
                     Column(
-                        modifier = Modifier.padding(
-                            bottom = RikkaTheme.spacing.sm,
-                        ),
+                        modifier =
+                            Modifier.padding(
+                                bottom = RikkaTheme.spacing.sm,
+                            ),
                     ) {
                         Text(
                             stringResource(
@@ -274,20 +285,27 @@ Collapsible(
         PropsTable(
             listOf(
                 PropInfo(
-                    "open", "Boolean", "required",
+                    "open",
+                    "Boolean",
+                    "required",
                     stringResource(Res.string.collapsible_prop_open_desc),
                 ),
                 PropInfo(
-                    "onOpenChange", "(Boolean) -> Unit",
+                    "onOpenChange",
+                    "(Boolean) -> Unit",
                     "required",
                     stringResource(Res.string.collapsible_prop_on_open_change_desc),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.collapsible_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "content", "() -> Unit", "required",
+                    "content",
+                    "() -> Unit",
+                    "required",
                     stringResource(Res.string.collapsible_prop_content_desc),
                 ),
             ),
@@ -305,24 +323,33 @@ Collapsible(
         PropsTable(
             listOf(
                 PropInfo(
-                    "onClick", "() -> Unit", "required",
+                    "onClick",
+                    "() -> Unit",
+                    "required",
                     stringResource(Res.string.collapsible_prop_trigger_onclick_desc),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.collapsible_prop_trigger_modifier_desc),
                 ),
                 PropInfo(
-                    "label", "String",
+                    "label",
+                    "String",
                     "\"Toggle section\"",
                     stringResource(Res.string.collapsible_prop_trigger_label_desc),
                 ),
                 PropInfo(
-                    "expanded", "Boolean?", "null",
+                    "expanded",
+                    "Boolean?",
+                    "null",
                     stringResource(Res.string.collapsible_prop_trigger_expanded_desc),
                 ),
                 PropInfo(
-                    "content", "() -> Unit", "required",
+                    "content",
+                    "() -> Unit",
+                    "required",
                     stringResource(Res.string.collapsible_prop_trigger_content_desc),
                 ),
             ),
@@ -340,20 +367,27 @@ Collapsible(
         PropsTable(
             listOf(
                 PropInfo(
-                    "open", "Boolean", "required",
+                    "open",
+                    "Boolean",
+                    "required",
                     stringResource(Res.string.collapsible_prop_content_open_desc),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.collapsible_prop_content_modifier_desc),
                 ),
                 PropInfo(
-                    "animation", "CollapsibleAnimation",
+                    "animation",
+                    "CollapsibleAnimation",
                     "Spring",
                     stringResource(Res.string.collapsible_prop_content_animation_desc),
                 ),
                 PropInfo(
-                    "content", "() -> Unit", "required",
+                    "content",
+                    "() -> Unit",
+                    "required",
                     stringResource(Res.string.collapsible_prop_content_content_desc),
                 ),
             ),

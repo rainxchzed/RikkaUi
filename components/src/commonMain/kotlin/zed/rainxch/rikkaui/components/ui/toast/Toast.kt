@@ -59,11 +59,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.icon.Icon
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
@@ -834,19 +834,23 @@ private fun resolveColors(variant: ToastVariant): ToastColors {
     val colors = RikkaTheme.colors
 
     return when (variant) {
-        ToastVariant.Default ->
+        ToastVariant.Default -> {
             ToastColors(accent = Color.Transparent)
+        }
 
-        ToastVariant.Success ->
+        ToastVariant.Success -> {
             ToastColors(accent = colors.primary)
+        }
 
-        ToastVariant.Destructive ->
+        ToastVariant.Destructive -> {
             ToastColors(accent = colors.destructive)
+        }
 
-        ToastVariant.Warning ->
+        ToastVariant.Warning -> {
             ToastColors(
                 accent = Color(0xFFF59E0B),
             )
+        }
     }
 }
 

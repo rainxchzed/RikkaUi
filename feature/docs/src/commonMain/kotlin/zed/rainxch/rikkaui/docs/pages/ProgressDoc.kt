@@ -13,9 +13,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.progress.Progress
 import zed.rainxch.rikkaui.components.ui.progress.ProgressAnimation
@@ -27,6 +26,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the Progress component.
@@ -54,17 +54,19 @@ fun ProgressDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "Tween" -> ProgressAnimation.Tween
-            "None" -> ProgressAnimation.None
-            else -> ProgressAnimation.Spring
-        }
+        val animation =
+            when (selectedAnim) {
+                "Tween" -> ProgressAnimation.Tween
+                "None" -> ProgressAnimation.None
+                else -> ProgressAnimation.Spring
+            }
 
         DemoBox {
             Column(
-                verticalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.md,
-                ),
+                verticalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.md,
+                    ),
             ) {
                 Progress(
                     progress = progress,
@@ -87,9 +89,10 @@ fun ProgressDoc() {
     DocSection(stringResource(Res.string.progress_section_custom_height)) {
         DemoBox {
             Column(
-                verticalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.md,
-                ),
+                verticalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.md,
+                    ),
             ) {
                 Progress(
                     progress = 0.4f,
@@ -138,31 +141,45 @@ Progress(
         PropsTable(
             listOf(
                 PropInfo(
-                    "progress", "Float", "required",
+                    "progress",
+                    "Float",
+                    "required",
                     stringResource(Res.string.progress_prop_progress_desc),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.progress_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "trackColor", "Color", "Unspecified",
+                    "trackColor",
+                    "Color",
+                    "Unspecified",
                     stringResource(Res.string.progress_prop_track_color_desc),
                 ),
                 PropInfo(
-                    "fillColor", "Color", "Unspecified",
+                    "fillColor",
+                    "Color",
+                    "Unspecified",
                     stringResource(Res.string.progress_prop_fill_color_desc),
                 ),
                 PropInfo(
-                    "height", "Dp", "8.dp",
+                    "height",
+                    "Dp",
+                    "8.dp",
                     stringResource(Res.string.progress_prop_height_desc),
                 ),
                 PropInfo(
-                    "animation", "ProgressAnimation", "Spring",
+                    "animation",
+                    "ProgressAnimation",
+                    "Spring",
                     stringResource(Res.string.progress_prop_animation_desc),
                 ),
                 PropInfo(
-                    "label", "String", "\"\"",
+                    "label",
+                    "String",
+                    "\"\"",
                     stringResource(Res.string.progress_prop_label_desc),
                 ),
             ),

@@ -10,9 +10,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.tabs.Tab
 import zed.rainxch.rikkaui.components.ui.tabs.TabAnimation
 import zed.rainxch.rikkaui.components.ui.tabs.TabContent
@@ -26,6 +25,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the Tabs component.
@@ -53,11 +53,12 @@ fun TabsDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "Tween" -> TabAnimation.Tween
-            "None" -> TabAnimation.None
-            else -> TabAnimation.Spring
-        }
+        val animation =
+            when (selectedAnim) {
+                "Tween" -> TabAnimation.Tween
+                "None" -> TabAnimation.None
+                else -> TabAnimation.Spring
+            }
 
         DemoBox {
             Column {
@@ -84,18 +85,26 @@ fun TabsDoc() {
 
                 TabContent(selectedIndex = selectedTab) {
                     when (selectedTab) {
-                        0 -> Text(
-                            stringResource(Res.string.tabs_demo_account_content),
-                            variant = TextVariant.P,
-                        )
-                        1 -> Text(
-                            stringResource(Res.string.tabs_demo_password_content),
-                            variant = TextVariant.P,
-                        )
-                        2 -> Text(
-                            stringResource(Res.string.tabs_demo_settings_content),
-                            variant = TextVariant.P,
-                        )
+                        0 -> {
+                            Text(
+                                stringResource(Res.string.tabs_demo_account_content),
+                                variant = TextVariant.P,
+                            )
+                        }
+
+                        1 -> {
+                            Text(
+                                stringResource(Res.string.tabs_demo_password_content),
+                                variant = TextVariant.P,
+                            )
+                        }
+
+                        2 -> {
+                            Text(
+                                stringResource(Res.string.tabs_demo_settings_content),
+                                variant = TextVariant.P,
+                            )
+                        }
                     }
                 }
             }
@@ -123,14 +132,19 @@ fun TabsDoc() {
 
                 TabContent(selectedIndex = selectedTab) {
                     when (selectedTab) {
-                        0 -> Text(
-                            stringResource(Res.string.tabs_demo_overview_content),
-                            variant = TextVariant.P,
-                        )
-                        1 -> Text(
-                            stringResource(Res.string.tabs_demo_analytics_content),
-                            variant = TextVariant.P,
-                        )
+                        0 -> {
+                            Text(
+                                stringResource(Res.string.tabs_demo_overview_content),
+                                variant = TextVariant.P,
+                            )
+                        }
+
+                        1 -> {
+                            Text(
+                                stringResource(Res.string.tabs_demo_analytics_content),
+                                variant = TextVariant.P,
+                            )
+                        }
                     }
                 }
             }
@@ -172,39 +186,57 @@ TabContent {
         PropsTable(
             listOf(
                 PropInfo(
-                    "selected", "Boolean", "required",
+                    "selected",
+                    "Boolean",
+                    "required",
                     stringResource(Res.string.tabs_prop_selected_desc),
                 ),
                 PropInfo(
-                    "onClick", "() -> Unit", "required",
+                    "onClick",
+                    "() -> Unit",
+                    "required",
                     stringResource(Res.string.tabs_prop_onclick_desc),
                 ),
                 PropInfo(
-                    "text", "String", "required",
+                    "text",
+                    "String",
+                    "required",
                     stringResource(Res.string.tabs_prop_text_desc),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.tabs_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "animation", "TabAnimation", "Spring",
+                    "animation",
+                    "TabAnimation",
+                    "Spring",
                     stringResource(Res.string.tabs_prop_animation_desc),
                 ),
                 PropInfo(
-                    "activeColor", "Color", "foreground",
+                    "activeColor",
+                    "Color",
+                    "foreground",
                     stringResource(Res.string.tabs_prop_active_color_desc),
                 ),
                 PropInfo(
-                    "inactiveColor", "Color", "mutedForeground",
+                    "inactiveColor",
+                    "Color",
+                    "mutedForeground",
                     stringResource(Res.string.tabs_prop_inactive_color_desc),
                 ),
                 PropInfo(
-                    "activeBackground", "Color", "background",
+                    "activeBackground",
+                    "Color",
+                    "background",
                     stringResource(Res.string.tabs_prop_active_bg_desc),
                 ),
                 PropInfo(
-                    "inactiveBackground", "Color", "muted",
+                    "inactiveBackground",
+                    "Color",
+                    "muted",
                     stringResource(Res.string.tabs_prop_inactive_bg_desc),
                 ),
             ),

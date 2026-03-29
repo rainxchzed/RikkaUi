@@ -18,10 +18,10 @@ import androidx.navigation.NavController
 import androidx.navigation.bindToBrowserNavigation
 import androidx.navigation.compose.rememberNavController
 import zed.rainxch.rikkaui.components.TopNavBar
-import zed.rainxch.rikkaui.components.theme.RikkaPalette
-import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
-import zed.rainxch.rikkaui.components.theme.rikkaTypography
+import zed.rainxch.rikkaui.foundation.RikkaPalette
+import zed.rainxch.rikkaui.foundation.RikkaStylePreset
+import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.rikkaTypography
 import zed.rainxch.rikkaui.navigation.AppNavigation
 import zed.rainxch.rikkaui.theme.ThemeAction
 import zed.rainxch.rikkaui.theme.ThemeViewModel

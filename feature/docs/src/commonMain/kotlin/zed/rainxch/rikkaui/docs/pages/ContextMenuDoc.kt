@@ -15,9 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.PopupAnimation
 import zed.rainxch.rikkaui.components.ui.contextmenu.ContextMenu
 import zed.rainxch.rikkaui.components.ui.contextmenu.ContextMenuItem
@@ -32,6 +31,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the ContextMenu component.
@@ -58,11 +58,12 @@ fun ContextMenuDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "Fade" -> PopupAnimation.Fade
-            "None" -> PopupAnimation.None
-            else -> PopupAnimation.FadeExpand
-        }
+        val animation =
+            when (selectedAnim) {
+                "Fade" -> PopupAnimation.Fade
+                "None" -> PopupAnimation.None
+                else -> PopupAnimation.FadeExpand
+            }
 
         DemoBox {
             ContextMenu(
@@ -94,17 +95,16 @@ fun ContextMenuDoc() {
                 },
             ) {
                 Box(
-                    modifier = Modifier
-                        .border(
-                            1.dp,
-                            RikkaTheme.colors.border,
-                            RikkaTheme.shapes.md,
-                        )
-                        .background(
-                            RikkaTheme.colors.muted,
-                            RikkaTheme.shapes.md,
-                        )
-                        .padding(RikkaTheme.spacing.xl),
+                    modifier =
+                        Modifier
+                            .border(
+                                1.dp,
+                                RikkaTheme.colors.border,
+                                RikkaTheme.shapes.md,
+                            ).background(
+                                RikkaTheme.colors.muted,
+                                RikkaTheme.shapes.md,
+                            ).padding(RikkaTheme.spacing.xl),
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
@@ -142,17 +142,16 @@ fun ContextMenuDoc() {
                 },
             ) {
                 Box(
-                    modifier = Modifier
-                        .border(
-                            1.dp,
-                            RikkaTheme.colors.border,
-                            RikkaTheme.shapes.md,
-                        )
-                        .background(
-                            RikkaTheme.colors.muted,
-                            RikkaTheme.shapes.md,
-                        )
-                        .padding(RikkaTheme.spacing.xl),
+                    modifier =
+                        Modifier
+                            .border(
+                                1.dp,
+                                RikkaTheme.colors.border,
+                                RikkaTheme.shapes.md,
+                            ).background(
+                                RikkaTheme.colors.muted,
+                                RikkaTheme.shapes.md,
+                            ).padding(RikkaTheme.spacing.xl),
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
@@ -193,31 +192,45 @@ ContextMenu(
         PropsTable(
             listOf(
                 PropInfo(
-                    "menuContent", "ColumnScope.() -> Unit", "required",
+                    "menuContent",
+                    "ColumnScope.() -> Unit",
+                    "required",
                     stringResource(Res.string.context_menu_prop_menu_content_desc),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.context_menu_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "animation", "PopupAnimation", "FadeExpand",
+                    "animation",
+                    "PopupAnimation",
+                    "FadeExpand",
                     stringResource(Res.string.context_menu_prop_animation_desc),
                 ),
                 PropInfo(
-                    "minWidth", "Dp", "200.dp",
+                    "minWidth",
+                    "Dp",
+                    "200.dp",
                     stringResource(Res.string.context_menu_prop_min_width_desc),
                 ),
                 PropInfo(
-                    "maxWidth", "Dp", "280.dp",
+                    "maxWidth",
+                    "Dp",
+                    "280.dp",
                     stringResource(Res.string.context_menu_prop_max_width_desc),
                 ),
                 PropInfo(
-                    "maxHeight", "Dp", "300.dp",
+                    "maxHeight",
+                    "Dp",
+                    "300.dp",
                     stringResource(Res.string.context_menu_prop_max_height_desc),
                 ),
                 PropInfo(
-                    "content", "() -> Unit", "required",
+                    "content",
+                    "() -> Unit",
+                    "required",
                     stringResource(Res.string.context_menu_prop_content_desc),
                 ),
             ),

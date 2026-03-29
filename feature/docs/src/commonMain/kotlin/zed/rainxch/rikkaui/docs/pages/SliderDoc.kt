@@ -2,7 +2,6 @@ package zed.rainxch.rikkaui.docs.pages
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -12,13 +11,11 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.slider.Slider
 import zed.rainxch.rikkaui.components.ui.slider.SliderAnimation
 import zed.rainxch.rikkaui.components.ui.text.Text
@@ -30,6 +27,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the Slider component.
@@ -63,9 +61,10 @@ fun SliderDoc() {
 
         DemoBox {
             Column(
-                verticalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.sm,
-                ),
+                verticalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.sm,
+                    ),
             ) {
                 Slider(
                     value = value,

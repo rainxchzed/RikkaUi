@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -14,9 +13,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.separator.SeparatorOrientation
 import zed.rainxch.rikkaui.components.ui.separator.SeparatorStyle
@@ -29,6 +27,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the Separator component.
@@ -55,17 +54,19 @@ fun SeparatorDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val style = when (selectedStyle) {
-            "Dashed" -> SeparatorStyle.Dashed
-            "Dotted" -> SeparatorStyle.Dotted
-            else -> SeparatorStyle.Solid
-        }
+        val style =
+            when (selectedStyle) {
+                "Dashed" -> SeparatorStyle.Dashed
+                "Dotted" -> SeparatorStyle.Dotted
+                else -> SeparatorStyle.Solid
+            }
 
         DemoBox {
             Column(
-                verticalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.md,
-                ),
+                verticalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.md,
+                    ),
             ) {
                 Text(stringResource(Res.string.separator_demo_content_above), variant = TextVariant.P)
                 Separator(style = style)
@@ -78,9 +79,10 @@ fun SeparatorDoc() {
     DocSection(stringResource(Res.string.separator_section_vertical)) {
         DemoBox {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.md,
-                ),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.md,
+                    ),
             ) {
                 Text(stringResource(Res.string.separator_demo_left), variant = TextVariant.P)
                 Separator(
@@ -101,9 +103,10 @@ fun SeparatorDoc() {
     DocSection(stringResource(Res.string.separator_section_thickness)) {
         DemoBox {
             Column(
-                verticalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.md,
-                ),
+                verticalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.md,
+                    ),
             ) {
                 Text(stringResource(Res.string.separator_demo_1dp_default), variant = TextVariant.Small)
                 Separator(thickness = 1.dp)
@@ -151,24 +154,33 @@ Separator(
         PropsTable(
             listOf(
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.separator_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "orientation", "SeparatorOrientation",
+                    "orientation",
+                    "SeparatorOrientation",
                     "Horizontal",
                     stringResource(Res.string.separator_prop_orientation_desc),
                 ),
                 PropInfo(
-                    "color", "Color", "Color.Unspecified",
+                    "color",
+                    "Color",
+                    "Color.Unspecified",
                     stringResource(Res.string.separator_prop_color_desc),
                 ),
                 PropInfo(
-                    "thickness", "Dp", "1.dp",
+                    "thickness",
+                    "Dp",
+                    "1.dp",
                     stringResource(Res.string.separator_prop_thickness_desc),
                 ),
                 PropInfo(
-                    "style", "SeparatorStyle", "Solid",
+                    "style",
+                    "SeparatorStyle",
+                    "Solid",
                     stringResource(Res.string.separator_prop_style_desc),
                 ),
             ),

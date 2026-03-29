@@ -9,9 +9,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.pagination.Pagination
 import zed.rainxch.rikkaui.components.ui.pagination.PaginationAnimation
 import zed.rainxch.rikkaui.components.ui.pagination.PaginationSize
@@ -22,6 +21,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the Pagination component.
@@ -49,11 +49,12 @@ fun PaginationDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "Fade" -> PaginationAnimation.Fade
-            "None" -> PaginationAnimation.None
-            else -> PaginationAnimation.Scale
-        }
+        val animation =
+            when (selectedAnim) {
+                "Fade" -> PaginationAnimation.Fade
+                "None" -> PaginationAnimation.None
+                else -> PaginationAnimation.Scale
+            }
 
         DemoBox {
             Pagination(
@@ -78,11 +79,12 @@ fun PaginationDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val buttonSize = when (selectedSize) {
-            "Small" -> PaginationSize.Small
-            "Large" -> PaginationSize.Large
-            else -> PaginationSize.Default
-        }
+        val buttonSize =
+            when (selectedSize) {
+                "Small" -> PaginationSize.Small
+                "Large" -> PaginationSize.Large
+                else -> PaginationSize.Default
+            }
 
         DemoBox {
             Pagination(
@@ -129,39 +131,57 @@ Pagination(
         PropsTable(
             listOf(
                 PropInfo(
-                    "currentPage", "Int", "required",
+                    "currentPage",
+                    "Int",
+                    "required",
                     stringResource(Res.string.pagination_prop_current_page_desc),
                 ),
                 PropInfo(
-                    "totalPages", "Int", "required",
+                    "totalPages",
+                    "Int",
+                    "required",
                     stringResource(Res.string.pagination_prop_total_pages_desc),
                 ),
                 PropInfo(
-                    "onPageChange", "(Int) -> Unit", "required",
+                    "onPageChange",
+                    "(Int) -> Unit",
+                    "required",
                     stringResource(Res.string.pagination_prop_on_page_change_desc),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.pagination_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "maxVisiblePages", "Int", "5",
+                    "maxVisiblePages",
+                    "Int",
+                    "5",
                     stringResource(Res.string.pagination_prop_max_visible_desc),
                 ),
                 PropInfo(
-                    "animation", "PaginationAnimation", "Scale",
+                    "animation",
+                    "PaginationAnimation",
+                    "Scale",
                     stringResource(Res.string.pagination_prop_animation_desc),
                 ),
                 PropInfo(
-                    "buttonSize", "PaginationSize", "Default",
+                    "buttonSize",
+                    "PaginationSize",
+                    "Default",
                     stringResource(Res.string.pagination_prop_button_size_desc),
                 ),
                 PropInfo(
-                    "previousContent", "((Color) -> Unit)?", "null",
+                    "previousContent",
+                    "((Color) -> Unit)?",
+                    "null",
                     stringResource(Res.string.pagination_prop_previous_desc),
                 ),
                 PropInfo(
-                    "nextContent", "((Color) -> Unit)?", "null",
+                    "nextContent",
+                    "((Color) -> Unit)?",
+                    "null",
                     stringResource(Res.string.pagination_prop_next_desc),
                 ),
             ),

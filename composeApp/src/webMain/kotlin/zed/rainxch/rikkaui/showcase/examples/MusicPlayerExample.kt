@@ -32,7 +32,6 @@ import rikkaui.composeapp.generated.resources.song_title
 import rikkaui.composeapp.generated.resources.total_time
 import rikkaui.composeapp.generated.resources.volume
 import rikkaui.composeapp.generated.resources.volume_control
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.badge.Badge
 import zed.rainxch.rikkaui.components.ui.badge.BadgeVariant
 import zed.rainxch.rikkaui.components.ui.button.Button
@@ -48,6 +47,7 @@ import zed.rainxch.rikkaui.components.ui.slider.Slider
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.toggle.Toggle
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 @Composable
 fun MusicPlayerExample() {

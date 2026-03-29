@@ -20,9 +20,9 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Size ───────────────────────────────────────────────────
 
@@ -137,13 +137,20 @@ fun Avatar(
     val animScale by animateFloatAsState(
         targetValue =
             when {
-                animation == AvatarAnimation.None -> 1f
-                appeared -> 1f
-                else ->
+                animation == AvatarAnimation.None -> {
+                    1f
+                }
+
+                appeared -> {
+                    1f
+                }
+
+                else -> {
                     when (animation) {
                         AvatarAnimation.Scale -> 0f
                         else -> 1f
                     }
+                }
             },
         animationSpec = motion.springDefault,
     )

@@ -1,4 +1,4 @@
-package zed.rainxch.rikkaui.components.theme
+package zed.rainxch.rikkaui.foundation
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.unit.dp
@@ -90,41 +90,50 @@ enum class RikkaStylePreset(
     val style: RikkaStyle
         get() =
             when (this) {
-                Default ->
+                Default -> {
                     RikkaStyle(
                         shapes = rikkaShapes(),
                         spacing = rikkaSpacing(),
                         motion = RikkaMotion(),
                         typeScale = 1f,
                     )
-                Nova ->
+                }
+
+                Nova -> {
                     RikkaStyle(
                         shapes = rikkaShapes(radius = 4.dp),
                         spacing = rikkaSpacing(base = 3.dp),
                         motion = RikkaMotionPresets.snappy(),
                         typeScale = 0.9f,
                     )
-                Vega ->
+                }
+
+                Vega -> {
                     RikkaStyle(
                         shapes = rikkaShapes(radius = 20.dp),
                         spacing = rikkaSpacing(base = 5.dp),
                         motion = RikkaMotionPresets.playful(),
                         typeScale = 1.05f,
                     )
-                Aurora ->
+                }
+
+                Aurora -> {
                     RikkaStyle(
                         shapes = rikkaShapes(radius = 14.dp),
                         spacing = rikkaSpacing(base = 5.dp),
                         motion = RikkaMotion(),
                         typeScale = 1.1f,
                     )
-                Nebula ->
+                }
+
+                Nebula -> {
                     RikkaStyle(
                         shapes = rikkaShapes(radius = 0.dp),
                         spacing = rikkaSpacing(base = 3.dp),
                         motion = RikkaMotionPresets.minimal(),
                         typeScale = 0.85f,
                     )
+                }
             }
 
     /** Shortcut: the typography scale for this preset. */

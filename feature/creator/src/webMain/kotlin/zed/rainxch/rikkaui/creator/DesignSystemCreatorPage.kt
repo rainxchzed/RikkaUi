@@ -21,10 +21,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaAccentPreset
-import zed.rainxch.rikkaui.components.theme.RikkaPalette
-import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.creator.codegen.generateReadme
 import zed.rainxch.rikkaui.creator.codegen.generateThemeCode
 import zed.rainxch.rikkaui.creator.download.downloadDesignSystemZip
@@ -32,6 +28,10 @@ import zed.rainxch.rikkaui.creator.fonts.availableFonts
 import zed.rainxch.rikkaui.creator.fonts.preloadAllCreatorFonts
 import zed.rainxch.rikkaui.creator.panel.ConfigPanel
 import zed.rainxch.rikkaui.creator.preview.LivePreview
+import zed.rainxch.rikkaui.foundation.RikkaAccentPreset
+import zed.rainxch.rikkaui.foundation.RikkaPalette
+import zed.rainxch.rikkaui.foundation.RikkaStylePreset
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Root composable for the "Create Your Design System" page.

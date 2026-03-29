@@ -16,7 +16,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.creator.generated.resources.*
+import rikkaui.feature.creator.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.alert.Alert
 import zed.rainxch.rikkaui.components.ui.alert.AlertDescription
 import zed.rainxch.rikkaui.components.ui.alert.AlertVariant
@@ -26,7 +28,6 @@ import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
 import zed.rainxch.rikkaui.components.ui.button.IconButton
 import zed.rainxch.rikkaui.components.ui.card.Card
 import zed.rainxch.rikkaui.components.ui.checkbox.Checkbox
-import zed.rainxch.rikkaui.components.ui.icon.Icon
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.input.Input
 import zed.rainxch.rikkaui.components.ui.radio.RadioButton
@@ -37,9 +38,7 @@ import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.textarea.Textarea
 import zed.rainxch.rikkaui.components.ui.toggle.Toggle
-import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.creator.generated.resources.Res
-import rikkaui.feature.creator.generated.resources.*
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── 1. Environment Variables ──────────────────────────────
 
@@ -47,9 +46,10 @@ import rikkaui.feature.creator.generated.resources.*
 fun ExampleEnvVariables(modifier: Modifier = Modifier) {
     Card(modifier = modifier) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(RikkaTheme.spacing.lg),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(RikkaTheme.spacing.lg),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(text = stringResource(Res.string.example_env_title), variant = TextVariant.H4)
@@ -77,10 +77,11 @@ fun ExampleEnvVariables(modifier: Modifier = Modifier) {
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.sm,
-                    Alignment.End,
-                ),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.sm,
+                        Alignment.End,
+                    ),
             ) {
                 Button(
                     text = stringResource(Res.string.example_env_button_edit),
@@ -98,7 +99,10 @@ fun ExampleEnvVariables(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun EnvRow(key: String, value: String) {
+private fun EnvRow(
+    key: String,
+    value: String,
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement =
@@ -125,18 +129,20 @@ private fun EnvRow(key: String, value: String) {
 fun ExampleBookAppointment(modifier: Modifier = Modifier) {
     val timeSlot1030 = stringResource(Res.string.example_appt_time_1030)
     var selectedSlot by remember { mutableStateOf(timeSlot1030) }
-    val timeSlots = listOf(
-        stringResource(Res.string.example_appt_time_900),
-        timeSlot1030,
-        stringResource(Res.string.example_appt_time_1100),
-        stringResource(Res.string.example_appt_time_130),
-    )
+    val timeSlots =
+        listOf(
+            stringResource(Res.string.example_appt_time_900),
+            timeSlot1030,
+            stringResource(Res.string.example_appt_time_1100),
+            stringResource(Res.string.example_appt_time_130),
+        )
 
     Card(modifier = modifier) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(RikkaTheme.spacing.lg),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(RikkaTheme.spacing.lg),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(text = stringResource(Res.string.example_appt_title), variant = TextVariant.H4)
@@ -153,19 +159,21 @@ fun ExampleBookAppointment(modifier: Modifier = Modifier) {
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.sm,
-                ),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.sm,
+                    ),
             ) {
                 timeSlots.forEach { slot ->
                     Button(
                         text = slot,
                         onClick = { selectedSlot = slot },
-                        variant = if (slot == selectedSlot) {
-                            ButtonVariant.Default
-                        } else {
-                            ButtonVariant.Outline
-                        },
+                        variant =
+                            if (slot == selectedSlot) {
+                                ButtonVariant.Default
+                            } else {
+                                ButtonVariant.Outline
+                            },
                         size = ButtonSize.Sm,
                     )
                 }
@@ -193,17 +201,19 @@ fun ExampleInviteTeam(modifier: Modifier = Modifier) {
     var role1 by remember { mutableStateOf("editor") }
     var role2 by remember { mutableStateOf("viewer") }
 
-    val roleOptions = listOf(
-        SelectOption("admin", stringResource(Res.string.example_invite_role_admin)),
-        SelectOption("editor", stringResource(Res.string.example_invite_role_editor)),
-        SelectOption("viewer", stringResource(Res.string.example_invite_role_viewer)),
-    )
+    val roleOptions =
+        listOf(
+            SelectOption("admin", stringResource(Res.string.example_invite_role_admin)),
+            SelectOption("editor", stringResource(Res.string.example_invite_role_editor)),
+            SelectOption("viewer", stringResource(Res.string.example_invite_role_viewer)),
+        )
 
     Card(modifier = modifier) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(RikkaTheme.spacing.lg),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(RikkaTheme.spacing.lg),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(text = stringResource(Res.string.example_invite_title), variant = TextVariant.H4)
@@ -244,9 +254,10 @@ fun ExampleInviteTeam(modifier: Modifier = Modifier) {
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.sm,
-                ),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.sm,
+                    ),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Input(
@@ -282,9 +293,10 @@ private fun InviteRow(
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(
-            RikkaTheme.spacing.sm,
-        ),
+        horizontalArrangement =
+            Arrangement.spacedBy(
+                RikkaTheme.spacing.sm,
+            ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Input(
@@ -313,24 +325,27 @@ fun ExampleReportBug(modifier: Modifier = Modifier) {
     var component by remember { mutableStateOf("dashboard") }
     var steps by remember { mutableStateOf("") }
 
-    val severityOptions = listOf(
-        SelectOption("low", stringResource(Res.string.example_bug_severity_low)),
-        SelectOption("medium", stringResource(Res.string.example_bug_severity_medium)),
-        SelectOption("high", stringResource(Res.string.example_bug_severity_high)),
-        SelectOption("critical", stringResource(Res.string.example_bug_severity_critical)),
-    )
-    val componentOptions = listOf(
-        SelectOption("dashboard", stringResource(Res.string.example_bug_component_dashboard)),
-        SelectOption("auth", stringResource(Res.string.example_bug_component_auth)),
-        SelectOption("api", stringResource(Res.string.example_bug_component_api)),
-        SelectOption("ui", stringResource(Res.string.example_bug_component_ui)),
-    )
+    val severityOptions =
+        listOf(
+            SelectOption("low", stringResource(Res.string.example_bug_severity_low)),
+            SelectOption("medium", stringResource(Res.string.example_bug_severity_medium)),
+            SelectOption("high", stringResource(Res.string.example_bug_severity_high)),
+            SelectOption("critical", stringResource(Res.string.example_bug_severity_critical)),
+        )
+    val componentOptions =
+        listOf(
+            SelectOption("dashboard", stringResource(Res.string.example_bug_component_dashboard)),
+            SelectOption("auth", stringResource(Res.string.example_bug_component_auth)),
+            SelectOption("api", stringResource(Res.string.example_bug_component_api)),
+            SelectOption("ui", stringResource(Res.string.example_bug_component_ui)),
+        )
 
     Card(modifier = modifier) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(RikkaTheme.spacing.lg),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(RikkaTheme.spacing.lg),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(text = stringResource(Res.string.example_bug_title), variant = TextVariant.H4)
@@ -393,9 +408,10 @@ fun ExampleProfileSettings(modifier: Modifier = Modifier) {
 
     Card(modifier = modifier) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(RikkaTheme.spacing.lg),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(RikkaTheme.spacing.lg),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(text = stringResource(Res.string.example_profile_title), variant = TextVariant.H4)
@@ -421,9 +437,10 @@ fun ExampleProfileSettings(modifier: Modifier = Modifier) {
             )
 
             Column(
-                verticalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.xs,
-                ),
+                verticalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.xs,
+                    ),
             ) {
                 Checkbox(
                     checked = isPrivate,
@@ -452,9 +469,10 @@ fun ExampleFeedbackForm(modifier: Modifier = Modifier) {
 
     Card(modifier = modifier) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(RikkaTheme.spacing.lg),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(RikkaTheme.spacing.lg),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(text = stringResource(Res.string.example_feedback_title), variant = TextVariant.H4)
@@ -486,9 +504,10 @@ fun ExampleNotificationSettings(modifier: Modifier = Modifier) {
 
     Card(modifier = modifier) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(RikkaTheme.spacing.lg),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(RikkaTheme.spacing.lg),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(
@@ -565,9 +584,10 @@ fun ExampleShippingAddress(modifier: Modifier = Modifier) {
 
     Card(modifier = modifier) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(RikkaTheme.spacing.lg),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(RikkaTheme.spacing.lg),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(text = stringResource(Res.string.example_shipping_title), variant = TextVariant.H4)
@@ -586,9 +606,10 @@ fun ExampleShippingAddress(modifier: Modifier = Modifier) {
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.sm,
-                ),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.sm,
+                    ),
             ) {
                 Input(
                     value = city,
@@ -633,9 +654,10 @@ fun ExampleCookieSettings(modifier: Modifier = Modifier) {
 
     Card(modifier = modifier) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(RikkaTheme.spacing.lg),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(RikkaTheme.spacing.lg),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(text = stringResource(Res.string.example_cookie_title), variant = TextVariant.H4)
@@ -689,9 +711,10 @@ private fun CookieRow(
     ) {
         Column(
             modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(
-                RikkaTheme.spacing.xs,
-            ),
+            verticalArrangement =
+                Arrangement.spacedBy(
+                    RikkaTheme.spacing.xs,
+                ),
         ) {
             Text(text = title, variant = TextVariant.P)
             Text(text = description, variant = TextVariant.Muted)
@@ -714,9 +737,10 @@ fun ExamplePaymentMethod(modifier: Modifier = Modifier) {
 
     Card(modifier = modifier) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(RikkaTheme.spacing.lg),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(RikkaTheme.spacing.lg),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(text = stringResource(Res.string.example_payment_title), variant = TextVariant.H4)

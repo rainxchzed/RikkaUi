@@ -8,8 +8,8 @@ import rikkaui.composeapp.generated.resources.inter_light
 import rikkaui.composeapp.generated.resources.inter_medium
 import rikkaui.composeapp.generated.resources.inter_regular
 import rikkaui.composeapp.generated.resources.inter_semi_bold
-import zed.rainxch.rikkaui.components.theme.RikkaFontFamily
-import zed.rainxch.rikkaui.components.theme.rememberRikkaFontFamily
+import zed.rainxch.rikkaui.foundation.RikkaFontFamily
+import zed.rainxch.rikkaui.foundation.rememberRikkaFontFamily
 
 object ThemeUtils {
     @Composable

@@ -33,7 +33,6 @@ import rikkaui.feature.docs.generated.resources.install_step_3
 import rikkaui.feature.docs.generated.resources.install_step_4
 import rikkaui.feature.docs.generated.resources.install_title
 import rikkaui.feature.docs.generated.resources.install_verify_body
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.docs.components.CodeBlock
@@ -41,6 +40,7 @@ import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Installation / setup documentation page.
@@ -59,9 +59,10 @@ fun InstallationDoc() {
         stringResource(Res.string.install_section_modules),
     ) {
         Text(
-            text = stringResource(
-                Res.string.install_modules_body,
-            ),
+            text =
+                stringResource(
+                    Res.string.install_modules_body,
+                ),
             variant = TextVariant.P,
         )
 
@@ -74,17 +75,19 @@ fun InstallationDoc() {
                         name = ":foundation",
                         type = "Theme System",
                         default = "\u2014",
-                        description = stringResource(
-                            Res.string.install_module_foundation_desc,
-                        ),
+                        description =
+                            stringResource(
+                                Res.string.install_module_foundation_desc,
+                            ),
                     ),
                     PropInfo(
                         name = ":components",
                         type = "UI Components",
                         default = "\u2014",
-                        description = stringResource(
-                            Res.string.install_module_components_desc,
-                        ),
+                        description =
+                            stringResource(
+                                Res.string.install_module_components_desc,
+                            ),
                     ),
                 ),
         )
@@ -132,9 +135,10 @@ kotlin {
         stringResource(Res.string.install_section_android),
     ) {
         Text(
-            text = stringResource(
-                Res.string.install_android_body,
-            ),
+            text =
+                stringResource(
+                    Res.string.install_android_body,
+                ),
             variant = TextVariant.P,
         )
 
@@ -154,9 +158,10 @@ dependencies {
         Spacer(Modifier.height(RikkaTheme.spacing.sm))
 
         Text(
-            text = stringResource(
-                Res.string.install_android_note,
-            ),
+            text =
+                stringResource(
+                    Res.string.install_android_note,
+                ),
             variant = TextVariant.Muted,
         )
     }
@@ -165,9 +170,10 @@ dependencies {
         stringResource(Res.string.install_section_copy_paste),
     ) {
         Text(
-            text = stringResource(
-                Res.string.install_copy_paste_body,
-            ),
+            text =
+                stringResource(
+                    Res.string.install_copy_paste_body,
+                ),
             variant = TextVariant.P,
         )
 
@@ -179,27 +185,31 @@ dependencies {
         ) {
             StepItem(
                 step = "1",
-                text = stringResource(
-                    Res.string.install_step_1,
-                ),
+                text =
+                    stringResource(
+                        Res.string.install_step_1,
+                    ),
             )
             StepItem(
                 step = "2",
-                text = stringResource(
-                    Res.string.install_step_2,
-                ),
+                text =
+                    stringResource(
+                        Res.string.install_step_2,
+                    ),
             )
             StepItem(
                 step = "3",
-                text = stringResource(
-                    Res.string.install_step_3,
-                ),
+                text =
+                    stringResource(
+                        Res.string.install_step_3,
+                    ),
             )
             StepItem(
                 step = "4",
-                text = stringResource(
-                    Res.string.install_step_4,
-                ),
+                text =
+                    stringResource(
+                        Res.string.install_step_4,
+                    ),
             )
         }
     }
@@ -214,33 +224,37 @@ dependencies {
                         name = "Kotlin",
                         type = "2.0+",
                         default = "\u2014",
-                        description = stringResource(
-                            Res.string.install_req_kotlin_desc,
-                        ),
+                        description =
+                            stringResource(
+                                Res.string.install_req_kotlin_desc,
+                            ),
                     ),
                     PropInfo(
                         name = "Compose",
                         type = "1.7+",
                         default = "\u2014",
-                        description = stringResource(
-                            Res.string.install_req_compose_desc,
-                        ),
+                        description =
+                            stringResource(
+                                Res.string.install_req_compose_desc,
+                            ),
                     ),
                     PropInfo(
                         name = "Material3",
                         type = "Not needed",
                         default = "\u2014",
-                        description = stringResource(
-                            Res.string.install_req_material3_desc,
-                        ),
+                        description =
+                            stringResource(
+                                Res.string.install_req_material3_desc,
+                            ),
                     ),
                     PropInfo(
                         name = "minSdk",
                         type = "24 (Android)",
                         default = "\u2014",
-                        description = stringResource(
-                            Res.string.install_req_minsdk_desc,
-                        ),
+                        description =
+                            stringResource(
+                                Res.string.install_req_minsdk_desc,
+                            ),
                     ),
                 ),
         )
@@ -250,9 +264,10 @@ dependencies {
         stringResource(Res.string.install_section_verify),
     ) {
         Text(
-            text = stringResource(
-                Res.string.install_verify_body,
-            ),
+            text =
+                stringResource(
+                    Res.string.install_verify_body,
+                ),
             variant = TextVariant.P,
         )
 

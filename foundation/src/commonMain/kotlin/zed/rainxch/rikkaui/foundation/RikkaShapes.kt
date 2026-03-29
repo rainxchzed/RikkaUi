@@ -1,4 +1,4 @@
-package zed.rainxch.rikkaui.components.theme
+package zed.rainxch.rikkaui.foundation
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Immutable
@@ -89,24 +89,3 @@ fun rikkaShapes(radius: Dp = 10.dp): RikkaShapes {
  * Equivalent to `rikkaShapes(radius = 10.dp)`.
  */
 fun defaultRikkaShapes(baseRadius: Float = 10f): RikkaShapes = rikkaShapes(radius = baseRadius.dp)
-
-/**
- * Pre-built shape presets for common visual styles.
- *
- * ```
- * RikkaTheme(shapes = RikkaShapesPresets.sharp()) { ... }
- * ```
- */
-object RikkaShapesPresets {
-    /** No rounding at all. Technical, utilitarian look. */
-    fun square(): RikkaShapes = rikkaShapes(radius = 0.dp)
-
-    /** Minimal rounding (4dp). Clean, sharp aesthetic. */
-    fun sharp(): RikkaShapes = rikkaShapes(radius = 4.dp)
-
-    /** Very rounded (16dp). Soft, friendly feel. */
-    fun rounded(): RikkaShapes = rikkaShapes(radius = 16.dp)
-
-    /** Pill-shaped (24dp). Playful, modern look. */
-    fun pill(): RikkaShapes = rikkaShapes(radius = 24.dp)
-}

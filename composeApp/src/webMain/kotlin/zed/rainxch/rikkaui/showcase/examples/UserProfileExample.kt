@@ -22,7 +22,6 @@ import rikkaui.composeapp.generated.resources.newsletter
 import rikkaui.composeapp.generated.resources.notifications
 import rikkaui.composeapp.generated.resources.user_email
 import rikkaui.composeapp.generated.resources.user_name
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.avatar.Avatar
 import zed.rainxch.rikkaui.components.ui.avatar.AvatarSize
 import zed.rainxch.rikkaui.components.ui.button.Button
@@ -32,6 +31,7 @@ import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.toggle.Toggle
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 @Composable
 fun UserProfileExample() {

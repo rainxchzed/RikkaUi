@@ -9,9 +9,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.PopupAnimation
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.dropdown.DropdownMenu
@@ -25,6 +24,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the DropdownMenu component.
@@ -52,11 +52,12 @@ fun DropdownMenuDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "Fade" -> PopupAnimation.Fade
-            "None" -> PopupAnimation.None
-            else -> PopupAnimation.FadeExpand
-        }
+        val animation =
+            when (selectedAnim) {
+                "Fade" -> PopupAnimation.Fade
+                "None" -> PopupAnimation.None
+                else -> PopupAnimation.FadeExpand
+            }
 
         DemoBox {
             DropdownMenu(
@@ -159,39 +160,57 @@ DropdownMenu(
         PropsTable(
             listOf(
                 PropInfo(
-                    "expanded", "Boolean", "required",
+                    "expanded",
+                    "Boolean",
+                    "required",
                     stringResource(Res.string.dropdown_prop_expanded_desc),
                 ),
                 PropInfo(
-                    "onDismiss", "() -> Unit", "required",
+                    "onDismiss",
+                    "() -> Unit",
+                    "required",
                     stringResource(Res.string.dropdown_prop_on_dismiss_desc),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.dropdown_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "animation", "PopupAnimation", "FadeExpand",
+                    "animation",
+                    "PopupAnimation",
+                    "FadeExpand",
                     stringResource(Res.string.dropdown_prop_animation_desc),
                 ),
                 PropInfo(
-                    "minWidth", "Dp", "180.dp",
+                    "minWidth",
+                    "Dp",
+                    "180.dp",
                     stringResource(Res.string.dropdown_prop_min_width_desc),
                 ),
                 PropInfo(
-                    "maxWidth", "Dp", "280.dp",
+                    "maxWidth",
+                    "Dp",
+                    "280.dp",
                     stringResource(Res.string.dropdown_prop_max_width_desc),
                 ),
                 PropInfo(
-                    "maxHeight", "Dp", "300.dp",
+                    "maxHeight",
+                    "Dp",
+                    "300.dp",
                     stringResource(Res.string.dropdown_prop_max_height_desc),
                 ),
                 PropInfo(
-                    "trigger", "() -> Unit", "required",
+                    "trigger",
+                    "() -> Unit",
+                    "required",
                     stringResource(Res.string.dropdown_prop_trigger_desc),
                 ),
                 PropInfo(
-                    "content", "ColumnScope.() -> Unit", "required",
+                    "content",
+                    "ColumnScope.() -> Unit",
+                    "required",
                     stringResource(Res.string.dropdown_prop_content_desc),
                 ),
             ),

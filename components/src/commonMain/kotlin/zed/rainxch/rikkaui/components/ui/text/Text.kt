@@ -10,7 +10,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Typography variant that maps to a pre-defined text style from the theme.

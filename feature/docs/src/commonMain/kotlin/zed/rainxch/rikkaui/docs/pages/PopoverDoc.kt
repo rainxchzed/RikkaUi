@@ -10,9 +10,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.popover.Popover
 import zed.rainxch.rikkaui.components.ui.popover.PopoverAnimation
@@ -26,6 +25,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the Popover component.
@@ -53,11 +53,12 @@ fun PopoverDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "Fade" -> PopoverAnimation.Fade
-            "None" -> PopoverAnimation.None
-            else -> PopoverAnimation.FadeExpand
-        }
+        val animation =
+            when (selectedAnim) {
+                "Fade" -> PopoverAnimation.Fade
+                "None" -> PopoverAnimation.None
+                else -> PopoverAnimation.FadeExpand
+            }
 
         DemoBox {
             Popover(
@@ -94,24 +95,30 @@ fun PopoverDoc() {
         var open by remember { mutableStateOf(false) }
 
         VariantSelector(
-            options = listOf(
-                "BottomStart", "BottomEnd", "BottomCenter",
-                "TopStart", "TopEnd", "TopCenter",
-            ),
+            options =
+                listOf(
+                    "BottomStart",
+                    "BottomEnd",
+                    "BottomCenter",
+                    "TopStart",
+                    "TopEnd",
+                    "TopCenter",
+                ),
             selected = selectedPlacement,
             onSelect = { selectedPlacement = it },
         )
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val placement = when (selectedPlacement) {
-            "BottomEnd" -> PopoverPlacement.BottomEnd
-            "BottomCenter" -> PopoverPlacement.BottomCenter
-            "TopStart" -> PopoverPlacement.TopStart
-            "TopEnd" -> PopoverPlacement.TopEnd
-            "TopCenter" -> PopoverPlacement.TopCenter
-            else -> PopoverPlacement.BottomStart
-        }
+        val placement =
+            when (selectedPlacement) {
+                "BottomEnd" -> PopoverPlacement.BottomEnd
+                "BottomCenter" -> PopoverPlacement.BottomCenter
+                "TopStart" -> PopoverPlacement.TopStart
+                "TopEnd" -> PopoverPlacement.TopEnd
+                "TopCenter" -> PopoverPlacement.TopCenter
+                else -> PopoverPlacement.BottomStart
+            }
 
         DemoBox {
             Popover(
@@ -159,35 +166,51 @@ Popover(
         PropsTable(
             listOf(
                 PropInfo(
-                    "expanded", "Boolean", "required",
+                    "expanded",
+                    "Boolean",
+                    "required",
                     stringResource(Res.string.popover_prop_expanded_desc),
                 ),
                 PropInfo(
-                    "onDismiss", "() -> Unit", "required",
+                    "onDismiss",
+                    "() -> Unit",
+                    "required",
                     stringResource(Res.string.popover_prop_on_dismiss_desc),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.popover_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "animation", "PopoverAnimation", "FadeExpand",
+                    "animation",
+                    "PopoverAnimation",
+                    "FadeExpand",
                     stringResource(Res.string.popover_prop_animation_desc),
                 ),
                 PropInfo(
-                    "placement", "PopoverPlacement", "BottomStart",
+                    "placement",
+                    "PopoverPlacement",
+                    "BottomStart",
                     stringResource(Res.string.popover_prop_placement_desc),
                 ),
                 PropInfo(
-                    "maxWidth", "Dp", "360.dp",
+                    "maxWidth",
+                    "Dp",
+                    "360.dp",
                     stringResource(Res.string.popover_prop_max_width_desc),
                 ),
                 PropInfo(
-                    "trigger", "() -> Unit", "required",
+                    "trigger",
+                    "() -> Unit",
+                    "required",
                     stringResource(Res.string.popover_prop_trigger_desc),
                 ),
                 PropInfo(
-                    "content", "() -> Unit", "required",
+                    "content",
+                    "() -> Unit",
+                    "required",
                     stringResource(Res.string.popover_prop_content_desc),
                 ),
             ),

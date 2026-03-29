@@ -14,9 +14,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.toggle.Toggle
@@ -29,6 +28,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the Toggle component.
@@ -63,9 +63,10 @@ fun ToggleDoc() {
         DemoBox {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.sm,
-                ),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.sm,
+                    ),
             ) {
                 Text(
                     text = stringResource(Res.string.toggle_demo_dark_mode),
@@ -87,15 +88,17 @@ fun ToggleDoc() {
 
         DemoBox {
             Column(
-                verticalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.md,
-                ),
+                verticalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.md,
+                    ),
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(
-                        RikkaTheme.spacing.sm,
-                    ),
+                    horizontalArrangement =
+                        Arrangement.spacedBy(
+                            RikkaTheme.spacing.sm,
+                        ),
                 ) {
                     Text(
                         text = "Default",
@@ -110,9 +113,10 @@ fun ToggleDoc() {
                 }
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(
-                        RikkaTheme.spacing.sm,
-                    ),
+                    horizontalArrangement =
+                        Arrangement.spacedBy(
+                            RikkaTheme.spacing.sm,
+                        ),
                 ) {
                     Text(
                         text = "Small",
@@ -133,9 +137,10 @@ fun ToggleDoc() {
     DocSection(stringResource(Res.string.section_disabled)) {
         DemoBox {
             Column(
-                verticalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.sm,
-                ),
+                verticalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.sm,
+                    ),
             ) {
                 Toggle(
                     checked = true,

@@ -17,9 +17,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.scrollarea.HorizontalScrollArea
 import zed.rainxch.rikkaui.components.ui.scrollarea.ScrollArea
 import zed.rainxch.rikkaui.components.ui.scrollarea.ScrollbarAnimation
@@ -32,6 +31,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the ScrollArea component.
@@ -58,11 +58,12 @@ fun ScrollAreaDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "Always" -> ScrollbarAnimation.Always
-            "None" -> ScrollbarAnimation.None
-            else -> ScrollbarAnimation.Fade
-        }
+        val animation =
+            when (selectedAnim) {
+                "Always" -> ScrollbarAnimation.Always
+                "None" -> ScrollbarAnimation.None
+                else -> ScrollbarAnimation.Fade
+            }
 
         DemoBox {
             ScrollArea(
@@ -70,9 +71,10 @@ fun ScrollAreaDoc() {
                 scrollbarAnimation = animation,
             ) {
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(
-                        RikkaTheme.spacing.sm,
-                    ),
+                    verticalArrangement =
+                        Arrangement.spacedBy(
+                            RikkaTheme.spacing.sm,
+                        ),
                     modifier = Modifier.padding(RikkaTheme.spacing.sm),
                 ) {
                     repeat(20) { index ->
@@ -95,14 +97,14 @@ fun ScrollAreaDoc() {
             ) {
                 repeat(15) { index ->
                     Box(
-                        modifier = Modifier
-                            .size(80.dp)
-                            .padding(RikkaTheme.spacing.xs)
-                            .background(
-                                RikkaTheme.colors.muted,
-                                RikkaTheme.shapes.md,
-                            )
-                            .padding(RikkaTheme.spacing.sm),
+                        modifier =
+                            Modifier
+                                .size(80.dp)
+                                .padding(RikkaTheme.spacing.xs)
+                                .background(
+                                    RikkaTheme.colors.muted,
+                                    RikkaTheme.shapes.md,
+                                ).padding(RikkaTheme.spacing.sm),
                     ) {
                         Text(
                             "${index + 1}",
@@ -124,9 +126,10 @@ fun ScrollAreaDoc() {
                 scrollbarColor = RikkaTheme.colors.primary,
             ) {
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(
-                        RikkaTheme.spacing.sm,
-                    ),
+                    verticalArrangement =
+                        Arrangement.spacedBy(
+                            RikkaTheme.spacing.sm,
+                        ),
                     modifier = Modifier.padding(RikkaTheme.spacing.sm),
                 ) {
                     repeat(15) { index ->
@@ -182,24 +185,33 @@ HorizontalScrollArea(
         PropsTable(
             listOf(
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.scroll_area_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "scrollbarAnimation", "ScrollbarAnimation",
+                    "scrollbarAnimation",
+                    "ScrollbarAnimation",
                     "Fade",
                     stringResource(Res.string.scroll_area_prop_animation_desc),
                 ),
                 PropInfo(
-                    "scrollbarWidth", "Dp", "4.dp",
+                    "scrollbarWidth",
+                    "Dp",
+                    "4.dp",
                     stringResource(Res.string.scroll_area_prop_width_desc),
                 ),
                 PropInfo(
-                    "scrollbarColor", "Color?", "null",
+                    "scrollbarColor",
+                    "Color?",
+                    "null",
                     stringResource(Res.string.scroll_area_prop_color_desc),
                 ),
                 PropInfo(
-                    "content", "ColumnScope.() -> Unit", "required",
+                    "content",
+                    "ColumnScope.() -> Unit",
+                    "required",
                     stringResource(Res.string.scroll_area_prop_content_vertical_desc),
                 ),
             ),
@@ -217,24 +229,33 @@ HorizontalScrollArea(
         PropsTable(
             listOf(
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.scroll_area_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "scrollbarAnimation", "ScrollbarAnimation",
+                    "scrollbarAnimation",
+                    "ScrollbarAnimation",
                     "Fade",
                     stringResource(Res.string.scroll_area_prop_animation_desc),
                 ),
                 PropInfo(
-                    "scrollbarWidth", "Dp", "4.dp",
+                    "scrollbarWidth",
+                    "Dp",
+                    "4.dp",
                     stringResource(Res.string.scroll_area_prop_width_desc),
                 ),
                 PropInfo(
-                    "scrollbarColor", "Color?", "null",
+                    "scrollbarColor",
+                    "Color?",
+                    "null",
                     stringResource(Res.string.scroll_area_prop_color_desc),
                 ),
                 PropInfo(
-                    "content", "RowScope.() -> Unit", "required",
+                    "content",
+                    "RowScope.() -> Unit",
+                    "required",
                     stringResource(Res.string.scroll_area_prop_content_horizontal_desc),
                 ),
             ),

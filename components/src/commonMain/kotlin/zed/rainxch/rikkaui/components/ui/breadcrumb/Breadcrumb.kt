@@ -23,9 +23,9 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDecoration
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── BreadcrumbAnimation ────────────────────────────────────
 
@@ -351,18 +351,22 @@ private fun AnimatedBreadcrumbItem(
 
     val itemModifier =
         when (animation) {
-            BreadcrumbAnimation.Fade ->
+            BreadcrumbAnimation.Fade -> {
                 Modifier.graphicsLayer {
                     alpha = animatedAlpha
                 }
+            }
 
-            BreadcrumbAnimation.Slide ->
+            BreadcrumbAnimation.Slide -> {
                 Modifier.graphicsLayer {
                     alpha = animatedAlpha
                     translationX = animatedTranslateX
                 }
+            }
 
-            BreadcrumbAnimation.None -> Modifier
+            BreadcrumbAnimation.None -> {
+                Modifier
+            }
         }
 
     BreadcrumbItem(

@@ -1,8 +1,5 @@
 package zed.rainxch.rikkaui.docs.pages
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
@@ -12,9 +9,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
 import zed.rainxch.rikkaui.components.ui.dialog.Dialog
@@ -30,6 +26,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the Dialog component.
@@ -57,11 +54,12 @@ fun DialogDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "Fade" -> DialogAnimation.Fade
-            "None" -> DialogAnimation.None
-            else -> DialogAnimation.FadeScale
-        }
+        val animation =
+            when (selectedAnim) {
+                "Fade" -> DialogAnimation.Fade
+                "None" -> DialogAnimation.None
+                else -> DialogAnimation.FadeScale
+            }
 
         DemoBox {
             Button(
@@ -194,35 +192,51 @@ Dialog(
         PropsTable(
             listOf(
                 PropInfo(
-                    "open", "Boolean", "required",
+                    "open",
+                    "Boolean",
+                    "required",
                     stringResource(Res.string.dialog_prop_open_desc),
                 ),
                 PropInfo(
-                    "onDismiss", "() -> Unit", "required",
+                    "onDismiss",
+                    "() -> Unit",
+                    "required",
                     stringResource(Res.string.dialog_prop_on_dismiss_desc),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.dialog_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "label", "String", "\"Dialog\"",
+                    "label",
+                    "String",
+                    "\"Dialog\"",
                     stringResource(Res.string.dialog_prop_label_desc),
                 ),
                 PropInfo(
-                    "animation", "DialogAnimation", "FadeScale",
+                    "animation",
+                    "DialogAnimation",
+                    "FadeScale",
                     stringResource(Res.string.dialog_prop_animation_desc),
                 ),
                 PropInfo(
-                    "scrimColor", "Color", "Black(0.5f)",
+                    "scrimColor",
+                    "Color",
+                    "Black(0.5f)",
                     stringResource(Res.string.dialog_prop_scrim_desc),
                 ),
                 PropInfo(
-                    "maxWidth", "Dp", "480.dp",
+                    "maxWidth",
+                    "Dp",
+                    "480.dp",
                     stringResource(Res.string.dialog_prop_max_width_desc),
                 ),
                 PropInfo(
-                    "content", "ColumnScope.() -> Unit", "required",
+                    "content",
+                    "ColumnScope.() -> Unit",
+                    "required",
                     stringResource(Res.string.dialog_prop_content_desc),
                 ),
             ),

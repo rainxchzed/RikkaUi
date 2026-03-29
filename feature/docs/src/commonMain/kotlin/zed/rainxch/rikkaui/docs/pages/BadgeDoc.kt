@@ -28,7 +28,6 @@ import rikkaui.feature.docs.generated.resources.section_api_reference
 import rikkaui.feature.docs.generated.resources.section_sizes
 import rikkaui.feature.docs.generated.resources.section_usage
 import rikkaui.feature.docs.generated.resources.section_variants
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.badge.Badge
 import zed.rainxch.rikkaui.components.ui.badge.BadgeAnimation
 import zed.rainxch.rikkaui.components.ui.badge.BadgeSize
@@ -40,6 +39,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 @Composable
 fun BadgeDoc() {
@@ -52,21 +52,26 @@ fun BadgeDoc() {
         var selectedVariant by remember { mutableStateOf("Default") }
 
         VariantSelector(
-            options = listOf(
-                "Default", "Secondary", "Destructive", "Outline",
-            ),
+            options =
+                listOf(
+                    "Default",
+                    "Secondary",
+                    "Destructive",
+                    "Outline",
+                ),
             selected = selectedVariant,
             onSelect = { selectedVariant = it },
         )
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val variant = when (selectedVariant) {
-            "Secondary" -> BadgeVariant.Secondary
-            "Destructive" -> BadgeVariant.Destructive
-            "Outline" -> BadgeVariant.Outline
-            else -> BadgeVariant.Default
-        }
+        val variant =
+            when (selectedVariant) {
+                "Secondary" -> BadgeVariant.Secondary
+                "Destructive" -> BadgeVariant.Destructive
+                "Outline" -> BadgeVariant.Outline
+                else -> BadgeVariant.Default
+            }
 
         DemoBox {
             Badge(text = selectedVariant, variant = variant)
@@ -76,9 +81,10 @@ fun BadgeDoc() {
     DocSection(stringResource(Res.string.section_sizes)) {
         DemoBox {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.sm,
-                ),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.sm,
+                    ),
             ) {
                 Badge(
                     text = stringResource(Res.string.badge_demo_small),
@@ -107,17 +113,19 @@ fun BadgeDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "Pulse" -> BadgeAnimation.Pulse
-            "Scale" -> BadgeAnimation.Scale
-            else -> BadgeAnimation.None
-        }
+        val animation =
+            when (selectedAnim) {
+                "Pulse" -> BadgeAnimation.Pulse
+                "Scale" -> BadgeAnimation.Scale
+                else -> BadgeAnimation.None
+            }
 
         DemoBox {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.sm,
-                ),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.sm,
+                    ),
             ) {
                 Badge(
                     text = stringResource(Res.string.badge_demo_new),
@@ -155,23 +163,33 @@ Badge(
         PropsTable(
             listOf(
                 PropInfo(
-                    "text", "String", "required",
+                    "text",
+                    "String",
+                    "required",
                     stringResource(Res.string.badge_prop_text_desc),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.badge_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "variant", "BadgeVariant", "Default",
+                    "variant",
+                    "BadgeVariant",
+                    "Default",
                     stringResource(Res.string.badge_prop_variant_desc),
                 ),
                 PropInfo(
-                    "animation", "BadgeAnimation", "None",
+                    "animation",
+                    "BadgeAnimation",
+                    "None",
                     stringResource(Res.string.badge_prop_animation_desc),
                 ),
                 PropInfo(
-                    "size", "BadgeSize", "Default",
+                    "size",
+                    "BadgeSize",
+                    "Default",
                     stringResource(Res.string.badge_prop_size_desc),
                 ),
             ),

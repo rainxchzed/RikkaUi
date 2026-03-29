@@ -48,12 +48,12 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.PopupAnimation
 import zed.rainxch.rikkaui.components.ui.icon.Icon
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Data ───────────────────────────────────────────────────
 
@@ -290,7 +290,9 @@ private fun SelectDropdownContent(
     }
 
     when (animation) {
-        PopupAnimation.None -> listContent()
+        PopupAnimation.None -> {
+            listContent()
+        }
 
         PopupAnimation.Fade -> {
             AnimatedVisibility(

@@ -21,10 +21,10 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Variant ────────────────────────────────────────────────
 
@@ -398,7 +398,9 @@ private fun resolveAnimatedBackground(
     durationFast: Int,
 ): Color =
     when (colorTransition) {
-        TopAppBarColorTransition.None -> targetColor
+        TopAppBarColorTransition.None -> {
+            targetColor
+        }
 
         TopAppBarColorTransition.Smooth -> {
             val animated by animateColorAsState(

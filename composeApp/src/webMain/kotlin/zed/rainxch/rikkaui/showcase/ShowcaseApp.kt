@@ -25,13 +25,13 @@ import org.jetbrains.compose.resources.stringResource
 import rikkaui.composeapp.generated.resources.Res
 import rikkaui.composeapp.generated.resources.components_in_action
 import rikkaui.composeapp.generated.resources.components_in_action_desc
-import zed.rainxch.rikkaui.components.theme.RikkaAccentPreset
-import zed.rainxch.rikkaui.components.theme.RikkaPalette
-import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
-import zed.rainxch.rikkaui.components.theme.rikkaTypography
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaAccentPreset
+import zed.rainxch.rikkaui.foundation.RikkaPalette
+import zed.rainxch.rikkaui.foundation.RikkaStylePreset
+import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.rikkaTypography
 import zed.rainxch.rikkaui.utils.ThemeUtils
 import zed.rainxch.rikkaui.utils.WindowSizeClass
 

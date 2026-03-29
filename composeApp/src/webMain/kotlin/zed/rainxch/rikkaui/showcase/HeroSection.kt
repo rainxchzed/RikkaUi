@@ -20,13 +20,13 @@ import rikkaui.composeapp.generated.resources.hero_subtitle
 import rikkaui.composeapp.generated.resources.new_project
 import rikkaui.composeapp.generated.resources.preview
 import rikkaui.composeapp.generated.resources.view_components
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.badge.Badge
 import zed.rainxch.rikkaui.components.ui.badge.BadgeVariant
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonAnimation
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 @Composable
 fun HeroSection(

@@ -34,7 +34,6 @@ import rikkaui.feature.docs.generated.resources.section_sizes
 import rikkaui.feature.docs.generated.resources.section_states
 import rikkaui.feature.docs.generated.resources.section_usage
 import rikkaui.feature.docs.generated.resources.section_variants
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonAnimation
 import zed.rainxch.rikkaui.components.ui.button.ButtonSize
@@ -46,6 +45,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 @Composable
 fun ButtonDoc() {
@@ -95,11 +95,12 @@ fun ButtonDoc() {
 
         DemoBox {
             Button(
-                text = if (size == ButtonSize.Icon) {
-                    "+"
-                } else {
-                    stringResource(Res.string.component_button_name)
-                },
+                text =
+                    if (size == ButtonSize.Icon) {
+                        "+"
+                    } else {
+                        stringResource(Res.string.component_button_name)
+                    },
                 onClick = {},
                 size = size,
             )
@@ -123,9 +124,10 @@ fun ButtonDoc() {
 
         DemoBox {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.sm,
-                ),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.sm,
+                    ),
             ) {
                 Button(
                     text = stringResource(Res.string.button_demo_press_me),
@@ -145,9 +147,10 @@ fun ButtonDoc() {
     DocSection(stringResource(Res.string.section_states)) {
         DemoBox {
             Column(
-                verticalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.sm,
-                ),
+                verticalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.sm,
+                    ),
             ) {
                 Button(
                     text = stringResource(Res.string.button_demo_enabled),
@@ -195,35 +198,51 @@ Button(
         PropsTable(
             listOf(
                 PropInfo(
-                    "onClick", "() -> Unit", "-",
+                    "onClick",
+                    "() -> Unit",
+                    "-",
                     stringResource(Res.string.button_prop_onclick_desc),
                 ),
                 PropInfo(
-                    "variant", "ButtonVariant", "Default",
+                    "variant",
+                    "ButtonVariant",
+                    "Default",
                     stringResource(Res.string.button_prop_variant_desc),
                 ),
                 PropInfo(
-                    "size", "ButtonSize", "Default",
+                    "size",
+                    "ButtonSize",
+                    "Default",
                     stringResource(Res.string.button_prop_size_desc),
                 ),
                 PropInfo(
-                    "animation", "ButtonAnimation", "Scale",
+                    "animation",
+                    "ButtonAnimation",
+                    "Scale",
                     stringResource(Res.string.button_prop_animation_desc),
                 ),
                 PropInfo(
-                    "enabled", "Boolean", "true",
+                    "enabled",
+                    "Boolean",
+                    "true",
                     stringResource(Res.string.button_prop_enabled_desc),
                 ),
                 PropInfo(
-                    "loading", "Boolean", "false",
+                    "loading",
+                    "Boolean",
+                    "false",
                     stringResource(Res.string.button_prop_loading_desc),
                 ),
                 PropInfo(
-                    "label", "String", "\"\"",
+                    "label",
+                    "String",
+                    "\"\"",
                     stringResource(Res.string.button_prop_label_desc),
                 ),
                 PropInfo(
-                    "content", "@Composable (Color) -> Unit", "-",
+                    "content",
+                    "@Composable (Color) -> Unit",
+                    "-",
                     stringResource(Res.string.button_prop_content_desc),
                 ),
             ),

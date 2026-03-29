@@ -11,9 +11,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.PopupAnimation
 import zed.rainxch.rikkaui.components.ui.select.Select
 import zed.rainxch.rikkaui.components.ui.select.SelectOption
@@ -24,6 +23,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the Select component.
@@ -33,19 +33,21 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
  */
 @Composable
 fun SelectDoc() {
-    val themeOptions = listOf(
-        SelectOption("light", stringResource(Res.string.select_demo_light)),
-        SelectOption("dark", stringResource(Res.string.select_demo_dark)),
-        SelectOption("system", stringResource(Res.string.select_demo_system)),
-    )
+    val themeOptions =
+        listOf(
+            SelectOption("light", stringResource(Res.string.select_demo_light)),
+            SelectOption("dark", stringResource(Res.string.select_demo_dark)),
+            SelectOption("system", stringResource(Res.string.select_demo_system)),
+        )
 
-    val fruitOptions = listOf(
-        SelectOption("apple", stringResource(Res.string.select_demo_apple)),
-        SelectOption("banana", stringResource(Res.string.select_demo_banana)),
-        SelectOption("cherry", stringResource(Res.string.select_demo_cherry)),
-        SelectOption("grape", stringResource(Res.string.select_demo_grape)),
-        SelectOption("mango", stringResource(Res.string.select_demo_mango)),
-    )
+    val fruitOptions =
+        listOf(
+            SelectOption("apple", stringResource(Res.string.select_demo_apple)),
+            SelectOption("banana", stringResource(Res.string.select_demo_banana)),
+            SelectOption("cherry", stringResource(Res.string.select_demo_cherry)),
+            SelectOption("grape", stringResource(Res.string.select_demo_grape)),
+            SelectOption("mango", stringResource(Res.string.select_demo_mango)),
+        )
 
     ComponentPageHeader(
         name = stringResource(Res.string.component_select_name),

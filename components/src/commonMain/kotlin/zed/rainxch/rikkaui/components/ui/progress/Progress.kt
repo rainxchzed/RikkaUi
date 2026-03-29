@@ -17,7 +17,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.foundation.RikkaMotion
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation Enum ─────────────────────────────────────────
 
@@ -172,7 +173,7 @@ fun Progress(
 @Composable
 private fun resolveAnimationSpec(
     animation: ProgressAnimation,
-    motion: zed.rainxch.rikkaui.components.theme.RikkaMotion,
+    motion: RikkaMotion,
 ): AnimationSpec<Float> =
     when (animation) {
         ProgressAnimation.Spring -> motion.springDefault

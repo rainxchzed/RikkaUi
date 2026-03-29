@@ -11,9 +11,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.tooltip.Tooltip
 import zed.rainxch.rikkaui.components.ui.tooltip.TooltipAnimation
@@ -25,6 +24,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the Tooltip component.
@@ -51,11 +51,12 @@ fun TooltipDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "Fade" -> TooltipAnimation.Fade
-            "None" -> TooltipAnimation.None
-            else -> TooltipAnimation.FadeScale
-        }
+        val animation =
+            when (selectedAnim) {
+                "Fade" -> TooltipAnimation.Fade
+                "None" -> TooltipAnimation.None
+                else -> TooltipAnimation.FadeScale
+            }
 
         DemoBox {
             Tooltip(
@@ -74,9 +75,10 @@ fun TooltipDoc() {
     DocSection(stringResource(Res.string.section_placements)) {
         DemoBox {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.md,
-                ),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.md,
+                    ),
             ) {
                 Tooltip(
                     tooltip = stringResource(Res.string.tooltip_demo_top_tooltip),
@@ -122,9 +124,10 @@ fun TooltipDoc() {
     DocSection(stringResource(Res.string.tooltip_section_custom_delay)) {
         DemoBox {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.md,
-                ),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.md,
+                    ),
             ) {
                 Tooltip(
                     tooltip = stringResource(Res.string.tooltip_demo_instant),
@@ -174,27 +177,39 @@ Tooltip(
         PropsTable(
             listOf(
                 PropInfo(
-                    "tooltip", "String", "required",
+                    "tooltip",
+                    "String",
+                    "required",
                     stringResource(Res.string.tooltip_prop_tooltip_desc),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.tooltip_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "animation", "TooltipAnimation", "FadeScale",
+                    "animation",
+                    "TooltipAnimation",
+                    "FadeScale",
                     stringResource(Res.string.tooltip_prop_animation_desc),
                 ),
                 PropInfo(
-                    "placement", "TooltipPlacement", "Top",
+                    "placement",
+                    "TooltipPlacement",
+                    "Top",
                     stringResource(Res.string.tooltip_prop_placement_desc),
                 ),
                 PropInfo(
-                    "showDelayMs", "Long", "400L",
+                    "showDelayMs",
+                    "Long",
+                    "400L",
                     stringResource(Res.string.tooltip_prop_show_delay_desc),
                 ),
                 PropInfo(
-                    "content", "() -> Unit", "required",
+                    "content",
+                    "() -> Unit",
+                    "required",
                     stringResource(Res.string.tooltip_prop_content_desc),
                 ),
             ),

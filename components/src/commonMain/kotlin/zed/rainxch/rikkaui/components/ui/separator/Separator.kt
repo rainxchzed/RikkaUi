@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Orientation ────────────────────────────────────────────
 
@@ -111,15 +111,21 @@ fun Separator(
     ) {
         val pathEffect =
             when (style) {
-                SeparatorStyle.Solid -> null
-                SeparatorStyle.Dashed ->
+                SeparatorStyle.Solid -> {
+                    null
+                }
+
+                SeparatorStyle.Dashed -> {
                     PathEffect.dashPathEffect(
                         floatArrayOf(8f, 4f),
                     )
-                SeparatorStyle.Dotted ->
+                }
+
+                SeparatorStyle.Dotted -> {
                     PathEffect.dashPathEffect(
                         floatArrayOf(2f, 2f),
                     )
+                }
             }
 
         val isHorizontal =

@@ -43,7 +43,6 @@ import rikkaui.feature.docs.generated.resources.docs_getting_started
 import rikkaui.feature.docs.generated.resources.guide_installation
 import rikkaui.feature.docs.generated.resources.guide_introduction
 import rikkaui.feature.docs.generated.resources.guide_theming
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.docs.catalog.ComponentCategory
@@ -52,6 +51,7 @@ import zed.rainxch.rikkaui.docs.catalog.ComponentRegistry
 import zed.rainxch.rikkaui.docs.pages.InstallationDoc
 import zed.rainxch.rikkaui.docs.pages.IntroductionDoc
 import zed.rainxch.rikkaui.docs.pages.ThemingDoc
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 private data class GuidePage(
     val id: String,

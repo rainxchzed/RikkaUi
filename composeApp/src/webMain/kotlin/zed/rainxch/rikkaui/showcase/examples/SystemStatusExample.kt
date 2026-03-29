@@ -26,7 +26,6 @@ import rikkaui.composeapp.generated.resources.system_status
 import rikkaui.composeapp.generated.resources.system_status_label
 import rikkaui.composeapp.generated.resources.system_uptime
 import rikkaui.composeapp.generated.resources.uptime_text
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.badge.Badge
 import zed.rainxch.rikkaui.components.ui.badge.BadgeVariant
 import zed.rainxch.rikkaui.components.ui.card.Card
@@ -37,6 +36,7 @@ import zed.rainxch.rikkaui.components.ui.spinner.Spinner
 import zed.rainxch.rikkaui.components.ui.spinner.SpinnerSize
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 @Composable
 fun SystemStatusExample() {

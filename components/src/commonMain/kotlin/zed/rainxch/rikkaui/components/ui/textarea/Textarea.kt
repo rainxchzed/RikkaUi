@@ -37,7 +37,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ──────────────────────────────────────────────
 
@@ -166,7 +166,10 @@ fun Textarea(
 
     val borderColor =
         when (animation) {
-            TextareaAnimation.None -> targetBorderColor
+            TextareaAnimation.None -> {
+                targetBorderColor
+            }
+
             TextareaAnimation.Color -> {
                 val animated by animateColorAsState(
                     targetValue = targetBorderColor,
@@ -174,6 +177,7 @@ fun Textarea(
                 )
                 animated
             }
+
             TextareaAnimation.Glow -> {
                 val animated by animateColorAsState(
                     targetValue = targetBorderColor,
@@ -291,11 +295,15 @@ fun Textarea(
                                                 is androidx.compose.ui
                                                     .graphics.Outline
                                                     .Rounded,
-                                                ->
+                                                -> {
                                                     outline.roundRect
                                                         .topLeftCornerRadius
                                                         .x + spreadPx
-                                                else -> spreadPx
+                                                }
+
+                                                else -> {
+                                                    spreadPx
+                                                }
                                             }
                                         drawRoundRect(
                                             color =

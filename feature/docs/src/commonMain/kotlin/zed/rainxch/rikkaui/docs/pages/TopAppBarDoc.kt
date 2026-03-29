@@ -9,9 +9,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.button.IconButton
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.topappbar.TopAppBar
@@ -24,6 +23,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the TopAppBar component.
@@ -98,18 +98,20 @@ fun TopAppBarDoc() {
                 navigationIcon = {
                     IconButton(
                         icon = RikkaIcons.ArrowLeft,
-                        contentDescription = stringResource(
-                            Res.string.top_app_bar_demo_back,
-                        ),
+                        contentDescription =
+                            stringResource(
+                                Res.string.top_app_bar_demo_back,
+                            ),
                         onClick = {},
                     )
                 },
                 actions = {
                     IconButton(
                         icon = RikkaIcons.Settings,
-                        contentDescription = stringResource(
-                            Res.string.top_app_bar_demo_settings,
-                        ),
+                        contentDescription =
+                            stringResource(
+                                Res.string.top_app_bar_demo_settings,
+                            ),
                         onClick = {},
                     )
                 },

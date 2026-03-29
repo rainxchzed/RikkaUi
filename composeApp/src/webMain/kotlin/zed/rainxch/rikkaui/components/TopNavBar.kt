@@ -20,7 +20,6 @@ import rikkaui.composeapp.generated.resources.app_name
 import rikkaui.composeapp.generated.resources.github
 import rikkaui.composeapp.generated.resources.toggle_dark_mode
 import zed.rainxch.rikkaui.components.model.NavEntry
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonSize
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
@@ -29,8 +28,7 @@ import zed.rainxch.rikkaui.components.ui.icon.IconSize
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
-import zed.rainxch.rikkaui.navigation.AppNavGraph.CreatorRoute
-import zed.rainxch.rikkaui.navigation.AppNavGraph.DocsRoute
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 import zed.rainxch.rikkaui.navigation.AppNavGraph.HomeRoute
 
 @Composable
@@ -84,11 +82,12 @@ fun TopNavBar(
                             launchSingleTop = true
                         }
                     },
-                    variant = if (isActive) {
-                        ButtonVariant.Secondary
-                    } else {
-                        ButtonVariant.Ghost
-                    },
+                    variant =
+                        if (isActive) {
+                            ButtonVariant.Secondary
+                        } else {
+                            ButtonVariant.Ghost
+                        },
                     size = ButtonSize.Sm,
                 )
             }

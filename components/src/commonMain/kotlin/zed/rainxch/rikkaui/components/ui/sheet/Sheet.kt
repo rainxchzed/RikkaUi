@@ -46,10 +46,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import kotlinx.coroutines.delay
-import zed.rainxch.rikkaui.components.theme.RikkaMotion
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaMotion
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Side ───────────────────────────────────────────────────
 
@@ -235,15 +235,17 @@ fun Sheet(
             ) {
                 val sizeModifier =
                     when (side) {
-                        SheetSide.Left, SheetSide.Right ->
+                        SheetSide.Left, SheetSide.Right -> {
                             Modifier
                                 .width(panelWidth)
                                 .fillMaxHeight()
+                        }
 
-                        SheetSide.Top, SheetSide.Bottom ->
+                        SheetSide.Top, SheetSide.Bottom -> {
                             Modifier
                                 .fillMaxWidth()
                                 .defaultMinSize(minHeight = 200.dp)
+                        }
                     }
 
                 Column(
@@ -385,37 +387,41 @@ fun SheetFooter(
 private fun resolvePanelShape(side: SheetSide): Shape {
     val radius = 10.dp
     return when (side) {
-        SheetSide.Left ->
+        SheetSide.Left -> {
             RoundedCornerShape(
                 topStart = 0.dp,
                 topEnd = radius,
                 bottomEnd = radius,
                 bottomStart = 0.dp,
             )
+        }
 
-        SheetSide.Right ->
+        SheetSide.Right -> {
             RoundedCornerShape(
                 topStart = radius,
                 topEnd = 0.dp,
                 bottomEnd = 0.dp,
                 bottomStart = radius,
             )
+        }
 
-        SheetSide.Top ->
+        SheetSide.Top -> {
             RoundedCornerShape(
                 topStart = 0.dp,
                 topEnd = 0.dp,
                 bottomEnd = radius,
                 bottomStart = radius,
             )
+        }
 
-        SheetSide.Bottom ->
+        SheetSide.Bottom -> {
             RoundedCornerShape(
                 topStart = radius,
                 topEnd = radius,
                 bottomEnd = 0.dp,
                 bottomStart = 0.dp,
             )
+        }
     }
 }
 
@@ -441,7 +447,7 @@ private fun resolveBorderModifier(
 ): Modifier {
     val width = 1.dp
     return when (side) {
-        SheetSide.Left ->
+        SheetSide.Left -> {
             Modifier.border(
                 width = width,
                 color = borderColor,
@@ -451,8 +457,9 @@ private fun resolveBorderModifier(
                         bottomEnd = 10.dp,
                     ),
             )
+        }
 
-        SheetSide.Right ->
+        SheetSide.Right -> {
             Modifier.border(
                 width = width,
                 color = borderColor,
@@ -462,8 +469,9 @@ private fun resolveBorderModifier(
                         bottomStart = 10.dp,
                     ),
             )
+        }
 
-        SheetSide.Top ->
+        SheetSide.Top -> {
             Modifier.border(
                 width = width,
                 color = borderColor,
@@ -473,8 +481,9 @@ private fun resolveBorderModifier(
                         bottomEnd = 10.dp,
                     ),
             )
+        }
 
-        SheetSide.Bottom ->
+        SheetSide.Bottom -> {
             Modifier.border(
                 width = width,
                 color = borderColor,
@@ -484,6 +493,7 @@ private fun resolveBorderModifier(
                         topEnd = 10.dp,
                     ),
             )
+        }
     }
 }
 
@@ -500,7 +510,9 @@ private fun resolveSheetTransition(
     motion: RikkaMotion,
 ): Pair<EnterTransition, ExitTransition> =
     when (animation) {
-        SheetAnimation.Slide -> resolveSlideTransition(side, motion)
+        SheetAnimation.Slide -> {
+            resolveSlideTransition(side, motion)
+        }
 
         SheetAnimation.FadeScale -> {
             val enter =
@@ -552,55 +564,63 @@ private fun resolveSlideTransition(
     val durationMs = motion.durationEnter
     val enter =
         when (side) {
-            SheetSide.Left ->
+            SheetSide.Left -> {
                 slideInHorizontally(
                     animationSpec = tween(durationMs),
                     initialOffsetX = { -it },
                 ) + fadeIn(animationSpec = tween(durationMs))
+            }
 
-            SheetSide.Right ->
+            SheetSide.Right -> {
                 slideInHorizontally(
                     animationSpec = tween(durationMs),
                     initialOffsetX = { it },
                 ) + fadeIn(animationSpec = tween(durationMs))
+            }
 
-            SheetSide.Top ->
+            SheetSide.Top -> {
                 slideInVertically(
                     animationSpec = tween(durationMs),
                     initialOffsetY = { -it },
                 ) + fadeIn(animationSpec = tween(durationMs))
+            }
 
-            SheetSide.Bottom ->
+            SheetSide.Bottom -> {
                 slideInVertically(
                     animationSpec = tween(durationMs),
                     initialOffsetY = { it },
                 ) + fadeIn(animationSpec = tween(durationMs))
+            }
         }
     val exit =
         when (side) {
-            SheetSide.Left ->
+            SheetSide.Left -> {
                 slideOutHorizontally(
                     animationSpec = tween(durationMs),
                     targetOffsetX = { -it },
                 ) + fadeOut(animationSpec = tween(durationMs))
+            }
 
-            SheetSide.Right ->
+            SheetSide.Right -> {
                 slideOutHorizontally(
                     animationSpec = tween(durationMs),
                     targetOffsetX = { it },
                 ) + fadeOut(animationSpec = tween(durationMs))
+            }
 
-            SheetSide.Top ->
+            SheetSide.Top -> {
                 slideOutVertically(
                     animationSpec = tween(durationMs),
                     targetOffsetY = { -it },
                 ) + fadeOut(animationSpec = tween(durationMs))
+            }
 
-            SheetSide.Bottom ->
+            SheetSide.Bottom -> {
                 slideOutVertically(
                     animationSpec = tween(durationMs),
                     targetOffsetY = { it },
                 ) + fadeOut(animationSpec = tween(durationMs))
+            }
         }
     return enter to exit
 }

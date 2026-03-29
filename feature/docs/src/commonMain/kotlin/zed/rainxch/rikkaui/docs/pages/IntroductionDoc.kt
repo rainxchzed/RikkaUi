@@ -44,7 +44,6 @@ import rikkaui.feature.docs.generated.resources.intro_stat_total_components
 import rikkaui.feature.docs.generated.resources.intro_stat_total_components_value
 import rikkaui.feature.docs.generated.resources.intro_title
 import rikkaui.feature.docs.generated.resources.intro_what_is_body
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.badge.Badge
 import zed.rainxch.rikkaui.components.ui.badge.BadgeVariant
 import zed.rainxch.rikkaui.components.ui.text.Text
@@ -53,6 +52,7 @@ import zed.rainxch.rikkaui.docs.components.CodeBlock
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
 import zed.rainxch.rikkaui.docs.components.DocSection
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Introduction / "What is RikkaUI?" documentation page.
@@ -84,44 +84,54 @@ fun IntroductionDoc() {
                 Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             FeatureItem(
-                title = stringResource(
-                    Res.string.intro_feature_no_material_title,
-                ),
-                description = stringResource(
-                    Res.string.intro_feature_no_material_desc,
-                ),
+                title =
+                    stringResource(
+                        Res.string.intro_feature_no_material_title,
+                    ),
+                description =
+                    stringResource(
+                        Res.string.intro_feature_no_material_desc,
+                    ),
             )
             FeatureItem(
-                title = stringResource(
-                    Res.string.intro_feature_copy_paste_title,
-                ),
-                description = stringResource(
-                    Res.string.intro_feature_copy_paste_desc,
-                ),
+                title =
+                    stringResource(
+                        Res.string.intro_feature_copy_paste_title,
+                    ),
+                description =
+                    stringResource(
+                        Res.string.intro_feature_copy_paste_desc,
+                    ),
             )
             FeatureItem(
-                title = stringResource(
-                    Res.string.intro_feature_spring_title,
-                ),
-                description = stringResource(
-                    Res.string.intro_feature_spring_desc,
-                ),
+                title =
+                    stringResource(
+                        Res.string.intro_feature_spring_title,
+                    ),
+                description =
+                    stringResource(
+                        Res.string.intro_feature_spring_desc,
+                    ),
             )
             FeatureItem(
-                title = stringResource(
-                    Res.string.intro_feature_cross_platform_title,
-                ),
-                description = stringResource(
-                    Res.string.intro_feature_cross_platform_desc,
-                ),
+                title =
+                    stringResource(
+                        Res.string.intro_feature_cross_platform_title,
+                    ),
+                description =
+                    stringResource(
+                        Res.string.intro_feature_cross_platform_desc,
+                    ),
             )
             FeatureItem(
-                title = stringResource(
-                    Res.string.intro_feature_theme_title,
-                ),
-                description = stringResource(
-                    Res.string.intro_feature_theme_desc,
-                ),
+                title =
+                    stringResource(
+                        Res.string.intro_feature_theme_title,
+                    ),
+                description =
+                    stringResource(
+                        Res.string.intro_feature_theme_desc,
+                    ),
             )
         }
     }
@@ -137,24 +147,28 @@ fun IntroductionDoc() {
                     ),
             ) {
                 Badge(
-                    text = stringResource(
-                        Res.string.intro_badge_android,
-                    ),
+                    text =
+                        stringResource(
+                            Res.string.intro_badge_android,
+                        ),
                 )
                 Badge(
-                    text = stringResource(
-                        Res.string.intro_badge_ios,
-                    ),
+                    text =
+                        stringResource(
+                            Res.string.intro_badge_ios,
+                        ),
                 )
                 Badge(
-                    text = stringResource(
-                        Res.string.intro_badge_desktop,
-                    ),
+                    text =
+                        stringResource(
+                            Res.string.intro_badge_desktop,
+                        ),
                 )
                 Badge(
-                    text = stringResource(
-                        Res.string.intro_badge_web,
-                    ),
+                    text =
+                        stringResource(
+                            Res.string.intro_badge_web,
+                        ),
                 )
             }
         }

@@ -2,8 +2,6 @@ package zed.rainxch.rikkaui.docs.pages
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -13,9 +11,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.input.Input
 import zed.rainxch.rikkaui.components.ui.label.Label
 import zed.rainxch.rikkaui.docs.components.CodeBlock
@@ -24,6 +21,7 @@ import zed.rainxch.rikkaui.docs.components.DemoBox
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the Label component.
@@ -42,9 +40,10 @@ fun LabelDoc() {
     DocSection(stringResource(Res.string.label_section_examples)) {
         DemoBox {
             Column(
-                verticalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.md,
-                ),
+                verticalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.md,
+                    ),
             ) {
                 Label(text = stringResource(Res.string.label_demo_email))
                 Label(
@@ -66,15 +65,17 @@ fun LabelDoc() {
 
         DemoBox {
             Column(
-                verticalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.md,
-                ),
+                verticalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.md,
+                    ),
                 modifier = Modifier.width(320.dp),
             ) {
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(
-                        RikkaTheme.spacing.xs,
-                    ),
+                    verticalArrangement =
+                        Arrangement.spacedBy(
+                            RikkaTheme.spacing.xs,
+                        ),
                 ) {
                     Label(text = stringResource(Res.string.label_demo_email))
                     Input(
@@ -84,9 +85,10 @@ fun LabelDoc() {
                     )
                 }
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(
-                        RikkaTheme.spacing.xs,
-                    ),
+                    verticalArrangement =
+                        Arrangement.spacedBy(
+                            RikkaTheme.spacing.xs,
+                        ),
                 ) {
                     Label(
                         text = stringResource(Res.string.label_demo_password),

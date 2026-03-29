@@ -40,7 +40,6 @@ import rikkaui.feature.docs.generated.resources.accordion_section_multiple_open
 import rikkaui.feature.docs.generated.resources.component_accordion_name
 import rikkaui.feature.docs.generated.resources.section_api_reference
 import rikkaui.feature.docs.generated.resources.section_usage
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.accordion.AccordionAnimation
 import zed.rainxch.rikkaui.components.ui.accordion.AccordionItem
 import zed.rainxch.rikkaui.components.ui.text.Text
@@ -52,6 +51,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the Accordion component.
@@ -62,12 +62,14 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 @Composable
 fun AccordionDoc() {
     ComponentPageHeader(
-        name = stringResource(
-            Res.string.component_accordion_name,
-        ),
-        description = stringResource(
-            Res.string.accordion_page_desc,
-        ),
+        name =
+            stringResource(
+                Res.string.component_accordion_name,
+            ),
+        description =
+            stringResource(
+                Res.string.accordion_page_desc,
+            ),
     )
 
     // ─── Basic Accordion ─────────────────────────────
@@ -87,9 +89,10 @@ fun AccordionDoc() {
                 }
 
                 AccordionItem(
-                    title = stringResource(
-                        Res.string.accordion_demo_notifications,
-                    ),
+                    title =
+                        stringResource(
+                            Res.string.accordion_demo_notifications,
+                        ),
                     expanded = notificationsOpen,
                     onExpandedChange = {
                         notificationsOpen = it
@@ -104,9 +107,10 @@ fun AccordionDoc() {
                 }
 
                 AccordionItem(
-                    title = stringResource(
-                        Res.string.accordion_demo_privacy,
-                    ),
+                    title =
+                        stringResource(
+                            Res.string.accordion_demo_privacy,
+                        ),
                     expanded = privacyOpen,
                     onExpandedChange = {
                         privacyOpen = it
@@ -121,9 +125,10 @@ fun AccordionDoc() {
                 }
 
                 AccordionItem(
-                    title = stringResource(
-                        Res.string.accordion_demo_appearance,
-                    ),
+                    title =
+                        stringResource(
+                            Res.string.accordion_demo_appearance,
+                        ),
                     expanded = appearanceOpen,
                     onExpandedChange = {
                         appearanceOpen = it
@@ -156,11 +161,12 @@ fun AccordionDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "Tween" -> AccordionAnimation.Tween
-            "None" -> AccordionAnimation.None
-            else -> AccordionAnimation.Spring
-        }
+        val animation =
+            when (selectedAnim) {
+                "Tween" -> AccordionAnimation.Tween
+                "None" -> AccordionAnimation.None
+                else -> AccordionAnimation.Spring
+            }
 
         DemoBox {
             Column(modifier = Modifier.fillMaxWidth()) {
@@ -169,10 +175,11 @@ fun AccordionDoc() {
                 }
 
                 AccordionItem(
-                    title = stringResource(
-                        Res.string.accordion_demo_animation_title,
-                        selectedAnim,
-                    ),
+                    title =
+                        stringResource(
+                            Res.string.accordion_demo_animation_title,
+                            selectedAnim,
+                        ),
                     expanded = expanded,
                     onExpandedChange = { expanded = it },
                     animation = animation,
@@ -208,9 +215,10 @@ fun AccordionDoc() {
                 }
 
                 AccordionItem(
-                    title = stringResource(
-                        Res.string.accordion_demo_general,
-                    ),
+                    title =
+                        stringResource(
+                            Res.string.accordion_demo_general,
+                        ),
                     expanded = generalOpen,
                     onExpandedChange = {
                         generalOpen = it
@@ -225,9 +233,10 @@ fun AccordionDoc() {
                 }
 
                 AccordionItem(
-                    title = stringResource(
-                        Res.string.accordion_demo_shipping,
-                    ),
+                    title =
+                        stringResource(
+                            Res.string.accordion_demo_shipping,
+                        ),
                     expanded = shippingOpen,
                     onExpandedChange = {
                         shippingOpen = it
@@ -242,9 +251,10 @@ fun AccordionDoc() {
                 }
 
                 AccordionItem(
-                    title = stringResource(
-                        Res.string.accordion_demo_returns,
-                    ),
+                    title =
+                        stringResource(
+                            Res.string.accordion_demo_returns,
+                        ),
                     expanded = returnsOpen,
                     onExpandedChange = {
                         returnsOpen = it
@@ -285,46 +295,57 @@ AccordionItem(
         PropsTable(
             listOf(
                 PropInfo(
-                    "title", "String", "required",
+                    "title",
+                    "String",
+                    "required",
                     stringResource(
                         Res.string.accordion_prop_title_desc,
                     ),
                 ),
                 PropInfo(
-                    "expanded", "Boolean", "required",
+                    "expanded",
+                    "Boolean",
+                    "required",
                     stringResource(
                         Res.string.accordion_prop_expanded_desc,
                     ),
                 ),
                 PropInfo(
                     "onExpandedChange",
-                    "(Boolean) -> Unit", "required",
+                    "(Boolean) -> Unit",
+                    "required",
                     stringResource(
                         Res.string.accordion_prop_on_expanded_change_desc,
                     ),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(
                         Res.string.accordion_prop_modifier_desc,
                     ),
                 ),
                 PropInfo(
-                    "animation", "AccordionAnimation",
+                    "animation",
+                    "AccordionAnimation",
                     "Spring",
                     stringResource(
                         Res.string.accordion_prop_animation_desc,
                     ),
                 ),
                 PropInfo(
-                    "chevronIcon", "ImageVector",
+                    "chevronIcon",
+                    "ImageVector",
                     "RikkaIcons.ChevronRight",
                     stringResource(
                         Res.string.accordion_prop_chevron_desc,
                     ),
                 ),
                 PropInfo(
-                    "content", "() -> Unit", "required",
+                    "content",
+                    "() -> Unit",
+                    "required",
                     stringResource(
                         Res.string.accordion_prop_content_desc,
                     ),

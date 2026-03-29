@@ -19,7 +19,6 @@ import rikkaui.composeapp.generated.resources.rate_your_experience
 import rikkaui.composeapp.generated.resources.submit_feedback
 import rikkaui.composeapp.generated.resources.tell_us_more
 import rikkaui.composeapp.generated.resources.what_could_we_improve
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonSize
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
@@ -33,6 +32,7 @@ import zed.rainxch.rikkaui.components.ui.label.Label
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.textarea.Textarea
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 @Composable
 fun FeedbackFormExample() {

@@ -28,11 +28,11 @@ import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.icon.Icon
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation Enum ─────────────────────────────────────────
 
@@ -504,7 +504,9 @@ private fun resolveAnimationModifier(
             Modifier.graphicsLayer { this.alpha = alpha }
         }
 
-        PaginationAnimation.None -> Modifier
+        PaginationAnimation.None -> {
+            Modifier
+        }
     }
 }
 
@@ -523,26 +525,29 @@ private data class PaginationSizeValues(
 @Composable
 private fun resolveSizeValues(size: PaginationSize): PaginationSizeValues =
     when (size) {
-        PaginationSize.Small ->
+        PaginationSize.Small -> {
             PaginationSizeValues(
                 buttonDp = 28.dp,
                 iconDp = 14.dp,
                 textVariant = TextVariant.Muted,
             )
+        }
 
-        PaginationSize.Default ->
+        PaginationSize.Default -> {
             PaginationSizeValues(
                 buttonDp = 36.dp,
                 iconDp = 16.dp,
                 textVariant = TextVariant.Small,
             )
+        }
 
-        PaginationSize.Large ->
+        PaginationSize.Large -> {
             PaginationSizeValues(
                 buttonDp = 44.dp,
                 iconDp = 20.dp,
                 textVariant = TextVariant.P,
             )
+        }
     }
 
 // ─── Internal: Color Resolution ────────────────────────────
@@ -632,6 +637,7 @@ private fun resolvePageRange(
                 showTrailingEllipsis = true,
             )
         }
+
         // Near the end — no trailing ellipsis needed
         currentPage >= totalPages - halfWindow - 1 -> {
             start = totalPages - maxVisible + 2
@@ -642,6 +648,7 @@ private fun resolvePageRange(
                 showTrailingEllipsis = false,
             )
         }
+
         // In the middle — both ellipses
         else -> {
             start = currentPage - halfWindow

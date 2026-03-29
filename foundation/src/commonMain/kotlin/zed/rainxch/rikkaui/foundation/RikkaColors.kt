@@ -1,4 +1,4 @@
-package zed.rainxch.rikkaui.components.theme
+package zed.rainxch.rikkaui.foundation
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf

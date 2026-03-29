@@ -15,14 +15,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,7 +27,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import org.jetbrains.compose.resources.stringResource
 import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.prop_header_default
@@ -40,6 +36,7 @@ import rikkaui.feature.docs.generated.resources.prop_header_type
 import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Page Header ─────────────────────────────────────────────
 
@@ -110,12 +107,10 @@ fun DemoBox(
                     1.dp,
                     RikkaTheme.colors.border,
                     RikkaTheme.shapes.lg,
-                )
-                .background(
+                ).background(
                     RikkaTheme.colors.card,
                     RikkaTheme.shapes.lg,
-                )
-                .clip(RikkaTheme.shapes.lg)
+                ).clip(RikkaTheme.shapes.lg)
                 .padding(RikkaTheme.spacing.xl),
         contentAlignment = Alignment.Center,
     ) {
@@ -183,8 +178,7 @@ fun VariantSelector(
                                 RikkaTheme.colors.border
                             },
                             RikkaTheme.shapes.md,
-                        )
-                        .background(bg, RikkaTheme.shapes.md)
+                        ).background(bg, RikkaTheme.shapes.md)
                         .padding(
                             horizontal = RikkaTheme.spacing.sm,
                             vertical = RikkaTheme.spacing.xs,
@@ -221,8 +215,7 @@ fun CodeBlock(
                 .background(
                     RikkaTheme.colors.muted,
                     RikkaTheme.shapes.md,
-                )
-                .clip(RikkaTheme.shapes.md)
+                ).clip(RikkaTheme.shapes.md)
                 .horizontalScroll(rememberScrollState())
                 .padding(RikkaTheme.spacing.md),
     ) {
@@ -267,8 +260,7 @@ fun PropsTable(
                     1.dp,
                     RikkaTheme.colors.border,
                     RikkaTheme.shapes.md,
-                )
-                .clip(RikkaTheme.shapes.md),
+                ).clip(RikkaTheme.shapes.md),
     ) {
         // Header row
         Row(

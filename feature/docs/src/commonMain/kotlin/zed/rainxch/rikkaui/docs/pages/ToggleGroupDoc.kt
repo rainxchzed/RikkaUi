@@ -10,9 +10,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.togglegroup.ToggleGroup
@@ -26,6 +25,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the ToggleGroup component.
@@ -53,10 +53,11 @@ fun ToggleGroupDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val variant = when (selectedVariant) {
-            "Outline" -> ToggleGroupVariant.Outline
-            else -> ToggleGroupVariant.Default
-        }
+        val variant =
+            when (selectedVariant) {
+                "Outline" -> ToggleGroupVariant.Outline
+                else -> ToggleGroupVariant.Default
+            }
 
         DemoBox {
             ToggleGroup {
@@ -95,11 +96,12 @@ fun ToggleGroupDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "Tween" -> ToggleGroupAnimation.Tween
-            "None" -> ToggleGroupAnimation.None
-            else -> ToggleGroupAnimation.Spring
-        }
+        val animation =
+            when (selectedAnim) {
+                "Tween" -> ToggleGroupAnimation.Tween
+                "None" -> ToggleGroupAnimation.None
+                else -> ToggleGroupAnimation.Spring
+            }
 
         DemoBox {
             ToggleGroup {
@@ -128,11 +130,12 @@ fun ToggleGroupDoc() {
     // ─── Outline with Selection Text ────────────────────────
     DocSection(stringResource(Res.string.toggle_group_section_outline)) {
         var selected by remember { mutableStateOf(0) }
-        val options = listOf(
-            stringResource(Res.string.toggle_group_demo_left),
-            stringResource(Res.string.toggle_group_demo_center),
-            stringResource(Res.string.toggle_group_demo_right),
-        )
+        val options =
+            listOf(
+                stringResource(Res.string.toggle_group_demo_left),
+                stringResource(Res.string.toggle_group_demo_center),
+                stringResource(Res.string.toggle_group_demo_right),
+            )
 
         DemoBox {
             Column {
@@ -192,35 +195,51 @@ ToggleGroup {
         PropsTable(
             listOf(
                 PropInfo(
-                    "text", "String", "required",
+                    "text",
+                    "String",
+                    "required",
                     stringResource(Res.string.toggle_group_prop_text_desc),
                 ),
                 PropInfo(
-                    "selected", "Boolean", "required",
+                    "selected",
+                    "Boolean",
+                    "required",
                     stringResource(Res.string.toggle_group_prop_selected_desc),
                 ),
                 PropInfo(
-                    "onClick", "() -> Unit", "required",
+                    "onClick",
+                    "() -> Unit",
+                    "required",
                     stringResource(Res.string.toggle_group_prop_onclick_desc),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.toggle_group_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "variant", "ToggleGroupVariant", "Default",
+                    "variant",
+                    "ToggleGroupVariant",
+                    "Default",
                     stringResource(Res.string.toggle_group_prop_variant_desc),
                 ),
                 PropInfo(
-                    "animation", "ToggleGroupAnimation", "Spring",
+                    "animation",
+                    "ToggleGroupAnimation",
+                    "Spring",
                     stringResource(Res.string.toggle_group_prop_animation_desc),
                 ),
                 PropInfo(
-                    "selectedColor", "Color", "foreground",
+                    "selectedColor",
+                    "Color",
+                    "foreground",
                     stringResource(Res.string.toggle_group_prop_selected_color_desc),
                 ),
                 PropInfo(
-                    "unselectedColor", "Color", "mutedForeground",
+                    "unselectedColor",
+                    "Color",
+                    "mutedForeground",
                     stringResource(Res.string.toggle_group_prop_unselected_color_desc),
                 ),
             ),

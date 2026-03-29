@@ -31,11 +31,12 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.icon.Icon
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaMotion
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation Enum ─────────────────────────────────────────
 
@@ -246,7 +247,7 @@ fun AccordionItem(
 @Composable
 private fun resolveFloatSpec(
     animation: AccordionAnimation,
-    motion: zed.rainxch.rikkaui.components.theme.RikkaMotion,
+    motion: RikkaMotion,
 ): androidx.compose.animation.core.AnimationSpec<Float> =
     when (animation) {
         AccordionAnimation.Spring -> motion.springDefault
@@ -261,10 +262,10 @@ private fun resolveFloatSpec(
 @Composable
 private fun resolveEnter(
     animation: AccordionAnimation,
-    motion: zed.rainxch.rikkaui.components.theme.RikkaMotion,
+    motion: RikkaMotion,
 ): androidx.compose.animation.EnterTransition =
     when (animation) {
-        AccordionAnimation.Spring ->
+        AccordionAnimation.Spring -> {
             expandVertically(
                 animationSpec =
                     spring(
@@ -272,17 +273,22 @@ private fun resolveEnter(
                         stiffness = Spring.StiffnessMediumLow,
                     ),
             )
-        AccordionAnimation.Tween ->
+        }
+
+        AccordionAnimation.Tween -> {
             expandVertically(
                 animationSpec =
                     tween(
                         durationMillis = motion.durationDefault,
                     ),
             )
-        AccordionAnimation.None ->
+        }
+
+        AccordionAnimation.None -> {
             expandVertically(
                 animationSpec = snap(),
             )
+        }
     }
 
 /**
@@ -292,10 +298,10 @@ private fun resolveEnter(
 @Composable
 private fun resolveExit(
     animation: AccordionAnimation,
-    motion: zed.rainxch.rikkaui.components.theme.RikkaMotion,
+    motion: RikkaMotion,
 ): androidx.compose.animation.ExitTransition =
     when (animation) {
-        AccordionAnimation.Spring ->
+        AccordionAnimation.Spring -> {
             shrinkVertically(
                 animationSpec =
                     spring(
@@ -303,15 +309,20 @@ private fun resolveExit(
                         stiffness = Spring.StiffnessMediumLow,
                     ),
             )
-        AccordionAnimation.Tween ->
+        }
+
+        AccordionAnimation.Tween -> {
             shrinkVertically(
                 animationSpec =
                     tween(
                         durationMillis = motion.durationDefault,
                     ),
             )
-        AccordionAnimation.None ->
+        }
+
+        AccordionAnimation.None -> {
             shrinkVertically(
                 animationSpec = snap(),
             )
+        }
     }

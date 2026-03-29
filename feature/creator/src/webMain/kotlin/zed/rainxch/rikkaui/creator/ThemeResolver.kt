@@ -1,8 +1,8 @@
 package zed.rainxch.rikkaui.creator
 
-import zed.rainxch.rikkaui.components.theme.RikkaAccentPreset
-import zed.rainxch.rikkaui.components.theme.RikkaColors
-import zed.rainxch.rikkaui.components.theme.RikkaPalette
+import zed.rainxch.rikkaui.foundation.RikkaAccentPreset
+import zed.rainxch.rikkaui.foundation.RikkaColors
+import zed.rainxch.rikkaui.foundation.RikkaPalette
 
 /** Resolves a [RikkaColors] for the given palette and dark-mode flag. */
 internal fun resolvePalette(

@@ -44,9 +44,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import kotlinx.coroutines.delay
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.PopupAnimation
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Component ──────────────────────────────────────────────
 
@@ -169,7 +169,9 @@ fun DropdownMenu(
                 }
 
                 when (animation) {
-                    PopupAnimation.None -> panelContent()
+                    PopupAnimation.None -> {
+                        panelContent()
+                    }
 
                     PopupAnimation.Fade -> {
                         AnimatedVisibility(

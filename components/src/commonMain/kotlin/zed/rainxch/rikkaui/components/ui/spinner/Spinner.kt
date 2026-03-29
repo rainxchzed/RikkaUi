@@ -20,7 +20,8 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.foundation.RikkaMotion
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Size ───────────────────────────────────────────────────
 
@@ -156,7 +157,7 @@ private data class SpinnerAnimationValues(
 @Composable
 private fun resolveSpinnerAnimation(
     animation: SpinnerAnimation,
-    motion: zed.rainxch.rikkaui.components.theme.RikkaMotion,
+    motion: RikkaMotion,
 ): SpinnerAnimationValues =
     when (animation) {
         SpinnerAnimation.Spin -> {

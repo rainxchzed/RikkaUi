@@ -9,9 +9,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
 import zed.rainxch.rikkaui.components.ui.sheet.Sheet
@@ -29,6 +28,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the Sheet component.
@@ -56,12 +56,13 @@ fun SheetDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val side = when (selectedSide) {
-            "Left" -> SheetSide.Left
-            "Top" -> SheetSide.Top
-            "Bottom" -> SheetSide.Bottom
-            else -> SheetSide.Right
-        }
+        val side =
+            when (selectedSide) {
+                "Left" -> SheetSide.Left
+                "Top" -> SheetSide.Top
+                "Bottom" -> SheetSide.Bottom
+                else -> SheetSide.Right
+            }
 
         DemoBox {
             Button(
@@ -109,12 +110,13 @@ fun SheetDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "FadeScale" -> SheetAnimation.FadeScale
-            "Fade" -> SheetAnimation.Fade
-            "None" -> SheetAnimation.None
-            else -> SheetAnimation.Slide
-        }
+        val animation =
+            when (selectedAnim) {
+                "FadeScale" -> SheetAnimation.FadeScale
+                "Fade" -> SheetAnimation.Fade
+                "None" -> SheetAnimation.None
+                else -> SheetAnimation.Slide
+            }
 
         DemoBox {
             Button(
@@ -172,39 +174,57 @@ Sheet(
         PropsTable(
             listOf(
                 PropInfo(
-                    "open", "Boolean", "required",
+                    "open",
+                    "Boolean",
+                    "required",
                     stringResource(Res.string.sheet_prop_open_desc),
                 ),
                 PropInfo(
-                    "onDismiss", "() -> Unit", "required",
+                    "onDismiss",
+                    "() -> Unit",
+                    "required",
                     stringResource(Res.string.sheet_prop_on_dismiss_desc),
                 ),
                 PropInfo(
-                    "side", "SheetSide", "Right",
+                    "side",
+                    "SheetSide",
+                    "Right",
                     stringResource(Res.string.sheet_prop_side_desc),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.sheet_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "label", "String", "\"Sheet\"",
+                    "label",
+                    "String",
+                    "\"Sheet\"",
                     stringResource(Res.string.sheet_prop_label_desc),
                 ),
                 PropInfo(
-                    "animation", "SheetAnimation", "Slide",
+                    "animation",
+                    "SheetAnimation",
+                    "Slide",
                     stringResource(Res.string.sheet_prop_animation_desc),
                 ),
                 PropInfo(
-                    "scrimColor", "Color", "Black(0.5f)",
+                    "scrimColor",
+                    "Color",
+                    "Black(0.5f)",
                     stringResource(Res.string.sheet_prop_scrim_desc),
                 ),
                 PropInfo(
-                    "panelWidth", "Dp", "320.dp",
+                    "panelWidth",
+                    "Dp",
+                    "320.dp",
                     stringResource(Res.string.sheet_prop_panel_width_desc),
                 ),
                 PropInfo(
-                    "content", "ColumnScope.() -> Unit", "required",
+                    "content",
+                    "ColumnScope.() -> Unit",
+                    "required",
                     stringResource(Res.string.sheet_prop_content_desc),
                 ),
             ),

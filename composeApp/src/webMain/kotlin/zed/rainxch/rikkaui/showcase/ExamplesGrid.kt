@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 import zed.rainxch.rikkaui.showcase.examples.ActivityFeedExample
 import zed.rainxch.rikkaui.showcase.examples.ApiKeyManagerExample
 import zed.rainxch.rikkaui.showcase.examples.FeedbackFormExample

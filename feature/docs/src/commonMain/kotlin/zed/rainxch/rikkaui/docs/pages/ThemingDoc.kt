@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -71,7 +70,6 @@ import rikkaui.feature.docs.generated.resources.theming_token_primary_foreground
 import rikkaui.feature.docs.generated.resources.theming_token_ring_desc
 import rikkaui.feature.docs.generated.resources.theming_token_secondary_desc
 import rikkaui.feature.docs.generated.resources.theming_token_secondary_foreground_desc
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.docs.components.CodeBlock
@@ -80,6 +78,7 @@ import zed.rainxch.rikkaui.docs.components.DemoBox
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Theming documentation page.
@@ -98,9 +97,10 @@ fun ThemingDoc() {
         stringResource(Res.string.theming_section_quick_start),
     ) {
         Text(
-            text = stringResource(
-                Res.string.theming_quick_start_body,
-            ),
+            text =
+                stringResource(
+                    Res.string.theming_quick_start_body,
+                ),
             variant = TextVariant.P,
         )
 
@@ -133,9 +133,10 @@ RikkaTheme(
         stringResource(Res.string.theming_section_color_palettes),
     ) {
         Text(
-            text = stringResource(
-                Res.string.theming_palettes_body,
-            ),
+            text =
+                stringResource(
+                    Res.string.theming_palettes_body,
+                ),
             variant = TextVariant.P,
         )
 
@@ -203,9 +204,10 @@ RikkaTheme(palette = RikkaPalette.Slate, isDark = true) {
         stringResource(Res.string.theming_section_accent_colors),
     ) {
         Text(
-            text = stringResource(
-                Res.string.theming_accents_body,
-            ),
+            text =
+                stringResource(
+                    Res.string.theming_accents_body,
+                ),
             variant = TextVariant.P,
         )
 
@@ -317,9 +319,10 @@ RikkaTheme(
         stringResource(Res.string.theming_section_style_presets),
     ) {
         Text(
-            text = stringResource(
-                Res.string.theming_style_presets_body,
-            ),
+            text =
+                stringResource(
+                    Res.string.theming_style_presets_body,
+                ),
             variant = TextVariant.P,
         )
 
@@ -389,9 +392,10 @@ RikkaTheme(
         stringResource(Res.string.theming_section_token_overrides),
     ) {
         Text(
-            text = stringResource(
-                Res.string.theming_token_overrides_body,
-            ),
+            text =
+                stringResource(
+                    Res.string.theming_token_overrides_body,
+                ),
             variant = TextVariant.P,
         )
 
@@ -435,18 +439,20 @@ RikkaTheme(
         stringResource(Res.string.theming_section_color_tokens),
     ) {
         Text(
-            text = stringResource(
-                Res.string.theming_color_tokens_body,
-            ),
+            text =
+                stringResource(
+                    Res.string.theming_color_tokens_body,
+                ),
             variant = TextVariant.P,
         )
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
         Text(
-            text = stringResource(
-                Res.string.theming_subsection_surface_colors,
-            ),
+            text =
+                stringResource(
+                    Res.string.theming_subsection_surface_colors,
+                ),
             variant = TextVariant.H4,
         )
 
@@ -509,9 +515,10 @@ RikkaTheme(
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
         Text(
-            text = stringResource(
-                Res.string.theming_subsection_interactive_colors,
-            ),
+            text =
+                stringResource(
+                    Res.string.theming_subsection_interactive_colors,
+                ),
             variant = TextVariant.H4,
         )
 
@@ -574,9 +581,10 @@ RikkaTheme(
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
         Text(
-            text = stringResource(
-                Res.string.theming_subsection_subtle_colors,
-            ),
+            text =
+                stringResource(
+                    Res.string.theming_subsection_subtle_colors,
+                ),
             variant = TextVariant.H4,
         )
 
@@ -623,9 +631,10 @@ RikkaTheme(
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
         Text(
-            text = stringResource(
-                Res.string.theming_subsection_border_colors,
-            ),
+            text =
+                stringResource(
+                    Res.string.theming_subsection_border_colors,
+                ),
             variant = TextVariant.H4,
         )
 

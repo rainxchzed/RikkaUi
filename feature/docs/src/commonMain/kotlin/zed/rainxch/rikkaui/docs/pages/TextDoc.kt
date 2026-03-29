@@ -11,9 +11,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.docs.components.CodeBlock
@@ -23,6 +22,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the Text component.
@@ -42,27 +42,36 @@ fun TextDoc() {
         var selected by remember { mutableStateOf("P") }
 
         VariantSelector(
-            options = listOf(
-                "H1", "H2", "H3", "H4",
-                "P", "Lead", "Large", "Small", "Muted",
-            ),
+            options =
+                listOf(
+                    "H1",
+                    "H2",
+                    "H3",
+                    "H4",
+                    "P",
+                    "Lead",
+                    "Large",
+                    "Small",
+                    "Muted",
+                ),
             selected = selected,
             onSelect = { selected = it },
         )
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val variant = when (selected) {
-            "H1" -> TextVariant.H1
-            "H2" -> TextVariant.H2
-            "H3" -> TextVariant.H3
-            "H4" -> TextVariant.H4
-            "Lead" -> TextVariant.Lead
-            "Large" -> TextVariant.Large
-            "Small" -> TextVariant.Small
-            "Muted" -> TextVariant.Muted
-            else -> TextVariant.P
-        }
+        val variant =
+            when (selected) {
+                "H1" -> TextVariant.H1
+                "H2" -> TextVariant.H2
+                "H3" -> TextVariant.H3
+                "H4" -> TextVariant.H4
+                "Lead" -> TextVariant.Lead
+                "Large" -> TextVariant.Large
+                "Small" -> TextVariant.Small
+                "Muted" -> TextVariant.Muted
+                else -> TextVariant.P
+            }
 
         DemoBox {
             Text(
@@ -76,9 +85,10 @@ fun TextDoc() {
     DocSection(stringResource(Res.string.text_section_all_variants)) {
         DemoBox {
             Column(
-                verticalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.sm,
-                ),
+                verticalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.sm,
+                    ),
             ) {
                 Text(stringResource(Res.string.text_demo_heading_1), variant = TextVariant.H1)
                 Text(stringResource(Res.string.text_demo_heading_2), variant = TextVariant.H2)
@@ -122,43 +132,63 @@ Text("Selectable", selectable = true)
         PropsTable(
             listOf(
                 PropInfo(
-                    "text", "String", "required",
+                    "text",
+                    "String",
+                    "required",
                     stringResource(Res.string.text_prop_text_desc),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.text_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "variant", "TextVariant", "P",
+                    "variant",
+                    "TextVariant",
+                    "P",
                     stringResource(Res.string.text_prop_variant_desc),
                 ),
                 PropInfo(
-                    "color", "Color", "Unspecified",
+                    "color",
+                    "Color",
+                    "Unspecified",
                     stringResource(Res.string.text_prop_color_desc),
                 ),
                 PropInfo(
-                    "textAlign", "TextAlign?", "null",
+                    "textAlign",
+                    "TextAlign?",
+                    "null",
                     stringResource(Res.string.text_prop_text_align_desc),
                 ),
                 PropInfo(
-                    "overflow", "TextOverflow", "Clip",
+                    "overflow",
+                    "TextOverflow",
+                    "Clip",
                     stringResource(Res.string.text_prop_overflow_desc),
                 ),
                 PropInfo(
-                    "maxLines", "Int", "Int.MAX_VALUE",
+                    "maxLines",
+                    "Int",
+                    "Int.MAX_VALUE",
                     stringResource(Res.string.text_prop_max_lines_desc),
                 ),
                 PropInfo(
-                    "minLines", "Int", "1",
+                    "minLines",
+                    "Int",
+                    "1",
                     stringResource(Res.string.text_prop_min_lines_desc),
                 ),
                 PropInfo(
-                    "selectable", "Boolean", "false",
+                    "selectable",
+                    "Boolean",
+                    "false",
                     stringResource(Res.string.text_prop_selectable_desc),
                 ),
                 PropInfo(
-                    "style", "TextStyle", "TextStyle.Default",
+                    "style",
+                    "TextStyle",
+                    "TextStyle.Default",
                     stringResource(Res.string.text_prop_style_desc),
                 ),
             ),

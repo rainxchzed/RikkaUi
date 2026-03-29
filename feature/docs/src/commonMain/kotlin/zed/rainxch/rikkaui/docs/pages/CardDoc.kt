@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -14,9 +13,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
 import zed.rainxch.rikkaui.components.ui.card.Card
@@ -34,6 +32,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the Card component.
@@ -60,11 +59,12 @@ fun CardDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val variant = when (selectedVariant) {
-            "Elevated" -> CardVariant.Elevated
-            "Ghost" -> CardVariant.Ghost
-            else -> CardVariant.Default
-        }
+        val variant =
+            when (selectedVariant) {
+                "Elevated" -> CardVariant.Elevated
+                "Ghost" -> CardVariant.Ghost
+                else -> CardVariant.Default
+            }
 
         DemoBox {
             Card(variant = variant) {
@@ -113,9 +113,10 @@ fun CardDoc() {
                 }
                 CardFooter {
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(
-                            RikkaTheme.spacing.sm,
-                        ),
+                        horizontalArrangement =
+                            Arrangement.spacedBy(
+                                RikkaTheme.spacing.sm,
+                            ),
                     ) {
                         Button(
                             onClick = {},
@@ -150,17 +151,19 @@ fun CardDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "Press" -> CardAnimation.Press
-            "None" -> CardAnimation.None
-            else -> CardAnimation.Hover
-        }
+        val animation =
+            when (selectedAnim) {
+                "Press" -> CardAnimation.Press
+                "None" -> CardAnimation.None
+                else -> CardAnimation.Hover
+            }
 
         DemoBox {
             Column(
-                verticalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.md,
-                ),
+                verticalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.md,
+                    ),
             ) {
                 Card(
                     onClick = {},
@@ -233,31 +236,45 @@ Card(
         PropsTable(
             listOf(
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.card_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "variant", "CardVariant", "Default",
+                    "variant",
+                    "CardVariant",
+                    "Default",
                     stringResource(Res.string.card_prop_variant_desc),
                 ),
                 PropInfo(
-                    "onClick", "(() -> Unit)?", "null",
+                    "onClick",
+                    "(() -> Unit)?",
+                    "null",
                     stringResource(Res.string.card_prop_onclick_desc),
                 ),
                 PropInfo(
-                    "animation", "CardAnimation", "Hover",
+                    "animation",
+                    "CardAnimation",
+                    "Hover",
                     stringResource(Res.string.card_prop_animation_desc),
                 ),
                 PropInfo(
-                    "elevation", "Dp?", "null",
+                    "elevation",
+                    "Dp?",
+                    "null",
                     stringResource(Res.string.card_prop_elevation_desc),
                 ),
                 PropInfo(
-                    "label", "String", "\"\"",
+                    "label",
+                    "String",
+                    "\"\"",
                     stringResource(Res.string.card_prop_label_desc),
                 ),
                 PropInfo(
-                    "content", "ColumnScope.() -> Unit", "required",
+                    "content",
+                    "ColumnScope.() -> Unit",
+                    "required",
                     stringResource(Res.string.card_prop_content_desc),
                 ),
             ),

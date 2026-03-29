@@ -9,9 +9,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.table.Table
 import zed.rainxch.rikkaui.components.ui.table.TableAnimation
 import zed.rainxch.rikkaui.components.ui.table.TableBorderStyle
@@ -26,6 +25,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the Table component.
@@ -52,11 +52,12 @@ fun TableDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "Stripe" -> TableAnimation.Stripe
-            "None" -> TableAnimation.None
-            else -> TableAnimation.Hover
-        }
+        val animation =
+            when (selectedAnim) {
+                "Stripe" -> TableAnimation.Stripe
+                "None" -> TableAnimation.None
+                else -> TableAnimation.Hover
+            }
 
         DemoBox {
             Table(animation = animation) {
@@ -96,11 +97,12 @@ fun TableDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val borderStyle = when (selectedBorder) {
-            "Bordered" -> TableBorderStyle.Bordered
-            "Borderless" -> TableBorderStyle.Borderless
-            else -> TableBorderStyle.Outlined
-        }
+        val borderStyle =
+            when (selectedBorder) {
+                "Bordered" -> TableBorderStyle.Bordered
+                "Borderless" -> TableBorderStyle.Borderless
+                else -> TableBorderStyle.Outlined
+            }
 
         DemoBox {
             Table(borderStyle = borderStyle) {
@@ -153,23 +155,33 @@ Table(
         PropsTable(
             listOf(
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     "Modifier for layout and decoration.",
                 ),
                 PropInfo(
-                    "animation", "TableAnimation", "Hover",
+                    "animation",
+                    "TableAnimation",
+                    "Hover",
                     "Row visual effect: Hover, Stripe, None.",
                 ),
                 PropInfo(
-                    "borderStyle", "TableBorderStyle", "Outlined",
+                    "borderStyle",
+                    "TableBorderStyle",
+                    "Outlined",
                     "Border rendering: Outlined, Bordered, Borderless.",
                 ),
                 PropInfo(
-                    "stickyHeader", "Boolean", "false",
+                    "stickyHeader",
+                    "Boolean",
+                    "false",
                     "Sticky header in scrollable parent.",
                 ),
                 PropInfo(
-                    "content", "ColumnScope.() -> Unit", "required",
+                    "content",
+                    "ColumnScope.() -> Unit",
+                    "required",
                     "Table content: TableHeader + TableRow composables.",
                 ),
             ),

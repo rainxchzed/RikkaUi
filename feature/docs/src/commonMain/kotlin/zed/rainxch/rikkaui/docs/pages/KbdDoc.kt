@@ -12,9 +12,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.kbd.Kbd
 import zed.rainxch.rikkaui.components.ui.kbd.KbdCombo
 import zed.rainxch.rikkaui.components.ui.kbd.KbdSize
@@ -25,6 +24,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the Kbd component.
@@ -51,17 +51,19 @@ fun KbdDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val size = when (selectedSize) {
-            "Sm" -> KbdSize.Sm
-            "Lg" -> KbdSize.Lg
-            else -> KbdSize.Default
-        }
+        val size =
+            when (selectedSize) {
+                "Sm" -> KbdSize.Sm
+                "Lg" -> KbdSize.Lg
+                else -> KbdSize.Default
+            }
 
         DemoBox {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.sm,
-                ),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.sm,
+                    ),
             ) {
                 Kbd(text = "Esc", size = size)
                 Kbd(text = "Enter", size = size)
@@ -74,9 +76,10 @@ fun KbdDoc() {
     DocSection(stringResource(Res.string.kbd_section_combos)) {
         DemoBox {
             Column(
-                verticalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.md,
-                ),
+                verticalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.md,
+                    ),
             ) {
                 KbdCombo(keys = listOf("Ctrl", "Shift", "P"))
                 KbdCombo(keys = listOf("\u2318", "K"))
@@ -109,15 +112,21 @@ KbdCombo(
         PropsTable(
             listOf(
                 PropInfo(
-                    "text", "String", "required",
+                    "text",
+                    "String",
+                    "required",
                     stringResource(Res.string.kbd_prop_text_desc),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.kbd_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "size", "KbdSize", "Default",
+                    "size",
+                    "KbdSize",
+                    "Default",
                     stringResource(Res.string.kbd_prop_size_desc),
                 ),
             ),
@@ -128,15 +137,21 @@ KbdCombo(
         PropsTable(
             listOf(
                 PropInfo(
-                    "keys", "List<String>", "required",
+                    "keys",
+                    "List<String>",
+                    "required",
                     stringResource(Res.string.kbd_prop_keys_desc),
                 ),
                 PropInfo(
-                    "separator", "String", "\"+\"",
+                    "separator",
+                    "String",
+                    "\"+\"",
                     stringResource(Res.string.kbd_prop_separator_desc),
                 ),
                 PropInfo(
-                    "size", "KbdSize", "Default",
+                    "size",
+                    "KbdSize",
+                    "Default",
                     stringResource(Res.string.kbd_prop_combo_size_desc),
                 ),
             ),

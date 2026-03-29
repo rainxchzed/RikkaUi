@@ -4,15 +4,14 @@ package zed.rainxch.rikkaui.creator.preview
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -27,16 +26,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaAccentPreset
-import zed.rainxch.rikkaui.components.theme.RikkaPalette
-import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
-import zed.rainxch.rikkaui.components.theme.rikkaTypography
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.creator.generated.resources.*
+import rikkaui.feature.creator.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.badge.Badge
 import zed.rainxch.rikkaui.components.ui.badge.BadgeVariant
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
-import zed.rainxch.rikkaui.components.ui.card.Card
 import zed.rainxch.rikkaui.components.ui.checkbox.Checkbox
 import zed.rainxch.rikkaui.components.ui.input.Input
 import zed.rainxch.rikkaui.components.ui.progress.Progress
@@ -46,9 +42,6 @@ import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.textarea.Textarea
 import zed.rainxch.rikkaui.components.ui.toggle.Toggle
-import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.creator.generated.resources.Res
-import rikkaui.feature.creator.generated.resources.*
 import zed.rainxch.rikkaui.creator.fonts.availableFonts
 import zed.rainxch.rikkaui.creator.fonts.resolvePreviewFontFamily
 import zed.rainxch.rikkaui.creator.preview.examples.ExampleActivityLog
@@ -73,6 +66,11 @@ import zed.rainxch.rikkaui.creator.preview.examples.ExampleTaskList
 import zed.rainxch.rikkaui.creator.preview.examples.ExampleUserDirectory
 import zed.rainxch.rikkaui.creator.resolveAccent
 import zed.rainxch.rikkaui.creator.resolvePalette
+import zed.rainxch.rikkaui.foundation.RikkaAccentPreset
+import zed.rainxch.rikkaui.foundation.RikkaPalette
+import zed.rainxch.rikkaui.foundation.RikkaStylePreset
+import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.rikkaTypography
 
 /**
  * Live preview panel that renders real components inside
@@ -98,7 +96,8 @@ fun LivePreview(
     val colors = resolveAccent(baseColors, accent, isDark)
     val rikkaFont = resolvePreviewFontFamily(fontId)
     val fontDisplayName =
-        availableFonts.find { it.id == fontId }
+        availableFonts
+            .find { it.id == fontId }
             ?.displayName ?: "Inter"
 
     RikkaTheme(
@@ -325,40 +324,41 @@ private fun ComponentStrip() {
 @Composable
 private fun ExampleCardsGrid() {
     Box(
-        modifier = Modifier.horizontalScroll(
-            rememberScrollState(),
-        ),
+        modifier =
+            Modifier.horizontalScroll(
+                rememberScrollState(),
+            ),
     ) {
         StaggeredGrid(
             columns = 3,
             spacing = RikkaTheme.spacing.md,
             columnWidth = 380.dp,
         ) {
-        // Column 1: cards 1, 4, 7, 10, 13, 16, 19
-        item { ExampleEnvVariables() }
-        item { ExampleTaskList() }
-        item { ExampleInviteTeam() }
-        item { ExampleReportBug() }
-        item { ExamplePaymentMethod() }
-        item { ExampleShippingAddress() }
-        item { ExampleActivityLog() }
+            // Column 1: cards 1, 4, 7, 10, 13, 16, 19
+            item { ExampleEnvVariables() }
+            item { ExampleTaskList() }
+            item { ExampleInviteTeam() }
+            item { ExampleReportBug() }
+            item { ExamplePaymentMethod() }
+            item { ExampleShippingAddress() }
+            item { ExampleActivityLog() }
 
-        // Column 2: cards 2, 5, 8, 11, 14, 17, 20
-        item { ExampleBookAppointment() }
-        item { ExampleProfileSettings() }
-        item { ExamplePricingCard() }
-        item { ExampleChatComposer() }
-        item { ExampleFileManager() }
-        item { ExampleCookieSettings() }
-        item { ExampleQuickNote() }
+            // Column 2: cards 2, 5, 8, 11, 14, 17, 20
+            item { ExampleBookAppointment() }
+            item { ExampleProfileSettings() }
+            item { ExamplePricingCard() }
+            item { ExampleChatComposer() }
+            item { ExampleFileManager() }
+            item { ExampleCookieSettings() }
+            item { ExampleQuickNote() }
 
-        // Column 3: cards 3, 6, 9, 12, 15, 18
-        item { ExampleFeedbackForm() }
-        item { ExampleSearchCommand() }
-        item { ExampleNotificationSettings() }
-        item { ExampleApiKeyManager() }
-        item { ExampleUserDirectory() }
-        item { ExampleOnboarding() }
+            // Column 3: cards 3, 6, 9, 12, 15, 18
+            item { ExampleFeedbackForm() }
+            item { ExampleSearchCommand() }
+            item { ExampleNotificationSettings() }
+            item { ExampleApiKeyManager() }
+            item { ExampleUserDirectory() }
+            item { ExampleOnboarding() }
         }
     }
 }

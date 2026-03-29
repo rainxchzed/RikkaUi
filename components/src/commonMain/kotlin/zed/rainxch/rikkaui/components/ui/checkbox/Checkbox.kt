@@ -33,8 +33,8 @@ import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ──────────────────────────────────────────────
 
@@ -253,52 +253,60 @@ private fun resolveCheckboxColors(
     val colors = RikkaTheme.colors
 
     return when {
-        !enabled && checked ->
+        !enabled && checked -> {
             CheckboxColors(
                 background = colors.primary.copy(alpha = 0.5f),
                 border = colors.primary.copy(alpha = 0.5f),
             )
+        }
 
-        !enabled ->
+        !enabled -> {
             CheckboxColors(
                 background = Color.Transparent,
                 border = colors.border.copy(alpha = 0.5f),
             )
+        }
 
-        checked && isPressed ->
+        checked && isPressed -> {
             CheckboxColors(
                 background = colors.primary.copy(alpha = 0.8f),
                 border = colors.primary.copy(alpha = 0.8f),
             )
+        }
 
-        checked && isHovered ->
+        checked && isHovered -> {
             CheckboxColors(
                 background = colors.primary.copy(alpha = 0.9f),
                 border = colors.primary.copy(alpha = 0.9f),
             )
+        }
 
-        checked ->
+        checked -> {
             CheckboxColors(
                 background = colors.primary,
                 border = colors.primary,
             )
+        }
 
-        isPressed ->
+        isPressed -> {
             CheckboxColors(
                 background = Color.Transparent,
                 border = colors.primary.copy(alpha = 0.6f),
             )
+        }
 
-        isHovered ->
+        isHovered -> {
             CheckboxColors(
                 background = Color.Transparent,
                 border = colors.primary.copy(alpha = 0.4f),
             )
+        }
 
-        else ->
+        else -> {
             CheckboxColors(
                 background = Color.Transparent,
                 border = colors.border,
             )
+        }
     }
 }

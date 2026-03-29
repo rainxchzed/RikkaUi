@@ -42,10 +42,10 @@ import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.icon.Icon
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ────────────────────────────────────────────────
 
@@ -523,13 +523,20 @@ private fun resolveFloatAnimSpec(
     durationMs: Int,
 ): AnimationSpec<Float> =
     when (animation) {
-        NavigationBarAnimation.Spring ->
+        NavigationBarAnimation.Spring -> {
             spring(
                 dampingRatio = Spring.DampingRatioMediumBouncy,
                 stiffness = Spring.StiffnessMediumLow,
             )
-        NavigationBarAnimation.Tween -> tween(durationMs)
-        NavigationBarAnimation.None -> snap()
+        }
+
+        NavigationBarAnimation.Tween -> {
+            tween(durationMs)
+        }
+
+        NavigationBarAnimation.None -> {
+            snap()
+        }
     }
 
 /**
@@ -542,13 +549,20 @@ private fun resolveDpAnimSpec(
     durationMs: Int,
 ): AnimationSpec<Dp> =
     when (animation) {
-        NavigationBarAnimation.Spring ->
+        NavigationBarAnimation.Spring -> {
             spring(
                 dampingRatio = Spring.DampingRatioMediumBouncy,
                 stiffness = Spring.StiffnessMediumLow,
             )
-        NavigationBarAnimation.Tween -> tween(durationMs)
-        NavigationBarAnimation.None -> snap()
+        }
+
+        NavigationBarAnimation.Tween -> {
+            tween(durationMs)
+        }
+
+        NavigationBarAnimation.None -> {
+            snap()
+        }
     }
 
 /**
@@ -561,11 +575,18 @@ private fun resolveColorAnimSpec(
     durationMs: Int,
 ): AnimationSpec<Color> =
     when (animation) {
-        NavigationBarAnimation.Spring ->
+        NavigationBarAnimation.Spring -> {
             spring(
                 dampingRatio = Spring.DampingRatioMediumBouncy,
                 stiffness = Spring.StiffnessMediumLow,
             )
-        NavigationBarAnimation.Tween -> tween(durationMs)
-        NavigationBarAnimation.None -> snap()
+        }
+
+        NavigationBarAnimation.Tween -> {
+            tween(durationMs)
+        }
+
+        NavigationBarAnimation.None -> {
+            snap()
+        }
     }

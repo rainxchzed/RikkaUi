@@ -33,7 +33,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── ScrollbarAnimation ─────────────────────────────────────
 
@@ -294,14 +294,21 @@ private fun resolveScrollbarAlpha(
     isScrolling: Boolean,
 ): Float =
     when (animation) {
-        ScrollbarAnimation.Fade ->
+        ScrollbarAnimation.Fade -> {
             when {
                 isScrolling && isScrollable -> 1f
                 isScrollable -> 0.4f
                 else -> 0f
             }
-        ScrollbarAnimation.Always -> if (isScrollable) 1f else 0f
-        ScrollbarAnimation.None -> 0f
+        }
+
+        ScrollbarAnimation.Always -> {
+            if (isScrollable) 1f else 0f
+        }
+
+        ScrollbarAnimation.None -> {
+            0f
+        }
     }
 
 // ─── Internal: Vertical Scrollbar ──────────────────────────

@@ -32,7 +32,8 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.foundation.RikkaMotion
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 import kotlin.math.roundToInt
 
 // ─── Animation Enum ─────────────────────────────────────────
@@ -291,7 +292,7 @@ fun Slider(
 @Composable
 private fun resolveAnimationSpec(
     animation: SliderAnimation,
-    motion: zed.rainxch.rikkaui.components.theme.RikkaMotion,
+    motion: RikkaMotion,
 ): AnimationSpec<Float> =
     when (animation) {
         SliderAnimation.Spring -> motion.springDefault

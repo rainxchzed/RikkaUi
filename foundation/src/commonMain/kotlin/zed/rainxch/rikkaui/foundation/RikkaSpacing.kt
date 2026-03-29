@@ -1,4 +1,4 @@
-package zed.rainxch.rikkaui.components.theme
+package zed.rainxch.rikkaui.foundation
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
@@ -86,21 +86,3 @@ fun rikkaSpacing(base: Dp = 4.dp): RikkaSpacing =
  * Equivalent to `rikkaSpacing(base = 4.dp)`.
  */
 fun defaultRikkaSpacing(): RikkaSpacing = rikkaSpacing()
-
-/**
- * Pre-built spacing presets for common layout densities.
- *
- * ```
- * RikkaTheme(spacing = RikkaSpacingPresets.compact()) { ... }
- * ```
- */
-object RikkaSpacingPresets {
-    /** Dense layout (3dp base). Dashboards, data-heavy UIs. */
-    fun compact(): RikkaSpacing = rikkaSpacing(base = 3.dp)
-
-    /** Slightly more breathing room (5dp base). */
-    fun comfortable(): RikkaSpacing = rikkaSpacing(base = 5.dp)
-
-    /** Generous layout (6dp base). Editorial, marketing pages. */
-    fun spacious(): RikkaSpacing = rikkaSpacing(base = 6.dp)
-}

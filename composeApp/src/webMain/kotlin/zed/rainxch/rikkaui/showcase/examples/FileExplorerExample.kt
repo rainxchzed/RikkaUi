@@ -29,7 +29,6 @@ import rikkaui.composeapp.generated.resources.readme_md_name
 import rikkaui.composeapp.generated.resources.readme_size
 import rikkaui.composeapp.generated.resources.search_files_desc
 import rikkaui.composeapp.generated.resources.search_files_placeholder
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonSize
 import zed.rainxch.rikkaui.components.ui.card.Card
@@ -42,6 +41,7 @@ import zed.rainxch.rikkaui.components.ui.input.Input
 import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 @Composable
 fun FileExplorerExample() {

@@ -33,7 +33,6 @@ import rikkaui.feature.docs.generated.resources.section_animations
 import rikkaui.feature.docs.generated.resources.section_api_reference
 import rikkaui.feature.docs.generated.resources.section_usage
 import rikkaui.feature.docs.generated.resources.section_variants
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.alert.Alert
 import zed.rainxch.rikkaui.components.ui.alert.AlertAnimation
 import zed.rainxch.rikkaui.components.ui.alert.AlertDescription
@@ -46,6 +45,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the Alert component.
@@ -57,9 +57,10 @@ import zed.rainxch.rikkaui.docs.components.VariantSelector
 fun AlertDoc() {
     ComponentPageHeader(
         name = stringResource(Res.string.component_alert_name),
-        description = stringResource(
-            Res.string.alert_page_desc,
-        ),
+        description =
+            stringResource(
+                Res.string.alert_page_desc,
+            ),
     )
 
     // ─── Variants ───────────────────────────────────────────
@@ -74,10 +75,11 @@ fun AlertDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val variant = when (selectedVariant) {
-            "Destructive" -> AlertVariant.Destructive
-            else -> AlertVariant.Default
-        }
+        val variant =
+            when (selectedVariant) {
+                "Destructive" -> AlertVariant.Destructive
+                else -> AlertVariant.Default
+            }
 
         DemoBox {
             Alert(
@@ -85,23 +87,25 @@ fun AlertDoc() {
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 AlertTitle(
-                    text = if (variant == AlertVariant.Destructive) {
-                        stringResource(Res.string.alert_demo_error)
-                    } else {
-                        stringResource(Res.string.alert_demo_heads_up)
-                    },
+                    text =
+                        if (variant == AlertVariant.Destructive) {
+                            stringResource(Res.string.alert_demo_error)
+                        } else {
+                            stringResource(Res.string.alert_demo_heads_up)
+                        },
                     variant = variant,
                 )
                 AlertDescription(
-                    text = if (variant == AlertVariant.Destructive) {
-                        stringResource(
-                            Res.string.alert_demo_session_expired,
-                        )
-                    } else {
-                        stringResource(
-                            Res.string.alert_demo_cli_hint,
-                        )
-                    },
+                    text =
+                        if (variant == AlertVariant.Destructive) {
+                            stringResource(
+                                Res.string.alert_demo_session_expired,
+                            )
+                        } else {
+                            stringResource(
+                                Res.string.alert_demo_cli_hint,
+                            )
+                        },
                     variant = variant,
                 )
             }
@@ -120,17 +124,19 @@ fun AlertDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "SlideIn" -> AlertAnimation.SlideIn
-            "Fade" -> AlertAnimation.Fade
-            else -> AlertAnimation.None
-        }
+        val animation =
+            when (selectedAnim) {
+                "SlideIn" -> AlertAnimation.SlideIn
+                "Fade" -> AlertAnimation.Fade
+                else -> AlertAnimation.None
+            }
 
         DemoBox {
             Column(
-                verticalArrangement = Arrangement.spacedBy(
-                    RikkaTheme.spacing.md,
-                ),
+                verticalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.md,
+                    ),
             ) {
                 Alert(
                     animation = animation,
@@ -202,37 +208,48 @@ Alert(animation = AlertAnimation.SlideIn) {
         PropsTable(
             listOf(
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(
                         Res.string.alert_prop_modifier_desc,
                     ),
                 ),
                 PropInfo(
-                    "variant", "AlertVariant", "Default",
+                    "variant",
+                    "AlertVariant",
+                    "Default",
                     stringResource(
                         Res.string.alert_prop_variant_desc,
                     ),
                 ),
                 PropInfo(
-                    "animation", "AlertAnimation", "None",
+                    "animation",
+                    "AlertAnimation",
+                    "None",
                     stringResource(
                         Res.string.alert_prop_animation_desc,
                     ),
                 ),
                 PropInfo(
-                    "icon", "(@Composable () -> Unit)?", "null",
+                    "icon",
+                    "(@Composable () -> Unit)?",
+                    "null",
                     stringResource(
                         Res.string.alert_prop_icon_desc,
                     ),
                 ),
                 PropInfo(
-                    "label", "String", "\"\"",
+                    "label",
+                    "String",
+                    "\"\"",
                     stringResource(
                         Res.string.alert_prop_label_desc,
                     ),
                 ),
                 PropInfo(
-                    "content", "ColumnScope.() -> Unit",
+                    "content",
+                    "ColumnScope.() -> Unit",
                     "required",
                     stringResource(
                         Res.string.alert_prop_content_desc,

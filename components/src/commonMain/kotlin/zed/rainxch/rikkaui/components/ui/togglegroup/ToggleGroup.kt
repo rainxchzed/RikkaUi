@@ -25,9 +25,9 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Variant ───────────────────────────────────────────────
 
@@ -325,12 +325,21 @@ private fun resolveColors(
 
     val baseForeground =
         when {
-            selected && selectedColorOverride != Color.Unspecified ->
+            selected && selectedColorOverride != Color.Unspecified -> {
                 selectedColorOverride
-            !selected && unselectedColorOverride != Color.Unspecified ->
+            }
+
+            !selected && unselectedColorOverride != Color.Unspecified -> {
                 unselectedColorOverride
-            selected -> colors.foreground
-            else -> colors.mutedForeground
+            }
+
+            selected -> {
+                colors.foreground
+            }
+
+            else -> {
+                colors.mutedForeground
+            }
         }
 
     return when (variant) {
@@ -366,11 +375,18 @@ private fun resolveColorAnimSpec(
     durationMs: Int,
 ): AnimationSpec<Color> =
     when (animation) {
-        ToggleGroupAnimation.Spring ->
+        ToggleGroupAnimation.Spring -> {
             spring(
                 dampingRatio = Spring.DampingRatioMediumBouncy,
                 stiffness = Spring.StiffnessMediumLow,
             )
-        ToggleGroupAnimation.Tween -> tween(durationMs)
-        ToggleGroupAnimation.None -> snap()
+        }
+
+        ToggleGroupAnimation.Tween -> {
+            tween(durationMs)
+        }
+
+        ToggleGroupAnimation.None -> {
+            snap()
+        }
     }

@@ -47,7 +47,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ──────────────────────────────────────────────
 
@@ -190,7 +190,10 @@ fun Input(
 
     val borderColor =
         when (animation) {
-            InputAnimation.None -> targetBorderColor
+            InputAnimation.None -> {
+                targetBorderColor
+            }
+
             InputAnimation.Color -> {
                 val animated by animateColorAsState(
                     targetValue = targetBorderColor,
@@ -198,6 +201,7 @@ fun Input(
                 )
                 animated
             }
+
             InputAnimation.Glow -> {
                 val animated by animateColorAsState(
                     targetValue = targetBorderColor,
@@ -313,11 +317,15 @@ fun Input(
                                         when (outline) {
                                             is androidx.compose.ui
                                                 .graphics.Outline.Rounded,
-                                            ->
+                                            -> {
                                                 outline.roundRect
                                                     .topLeftCornerRadius.x +
                                                     spreadPx
-                                            else -> spreadPx
+                                            }
+
+                                            else -> {
+                                                spreadPx
+                                            }
                                         }
                                     drawRoundRect(
                                         color =

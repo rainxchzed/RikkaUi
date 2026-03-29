@@ -18,8 +18,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.text.Text
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Variant ────────────────────────────────────────────────
 
@@ -271,7 +271,9 @@ private fun resolveAnimationModifier(animation: BadgeAnimation): Modifier {
             }
         }
 
-        BadgeAnimation.None -> Modifier
+        BadgeAnimation.None -> {
+            Modifier
+        }
     }
 }
 

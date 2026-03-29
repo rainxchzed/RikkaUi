@@ -10,9 +10,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.*
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.hovercard.HoverCard
 import zed.rainxch.rikkaui.components.ui.hovercard.HoverCardAnimation
 import zed.rainxch.rikkaui.components.ui.hovercard.HoverCardPlacement
@@ -25,6 +24,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Documentation page for the HoverCard component.
@@ -51,11 +51,12 @@ fun HoverCardDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val animation = when (selectedAnim) {
-            "Fade" -> HoverCardAnimation.Fade
-            "None" -> HoverCardAnimation.None
-            else -> HoverCardAnimation.FadeScale
-        }
+        val animation =
+            when (selectedAnim) {
+                "Fade" -> HoverCardAnimation.Fade
+                "None" -> HoverCardAnimation.None
+                else -> HoverCardAnimation.FadeScale
+            }
 
         DemoBox {
             HoverCard(
@@ -90,22 +91,26 @@ fun HoverCardDoc() {
         }
 
         VariantSelector(
-            options = listOf(
-                "BottomStart", "BottomEnd",
-                "TopStart", "TopEnd",
-            ),
+            options =
+                listOf(
+                    "BottomStart",
+                    "BottomEnd",
+                    "TopStart",
+                    "TopEnd",
+                ),
             selected = selectedPlacement,
             onSelect = { selectedPlacement = it },
         )
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val placement = when (selectedPlacement) {
-            "BottomEnd" -> HoverCardPlacement.BottomEnd
-            "TopStart" -> HoverCardPlacement.TopStart
-            "TopEnd" -> HoverCardPlacement.TopEnd
-            else -> HoverCardPlacement.BottomStart
-        }
+        val placement =
+            when (selectedPlacement) {
+                "BottomEnd" -> HoverCardPlacement.BottomEnd
+                "TopStart" -> HoverCardPlacement.TopStart
+                "TopEnd" -> HoverCardPlacement.TopEnd
+                else -> HoverCardPlacement.BottomStart
+            }
 
         DemoBox {
             HoverCard(
@@ -167,35 +172,51 @@ HoverCard(
         PropsTable(
             listOf(
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.hover_card_prop_modifier_desc),
                 ),
                 PropInfo(
-                    "animation", "HoverCardAnimation", "FadeScale",
+                    "animation",
+                    "HoverCardAnimation",
+                    "FadeScale",
                     stringResource(Res.string.hover_card_prop_animation_desc),
                 ),
                 PropInfo(
-                    "placement", "HoverCardPlacement", "BottomStart",
+                    "placement",
+                    "HoverCardPlacement",
+                    "BottomStart",
                     stringResource(Res.string.hover_card_prop_placement_desc),
                 ),
                 PropInfo(
-                    "showDelayMs", "Long", "300L",
+                    "showDelayMs",
+                    "Long",
+                    "300L",
                     stringResource(Res.string.hover_card_prop_show_delay_desc),
                 ),
                 PropInfo(
-                    "hideDelayMs", "Long", "200L",
+                    "hideDelayMs",
+                    "Long",
+                    "200L",
                     stringResource(Res.string.hover_card_prop_hide_delay_desc),
                 ),
                 PropInfo(
-                    "maxWidth", "Dp", "360.dp",
+                    "maxWidth",
+                    "Dp",
+                    "360.dp",
                     stringResource(Res.string.hover_card_prop_max_width_desc),
                 ),
                 PropInfo(
-                    "trigger", "() -> Unit", "required",
+                    "trigger",
+                    "() -> Unit",
+                    "required",
                     stringResource(Res.string.hover_card_prop_trigger_desc),
                 ),
                 PropInfo(
-                    "content", "() -> Unit", "required",
+                    "content",
+                    "() -> Unit",
+                    "required",
                     stringResource(Res.string.hover_card_prop_content_desc),
                 ),
             ),

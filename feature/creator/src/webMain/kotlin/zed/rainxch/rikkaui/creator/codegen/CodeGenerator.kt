@@ -1,8 +1,8 @@
 package zed.rainxch.rikkaui.creator.codegen
 
-import zed.rainxch.rikkaui.components.theme.RikkaAccentPreset
-import zed.rainxch.rikkaui.components.theme.RikkaPalette
-import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
+import zed.rainxch.rikkaui.foundation.RikkaAccentPreset
+import zed.rainxch.rikkaui.foundation.RikkaPalette
+import zed.rainxch.rikkaui.foundation.RikkaStylePreset
 
 /** The base package for the future `:foundation` module. */
 private const val FOUNDATION_PKG = "zed.rainxch.rikkaui.foundation.theme"

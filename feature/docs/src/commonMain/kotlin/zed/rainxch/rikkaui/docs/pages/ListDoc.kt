@@ -38,7 +38,6 @@ import rikkaui.feature.docs.generated.resources.list_section_unordered
 import rikkaui.feature.docs.generated.resources.section_api_reference
 import rikkaui.feature.docs.generated.resources.section_usage
 import rikkaui.feature.docs.generated.resources.section_variants
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.list.ListVariant
 import zed.rainxch.rikkaui.components.ui.list.RikkaList
 import zed.rainxch.rikkaui.components.ui.text.Text
@@ -50,6 +49,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.docs.components.VariantSelector
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 @Composable
 fun ListDoc() {
@@ -69,19 +69,21 @@ fun ListDoc() {
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-        val variant = when (selected) {
-            "Ordered" -> ListVariant.Ordered
-            "None" -> ListVariant.None
-            else -> ListVariant.Unordered
-        }
+        val variant =
+            when (selected) {
+                "Ordered" -> ListVariant.Ordered
+                "None" -> ListVariant.None
+                else -> ListVariant.Unordered
+            }
 
         DemoBox {
             RikkaList(
-                items = listOf(
-                    stringResource(Res.string.list_demo_clone_repo),
-                    stringResource(Res.string.list_demo_install_deps),
-                    stringResource(Res.string.list_demo_run_dev),
-                ),
+                items =
+                    listOf(
+                        stringResource(Res.string.list_demo_clone_repo),
+                        stringResource(Res.string.list_demo_install_deps),
+                        stringResource(Res.string.list_demo_run_dev),
+                    ),
                 variant = variant,
             )
         }
@@ -92,12 +94,13 @@ fun ListDoc() {
     ) {
         DemoBox {
             RikkaList(
-                items = listOf(
-                    stringResource(Res.string.list_demo_no_material),
-                    stringResource(Res.string.list_demo_spring_anims),
-                    stringResource(Res.string.list_demo_full_theme),
-                    stringResource(Res.string.list_demo_all_platforms),
-                ),
+                items =
+                    listOf(
+                        stringResource(Res.string.list_demo_no_material),
+                        stringResource(Res.string.list_demo_spring_anims),
+                        stringResource(Res.string.list_demo_full_theme),
+                        stringResource(Res.string.list_demo_all_platforms),
+                    ),
             )
         }
     }
@@ -107,12 +110,13 @@ fun ListDoc() {
     ) {
         DemoBox {
             RikkaList(
-                items = listOf(
-                    stringResource(Res.string.list_demo_add_dep),
-                    stringResource(Res.string.list_demo_wrap_theme),
-                    stringResource(Res.string.list_demo_use_component),
-                    stringResource(Res.string.list_demo_customize_tokens),
-                ),
+                items =
+                    listOf(
+                        stringResource(Res.string.list_demo_add_dep),
+                        stringResource(Res.string.list_demo_wrap_theme),
+                        stringResource(Res.string.list_demo_use_component),
+                        stringResource(Res.string.list_demo_customize_tokens),
+                    ),
                 variant = ListVariant.Ordered,
             )
         }
@@ -179,19 +183,27 @@ RikkaList(variant = ListVariant.Unordered) {
         PropsTable(
             listOf(
                 PropInfo(
-                    "items", "List<String>", "-",
+                    "items",
+                    "List<String>",
+                    "-",
                     stringResource(Res.string.list_prop_items_desc),
                 ),
                 PropInfo(
-                    "variant", "ListVariant", "Unordered",
+                    "variant",
+                    "ListVariant",
+                    "Unordered",
                     stringResource(Res.string.list_prop_variant_desc),
                 ),
                 PropInfo(
-                    "textVariant", "TextVariant", "P",
+                    "textVariant",
+                    "TextVariant",
+                    "P",
                     stringResource(Res.string.list_prop_text_variant_desc),
                 ),
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     stringResource(Res.string.list_prop_modifier_desc),
                 ),
             ),

@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import kotlinx.coroutines.delay
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ─────────────────────────────────────────────
 
@@ -193,10 +193,13 @@ fun HoverCard(
     val scale by animateFloatAsState(
         targetValue =
             when (animation) {
-                HoverCardAnimation.FadeScale ->
+                HoverCardAnimation.FadeScale -> {
                     if (isVisible) 1f else 0.95f
+                }
 
-                else -> 1f
+                else -> {
+                    1f
+                }
             },
         animationSpec =
             if (animation == HoverCardAnimation.FadeScale) {

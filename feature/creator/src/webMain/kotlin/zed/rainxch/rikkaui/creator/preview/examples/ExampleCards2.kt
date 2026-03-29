@@ -20,7 +20,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.creator.generated.resources.*
+import rikkaui.feature.creator.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.alert.Alert
 import zed.rainxch.rikkaui.components.ui.alert.AlertDescription
 import zed.rainxch.rikkaui.components.ui.alert.AlertVariant
@@ -43,9 +45,7 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.textarea.Textarea
 import zed.rainxch.rikkaui.components.ui.togglegroup.ToggleGroup
 import zed.rainxch.rikkaui.components.ui.togglegroup.ToggleGroupItem
-import org.jetbrains.compose.resources.stringResource
-import rikkaui.feature.creator.generated.resources.Res
-import rikkaui.feature.creator.generated.resources.*
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── 11. ExampleTaskList ────────────────────────────────────
 

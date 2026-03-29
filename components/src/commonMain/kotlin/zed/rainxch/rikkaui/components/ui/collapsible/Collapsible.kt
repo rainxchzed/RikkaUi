@@ -25,8 +25,8 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
-import zed.rainxch.rikkaui.components.theme.RikkaMotion
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.foundation.RikkaMotion
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation Enum ─────────────────────────────────────────
 
@@ -392,7 +392,7 @@ private fun resolveEnter(
     motion: RikkaMotion,
 ): androidx.compose.animation.EnterTransition =
     when (animation) {
-        CollapsibleAnimation.Spring ->
+        CollapsibleAnimation.Spring -> {
             expandVertically(
                 animationSpec =
                     spring(
@@ -407,7 +407,9 @@ private fun resolveEnter(
                             durationMillis = motion.durationDefault,
                         ),
                 )
-        CollapsibleAnimation.Tween ->
+        }
+
+        CollapsibleAnimation.Tween -> {
             expandVertically(
                 animationSpec =
                     tween(
@@ -421,11 +423,14 @@ private fun resolveEnter(
                             durationMillis = motion.durationDefault,
                         ),
                 )
-        CollapsibleAnimation.None ->
+        }
+
+        CollapsibleAnimation.None -> {
             expandVertically(
                 animationSpec = snap(),
                 expandFrom = Alignment.Top,
             )
+        }
     }
 
 /**
@@ -438,7 +443,7 @@ private fun resolveExit(
     motion: RikkaMotion,
 ): androidx.compose.animation.ExitTransition =
     when (animation) {
-        CollapsibleAnimation.Spring ->
+        CollapsibleAnimation.Spring -> {
             shrinkVertically(
                 animationSpec =
                     spring(
@@ -453,7 +458,9 @@ private fun resolveExit(
                             durationMillis = motion.durationFast,
                         ),
                 )
-        CollapsibleAnimation.Tween ->
+        }
+
+        CollapsibleAnimation.Tween -> {
             shrinkVertically(
                 animationSpec =
                     tween(
@@ -467,9 +474,12 @@ private fun resolveExit(
                             durationMillis = motion.durationFast,
                         ),
                 )
-        CollapsibleAnimation.None ->
+        }
+
+        CollapsibleAnimation.None -> {
             shrinkVertically(
                 animationSpec = snap(),
                 shrinkTowards = Alignment.Top,
             )
+        }
     }

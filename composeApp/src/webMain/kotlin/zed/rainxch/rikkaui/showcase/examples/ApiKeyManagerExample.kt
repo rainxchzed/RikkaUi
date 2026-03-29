@@ -19,7 +19,6 @@ import rikkaui.composeapp.generated.resources.production
 import rikkaui.composeapp.generated.resources.production_key
 import rikkaui.composeapp.generated.resources.quota_used
 import rikkaui.composeapp.generated.resources.rate_limited
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.alert.Alert
 import zed.rainxch.rikkaui.components.ui.alert.AlertDescription
 import zed.rainxch.rikkaui.components.ui.alert.AlertTitle
@@ -35,6 +34,7 @@ import zed.rainxch.rikkaui.components.ui.kbd.Kbd
 import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 @Composable
 fun ApiKeyManagerExample() {
