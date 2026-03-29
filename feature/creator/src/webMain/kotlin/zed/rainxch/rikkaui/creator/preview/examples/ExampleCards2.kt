@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,8 +29,7 @@ import zed.rainxch.rikkaui.components.ui.avatar.AvatarSize
 import zed.rainxch.rikkaui.components.ui.badge.Badge
 import zed.rainxch.rikkaui.components.ui.badge.BadgeVariant
 import zed.rainxch.rikkaui.components.ui.button.Button
-import zed.rainxch.rikkaui.components.ui.button.ButtonSize
-import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
+import zed.rainxch.rikkaui.components.ui.button.IconButton
 import zed.rainxch.rikkaui.components.ui.card.Card
 import zed.rainxch.rikkaui.components.ui.checkbox.Checkbox
 import zed.rainxch.rikkaui.components.ui.icon.Icon
@@ -174,7 +172,10 @@ fun ExampleApiKeyManager(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun ApiKeyRow(name: String, masked: String) {
+private fun ApiKeyRow(
+    name: String,
+    masked: String,
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement =
@@ -187,26 +188,16 @@ private fun ApiKeyRow(name: String, masked: String) {
         )
         Spacer(Modifier.weight(1f))
         Kbd(text = masked)
-        Button(
+        IconButton(
+            icon = RikkaIcons.Copy,
+            contentDescription = "Copy $name key",
             onClick = {},
-            variant = ButtonVariant.Ghost,
-            size = ButtonSize.Icon,
-        ) {
-            Icon(
-                imageVector = RikkaIcons.Copy,
-                contentDescription = "Copy $name key",
-            )
-        }
-        Button(
+        )
+        IconButton(
+            icon = RikkaIcons.Trash,
+            contentDescription = "Delete $name key",
             onClick = {},
-            variant = ButtonVariant.Ghost,
-            size = ButtonSize.Icon,
-        ) {
-            Icon(
-                imageVector = RikkaIcons.Trash,
-                contentDescription = "Delete $name key",
-            )
-        }
+        )
     }
 }
 
@@ -255,49 +246,52 @@ fun ExampleChatComposer(modifier: Modifier = Modifier) {
                 label = "Message input",
                 modifier = Modifier.weight(1f),
             )
-            Button(
+            IconButton(
+                icon = RikkaIcons.Send,
+                contentDescription = "Send message",
                 onClick = {},
-                size = ButtonSize.Icon,
-            ) {
-                Icon(
-                    imageVector = RikkaIcons.Send,
-                    contentDescription = "Send message",
-                )
-            }
+            )
         }
     }
 }
 
 @Composable
-private fun ChatBubble(text: String, isFromUser: Boolean) {
-    val bgColor = if (isFromUser) {
-        RikkaTheme.colors.primary
-    } else {
-        RikkaTheme.colors.muted
-    }
-    val textColor = if (isFromUser) {
-        RikkaTheme.colors.primaryForeground
-    } else {
-        RikkaTheme.colors.foreground
-    }
-    val alignment = if (isFromUser) {
-        Alignment.CenterEnd
-    } else {
-        Alignment.CenterStart
-    }
+private fun ChatBubble(
+    text: String,
+    isFromUser: Boolean,
+) {
+    val bgColor =
+        if (isFromUser) {
+            RikkaTheme.colors.primary
+        } else {
+            RikkaTheme.colors.muted
+        }
+    val textColor =
+        if (isFromUser) {
+            RikkaTheme.colors.primaryForeground
+        } else {
+            RikkaTheme.colors.foreground
+        }
+    val alignment =
+        if (isFromUser) {
+            Alignment.CenterEnd
+        } else {
+            Alignment.CenterStart
+        }
 
     Box(
         modifier = Modifier.fillMaxWidth(),
         contentAlignment = alignment,
     ) {
         Box(
-            modifier = Modifier
-                .clip(RikkaTheme.shapes.md)
-                .background(bgColor)
-                .padding(
-                    horizontal = RikkaTheme.spacing.md,
-                    vertical = RikkaTheme.spacing.sm,
-                ),
+            modifier =
+                Modifier
+                    .clip(RikkaTheme.shapes.md)
+                    .background(bgColor)
+                    .padding(
+                        horizontal = RikkaTheme.spacing.md,
+                        vertical = RikkaTheme.spacing.sm,
+                    ),
         ) {
             Text(
                 text = text,
@@ -362,9 +356,10 @@ private fun FileRow(
     size: String,
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = RikkaTheme.spacing.sm),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(vertical = RikkaTheme.spacing.sm),
         horizontalArrangement =
             Arrangement.spacedBy(RikkaTheme.spacing.sm),
         verticalAlignment = Alignment.CenterVertically,
@@ -382,16 +377,11 @@ private fun FileRow(
             variant = TextVariant.Small,
             color = RikkaTheme.colors.mutedForeground,
         )
-        Button(
+        IconButton(
+            icon = RikkaIcons.MoreHorizontal,
+            contentDescription = "File options",
             onClick = {},
-            variant = ButtonVariant.Ghost,
-            size = ButtonSize.Icon,
-        ) {
-            Icon(
-                imageVector = RikkaIcons.MoreHorizontal,
-                contentDescription = "File options",
-            )
-        }
+        )
     }
 }
 
@@ -596,14 +586,15 @@ private fun CommandRow(
     shortcut: String,
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RikkaTheme.shapes.sm)
-            .background(RikkaTheme.colors.muted.copy(alpha = 0.3f))
-            .padding(
-                horizontal = RikkaTheme.spacing.sm,
-                vertical = RikkaTheme.spacing.sm,
-            ),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clip(RikkaTheme.shapes.sm)
+                .background(RikkaTheme.colors.muted.copy(alpha = 0.3f))
+                .padding(
+                    horizontal = RikkaTheme.spacing.sm,
+                    vertical = RikkaTheme.spacing.sm,
+                ),
         horizontalArrangement =
             Arrangement.spacedBy(RikkaTheme.spacing.sm),
         verticalAlignment = Alignment.CenterVertically,
@@ -688,10 +679,11 @@ private fun OnboardingStep(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(
-            modifier = Modifier
-                .size(24.dp)
-                .clip(CircleShape)
-                .background(RikkaTheme.colors.primary),
+            modifier =
+                Modifier
+                    .size(24.dp)
+                    .clip(CircleShape)
+                    .background(RikkaTheme.colors.primary),
             contentAlignment = Alignment.Center,
         ) {
             Text(
@@ -758,7 +750,10 @@ fun ExampleActivityLog(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun ActivityEntry(text: String, timestamp: String) {
+private fun ActivityEntry(
+    text: String,
+    timestamp: String,
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement =
@@ -766,11 +761,12 @@ private fun ActivityEntry(text: String, timestamp: String) {
         verticalAlignment = Alignment.Top,
     ) {
         Box(
-            modifier = Modifier
-                .padding(top = 6.dp)
-                .size(8.dp)
-                .clip(CircleShape)
-                .background(RikkaTheme.colors.primary),
+            modifier =
+                Modifier
+                    .padding(top = 6.dp)
+                    .size(8.dp)
+                    .clip(CircleShape)
+                    .background(RikkaTheme.colors.primary),
         )
         Column(modifier = Modifier.weight(1f)) {
             Text(text = text, variant = TextVariant.Small)

@@ -23,6 +23,7 @@ import zed.rainxch.rikkaui.components.ui.alert.AlertVariant
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonSize
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
+import zed.rainxch.rikkaui.components.ui.button.IconButton
 import zed.rainxch.rikkaui.components.ui.card.Card
 import zed.rainxch.rikkaui.components.ui.checkbox.Checkbox
 import zed.rainxch.rikkaui.components.ui.icon.Icon
@@ -240,17 +241,12 @@ fun ExampleInviteTeam(modifier: Modifier = Modifier) {
                     modifier = Modifier.weight(1f),
                     label = "Invite link",
                 )
-                Button(
+                IconButton(
+                    icon = RikkaIcons.Copy,
+                    contentDescription = "Copy invite link",
                     onClick = { },
                     variant = ButtonVariant.Outline,
-                    size = ButtonSize.Icon,
-                    label = "Copy invite link",
-                ) {
-                    Icon(
-                        imageVector = RikkaIcons.Copy,
-                        contentDescription = "Copy",
-                    )
-                }
+                )
             }
 
             Button(

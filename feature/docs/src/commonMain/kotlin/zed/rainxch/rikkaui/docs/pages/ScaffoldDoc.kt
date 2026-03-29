@@ -14,9 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
-import zed.rainxch.rikkaui.components.ui.button.Button
-import zed.rainxch.rikkaui.components.ui.button.ButtonSize
-import zed.rainxch.rikkaui.components.ui.icon.Icon
+import zed.rainxch.rikkaui.components.ui.button.IconButton
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.scaffold.Scaffold
 import zed.rainxch.rikkaui.components.ui.scaffold.ScaffoldWindowInsets
@@ -39,40 +37,44 @@ import zed.rainxch.rikkaui.docs.components.PropsTable
 fun ScaffoldDoc() {
     ComponentPageHeader(
         name = "Scaffold",
-        description = "Page-level slot-based layout structure with top bar, "
-            + "bottom bar, FAB, and snackbar host.",
+        description =
+            "Page-level slot-based layout structure with top bar, " +
+                "bottom bar, FAB, and snackbar host.",
     )
 
     // ─── Basic Scaffold ─────────────────────────────────────
     DocSection("Basic Layout") {
         DemoBox {
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(300.dp)
-                    .border(
-                        1.dp,
-                        RikkaTheme.colors.border,
-                        RikkaTheme.shapes.md,
-                    ),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(300.dp)
+                        .border(
+                            1.dp,
+                            RikkaTheme.colors.border,
+                            RikkaTheme.shapes.md,
+                        ),
             ) {
                 Scaffold(
                     topBar = {
                         Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(RikkaTheme.colors.card)
-                                .padding(RikkaTheme.spacing.md),
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .background(RikkaTheme.colors.card)
+                                    .padding(RikkaTheme.spacing.md),
                         ) {
                             Text("Top Bar", variant = TextVariant.H4)
                         }
                     },
                     bottomBar = {
                         Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(RikkaTheme.colors.card)
-                                .padding(RikkaTheme.spacing.md),
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .background(RikkaTheme.colors.card)
+                                    .padding(RikkaTheme.spacing.md),
                             contentAlignment = Alignment.Center,
                         ) {
                             Text(
@@ -83,12 +85,14 @@ fun ScaffoldDoc() {
                     },
                 ) { paddingValues ->
                     Column(
-                        modifier = Modifier.padding(paddingValues)
-                            .padding(RikkaTheme.spacing.md),
+                        modifier =
+                            Modifier
+                                .padding(paddingValues)
+                                .padding(RikkaTheme.spacing.md),
                     ) {
                         Text(
-                            "Content area receives PaddingValues "
-                                + "that account for bar heights.",
+                            "Content area receives PaddingValues " +
+                                "that account for bar heights.",
                             variant = TextVariant.P,
                         )
                     }
@@ -101,42 +105,45 @@ fun ScaffoldDoc() {
     DocSection("With Floating Action Button") {
         DemoBox {
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(280.dp)
-                    .border(
-                        1.dp,
-                        RikkaTheme.colors.border,
-                        RikkaTheme.shapes.md,
-                    ),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(280.dp)
+                        .border(
+                            1.dp,
+                            RikkaTheme.colors.border,
+                            RikkaTheme.shapes.md,
+                        ),
             ) {
                 Scaffold(
                     topBar = {
                         Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(RikkaTheme.colors.card)
-                                .padding(RikkaTheme.spacing.md),
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .background(RikkaTheme.colors.card)
+                                    .padding(RikkaTheme.spacing.md),
                         ) {
                             Text("My App", variant = TextVariant.H4)
                         }
                     },
                     floatingActionButton = {
-                        Button(
+                        IconButton(
+                            icon = RikkaIcons.Plus,
+                            contentDescription = "Add",
                             onClick = {},
-                            size = ButtonSize.Icon,
-                        ) { color ->
-                            Icon(RikkaIcons.Plus, "Add", tint = color)
-                        }
+                        )
                     },
                 ) { paddingValues ->
                     Column(
-                        modifier = Modifier.padding(paddingValues)
-                            .padding(RikkaTheme.spacing.md),
+                        modifier =
+                            Modifier
+                                .padding(paddingValues)
+                                .padding(RikkaTheme.spacing.md),
                     ) {
                         Text(
-                            "The FAB is positioned at the bottom-end "
-                                + "with theme-based padding.",
+                            "The FAB is positioned at the bottom-end " +
+                                "with theme-based padding.",
                             variant = TextVariant.P,
                         )
                     }
@@ -149,28 +156,30 @@ fun ScaffoldDoc() {
     DocSection("Content Window Insets") {
         DemoBox {
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(240.dp)
-                    .border(
-                        1.dp,
-                        RikkaTheme.colors.border,
-                        RikkaTheme.shapes.md,
-                    ),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(240.dp)
+                        .border(
+                            1.dp,
+                            RikkaTheme.colors.border,
+                            RikkaTheme.shapes.md,
+                        ),
             ) {
                 Scaffold(
-                    contentWindowInsets = ScaffoldWindowInsets(
-                        left = 16.dp,
-                        right = 16.dp,
-                        bottom = 24.dp,
-                    ),
+                    contentWindowInsets =
+                        ScaffoldWindowInsets(
+                            left = 16.dp,
+                            right = 16.dp,
+                            bottom = 24.dp,
+                        ),
                 ) { paddingValues ->
                     Column(
                         modifier = Modifier.padding(paddingValues),
                     ) {
                         Text(
-                            "Content respects custom insets "
-                                + "(16dp left/right, 24dp bottom).",
+                            "Content respects custom insets " +
+                                "(16dp left/right, 24dp bottom).",
                             variant = TextVariant.P,
                         )
                     }
@@ -217,40 +226,57 @@ Scaffold(
         PropsTable(
             listOf(
                 PropInfo(
-                    "modifier", "Modifier", "Modifier",
+                    "modifier",
+                    "Modifier",
+                    "Modifier",
                     "Modifier applied to the outer container.",
                 ),
                 PropInfo(
-                    "topBar", "() -> Unit", "{}",
+                    "topBar",
+                    "() -> Unit",
+                    "{}",
                     "Slot rendered at the top, spanning full width.",
                 ),
                 PropInfo(
-                    "bottomBar", "() -> Unit", "{}",
+                    "bottomBar",
+                    "() -> Unit",
+                    "{}",
                     "Slot rendered at the bottom, spanning full width.",
                 ),
                 PropInfo(
-                    "floatingActionButton", "() -> Unit", "{}",
+                    "floatingActionButton",
+                    "() -> Unit",
+                    "{}",
                     "FAB slot at bottom-end above the bottom bar.",
                 ),
                 PropInfo(
-                    "snackbarHost", "() -> Unit", "{}",
+                    "snackbarHost",
+                    "() -> Unit",
+                    "{}",
                     "Snackbar/toast host above bottom bar and FAB.",
                 ),
                 PropInfo(
-                    "containerColor", "Color", "background",
+                    "containerColor",
+                    "Color",
+                    "background",
                     "Background color for the scaffold.",
                 ),
                 PropInfo(
-                    "contentColor", "Color", "foreground",
+                    "contentColor",
+                    "Color",
+                    "foreground",
                     "Foreground color hint for content.",
                 ),
                 PropInfo(
-                    "contentWindowInsets", "ScaffoldWindowInsets",
+                    "contentWindowInsets",
+                    "ScaffoldWindowInsets",
                     "ScaffoldWindowInsets()",
                     "Insets added to content PaddingValues.",
                 ),
                 PropInfo(
-                    "content", "(PaddingValues) -> Unit", "required",
+                    "content",
+                    "(PaddingValues) -> Unit",
+                    "required",
                     "Main content. Receives PaddingValues for bars + insets.",
                 ),
             ),

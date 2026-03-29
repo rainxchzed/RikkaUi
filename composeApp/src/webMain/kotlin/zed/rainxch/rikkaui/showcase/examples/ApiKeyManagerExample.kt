@@ -26,11 +26,10 @@ import zed.rainxch.rikkaui.components.ui.alert.AlertTitle
 import zed.rainxch.rikkaui.components.ui.alert.AlertVariant
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonSize
-import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
+import zed.rainxch.rikkaui.components.ui.button.IconButton
 import zed.rainxch.rikkaui.components.ui.card.Card
 import zed.rainxch.rikkaui.components.ui.card.CardContent
 import zed.rainxch.rikkaui.components.ui.card.CardHeader
-import zed.rainxch.rikkaui.components.ui.icon.Icon
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.kbd.Kbd
 import zed.rainxch.rikkaui.components.ui.separator.Separator
@@ -89,15 +88,10 @@ private fun KeyEntry(
         Text(text = label, variant = TextVariant.P)
         Spacer(modifier = Modifier.weight(1f))
         Kbd(text = maskedKey)
-        Button(
+        IconButton(
+            icon = RikkaIcons.Copy,
+            contentDescription = stringResource(Res.string.copy_key_label, label),
             onClick = { },
-            variant = ButtonVariant.Ghost,
-            size = ButtonSize.Icon,
-        ) {
-            Icon(
-                imageVector = RikkaIcons.Copy,
-                contentDescription = stringResource(Res.string.copy_key_label, label),
-            )
-        }
+        )
     }
 }
