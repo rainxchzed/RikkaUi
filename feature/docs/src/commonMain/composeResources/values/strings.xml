@@ -968,4 +968,14 @@
 
     <!-- ─── Common prop descriptions (reusable) ──────────────── -->
     <string name="common_prop_modifier_desc">Modifier for layout and decoration.</string>
+
+    <!-- ─── Source Code Viewer ──────────────────────────────────── -->
+    <string name="source_tab_docs">Docs</string>
+    <string name="source_tab_code">Code</string>
+    <string name="source_copy_button">Copy Code</string>
+    <string name="source_copied">Copied!</string>
+    <string name="source_instruction">Add foundation to your project, then paste this file anywhere in your source.</string>
+    <string name="source_dependency">implementation("dev.rikkaui:foundation:0.1.0")</string>
+    <string name="source_file_label">// %1$s</string>
+    <string name="source_no_source">Source code not available for this component.</string>
 </resources>

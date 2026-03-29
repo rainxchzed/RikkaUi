@@ -26,7 +26,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.TextStyle
@@ -43,6 +45,8 @@ import rikkaui.feature.docs.generated.resources.docs_getting_started
 import rikkaui.feature.docs.generated.resources.guide_installation
 import rikkaui.feature.docs.generated.resources.guide_introduction
 import rikkaui.feature.docs.generated.resources.guide_theming
+import rikkaui.feature.docs.generated.resources.source_tab_code
+import rikkaui.feature.docs.generated.resources.source_tab_docs
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.docs.catalog.ComponentCategory
@@ -51,6 +55,7 @@ import zed.rainxch.rikkaui.docs.catalog.ComponentRegistry
 import zed.rainxch.rikkaui.docs.pages.InstallationDoc
 import zed.rainxch.rikkaui.docs.pages.IntroductionDoc
 import zed.rainxch.rikkaui.docs.pages.ThemingDoc
+import zed.rainxch.rikkaui.docs.sources.SourceCodeViewer
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 private data class GuidePage(
@@ -202,8 +207,89 @@ private fun PageContent(
 
         val entry = registry.findById(selectedId)
         if (entry != null) {
-            entry.content()
+            var showCode by remember(selectedId) {
+                mutableStateOf(false)
+            }
+
+            Row(
+                modifier =
+                    Modifier.padding(
+                        bottom = RikkaTheme.spacing.lg,
+                    ),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.xs,
+                    ),
+            ) {
+                SourceTab(
+                    text = stringResource(Res.string.source_tab_docs),
+                    isActive = !showCode,
+                    onClick = { showCode = false },
+                )
+                SourceTab(
+                    text = stringResource(Res.string.source_tab_code),
+                    isActive = showCode,
+                    onClick = { showCode = true },
+                )
+            }
+
+            if (showCode) {
+                SourceCodeViewer(componentId = entry.id)
+            } else {
+                entry.content()
+            }
         }
+    }
+}
+
+@Composable
+private fun SourceTab(
+    text: String,
+    isActive: Boolean,
+    onClick: () -> Unit,
+) {
+    val interactionSource =
+        remember { MutableInteractionSource() }
+    val isHovered by
+        interactionSource.collectIsHoveredAsState()
+
+    val bg =
+        when {
+            isActive -> RikkaTheme.colors.primary
+            isHovered -> RikkaTheme.colors.muted
+            else -> RikkaTheme.colors.background
+        }
+    val fg =
+        if (isActive) {
+            RikkaTheme.colors.primaryForeground
+        } else {
+            RikkaTheme.colors.foreground
+        }
+
+    Box(
+        modifier =
+            Modifier
+                .hoverable(interactionSource)
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null,
+                    onClick = onClick,
+                ).background(bg, RikkaTheme.shapes.md)
+                .padding(
+                    horizontal = RikkaTheme.spacing.md,
+                    vertical = RikkaTheme.spacing.xs,
+                ),
+    ) {
+        BasicText(
+            text = text,
+            style =
+                RikkaTheme.typography.small.merge(
+                    TextStyle(
+                        color = fg,
+                        fontWeight = FontWeight.Medium,
+                    ),
+                ),
+        )
     }
 }
 
