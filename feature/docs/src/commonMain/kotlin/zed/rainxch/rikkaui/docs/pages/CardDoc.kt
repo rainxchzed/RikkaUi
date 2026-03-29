@@ -109,8 +109,10 @@ fun CardDoc() {
                         Button(
                             onClick = {},
                             variant = ButtonVariant.Outline,
-                        ) { Text("Cancel") }
-                        Button(onClick = {}) { Text("Save") }
+                        ) { color -> Text("Cancel", color = color) }
+                        Button(onClick = {}) { color ->
+                            Text("Save", color = color)
+                        }
                     }
                 }
             }

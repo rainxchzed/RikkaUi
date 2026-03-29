@@ -106,18 +106,21 @@ enum class ButtonAnimation {
  * - Works natively on Android, iOS, Desktop, Web
  * - Hover + press states with smooth color transitions
  *
- * Usage:
+ * The content lambda receives the resolved foreground [Color] so that
+ * child composables (Text, Icon, …) can match the button's theme:
+ *
  * ```
- * Button(onClick = { }) {
- *     Text("Click me")
+ * Button(onClick = { }) { color ->
+ *     Icon(RikkaIcons.Send, "Send", tint = color)
+ *     Text("Send", color = color)
  * }
  *
  * // With animation
  * Button(
  *     onClick = { },
  *     animation = ButtonAnimation.Scale,
- * ) {
- *     Text("Press me")
+ * ) { color ->
+ *     Text("Press me", color = color)
  * }
  *
  * // Variant + size
@@ -125,8 +128,8 @@ enum class ButtonAnimation {
  *     onClick = { },
  *     variant = ButtonVariant.Outline,
  *     size = ButtonSize.Sm,
- * ) {
- *     Text("Cancel")
+ * ) { color ->
+ *     Text("Cancel", color = color)
  * }
  * ```
  *
@@ -139,7 +142,8 @@ enum class ButtonAnimation {
  * @param loading When true, shows a [Spinner] and disables interaction.
  *   The button retains its dimensions but becomes non-clickable.
  * @param label Accessibility label for screen readers. When set, overrides content description.
- * @param content Button content — typically [Text] and/or icons.
+ * @param content Button content. Receives the resolved foreground [Color]
+ *   so children can match the button's variant colors.
  */
 @Composable
 fun Button(
@@ -151,7 +155,7 @@ fun Button(
     enabled: Boolean = true,
     loading: Boolean = false,
     label: String = "",
-    content: @Composable () -> Unit,
+    content: @Composable (foreground: Color) -> Unit,
 ) {
     val isEffectivelyEnabled = enabled && !loading
     val interactionSource = remember { MutableInteractionSource() }
@@ -292,12 +296,15 @@ fun Button(
                 label = "Loading",
             )
         }
-        content()
+        content(colors.foreground)
     }
 }
 
 /**
  * Convenience overload with a text label and optional icon slots.
+ *
+ * Internally delegates to the content-lambda overload and passes
+ * the resolved foreground color to Text and icon slots automatically.
  *
  * ```
  * Button("Save", onClick = { save() })
@@ -335,8 +342,6 @@ fun Button(
     leadingIcon: (@Composable () -> Unit)? = null,
     trailingIcon: (@Composable () -> Unit)? = null,
 ) {
-    val colors = resolveColors(variant, isHovered = false, isPressed = false)
-
     Button(
         onClick = onClick,
         modifier = modifier,
@@ -345,7 +350,7 @@ fun Button(
         animation = animation,
         enabled = enabled,
         loading = loading,
-    ) {
+    ) { foreground ->
         if (!loading) leadingIcon?.invoke()
 
         val textStyle =
@@ -357,7 +362,7 @@ fun Button(
 
         Text(
             text = text,
-            color = colors.foreground,
+            color = foreground,
             style = RikkaTheme.typography.small.merge(textStyle),
         )
 

@@ -83,8 +83,8 @@ fun ToastDoc() {
                             variant = variant,
                         )
                     }
-                }) {
-                    Text("Show $selectedVariant Toast")
+                }) { color ->
+                    Text("Show $selectedVariant Toast", color = color)
                 }
             }
         }
@@ -110,8 +110,8 @@ fun ToastDoc() {
                         variant = ToastVariant.Success,
                     )
                 }
-            }) {
-                Text("Show Animated Toast")
+            }) { color ->
+                Text("Show Animated Toast", color = color)
             }
         }
     }
@@ -131,8 +131,8 @@ fun ToastDoc() {
                     }
                 },
                 variant = ButtonVariant.Outline,
-            ) {
-                Text("Show Toast with Action")
+            ) { color ->
+                Text("Show Toast with Action", color = color)
             }
         }
     }

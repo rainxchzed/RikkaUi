@@ -160,12 +160,14 @@ Button(
     variant = ButtonVariant.Destructive,
 )
 
+// Content lambda receives the foreground color
 Button(
     onClick = { submit() },
     size = ButtonSize.Lg,
     animation = ButtonAnimation.Bounce,
-) {
-    Text("Submit")
+) { color ->
+    Icon(RikkaIcons.Send, "Send", tint = color)
+    Text("Submit", color = color)
 }
             """.trimIndent(),
         )
@@ -219,9 +221,10 @@ Button(
                 ),
                 PropInfo(
                     "content",
-                    "@Composable",
+                    "@Composable (Color) -> Unit",
                     "-",
-                    "Button content, typically Text and/or icons.",
+                    "Button content. Receives the resolved"
+                        + " foreground Color for children.",
                 ),
             ),
         )

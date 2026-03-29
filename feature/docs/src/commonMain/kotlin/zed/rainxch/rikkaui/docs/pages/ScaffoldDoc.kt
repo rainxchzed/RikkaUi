@@ -125,8 +125,8 @@ fun ScaffoldDoc() {
                         Button(
                             onClick = {},
                             size = ButtonSize.Icon,
-                        ) {
-                            Icon(RikkaIcons.Plus, "Add")
+                        ) { color ->
+                            Icon(RikkaIcons.Plus, "Add", tint = color)
                         }
                     },
                 ) { paddingValues ->

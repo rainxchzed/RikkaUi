@@ -71,8 +71,8 @@ fun ProgressDoc() {
                 )
                 Button(onClick = {
                     progress = if (progress >= 1f) 0.1f else progress + 0.2f
-                }) {
-                    Text("Advance")
+                }) { color ->
+                    Text("Advance", color = color)
                 }
             }
         }
