@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -11,6 +12,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.ComposeViewport
+import androidx.navigation.ExperimentalBrowserHistoryApi
+import androidx.navigation.NavController
+import androidx.navigation.bindToBrowserNavigation
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -34,20 +38,23 @@ import zed.rainxch.rikkaui.navigation.ComponentDetailRoute
 import zed.rainxch.rikkaui.navigation.ComponentsRoute
 import zed.rainxch.rikkaui.navigation.CreatorRoute
 import zed.rainxch.rikkaui.navigation.DocsRoute
-import zed.rainxch.rikkaui.navigation.HashRouterEffect
 import zed.rainxch.rikkaui.navigation.HomeRoute
 import zed.rainxch.rikkaui.shell.TopNavBar
 import zed.rainxch.rikkaui.showcase.ShowcaseApp
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalBrowserHistoryApi::class)
 fun main() {
     ComposeViewport {
-        App()
+        App(
+            onNavHostReady = { it.bindToBrowserNavigation() },
+        )
     }
 }
 
 @Composable
-private fun App() {
+private fun App(
+    onNavHostReady: suspend (NavController) -> Unit = {},
+) {
     var isDark by remember { mutableStateOf(true) }
     var palette by remember { mutableStateOf(RikkaPalette.Zinc) }
     var accent by remember { mutableStateOf(RikkaAccentPreset.Default) }
@@ -77,7 +84,9 @@ private fun App() {
             ),
     ) {
         val navController = rememberNavController()
-        HashRouterEffect(navController)
+        LaunchedEffect(navController) {
+            onNavHostReady(navController)
+        }
 
         Column(
             modifier =
