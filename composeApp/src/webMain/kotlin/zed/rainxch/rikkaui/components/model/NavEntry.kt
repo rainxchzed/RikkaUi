@@ -1,11 +1,16 @@
 package zed.rainxch.rikkaui.components.model
 
+import org.jetbrains.compose.resources.StringResource
+import rikkaui.composeapp.generated.resources.Res
+import rikkaui.composeapp.generated.resources.nav_create
+import rikkaui.composeapp.generated.resources.nav_docs
+import rikkaui.composeapp.generated.resources.nav_home
 import zed.rainxch.rikkaui.navigation.AppNavGraph.CreatorRoute
 import zed.rainxch.rikkaui.navigation.AppNavGraph.DocsRoute
 import zed.rainxch.rikkaui.navigation.AppNavGraph.HomeRoute
 
 data class NavEntry(
-    val label: String,
+    val label: StringResource,
     val route: Any,
     val matchPrefix: String,
 ) {
@@ -13,17 +18,17 @@ data class NavEntry(
         fun getNavEntries(): List<NavEntry> =
             listOf(
                 NavEntry(
-                    label = "Home",
+                    label = Res.string.nav_home,
                     route = HomeRoute,
                     matchPrefix = "home",
                 ),
                 NavEntry(
-                    label = "Docs",
+                    label = Res.string.nav_docs,
                     route = DocsRoute,
                     matchPrefix = "docs",
                 ),
                 NavEntry(
-                    label = "Create",
+                    label = Res.string.nav_create,
                     route = CreatorRoute,
                     matchPrefix = "create",
                 ),

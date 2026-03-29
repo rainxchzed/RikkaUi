@@ -164,4 +164,16 @@
     <string name="carol_time">1 hour ago</string>
     <string name="dave_action">Dave deployed v2.1</string>
     <string name="dave_time">3 hours ago</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_docs">Docs</string>
+    <string name="nav_create">Create</string>
+
+    <!-- Theme Toolbar -->
+    <string name="toolbar_style_label">Style: %1$s</string>
+    <string name="toolbar_style">Style</string>
+    <string name="toolbar_palette">Palette</string>
+    <string name="toolbar_accent">Accent</string>
+    <string name="toolbar_expand">Expand</string>
 </resources>

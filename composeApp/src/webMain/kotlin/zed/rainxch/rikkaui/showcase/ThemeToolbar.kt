@@ -21,6 +21,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
+import rikkaui.composeapp.generated.resources.Res
+import rikkaui.composeapp.generated.resources.toolbar_accent
+import rikkaui.composeapp.generated.resources.toolbar_expand
+import rikkaui.composeapp.generated.resources.toolbar_palette
+import rikkaui.composeapp.generated.resources.toolbar_style
+import rikkaui.composeapp.generated.resources.toolbar_style_label
 import zed.rainxch.rikkaui.components.theme.RikkaAccentPreset
 import zed.rainxch.rikkaui.components.theme.RikkaPalette
 import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
@@ -51,12 +58,12 @@ fun ThemeToolbar(
         verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
     ) {
         ToolbarPopover(
-            label = "Style: ${stylePreset.label}",
-            icon = { Icon(RikkaIcons.Settings, "Style", size = IconSize.Sm) },
+            label = stringResource(Res.string.toolbar_style_label, stylePreset.label),
+            icon = { Icon(RikkaIcons.Settings, stringResource(Res.string.toolbar_style), size = IconSize.Sm) },
         ) { onDismiss ->
             Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs)) {
                 Text(
-                    text = "Style",
+                    text = stringResource(Res.string.toolbar_style),
                     style = RikkaTheme.typography.small,
                     color = RikkaTheme.colors.mutedForeground,
                 )
@@ -90,7 +97,7 @@ fun ThemeToolbar(
         ) { onDismiss ->
             Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs)) {
                 Text(
-                    text = "Palette",
+                    text = stringResource(Res.string.toolbar_palette),
                     style = RikkaTheme.typography.small,
                     color = RikkaTheme.colors.mutedForeground,
                 )
@@ -135,7 +142,7 @@ fun ThemeToolbar(
         ) { onDismiss ->
             Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs)) {
                 Text(
-                    text = "Accent",
+                    text = stringResource(Res.string.toolbar_accent),
                     style = RikkaTheme.typography.small,
                     color = RikkaTheme.colors.mutedForeground,
                 )
@@ -201,7 +208,7 @@ private fun ToolbarPopover(
                 Spacer(Modifier.width(RikkaTheme.spacing.xs))
                 Icon(
                     RikkaIcons.ChevronDown,
-                    contentDescription = "Expand",
+                    contentDescription = stringResource(Res.string.toolbar_expand),
                     size = IconSize.Sm,
                     tint = foreground,
                 )

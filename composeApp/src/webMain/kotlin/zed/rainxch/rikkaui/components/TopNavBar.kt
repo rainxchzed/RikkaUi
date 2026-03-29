@@ -75,7 +75,7 @@ fun TopNavBar(
                             link.matchPrefix + "/",
                         )
                 Button(
-                    text = link.label,
+                    text = stringResource(link.label),
                     onClick = {
                         navController.navigate(link.route) {
                             popUpTo<HomeRoute> {
