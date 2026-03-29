@@ -45,9 +45,6 @@ import zed.rainxch.rikkaui.docs.pages.InstallationDoc
 import zed.rainxch.rikkaui.docs.pages.IntroductionDoc
 import zed.rainxch.rikkaui.docs.pages.ThemingDoc
 
-/**
- * Sidebar entry for non-component pages (Getting Started section).
- */
 private data class GuidePage(
     val id: String,
     val name: String,
@@ -73,17 +70,12 @@ private val guidePages =
         ),
     )
 
-/**
- * Documentation page with MVI state management.
- *
- * Uses [DocsViewModel] for robust, unidirectional state management.
- * Supports deep-linking via [initialComponentId] from navigation routes.
- *
- * @param initialComponentId Optional component ID from navigation deep-link.
- *   When null, defaults to the "introduction" guide page.
- */
 @Composable
-fun DocsPage(initialComponentId: String? = null) {
+fun DocsPage(
+    initialComponentId: String? = null,
+    onNavigateToComponent: (String) -> Unit = {},
+    onNavigateToGuide: (String) -> Unit = {},
+) {
     val viewModel: DocsViewModel =
         viewModel(
             factory =
@@ -105,6 +97,16 @@ fun DocsPage(initialComponentId: String? = null) {
     }
 
     val registry = ComponentRegistry
+    val guidePageIds = remember { guidePages.map { it.id }.toSet() }
+
+    val onSelect: (String) -> Unit = { id ->
+        viewModel.onAction(DocsAction.SelectPage(id))
+        if (id in guidePageIds) {
+            onNavigateToGuide(id)
+        } else {
+            onNavigateToComponent(id)
+        }
+    }
 
     BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
         val isWide = maxWidth >= 800.dp
@@ -115,9 +117,7 @@ fun DocsPage(initialComponentId: String? = null) {
                     guidePages = guidePages,
                     grouped = registry.groupedByCategory(),
                     selectedId = state.selectedId,
-                    onSelect = {
-                        viewModel.onAction(DocsAction.SelectPage(it))
-                    },
+                    onSelect = onSelect,
                     modifier =
                         Modifier
                             .width(240.dp)
@@ -166,9 +166,7 @@ fun DocsPage(initialComponentId: String? = null) {
                     guidePages = guidePages,
                     entries = registry.entries,
                     selectedId = state.selectedId,
-                    onSelect = {
-                        viewModel.onAction(DocsAction.SelectPage(it))
-                    },
+                    onSelect = onSelect,
                 )
 
                 Spacer(Modifier.height(RikkaTheme.spacing.lg))

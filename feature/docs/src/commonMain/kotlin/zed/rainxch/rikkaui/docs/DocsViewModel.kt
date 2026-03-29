@@ -6,29 +6,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-/**
- * MVI ViewModel for the documentation page.
- *
- * Manages page selection state with unidirectional data flow.
- * Accepts an optional [initialComponentId] for deep-link support.
- *
- * ```
- * val viewModel: DocsViewModel = viewModel(
- *     factory = viewModelFactory {
- *         initializer { DocsViewModel("button") }
- *     },
- * )
- * val state by viewModel.state.collectAsState()
- * ```
- */
 class DocsViewModel(
     initialComponentId: String? = null,
 ) : ViewModel() {
-    private val _state = MutableStateFlow(
-        DocsState(
-            selectedId = initialComponentId ?: "introduction",
-        ),
-    )
+    private val _state =
+        MutableStateFlow(
+            DocsState(
+                selectedId = initialComponentId ?: "introduction",
+            ),
+        )
     val state: StateFlow<DocsState> = _state.asStateFlow()
 
     fun onAction(action: DocsAction) {
