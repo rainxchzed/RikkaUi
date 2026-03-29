@@ -1,42 +1,132 @@
-This is a Kotlin Multiplatform project targeting Web.
+<div align="center">
+<br/>
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+<img src="https://img.shields.io/badge/六花-RikkaUI-white?style=for-the-badge&labelColor=18181b&color=fafafa" height="40"/>
 
-### Build and Run Web Application
+<br/>
+<br/>
 
-To build and run the development version of the web app, use the run configuration from the run widget
-in your IDE's toolbar or run it directly from the terminal:
-- for the Wasm target (faster, modern browsers):
-  - on macOS/Linux
-    ```shell
-    ./gradlew :composeApp:wasmJsBrowserDevelopmentRun
-    ```
-  - on Windows
-    ```shell
-    .\gradlew.bat :composeApp:wasmJsBrowserDevelopmentRun
-    ```
-- for the JS target (slower, supports older browsers):
-  - on macOS/Linux
-    ```shell
-    ./gradlew :composeApp:jsBrowserDevelopmentRun
-    ```
-  - on Windows
-    ```shell
-    .\gradlew.bat :composeApp:jsBrowserDevelopmentRun
-    ```
+# RikkaUI
+
+**A shadcn/ui-inspired component library & design system for Compose Multiplatform**
+
+*Composing elements into harmony*
+
+<br/>
+
+<p>
+  <img alt="Kotlin" src="https://img.shields.io/badge/Kotlin-Multiplatform-a503fc?logo=kotlin&logoColor=white&style=for-the-badge"/>
+  <img alt="Compose Multiplatform" src="https://img.shields.io/static/v1?style=for-the-badge&message=Compose+Multiplatform&color=4285F4&logo=Jetpack+Compose&logoColor=FFFFFF&label="/>
+  <img alt="No Material3" src="https://img.shields.io/badge/No%20Material3-Foundation%20Only-18181b?style=for-the-badge"/>
+</p>
+
+<p>
+  <img alt="Maven Central" src="https://img.shields.io/maven-central/v/dev.rikkaui/components?style=for-the-badge&logo=apachemaven&logoColor=white&label=Maven%20Central&color=a503fc"/>
+  <img alt="License" src="https://img.shields.io/github/license/rainxchzed/RikkaUi?style=for-the-badge&color=4285F4"/>
+  <a href="https://github.com/rainxchzed/RikkaUi/stargazers">
+    <img alt="Stars" src="https://img.shields.io/github/stars/rainxchzed/RikkaUi?style=for-the-badge&color=ffff00&labelColor=a1a116"/>
+  </a>
+</p>
+
+<br/>
+
+<a href="https://www.rikkaui.dev"><strong>Live Demo & Docs</strong></a> &nbsp;&bull;&nbsp; <a href="#-quick-start"><strong>Quick Start</strong></a> &nbsp;&bull;&nbsp; <a href="#-theme-system"><strong>Theming</strong></a>
+
+<br/>
+<br/>
+
+</div>
 
 ---
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
-[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
+## Why RikkaUI?
 
-We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-If you face any issues, please report them on [YouTrack](https://youtrack.jetbrains.com/newIssue?project=CMP).
+**40+ production-ready components** for Android, iOS, Desktop, and Web — built entirely on Compose Foundation with **zero Material3 dependency**.
+
+- Beautiful defaults, fully customizable theme system
+- 5 palettes, 7 accent colors, 5 style presets — one line changes your app's personality
+- Copy-paste ownership: no dependency lock-in
+- Accessibility-first with spring physics animations
+
+<br/>
+
+## Quick Start
+
+```kotlin
+dependencies {
+    implementation("dev.rikkaui:components:0.1.0")
+}
+```
+
+> Works out of the box for **native Android** projects — no KMP setup needed.
+> For Compose Multiplatform, add to your `commonMain` source set.
+
+```kotlin
+RikkaTheme(
+    palette = RikkaPalette.Zinc,
+    isDark = true,
+) {
+    Button(text = "Get Started", onClick = { })
+}
+```
+
+<br/>
+
+## Theme System
+
+One line changes your entire app's personality:
+
+```kotlin
+RikkaTheme(preset = RikkaStylePreset.Default)  // Balanced
+RikkaTheme(preset = RikkaStylePreset.Nova)     // Sharp & dense
+RikkaTheme(preset = RikkaStylePreset.Vega)     // Rounded & bouncy
+RikkaTheme(preset = RikkaStylePreset.Aurora)   // Spacious & large
+RikkaTheme(preset = RikkaStylePreset.Nebula)   // Square & tight
+```
+
+5 base palettes x 7 accent colors x light/dark = endless combinations.
+
+Explore all options interactively at [rikkaui.dev](https://www.rikkaui.dev).
+
+<br/>
+
+## Platform Support
+
+| Platform | Status |
+|----------|--------|
+| Android | Stable |
+| Desktop (JVM) | Stable |
+| iOS | Stable |
+| Web (WasmJs) | Stable |
+
+<br/>
+
+## Links
+
+| | |
+|---|---|
+| Website, Docs & Live Demo | [rikkaui.dev](https://www.rikkaui.dev) |
+| Maven Central | [dev.rikkaui](https://central.sonatype.com/namespace/dev.rikkaui) |
+
+<br/>
+
+---
+
+## License
+
+```
+Copyright 2026 rainxchzed
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this project except in compliance with the License.
+You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+```
+
+<div align="center">
+<br/>
+
+*RikkaUI (六花) — composing elements into harmony.*
+
+</div>
