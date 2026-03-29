@@ -8,7 +8,7 @@ plugins {
 }
 
 plugins.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin> {
-    the<NodeJsEnvSpec>().download.set(false)
+    the<NodeJsEnvSpec>().version.set("22.12.0")
 }
 
 subprojects {
