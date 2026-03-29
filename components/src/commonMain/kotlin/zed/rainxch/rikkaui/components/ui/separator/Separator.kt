@@ -17,64 +17,26 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Orientation ────────────────────────────────────────────
 
-/**
- * Separator orientation.
- *
- * - [Horizontal] — Full-width line divider. Default.
- * - [Vertical] — Full-height line divider. For side-by-side layouts.
- */
 enum class SeparatorOrientation {
+    /** Full-width line divider. */
     Horizontal,
+    /** Full-height line divider. */
     Vertical,
 }
 
 // ─── Style ──────────────────────────────────────────────────
 
-/**
- * Separator line style.
- *
- * - [Solid] — Continuous line. Default.
- * - [Dashed] — Dashed line with configurable dash/gap lengths.
- * - [Dotted] — Dotted line (short dashes with equal gaps).
- */
 enum class SeparatorStyle {
+    /** Continuous line. */
     Solid,
+    /** Dashed line with configurable dash/gap lengths. */
     Dashed,
+    /** Dotted line (short dashes with equal gaps). */
     Dotted,
 }
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Separator component for the RikkaUi design system.
- *
- * A thin line that divides content visually. Maps to shadcn/ui's Separator.
- *
- * Usage:
- * ```
- * Column {
- *     Text("Section 1")
- *     Separator()
- *     Text("Section 2")
- * }
- *
- * Row {
- *     Text("Left")
- *     Separator(orientation = SeparatorOrientation.Vertical)
- *     Text("Right")
- * }
- *
- * // Dashed separator
- * Separator(style = SeparatorStyle.Dashed)
- * ```
- *
- * @param modifier Modifier for layout and decoration.
- * @param orientation Horizontal (default) or Vertical.
- * @param color Override color. Defaults to theme border color.
- * @param thickness Line thickness. Defaults to 1dp.
- * @param style Line style — [SeparatorStyle.Solid], [SeparatorStyle.Dashed],
- *   or [SeparatorStyle.Dotted].
- */
 @Composable
 fun Separator(
     modifier: Modifier = Modifier,

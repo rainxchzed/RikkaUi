@@ -31,40 +31,18 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Variant ───────────────────────────────────────────────
 
-/**
- * Visual variants for [ToggleGroupItem].
- *
- * - [Default] — Muted background when selected, transparent otherwise.
- * - [Outline] — 1dp border always visible; muted background when selected.
- */
+/** Muted bg when selected; Outline adds a 1dp border. */
 enum class ToggleGroupVariant {
+    /** Muted background when selected, transparent otherwise. */
     Default,
+
+    /** 1dp border always visible; muted background when selected. */
     Outline,
 }
 
 // ─── Animation ────────────────────────────────────────────
 
-/**
- * Animation strategy for [ToggleGroupItem] selection transitions.
- *
- * Controls how background and foreground colors animate when toggling
- * between selected and unselected states.
- *
- * - [Spring] — Spring-based color transition. Handles interruptions
- *   gracefully when rapidly toggling items. **(default)**
- * - [Tween] — Smooth eased transition with a fixed duration from
- *   [RikkaTheme.motion.durationDefault].
- * - [None] — Instant selection change with no animation.
- *
- * ```
- * ToggleGroupItem(
- *     selected = selected == 0,
- *     onClick = { selected = 0 },
- *     text = "Bold",
- *     animation = ToggleGroupAnimation.Spring,
- * )
- * ```
- */
+/** Animation strategy for selection color transitions. */
 enum class ToggleGroupAnimation {
     /** Spring-based color transition (default). */
     Spring,
@@ -72,44 +50,12 @@ enum class ToggleGroupAnimation {
     /** Smooth eased tween transition. */
     Tween,
 
-    /** Instant change with no animation. */
+    /** Instant change, no animation. */
     None,
 }
 
 // ─── ToggleGroup ───────────────────────────────────────────
 
-/**
- * Horizontal group of toggle buttons.
- *
- * A container that lays out [ToggleGroupItem] composables side by side
- * with consistent spacing, matching shadcn/ui's Toggle Group.
- *
- * Usage:
- * ```
- * var selected by remember { mutableStateOf(0) }
- *
- * ToggleGroup {
- *     ToggleGroupItem(
- *         selected = selected == 0,
- *         onClick = { selected = 0 },
- *         text = "Bold",
- *     )
- *     ToggleGroupItem(
- *         selected = selected == 1,
- *         onClick = { selected = 1 },
- *         text = "Italic",
- *     )
- *     ToggleGroupItem(
- *         selected = selected == 2,
- *         onClick = { selected = 2 },
- *         text = "Underline",
- *     )
- * }
- * ```
- *
- * @param modifier Modifier for layout and decoration.
- * @param content Toggle group items — typically [ToggleGroupItem] composables.
- */
 @Composable
 fun ToggleGroup(
     modifier: Modifier = Modifier,
@@ -126,38 +72,6 @@ fun ToggleGroup(
 
 // ─── ToggleGroupItem ───────────────────────────────────────
 
-/**
- * Individual toggle button inside a [ToggleGroup].
- *
- * Supports two visual variants via [ToggleGroupVariant] and animates
- * background color transitions using theme motion tokens. The animation
- * strategy is configurable via [animation].
- *
- * Usage:
- * ```
- * ToggleGroupItem(
- *     selected = isSelected,
- *     onClick = { toggle() },
- *     variant = ToggleGroupVariant.Outline,
- *     animation = ToggleGroupAnimation.Tween,
- * ) {
- *     Icon(painter = painterResource(...), contentDescription = null)
- * }
- * ```
- *
- * @param selected Whether this item is currently active.
- * @param onClick Called when the item is clicked.
- * @param modifier Modifier for layout and decoration.
- * @param variant Visual variant — controls background and border behavior.
- * @param animation Animation strategy for selection transitions.
- *   Defaults to [ToggleGroupAnimation.Spring].
- * @param label Accessibility label for screen readers.
- * @param selectedColor Override for the selected foreground color.
- *   Defaults to [RikkaTheme.colors.foreground].
- * @param unselectedColor Override for the unselected foreground color.
- *   Defaults to [RikkaTheme.colors.mutedForeground].
- * @param content Item content — typically an icon or text.
- */
 @Composable
 fun ToggleGroupItem(
     selected: Boolean,
@@ -232,31 +146,6 @@ fun ToggleGroupItem(
     }
 }
 
-/**
- * Convenience overload with a text label.
- *
- * ```
- * ToggleGroupItem(
- *     selected = selected == 0,
- *     onClick = { selected = 0 },
- *     text = "Bold",
- *     variant = ToggleGroupVariant.Outline,
- *     animation = ToggleGroupAnimation.Tween,
- * )
- * ```
- *
- * @param text Label text displayed in the toggle item.
- * @param selected Whether this item is currently active.
- * @param onClick Called when the item is clicked.
- * @param modifier Modifier for layout and decoration.
- * @param variant Visual variant — controls background and border behavior.
- * @param animation Animation strategy for selection transitions.
- *   Defaults to [ToggleGroupAnimation.Spring].
- * @param selectedColor Override for the selected foreground color.
- *   Defaults to [RikkaTheme.colors.foreground].
- * @param unselectedColor Override for the unselected foreground color.
- *   Defaults to [RikkaTheme.colors.mutedForeground].
- */
 @Composable
 fun ToggleGroupItem(
     text: String,
@@ -365,10 +254,6 @@ private fun resolveColors(
 
 // ─── Internal: Animation Spec Resolution ──────────────────
 
-/**
- * Resolves a [ToggleGroupAnimation] to an [AnimationSpec] for color
- * transitions, using the theme's motion duration tokens.
- */
 @Composable
 private fun resolveColorAnimSpec(
     animation: ToggleGroupAnimation,

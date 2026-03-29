@@ -30,35 +30,19 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ─────────────────────────────────────────────
 
-/**
- * Animation style for the [Tooltip] entrance and exit.
- *
- * - [FadeScale] — Fade combined with a subtle scale-up from
- *   95% to 100% (default). Feels lively and polished.
- * - [Fade] — Simple opacity fade only. Lighter and subtler.
- * - [None] — Instant appear/disappear with no animation.
- */
 enum class TooltipAnimation {
-    /** Fade + scale from 95% to 100% (default). */
+    /** Fade + scale from 95 % to 100 %. */
     FadeScale,
 
-    /** Simple opacity fade only. */
+    /** Opacity fade only. */
     Fade,
 
-    /** Instant appear/disappear, no animation. */
+    /** No animation. */
     None,
 }
 
 // ─── Placement ─────────────────────────────────────────────
 
-/**
- * Placement of the [Tooltip] relative to the trigger content.
- *
- * - [Top] — Above the content, centered (default).
- * - [Bottom] — Below the content, centered.
- * - [Start] — To the start (left in LTR) of the content.
- * - [End] — To the end (right in LTR) of the content.
- */
 enum class TooltipPlacement {
     Top,
     Bottom,
@@ -68,58 +52,10 @@ enum class TooltipPlacement {
 
 // ─── Constants ──────────────────────────────────────────────
 
-/** Default delay before showing the tooltip (ms). */
 private const val DEFAULT_SHOW_DELAY_MS = 400L
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Tooltip wrapper for the RikkaUi design system.
- *
- * Wraps any composable and shows a small popup label on hover.
- * The tooltip uses inverted theme colors (foreground as
- * background, background as text) for clear contrast. No
- * Material dependency.
- *
- * Features:
- * - Configurable animation style via [TooltipAnimation]
- * - Configurable placement via [TooltipPlacement]
- * - Configurable show delay via [showDelayMs]
- * - Inverted color scheme for contrast on any theme
- * - Hover-triggered via [MutableInteractionSource]
- * - All animations use theme motion tokens
- *
- * Usage:
- * ```
- * Tooltip(tooltip = "Save changes") {
- *     Button("Save", onClick = { save() })
- * }
- *
- * // With custom animation, placement, and delay:
- * Tooltip(
- *     tooltip = "Copy to clipboard",
- *     animation = TooltipAnimation.Fade,
- *     placement = TooltipPlacement.Bottom,
- *     showDelayMs = 200L,
- * ) {
- *     IconButton(onClick = { copy() }) {
- *         Icon(Icons.Copy)
- *     }
- * }
- * ```
- *
- * @param tooltip The text to display inside the tooltip popup.
- * @param modifier Modifier applied to the outer wrapper.
- * @param animation The animation style for entrance and exit.
- *     Defaults to [TooltipAnimation.FadeScale].
- * @param placement Where the tooltip appears relative to the
- *     content. Defaults to [TooltipPlacement.Top].
- * @param showDelayMs Delay in milliseconds before showing the
- *     tooltip after hover starts. Defaults to 400ms. Set to
- *     0L for no delay.
- * @param content The composable content that triggers the
- *     tooltip on hover.
- */
 @Composable
 fun Tooltip(
     tooltip: String,
@@ -238,10 +174,6 @@ fun Tooltip(
 
 // ─── Private helpers ────────────────────────────────────────
 
-/**
- * Maps [TooltipPlacement] to a Compose [Alignment] for the
- * [Popup].
- */
 private fun resolveAlignment(placement: TooltipPlacement): Alignment =
     when (placement) {
         TooltipPlacement.Top -> Alignment.TopCenter
@@ -250,10 +182,6 @@ private fun resolveAlignment(placement: TooltipPlacement): Alignment =
         TooltipPlacement.End -> Alignment.CenterEnd
     }
 
-/**
- * Resolves the [IntOffset] for the popup based on placement
- * and density, adding a small gap from the trigger.
- */
 @Composable
 private fun resolveOffset(
     placement: TooltipPlacement,

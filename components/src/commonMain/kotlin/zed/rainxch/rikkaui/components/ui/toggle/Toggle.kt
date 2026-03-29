@@ -27,82 +27,28 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ──────────────────────────────────────────────
 
-/**
- * Animation style for the toggle thumb and background transitions.
- *
- * - [Spring] — Bouncy spring physics (default). Natural, native feel with
- *   velocity preservation on interruption.
- * - [Tween] — Linear tween transition. Predictable, consistent timing.
- * - [None] — Instant state change with no animation. Best for
- *   accessibility (reduced motion) or performance-critical UIs.
- *
- * ```
- * Toggle(
- *     checked = enabled,
- *     onCheckedChange = { enabled = it },
- *     animation = ToggleAnimation.None,
- * )
- * ```
- */
+/** Animation style for toggle transitions. */
 enum class ToggleAnimation {
+    /** Bouncy spring physics (default). */
     Spring,
+    /** Linear tween transition. */
     Tween,
+    /** Instant state change, no animation. */
     None,
 }
 
 // ─── Size ───────────────────────────────────────────────────
 
-/**
- * Toggle sizes.
- *
- * - [Default] — Standard toggle (44x24dp). Comfortable touch target.
- * - [Sm] — Compact toggle (36x20dp). For dense layouts.
- */
+/** Toggle size variants. */
 enum class ToggleSize {
+    /** Standard toggle (44x24dp). */
     Default,
+    /** Compact toggle (36x20dp). */
     Sm,
 }
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Toggle (switch) component for the RikkaUi design system.
- *
- * A boolean on/off control with spring-animated thumb and smooth
- * color transitions. Replaces Material3's Switch.
- *
- * Features:
- * - Spring physics thumb animation (bouncy, native feel)
- * - Animated background color transition
- * - Accessibility semantics built-in (Role.Switch, stateDescription)
- * - No Material dependency
- *
- * Usage:
- * ```
- * var enabled by remember { mutableStateOf(false) }
- *
- * Toggle(
- *     checked = enabled,
- *     onCheckedChange = { enabled = it },
- * )
- *
- * // Compact, no animation (reduced motion)
- * Toggle(
- *     checked = enabled,
- *     onCheckedChange = { enabled = it },
- *     size = ToggleSize.Sm,
- *     animation = ToggleAnimation.None,
- * )
- * ```
- *
- * @param checked Whether the toggle is on.
- * @param onCheckedChange Called when the toggle state changes.
- * @param modifier Modifier for layout and decoration.
- * @param size Toggle size variant.
- * @param animation Animation style for thumb and background transitions.
- * @param enabled Whether the toggle is interactive.
- * @param label Accessibility label for screen readers.
- */
 @Composable
 fun Toggle(
     checked: Boolean,

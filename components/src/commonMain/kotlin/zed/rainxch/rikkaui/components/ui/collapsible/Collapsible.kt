@@ -30,60 +30,19 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation Enum ─────────────────────────────────────────
 
-/**
- * Controls the expand/collapse animation style for
- * [CollapsibleContent].
- *
- * Each option reads duration and spring parameters from
- * [RikkaTheme.motion] tokens so the animation stays consistent
- * with the rest of the design system.
- *
- * ```
- * CollapsibleContent(
- *     open = isOpen,
- *     animation = CollapsibleAnimation.Tween,
- * ) {
- *     Text("Smooth eased transition")
- * }
- * ```
- */
 enum class CollapsibleAnimation {
-    /**
-     * Spring-physics expand/collapse with medium bounce and a
-     * fade overlay. Handles interruptions gracefully and feels
-     * organic. This is the default.
-     */
+    /** Spring-physics expand/collapse with bounce and fade. Default. */
     Spring,
 
-    /**
-     * Duration-based eased expand/collapse with fade using
-     * [RikkaTheme.motion] tween durations. Smoother and more
-     * predictable than [Spring], good for data-heavy UIs.
-     */
+    /** Duration-based eased expand/collapse with fade. */
     Tween,
 
-    /**
-     * Instant expand/collapse with no animation. Useful for
-     * reduced-motion preferences or performance-critical lists.
-     */
+    /** Instant expand/collapse with no animation. */
     None,
 }
 
 // ─── Scope ─────────────────────────────────────────────────
 
-/**
- * Receiver scope for the [Collapsible] DSL overload.
- *
- * Provides [trigger] and [content] builder functions so callers
- * can declare the trigger and expandable body inline:
- *
- * ```
- * Collapsible {
- *     trigger { Text("Click me") }
- *     content { Text("Hidden content") }
- * }
- * ```
- */
 class CollapsibleScope internal constructor(
     internal val open: Boolean,
     internal val onOpenChange: (Boolean) -> Unit,
@@ -93,20 +52,10 @@ class CollapsibleScope internal constructor(
     internal var bodyContent: (@Composable () -> Unit)? = null
         private set
 
-    /**
-     * Declares the clickable trigger area of the collapsible.
-     *
-     * @param content Composable content rendered inside the trigger.
-     */
     fun trigger(content: @Composable () -> Unit) {
         triggerContent = content
     }
 
-    /**
-     * Declares the expandable body area of the collapsible.
-     *
-     * @param content Composable content shown/hidden on toggle.
-     */
     fun content(content: @Composable () -> Unit) {
         bodyContent = content
     }
@@ -114,72 +63,6 @@ class CollapsibleScope internal constructor(
 
 // ─── Components ────────────────────────────────────────────
 
-/**
- * A simple expand/collapse container for the RikkaUi design system.
- *
- * Simpler than [AccordionItem][zed.rainxch.rikkaui.components.ui.accordion.AccordionItem]:
- * single item, no group behavior, no built-in chrome — the caller
- * provides all visuals via [CollapsibleTrigger] and [CollapsibleContent].
- *
- * Inspired by shadcn/ui's Collapsible primitive.
- *
- * ### Controlled usage
- *
- * ```
- * var open by remember { mutableStateOf(false) }
- *
- * Collapsible(
- *     open = open,
- *     onOpenChange = { open = it },
- * ) {
- *     CollapsibleTrigger(
- *         onClick = { open = !open },
- *     ) {
- *         Row(verticalAlignment = Alignment.CenterVertically) {
- *             Text("Starred repositories")
- *             Icon(
- *                 imageVector = RikkaIcons.ChevronDown,
- *                 contentDescription = null,
- *             )
- *         }
- *     }
- *
- *     CollapsibleContent(open = open) {
- *         Column {
- *             Text("@rikka/components")
- *             Text("@rikka/theme")
- *         }
- *     }
- * }
- * ```
- *
- * ### Inside a Card
- *
- * ```
- * Card {
- *     CardHeader {
- *         var open by remember { mutableStateOf(false) }
- *         Collapsible(
- *             open = open,
- *             onOpenChange = { open = it },
- *         ) {
- *             CollapsibleTrigger(onClick = { open = !open }) {
- *                 Text("Details")
- *             }
- *             CollapsibleContent(open = open) {
- *                 Text("Additional information here.")
- *             }
- *         }
- *     }
- * }
- * ```
- *
- * @param open Whether the content section is currently expanded.
- * @param onOpenChange Called when the expanded state should change.
- * @param modifier Modifier applied to the outer container.
- * @param content Builder lambda — typically contains a
- *   [CollapsibleTrigger] and a [CollapsibleContent].
- */
 @Composable
 fun Collapsible(
     open: Boolean,
@@ -192,34 +75,6 @@ fun Collapsible(
     }
 }
 
-/**
- * Convenience DSL overload with internally-managed expanded state.
- *
- * Uses a [CollapsibleScope] receiver so the caller can declare
- * [trigger][CollapsibleScope.trigger] and
- * [content][CollapsibleScope.content] blocks inline:
- *
- * ```
- * Collapsible {
- *     trigger {
- *         Row {
- *             Text("Toggle section")
- *             Icon(RikkaIcons.ChevronDown, null)
- *         }
- *     }
- *     content {
- *         Text("Expandable body")
- *     }
- * }
- * ```
- *
- * @param modifier Modifier applied to the outer container.
- * @param initialOpen Initial expanded state. Defaults to `false`.
- * @param animation The expand/collapse animation style passed to
- *   [CollapsibleContent]. Defaults to [CollapsibleAnimation.Spring].
- * @param builder DSL builder providing [CollapsibleScope.trigger]
- *   and [CollapsibleScope.content].
- */
 @Composable
 fun Collapsible(
     modifier: Modifier = Modifier,
@@ -258,41 +113,6 @@ fun Collapsible(
     }
 }
 
-/**
- * Clickable trigger area for a [Collapsible].
- *
- * Renders as a clickable [Box] with [Role.Button] semantics and
- * hover/press interaction tracking via [MutableInteractionSource].
- * No background, border, or padding is applied by default — the
- * caller owns all visual styling.
- *
- * ```
- * CollapsibleTrigger(
- *     onClick = { open = !open },
- *     expanded = open,
- *     label = "Toggle starred repos",
- * ) {
- *     Row(
- *         modifier = Modifier
- *             .fillMaxWidth()
- *             .padding(vertical = RikkaTheme.spacing.md),
- *         verticalAlignment = Alignment.CenterVertically,
- *     ) {
- *         Text("Starred repos", modifier = Modifier.weight(1f))
- *         Icon(RikkaIcons.ChevronDown, contentDescription = null)
- *     }
- * }
- * ```
- *
- * @param onClick Called when the trigger is clicked.
- * @param modifier Modifier applied to the trigger container.
- * @param label Accessibility content description. Defaults to
- *   `"Toggle section"`.
- * @param expanded Current expanded state for accessibility
- *   `stateDescription`. Pass the parent [Collapsible]'s `open`
- *   value so screen readers announce "Expanded" / "Collapsed".
- * @param content Composable content rendered inside the trigger.
- */
 @Composable
 fun CollapsibleTrigger(
     onClick: () -> Unit,
@@ -324,42 +144,6 @@ fun CollapsibleTrigger(
     }
 }
 
-/**
- * Expandable content area for a [Collapsible].
- *
- * Wraps content in [AnimatedVisibility] with vertical expand/shrink
- * and fade transitions. The animation style is controlled by the
- * [animation] parameter which reads tokens from [RikkaTheme.motion].
- *
- * ```
- * // Spring (default — bouncy, organic)
- * CollapsibleContent(open = isOpen) {
- *     Text("Spring-animated content")
- * }
- *
- * // Tween (smooth, predictable)
- * CollapsibleContent(
- *     open = isOpen,
- *     animation = CollapsibleAnimation.Tween,
- * ) {
- *     Text("Eased content")
- * }
- *
- * // Instant (no animation)
- * CollapsibleContent(
- *     open = isOpen,
- *     animation = CollapsibleAnimation.None,
- * ) {
- *     Text("Instant content")
- * }
- * ```
- *
- * @param open Whether the content is currently visible.
- * @param modifier Modifier applied to the inner content wrapper.
- * @param animation The expand/collapse animation style. Defaults to
- *   [CollapsibleAnimation.Spring].
- * @param content Composable content to show/hide.
- */
 @Composable
 fun CollapsibleContent(
     open: Boolean,
@@ -382,10 +166,6 @@ fun CollapsibleContent(
 
 // ─── Private animation resolution ───────────────────────────
 
-/**
- * Resolves the [AnimatedVisibility] enter transition for the given
- * [CollapsibleAnimation] style, reading tokens from [RikkaMotion].
- */
 @Composable
 private fun resolveEnter(
     animation: CollapsibleAnimation,
@@ -433,10 +213,6 @@ private fun resolveEnter(
         }
     }
 
-/**
- * Resolves the [AnimatedVisibility] exit transition for the given
- * [CollapsibleAnimation] style, reading tokens from [RikkaMotion].
- */
 @Composable
 private fun resolveExit(
     animation: CollapsibleAnimation,

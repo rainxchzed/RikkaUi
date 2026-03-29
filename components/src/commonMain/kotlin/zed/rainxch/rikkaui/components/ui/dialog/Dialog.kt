@@ -44,79 +44,19 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation Enum ─────────────────────────────────────────
 
-/**
- * Animation style for [Dialog] enter/exit transitions.
- *
- * Each variant uses [RikkaTheme.motion] tokens for timing, so
- * switching the motion preset (snappy / playful / minimal)
- * automatically adjusts the dialog animation speed.
- *
- * ```
- * Dialog(
- *     open = open,
- *     onDismiss = { open = false },
- *     animation = DialogAnimation.Fade,
- * ) { ... }
- * ```
- *
- * - [FadeScale] — Fade in combined with a subtle 0.95 -> 1.0
- *   scale. The default, gives the dialog a "zoom-in" feel.
- * - [Fade] — Opacity-only transition, no scale.
- * - [None] — Instant appear/disappear with no animation.
- */
 enum class DialogAnimation {
-    /** Fade + subtle scale up from 0.95. Default. */
+    /** Fade + scale up from 0.95. Default. */
     FadeScale,
 
-    /** Opacity-only fade, no scale. */
+    /** Opacity-only fade. */
     Fade,
 
-    /** Instant appear/disappear. */
+    /** No animation. */
     None,
 }
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Modal dialog overlay for the RikkaUi design system.
- *
- * Displays a centered card on top of a semi-transparent scrim.
- * Clicking the scrim dismisses the dialog. Uses [Popup] for
- * overlay rendering and [AnimatedVisibility] for transitions.
- *
- * Usage:
- * ```
- * var open by remember { mutableStateOf(false) }
- *
- * Button("Open Dialog", onClick = { open = true })
- *
- * Dialog(open = open, onDismiss = { open = false }) {
- *     DialogHeader(
- *         title = "Confirm Action",
- *         description = "This action cannot be undone.",
- *     )
- *     Text("Are you sure you want to proceed?")
- *     DialogFooter {
- *         Button("Cancel", onClick = { open = false }, variant = ButtonVariant.Outline)
- *         Button("Confirm", onClick = { confirm(); open = false })
- *     }
- * }
- * ```
- *
- * @param open Whether the dialog is visible.
- * @param onDismiss Called when the user dismisses the dialog
- *   (scrim click or back gesture).
- * @param modifier Modifier applied to the dialog card.
- * @param label Accessibility label describing the dialog's purpose.
- * @param animation The enter/exit animation style. Defaults to
- *   [DialogAnimation.FadeScale].
- * @param scrimColor Color of the backdrop scrim. Defaults to
- *   semi-transparent black (`Color.Black.copy(alpha = 0.5f)`).
- * @param maxWidth Maximum width of the dialog card. Defaults to
- *   480.dp.
- * @param content Dialog content — use [DialogHeader],
- *   [DialogFooter], and any other composables.
- */
 @Composable
 fun Dialog(
     open: Boolean,
@@ -223,20 +163,6 @@ fun Dialog(
 
 // ─── Structured Sections ────────────────────────────────────
 
-/**
- * Header section for a [Dialog]. Contains a title and optional description.
- *
- * ```
- * DialogHeader(
- *     title = "Edit Profile",
- *     description = "Make changes to your profile here.",
- * )
- * ```
- *
- * @param title The dialog title, rendered as H3.
- * @param description Optional description text, rendered as Muted.
- * @param modifier Modifier for the header column.
- */
 @Composable
 fun DialogHeader(
     title: String,
@@ -263,20 +189,6 @@ fun DialogHeader(
     }
 }
 
-/**
- * Footer section for a [Dialog]. Arranges action buttons at the
- * end (right-aligned).
- *
- * ```
- * DialogFooter {
- *     Button("Cancel", onClick = { dismiss() }, variant = ButtonVariant.Outline)
- *     Button("Save", onClick = { save() })
- * }
- * ```
- *
- * @param modifier Modifier for the footer row.
- * @param content Footer content — typically buttons.
- */
 @Composable
 fun DialogFooter(
     modifier: Modifier = Modifier,
@@ -297,10 +209,6 @@ fun DialogFooter(
 
 // ─── Internal: Transition Resolution ────────────────────────
 
-/**
- * Resolves enter/exit transitions for the dialog card based on
- * the chosen [DialogAnimation] and current [RikkaMotion] tokens.
- */
 private fun resolveDialogTransition(
     animation: DialogAnimation,
     motion: RikkaMotion,

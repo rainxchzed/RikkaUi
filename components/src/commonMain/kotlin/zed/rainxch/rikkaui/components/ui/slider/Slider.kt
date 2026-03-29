@@ -38,101 +38,19 @@ import kotlin.math.roundToInt
 
 // ─── Animation Enum ─────────────────────────────────────────
 
-/**
- * Animation style for [Slider] thumb and track transitions.
- *
- * Controls how the thumb and filled track interpolate when the
- * value changes (via drag, tap, or programmatic update). Each
- * option maps to theme motion tokens so the feel stays
- * consistent with the active [RikkaTheme].
- *
- * ```
- * // Bouncy spring (default)
- * Slider(value = 0.5f, onValueChange = {}, animation = SliderAnimation.Spring)
- *
- * // Smooth eased tween
- * Slider(value = 0.5f, onValueChange = {}, animation = SliderAnimation.Tween)
- *
- * // Instant jump — useful during fast dragging
- * Slider(value = 0.5f, onValueChange = {}, animation = SliderAnimation.None)
- * ```
- */
 enum class SliderAnimation {
-    /** Spring physics — bouncy, handles interruptions gracefully. Default. */
+    /** Spring physics — default. */
     Spring,
 
-    /** Smooth eased tween using theme duration. */
+    /** Smooth eased tween. */
     Tween,
 
-    /** Instant value jump with no interpolation. */
+    /** Instant, no interpolation. */
     None,
 }
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Slider component for the RikkaUi design system.
- *
- * A draggable range input that lets users select a value between
- * 0 and 1. Maps to shadcn/ui's Slider component.
- *
- * Features:
- * - Configurable animation style (spring / tween / none)
- * - Customizable thumb size, track height, and colors
- * - Tap-to-seek on the track
- * - Horizontal drag gesture for continuous adjustment
- * - Accessibility semantics with percentage state
- * - No Material dependency
- *
- * Usage:
- * ```
- * var volume by remember { mutableFloatStateOf(0.5f) }
- *
- * Slider(
- *     value = volume,
- *     onValueChange = { volume = it },
- * )
- *
- * // Custom sizes and colors
- * Slider(
- *     value = volume,
- *     onValueChange = { volume = it },
- *     thumbSize = 24.dp,
- *     trackHeight = 8.dp,
- *     trackColor = RikkaTheme.colors.secondary,
- *     fillColor = RikkaTheme.colors.destructive,
- *     thumbColor = RikkaTheme.colors.destructive,
- * )
- *
- * // Tween animation
- * Slider(
- *     value = volume,
- *     onValueChange = { volume = it },
- *     animation = SliderAnimation.Tween,
- * )
- *
- * // Disabled
- * Slider(
- *     value = 0.3f,
- *     onValueChange = {},
- *     enabled = false,
- * )
- * ```
- *
- * @param value Current value, clamped to 0f..1f.
- * @param onValueChange Called when the user drags or taps to change the value.
- * @param modifier Modifier for layout and decoration.
- * @param enabled Whether the slider is interactive.
- * @param animation Animation style for thumb/track transitions.
- *   Defaults to [SliderAnimation.Spring].
- * @param thumbSize Diameter of the thumb circle. Defaults to 20.dp.
- * @param trackHeight Height of the track bar. Defaults to 6.dp.
- * @param trackColor Background track color. Defaults to theme muted color.
- * @param fillColor Filled track color. Defaults to theme primary color.
- * @param thumbColor Thumb background fill. Defaults to theme background color.
- * @param thumbBorderColor Thumb border color. Defaults to theme primary color.
- * @param label Accessibility label for screen readers.
- */
 @Composable
 fun Slider(
     value: Float,
@@ -285,10 +203,6 @@ fun Slider(
 
 // ─── Private helpers ────────────────────────────────────────
 
-/**
- * Maps a [SliderAnimation] enum value to a concrete
- * [AnimationSpec] using the current theme motion tokens.
- */
 @Composable
 private fun resolveAnimationSpec(
     animation: SliderAnimation,

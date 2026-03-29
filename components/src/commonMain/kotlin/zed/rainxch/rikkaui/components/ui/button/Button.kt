@@ -38,15 +38,13 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Variant ────────────────────────────────────────────────
 
-/**
- * Button visual variants, matching shadcn/ui's button variants.
- *
- * - [Default] — Solid primary background. Main call-to-action.
- * - [Outline] — Bordered, transparent background. Secondary action.
- * - [Secondary] — Subtle filled background. Less prominent action.
- * - [Ghost] — No background or border. Minimal footprint.
- * - [Destructive] — Soft red tint. Dangerous/delete actions.
- * - [Link] — Looks like a text link. Underlines on hover.
+/** Button visual variants.
+ * @property Default Solid primary background.
+ * @property Outline Bordered, transparent background.
+ * @property Secondary Subtle filled background.
+ * @property Ghost No background or border.
+ * @property Destructive Soft red tint for dangerous actions.
+ * @property Link Text link style.
  */
 enum class ButtonVariant {
     Default,
@@ -59,13 +57,11 @@ enum class ButtonVariant {
 
 // ─── Size ───────────────────────────────────────────────────
 
-/**
- * Button sizes.
- *
- * - [Default] — Standard size for most use cases.
- * - [Sm] — Compact, for toolbars or dense UI.
- * - [Lg] — Larger touch target, for prominent actions.
- * - [Icon] — Square, for icon-only buttons.
+/** Button sizes.
+ * @property Default Standard size.
+ * @property Sm Compact size.
+ * @property Lg Large touch target.
+ * @property Icon Square, icon-only.
  */
 enum class ButtonSize {
     Default,
@@ -76,16 +72,10 @@ enum class ButtonSize {
 
 // ─── Animation ──────────────────────────────────────────────
 
-/**
- * Controls the press animation style on the button.
- *
- * This is something shadcn/ui **can't do** — we leverage Compose's
- * animation system to deliver native-feeling interactions across
- * Android, iOS, Desktop, and Web.
- *
- * - [None] — No animation. Classic web-style button.
- * - [Scale] — Subtle scale-down on press with spring physics.
- * - [Bounce] — Playful spring bounce on press.
+/** Press animation style.
+ * @property None No animation.
+ * @property Scale Subtle scale-down on press.
+ * @property Bounce Playful spring bounce on press.
  */
 enum class ButtonAnimation {
     None,
@@ -95,56 +85,6 @@ enum class ButtonAnimation {
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Button component for the RikkaUi design system.
- *
- * A drop-in replacement for Material3's Button — uses Rikka theme
- * tokens for styling and requires no Material dependency.
- *
- * Features beyond shadcn/ui:
- * - Spring-physics press animations (optional)
- * - Works natively on Android, iOS, Desktop, Web
- * - Hover + press states with smooth color transitions
- *
- * The content lambda receives the resolved foreground [Color] so that
- * child composables (Text, Icon, …) can match the button's theme:
- *
- * ```
- * Button(onClick = { }) { color ->
- *     Icon(RikkaIcons.Send, "Send", tint = color)
- *     Text("Send", color = color)
- * }
- *
- * // With animation
- * Button(
- *     onClick = { },
- *     animation = ButtonAnimation.Scale,
- * ) { color ->
- *     Text("Press me", color = color)
- * }
- *
- * // Variant + size
- * Button(
- *     onClick = { },
- *     variant = ButtonVariant.Outline,
- *     size = ButtonSize.Sm,
- * ) { color ->
- *     Text("Cancel", color = color)
- * }
- * ```
- *
- * @param onClick Called when the button is clicked.
- * @param modifier Modifier for layout and decoration.
- * @param variant Visual variant — controls colors and border.
- * @param size Controls height, padding, and min width.
- * @param animation Press animation style. Defaults to [ButtonAnimation.Scale].
- * @param enabled Whether the button is interactive.
- * @param loading When true, shows a [Spinner] and disables interaction.
- *   The button retains its dimensions but becomes non-clickable.
- * @param label Accessibility label for screen readers. When set, overrides content description.
- * @param content Button content. Receives the resolved foreground [Color]
- *   so children can match the button's variant colors.
- */
 @Composable
 fun Button(
     onClick: () -> Unit,
@@ -295,35 +235,6 @@ fun Button(
     }
 }
 
-/**
- * Convenience overload with a text label and optional icon slots.
- *
- * Internally delegates to the content-lambda overload and passes
- * the resolved foreground color to Text and icon slots automatically.
- *
- * ```
- * Button("Save", onClick = { save() })
- * Button("Delete", onClick = { delete() }, variant = ButtonVariant.Destructive)
- * Button("Bounce!", onClick = { }, animation = ButtonAnimation.Bounce)
- * Button("Saving...", onClick = { }, loading = true)
- * Button(
- *     "Search",
- *     onClick = { },
- *     leadingIcon = { Icon(RikkaIcons.Search, contentDescription = null) },
- * )
- * ```
- *
- * @param text The button label text.
- * @param onClick Called when the button is clicked.
- * @param modifier Modifier for layout and decoration.
- * @param variant Visual variant — controls colors and border.
- * @param size Controls height, padding, and min width.
- * @param animation Press animation style. Defaults to [ButtonAnimation.Scale].
- * @param enabled Whether the button is interactive.
- * @param loading When true, shows a [Spinner] and disables interaction.
- * @param leadingIcon Optional composable rendered before the text (e.g. an [Icon]).
- * @param trailingIcon Optional composable rendered after the text (e.g. an [Icon]).
- */
 @Composable
 fun Button(
     text: String,

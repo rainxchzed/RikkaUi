@@ -29,38 +29,19 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ─────────────────────────────────────────────
 
-/**
- * Animation style for the [Popover] entrance and exit.
- *
- * - [FadeExpand] — Fade combined with vertical expand/shrink
- *   (default). Feels smooth and anchored to the trigger.
- * - [Fade] — Simple opacity fade only. Lighter and subtler.
- * - [None] — Instant appear/disappear with no animation.
- */
 enum class PopoverAnimation {
-    /** Fade + vertical expand from top (default). */
+    /** Fade + vertical expand (default). */
     FadeExpand,
 
-    /** Simple opacity fade only. */
+    /** Opacity fade only. */
     Fade,
 
-    /** Instant appear/disappear, no animation. */
+    /** No animation. */
     None,
 }
 
 // ─── Alignment ─────────────────────────────────────────────
 
-/**
- * Placement of the [Popover] popup relative to the trigger.
- *
- * - [BottomStart] — Below the trigger, aligned to the start
- *   edge (default).
- * - [BottomEnd] — Below the trigger, aligned to the end edge.
- * - [TopStart] — Above the trigger, aligned to the start edge.
- * - [TopEnd] — Above the trigger, aligned to the end edge.
- * - [BottomCenter] — Below the trigger, centered horizontally.
- * - [TopCenter] — Above the trigger, centered horizontally.
- */
 enum class PopoverPlacement {
     BottomStart,
     BottomEnd,
@@ -72,72 +53,6 @@ enum class PopoverPlacement {
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Popover component for the RikkaUi design system.
- *
- * A click-triggered popup that renders content in a floating
- * card anchored to a trigger element. Maps to shadcn/ui's
- * Popover.
- *
- * The caller controls visibility via the [expanded] parameter
- * and dismisses via [onDismiss]. The trigger composable is
- * rendered inline -- hook your click handler there to toggle
- * [expanded].
- *
- * Features:
- * - Click-triggered (not hover) -- user controls open/close
- * - Configurable animation style via [PopoverAnimation]
- * - Configurable placement via [PopoverPlacement]
- * - Configurable max width via [maxWidth]
- * - Theme-aware card styling with border and shadow
- * - Dismiss on outside click via [Popup.onDismissRequest]
- * - Constrained max width to prevent full-screen
- * - No Material3 dependency
- *
- * Usage:
- * ```
- * var open by remember { mutableStateOf(false) }
- *
- * Popover(
- *     expanded = open,
- *     onDismiss = { open = false },
- *     trigger = {
- *         Button("Open", onClick = { open = true })
- *     },
- * ) {
- *     Text("Popover content goes here.")
- * }
- *
- * // With custom animation and placement:
- * Popover(
- *     expanded = open,
- *     onDismiss = { open = false },
- *     animation = PopoverAnimation.Fade,
- *     placement = PopoverPlacement.TopStart,
- *     maxWidth = 400.dp,
- *     trigger = { Button("Open", onClick = { open = true }) },
- * ) {
- *     Text("Custom popover content.")
- * }
- * ```
- *
- * @param expanded Whether the popover popup is currently
- *     visible.
- * @param onDismiss Called when the user clicks outside the
- *     popup to dismiss it.
- * @param modifier Modifier applied to the outer trigger
- *     wrapper.
- * @param animation The animation style for entrance and exit.
- *     Defaults to [PopoverAnimation.FadeExpand].
- * @param placement Where the popup appears relative to the
- *     trigger. Defaults to [PopoverPlacement.BottomStart].
- * @param maxWidth Maximum width of the popup card. Defaults
- *     to 360.dp.
- * @param trigger The composable that anchors the popover.
- *     Rendered inline.
- * @param content The composable content displayed inside the
- *     floating card.
- */
 @Composable
 fun Popover(
     expanded: Boolean,
@@ -257,9 +172,6 @@ fun Popover(
 
 // ─── Private helpers ────────────────────────────────────────
 
-/**
- * The shared card styling for the popover popup content.
- */
 @Composable
 private fun PopoverCard(
     minWidth: Dp,
@@ -284,10 +196,6 @@ private fun PopoverCard(
     }
 }
 
-/**
- * Maps [PopoverPlacement] to a Compose [Alignment] for the
- * [Popup].
- */
 private fun resolvePlacement(placement: PopoverPlacement): Alignment =
     when (placement) {
         PopoverPlacement.BottomStart -> Alignment.BottomStart
@@ -298,10 +206,6 @@ private fun resolvePlacement(placement: PopoverPlacement): Alignment =
         PopoverPlacement.TopCenter -> Alignment.TopCenter
     }
 
-/**
- * Resolves the vertical expand anchor based on placement so
- * the expand animation originates from the correct edge.
- */
 private fun resolveExpandFrom(placement: PopoverPlacement): Alignment.Vertical =
     when (placement) {
         PopoverPlacement.BottomStart,

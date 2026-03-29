@@ -15,9 +15,6 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Subcompose Slots ──────────────────────────────────────
 
-/**
- * Internal enum identifying each slot in [Scaffold]'s subcompose layout.
- */
 @Immutable
 private enum class ScaffoldSlot {
     TopBar,
@@ -29,31 +26,6 @@ private enum class ScaffoldSlot {
 
 // ─── Content Window Insets ──────────────────────────────────
 
-/**
- * Inset values applied to the content area of [Scaffold].
- *
- * Use this to account for system bars, notches, or other UI chrome
- * that the scaffold should respect when laying out its content area.
- * These insets are added to the padding values provided to the
- * content lambda, on top of the bar heights.
- *
- * ```
- * Scaffold(
- *     contentWindowInsets = ScaffoldWindowInsets(
- *         left = 16.dp,
- *         right = 16.dp,
- *     ),
- * ) { paddingValues ->
- *     // paddingValues includes top/bottom bar heights + insets
- *     Column(Modifier.padding(paddingValues)) { ... }
- * }
- * ```
- *
- * @param left Inset from the left edge.
- * @param top Inset from the top edge (added to topBar height).
- * @param right Inset from the right edge.
- * @param bottom Inset from the bottom edge (added to bottomBar height).
- */
 @Immutable
 data class ScaffoldWindowInsets(
     val left: Dp = 0.dp,
@@ -64,105 +36,6 @@ data class ScaffoldWindowInsets(
 
 // ─── Component ─────────────────────────────────────────────
 
-/**
- * Page-level layout structure for the RikkaUi design system.
- *
- * Provides slot-based layout with [topBar], [bottomBar],
- * [floatingActionButton], [snackbarHost], and [content] areas. Uses
- * [SubcomposeLayout] to measure bar heights dynamically and
- * pass correct [PaddingValues] to [content].
- *
- * This is a pure layout primitive — no borders, shadows, or
- * decorations. Inspired by M3 Scaffold and web layout patterns,
- * built entirely on `compose.foundation`.
- *
- * Usage:
- * ```
- * Scaffold(
- *     topBar = {
- *         Box(
- *             Modifier
- *                 .fillMaxWidth()
- *                 .background(RikkaTheme.colors.card)
- *                 .padding(RikkaTheme.spacing.md),
- *         ) {
- *             Text("My App", variant = TextVariant.H4)
- *         }
- *     },
- *     bottomBar = {
- *         Box(
- *             Modifier
- *                 .fillMaxWidth()
- *                 .background(RikkaTheme.colors.card)
- *                 .padding(RikkaTheme.spacing.md),
- *         ) {
- *             Text("Footer")
- *         }
- *     },
- * ) { paddingValues ->
- *     Column(Modifier.padding(paddingValues)) {
- *         Text("Page content goes here")
- *     }
- * }
- * ```
- *
- * With a snackbar host and FAB:
- * ```
- * Scaffold(
- *     floatingActionButton = {
- *         Button(
- *             onClick = { /* action */ },
- *             size = ButtonSize.Icon,
- *         ) {
- *             Icon(RikkaIcons.Plus, "Add")
- *         }
- *     },
- *     snackbarHost = {
- *         // Your custom snackbar/toast composable
- *         MyToastHost(hostState = toastHostState)
- *     },
- * ) { paddingValues ->
- *     Column(Modifier.padding(paddingValues)) {
- *         Text("Content with FAB and snackbar")
- *     }
- * }
- * ```
- *
- * With content window insets:
- * ```
- * Scaffold(
- *     contentWindowInsets = ScaffoldWindowInsets(
- *         left = 16.dp,
- *         right = 16.dp,
- *         bottom = 24.dp,
- *     ),
- * ) { paddingValues ->
- *     Column(Modifier.padding(paddingValues)) {
- *         Text("Content respects system insets")
- *     }
- * }
- * ```
- *
- * @param modifier Modifier applied to the outer container.
- * @param topBar Slot rendered at the top, spanning full width.
- * @param bottomBar Slot rendered at the bottom, spanning full width.
- * @param floatingActionButton Slot positioned at bottom-end with
- *   theme-based padding offset above the bottom bar.
- * @param snackbarHost Slot for hosting snackbar or toast notifications.
- *   Positioned above the bottom bar (and above the FAB if present),
- *   centered horizontally.
- * @param containerColor Background color for the scaffold.
- *   Defaults to [RikkaTheme.colors.background].
- * @param contentColor Foreground color hint for content.
- *   Passed for semantic use; does not auto-apply to children.
- * @param contentWindowInsets Insets applied to the content area,
- *   added on top of bar heights in the [PaddingValues] given to
- *   [content]. Defaults to zero on all sides.
- * @param content Main content area. Receives [PaddingValues]
- *   accounting for topBar and bottomBar heights plus
- *   [contentWindowInsets] so content does not render beneath
- *   the bars or system chrome.
- */
 @Composable
 fun Scaffold(
     modifier: Modifier = Modifier,

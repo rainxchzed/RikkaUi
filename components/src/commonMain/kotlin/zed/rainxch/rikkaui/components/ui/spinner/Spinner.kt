@@ -25,13 +25,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Size ───────────────────────────────────────────────────
 
-/**
- * Spinner size variants.
- *
- * - [Sm] — 16dp diameter, 1.5dp stroke. Inline indicators.
- * - [Default] — 24dp diameter, 2dp stroke. Standard loading.
- * - [Lg] — 32dp diameter, 3dp stroke. Page-level loading.
- */
+/** Spinner size variants. */
 enum class SpinnerSize(
     val diameter: Dp,
     val stroke: Dp,
@@ -43,57 +37,18 @@ enum class SpinnerSize(
 
 // ─── Animation ──────────────────────────────────────────────
 
-/**
- * Spinner animation variants.
- *
- * Controls the visual feedback style of the loading indicator.
- * All animated variants respect [RikkaTheme.motion] duration tokens.
- *
- * - [Spin] — Continuous rotation (default). Classic loading spinner.
- * - [Pulse] — Pulsing opacity. Subtle, calm loading indicator.
- * - [None] — Static arc with no animation. Useful for snapshot tests
- *   or reduced-motion contexts.
- *
- * ```
- * Spinner(animation = SpinnerAnimation.Pulse)
- * Spinner(animation = SpinnerAnimation.None)
- * ```
- */
+/** Spinner animation variants. */
 enum class SpinnerAnimation {
+    /** Continuous rotation. */
     Spin,
+    /** Pulsing opacity. */
     Pulse,
+    /** Static, no animation. */
     None,
 }
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Spinner component for the RikkaUi design system.
- *
- * A circular loading indicator with configurable animation, size,
- * and color. Draws a partial arc using [Canvas].
- *
- * Usage:
- * ```
- * Spinner()
- * Spinner(size = SpinnerSize.Sm)
- * Spinner(size = SpinnerSize.Lg, color = RikkaTheme.colors.destructive)
- * Spinner(animation = SpinnerAnimation.Pulse)
- * Spinner(animation = SpinnerAnimation.None, label = "Paused")
- * Spinner(sweepAngle = 180f) // half-arc spinner
- * Spinner(trackColor = RikkaTheme.colors.muted) // visible track ring
- * ```
- *
- * @param modifier Modifier for layout and decoration.
- * @param size Spinner size variant — controls diameter and stroke width.
- * @param animation Animation style. Defaults to [SpinnerAnimation.Spin].
- * @param color Arc color. Defaults to [RikkaTheme.colors.primary].
- * @param trackColor Optional background track ring color. When non-null,
- *   a full 360-degree arc is drawn behind the spinner arc.
- * @param sweepAngle Arc sweep angle in degrees. Defaults to 270f.
- *   Smaller values produce a shorter arc tail.
- * @param label Accessibility content description. Defaults to "Loading".
- */
 @Composable
 fun Spinner(
     modifier: Modifier = Modifier,

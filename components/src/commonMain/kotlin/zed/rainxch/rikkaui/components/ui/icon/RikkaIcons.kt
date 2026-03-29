@@ -11,27 +11,6 @@ import androidx.compose.ui.unit.dp
 
 // ─── Icon Library ───────────────────────────────────────────
 
-/**
- * RikkaUi icon set — Lucide-based [ImageVector] definitions.
- *
- * Every icon is `lazy`-initialised so unused icons incur zero cost.
- * All stroke-based icons share Lucide defaults: 24x24 viewBox,
- * stroke-width 2, round caps and joins.
- *
- * Usage:
- * ```
- * Icon(
- *     imageVector = RikkaIcons.Search,
- *     contentDescription = "Search",
- * )
- *
- * Icon(
- *     imageVector = RikkaIcons.Moon,
- *     contentDescription = "Toggle dark mode",
- *     tint = RikkaTheme.colors.mutedForeground,
- * )
- * ```
- */
 object RikkaIcons {
     // ── Shared builder helpers ──────────────────────────────
 
@@ -51,7 +30,6 @@ object RikkaIcons {
 
     // ── Chevrons ────────────────────────────────────────────
 
-    /** Right-pointing chevron. */
     val ChevronRight: ImageVector by lazy {
         lucideIcon("ChevronRight") {
             strokePath {
@@ -62,7 +40,6 @@ object RikkaIcons {
         }
     }
 
-    /** Downward-pointing chevron. */
     val ChevronDown: ImageVector by lazy {
         lucideIcon("ChevronDown") {
             strokePath {
@@ -73,7 +50,6 @@ object RikkaIcons {
         }
     }
 
-    /** Left-pointing chevron. */
     val ChevronLeft: ImageVector by lazy {
         lucideIcon("ChevronLeft") {
             strokePath {
@@ -84,7 +60,6 @@ object RikkaIcons {
         }
     }
 
-    /** Upward-pointing chevron. */
     val ChevronUp: ImageVector by lazy {
         lucideIcon("ChevronUp") {
             strokePath {
@@ -97,7 +72,6 @@ object RikkaIcons {
 
     // ── Actions ─────────────────────────────────────────────
 
-    /** Checkmark / tick. */
     val Check: ImageVector by lazy {
         lucideIcon("Check") {
             strokePath {
@@ -108,7 +82,6 @@ object RikkaIcons {
         }
     }
 
-    /** X / close. */
     val X: ImageVector by lazy {
         lucideIcon("X") {
             strokePath {
@@ -122,7 +95,6 @@ object RikkaIcons {
         }
     }
 
-    /** Plus sign. */
     val Plus: ImageVector by lazy {
         lucideIcon("Plus") {
             strokePath {
@@ -136,7 +108,6 @@ object RikkaIcons {
         }
     }
 
-    /** Minus sign / dash. */
     val Minus: ImageVector by lazy {
         lucideIcon("Minus") {
             strokePath {
@@ -148,7 +119,6 @@ object RikkaIcons {
 
     // ── Search ──────────────────────────────────────────────
 
-    /** Magnifying glass. */
     val Search: ImageVector by lazy {
         lucideIcon("Search") {
             strokePath {
@@ -163,7 +133,6 @@ object RikkaIcons {
 
     // ── Arrows ──────────────────────────────────────────────
 
-    /** Left arrow. */
     val ArrowLeft: ImageVector by lazy {
         lucideIcon("ArrowLeft") {
             strokePath {
@@ -178,7 +147,6 @@ object RikkaIcons {
         }
     }
 
-    /** Right arrow. */
     val ArrowRight: ImageVector by lazy {
         lucideIcon("ArrowRight") {
             strokePath {
@@ -193,7 +161,6 @@ object RikkaIcons {
         }
     }
 
-    /** Up arrow. */
     val ArrowUp: ImageVector by lazy {
         lucideIcon("ArrowUp") {
             strokePath {
@@ -208,7 +175,6 @@ object RikkaIcons {
         }
     }
 
-    /** Down arrow. */
     val ArrowDown: ImageVector by lazy {
         lucideIcon("ArrowDown") {
             strokePath {
@@ -225,7 +191,6 @@ object RikkaIcons {
 
     // ── Menu / More ─────────────────────────────────────────
 
-    /** Hamburger menu — three horizontal lines. */
     val Menu: ImageVector by lazy {
         lucideIcon("Menu") {
             strokePath {
@@ -243,7 +208,6 @@ object RikkaIcons {
         }
     }
 
-    /** Three horizontal dots. */
     val MoreHorizontal: ImageVector by lazy {
         lucideIcon("MoreHorizontal") {
             fillPath {
@@ -254,7 +218,6 @@ object RikkaIcons {
         }
     }
 
-    /** Three vertical dots. */
     val MoreVertical: ImageVector by lazy {
         lucideIcon("MoreVertical") {
             fillPath {
@@ -267,7 +230,6 @@ object RikkaIcons {
 
     // ── Communication ───────────────────────────────────────
 
-    /** Envelope / mail. */
     val Mail: ImageVector by lazy {
         lucideIcon("Mail") {
             strokePath {
@@ -281,7 +243,6 @@ object RikkaIcons {
         }
     }
 
-    /** Send / paper plane. */
     val Send: ImageVector by lazy {
         lucideIcon("Send") {
             strokePath {
@@ -301,7 +262,6 @@ object RikkaIcons {
 
     // ── People ──────────────────────────────────────────────
 
-    /** User / person silhouette. */
     val User: ImageVector by lazy {
         lucideIcon("User") {
             strokePath {
@@ -316,7 +276,6 @@ object RikkaIcons {
 
     // ── Feedback / Social ───────────────────────────────────
 
-    /** Heart shape. */
     val Heart: ImageVector by lazy {
         lucideIcon("Heart") {
             strokePath {
@@ -333,7 +292,6 @@ object RikkaIcons {
         }
     }
 
-    /** Five-pointed star. */
     val Star: ImageVector by lazy {
         lucideIcon("Star") {
             strokePath {
@@ -354,7 +312,6 @@ object RikkaIcons {
 
     // ── Visibility ──────────────────────────────────────────
 
-    /** Eye / visibility. */
     val Eye: ImageVector by lazy {
         lucideIcon("Eye") {
             strokePath {
@@ -373,7 +330,6 @@ object RikkaIcons {
 
     // ── Editing ─────────────────────────────────────────────
 
-    /** Copy / duplicate — two overlapping rectangles. */
     val Copy: ImageVector by lazy {
         lucideIcon("Copy") {
             strokePath {
@@ -392,7 +348,6 @@ object RikkaIcons {
         }
     }
 
-    /** Trash / delete. */
     val Trash: ImageVector by lazy {
         lucideIcon("Trash") {
             strokePath {
@@ -419,7 +374,6 @@ object RikkaIcons {
         }
     }
 
-    /** Pencil / edit. */
     val Edit: ImageVector by lazy {
         lucideIcon("Edit") {
             strokePath {
@@ -443,7 +397,6 @@ object RikkaIcons {
 
     // ── File transfer ───────────────────────────────────────
 
-    /** Download arrow with tray. */
     val Download: ImageVector by lazy {
         lucideIcon("Download") {
             strokePath {
@@ -466,7 +419,6 @@ object RikkaIcons {
         }
     }
 
-    /** Upload arrow with tray. */
     val Upload: ImageVector by lazy {
         lucideIcon("Upload") {
             strokePath {
@@ -491,7 +443,6 @@ object RikkaIcons {
 
     // ── Theme ───────────────────────────────────────────────
 
-    /** Sun — circle with radiating lines. */
     val Sun: ImageVector by lazy {
         lucideIcon("Sun") {
             strokePath { circle(12f, 12f, 5f) }
@@ -530,7 +481,6 @@ object RikkaIcons {
         }
     }
 
-    /** Crescent moon. */
     val Moon: ImageVector by lazy {
         lucideIcon("Moon") {
             strokePath {
@@ -544,7 +494,6 @@ object RikkaIcons {
 
     // ── Settings ────────────────────────────────────────────
 
-    /** Gear / settings cog. */
     val Settings: ImageVector by lazy {
         lucideIcon("Settings") {
             strokePath { circle(12f, 12f, 3f) }
@@ -606,10 +555,6 @@ object RikkaIcons {
 
 // ── Private extension helpers ───────────────────────────────
 
-/**
- * Adds a stroke-only path with Lucide defaults:
- * stroke-width 2, round cap, round join.
- */
 private inline fun ImageVector.Builder.strokePath(crossinline block: PathBuilder.() -> Unit) {
     path(
         stroke = SolidColor(Color.Black),
@@ -620,9 +565,6 @@ private inline fun ImageVector.Builder.strokePath(crossinline block: PathBuilder
     )
 }
 
-/**
- * Adds a fill-only path (for solid dots like MoreHorizontal / MoreVertical).
- */
 private inline fun ImageVector.Builder.fillPath(crossinline block: PathBuilder.() -> Unit) {
     path(
         fill = SolidColor(Color.Black),
@@ -630,9 +572,7 @@ private inline fun ImageVector.Builder.fillPath(crossinline block: PathBuilder.(
     )
 }
 
-/**
- * Draws a circle at ([cx], [cy]) with radius [r] using two arcs.
- */
+// Draws a circle using two 180-degree arcs
 private fun PathBuilder.circle(
     cx: Float,
     cy: Float,
@@ -644,9 +584,7 @@ private fun PathBuilder.circle(
     close()
 }
 
-/**
- * Draws a rounded rectangle at ([x], [y]) with size [w] x [h] and corner radius [r].
- */
+// Draws a rounded rectangle from arc segments
 private fun PathBuilder.roundedRect(
     x: Float,
     y: Float,

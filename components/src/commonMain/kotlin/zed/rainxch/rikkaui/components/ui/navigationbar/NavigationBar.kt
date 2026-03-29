@@ -49,29 +49,6 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ────────────────────────────────────────────────
 
-/**
- * Animation strategy for [NavigationBarItem] selection transitions.
- *
- * Controls how the indicator pill, icon/label colors, label offset,
- * and press scale animate when switching between items.
- *
- * - [Spring] — Spring-based transitions for indicator size, label
- *   offset, and press scale. Color transitions use tween. Handles
- *   interruptions gracefully. **(default)**
- * - [Tween] — All transitions use smooth eased tweens with durations
- *   from [RikkaTheme.motion].
- * - [None] — Instant selection change with no animation.
- *
- * ```
- * NavigationBarItem(
- *     selected = selectedIndex == 0,
- *     onClick = { selectedIndex = 0 },
- *     icon = RikkaIcons.Home,
- *     label = "Home",
- *     animation = NavigationBarAnimation.Tween,
- * )
- * ```
- */
 enum class NavigationBarAnimation {
     /** Spring-based transitions (default). */
     Spring,
@@ -79,47 +56,12 @@ enum class NavigationBarAnimation {
     /** Smooth eased tween transitions. */
     Tween,
 
-    /** Instant change with no animation. */
+    /** Instant, no animation. */
     None,
 }
 
 // ─── NavigationBar ────────────────────────────────────────────
 
-/**
- * Bottom navigation bar for app-level navigation.
- *
- * Displays a horizontal row of [NavigationBarItem] composables
- * along the bottom of the screen. Each item represents a top-level
- * destination. Inspired by shadcn/ui Navigation Menu and M3
- * NavigationBar, styled entirely with RikkaUI theme tokens.
- *
- * Built on `compose.foundation` only — no Material3 dependency.
- *
- * Usage:
- * ```
- * var selectedIndex by remember { mutableStateOf(0) }
- *
- * NavigationBar {
- *     NavigationBarItem(
- *         selected = selectedIndex == 0,
- *         onClick = { selectedIndex = 0 },
- *         icon = { Icon(RikkaIcons.Home, contentDescription = null) },
- *         label = { Text("Home", variant = TextVariant.Small) },
- *     )
- *     NavigationBarItem(
- *         selected = selectedIndex == 1,
- *         onClick = { selectedIndex = 1 },
- *         icon = { Icon(RikkaIcons.Search, contentDescription = null) },
- *         label = { Text("Search", variant = TextVariant.Small) },
- *     )
- * }
- * ```
- *
- * @param modifier Modifier for layout and decoration.
- * @param containerColor Background color. Defaults to
- *   [RikkaTheme.colors.background].
- * @param content Row content — typically [NavigationBarItem] composables.
- */
 @Composable
 fun NavigationBar(
     modifier: Modifier = Modifier,
@@ -160,50 +102,6 @@ fun NavigationBar(
 
 // ─── NavigationBarItem (content lambda) ───────────────────────
 
-/**
- * Individual item inside a [NavigationBar].
- *
- * Displays an icon with an optional label below it. When selected,
- * the icon receives a pill-shaped indicator behind it and both icon
- * and label animate to the [RikkaTheme.colors.primary] color.
- *
- * This is the generic overload that accepts composable lambdas for
- * icon, selectedIcon, and label. For a convenience overload that
- * accepts [ImageVector] and [String] directly, see the other
- * [NavigationBarItem] function.
- *
- * Usage:
- * ```
- * NavigationBar {
- *     NavigationBarItem(
- *         selected = currentRoute == "home",
- *         onClick = { navigate("home") },
- *         icon = { Icon(RikkaIcons.Home, contentDescription = null) },
- *         selectedIcon = { Icon(RikkaIcons.Home,
- *             contentDescription = null,
- *             tint = RikkaTheme.colors.primary) },
- *         label = { Text("Home", variant = TextVariant.Small) },
- *         animation = NavigationBarAnimation.Tween,
- *     )
- * }
- * ```
- *
- * @param selected Whether this item is currently active.
- * @param onClick Called when the item is tapped.
- * @param icon Icon composable shown when not selected (or always if
- *   [selectedIcon] is null).
- * @param modifier Modifier for layout and decoration.
- * @param label Optional label composable displayed below the icon.
- * @param selectedIcon Optional icon composable shown when selected.
- *   Falls back to [icon] when null.
- * @param enabled Whether the item is interactive.
- * @param alwaysShowLabel When `false`, the label fades out when
- *   the item is not selected.
- * @param animation Animation strategy for selection transitions.
- *   Defaults to [NavigationBarAnimation.Spring].
- * @param indicatorColor Override for the pill indicator color.
- *   Defaults to [RikkaTheme.colors.accent].
- */
 @Composable
 fun RowScope.NavigationBarItem(
     selected: Boolean,
@@ -371,54 +269,6 @@ fun RowScope.NavigationBarItem(
 
 // ─── NavigationBarItem (convenience overload) ─────────────────
 
-/**
- * Convenience overload of [NavigationBarItem] that accepts an
- * [ImageVector] and a [String] label directly.
- *
- * Automatically handles icon tinting based on selection state:
- * selected items use [RikkaTheme.colors.primary], unselected items
- * use [RikkaTheme.colors.mutedForeground].
- *
- * Usage:
- * ```
- * var selectedIndex by remember { mutableStateOf(0) }
- *
- * NavigationBar {
- *     NavigationBarItem(
- *         selected = selectedIndex == 0,
- *         onClick = { selectedIndex = 0 },
- *         icon = RikkaIcons.Home,
- *         label = "Home",
- *         animation = NavigationBarAnimation.Spring,
- *     )
- *     NavigationBarItem(
- *         selected = selectedIndex == 1,
- *         onClick = { selectedIndex = 1 },
- *         icon = RikkaIcons.Search,
- *         label = "Search",
- *     )
- * }
- * ```
- *
- * @param selected Whether this item is currently active.
- * @param onClick Called when the item is tapped.
- * @param icon The icon [ImageVector] to display.
- * @param label The text label displayed below the icon.
- * @param modifier Modifier for layout and decoration.
- * @param selectedIcon Optional different icon for the selected state.
- *   Falls back to [icon] when null.
- * @param enabled Whether the item is interactive.
- * @param alwaysShowLabel When `false`, the label fades out when
- *   the item is not selected.
- * @param animation Animation strategy for selection transitions.
- *   Defaults to [NavigationBarAnimation.Spring].
- * @param indicatorColor Override for the pill indicator color.
- *   Defaults to [RikkaTheme.colors.accent].
- * @param activeColor Override for the selected icon/label color.
- *   Defaults to [RikkaTheme.colors.primary].
- * @param inactiveColor Override for the unselected icon/label color.
- *   Defaults to [RikkaTheme.colors.mutedForeground].
- */
 @Composable
 fun RowScope.NavigationBarItem(
     selected: Boolean,
@@ -513,10 +363,6 @@ fun RowScope.NavigationBarItem(
 
 // ─── Internal: Animation Spec Resolution ──────────────────────
 
-/**
- * Resolves a [NavigationBarAnimation] to an [AnimationSpec] for
- * [Float] transitions.
- */
 @Composable
 private fun resolveFloatAnimSpec(
     animation: NavigationBarAnimation,
@@ -539,10 +385,6 @@ private fun resolveFloatAnimSpec(
         }
     }
 
-/**
- * Resolves a [NavigationBarAnimation] to an [AnimationSpec] for
- * [Dp] transitions.
- */
 @Composable
 private fun resolveDpAnimSpec(
     animation: NavigationBarAnimation,
@@ -565,10 +407,6 @@ private fun resolveDpAnimSpec(
         }
     }
 
-/**
- * Resolves a [NavigationBarAnimation] to an [AnimationSpec] for
- * [Color] transitions.
- */
 @Composable
 private fun resolveColorAnimSpec(
     animation: NavigationBarAnimation,

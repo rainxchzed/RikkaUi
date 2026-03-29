@@ -48,99 +48,19 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation Enum ─────────────────────────────────────────
 
-/**
- * Animation style for [AlertDialog] enter/exit transitions.
- *
- * Each variant uses [RikkaTheme.motion] tokens for timing, so
- * switching the motion preset (snappy / playful / minimal)
- * automatically adjusts the dialog animation speed.
- *
- * ```
- * AlertDialog(
- *     open = open,
- *     onDismiss = { open = false },
- *     onConfirm = { confirm() },
- *     animation = AlertDialogAnimation.Fade,
- * ) { ... }
- * ```
- *
- * - [FadeScale] — Fade in combined with a subtle 0.95 -> 1.0
- *   scale. The default, gives the dialog a "zoom-in" feel.
- * - [Fade] — Opacity-only transition, no scale.
- * - [None] — Instant appear/disappear with no animation.
- */
 enum class AlertDialogAnimation {
-    /** Fade + subtle scale up from 0.95. Default. */
+    /** Fade + scale up from 0.95. */
     FadeScale,
 
-    /** Opacity-only fade, no scale. */
+    /** Opacity-only fade. */
     Fade,
 
-    /** Instant appear/disappear. */
+    /** No animation. */
     None,
 }
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Alert dialog for destructive-action confirmations in the RikkaUi
- * design system.
- *
- * Unlike [zed.rainxch.rikkaui.components.ui.dialog.Dialog], the
- * alert dialog does **not** dismiss when the user clicks the scrim.
- * The user is forced to choose an explicit action (cancel or confirm).
- * This makes it ideal for "Are you sure?" confirmations before
- * irreversible operations such as deleting data.
- *
- * Uses [Popup] for overlay rendering with [AnimatedVisibility] for
- * enter/exit transitions driven by theme motion tokens.
- *
- * Usage:
- * ```
- * var open by remember { mutableStateOf(false) }
- *
- * Button("Delete Account", onClick = { open = true })
- *
- * AlertDialog(
- *     open = open,
- *     onDismiss = { open = false },
- *     onConfirm = { deleteAccount(); open = false },
- * ) {
- *     AlertDialogHeader(
- *         title = "Are you absolutely sure?",
- *         description = "This action cannot be undone. This will "
- *             + "permanently delete your account and remove your "
- *             + "data from our servers.",
- *     )
- *     AlertDialogFooter {
- *         AlertDialogCancel(onClick = { open = false })
- *         AlertDialogAction(
- *             text = "Delete Account",
- *             onClick = { deleteAccount(); open = false },
- *             variant = AlertDialogActionVariant.Destructive,
- *         )
- *     }
- * }
- * ```
- *
- * @param open Whether the alert dialog is visible.
- * @param onDismiss Called when the cancel action is triggered (e.g.
- *   via accessibility dismiss gesture). The scrim does **not** call
- *   this — only explicit cancel actions do.
- * @param onConfirm Called when the confirm action is triggered via
- *   accessibility. Provide the same callback you pass to
- *   [AlertDialogAction].
- * @param modifier Modifier applied to the dialog card container.
- * @param label Accessibility label describing the dialog's purpose.
- * @param animation The enter/exit animation style. Defaults to
- *   [AlertDialogAnimation.FadeScale].
- * @param scrimColor Color of the backdrop scrim. Defaults to
- *   semi-transparent black (`Color.Black.copy(alpha = 0.5f)`).
- * @param maxWidth Maximum width of the dialog card. Defaults to
- *   520.dp.
- * @param content Dialog content — use [AlertDialogHeader],
- *   [AlertDialogFooter], and any other composables.
- */
 @Composable
 fun AlertDialog(
     open: Boolean,
@@ -252,22 +172,6 @@ fun AlertDialog(
 
 // ─── Structured Sections ────────────────────────────────────
 
-/**
- * Header section for an [AlertDialog]. Contains a title and an
- * optional description.
- *
- * ```
- * AlertDialogHeader(
- *     title = "Are you absolutely sure?",
- *     description = "This action cannot be undone.",
- * )
- * ```
- *
- * @param title The dialog title, rendered as [TextVariant.Large].
- * @param description Optional description, rendered as
- *   [TextVariant.Muted].
- * @param modifier Modifier for the header column.
- */
 @Composable
 fun AlertDialogHeader(
     title: String,
@@ -294,24 +198,6 @@ fun AlertDialogHeader(
     }
 }
 
-/**
- * Footer section for an [AlertDialog]. Arranges action buttons in a
- * right-aligned row — typically [AlertDialogCancel] followed by
- * [AlertDialogAction].
- *
- * ```
- * AlertDialogFooter {
- *     AlertDialogCancel(onClick = { open = false })
- *     AlertDialogAction(
- *         text = "Continue",
- *         onClick = { confirm() },
- *     )
- * }
- * ```
- *
- * @param modifier Modifier for the footer row.
- * @param content Footer content — typically cancel and action buttons.
- */
 @Composable
 fun AlertDialogFooter(
     modifier: Modifier = Modifier,
@@ -335,19 +221,6 @@ fun AlertDialogFooter(
 
 // ─── Action Buttons ─────────────────────────────────────────
 
-/**
- * Cancel button for an [AlertDialog]. Renders as an
- * [ButtonVariant.Outline] button.
- *
- * ```
- * AlertDialogCancel(onClick = { open = false })
- * AlertDialogCancel(text = "Go Back", onClick = { open = false })
- * ```
- *
- * @param onClick Called when the cancel button is clicked.
- * @param modifier Modifier for the button.
- * @param text Button label. Defaults to "Cancel".
- */
 @Composable
 fun AlertDialogCancel(
     onClick: () -> Unit,
@@ -364,41 +237,14 @@ fun AlertDialogCancel(
 
 // ─── Action Variant ─────────────────────────────────────────
 
-/**
- * Visual variant for [AlertDialogAction].
- *
- * - [Default] — Primary-colored confirm button.
- * - [Destructive] — Red-tinted button for dangerous actions.
- */
 enum class AlertDialogActionVariant {
+    /** Primary-colored confirm button. */
     Default,
+
+    /** Red-tinted button for dangerous actions. */
     Destructive,
 }
 
-/**
- * Confirm/action button for an [AlertDialog].
- *
- * ```
- * // Default (primary) action
- * AlertDialogAction(
- *     text = "Continue",
- *     onClick = { proceed() },
- * )
- *
- * // Destructive action
- * AlertDialogAction(
- *     text = "Delete",
- *     onClick = { delete() },
- *     variant = AlertDialogActionVariant.Destructive,
- * )
- * ```
- *
- * @param text Button label.
- * @param onClick Called when the action button is clicked.
- * @param modifier Modifier for the button.
- * @param variant Visual variant — [AlertDialogActionVariant.Default]
- *   or [AlertDialogActionVariant.Destructive].
- */
 @Composable
 fun AlertDialogAction(
     text: String,
@@ -428,11 +274,6 @@ fun AlertDialogAction(
 
 // ─── Internal: Transition Resolution ────────────────────────
 
-/**
- * Resolves enter/exit transitions for the alert dialog card based
- * on the chosen [AlertDialogAnimation] and current [RikkaMotion]
- * tokens.
- */
 private fun resolveAlertDialogTransition(
     animation: AlertDialogAnimation,
     motion: RikkaMotion,

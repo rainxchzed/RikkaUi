@@ -57,12 +57,6 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Data ───────────────────────────────────────────────────
 
-/**
- * Represents a single option in a [Select] dropdown.
- *
- * @param value The internal value used for selection logic.
- * @param label The human-readable label displayed in the dropdown.
- */
 data class SelectOption(
     val value: String,
     val label: String,
@@ -70,62 +64,6 @@ data class SelectOption(
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Dropdown select component for the RikkaUi design system.
- *
- * A custom dropdown that replaces HTML `<select>` and Material3's
- * ExposedDropdownMenuBox. Uses Rikka theme tokens for styling with
- * hover highlights and selection indicators.
- *
- * Features:
- * - Input-like trigger with chevron indicator
- * - Animated popup dropdown with smooth expand/fade
- * - Hover highlighting and check mark for selected option
- * - Popup width matches trigger width exactly
- * - Full keyboard and accessibility support
- * - No Material dependency
- *
- * Usage:
- * ```
- * val options = listOf(
- *     SelectOption("light", "Light"),
- *     SelectOption("dark", "Dark"),
- *     SelectOption("system", "System"),
- * )
- * var selected by remember { mutableStateOf("") }
- *
- * Select(
- *     selectedValue = selected,
- *     onValueChange = { selected = it },
- *     options = options,
- *     placeholder = "Choose theme...",
- *     label = "Theme selector",
- * )
- *
- * // Fade-only animation with custom max height:
- * Select(
- *     selectedValue = selected,
- *     onValueChange = { selected = it },
- *     options = options,
- *     animation = PopupAnimation.Fade,
- *     maxHeight = 300.dp,
- * )
- * ```
- *
- * @param selectedValue The currently selected value
- *     (matches [SelectOption.value]).
- * @param onValueChange Called with the new value when
- *     the user selects an option.
- * @param options The list of available options.
- * @param modifier Modifier applied to the trigger.
- * @param placeholder Text shown when no option is selected.
- * @param enabled Whether the select is interactive.
- * @param label Accessibility label for screen readers.
- * @param animation Controls how the dropdown popup enters and exits.
- *     Defaults to [PopupAnimation.FadeExpand].
- * @param maxHeight Maximum height of the dropdown list before scrolling.
- *     Defaults to 200.dp.
- */
 @Composable
 fun Select(
     selectedValue: String,
@@ -239,10 +177,6 @@ fun Select(
 
 // ─── Internal: Animated dropdown wrapper ────────────────────
 
-/**
- * Renders the dropdown list content with the requested
- * [PopupAnimation] style.
- */
 @Composable
 private fun SelectDropdownContent(
     animation: PopupAnimation,
@@ -356,9 +290,6 @@ private fun SelectDropdownContent(
 
 // ─── Internal: Select Item ──────────────────────────────────
 
-/**
- * A single option row within the dropdown.
- */
 @Composable
 private fun SelectItem(
     option: SelectOption,
@@ -427,10 +358,7 @@ private fun SelectItem(
 
 // ─── Internal: Position Provider ────────────────────────────
 
-/**
- * Positions the dropdown popup directly below the trigger,
- * with a 4px gap.
- */
+// Positions popup directly below the trigger with a 4px gap
 private object DropdownPositionProvider : PopupPositionProvider {
     override fun calculatePosition(
         anchorBounds: IntRect,

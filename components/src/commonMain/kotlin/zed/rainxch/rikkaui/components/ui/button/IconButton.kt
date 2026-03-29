@@ -8,70 +8,18 @@ import zed.rainxch.rikkaui.components.ui.icon.IconSize
 
 // ─── Size ────────────────────────────────────────────────────
 
-/**
- * Icon button size variants.
- *
- * Controls the overall button dimensions and the icon size inside.
- *
- * - [Default] — 36 x 36 dp button, 20 dp icon. Standard toolbar size.
- * - [Sm] — 28 x 28 dp button, 16 dp icon. Compact/dense layouts.
- * - [Lg] — 44 x 44 dp button, 24 dp icon. Prominent actions.
- */
+/** Icon button size variants. */
 enum class IconButtonSize {
+    /** 36x36 dp button, 20 dp icon. */
     Default,
+    /** 28x28 dp button, 16 dp icon. */
     Sm,
+    /** 44x44 dp button, 24 dp icon. */
     Lg,
 }
 
 // ─── Component ───────────────────────────────────────────────
 
-/**
- * Icon-only button for the RikkaUi design system.
- *
- * A convenience wrapper around [Button] with [ButtonSize.Icon] that
- * takes an [ImageVector] directly — no content lambda needed.
- *
- * The icon is automatically tinted to match the button variant's
- * foreground color.
- *
- * Usage:
- * ```
- * IconButton(
- *     icon = RikkaIcons.Plus,
- *     contentDescription = "Add item",
- *     onClick = { addItem() },
- * )
- *
- * // Destructive
- * IconButton(
- *     icon = RikkaIcons.Trash,
- *     contentDescription = "Delete",
- *     onClick = { delete() },
- *     variant = ButtonVariant.Destructive,
- * )
- *
- * // Ghost, small
- * IconButton(
- *     icon = RikkaIcons.X,
- *     contentDescription = "Close",
- *     onClick = { close() },
- *     variant = ButtonVariant.Ghost,
- *     size = IconButtonSize.Sm,
- * )
- * ```
- *
- * @param icon The vector graphic to display.
- * @param contentDescription Accessibility label for screen readers.
- * @param onClick Called when the button is clicked.
- * @param modifier Modifier for layout and decoration.
- * @param variant Visual variant — controls colors and border.
- *   Defaults to [ButtonVariant.Ghost].
- * @param size Icon button size variant.
- * @param animation Press animation style.
- * @param enabled Whether the button is interactive.
- * @param loading When true, shows a [Spinner][zed.rainxch.rikkaui.components.ui.spinner.Spinner]
- *   and disables interaction.
- */
 @Composable
 fun IconButton(
     icon: ImageVector,

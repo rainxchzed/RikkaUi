@@ -23,15 +23,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Size ───────────────────────────────────────────────────
 
-/**
- * Icon size variants.
- *
- * - [Xs] — 12dp. Tiny inline indicators.
- * - [Sm] — 16dp. Compact icons for dense layouts.
- * - [Default] — 20dp. Standard size matching most text.
- * - [Lg] — 24dp. Prominent icons, toolbar actions.
- * - [Xl] — 32dp. Large standalone icons.
- */
+/** Icon size variants. */
 enum class IconSize(
     val dp: Dp,
 ) {
@@ -44,54 +36,6 @@ enum class IconSize(
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Icon component for the RikkaUi design system.
- *
- * Renders an [ImageVector] with theme-aware tinting. Built on Foundation's
- * [Image] composable — no Material3 dependency.
- *
- * When [contentDescription] is `null` the icon is treated as decorative and
- * removed from the accessibility tree via [clearAndSetSemantics].
- *
- * Usage:
- * ```
- * // Semantic icon — announced by screen readers
- * Icon(
- *     imageVector = RikkaIcons.Search,
- *     contentDescription = "Search",
- * )
- *
- * // Decorative icon — hidden from accessibility tree
- * Icon(
- *     imageVector = RikkaIcons.ChevronRight,
- *     contentDescription = null,
- * )
- *
- * // Custom tint and size
- * Icon(
- *     imageVector = RikkaIcons.Heart,
- *     contentDescription = "Favorite",
- *     tint = RikkaTheme.colors.destructive,
- *     size = IconSize.Lg,
- * )
- *
- * // Spinning loading icon
- * Icon(
- *     imageVector = RikkaIcons.Settings,
- *     contentDescription = "Loading",
- *     spin = true,
- * )
- * ```
- *
- * @param imageVector The vector graphic to draw.
- * @param contentDescription Accessibility label. Pass `null` for decorative icons.
- * @param modifier Modifier applied to the root layout.
- * @param tint Color applied as a [ColorFilter] over the vector. Defaults to
- *   [RikkaTheme.colors.foreground].
- * @param size Icon size variant. When `null`, uses the vector's default dimensions.
- * @param spin When true, continuously rotates the icon. Useful for loading indicators
- *   or refresh icons.
- */
 @Composable
 fun Icon(
     imageVector: ImageVector,

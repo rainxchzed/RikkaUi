@@ -29,10 +29,8 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 // ─── Variant ────────────────────────────────────────────────
 
 /**
- * Top app bar visual variants.
- *
- * - [Default] — Solid background with a subtle bottom border. Standard use case.
- * - [Transparent] — No background, no border. For overlay on hero images or gradients.
+ * - [Default] — Solid background with bottom border.
+ * - [Transparent] — No background, no border. For overlays.
  */
 enum class TopAppBarVariant {
     Default,
@@ -42,10 +40,8 @@ enum class TopAppBarVariant {
 // ─── Size ───────────────────────────────────────────────────
 
 /**
- * Top app bar sizes controlling the bar height and title typography.
- *
- * - [Small] — 56dp height with [TextVariant.Large] title. Compact, default choice.
- * - [Medium] — 64dp height with [TextVariant.H4] title. Spacious, prominent heading.
+ * - [Small] — 56dp, compact default.
+ * - [Medium] — 64dp, prominent heading.
  */
 enum class TopAppBarSize {
     Small,
@@ -55,25 +51,9 @@ enum class TopAppBarSize {
 // ─── Color Transition Animation ─────────────────────────────
 
 /**
- * Controls how the top app bar background color transitions animate.
- *
- * Useful when the [TopAppBarVariant] or background color changes
- * dynamically (e.g., scrolling from transparent overlay to solid).
- *
- * - [Smooth] — Animated color transition using [RikkaTheme.motion]
- *   default duration. Creates a polished crossfade effect.
- * - [Snap] — Uses fast tween for a quick but still
- *   perceptible transition.
- * - [None] — Instant color change with no animation.
- *
- * ```
- * TopAppBar(
- *     title = "Gallery",
- *     variant = if (scrolled) TopAppBarVariant.Default
- *               else TopAppBarVariant.Transparent,
- *     colorTransition = TopAppBarColorTransition.Smooth,
- * )
- * ```
+ * - [Smooth] — Animated crossfade at default duration.
+ * - [Snap] — Fast tween transition.
+ * - [None] — Instant color change.
  */
 enum class TopAppBarColorTransition {
     Smooth,
@@ -83,83 +63,6 @@ enum class TopAppBarColorTransition {
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Top app bar component for the RikkaUi design system.
- *
- * A shadcn/ui-inspired header bar built entirely on `compose.foundation`.
- * Uses Rikka theme tokens for styling and requires no Material dependency.
- * Works on Android, iOS, Desktop, and Web via Compose Multiplatform.
- *
- * Features:
- * - Two variants: solid background or transparent overlay
- * - Two sizes with appropriate title typography
- * - Navigation icon slot (leading) and actions slot (trailing)
- * - Optional centered title layout
- * - Optional shadow/elevation for depth
- * - Configurable background color transition animation
- * - Heading accessibility semantics
- * - Subtle bottom border on Default variant (shadcn style)
- *
- * Usage:
- * ```
- * TopAppBar(
- *     title = { Text("Dashboard") },
- * )
- *
- * // Centered title with elevation
- * TopAppBar(
- *     title = { Text("Profile") },
- *     centerTitle = true,
- *     elevation = 4.dp,
- * )
- *
- * // With navigation and actions
- * TopAppBar(
- *     title = { Text("Settings") },
- *     navigationIcon = {
- *         Button(
- *             onClick = { navigateBack() },
- *             variant = ButtonVariant.Ghost,
- *             size = ButtonSize.Icon,
- *         ) {
- *             Icon(RikkaIcons.ArrowLeft)
- *         }
- *     },
- *     actions = {
- *         Button(
- *             onClick = { },
- *             variant = ButtonVariant.Ghost,
- *             size = ButtonSize.Icon,
- *         ) {
- *             Icon(RikkaIcons.Settings)
- *         }
- *     },
- * )
- *
- * // Transparent overlay with smooth color transition
- * TopAppBar(
- *     title = { Text("Gallery", color = Color.White) },
- *     variant = TopAppBarVariant.Transparent,
- *     size = TopAppBarSize.Medium,
- *     colorTransition = TopAppBarColorTransition.Smooth,
- * )
- * ```
- *
- * @param title Title content slot. Rendered with heading semantics.
- * @param modifier Modifier for layout and decoration.
- * @param navigationIcon Leading icon slot — typically a back arrow button.
- *   The slot is given a 48dp minimum touch target.
- * @param actions Trailing actions slot — a [RowScope] for icon buttons.
- * @param variant Visual variant — controls background and border.
- * @param size Controls the bar height and default title typography.
- * @param centerTitle When `true`, the title is centered horizontally
- *   within the bar. When `false` (default), the title is left-aligned
- *   after the navigation icon.
- * @param elevation Shadow elevation applied beneath the bar. Defaults
- *   to `0.dp` (flat, shadcn style). Set to e.g. `4.dp` for depth.
- * @param colorTransition Controls how background color changes
- *   animate. Defaults to [TopAppBarColorTransition.None] for instant.
- */
 @Composable
 fun TopAppBar(
     title: @Composable () -> Unit,
@@ -265,35 +168,6 @@ fun TopAppBar(
     }
 }
 
-/**
- * Convenience overload with a text title.
- *
- * The title is rendered using [TextVariant.Large] for [TopAppBarSize.Small]
- * and [TextVariant.H4] for [TopAppBarSize.Medium], with the theme's
- * foreground color (or transparent-safe foreground for overlays).
- *
- * ```
- * TopAppBar(title = "Dashboard")
- *
- * TopAppBar(
- *     title = "Settings",
- *     navigationIcon = { ... },
- *     size = TopAppBarSize.Medium,
- *     centerTitle = true,
- *     elevation = 2.dp,
- * )
- * ```
- *
- * @param title Title text string.
- * @param modifier Modifier for layout and decoration.
- * @param navigationIcon Leading icon slot — typically a back arrow button.
- * @param actions Trailing actions slot — a [RowScope] for icon buttons.
- * @param variant Visual variant — controls background and border.
- * @param size Controls the bar height and title typography.
- * @param centerTitle When `true`, the title is centered horizontally.
- * @param elevation Shadow elevation beneath the bar. Defaults to `0.dp`.
- * @param colorTransition Controls how background color changes animate.
- */
 @Composable
 fun TopAppBar(
     title: String,
@@ -386,10 +260,6 @@ private fun resolveSizeValues(size: TopAppBarSize): TopAppBarSizeValues =
 
 // ─── Internal: Animated Background Resolution ───────────────
 
-/**
- * Resolves the background color with optional animation based
- * on the [TopAppBarColorTransition] strategy.
- */
 @Composable
 private fun resolveAnimatedBackground(
     targetColor: Color,

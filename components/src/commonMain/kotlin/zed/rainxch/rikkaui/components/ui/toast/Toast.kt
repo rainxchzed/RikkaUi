@@ -69,66 +69,32 @@ import kotlin.math.roundToInt
 
 // ─── Variant ────────────────────────────────────────────────
 
-/**
- * Toast visual variants controlling the accent color and icon treatment.
- *
- * - [Default] — Neutral popover card. General-purpose notifications.
- * - [Success] — Green accent on the left border. Confirmations and positive outcomes.
- * - [Destructive] — Destructive-red accent. Errors and critical failures.
- * - [Warning] — Yellow/orange accent. Caution alerts and recoverable issues.
- */
 enum class ToastVariant {
+    /** Neutral popover card. */
     Default,
+    /** Green accent. Confirmations and positive outcomes. */
     Success,
+    /** Red accent. Errors and critical failures. */
     Destructive,
+    /** Yellow/orange accent. Caution alerts. */
     Warning,
 }
 
 // ─── Animation ──────────────────────────────────────────────
 
-/**
- * Toast enter/exit animation style.
- *
- * All animations respect [RikkaTheme.motion] tokens for duration
- * and easing, ensuring consistency with the rest of the design system.
- *
- * - [SlideIn] — Slides in from the nearest edge with a fade. Default behavior.
- * - [Fade] — Simple opacity fade in/out. Subtle and non-distracting.
- * - [Scale] — Scales up from 0.8 with a fade. Playful pop-in effect.
- * - [None] — Instant appear/disappear. No animation at all.
- *
- * Usage:
- * ```
- * ToastHost(
- *     hostState = toastState,
- *     animation = ToastAnimation.Scale,
- * )
- * ```
- */
 enum class ToastAnimation {
-    /** Slide in from the nearest edge with a fade. */
+    /** Slide from nearest edge with fade. */
     SlideIn,
-
     /** Simple fade in/out. */
     Fade,
-
-    /** Scale up from 0.8 with a fade. Pop-in effect. */
+    /** Scale up from 0.8 with fade. */
     Scale,
-
-    /** Instant appear/disappear. No animation. */
+    /** Instant appear/disappear. */
     None,
 }
 
 // ─── Position ───────────────────────────────────────────────
 
-/**
- * Screen position where toasts are anchored.
- *
- * - [TopCenter] — Top edge, horizontally centered.
- * - [TopRight] — Top-right corner.
- * - [BottomCenter] — Bottom edge, horizontally centered.
- * - [BottomRight] — Bottom-right corner.
- */
 enum class ToastPosition {
     TopCenter,
     TopRight,
@@ -138,17 +104,6 @@ enum class ToastPosition {
 
 // ─── Toast Data ─────────────────────────────────────────────
 
-/**
- * Immutable data describing a single toast notification.
- *
- * @param id Unique identifier for this toast instance.
- * @param message The primary text content displayed in the toast.
- * @param variant Visual variant controlling accent color.
- * @param duration Auto-dismiss delay in milliseconds.
- *   Pass [TOAST_DURATION_INFINITE] to disable auto-dismiss.
- * @param actionLabel Optional action button text (e.g. "Undo", "Retry").
- * @param onAction Callback invoked when the action button is clicked.
- */
 @Immutable
 data class ToastData(
     val id: Long,
@@ -159,94 +114,24 @@ data class ToastData(
     val onAction: (() -> Unit)? = null,
 )
 
-/**
- * Default auto-dismiss delay in milliseconds (4 seconds).
- */
 const val DEFAULT_TOAST_DURATION = 4000L
-
-/**
- * Short auto-dismiss delay in milliseconds (2 seconds).
- * Suitable for simple confirmations like "Copied!" or "Saved".
- */
 const val TOAST_DURATION_SHORT = 2000L
-
-/**
- * Long auto-dismiss delay in milliseconds (7 seconds).
- * Suitable for toasts with action buttons that need more reading time.
- */
 const val TOAST_DURATION_LONG = 7000L
-
-/**
- * Infinite duration — toast will not auto-dismiss.
- * Must be dismissed manually by the user or programmatically.
- */
 const val TOAST_DURATION_INFINITE = Long.MAX_VALUE
 
 private const val DEFAULT_MAX_VISIBLE_TOASTS = 5
 
-/** Horizontal drag distance threshold (px) to dismiss a toast. */
 private const val SWIPE_DISMISS_THRESHOLD = 150f
-
-/** Scale factor for the [ToastAnimation.Scale] enter transition. */
 private const val SCALE_ANIMATION_INITIAL = 0.8f
 
 // ─── Host State ─────────────────────────────────────────────
 
-/**
- * State holder that manages a queue of toast notifications.
- *
- * Acts as the bridge between business logic (triggering a toast)
- * and the UI layer ([ToastHost]) that renders them. Conceptually
- * similar to `SnackbarHostState` but supports multiple concurrent
- * toasts with independent lifecycles.
- *
- * Usage:
- * ```
- * val toastState = rememberToastHostState()
- *
- * // In a coroutine (e.g. LaunchedEffect, viewModelScope):
- * toastState.show("File saved", variant = ToastVariant.Success)
- *
- * // With action:
- * toastState.show(
- *     message = "Item deleted",
- *     variant = ToastVariant.Destructive,
- *     actionLabel = "Undo",
- *     onAction = { undoDelete() },
- * )
- *
- * // Short duration:
- * toastState.show("Copied!", duration = TOAST_DURATION_SHORT)
- *
- * // Persistent toast (no auto-dismiss):
- * toastState.show("Connection lost", duration = TOAST_DURATION_INFINITE)
- *
- * // In the composition tree:
- * ToastHost(hostState = toastState, position = ToastPosition.BottomRight)
- * ```
- */
 class ToastHostState {
     private var nextId = 0L
     private val mutex = Mutex()
 
-    /**
-     * Currently visible toast items. Observed by [ToastHost].
-     */
     internal val toasts = mutableStateListOf<ToastData>()
 
-    /**
-     * Shows a toast notification.
-     *
-     * This is a suspend function that returns after the toast
-     * has been queued. The toast auto-dismisses after [duration] ms
-     * unless [TOAST_DURATION_INFINITE] is used.
-     *
-     * @param message The text to display.
-     * @param variant Visual variant (Default, Success, Destructive, Warning).
-     * @param duration Auto-dismiss delay in milliseconds. Default is 4000ms.
-     * @param actionLabel Optional action button label.
-     * @param onAction Callback when the action button is tapped.
-     */
     suspend fun show(
         message: String,
         variant: ToastVariant = ToastVariant.Default,
@@ -268,69 +153,20 @@ class ToastHostState {
         }
     }
 
-    /**
-     * Dismisses a specific toast by its [id].
-     */
     internal fun dismiss(id: Long) {
         toasts.removeAll { it.id == id }
     }
 
-    /**
-     * Dismisses all currently visible toasts.
-     */
     fun dismissAll() {
         toasts.clear()
     }
 }
 
-/**
- * Creates and remembers a [ToastHostState] across recompositions.
- *
- * ```
- * val toastState = rememberToastHostState()
- * ```
- */
 @Composable
 fun rememberToastHostState(): ToastHostState = remember { ToastHostState() }
 
 // ─── Toast Host ─────────────────────────────────────────────
 
-/**
- * Container that renders active toasts from a [ToastHostState].
- *
- * Place this at the root of your layout (typically inside a [Box]
- * with [Modifier.fillMaxSize]) so toasts overlay your content.
- *
- * Usage:
- * ```
- * val toastState = rememberToastHostState()
- *
- * Box(Modifier.fillMaxSize()) {
- *     // Your app content
- *     MyScreen()
- *
- *     // Toast overlay — all params have defaults for backward compat
- *     ToastHost(
- *         hostState = toastState,
- *         position = ToastPosition.BottomRight,
- *         animation = ToastAnimation.SlideIn,
- *         maxVisibleToasts = 5,
- *         swipeToDismiss = true,
- *         showProgressBar = false,
- *     )
- * }
- * ```
- *
- * @param hostState The [ToastHostState] managing the toast queue.
- * @param modifier Modifier applied to the host container.
- * @param position Screen position where toasts are anchored.
- * @param animation Enter/exit animation style for toasts.
- * @param maxVisibleToasts Maximum number of simultaneously visible toasts.
- *   Oldest toasts are trimmed when the limit is exceeded.
- * @param swipeToDismiss Whether horizontal swipe gesture dismisses a toast.
- * @param showProgressBar Whether to show a countdown bar at the bottom of
- *   each toast indicating remaining time before auto-dismiss.
- */
 @Composable
 fun ToastHost(
     hostState: ToastHostState,
@@ -538,9 +374,6 @@ private fun ToastItem(
 
 // ─── Transition Resolution ──────────────────────────────────
 
-/**
- * Resolves enter/exit transitions based on the [ToastAnimation] enum.
- */
 private fun resolveTransitions(
     animation: ToastAnimation,
     enterDirection: Int,
@@ -595,44 +428,6 @@ private fun resolveTransitions(
 
 // ─── Toast (visual card) ────────────────────────────────────
 
-/**
- * Individual toast notification card.
- *
- * A card-like container with popover styling, variant-specific left
- * border accent, dismiss button, and optional action button.
- *
- * Prefer using [ToastHost] + [ToastHostState] for managed toasts.
- * Use this directly only for custom toast layouts.
- *
- * Usage:
- * ```
- * Toast(
- *     message = "Changes saved successfully",
- *     variant = ToastVariant.Success,
- *     onDismiss = { /* handle dismiss */ },
- * )
- *
- * Toast(
- *     message = "Failed to upload file",
- *     variant = ToastVariant.Destructive,
- *     onDismiss = { /* handle dismiss */ },
- *     actionLabel = "Retry",
- *     onAction = { retryUpload() },
- * )
- * ```
- *
- * @param message The notification text.
- * @param variant Visual variant controlling accent color.
- * @param onDismiss Called when the dismiss button is clicked.
- * @param modifier Modifier applied to the toast card.
- * @param actionLabel Optional action button text.
- * @param onAction Callback invoked when the action button is clicked.
- * @param label Accessibility label for screen readers.
- * @param showProgressBar Whether to render a countdown progress bar.
- * @param progressFraction Progress value from 1.0 (full) to 0.0 (expired).
- * @param onHoverChange Callback when hover state changes. Used by [ToastHost]
- *   to pause the auto-dismiss timer while the user is interacting.
- */
 @Composable
 fun Toast(
     message: String,

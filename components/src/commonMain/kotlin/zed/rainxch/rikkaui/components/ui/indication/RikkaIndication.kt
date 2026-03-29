@@ -20,43 +20,6 @@ import kotlinx.coroutines.launch
 
 // ─── Factory ────────────────────────────────────────────────
 
-/**
- * RikkaIndication — design-system-wide visual feedback for interactive components.
- *
- * Unlike Material's ripple (which creates expanding circles), Rikka uses
- * a **subtle overlay + scale** approach that feels modern and lightweight.
- *
- * This replaces per-component hover/press color logic with a single, consistent
- * feedback system that works across all platforms (Android, iOS, Desktop, Web).
- *
- * Features:
- * - Hover: subtle background overlay (alpha 0.04)
- * - Press: slightly stronger overlay (alpha 0.08)
- * - Focus: visible ring overlay for keyboard navigation
- * - Spring physics for smooth, interruptible transitions
- * - Runs in draw phase only — zero composition/layout overhead
- *
- * Usage:
- * ```
- * // Applied automatically when you use RikkaIndication as the indication:
- * Box(
- *     modifier = Modifier.clickable(
- *         interactionSource = remember { MutableInteractionSource() },
- *         indication = RikkaIndication,
- *         onClick = { },
- *     )
- * )
- *
- * // Or use the themed variant that picks up the current foreground color:
- * Box(
- *     modifier = Modifier.clickable(
- *         interactionSource = remember { MutableInteractionSource() },
- *         indication = RikkaIndication(overlayColor = Color.White),
- *         onClick = { },
- *     )
- * )
- * ```
- */
 object RikkaIndication : IndicationNodeFactory {
     override fun create(interactionSource: InteractionSource): DelegatableNode = RikkaIndicationNode(interactionSource, Color.Unspecified)
 
@@ -65,14 +28,6 @@ object RikkaIndication : IndicationNodeFactory {
     override fun equals(other: Any?): Boolean = other === this
 }
 
-/**
- * Creates a [RikkaIndication] with a custom overlay color.
- *
- * @param overlayColor The color used for hover/press/focus overlays.
- *   If [Color.Unspecified], uses white (suitable for dark surfaces) or
- *   black (suitable for light surfaces) based on luminance.
- * @param cornerRadius Corner radius for the overlay. Defaults to 0 (fills the shape of the parent clip).
- */
 fun RikkaIndication(
     overlayColor: Color = Color.Unspecified,
     cornerRadius: CornerRadius = CornerRadius.Zero,

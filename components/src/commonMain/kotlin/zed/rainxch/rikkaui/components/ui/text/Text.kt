@@ -12,48 +12,28 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
-/**
- * Typography variant that maps to a pre-defined text style from the theme.
- */
+/** Typography variant mapping to a theme text style. */
 enum class TextVariant {
+    /** Largest heading */
     H1,
+    /** Second-level heading */
     H2,
+    /** Third-level heading */
     H3,
+    /** Fourth-level heading */
     H4,
+    /** Body paragraph (default) */
     P,
+    /** Lead paragraph, muted color */
     Lead,
+    /** Large emphasis text */
     Large,
+    /** Small text */
     Small,
+    /** Muted/secondary text */
     Muted,
 }
 
-/**
- * Text component for the RikkaUi design system.
- *
- * A drop-in replacement for Material3's Text — uses the Rikka theme
- * tokens for styling and requires no Material dependency.
- *
- * Usage:
- * ```
- * Text("Hello world")
- * Text("Page title", variant = TextVariant.H1)
- * Text("Subtle info", variant = TextVariant.Muted)
- * Text("Custom", color = RikkaTheme.colors.destructive)
- * ```
- *
- * @param text The text to display.
- * @param modifier Modifier for layout and decoration.
- * @param variant Typography variant — maps to a pre-defined style from the theme.
- * @param color Override color. If [Color.Unspecified], uses the variant's default color.
- * @param textAlign Text alignment.
- * @param overflow How to handle text overflow.
- * @param maxLines Maximum number of lines.
- * @param minLines Minimum number of lines to occupy, expanding height if needed.
- * @param selectable When true, wraps the text in a [SelectionContainer] so users
- *   can select and copy it. Useful for code snippets, error messages, or any
- *   text the user might want to copy.
- * @param style Override style. Merged on top of the variant style.
- */
 @Composable
 fun Text(
     text: String,

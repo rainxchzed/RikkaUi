@@ -37,29 +37,14 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── ScrollbarAnimation ─────────────────────────────────────
 
-/**
- * Controls scrollbar visibility and animation behaviour in [ScrollArea]
- * and [HorizontalScrollArea].
- *
- * Usage:
- * ```
- * ScrollArea(scrollbarAnimation = ScrollbarAnimation.Always) {
- *     // content
- * }
- * ```
- *
- * @property Fade Scrollbar fades in when scrolling and dims when idle (default).
- * @property Always Scrollbar is always fully visible when content overflows.
- * @property None Scrollbar is never shown.
- */
 enum class ScrollbarAnimation {
-    /** Scrollbar fades in when scrolling, dims to semi-transparent when idle. */
+    /** Fades in when scrolling, dims when idle. */
     Fade,
 
-    /** Scrollbar is always fully visible when content overflows. */
+    /** Always visible when content overflows. */
     Always,
 
-    /** No scrollbar is rendered. */
+    /** No scrollbar rendered. */
     None,
 }
 
@@ -71,38 +56,6 @@ private val SCROLLBAR_PADDING: Dp = 2.dp
 
 // ─── ScrollArea (Vertical) ─────────────────────────────────
 
-/**
- * Vertical scrollable container with a custom scrollbar indicator.
- *
- * Provides a thin rounded scrollbar on the right side whose visibility
- * is controlled by [scrollbarAnimation]. The scrollbar thumb position
- * and size are calculated from the scroll state.
- *
- * Usage:
- * ```
- * ScrollArea(modifier = Modifier.fillMaxSize()) {
- *     repeat(50) { index ->
- *         Text("Item $index")
- *     }
- * }
- *
- * // Always-visible wider scrollbar with custom colour
- * ScrollArea(
- *     scrollbarAnimation = ScrollbarAnimation.Always,
- *     scrollbarWidth = 6.dp,
- *     scrollbarColor = RikkaTheme.colors.primary,
- * ) {
- *     // content
- * }
- * ```
- *
- * @param modifier Modifier for layout and decoration.
- * @param scrollbarAnimation Controls scrollbar visibility behaviour.
- * @param scrollbarWidth Thickness of the scrollbar track and thumb.
- * @param scrollbarColor Optional colour override for the scrollbar thumb.
- *   When `null` the theme's [RikkaTheme.colors.mutedForeground] is used.
- * @param content Scrollable column content.
- */
 @Composable
 fun ScrollArea(
     modifier: Modifier = Modifier,
@@ -182,33 +135,6 @@ fun ScrollArea(
 
 // ─── HorizontalScrollArea ──────────────────────────────────
 
-/**
- * Horizontal scrollable container with a custom scrollbar indicator.
- *
- * Provides a thin rounded scrollbar on the bottom whose visibility
- * is controlled by [scrollbarAnimation].
- *
- * Usage:
- * ```
- * HorizontalScrollArea(modifier = Modifier.fillMaxWidth()) {
- *     repeat(20) { index ->
- *         Box(modifier = Modifier.size(100.dp))
- *     }
- * }
- *
- * // Hidden scrollbar
- * HorizontalScrollArea(scrollbarAnimation = ScrollbarAnimation.None) {
- *     // content
- * }
- * ```
- *
- * @param modifier Modifier for layout and decoration.
- * @param scrollbarAnimation Controls scrollbar visibility behaviour.
- * @param scrollbarWidth Thickness of the scrollbar track and thumb.
- * @param scrollbarColor Optional colour override for the scrollbar thumb.
- *   When `null` the theme's [RikkaTheme.colors.mutedForeground] is used.
- * @param content Scrollable row content.
- */
 @Composable
 fun HorizontalScrollArea(
     modifier: Modifier = Modifier,
@@ -285,9 +211,6 @@ fun HorizontalScrollArea(
 
 // ─── Internal: resolveScrollbarAlpha ────────────────────────
 
-/**
- * Resolves target alpha for the scrollbar based on animation mode.
- */
 private fun resolveScrollbarAlpha(
     animation: ScrollbarAnimation,
     isScrollable: Boolean,
@@ -313,17 +236,6 @@ private fun resolveScrollbarAlpha(
 
 // ─── Internal: Vertical Scrollbar ──────────────────────────
 
-/**
- * Draws a vertical scrollbar track and thumb.
- *
- * @param scrollValue Current scroll position in pixels.
- * @param maxScrollValue Maximum scroll position in pixels.
- * @param containerHeightPx Container height in pixels.
- * @param alpha Overall scrollbar alpha for fade animation.
- * @param thickness Scrollbar width.
- * @param thumbColorOverride Optional thumb colour override.
- * @param modifier Modifier for positioning.
- */
 @Composable
 private fun VerticalScrollbar(
     scrollValue: Int,
@@ -394,17 +306,6 @@ private fun VerticalScrollbar(
 
 // ─── Internal: Horizontal Scrollbar ────────────────────────
 
-/**
- * Draws a horizontal scrollbar track and thumb.
- *
- * @param scrollValue Current scroll position in pixels.
- * @param maxScrollValue Maximum scroll position in pixels.
- * @param containerWidthPx Container width in pixels.
- * @param alpha Overall scrollbar alpha for fade animation.
- * @param thickness Scrollbar height.
- * @param thumbColorOverride Optional thumb colour override.
- * @param modifier Modifier for positioning.
- */
 @Composable
 private fun HorizontalScrollbar(
     scrollValue: Int,

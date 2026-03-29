@@ -30,11 +30,9 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 // ─── Variant ────────────────────────────────────────────────
 
 /**
- * Card visual variants.
- *
- * - [Default] — Bordered card with card surface background. Most common.
- * - [Elevated] — Subtle shadow, no border. Layered feel.
- * - [Ghost] — No border, no shadow. Transparent background. Groups content without visual weight.
+ * - [Default] — Bordered card with card surface background.
+ * - [Elevated] — Shadow, no border.
+ * - [Ghost] — Transparent, no border or shadow.
  */
 enum class CardVariant {
     Default,
@@ -45,24 +43,9 @@ enum class CardVariant {
 // ─── Animation ──────────────────────────────────────────────
 
 /**
- * Controls the interaction animation style on clickable cards.
- *
- * Uses Compose spring physics via [RikkaTheme.motion] tokens for
- * native-feeling interactions across all platforms.
- *
- * - [Hover] — Subtle lift and scale on hover. Default for clickable cards.
- * - [Press] — Press-down scale animation on click.
- * - [None] — No animation. Static card.
- *
- * Usage:
- * ```
- * Card(
- *     onClick = { navigateToDetail() },
- *     animation = CardAnimation.Hover,
- * ) {
- *     Text("Hover me", variant = TextVariant.H4)
- * }
- * ```
+ * - [Hover] — Lift and scale on hover.
+ * - [Press] — Scale down on click.
+ * - [None] — No animation.
  */
 enum class CardAnimation {
     Hover,
@@ -72,44 +55,6 @@ enum class CardAnimation {
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Card component for the RikkaUi design system.
- *
- * A container that groups related content with visual separation.
- * Replaces Material3's Card with Rikka theme tokens.
- *
- * Usage:
- * ```
- * Card {
- *     Text("Card title", variant = TextVariant.H4)
- *     Text("Card description", variant = TextVariant.Muted)
- * }
- *
- * Card(variant = CardVariant.Elevated) {
- *     Text("Elevated card")
- * }
- *
- * // Clickable card with hover animation
- * Card(
- *     onClick = { navigateToDetail() },
- *     animation = CardAnimation.Hover,
- *     elevation = 2.dp,
- * ) {
- *     Text("Click me")
- * }
- * ```
- *
- * @param modifier Modifier for layout and decoration.
- * @param variant Visual variant — controls background, border, and shadow.
- * @param onClick Optional click handler. When provided, the card becomes clickable with
- *   interaction animations. When null, the card is a static container.
- * @param animation Interaction animation style. Only applies when [onClick] is non-null.
- *   Defaults to [CardAnimation.Hover].
- * @param elevation Custom shadow elevation. When non-null, overrides the variant's default
- *   elevation. Useful for fine-grained depth control.
- * @param label Accessibility label for screen readers. Describes the card's purpose.
- * @param content Card content — use [CardHeader], [CardContent], [CardFooter] for structured layout.
- */
 @Composable
 fun Card(
     modifier: Modifier = Modifier,
@@ -244,19 +189,6 @@ fun Card(
 
 // ─── Structured Sections ────────────────────────────────────
 
-/**
- * Header section of a Card. Typically contains title and description.
- *
- * ```
- * Card {
- *     CardHeader {
- *         Text("Title", variant = TextVariant.H4)
- *         Text("Description", variant = TextVariant.Muted)
- *     }
- *     CardContent { ... }
- * }
- * ```
- */
 @Composable
 fun CardHeader(
     modifier: Modifier = Modifier,
@@ -269,9 +201,6 @@ fun CardHeader(
     )
 }
 
-/**
- * Main content section of a Card.
- */
 @Composable
 fun CardContent(
     modifier: Modifier = Modifier,
@@ -283,9 +212,6 @@ fun CardContent(
     )
 }
 
-/**
- * Footer section of a Card. Typically contains action buttons.
- */
 @Composable
 fun CardFooter(
     modifier: Modifier = Modifier,

@@ -38,70 +38,17 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ──────────────────────────────────────────────
 
-/**
- * Animation style for the checkbox checkmark and color transitions.
- *
- * - [Spring] — Bouncy spring physics (default). Natural, native feel
- *   with a satisfying pop on check.
- * - [Tween] — Linear tween transition. Predictable, consistent timing.
- * - [None] — Instant state change with no animation. Best for
- *   accessibility (reduced motion) or performance-critical UIs.
- *
- * ```
- * Checkbox(
- *     checked = accepted,
- *     onCheckedChange = { accepted = it },
- *     animation = CheckboxAnimation.None,
- * )
- * ```
- */
 enum class CheckboxAnimation {
+    /** Bouncy spring physics (default). */
     Spring,
+    /** Linear tween transition. */
     Tween,
+    /** Instant state change, no animation. */
     None,
 }
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Checkbox component for the RikkaUi design system.
- *
- * A boolean toggle rendered as a square box with an animated checkmark.
- * Replaces Material3's Checkbox — uses Rikka theme tokens for styling
- * and requires no Material dependency.
- *
- * Features:
- * - Custom-drawn checkmark via Canvas (no icon dependency)
- * - Spring-physics scale animation on check/uncheck
- * - Smooth color transitions driven by theme motion tokens
- * - Hover and press interaction states
- * - Full accessibility semantics (Role.Checkbox, stateDescription)
- *
- * Usage:
- * ```
- * var accepted by remember { mutableStateOf(false) }
- *
- * Checkbox(
- *     checked = accepted,
- *     onCheckedChange = { accepted = it },
- * )
- *
- * // With label, no animation (reduced motion)
- * Checkbox(
- *     checked = accepted,
- *     onCheckedChange = { accepted = it },
- *     label = "Accept terms",
- *     animation = CheckboxAnimation.None,
- * )
- * ```
- *
- * @param checked Whether the checkbox is checked.
- * @param onCheckedChange Called when the checkbox state changes.
- * @param modifier Modifier for layout and decoration.
- * @param animation Animation style for checkmark and color transitions.
- * @param enabled Whether the checkbox is interactive.
- * @param label Accessibility label for screen readers. Also rendered as visible text beside the box.
- */
 @Composable
 fun Checkbox(
     checked: Boolean,

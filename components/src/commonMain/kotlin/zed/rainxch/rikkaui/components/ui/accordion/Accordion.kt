@@ -40,115 +40,19 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation Enum ─────────────────────────────────────────
 
-/**
- * Controls the expand/collapse animation style for [AccordionItem].
- *
- * Each option produces a different visual feel while reading
- * duration and spring parameters from [RikkaTheme.motion] tokens
- * so the animation stays consistent with the rest of the design
- * system.
- *
- * ```
- * AccordionItem(
- *     title = "Details",
- *     expanded = expanded,
- *     onExpandedChange = { expanded = it },
- *     animation = AccordionAnimation.Tween,
- * ) {
- *     Text("Smooth eased transition")
- * }
- * ```
- */
 enum class AccordionAnimation {
-    /**
-     * Spring-physics expand/collapse with medium bounce.
-     * Handles interruptions gracefully and feels organic.
-     * This is the default.
-     */
+    /** Spring-physics expand/collapse with medium bounce (default). */
     Spring,
 
-    /**
-     * Duration-based eased expand/collapse using
-     * [RikkaTheme.motion] tween durations. Smoother and more
-     * predictable than [Spring], good for data-heavy UIs.
-     */
+    /** Duration-based eased expand/collapse. */
     Tween,
 
-    /**
-     * Instant expand/collapse with no animation. Useful for
-     * reduced-motion preferences or performance-critical lists.
-     */
+    /** Instant expand/collapse with no animation. */
     None,
 }
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Accordion item component for the RikkaUi design system.
- *
- * An expandable/collapsible content section with an animated
- * chevron indicator and smooth height transition. Maps to
- * shadcn/ui's Accordion component.
- *
- * Features:
- * - Configurable animation style via [AccordionAnimation]
- * - Customizable chevron icon via [chevronIcon]
- * - Spring-physics chevron rotation (90 degrees when expanded)
- * - AnimatedVisibility with vertical expand/shrink transitions
- * - Bottom border separator for visual grouping
- * - No Material dependency
- *
- * Usage:
- * ```
- * var expanded by remember { mutableStateOf(false) }
- *
- * AccordionItem(
- *     title = "Is it accessible?",
- *     expanded = expanded,
- *     onExpandedChange = { expanded = it },
- * ) {
- *     Text("Yes. It adheres to the WAI-ARIA design pattern.")
- * }
- *
- * // With tween animation and custom icon
- * AccordionItem(
- *     title = "Smooth section",
- *     expanded = expanded,
- *     onExpandedChange = { expanded = it },
- *     animation = AccordionAnimation.Tween,
- *     chevronIcon = RikkaIcons.ChevronDown,
- * ) {
- *     Text("Eased transition content")
- * }
- *
- * // Multiple items in a Column
- * Column {
- *     items.forEachIndexed { index, item ->
- *         var open by remember { mutableStateOf(false) }
- *         AccordionItem(
- *             title = item.title,
- *             expanded = open,
- *             onExpandedChange = { open = it },
- *         ) {
- *             Text(item.description, variant = TextVariant.Muted)
- *         }
- *     }
- * }
- * ```
- *
- * @param title The header text displayed in the clickable title row.
- * @param expanded Whether the content section is currently visible.
- * @param onExpandedChange Called when the user clicks the title row
- *   to toggle.
- * @param modifier Modifier for layout and decoration.
- * @param animation The expand/collapse animation style. Defaults to
- *   [AccordionAnimation.Spring].
- * @param chevronIcon The icon displayed as the expand indicator.
- *   Defaults to [RikkaIcons.ChevronRight]. Rotates 90 degrees when
- *   expanded. Pass [RikkaIcons.ChevronDown] for a vertical chevron
- *   or any other [ImageVector].
- * @param content The expandable content slot.
- */
 @Composable
 fun AccordionItem(
     title: String,
@@ -240,10 +144,6 @@ fun AccordionItem(
 
 // ─── Private animation resolution ───────────────────────────
 
-/**
- * Resolves a [Float] animation spec from the [AccordionAnimation]
- * and [RikkaTheme.motion] tokens. Used for the chevron rotation.
- */
 @Composable
 private fun resolveFloatSpec(
     animation: AccordionAnimation,
@@ -255,10 +155,6 @@ private fun resolveFloatSpec(
         AccordionAnimation.None -> snap()
     }
 
-/**
- * Resolves the [AnimatedVisibility] enter transition for the given
- * animation style.
- */
 @Composable
 private fun resolveEnter(
     animation: AccordionAnimation,
@@ -291,10 +187,6 @@ private fun resolveEnter(
         }
     }
 
-/**
- * Resolves the [AnimatedVisibility] exit transition for the given
- * animation style.
- */
 @Composable
 private fun resolveExit(
     animation: AccordionAnimation,

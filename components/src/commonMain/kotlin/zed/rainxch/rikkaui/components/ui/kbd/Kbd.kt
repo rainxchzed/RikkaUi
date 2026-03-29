@@ -20,13 +20,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Size ───────────────────────────────────────────────────
 
-/**
- * Kbd size variants.
- *
- * - [Sm] — Compact, for inline use in dense layouts.
- * - [Default] — Standard size.
- * - [Lg] — Larger, for standalone shortcut displays.
- */
+/** Kbd size variants. */
 enum class KbdSize(
     val horizontalPadding: Dp,
     val verticalPadding: Dp,
@@ -38,23 +32,6 @@ enum class KbdSize(
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Kbd (keyboard) component for the RikkaUi design system.
- *
- * A styled inline indicator for keyboard shortcuts or key combinations.
- * Displays text in a bordered box with a monospace feel, similar to
- * HTML's `<kbd>` element.
- *
- * Usage:
- * ```
- * Kbd("⌘K")
- * Kbd("Enter", size = KbdSize.Lg)
- * ```
- *
- * @param text The keyboard shortcut or key name to display (e.g., "⌘K", "Ctrl+C").
- * @param modifier Modifier for layout and decoration.
- * @param size Size variant controlling padding. Defaults to [KbdSize.Default].
- */
 @Composable
 fun Kbd(
     text: String,
@@ -88,23 +65,6 @@ fun Kbd(
     }
 }
 
-/**
- * Kbd combo — displays multiple keys with a separator between them.
- *
- * Each key is rendered as an individual [Kbd] badge, joined by a `+` separator.
- * Ideal for displaying keyboard shortcuts like Ctrl+Shift+P.
- *
- * Usage:
- * ```
- * KbdCombo(keys = listOf("Ctrl", "Shift", "P"))
- * KbdCombo(keys = listOf("⌘", "K"), separator = " ")
- * ```
- *
- * @param keys List of individual key labels to display.
- * @param modifier Modifier for the outer row layout.
- * @param size Size variant applied to each key badge.
- * @param separator Text displayed between keys. Defaults to "+".
- */
 @Composable
 fun KbdCombo(
     keys: List<String>,

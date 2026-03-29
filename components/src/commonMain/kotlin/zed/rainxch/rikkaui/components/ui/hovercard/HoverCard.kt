@@ -30,36 +30,19 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ─────────────────────────────────────────────
 
-/**
- * Animation style for the [HoverCard] entrance and exit.
- *
- * - [FadeScale] — Fade combined with a subtle scale-up from
- *   95% to 100% (default). Feels lively and connected.
- * - [Fade] — Simple opacity fade only. Lighter and subtler.
- * - [None] — Instant appear/disappear with no animation.
- */
 enum class HoverCardAnimation {
-    /** Fade + scale from 95% to 100% (default). */
+    /** Fade + scale (default). */
     FadeScale,
 
-    /** Simple opacity fade only. */
+    /** Opacity fade only. */
     Fade,
 
-    /** Instant appear/disappear, no animation. */
+    /** No animation. */
     None,
 }
 
 // ─── Placement ─────────────────────────────────────────────
 
-/**
- * Placement of the [HoverCard] popup relative to the trigger.
- *
- * - [BottomStart] — Below the trigger, aligned to the start
- *   edge (default).
- * - [BottomEnd] — Below the trigger, aligned to the end edge.
- * - [TopStart] — Above the trigger, aligned to the start edge.
- * - [TopEnd] — Above the trigger, aligned to the end edge.
- */
 enum class HoverCardPlacement {
     BottomStart,
     BottomEnd,
@@ -69,73 +52,11 @@ enum class HoverCardPlacement {
 
 // ─── Constants ──────────────────────────────────────────────
 
-/** Default delay before showing the hover card (ms). */
 private const val DEFAULT_SHOW_DELAY_MS = 300L
-
-/** Default delay before hiding the hover card (ms). */
 private const val DEFAULT_HIDE_DELAY_MS = 200L
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Hover card component for the RikkaUi design system.
- *
- * Shows a floating card when the user hovers over the trigger
- * element. The card appears after a short delay and stays
- * visible while the cursor is over the trigger or the card
- * itself. Maps to shadcn/ui's Hover Card.
- *
- * Features:
- * - Hover-triggered with configurable show/hide delays
- * - Configurable animation style via [HoverCardAnimation]
- * - Configurable placement via [HoverCardPlacement]
- * - Configurable max width via [maxWidth]
- * - Card stays visible while cursor moves from trigger to card
- * - Theme-aware styling with border and shadow
- * - No Material3 dependency
- *
- * Usage:
- * ```
- * HoverCard(
- *     trigger = {
- *         Text("@rikka")
- *     },
- * ) {
- *     Column {
- *         Text("RikkaUi", variant = TextVariant.Large)
- *         Text("A shadcn-inspired component library.")
- *     }
- * }
- *
- * // With custom animation, placement, and delays:
- * HoverCard(
- *     animation = HoverCardAnimation.Fade,
- *     placement = HoverCardPlacement.TopStart,
- *     showDelayMs = 500L,
- *     hideDelayMs = 300L,
- *     maxWidth = 400.dp,
- *     trigger = { Text("Hover me") },
- * ) {
- *     Text("Custom hover card content.")
- * }
- * ```
- *
- * @param modifier Modifier applied to the outer wrapper.
- * @param animation The animation style for entrance and exit.
- *     Defaults to [HoverCardAnimation.FadeScale].
- * @param placement Where the popup appears relative to the
- *     trigger. Defaults to [HoverCardPlacement.BottomStart].
- * @param showDelayMs Delay in milliseconds before showing the
- *     card after hover starts. Defaults to 300ms.
- * @param hideDelayMs Delay in milliseconds before hiding the
- *     card after hover ends. Defaults to 200ms.
- * @param maxWidth Maximum width of the popup card. Defaults
- *     to 360.dp.
- * @param trigger The composable that triggers the hover card
- *     on hover.
- * @param content The composable content displayed inside the
- *     floating card.
- */
 @Composable
 fun HoverCard(
     modifier: Modifier = Modifier,
@@ -252,10 +173,6 @@ fun HoverCard(
 
 // ─── Private helpers ────────────────────────────────────────
 
-/**
- * Maps [HoverCardPlacement] to a Compose [Alignment] for the
- * [Popup].
- */
 private fun resolvePlacement(placement: HoverCardPlacement): Alignment =
     when (placement) {
         HoverCardPlacement.BottomStart -> Alignment.BottomStart

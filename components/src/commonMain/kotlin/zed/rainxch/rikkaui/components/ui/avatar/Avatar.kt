@@ -26,88 +26,39 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Size ───────────────────────────────────────────────────
 
-/**
- * Avatar size variants.
- *
- * - [Sm] — 32dp. Compact contexts like lists or inline mentions.
- * - [Default] — 40dp. Standard usage in headers and profiles.
- * - [Lg] — 48dp. Prominent placement like profile pages.
- */
 enum class AvatarSize {
+    /** 32dp — compact contexts. */
     Sm,
+    /** 40dp — standard usage. */
     Default,
+    /** 48dp — prominent placement. */
     Lg,
 }
 
 // ─── Animation ──────────────────────────────────────────────
 
-/**
- * Avatar animation variants.
- *
- * Controls the entrance animation when the avatar first appears.
- * All animated variants respect [RikkaTheme.motion] spring tokens.
- *
- * - [FadeIn] — Fade in from transparent (default). Subtle entrance.
- * - [Scale] — Scale up from 0 to full size. Playful pop-in effect.
- * - [None] — Instant appear with no animation. Useful for snapshot
- *   tests or reduced-motion contexts.
- *
- * ```
- * Avatar(fallback = "JD", animation = AvatarAnimation.Scale)
- * Avatar(fallback = "A", animation = AvatarAnimation.None)
- * ```
- */
 enum class AvatarAnimation {
+    /** Fade in from transparent. */
     FadeIn,
+    /** Scale up from 0 to full size. */
     Scale,
+    /** Instant appear, no animation. */
     None,
 }
 
 // ─── Status Indicator ───────────────────────────────────────
 
-/**
- * Avatar online-status indicator dot.
- *
- * When set, a small colored dot is drawn at the bottom-end corner
- * of the avatar to communicate presence or availability.
- *
- * - [Online] — Green dot.
- * - [Offline] — Gray dot.
- * - [Busy] — Destructive (red) dot.
- *
- * ```
- * Avatar(fallback = "JD", status = AvatarStatus.Online)
- * ```
- */
 enum class AvatarStatus {
+    /** Green dot. */
     Online,
+    /** Gray dot. */
     Offline,
+    /** Red dot. */
     Busy,
 }
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Avatar component for the RikkaUi design system.
- *
- * A circular container displaying user initials as a fallback,
- * with optional entrance animation and status indicator.
- *
- * Usage:
- * ```
- * Avatar(fallback = "JD")
- * Avatar(fallback = "A", size = AvatarSize.Sm)
- * Avatar(fallback = "RX", size = AvatarSize.Lg)
- * Avatar(fallback = "JD", animation = AvatarAnimation.Scale)
- * Avatar(fallback = "JD", status = AvatarStatus.Online)
- * ```
- *
- * @param fallback 1-2 character initials shown as the avatar content.
- * @param modifier Modifier for layout and decoration.
- * @param size Size variant — controls the avatar diameter and text scale.
- * @param animation Entrance animation style. Defaults to [AvatarAnimation.FadeIn].
- * @param status Optional presence indicator dot. When null, no dot is shown.
- */
 @Composable
 fun Avatar(
     fallback: String,
@@ -231,10 +182,6 @@ private fun resolveSizeValues(size: AvatarSize): AvatarSizeValues =
 
 // ─── Internal: Status Color Resolution ─────────────────────
 
-/**
- * Resolves the dot color for the given [AvatarStatus], or null
- * when no status is set.
- */
 @Composable
 private fun resolveStatusColor(status: AvatarStatus?): Color? =
     when (status) {

@@ -29,42 +29,19 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── BreadcrumbAnimation ────────────────────────────────────
 
-/**
- * Controls how breadcrumb items appear when the component is first
- * composed.
- *
- * Usage:
- * ```
- * Breadcrumb(
- *     items = items,
- *     animation = BreadcrumbAnimation.Slide,
- * )
- * ```
- *
- * @property Fade Items fade in sequentially.
- * @property Slide Items slide in from the left.
- * @property None Items appear instantly (default).
- */
 enum class BreadcrumbAnimation {
-    /** Items fade in one after another with a staggered delay. */
+    /** Staggered fade-in. */
     Fade,
 
-    /** Items slide in from the left with a staggered delay. */
+    /** Staggered slide from left. */
     Slide,
 
-    /** Items appear immediately with no animation. */
+    /** No animation (default). */
     None,
 }
 
 // ─── Data ──────────────────────────────────────────────────
 
-/**
- * Data class representing a single breadcrumb item.
- *
- * @param label Display text for the breadcrumb.
- * @param onClick Click handler. Pass `null` for the current/last
- *   item (non-clickable).
- */
 @Immutable
 data class BreadcrumbItemData(
     val label: String,
@@ -79,28 +56,6 @@ private const val ELLIPSIS_TEXT = "..."
 
 // ─── Component ─────────────────────────────────────────────
 
-/**
- * Breadcrumb navigation container for the RikkaUi design system.
- *
- * A horizontal Row that lays out [BreadcrumbItem] and
- * [BreadcrumbSeparator] children, providing a navigation landmark
- * for accessibility.
- *
- * Usage:
- * ```
- * Breadcrumb {
- *     BreadcrumbItem("Home", onClick = { navigateHome() })
- *     BreadcrumbSeparator()
- *     BreadcrumbItem("Products", onClick = { navigateProducts() })
- *     BreadcrumbSeparator()
- *     BreadcrumbItem("Widget")  // current page, no onClick
- * }
- * ```
- *
- * @param modifier Modifier for layout and decoration.
- * @param content Row content — typically [BreadcrumbItem] and
- *   [BreadcrumbSeparator] composables.
- */
 @Composable
 fun Breadcrumb(
     modifier: Modifier = Modifier,
@@ -120,38 +75,6 @@ fun Breadcrumb(
     )
 }
 
-/**
- * Convenience overload that builds a breadcrumb trail from a list
- * of [BreadcrumbItemData].
- *
- * Automatically inserts separators between items. Supports entrance
- * animations, custom separators, and collapsing to an ellipsis when
- * there are more items than [maxVisibleItems].
- *
- * Usage:
- * ```
- * Breadcrumb(
- *     items = listOf(
- *         BreadcrumbItemData("Home", onClick = { navigateHome() }),
- *         BreadcrumbItemData("Products", onClick = { navigateProducts() }),
- *         BreadcrumbItemData("Widget"),
- *     ),
- *     animation = BreadcrumbAnimation.Fade,
- *     maxVisibleItems = 3,
- * )
- * ```
- *
- * @param items List of breadcrumb items to display.
- * @param modifier Modifier for layout and decoration.
- * @param animation Entrance animation for items.
- * @param separator Custom separator composable placed between items.
- *   When `null` the default "/" separator is used.
- * @param maxVisibleItems Maximum number of items to display before
- *   collapsing middle items into an ellipsis. Pass `0` or a value
- *   greater than or equal to [items] size to show all items.
- * @param onEllipsisClick Optional click handler for the ellipsis
- *   element shown when items are collapsed.
- */
 @Composable
 fun Breadcrumb(
     items: List<BreadcrumbItemData>,
@@ -200,25 +123,6 @@ fun Breadcrumb(
 
 // ─── BreadcrumbItem ────────────────────────────────────────
 
-/**
- * A single item in a breadcrumb trail.
- *
- * When [onClick] is non-null the item is interactive: it renders in
- * [RikkaTheme.colors.mutedForeground] and gains an underline on
- * hover. When [onClick] is `null` the item represents the current
- * page and renders in [RikkaTheme.colors.foreground] with no
- * interaction.
- *
- * Usage:
- * ```
- * BreadcrumbItem("Home", onClick = { navigateHome() })
- * BreadcrumbItem("Current Page")  // non-clickable
- * ```
- *
- * @param text Display text.
- * @param onClick Click handler. Pass `null` for the current/last item.
- * @param modifier Modifier for layout and decoration.
- */
 @Composable
 fun BreadcrumbItem(
     text: String,
@@ -267,28 +171,6 @@ fun BreadcrumbItem(
 
 // ─── BreadcrumbSeparator ───────────────────────────────────
 
-/**
- * Separator between breadcrumb items. Defaults to "/" in muted
- * foreground.
- *
- * Usage:
- * ```
- * // Default separator
- * BreadcrumbSeparator()
- *
- * // Custom separator content
- * BreadcrumbSeparator {
- *     Text(
- *         ">",
- *         color = RikkaTheme.colors.mutedForeground,
- *         variant = TextVariant.Small,
- *     )
- * }
- * ```
- *
- * @param modifier Modifier for layout and decoration.
- * @param content Custom separator content. Defaults to "/" text.
- */
 @Composable
 fun BreadcrumbSeparator(
     modifier: Modifier = Modifier,
@@ -308,10 +190,6 @@ fun BreadcrumbSeparator(
 
 // ─── Internal: Animated wrapper ────────────────────────────
 
-/**
- * Wraps a [BreadcrumbItem] with entrance animation driven by
- * [RikkaTheme.motion] tokens.
- */
 @Composable
 private fun AnimatedBreadcrumbItem(
     text: String,
@@ -378,9 +256,6 @@ private fun AnimatedBreadcrumbItem(
 
 // ─── Internal: Ellipsis / collapse logic ───────────────────
 
-/**
- * Sealed interface for items in the resolved visible list.
- */
 private sealed interface VisibleEntry {
     data class Item(
         val data: BreadcrumbItemData,
@@ -391,13 +266,6 @@ private sealed interface VisibleEntry {
     data object Separator : VisibleEntry
 }
 
-/**
- * Resolves which items should be displayed, collapsing middle
- * items into an ellipsis when [maxVisibleItems] is exceeded.
- *
- * The first and last items are always shown. If collapsing is
- * needed, one slot is reserved for the ellipsis element.
- */
 private fun resolveVisibleItems(
     items: List<BreadcrumbItemData>,
     maxVisibleItems: Int,

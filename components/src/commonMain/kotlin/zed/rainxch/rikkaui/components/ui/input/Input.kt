@@ -51,105 +51,19 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ──────────────────────────────────────────────
 
-/**
- * Controls the focus animation style on the input.
- *
- * Compose lets us do things CSS can't — animated glow rings,
- * spring-physics border transitions, and per-token motion control.
- *
- * - [Glow] — Animated focus ring that glows outward from the border.
- *   Uses the `ring` color token with animated spread and opacity.
- *   This is the default for a polished, modern feel.
- * - [Color] — Simple border color transition on focus.
- *   Clean and minimal, uses tween from `RikkaTheme.motion`.
- * - [None] — No animation. Border color changes instantly on focus.
- *   Useful for reduced-motion preferences or performance-critical UIs.
- */
 enum class InputAnimation {
+    /** Animated focus ring that glows outward from the border. */
     Glow,
+
+    /** Simple border color transition on focus. */
     Color,
+
+    /** No animation — border color changes instantly. */
     None,
 }
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Input (text field) component for the RikkaUi design system.
- *
- * A single-line text input that replaces Material3's TextField/OutlinedTextField.
- * Uses Rikka theme tokens for styling with animated focus states.
- *
- * Features:
- * - Three focus animation styles: Glow, Color, None
- * - Optional leading and trailing icon slots
- * - Optional clear button (trailing X icon)
- * - Optional character count display
- * - Placeholder text support
- * - Full keyboard options and actions support
- * - No Material dependency
- *
- * Usage:
- * ```
- * var text by remember { mutableStateOf("") }
- *
- * Input(
- *     value = text,
- *     onValueChange = { text = it },
- *     placeholder = "Enter your name...",
- * )
- *
- * // With glow animation (default)
- * Input(
- *     value = text,
- *     onValueChange = { text = it },
- *     placeholder = "Search...",
- *     leadingIcon = RikkaIcons.Search,
- *     animation = InputAnimation.Glow,
- * )
- *
- * // With clear button and character count
- * Input(
- *     value = text,
- *     onValueChange = { text = it },
- *     placeholder = "Username",
- *     clearable = true,
- *     maxLength = 32,
- *     showCharCount = true,
- * )
- *
- * // No animation
- * Input(
- *     value = text,
- *     onValueChange = { text = it },
- *     placeholder = "Instant focus",
- *     animation = InputAnimation.None,
- * )
- * ```
- *
- * @param value Current text value.
- * @param onValueChange Called when the text changes.
- * @param modifier Modifier for layout and decoration.
- * @param placeholder Placeholder text shown when empty.
- * @param enabled Whether the input is interactive.
- * @param readOnly Whether the input is read-only.
- * @param singleLine Whether to constrain to a single line. Defaults to true.
- * @param keyboardOptions Software keyboard configuration.
- * @param keyboardActions IME action handlers.
- * @param visualTransformation Visual transformation (e.g., password masking).
- * @param label Accessibility label for screen readers.
- * @param style Override text style. Merged on top of theme's paragraph style.
- * @param animation Focus animation style. Defaults to [InputAnimation.Glow].
- * @param leadingIcon Optional icon displayed before the text field.
- * @param trailingIcon Optional icon displayed after the text field.
- * @param clearable When true, shows a clear (X) button when the input has text.
- *   The clear button replaces [trailingIcon] when text is non-empty.
- * @param onClear Called when the clear button is tapped. Defaults to
- *   calling `onValueChange("")`.
- * @param maxLength Optional maximum character limit. When set, input is
- *   truncated to this length.
- * @param showCharCount When true and [maxLength] is set, displays a
- *   character count (e.g. "12/32") after the input.
- */
 @Composable
 fun Input(
     value: String,
@@ -475,10 +389,7 @@ fun Input(
 
 // ─── Clear icon (inline X — avoids RikkaIcons dependency cycle) ─
 
-/**
- * Small X icon used for the clear button.
- * Drawn inline to avoid a circular dependency on RikkaIcons.
- */
+// Inline X icon to avoid circular dependency on RikkaIcons
 @Composable
 private fun ClearIcon(tint: Color) {
     val vector =

@@ -31,81 +31,28 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Variant ────────────────────────────────────────────────
 
-/**
- * Alert visual variants, matching shadcn/ui's alert variants.
- *
- * - [Default] — Bordered card background with foreground text. Informational alerts.
- * - [Destructive] — Destructive border tint with destructive foreground. Errors or critical warnings.
- */
+/** Alert visual style. */
 enum class AlertVariant {
+    /** Bordered card background with foreground text. */
     Default,
+    /** Destructive border tint with destructive text color. */
     Destructive,
 }
 
 // ─── Animation ──────────────────────────────────────────────
 
-/**
- * Controls the entrance animation when an alert first appears.
- *
- * Uses [RikkaTheme.motion] tokens for consistent motion feel across
- * the entire design system.
- *
- * - [SlideIn] — Slide in from the left with a fade. Good for notifications and toasts.
- * - [Fade] — Simple fade in. Subtle, non-distracting entrance.
- * - [None] — Instant appear with no animation.
- *
- * Usage:
- * ```
- * Alert(animation = AlertAnimation.SlideIn) {
- *     AlertTitle("Heads up!")
- *     AlertDescription("Something happened.")
- * }
- * ```
- */
+/** Entrance animation when an alert first appears. */
 enum class AlertAnimation {
+    /** Slide in from the left with a fade. */
     SlideIn,
+    /** Simple fade in. */
     Fade,
+    /** Instant appear, no animation. */
     None,
 }
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Alert component for the RikkaUi design system.
- *
- * A status container that displays important messages to the user.
- * Replaces Material3's snackbar/alert patterns with Rikka theme tokens.
- *
- * Usage:
- * ```
- * Alert {
- *     AlertTitle("Heads up!")
- *     AlertDescription("You can add components to your app using the CLI.")
- * }
- *
- * Alert(variant = AlertVariant.Destructive) {
- *     AlertTitle("Error")
- *     AlertDescription("Your session has expired. Please log in again.")
- * }
- *
- * // With icon and animation
- * Alert(
- *     animation = AlertAnimation.SlideIn,
- *     icon = { Icon(RikkaIcons.Mail, tint = RikkaTheme.colors.foreground) },
- * ) {
- *     AlertTitle("New message")
- *     AlertDescription("You have 3 unread messages.")
- * }
- * ```
- *
- * @param modifier Modifier for layout and decoration.
- * @param variant Visual variant — controls border color and text styling.
- * @param animation Entrance animation style. Defaults to [AlertAnimation.None].
- * @param icon Optional leading icon composable. Rendered to the left of the content.
- *   The icon should be sized appropriately (16-20dp recommended).
- * @param label Accessibility label for screen readers. Describes the alert's purpose.
- * @param content Alert content — use [AlertTitle] and [AlertDescription] for structured layout.
- */
 @Composable
 fun Alert(
     modifier: Modifier = Modifier,
@@ -168,19 +115,6 @@ fun Alert(
 
 // ─── Structured Sections ────────────────────────────────────
 
-/**
- * Title section for an [Alert]. Renders as an H4 heading.
- *
- * ```
- * Alert {
- *     AlertTitle("Heads up!")
- *     AlertDescription("Description text here.")
- * }
- * ```
- *
- * @param text The title text.
- * @param modifier Modifier for layout and decoration.
- */
 @Composable
 fun AlertTitle(
     text: String,
@@ -200,24 +134,6 @@ fun AlertTitle(
     )
 }
 
-/**
- * Description section for an [Alert]. Renders as body text with color
- * matching the alert variant.
- *
- * - In [AlertVariant.Default], text is muted foreground.
- * - In [AlertVariant.Destructive], text is destructive foreground.
- *
- * ```
- * Alert(variant = AlertVariant.Destructive) {
- *     AlertTitle("Error")
- *     AlertDescription("Something went wrong.")
- * }
- * ```
- *
- * @param text The description text.
- * @param modifier Modifier for layout and decoration.
- * @param variant The parent alert variant — controls text color.
- */
 @Composable
 fun AlertDescription(
     text: String,
@@ -236,10 +152,6 @@ fun AlertDescription(
 
 // ─── Internal: Animation Resolution ─────────────────────────
 
-/**
- * Resolves the entrance animation modifier based on [AlertAnimation].
- * Uses [RikkaTheme.motion] tokens for consistent feel.
- */
 @Composable
 private fun resolveAnimationModifier(animation: AlertAnimation): Modifier {
     if (animation == AlertAnimation.None) return Modifier

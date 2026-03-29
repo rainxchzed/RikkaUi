@@ -23,91 +23,44 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Variant ────────────────────────────────────────────────
 
-/**
- * Badge visual variants, matching shadcn/ui's badge variants.
- *
- * - [Default] — Solid primary background. Standard status indicator.
- * - [Secondary] — Muted background. Less prominent.
- * - [Outline] — Bordered, transparent background. Subtle tag.
- * - [Destructive] — Red tint. Error or critical status.
- */
+/** Badge visual variants. */
 enum class BadgeVariant {
+    /** Solid primary background. */
     Default,
+    /** Muted background, less prominent. */
     Secondary,
+    /** Bordered, transparent background. */
     Outline,
+    /** Red tint for error or critical status. */
     Destructive,
 }
 
 // ─── Animation ──────────────────────────────────────────────
 
-/**
- * Controls the entrance animation when a badge first appears.
- *
- * Uses [RikkaTheme.motion] tokens for consistent motion feel across
- * the entire design system.
- *
- * - [Pulse] — Subtle pulse/pop animation when appearing. Eye-catching but not distracting.
- * - [Scale] — Scale up from 0 to full size. Good for count badges and notifications.
- * - [None] — Instant appear with no animation.
- *
- * Usage:
- * ```
- * Badge("New", animation = BadgeAnimation.Pulse)
- * Badge("3", animation = BadgeAnimation.Scale)
- * ```
- */
+/** Badge entrance animation style. */
 enum class BadgeAnimation {
+    /** Subtle pulse/pop on appear. */
     Pulse,
+    /** Scale up from 0 to full size. */
     Scale,
+    /** No animation. */
     None,
 }
 
 // ─── Size ───────────────────────────────────────────────────
 
-/**
- * Badge size presets.
- *
- * - [Default] — Standard badge size. Works for most labels and tags.
- * - [Sm] — Compact badge. Good for inline status indicators and dense layouts.
- * - [Lg] — Larger badge. Good for prominent labels and notification counts.
- *
- * Usage:
- * ```
- * Badge("Active", size = BadgeSize.Sm)
- * Badge("Featured", size = BadgeSize.Lg)
- * ```
- */
+/** Badge size presets. */
 enum class BadgeSize {
+    /** Compact size for dense layouts. */
     Sm,
+    /** Standard size. */
     Default,
+    /** Larger size for prominent labels. */
     Lg,
 }
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Badge component for the RikkaUi design system.
- *
- * A small status indicator or label. Replaces Material3 chips/badges
- * with Rikka theme tokens.
- *
- * Usage:
- * ```
- * Badge("New")
- * Badge("Draft", variant = BadgeVariant.Secondary)
- * Badge("Error", variant = BadgeVariant.Destructive)
- * Badge("v1.0", variant = BadgeVariant.Outline)
- *
- * // With animation and size
- * Badge("3", animation = BadgeAnimation.Scale, size = BadgeSize.Sm)
- * ```
- *
- * @param text The label text.
- * @param modifier Modifier for layout and decoration.
- * @param variant Visual variant — controls colors and border.
- * @param animation Entrance animation style. Defaults to [BadgeAnimation.None].
- * @param size Badge size preset. Defaults to [BadgeSize.Default].
- */
 @Composable
 fun Badge(
     text: String,
@@ -162,27 +115,6 @@ fun Badge(
     }
 }
 
-/**
- * Badge with custom content (icon + text, etc).
- *
- * ```
- * Badge(variant = BadgeVariant.Outline) {
- *     Icon(...)
- *     Text("Tagged")
- * }
- *
- * Badge(animation = BadgeAnimation.Pulse, size = BadgeSize.Lg) {
- *     Icon(RikkaIcons.Star, size = 12.dp)
- *     Text("Featured")
- * }
- * ```
- *
- * @param modifier Modifier for layout and decoration.
- * @param variant Visual variant — controls colors and border.
- * @param animation Entrance animation style. Defaults to [BadgeAnimation.None].
- * @param size Badge size preset. Defaults to [BadgeSize.Default].
- * @param content Custom badge content.
- */
 @Composable
 fun Badge(
     modifier: Modifier = Modifier,
@@ -229,10 +161,6 @@ fun Badge(
 
 // ─── Internal: Animation Resolution ─────────────────────────
 
-/**
- * Resolves the entrance animation modifier based on [BadgeAnimation].
- * Uses [RikkaTheme.motion] tokens for consistent feel.
- */
 @Composable
 private fun resolveAnimationModifier(animation: BadgeAnimation): Modifier {
     if (animation == BadgeAnimation.None) return Modifier

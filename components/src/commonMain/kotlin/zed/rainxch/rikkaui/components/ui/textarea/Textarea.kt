@@ -41,97 +41,19 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ──────────────────────────────────────────────
 
-/**
- * Controls the focus animation style on the textarea.
- *
- * Mirrors [zed.rainxch.rikkaui.components.ui.input.InputAnimation]
- * for consistency across text input components.
- *
- * - [Glow] — Animated focus ring that glows outward from the border.
- *   Uses the `ring` color token with animated spread and opacity.
- *   This is the default for a polished, modern feel.
- * - [Color] — Simple border color transition on focus.
- *   Clean and minimal, uses tween from `RikkaTheme.motion`.
- * - [None] — No animation. Border color changes instantly on focus.
- *   Useful for reduced-motion preferences or performance-critical UIs.
- */
 enum class TextareaAnimation {
+    /** Animated focus ring that glows outward. */
     Glow,
+
+    /** Border color transition on focus. */
     Color,
+
+    /** No animation, instant border change. */
     None,
 }
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Textarea component for the RikkaUi design system.
- *
- * A multi-line text input that mirrors the styling of Input but
- * supports multiple lines of text. Uses Rikka theme tokens for
- * styling with animated focus states.
- *
- * Features:
- * - Three focus animation styles: Glow, Color, None
- * - Multi-line text editing with configurable min/max lines
- * - Optional character count display with max length enforcement
- * - Animated border color on focus (uses ring token)
- * - Placeholder text support
- * - No Material dependency
- *
- * Usage:
- * ```
- * var text by remember { mutableStateOf("") }
- *
- * Textarea(
- *     value = text,
- *     onValueChange = { text = it },
- *     placeholder = "Write your message...",
- * )
- *
- * // With glow animation and character limit
- * Textarea(
- *     value = text,
- *     onValueChange = { text = it },
- *     placeholder = "Bio (max 280 chars)...",
- *     animation = TextareaAnimation.Glow,
- *     maxLength = 280,
- *     showCharCount = true,
- * )
- *
- * Textarea(
- *     value = bio,
- *     onValueChange = { bio = it },
- *     placeholder = "Tell us about yourself...",
- *     minLines = 4,
- *     maxLines = 8,
- *     animation = TextareaAnimation.Color,
- * )
- *
- * Textarea(
- *     value = notes,
- *     onValueChange = { notes = it },
- *     placeholder = "Read-only notes",
- *     readOnly = true,
- *     animation = TextareaAnimation.None,
- * )
- * ```
- *
- * @param value Current text value.
- * @param onValueChange Called when the text changes.
- * @param modifier Modifier for layout and decoration.
- * @param placeholder Placeholder text shown when empty.
- * @param enabled Whether the textarea is interactive.
- * @param readOnly Whether the textarea is read-only.
- * @param minLines Minimum number of visible lines. Defaults to 3.
- * @param maxLines Maximum number of visible lines. Defaults to 5.
- * @param label Accessibility label for screen readers.
- * @param style Override text style. Merged on top of theme's paragraph style.
- * @param animation Focus animation style. Defaults to [TextareaAnimation.Glow].
- * @param maxLength Optional maximum character limit. When set, input is
- *   truncated to this length.
- * @param showCharCount When true and [maxLength] is set, displays a
- *   character count (e.g. "128/280") below the textarea.
- */
 @Composable
 fun Textarea(
     value: String,

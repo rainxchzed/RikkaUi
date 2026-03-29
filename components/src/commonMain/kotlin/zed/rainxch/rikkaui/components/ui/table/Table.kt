@@ -33,26 +33,11 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── TableAnimation ───────────────────────────────────────
 
-/**
- * Controls row visual effects in a [Table].
- *
- * Usage:
- * ```
- * Table(animation = TableAnimation.Stripe) {
- *     TableHeader { /* ... */ }
- *     TableRow { /* ... */ }
- * }
- * ```
- *
- * @property Hover Rows highlight on hover (default).
- * @property Stripe Alternating row colours plus hover highlight.
- * @property None No hover or stripe effects.
- */
 enum class TableAnimation {
-    /** Rows highlight with a muted background on hover. */
+    /** Hover highlight on rows. */
     Hover,
 
-    /** Alternating row background colours plus hover highlight. */
+    /** Alternating row colours plus hover. */
     Stripe,
 
     /** No visual row effects. */
@@ -61,19 +46,11 @@ enum class TableAnimation {
 
 // ─── TableBorderStyle ─────────────────────────────────────
 
-/**
- * Controls the border style of a [Table].
- *
- * @property Outlined Single outer border with rounded corners (default).
- * @property Bordered Outer border plus horizontal row dividers.
- * @property Borderless No borders at all.
- */
 enum class TableBorderStyle {
-    /** Single outer border with rounded corners. */
+    /** Outer border with rounded corners. */
     Outlined,
 
-    /** Outer border plus horizontal row dividers (same as Outlined visually,
-     *  but rows always draw bottom borders even when animation is [TableAnimation.None]). */
+    /** Outer border plus horizontal row dividers. */
     Bordered,
 
     /** No borders. */
@@ -82,69 +59,18 @@ enum class TableBorderStyle {
 
 // ─── Internal composition locals ──────────────────────────
 
-/**
- * Provides the current [TableAnimation] to child composables.
- */
 private val LocalTableAnimation = compositionLocalOf { TableAnimation.Hover }
 
-/**
- * Provides the current [TableBorderStyle] to child composables.
- */
 private val LocalTableBorderStyle =
     compositionLocalOf { TableBorderStyle.Outlined }
 
-/**
- * Zero-indexed row counter used by [TableRow] for stripe colouring.
- * Reset to -1 so the first data row becomes index 0.
- */
+// Reset to -1 so the first data row becomes index 0
 private val LocalTableRowIndex = compositionLocalOf { -1 }
 
-/**
- * Whether the table header should stick to the top when scrolled.
- * (Provided for forward compatibility; requires a scrollable parent.)
- */
 private val LocalTableStickyHeader = compositionLocalOf { false }
 
 // ─── Table ─────────────────────────────────────────────────
 
-/**
- * Data table component for the RikkaUi design system.
- *
- * A structured container for tabular data, matching shadcn/ui's Table.
- * Supports row hover highlights, alternating stripe colours, click
- * handlers, border styles, and sticky headers.
- *
- * Usage:
- * ```
- * Table {
- *     TableHeader {
- *         TableHeaderCell(Modifier.weight(1f)) { Text("Invoice") }
- *         TableHeaderCell(Modifier.weight(1f)) { Text("Status") }
- *         TableHeaderCell(Modifier.weight(1f)) { Text("Amount") }
- *     }
- *     TableRow {
- *         TableCell(Modifier.weight(1f)) { Text("INV001") }
- *         TableCell(Modifier.weight(1f)) { Text("Paid") }
- *         TableCell(Modifier.weight(1f)) { Text("$250.00") }
- *     }
- * }
- *
- * // Striped table with click handler
- * Table(animation = TableAnimation.Stripe) {
- *     TableHeader { /* ... */ }
- *     TableRow(onClick = { println("clicked") }) { /* ... */ }
- * }
- * ```
- *
- * @param modifier Modifier for layout and decoration.
- * @param animation Row visual effect mode.
- * @param borderStyle Border rendering mode.
- * @param stickyHeader When `true`, the header row sticks to the top of a
- *   scrollable parent. Requires the table to live inside a
- *   `ScrollArea` or similar scrollable container.
- * @param content Table content — typically [TableHeader] followed by
- *   [TableRow] composables.
- */
 @Composable
 fun Table(
     modifier: Modifier = Modifier,
@@ -187,15 +113,6 @@ fun Table(
 
 // ─── TableHeader ───────────────────────────────────────────
 
-/**
- * Header row for a [Table].
- *
- * Renders with a muted background to visually distinguish column
- * headers from data rows.
- *
- * @param modifier Modifier for layout and decoration.
- * @param content Header cells — typically [TableHeaderCell] composables.
- */
 @Composable
 fun TableHeader(
     modifier: Modifier = Modifier,
@@ -216,19 +133,6 @@ fun TableHeader(
 
 // ─── TableRow ──────────────────────────────────────────────
 
-/**
- * Data row for a [Table].
- *
- * Renders with a bottom border to separate rows visually. Hover
- * and stripe effects are controlled by the parent [Table]'s
- * [TableAnimation].
- *
- * @param modifier Modifier for layout and decoration.
- * @param rowIndex Zero-based index of this row. Used for stripe
- *   colouring. When `-1` (default) the row ignores stripe logic.
- * @param onClick Optional click handler for the entire row.
- * @param content Row cells — typically [TableCell] composables.
- */
 @Composable
 fun TableRow(
     modifier: Modifier = Modifier,
@@ -312,24 +216,6 @@ fun TableRow(
 
 // ─── TableCell ─────────────────────────────────────────────
 
-/**
- * Data cell inside a [TableRow].
- *
- * Apply `Modifier.weight(1f)` (or other weights) via the [modifier]
- * parameter to control column widths.
- *
- * Usage:
- * ```
- * TableRow {
- *     TableCell(Modifier.weight(2f)) { Text("Wide column") }
- *     TableCell(Modifier.weight(1f)) { Text("Narrow") }
- * }
- * ```
- *
- * @param modifier Modifier for layout and decoration.
- *   Use [RowScope.weight] for column sizing.
- * @param content Cell content — typically [Text].
- */
 @Composable
 fun RowScope.TableCell(
     modifier: Modifier = Modifier,
@@ -344,25 +230,6 @@ fun RowScope.TableCell(
 
 // ─── TableHeaderCell ───────────────────────────────────────
 
-/**
- * Header cell inside a [TableHeader].
- *
- * Renders text with [TextVariant.Small] and muted foreground color
- * by default, matching shadcn/ui's table header styling.
- *
- * Usage:
- * ```
- * TableHeader {
- *     TableHeaderCell(Modifier.weight(1f)) { Text("Column A") }
- *     TableHeaderCell(Modifier.weight(1f)) { Text("Column B") }
- * }
- * ```
- *
- * @param modifier Modifier for layout and decoration.
- *   Use [RowScope.weight] for column sizing.
- * @param content Cell content. Defaults to [TextVariant.Small] +
- *   mutedForeground styling.
- */
 @Composable
 fun RowScope.TableHeaderCell(
     modifier: Modifier = Modifier,
@@ -375,22 +242,6 @@ fun RowScope.TableHeaderCell(
     }
 }
 
-/**
- * Convenience overload for [TableHeaderCell] with a text label.
- *
- * Automatically styles the text with [TextVariant.Small] and
- * [RikkaTheme.colors.mutedForeground].
- *
- * ```
- * TableHeader {
- *     TableHeaderCell("Invoice", Modifier.weight(1f))
- *     TableHeaderCell("Status", Modifier.weight(1f))
- * }
- * ```
- *
- * @param text Header label text.
- * @param modifier Modifier for layout and decoration.
- */
 @Composable
 fun RowScope.TableHeaderCell(
     text: String,
@@ -405,19 +256,6 @@ fun RowScope.TableHeaderCell(
     }
 }
 
-/**
- * Convenience overload for [TableCell] with a text label.
- *
- * ```
- * TableRow {
- *     TableCell("INV001", Modifier.weight(1f))
- *     TableCell("Paid", Modifier.weight(1f))
- * }
- * ```
- *
- * @param text Cell text content.
- * @param modifier Modifier for layout and decoration.
- */
 @Composable
 fun RowScope.TableCell(
     text: String,

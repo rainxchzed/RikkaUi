@@ -22,85 +22,19 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation Enum ─────────────────────────────────────────
 
-/**
- * Animation style for [Progress] value transitions.
- *
- * Controls how the fill bar interpolates between old and new
- * progress values. Each option maps to theme motion tokens so
- * the feel stays consistent with the active [RikkaTheme].
- *
- * ```
- * // Bouncy spring (default)
- * Progress(progress = 0.7f, animation = ProgressAnimation.Spring)
- *
- * // Smooth eased tween
- * Progress(progress = 0.7f, animation = ProgressAnimation.Tween)
- *
- * // Instant jump
- * Progress(progress = 0.7f, animation = ProgressAnimation.None)
- * ```
- */
 enum class ProgressAnimation {
-    /** Spring physics — bouncy, handles interruptions gracefully. Default. */
+    /** Spring physics, handles interruptions. Default. */
     Spring,
 
     /** Smooth eased tween using theme duration. */
     Tween,
 
-    /** Instant value jump with no interpolation. */
+    /** Instant jump, no interpolation. */
     None,
 }
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Progress bar component for the RikkaUi design system.
- *
- * A horizontal bar that fills from left to right to indicate
- * progress. Maps to shadcn/ui's Progress component.
- *
- * The fill width animates using the selected [animation] style
- * (spring by default), so updating [progress] feels fluid
- * and handles interruptions gracefully.
- *
- * Usage:
- * ```
- * // Determinate progress
- * Progress(progress = 0.6f)
- *
- * // Animated — just update the value
- * var upload by remember { mutableFloatStateOf(0f) }
- * Progress(progress = upload)
- *
- * // Custom colors and height
- * Progress(
- *     progress = 0.5f,
- *     trackColor = RikkaTheme.colors.secondary,
- *     fillColor = RikkaTheme.colors.destructive,
- *     height = 12.dp,
- * )
- *
- * // Tween animation
- * Progress(
- *     progress = 0.8f,
- *     animation = ProgressAnimation.Tween,
- * )
- *
- * // No animation (instant)
- * Progress(
- *     progress = 1f,
- *     animation = ProgressAnimation.None,
- * )
- * ```
- *
- * @param progress Current progress value, clamped to 0f..1f.
- * @param modifier Modifier for layout and decoration.
- * @param trackColor Background track color. Defaults to theme muted color.
- * @param fillColor Fill bar color. Defaults to theme primary color.
- * @param height Height of the progress bar. Defaults to 8.dp.
- * @param animation Animation style for value transitions. Defaults to [ProgressAnimation.Spring].
- * @param label Accessibility label describing what this progress bar represents.
- */
 @Composable
 fun Progress(
     progress: Float,
@@ -166,10 +100,6 @@ fun Progress(
 
 // ─── Private helpers ────────────────────────────────────────
 
-/**
- * Maps a [ProgressAnimation] enum value to a concrete
- * [AnimationSpec] using the current theme motion tokens.
- */
 @Composable
 private fun resolveAnimationSpec(
     animation: ProgressAnimation,

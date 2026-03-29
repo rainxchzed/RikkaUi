@@ -36,116 +36,30 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation Enum ─────────────────────────────────────────
 
-/**
- * Controls the animation style for active page state transitions.
- *
- * - [Scale] — Active page button scales up with a spring animation
- *   using [RikkaTheme.motion] tokens. Creates a bouncy highlight effect.
- *   This is the default.
- * - [Fade] — Active/inactive transitions use alpha fade, creating a
- *   smooth crossfade between states.
- * - [None] — Instant state change with no animation. Colors still
- *   transition via tween for polish, but no scale or fade is applied.
- *
- * ```
- * Pagination(
- *     currentPage = page,
- *     totalPages = 20,
- *     onPageChange = { page = it },
- *     animation = PaginationAnimation.Scale,
- * )
- * ```
- */
+/** Active page state transition style. */
 enum class PaginationAnimation {
+    /** Spring scale-up effect (default). */
     Scale,
+    /** Alpha crossfade between states. */
     Fade,
+    /** No animation. */
     None,
 }
 
 // ─── Size Enum ──────────────────────────────────────────────
 
-/**
- * Controls the size of page buttons in [Pagination].
- *
- * - [Small] — 28dp buttons with [TextVariant.Muted] text. Compact.
- * - [Default] — 36dp buttons with [TextVariant.Small] text. Standard.
- * - [Large] — 44dp buttons with [TextVariant.P] text. Touch-friendly.
- *
- * ```
- * Pagination(
- *     currentPage = page,
- *     totalPages = 10,
- *     onPageChange = { page = it },
- *     buttonSize = PaginationSize.Large,
- * )
- * ```
- */
+/** Page button size. */
 enum class PaginationSize {
+    /** 28dp, compact. */
     Small,
+    /** 36dp, standard. */
     Default,
+    /** 44dp, touch-friendly. */
     Large,
 }
 
 // ─── Component ─────────────────────────────────────────────
 
-/**
- * Pagination component for the RikkaUi design system.
- *
- * Displays a row of page number buttons with Previous/Next navigation.
- * Automatically calculates visible page ranges and inserts ellipsis
- * when there are too many pages to display.
- *
- * Usage:
- * ```
- * var currentPage by remember { mutableIntStateOf(1) }
- *
- * Pagination(
- *     currentPage = currentPage,
- *     totalPages = 20,
- *     onPageChange = { currentPage = it },
- * )
- *
- * // With scale animation, large buttons, and custom visible pages
- * Pagination(
- *     currentPage = currentPage,
- *     totalPages = 50,
- *     onPageChange = { currentPage = it },
- *     maxVisiblePages = 7,
- *     animation = PaginationAnimation.Scale,
- *     buttonSize = PaginationSize.Large,
- * )
- *
- * // With custom previous/next content
- * Pagination(
- *     currentPage = currentPage,
- *     totalPages = 10,
- *     onPageChange = { currentPage = it },
- *     previousContent = { tint ->
- *         Text("Prev", color = tint, variant = TextVariant.Small)
- *     },
- *     nextContent = { tint ->
- *         Text("Next", color = tint, variant = TextVariant.Small)
- *     },
- * )
- * ```
- *
- * @param currentPage The currently active page (1-indexed).
- * @param totalPages Total number of pages.
- * @param onPageChange Called when the user selects a different page.
- * @param modifier Modifier for layout and decoration.
- * @param maxVisiblePages Maximum number of page buttons visible at
- *   once (excluding nav buttons). Defaults to 5.
- * @param animation Controls the active page transition animation.
- *   Defaults to [PaginationAnimation.Scale].
- * @param buttonSize Controls the size of page buttons.
- *   Defaults to [PaginationSize.Default].
- * @param previousContent Custom content for the previous button.
- *   Receives the resolved foreground [Color] as a parameter.
- *   When `null` (default), renders a chevron-left icon.
- * @param nextContent Custom content for the next button.
- *   Receives the resolved foreground [Color] as a parameter.
- *   When `null` (default), renders a chevron-right icon.
- */
 @Composable
 fun Pagination(
     currentPage: Int,
@@ -270,18 +184,6 @@ fun Pagination(
 
 // ─── PaginationButton ──────────────────────────────────────
 
-/**
- * Internal page button used by [Pagination].
- *
- * @param text Button label text.
- * @param onClick Called when the button is clicked.
- * @param enabled Whether the button is interactive.
- * @param isActive Whether this is the current/active page.
- * @param label Accessibility label for screen readers.
- * @param animation The animation strategy for active state transitions.
- * @param sizeValues Resolved size values for the button.
- * @param modifier Modifier for layout and decoration.
- */
 @Composable
 private fun PaginationButton(
     text: String,
@@ -359,21 +261,6 @@ private fun PaginationButton(
 
 // ─── PaginationIconButton ─────────────────────────────────
 
-/**
- * Navigation button variant that accepts icon content instead of text.
- * Used for Previous/Next buttons with [Icon] composables or custom
- * content.
- *
- * @param onClick Called when the button is clicked.
- * @param enabled Whether the button is interactive.
- * @param label Accessibility label for screen readers.
- * @param buttonDp Size of the button in dp.
- * @param iconDp Size of the default icon in dp.
- * @param animation The animation strategy for hover transitions.
- * @param modifier Modifier for layout and decoration.
- * @param content Icon content slot receiving the resolved foreground
- *   [Color].
- */
 @Composable
 private fun PaginationIconButton(
     onClick: () -> Unit,
@@ -443,12 +330,6 @@ private fun PaginationIconButton(
 
 // ─── PaginationEllipsis ────────────────────────────────────
 
-/**
- * Ellipsis indicator for truncated page ranges.
- *
- * @param buttonDp Size matching the page buttons for alignment.
- * @param modifier Modifier for layout and decoration.
- */
 @Composable
 private fun PaginationEllipsis(
     buttonDp: Dp,
@@ -468,11 +349,6 @@ private fun PaginationEllipsis(
 
 // ─── Internal: Animation Resolution ────────────────────────
 
-/**
- * Resolves the [Modifier] for the active page animation based
- * on the [PaginationAnimation] enum. Uses `graphicsLayer` to
- * skip composition and layout phases for performance.
- */
 @Composable
 private fun resolveAnimationModifier(
     animation: PaginationAnimation,
@@ -518,10 +394,6 @@ private data class PaginationSizeValues(
     val textVariant: TextVariant,
 )
 
-/**
- * Resolves the button dimensions and text variant for each
- * [PaginationSize].
- */
 @Composable
 private fun resolveSizeValues(size: PaginationSize): PaginationSizeValues =
     when (size) {
@@ -558,12 +430,6 @@ private data class PaginationButtonColors(
     val border: Color,
 )
 
-/**
- * Resolves button colors based on active/hover state.
- *
- * Active page uses primary background (like ButtonVariant.Default).
- * Other pages use ghost/outline style with hover feedback.
- */
 @Composable
 private fun resolveButtonColors(
     isActive: Boolean,
@@ -598,14 +464,6 @@ private data class PageRange(
     val showTrailingEllipsis: Boolean,
 )
 
-/**
- * Calculates which page numbers to display, and whether to show
- * ellipsis.
- *
- * If [totalPages] fits within [maxVisible], all pages are shown.
- * Otherwise, a window around [currentPage] is shown with ellipsis
- * at the edges as needed.
- */
 private fun resolvePageRange(
     currentPage: Int,
     totalPages: Int,

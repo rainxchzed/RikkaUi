@@ -50,66 +50,6 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Dropdown menu component for the RikkaUi design system.
- *
- * A click-triggered overlay menu that renders a scrollable list of
- * actions anchored to a trigger element. Maps to shadcn/ui's
- * Dropdown Menu.
- *
- * The caller controls visibility via the [expanded] parameter.
- * Place [DropdownMenuItem], [DropdownMenuSeparator], and
- * [DropdownMenuLabel] inside the [content] lambda to build the menu.
- *
- * Features:
- * - Click-triggered with outside-click dismiss
- * - Scrollable when content exceeds max height
- * - Hover highlight on menu items
- * - Separator and label sub-components
- * - Configurable animation, min/max width, and max height
- * - No Material3 dependency
- *
- * Usage:
- * ```
- * var open by remember { mutableStateOf(false) }
- *
- * DropdownMenu(
- *     expanded = open,
- *     onDismiss = { open = false },
- *     trigger = {
- *         Button("Actions", onClick = { open = true })
- *     },
- * ) {
- *     DropdownMenuLabel("File")
- *     DropdownMenuItem("New", onClick = { newFile(); open = false })
- *     DropdownMenuItem("Open", onClick = { openFile(); open = false })
- *     DropdownMenuSeparator()
- *     DropdownMenuItem("Delete", onClick = { delete(); open = false })
- * }
- *
- * // Instant popup with wider menu:
- * DropdownMenu(
- *     expanded = open,
- *     onDismiss = { open = false },
- *     animation = PopupAnimation.None,
- *     minWidth = 220.dp,
- *     maxWidth = 360.dp,
- *     trigger = { Button("Wide", onClick = { open = true }) },
- * ) { ... }
- * ```
- *
- * @param expanded Whether the dropdown popup is currently visible.
- * @param onDismiss Called when the user clicks outside the popup to dismiss it.
- * @param modifier Modifier applied to the outer trigger wrapper.
- * @param animation Controls how the popup enters and exits.
- *     Defaults to [PopupAnimation.FadeExpand].
- * @param minWidth Minimum width of the dropdown panel. Defaults to 180.dp.
- * @param maxWidth Maximum width of the dropdown panel. Defaults to 280.dp.
- * @param maxHeight Maximum height before the panel becomes scrollable.
- *     Defaults to 300.dp.
- * @param trigger The composable that anchors the menu. Rendered inline.
- * @param content Column-scoped builder for menu items, labels, and separators.
- */
 @Composable
 fun DropdownMenu(
     expanded: Boolean,
@@ -246,22 +186,6 @@ fun DropdownMenu(
 
 // ─── Menu Item ──────────────────────────────────────────────
 
-/**
- * A single actionable row inside a [DropdownMenu].
- *
- * Highlights with the accent color on hover and dims when disabled.
- *
- * Usage:
- * ```
- * DropdownMenuItem("Copy", onClick = { copy() })
- * DropdownMenuItem("Paste", onClick = { paste() }, enabled = false)
- * ```
- *
- * @param text The label displayed in the menu item.
- * @param onClick Called when the item is clicked.
- * @param enabled Whether the item is interactive. Defaults to true.
- * @param modifier Modifier applied to the item row.
- */
 @Composable
 fun DropdownMenuItem(
     text: String,
@@ -319,18 +243,6 @@ fun DropdownMenuItem(
 
 // ─── Separator ──────────────────────────────────────────────
 
-/**
- * A thin horizontal divider inside a [DropdownMenu].
- *
- * Usage:
- * ```
- * DropdownMenuItem("Cut", onClick = { cut() })
- * DropdownMenuSeparator()
- * DropdownMenuItem("Delete", onClick = { delete() })
- * ```
- *
- * @param modifier Modifier applied to the separator line.
- */
 @Composable
 fun DropdownMenuSeparator(modifier: Modifier = Modifier) {
     val spacing = RikkaTheme.spacing
@@ -347,22 +259,6 @@ fun DropdownMenuSeparator(modifier: Modifier = Modifier) {
 
 // ─── Label ──────────────────────────────────────────────────
 
-/**
- * A non-clickable header label inside a [DropdownMenu].
- *
- * Styled with bold text at the [TextVariant.Small] size to
- * visually group related menu items.
- *
- * Usage:
- * ```
- * DropdownMenuLabel("Edit")
- * DropdownMenuItem("Cut", onClick = { cut() })
- * DropdownMenuItem("Copy", onClick = { copy() })
- * ```
- *
- * @param text The label text.
- * @param modifier Modifier applied to the label row.
- */
 @Composable
 fun DropdownMenuLabel(
     text: String,

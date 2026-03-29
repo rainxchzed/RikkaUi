@@ -33,71 +33,18 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ──────────────────────────────────────────────
 
-/**
- * Animation style for the radio button dot and ring transitions.
- *
- * - [Spring] — Bouncy spring physics (default). Natural, native feel
- *   with a satisfying pop on selection.
- * - [Tween] — Linear tween transition. Predictable, consistent timing.
- * - [None] — Instant state change with no animation. Best for
- *   accessibility (reduced motion) or performance-critical UIs.
- *
- * ```
- * RadioButton(
- *     selected = selected == 0,
- *     onClick = { selected = 0 },
- *     animation = RadioAnimation.None,
- * )
- * ```
- */
+/** Animation style for radio button dot and ring transitions. */
 enum class RadioAnimation {
+    /** Bouncy spring physics (default). */
     Spring,
+    /** Linear tween transition. */
     Tween,
+    /** Instant state change, no animation. */
     None,
 }
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * RadioButton component for the RikkaUi design system.
- *
- * A selection control rendered as a circle with an animated inner dot.
- * Replaces Material3's RadioButton — uses Rikka theme tokens for styling
- * and requires no Material dependency.
- *
- * Features:
- * - Custom-drawn circle and inner dot via Canvas (no icon dependency)
- * - Spring-physics scale animation on select/deselect
- * - Smooth color transitions driven by theme motion tokens
- * - Hover and press interaction states
- * - Full accessibility semantics (Role.RadioButton, stateDescription)
- *
- * Usage:
- * ```
- * var selected by remember { mutableStateOf(0) }
- *
- * RadioButton(
- *     selected = selected == 0,
- *     onClick = { selected = 0 },
- *     label = "Option A",
- * )
- *
- * // No animation (reduced motion)
- * RadioButton(
- *     selected = selected == 1,
- *     onClick = { selected = 1 },
- *     label = "Option B",
- *     animation = RadioAnimation.None,
- * )
- * ```
- *
- * @param selected Whether the radio button is selected.
- * @param onClick Called when the radio button is clicked.
- * @param modifier Modifier for layout and decoration.
- * @param animation Animation style for dot and ring transitions.
- * @param enabled Whether the radio button is interactive.
- * @param label Accessibility label for screen readers. Also rendered as visible text beside the circle.
- */
 @Composable
 fun RadioButton(
     selected: Boolean,

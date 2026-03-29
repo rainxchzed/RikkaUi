@@ -53,64 +53,6 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Context menu component for the RikkaUi design system.
- *
- * A long-press-triggered overlay menu that renders a scrollable
- * list of actions anchored to a trigger area. On desktop/web this
- * maps to right-click; on mobile it triggers via long-press.
- *
- * The component manages its own open/close state internally.
- * Place [ContextMenuItem], [ContextMenuSeparator], and
- * [ContextMenuLabel] inside the [menuContent] lambda.
- *
- * Features:
- * - Long-press triggered (cross-platform)
- * - Outside-click dismiss via Popup
- * - Scrollable when content exceeds max height
- * - Hover highlight on menu items
- * - Trailing shortcut text support
- * - Separator and label sub-components
- * - Configurable animation, min/max width, and max height
- * - No Material3 dependency
- *
- * Usage:
- * ```
- * ContextMenu(
- *     menuContent = {
- *         ContextMenuLabel("Edit")
- *         ContextMenuItem("Cut", onClick = { cut() })
- *         ContextMenuItem(
- *             "Copy",
- *             onClick = { copy() },
- *             shortcut = "\u2318C",
- *         )
- *         ContextMenuSeparator()
- *         ContextMenuItem("Delete", onClick = { del() })
- *     },
- * ) {
- *     Card {
- *         Text("Long-press or right-click me")
- *     }
- * }
- *
- * // Instant popup:
- * ContextMenu(
- *     animation = PopupAnimation.None,
- *     menuContent = { ... },
- * ) { ... }
- * ```
- *
- * @param menuContent Column-scoped builder for items, labels, separators.
- * @param modifier Modifier applied to the outer trigger wrapper.
- * @param animation Controls how the popup enters and exits.
- *     Defaults to [PopupAnimation.FadeExpand].
- * @param minWidth Minimum width of the context menu panel. Defaults to 200.dp.
- * @param maxWidth Maximum width of the context menu panel. Defaults to 280.dp.
- * @param maxHeight Maximum height before the panel becomes scrollable.
- *     Defaults to 300.dp.
- * @param content The trigger area that responds to long-press / right-click.
- */
 @Composable
 fun ContextMenu(
     menuContent: @Composable ColumnScope.() -> Unit,
@@ -166,41 +108,6 @@ fun ContextMenu(
     }
 }
 
-/**
- * Controlled context menu variant where the caller manages
- * open/close state externally.
- *
- * Usage:
- * ```
- * var open by remember { mutableStateOf(false) }
- *
- * ControlledContextMenu(
- *     expanded = open,
- *     onDismiss = { open = false },
- *     menuContent = {
- *         ContextMenuItem("Copy", onClick = { copy(); open = false })
- *     },
- * ) {
- *     Box(
- *         modifier = Modifier.pointerInput(Unit) {
- *             detectTapGestures(onLongPress = { open = true })
- *         },
- *     ) { Text("Right-click me") }
- * }
- * ```
- *
- * @param expanded Whether the context menu popup is visible.
- * @param onDismiss Called when the user clicks outside the popup.
- * @param menuContent Column-scoped builder for items, labels, separators.
- * @param modifier Modifier applied to the outer wrapper.
- * @param animation Controls how the popup enters and exits.
- *     Defaults to [PopupAnimation.FadeExpand].
- * @param minWidth Minimum width of the context menu panel. Defaults to 200.dp.
- * @param maxWidth Maximum width of the context menu panel. Defaults to 280.dp.
- * @param maxHeight Maximum height before the panel becomes scrollable.
- *     Defaults to 300.dp.
- * @param content The trigger area.
- */
 @Composable
 fun ControlledContextMenu(
     expanded: Boolean,
@@ -250,11 +157,6 @@ fun ControlledContextMenu(
 
 // ─── Internal: Animated panel ───────────────────────────────
 
-/**
- * Shared panel rendering for both [ContextMenu] and
- * [ControlledContextMenu], applying the requested
- * [PopupAnimation].
- */
 @Composable
 private fun ContextMenuPanel(
     visible: Boolean,
@@ -364,25 +266,6 @@ private fun ContextMenuPanel(
 
 // ─── Menu Item ──────────────────────────────────────────────
 
-/**
- * A single actionable row inside a [ContextMenu].
- *
- * Highlights with the accent color on hover. Supports an
- * optional leading icon and trailing shortcut text.
- *
- * Usage:
- * ```
- * ContextMenuItem("Copy", onClick = { copy() }, shortcut = "\u2318C")
- * ContextMenuItem("Paste", onClick = { paste() }, enabled = false)
- * ```
- *
- * @param text The label displayed in the menu item.
- * @param onClick Called when the item is clicked.
- * @param modifier Modifier applied to the item row.
- * @param enabled Whether the item is interactive. Defaults to true.
- * @param leadingIcon Optional icon composable rendered before the label.
- * @param shortcut Optional trailing shortcut text (e.g. "\u2318C").
- */
 @Composable
 fun ContextMenuItem(
     text: String,
@@ -461,18 +344,6 @@ fun ContextMenuItem(
 
 // ─── Separator ──────────────────────────────────────────────
 
-/**
- * A thin horizontal divider inside a [ContextMenu].
- *
- * Usage:
- * ```
- * ContextMenuItem("Cut", onClick = { cut() })
- * ContextMenuSeparator()
- * ContextMenuItem("Paste", onClick = { paste() })
- * ```
- *
- * @param modifier Modifier applied to the separator line.
- */
 @Composable
 fun ContextMenuSeparator(modifier: Modifier = Modifier) {
     val spacing = RikkaTheme.spacing
@@ -489,22 +360,6 @@ fun ContextMenuSeparator(modifier: Modifier = Modifier) {
 
 // ─── Label ──────────────────────────────────────────────────
 
-/**
- * A non-clickable header label inside a [ContextMenu].
- *
- * Styled with bold text at the small size to visually group
- * related menu items.
- *
- * Usage:
- * ```
- * ContextMenuLabel("Actions")
- * ContextMenuItem("Edit", onClick = { edit() })
- * ContextMenuItem("Delete", onClick = { del() })
- * ```
- *
- * @param text The label text.
- * @param modifier Modifier applied to the label row.
- */
 @Composable
 fun ContextMenuLabel(
     text: String,

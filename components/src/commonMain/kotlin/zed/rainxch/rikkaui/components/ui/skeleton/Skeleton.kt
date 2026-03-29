@@ -22,66 +22,19 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ──────────────────────────────────────────────
 
-/**
- * Skeleton animation variants.
- *
- * Controls the visual loading feedback style. All animated variants
- * respect [RikkaTheme.motion] duration tokens.
- *
- * - [Pulse] — Pulsing opacity (default). Matches shadcn/ui behavior.
- * - [Shimmer] — Horizontal gradient sweep. Eye-catching loading effect
- *   common in content-heavy layouts.
- * - [None] — Static muted block with no animation. Useful for snapshot
- *   tests or reduced-motion contexts.
- *
- * ```
- * Skeleton(animation = SkeletonAnimation.Shimmer)
- * Skeleton(animation = SkeletonAnimation.None)
- * ```
- */
 enum class SkeletonAnimation {
+    /** Pulsing opacity (default). */
     Pulse,
+
+    /** Horizontal gradient sweep. */
     Shimmer,
+
+    /** Static muted block, no animation. */
     None,
 }
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Skeleton component for the RikkaUi design system.
- *
- * An animated loading placeholder. The caller controls size through
- * the [modifier] parameter. Matches shadcn/ui's Skeleton component
- * with additional animation and shape options.
- *
- * Usage:
- * ```
- * // Avatar placeholder
- * Skeleton(modifier = Modifier.size(40.dp).clip(CircleShape))
- *
- * // Text line placeholder
- * Skeleton(modifier = Modifier.fillMaxWidth().height(16.dp))
- *
- * // Shimmer card placeholder
- * Skeleton(
- *     modifier = Modifier.fillMaxWidth().height(120.dp),
- *     animation = SkeletonAnimation.Shimmer,
- * )
- *
- * // Custom rounded shape
- * Skeleton(
- *     modifier = Modifier.size(48.dp),
- *     shape = RikkaTheme.shapes.full,
- * )
- * ```
- *
- * @param modifier Modifier for layout — set size via
- *   [Modifier.size], [Modifier.height], etc.
- * @param animation Animation style. Defaults to [SkeletonAnimation.Pulse].
- * @param shape Clip shape applied to the skeleton. Defaults to
- *   [RikkaTheme.shapes.md]. Pass [RikkaTheme.shapes.full] for circular
- *   placeholders or any custom [RoundedCornerShape].
- */
 @Composable
 fun Skeleton(
     modifier: Modifier = Modifier,

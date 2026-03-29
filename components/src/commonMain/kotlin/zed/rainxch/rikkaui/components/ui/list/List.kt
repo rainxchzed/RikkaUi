@@ -15,50 +15,18 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Variant ────────────────────────────────────────────────
 
-/**
- * List style variants.
- *
- * - [Unordered] — Bullet points (•).
- * - [Ordered] — Numbered items (1. 2. 3.).
- * - [None] — No markers, just indented items.
- */
+/** List style variants. */
 enum class ListVariant {
+    /** Bullet points (•). */
     Unordered,
+    /** Numbered items (1. 2. 3.). */
     Ordered,
+    /** No markers, just indented items. */
     None,
 }
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Styled list component for the RikkaUi design system.
- *
- * Renders a vertical list with bullet points, numbers, or no markers.
- * Uses theme spacing and typography tokens for consistent styling.
- *
- * Usage:
- * ```
- * // Bullet list
- * RikkaList(items = listOf("First item", "Second item", "Third item"))
- *
- * // Numbered list
- * RikkaList(
- *     items = listOf("Clone the repo", "Install dependencies", "Run the app"),
- *     variant = ListVariant.Ordered,
- * )
- *
- * // Custom content per item
- * RikkaList(variant = ListVariant.Unordered) {
- *     ListItem { Text("Custom content here") }
- *     ListItem { Text("Another item") }
- * }
- * ```
- *
- * @param items List of string items to render.
- * @param modifier Modifier for layout and decoration.
- * @param variant List style — bullet, numbered, or none.
- * @param textVariant Typography variant for list item text.
- */
 @Composable
 fun RikkaList(
     items: List<String>,
@@ -81,22 +49,6 @@ fun RikkaList(
     }
 }
 
-/**
- * Styled list with custom content per item.
- *
- * Use [ListItem] inside the content lambda to define each item.
- *
- * ```
- * RikkaList(variant = ListVariant.Ordered) {
- *     ListItem { Text("Step one") }
- *     ListItem { Text("Step two") }
- * }
- * ```
- *
- * @param modifier Modifier for layout and decoration.
- * @param variant List style — bullet, numbered, or none.
- * @param content List items — use [ListItem] composables.
- */
 @Composable
 fun RikkaList(
     modifier: Modifier = Modifier,
@@ -123,15 +75,7 @@ fun RikkaList(
 
 // ─── ListItem ───────────────────────────────────────────────
 
-/**
- * Scope for building list items inside [RikkaList].
- */
 interface ListScope {
-    /**
-     * Adds an item to the list.
-     *
-     * @param content The composable content for this list item.
-     */
     fun ListItem(content: @Composable () -> Unit)
 }
 

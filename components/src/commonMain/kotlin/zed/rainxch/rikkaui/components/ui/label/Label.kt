@@ -17,26 +17,6 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Label component for the RikkaUi design system.
- *
- * A text label intended for form elements. Uses [TextVariant.Small] styling
- * with medium font weight, matching shadcn/ui's Label component.
- *
- * Usage:
- * ```
- * Label("Email")
- * Label("Username", disabled = true)
- * Label("Password", required = true)
- * Label("Name", modifier = Modifier.padding(bottom = RikkaTheme.spacing.xs))
- * ```
- *
- * @param text The label text to display.
- * @param modifier Modifier for layout and decoration.
- * @param disabled When true, the label is dimmed using [RikkaTheme.colors.mutedForeground].
- * @param required When true, a red asterisk (*) is appended after the label text
- *   to indicate the field is mandatory.
- */
 @Composable
 fun Label(
     text: String,
@@ -75,9 +55,6 @@ fun Label(
 
 // ─── Internal: Color Resolution ─────────────────────────────
 
-/**
- * Resolves the label text color based on the disabled state.
- */
 @Composable
 private fun resolveColor(disabled: Boolean): Color =
     if (disabled) {

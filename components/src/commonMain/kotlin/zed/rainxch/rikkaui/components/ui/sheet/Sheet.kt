@@ -53,115 +53,34 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Side ───────────────────────────────────────────────────
 
-/**
- * The side from which the sheet slides in.
- *
- * - [Top] — Slides down from the top edge.
- * - [Bottom] — Slides up from the bottom edge.
- * - [Left] — Slides in from the left edge.
- * - [Right] — Slides in from the right edge (default).
- */
+/** Side from which the sheet slides in. */
 enum class SheetSide {
+    /** Slides down from the top edge. */
     Top,
+    /** Slides up from the bottom edge. */
     Bottom,
+    /** Slides in from the left edge. */
     Left,
+    /** Slides in from the right edge (default). */
     Right,
 }
 
 // ─── Animation Enum ─────────────────────────────────────────
 
-/**
- * Animation style for [Sheet] enter/exit transitions.
- *
- * Each variant uses [RikkaTheme.motion] tokens for timing, so
- * switching the motion preset (snappy / playful / minimal)
- * automatically adjusts the sheet animation speed.
- *
- * ```
- * Sheet(
- *     open = open,
- *     onDismiss = { open = false },
- *     animation = SheetAnimation.FadeScale,
- * ) { ... }
- * ```
- *
- * - [Slide] — Slide from edge + fade. The default, gives the
- *   sheet a natural "drawer" feel.
- * - [FadeScale] — Fade in combined with a subtle 0.95 -> 1.0
- *   scale. A centered pop-in feel.
- * - [Fade] — Opacity-only transition, no slide or scale.
- * - [None] — Instant appear/disappear with no animation.
- */
+/** Animation style for sheet enter/exit transitions. */
 enum class SheetAnimation {
-    /** Slide from edge + fade. Default. */
+    /** Slide from edge + fade. */
     Slide,
-
-    /** Fade + subtle scale up from 0.95. */
+    /** Fade + subtle scale from 0.95. */
     FadeScale,
-
-    /** Opacity-only fade, no slide or scale. */
+    /** Opacity-only fade. */
     Fade,
-
     /** Instant appear/disappear. */
     None,
 }
 
 // ─── Component ──────────────────────────────────────────────
 
-/**
- * Sheet (side/bottom panel) overlay for the RikkaUi design system.
- *
- * Displays a panel that slides in from any edge of the screen
- * on top of a semi-transparent scrim. Clicking the scrim dismisses
- * the sheet. Uses transitions from [RikkaTheme.motion].
- *
- * Usage:
- * ```
- * var open by remember { mutableStateOf(false) }
- *
- * Button("Open Sheet", onClick = { open = true })
- *
- * Sheet(open = open, onDismiss = { open = false }) {
- *     SheetHeader(
- *         title = "Settings",
- *         description = "Adjust your preferences.",
- *     )
- *     SheetContent {
- *         Text("Sheet body content here.")
- *     }
- *     SheetFooter {
- *         Button("Close", onClick = { open = false })
- *     }
- * }
- *
- * // Bottom sheet with fade animation
- * Sheet(
- *     open = open,
- *     onDismiss = { open = false },
- *     side = SheetSide.Bottom,
- *     animation = SheetAnimation.Fade,
- * ) {
- *     SheetHeader(title = "Options")
- *     SheetContent { Text("Pick an option") }
- * }
- * ```
- *
- * @param open Whether the sheet is visible.
- * @param onDismiss Called when the user dismisses the sheet
- *   (scrim click or back gesture).
- * @param side The edge from which the sheet slides in. Defaults
- *   to [SheetSide.Right].
- * @param modifier Modifier applied to the sheet panel.
- * @param label Accessibility label describing the sheet's purpose.
- * @param animation The enter/exit animation style. Defaults to
- *   [SheetAnimation.Slide].
- * @param scrimColor Color of the backdrop scrim. Defaults to
- *   semi-transparent black (`Color.Black.copy(alpha = 0.5f)`).
- * @param panelWidth Width of the sheet panel for [SheetSide.Left]
- *   and [SheetSide.Right]. Defaults to 320.dp.
- * @param content Sheet content — use [SheetHeader], [SheetContent],
- *   [SheetFooter] for structure.
- */
 @Composable
 fun Sheet(
     open: Boolean,
@@ -282,21 +201,6 @@ fun Sheet(
 
 // ─── Structured Sections ────────────────────────────────────
 
-/**
- * Header section for a [Sheet]. Contains a title and optional
- * description.
- *
- * ```
- * SheetHeader(
- *     title = "Navigation",
- *     description = "Browse sections of the app.",
- * )
- * ```
- *
- * @param title The sheet title, rendered as H3.
- * @param description Optional description text, rendered as Muted.
- * @param modifier Modifier for the header column.
- */
 @Composable
 fun SheetHeader(
     title: String,
@@ -323,18 +227,6 @@ fun SheetHeader(
     }
 }
 
-/**
- * Main content section for a [Sheet].
- *
- * ```
- * SheetContent {
- *     Text("Your content here")
- * }
- * ```
- *
- * @param modifier Modifier for the content column.
- * @param content The sheet body content.
- */
 @Composable
 fun SheetContent(
     modifier: Modifier = Modifier,
@@ -346,19 +238,6 @@ fun SheetContent(
     )
 }
 
-/**
- * Footer section for a [Sheet]. Arranges action buttons at the end.
- *
- * ```
- * SheetFooter {
- *     Button("Cancel", onClick = { dismiss() }, variant = ButtonVariant.Outline)
- *     Button("Apply", onClick = { apply() })
- * }
- * ```
- *
- * @param modifier Modifier for the footer row.
- * @param content Footer content — typically buttons.
- */
 @Composable
 fun SheetFooter(
     modifier: Modifier = Modifier,
@@ -379,10 +258,6 @@ fun SheetFooter(
 
 // ─── Internal: Shape Resolution ─────────────────────────────
 
-/**
- * Returns a shape with rounded corners only on the side facing
- * the center.
- */
 @Composable
 private fun resolvePanelShape(side: SheetSide): Shape {
     val radius = 10.dp
@@ -425,9 +300,6 @@ private fun resolvePanelShape(side: SheetSide): Shape {
     }
 }
 
-/**
- * Returns the alignment for the panel within the full-screen box.
- */
 private fun resolvePanelAlignment(side: SheetSide): Alignment =
     when (side) {
         SheetSide.Left -> Alignment.CenterStart
@@ -436,10 +308,6 @@ private fun resolvePanelAlignment(side: SheetSide): Alignment =
         SheetSide.Bottom -> Alignment.BottomCenter
     }
 
-/**
- * Returns a border modifier that places a 1dp border on the edge
- * facing the center.
- */
 @Composable
 private fun resolveBorderModifier(
     side: SheetSide,
@@ -499,11 +367,6 @@ private fun resolveBorderModifier(
 
 // ─── Internal: Transition Resolution ────────────────────────
 
-/**
- * Resolves enter/exit transitions for the sheet panel based on the
- * chosen [SheetAnimation], [SheetSide], and current [RikkaMotion]
- * tokens.
- */
 private fun resolveSheetTransition(
     animation: SheetAnimation,
     side: SheetSide,
@@ -553,10 +416,6 @@ private fun resolveSheetTransition(
         }
     }
 
-/**
- * Resolves slide + fade enter/exit transitions based on the sheet
- * [side] and [motion] tokens.
- */
 private fun resolveSlideTransition(
     side: SheetSide,
     motion: RikkaMotion,
