@@ -284,15 +284,10 @@ fun Button(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         if (loading) {
-            val spinnerSize =
-                when (size) {
-                    ButtonSize.Sm -> SpinnerSize.Sm
-                    ButtonSize.Icon -> SpinnerSize.Sm
-                    else -> SpinnerSize.Default
-                }
             Spinner(
-                size = spinnerSize,
+                size = SpinnerSize.Sm,
                 color = colors.foreground,
+                trackColor = null,
                 label = "Loading",
             )
         }
