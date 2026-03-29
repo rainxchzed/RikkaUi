@@ -78,19 +78,17 @@ fun TopNavBar(
                     text = link.label,
                     onClick = {
                         navController.navigate(link.route) {
-                            popUpTo(HomeRoute) {
-                                saveState = true
+                            popUpTo<HomeRoute> {
+                                inclusive = false
                             }
                             launchSingleTop = true
-                            restoreState = true
                         }
                     },
-                    variant =
-                        if (isActive) {
-                            ButtonVariant.Secondary
-                        } else {
-                            ButtonVariant.Ghost
-                        },
+                    variant = if (isActive) {
+                        ButtonVariant.Secondary
+                    } else {
+                        ButtonVariant.Ghost
+                    },
                     size = ButtonSize.Sm,
                 )
             }
