@@ -12,8 +12,11 @@ Tagline: "Share UI via Compose Multiplatform UI framework"
 
 ### Modules
 
-- `:components` — The component library. **No Material3 dependency.** Built on `compose.foundation` only. WasmJs target.
+- `:foundation` — Theme tokens and design system foundation. Multiplatform: Android, Desktop (JVM), iOS, WasmJs.
+- `:components` — The component library (40+ components). **No Material3 dependency.** Built on `compose.foundation` only. Multiplatform: Android, Desktop (JVM), iOS, WasmJs. Depends on `:foundation`.
 - `:composeApp` — The showcase website. WasmJs (browser). Depends on `:components`.
+- `:feature:docs` — Documentation pages for all components. Depends on `:components`.
+- `:feature:creator` — Design system creator/configurator page.
 
 ### Package Structure
 
@@ -34,6 +37,8 @@ components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/
   ui/
     text/Text.kt          — BasicText wrapper with TextVariant enum, heading accessibility
     button/Button.kt      — 6 variants (Default/Secondary/Destructive/Outline/Ghost/Link), 4 sizes (Default/Sm/Lg/Icon), 3 animations
+                             Content lambda passes resolved foreground Color: content: @Composable (foreground: Color) -> Unit
+    button/IconButton.kt  — Convenience wrapper over Button with ButtonSize.Icon. 3 sizes (Sm/Default/Lg). Defaults to Ghost variant.
     card/Card.kt          — 3 variants + CardHeader/CardContent/CardFooter, semantic grouping
     badge/Badge.kt        — 4 variants (Default/Secondary/Destructive/Outline), text + content overloads
     separator/Separator.kt — Horizontal/Vertical, decorative (clearAndSetSemantics)
@@ -44,7 +49,7 @@ components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/
     textarea/Textarea.kt   — Multi-line text input
     label/Label.kt         — Form label with disabled state
     skeleton/Skeleton.kt   — Pulsing loading placeholder
-    spinner/Spinner.kt     — Rotating loading indicator (3 sizes)
+    spinner/Spinner.kt     — Rotating loading indicator (3 sizes), stroke inset padding to prevent clipping
     alert/Alert.kt         — Alert + AlertTitle + AlertDescription (Default/Destructive variants)
                              Destructive uses semi-transparent red bg/border + destructive text color
     avatar/Avatar.kt       — Fallback initials (3 sizes: Sm/Default/Lg)
@@ -52,7 +57,7 @@ components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/
     progress/Progress.kt   — Animated progress bar
     slider/Slider.kt       — Draggable range input with pointerInput
     accordion/Accordion.kt — Expandable sections with chevron icon
-    tabs/Tabs.kt           — TabList + Tab + TabContent
+    tabs/Tabs.kt           — TabList + Tab + TabContent with AnimatedContent transitions
     togglegroup/ToggleGroup.kt — Grouped toggle buttons (Default/Outline)
     table/Table.kt         — Table + TableHeader + TableRow + TableCell + TableHeaderCell
     dialog/Dialog.kt       — Dialog + DialogHeader + DialogFooter (Popup-based)
@@ -65,6 +70,7 @@ components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/
     dropdown/DropdownMenu.kt — Action menu with items/separators/labels
     hovercard/HoverCard.kt — Hover-triggered popup with delay
     tooltip/Tooltip.kt     — Tooltip on hover
+    list/List.kt           — RikkaList with ListVariant (Unordered/Ordered/None), string items + DSL (ListScope)
     icon/Icon.kt           — Foundation-only icon composable (ImageVector + ColorFilter.tint)
     icon/RikkaIcons.kt     — 30 Lucide-style icons as lazy ImageVector definitions
     indication/RikkaIndication.kt — IndicationNodeFactory using Modifier.Node API (draw phase only)
@@ -74,7 +80,11 @@ components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/
 
 ```
 composeApp/src/webMain/kotlin/zed/rainxch/rikkaui/
-  App.kt                  — Slim entry point: main(), state, ComposeViewport + RikkaTheme wiring
+  App.kt                  — Entry point: main(), ComposeViewport, RikkaTheme wiring, bindToBrowserNavigation()
+  navigation/
+    Routes.kt             — 5 serializable routes: HomeRoute, CreatorRoute, DocsRoute, ComponentsRoute, ComponentDetailRoute
+  shell/
+    TopNavBar.kt          — Top navigation bar with route links + dark mode toggle
   theme/
     ThemeConfig.kt        — resolvePalette(), resolveAccent(), accentPreviewColor()
     StylePresets.kt       — stylePresetNames, StylePreset data class, resolveStyle()
@@ -86,18 +96,18 @@ composeApp/src/webMain/kotlin/zed/rainxch/rikkaui/
     FooterSection.kt      — Footer with tagline
     SectionHeader.kt      — Reusable section header
     WindowSizeClass.kt    — Breakpoint utility (Compact/Medium/Expanded)
-    examples/             — 10 realistic example cards in 3-column mosaic grid:
-      MusicPlayerExample.kt       — Col1: Music player (Progress, Slider, Toggle, Badge)
-      WeatherDashboardExample.kt  — Col1: Weather dashboard (Table, Badge, Progress)
-      TaskBoardExample.kt         — Col2: Sprint tasks (Checkbox, Badge variants, Avatar)
-      FileExplorerExample.kt      — Col2: File browser (Icon, Input, Button)
-      QuickNoteExample.kt         — Col2: Note-taking (Textarea, ToggleGroup, Kbd)
-      SystemStatusExample.kt      — Col2: Service monitor (Spinner, Badge, Progress)
-      UserProfileExample.kt       — Col3: Profile card (Avatar, Toggle, Button)
-      ApiKeyManagerExample.kt     — Col3: API key manager (Kbd, Alert, Icon)
-      FeedbackFormExample.kt      — Col3: Star rating (interactive stars, Textarea, Checkbox)
-      ActivityFeedExample.kt      — Col3: Activity feed (Avatar, Pagination)
+    examples/             — 10 realistic example cards in 3-column mosaic grid
 ```
+
+### Navigation (Browser URL Sync)
+
+Uses `androidx.navigation.bindToBrowserNavigation()` (ExperimentalBrowserHistoryApi) for hash-based URL routing:
+- `rikkaui.dev#home` → Home
+- `rikkaui.dev#docs` → Docs
+- `rikkaui.dev#create` → Creator
+- `rikkaui.dev#docs/components/{componentId}` → Component detail
+
+Routes use `@SerialName` for clean URL paths. Browser back/forward and page refresh work.
 
 ### Website Page Flow (order matters for engagement)
 
@@ -118,6 +128,7 @@ composeApp/src/webMain/kotlin/zed/rainxch/rikkaui/
 8. **Accessibility** — Every interactive component MUST have: Role, contentDescription via `label` param, disabled() semantics. Headings get `heading()`. Decorative elements get `clearAndSetSemantics {}`
 9. **No Material3** — Use BasicText (not Text), clickable with Role (not Button), compose.foundation only
 10. **KDoc on everything** — With usage examples in code blocks
+11. **Button foreground propagation** — Button content lambda passes resolved foreground Color to children: `content: @Composable (foreground: Color) -> Unit`. Never use LocalContentColor.
 
 ### Performance Rules
 
@@ -167,35 +178,174 @@ Every theme token is customizable at 3 levels: presets, factory functions, or fu
 
 # Preview server (after building distributable)
 # Uses .claude/launch.json: npx serve on port 3000
+
+# Local Maven publish test (skip signing for local)
+./gradlew publishToMavenLocal --no-configuration-cache -PRELEASE_SIGNING_ENABLED=false
+
+# Full Maven Central publish (CI only)
+./gradlew publishAndReleaseToMavenCentral --no-configuration-cache
 ```
 
-### Known ktlint Issues
+### ktlint Configuration
 
-- Generated Compose resource files fail ktlint (not our code, ignore)
-- `@Composable` function names (uppercase) trigger "Function name should start with lowercase" (Compose convention, ignore)
-- `ColorScheme.kt` triggers "single top level declaration" filename warning (ignore)
+- **`.editorconfig`** at project root configures ktlint rules
+- `ktlint_function_naming_ignore_when_annotated_with = Composable` — allows uppercase @Composable function names
+- `ktlint_standard_filename = disabled` — ignores filename warnings (e.g., ColorScheme.kt)
+- `[**/build/generated/**] ktlint = disabled` — skips generated code
+- Both `:components` and `:foundation` have `ktlint { ignoreFailures = true }` — warns but never fails builds
 - Max line length is 140 chars. Break long strings with `+` concatenation.
+
+## Maven Central Publishing
+
+### Coordinates
+
+- **GroupId:** `dev.rikkaui`
+- **ArtifactId:** `foundation`, `components` (from module names)
+- **Version:** Defined in `gradle.properties` as `VERSION_NAME`
+
+### Published Artifacts (per module)
+
+| Platform | Artifact suffix |
+|----------|----------------|
+| Kotlin Metadata | (base name) |
+| Android | `-android` |
+| Desktop (JVM) | `-desktop` |
+| iOS arm64 | `-iosarm64` |
+| iOS Simulator arm64 | `-iossimulatorarm64` |
+| iOS x64 | `-iosx64` |
+| WasmJs | `-wasm-js` |
+
+### Usage by Consumers
+
+```kotlin
+// For ANY platform (Android, Desktop, iOS, Web) — Gradle resolves the right artifact
+dependencies {
+    implementation("dev.rikkaui:components:0.1.0")
+}
+```
+
+Native Android developers need NO KMP configuration — just add the dependency.
+
+### Publishing Stack
+
+- **Plugin:** `com.vanniktech.maven.publish` v0.30.0
+- **Sonatype:** Central Portal (`SONATYPE_HOST=CENTRAL_PORTAL`)
+- **Signing:** `useInMemoryPgpKeys()` with GPG key decoded from base64 in CI
+- **CI:** GitHub Actions on `macos-latest` (needed for iOS targets), triggered on GitHub Release
+
+### gradle.properties (Publishing Config)
+
+```properties
+GROUP=dev.rikkaui
+VERSION_NAME=0.1.0
+SONATYPE_HOST=CENTRAL_PORTAL
+RELEASE_SIGNING_ENABLED=true
+POM_URL=https://github.com/rainxchzed/RikkaUi
+POM_LICENSE_NAME=The Apache Software License, Version 2.0
+```
+
+### Library Module Build Config (both foundation and components)
+
+```kotlin
+plugins {
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.gradle.ktlint)
+    alias(libs.plugins.vanniktechMavenPublish)
+}
+
+android {
+    namespace = "dev.rikkaui.<module>"
+    compileSdk = 35
+    defaultConfig { minSdk = 24 }
+}
+
+kotlin {
+    androidTarget { publishLibraryVariants("release") }
+    jvm("desktop")
+    iosX64(); iosArm64(); iosSimulatorArm64()
+    wasmJs { browser() }
+    applyDefaultHierarchyTemplate()
+}
+
+signing {
+    useInMemoryPgpKeys(
+        findProperty("signingInMemoryKeyId") as String?,
+        findProperty("signingInMemoryKey") as String?,
+        findProperty("signingInMemoryKeyPassword") as String?,
+    )
+}
+
+ktlint { ignoreFailures = true }
+```
+
+### GitHub Actions Workflow (`.github/workflows/publish.yml`)
+
+- Triggered on `release` event (type: `released`)
+- Runs on `macos-latest`
+- **Critical:** Must decode base64 GPG key before passing to Gradle:
+  ```yaml
+  - name: Decode GPG key
+    run: |
+      echo "${{ secrets.GPG_KEY_CONTENTS }}" | base64 --decode > /tmp/secring.asc
+      { echo 'GPG_KEY<<EOF'; cat /tmp/secring.asc; echo 'EOF'; } >> "$GITHUB_ENV"
+  ```
+- Passes decoded key as `ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ env.GPG_KEY }}`
+
+### GitHub Secrets Required
+
+| Secret | Value |
+|--------|-------|
+| `MAVEN_CENTRAL_USERNAME` | Sonatype Central Portal token username |
+| `MAVEN_CENTRAL_PASSWORD` | Sonatype Central Portal token password |
+| `SIGNING_KEY_ID` | Last 8 chars of GPG key ID (e.g., `7601DC0B`) |
+| `SIGNING_PASSWORD` | GPG key passphrase |
+| `GPG_KEY_CONTENTS` | Base64-encoded ASCII-armored GPG private key (`gpg --export-secret-keys --armor KEY_ID \| base64`) |
+
+### Sonatype Setup
+
+- Namespace `dev.rikkaui` verified via DNS TXT record on `rikkaui.dev`
+- GPG public key uploaded to `keyserver.ubuntu.com`
+
+## Deployment (Vercel)
+
+- **Build command:** `chmod +x build.sh && ./build.sh`
+- **Output dir:** `composeApp/build/dist/wasmJs/productionExecutable`
+- **`build.sh`:** Installs `libatomic` (required by Node.js v25 on Amazon Linux 2023), then runs Gradle
+- Kotlin 2.3.0 downloads Node.js v25 internally; `version.set()` on `NodeJsEnvSpec` is ignored
 
 ## Known Bugs & Issues Fixed (for context)
 
 ### Fixed in Recent Sessions
 - **Toggle thumb invisible in dark mode (default accent):** `primary` is near-white (0xFFFAFAFA), thumb was hardcoded `Color.White`. Fix: thumb now uses `primaryForeground` when checked.
-- **Play button icon invisible:** Default Button uses `primary` bg with `primaryForeground` text, but Text inside used theme `foreground` instead. Fix: explicitly set `color = RikkaTheme.colors.primaryForeground` on text inside Default variant buttons.
+- **Play button icon invisible:** Default Button uses `primary` bg with `primaryForeground` text, but Text inside used theme `foreground` instead. Fix: Button content lambda now passes foreground color to children.
 - **Alert Destructive text invisible in light mode:** `destructiveForeground` is near-white on white `card` background. Fix: Destructive Alert now uses `destructive.copy(alpha=0.1f)` background, `destructive.copy(alpha=0.3f)` border, and `destructive` color for both title and description text.
 - **Light mode palettes indistinguishable:** All 5 light palettes had identical white backgrounds and near-identical token values. Fix: Zinc keeps white bg as baseline, Slate/Stone/Gray/Neutral now use tinted backgrounds and more distinct border/secondary colors.
+- **Spinner cropped in Button loading state:** drawArc stroke extends beyond Canvas bounds. Fix: added `padding(stroke/2)` inset.
+- **Tabs text overlapping:** DemoBox is a Box (not Column), so TabList and TabContent stacked. Fix: wrapped in Column.
+- **Button loading hides content:** Users want to see both spinner AND text while loading. Fix: loading shows both Spinner and content.
 
 ### Important Gotchas
 - **Checkbox `label` renders visually** — Don't add a separate Text composable next to Checkbox with label; it will show the text twice.
 - **Compose PathBuilder** uses `curveTo` (not `cubicTo`), has no `addOval`/`addRoundRect`. Use custom `circle()` and `roundRect()` helper extensions in RikkaIcons.kt.
 - **Compose Wasm canvas rendering** — `window.scrollBy()` doesn't work for scrolling. The scroll is internal to the Compose canvas. Use WheelEvent dispatch or page reload for screenshot navigation.
 - **`Modifier.weight()`** is a `RowScope`/`ColumnScope` extension — don't import `foundation.layout.weight` directly (it's internal).
+- **DemoBox in docs uses `Box`** — Children stack (overlap), not flow. Wrap multiple elements in `Column` or `Row`.
+- **WasmJs has no `dynamic` type** — Unlike Kotlin/JS. Use typed APIs (e.g., `(Event) -> Unit` not `(dynamic) -> Unit`).
+- **CMP `SavedState` is not Android `Bundle`** — No `getString()` method. Use `toRoute<T>()` on `NavBackStackEntry` instead.
+- **Kotlin 2.3.0 `kotlinOptions.jvmTarget`** — Deprecated and unresolved. Remove it entirely; AGP handles JVM target via `compileOptions`.
+- **Vanniktech v0.30.0 auto-reads `GROUP`/`VERSION_NAME`** from `gradle.properties`. Don't call `coordinates()` manually — it throws because groupId is already final.
+- **GPG key for CI must be base64-decoded** before passing to `useInMemoryPgpKeys()`. The secret stores base64, workflow must decode it.
+- **macOS `base64` has no `-w` flag** — It doesn't wrap by default (unlike Linux). Use `base64 -w 0` on Linux only.
 
 ## Icon System
 
 - 30 Lucide-style icons as lazy `ImageVector` definitions in `RikkaIcons.kt`
 - Icons: ChevronRight/Down/Left/Up, Check, X, Plus, Minus, Search, ArrowLeft/Right/Up/Down, Menu, MoreHorizontal/Vertical, Mail, User, Heart, Star, Eye, Copy, Trash, Edit, Download, Upload, Sun, Moon, Settings, Send
 - Helper extensions: `strokePath()`, `fillPath()`, `circle()`, `roundRect()`
-- Icon font multi-pack system (supporting multiple icon sets like Lucide/Phosphor/Material Symbols with style variants Thin/Light/Regular/Bold/Filled/Duotone) — **deferred to separate project**
+- Icon font multi-pack system — **deferred to separate project**
 
 ## MVP Scope
 
@@ -203,9 +353,10 @@ Every theme token is customizable at 3 levels: presets, factory functions, or fu
 
 Priority order:
 1. Website showcasing all components with live examples (DONE - 10 original example cards)
-2. More components if needed (33 components currently built)
-3. Registry system: JSON manifests describing components + dependencies
-4. Community: Post on X/LinkedIn, Discord, collect weekly feedback
+2. Documentation for all components (DONE - integrated into website via `:feature:docs`)
+3. Maven Central publishing (IN PROGRESS - v0.1.0)
+4. Registry system: JSON manifests describing components + dependencies
+5. Community: Post on X/LinkedIn, Discord, collect weekly feedback
 
 ## Key Technical Decisions
 
@@ -215,6 +366,8 @@ Priority order:
 - **RikkaIndication over per-component feedback** — Single IndicationNodeFactory for design-system-wide hover/press/focus.
 - **Experimental Styles API** — Future migration target when Foundation 1.11+ stabilizes. Currently we use manual InteractionSource + animateColorAsState.
 - **Wasm/Web target** — Canvas-based (no SEO). Target dashboards/apps, not content sites. Hover states critical.
+- **bindToBrowserNavigation()** — Official Compose Navigation API for browser hash routing. Replaces custom HashRouter.
+- **Vanniktech maven-publish** — Handles POM generation, signing, Sonatype upload for all KMP targets.
 
 ## Who Is This For
 
