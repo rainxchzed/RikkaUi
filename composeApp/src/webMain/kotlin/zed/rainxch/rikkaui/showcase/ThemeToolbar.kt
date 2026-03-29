@@ -179,6 +179,7 @@ private fun ToolbarPopover(
     Popover(
         expanded = expanded,
         onDismiss = { expanded = false },
+        maxWidth = 160.dp,
         trigger = {
             Button(
                 onClick = { expanded = !expanded },
