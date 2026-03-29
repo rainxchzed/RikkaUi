@@ -8,8 +8,8 @@
     <!-- Hero -->
     <string name="preview">Preview</string>
     <string name="app_name">RikkaUI</string>
-    <string name="hero_subtitle">Share UI via Compose Multiplatform</string>
-    <string name="hero_description">40+ styled components you own. No Material3. Built on Compose Foundation with spring-physics animations and a fully customizable design system.</string>
+    <string name="hero_subtitle">Composing elements into harmony</string>
+    <string name="hero_description">A shadcn/ui-inspired component library and design system for Compose Multiplatform. Copy-paste components you own, zero Material dependency.</string>
     <string name="get_started">Browse Components</string>
     <string name="github">GitHub</string>
 
