@@ -8,14 +8,14 @@
     <!-- Hero -->
     <string name="preview">Preview</string>
     <string name="app_name">RikkaUI</string>
-    <string name="hero_subtitle">Beautiful components for Compose Multiplatform</string>
-    <string name="hero_description">A shadcn-inspired component library for Kotlin. Copy-paste components you own, spring-physics animations, and zero Material dependency.</string>
-    <string name="get_started">Get Started</string>
+    <string name="hero_subtitle">Share UI via Compose Multiplatform</string>
+    <string name="hero_description">40+ styled components you own. No Material3. Built on Compose Foundation with spring-physics animations and a fully customizable design system.</string>
+    <string name="get_started">Browse Components</string>
     <string name="github">GitHub</string>
 
     <!-- Footer -->
     <string name="built_with_compose">Built with Compose Multiplatform</string>
-    <string name="footer_tagline">RikkaUI — Zero Material. Pure Kotlin.</string>
+    <string name="footer_tagline">RikkaUI (六花) — Composing elements into harmony.</string>
 
     <!-- Theme Section -->
     <string name="theme_title">Theme</string>

@@ -52,9 +52,7 @@ fun main() {
 }
 
 @Composable
-private fun App(
-    onNavHostReady: suspend (NavController) -> Unit = {},
-) {
+private fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
     var isDark by remember { mutableStateOf(true) }
     var palette by remember { mutableStateOf(RikkaPalette.Zinc) }
     var accent by remember { mutableStateOf(RikkaAccentPreset.Default) }
@@ -107,8 +105,6 @@ private fun App(
             ) {
                 composable<HomeRoute> {
                     ShowcaseApp(
-                        isDark = isDark,
-                        onDarkChange = { isDark = it },
                         palette = palette,
                         onPaletteChange = { palette = it },
                         accent = accent,

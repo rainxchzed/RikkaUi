@@ -1,7 +1,9 @@
 package zed.rainxch.rikkaui.showcase
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,20 +21,15 @@ import org.jetbrains.compose.resources.stringResource
 import rikkaui.composeapp.generated.resources.Res
 import rikkaui.composeapp.generated.resources.components_in_action
 import rikkaui.composeapp.generated.resources.components_in_action_desc
-import rikkaui.composeapp.generated.resources.make_it_yours
-import rikkaui.composeapp.generated.resources.make_it_yours_desc
 import zed.rainxch.rikkaui.components.theme.RikkaAccentPreset
 import zed.rainxch.rikkaui.components.theme.RikkaPalette
 import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
-import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 
 @Composable
 fun ShowcaseApp(
-    isDark: Boolean,
-    onDarkChange: (Boolean) -> Unit,
     palette: RikkaPalette,
     onPaletteChange: (RikkaPalette) -> Unit,
     accent: RikkaAccentPreset,
@@ -66,6 +63,7 @@ fun ShowcaseApp(
 
             Spacer(Modifier.height(RikkaTheme.spacing.xl))
 
+            // Section title
             Text(
                 text = stringResource(Res.string.components_in_action),
                 variant = TextVariant.H2,
@@ -76,53 +74,32 @@ fun ShowcaseApp(
             Spacer(Modifier.height(RikkaTheme.spacing.xs))
 
             Text(
-                text =
-                    stringResource(
-                        Res.string.components_in_action_desc,
-                    ),
+                text = stringResource(Res.string.components_in_action_desc),
                 variant = TextVariant.Muted,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
             )
+
+            Spacer(Modifier.height(RikkaTheme.spacing.lg))
+
+            // Theme toolbar — compact popovers above examples
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+            ) {
+                ThemeToolbar(
+                    palette = palette,
+                    onPaletteChange = onPaletteChange,
+                    accent = accent,
+                    onAccentChange = onAccentChange,
+                    stylePreset = stylePreset,
+                    onStyleChange = onStyleChange,
+                )
+            }
 
             Spacer(Modifier.height(RikkaTheme.spacing.xxl))
 
             ExamplesGrid(sizeClass)
-
-            Spacer(Modifier.height(RikkaTheme.spacing.xxxl))
-
-            Separator()
-
-            Spacer(Modifier.height(RikkaTheme.spacing.xl))
-
-            Text(
-                text = stringResource(Res.string.make_it_yours),
-                variant = TextVariant.H2,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth(),
-            )
-
-            Spacer(Modifier.height(RikkaTheme.spacing.xs))
-
-            Text(
-                text = stringResource(Res.string.make_it_yours_desc),
-                variant = TextVariant.Muted,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth(),
-            )
-
-            Spacer(Modifier.height(RikkaTheme.spacing.xxl))
-
-            ThemeSection(
-                isDark = isDark,
-                onDarkChange = onDarkChange,
-                palette = palette,
-                onPaletteChange = onPaletteChange,
-                accent = accent,
-                onAccentChange = onAccentChange,
-                stylePreset = stylePreset,
-                onStyleChange = onStyleChange,
-            )
 
             Spacer(Modifier.height(RikkaTheme.spacing.xxxl))
 

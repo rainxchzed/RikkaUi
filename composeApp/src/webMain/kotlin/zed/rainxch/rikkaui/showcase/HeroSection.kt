@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
 import org.jetbrains.compose.resources.stringResource
 import rikkaui.composeapp.generated.resources.Res
@@ -31,6 +32,7 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
 
 @Composable
 fun HeroSection(onGetStarted: () -> Unit = {}) {
+    val uriHandler = LocalUriHandler.current
     Spacer(Modifier.height(RikkaTheme.spacing.xxxl))
 
     Badge(
@@ -83,7 +85,9 @@ fun HeroSection(onGetStarted: () -> Unit = {}) {
         )
         Button(
             text = stringResource(Res.string.github),
-            onClick = {},
+            onClick = {
+                uriHandler.openUri("https://github.com/rainxchzed/RikkaUi")
+            },
             variant = ButtonVariant.Outline,
         )
     }
