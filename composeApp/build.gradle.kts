@@ -1,6 +1,4 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -35,8 +33,3 @@ kotlin {
     }
 }
 
-plugins.withType<NodeJsPlugin> {
-    extensions.configure<NodeJsEnvSpec> {
-        version = "20.11.0"
-    }
-}
