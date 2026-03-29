@@ -5,16 +5,19 @@ package zed.rainxch.rikkaui.creator.panel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,7 +30,12 @@ import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonAnimation
 import zed.rainxch.rikkaui.components.ui.button.ButtonSize
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
-import zed.rainxch.rikkaui.components.ui.separator.Separator
+import zed.rainxch.rikkaui.components.ui.card.Card
+import zed.rainxch.rikkaui.components.ui.icon.Icon
+import zed.rainxch.rikkaui.components.ui.icon.IconSize
+import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
+import zed.rainxch.rikkaui.components.ui.popover.Popover
+import zed.rainxch.rikkaui.components.ui.popover.PopoverPlacement
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.toggle.Toggle
@@ -36,8 +44,8 @@ import zed.rainxch.rikkaui.creator.fonts.availableFonts
 /**
  * Configuration panel for the Design System Creator.
  *
- * Lets users choose: style preset, palette, accent color,
- * font, and preview dark mode. Includes a download button.
+ * Uses card-style pickers with popovers (shadcn-inspired)
+ * for: style preset, palette, accent color, font, and dark mode.
  */
 @Composable
 fun ConfigPanel(
@@ -72,146 +80,125 @@ fun ConfigPanel(
 
     Spacer(Modifier.height(RikkaTheme.spacing.xl))
 
-    // ─── Style Preset ─────────────────────────────────
-    SectionLabel("Style")
-    Spacer(Modifier.height(RikkaTheme.spacing.xs))
-    FlowRow(
-        horizontalArrangement =
-            Arrangement.spacedBy(RikkaTheme.spacing.sm),
-        verticalArrangement =
-            Arrangement.spacedBy(RikkaTheme.spacing.sm),
-    ) {
+    // ─── Style ──────────────────────────────────────
+    PickerCard(
+        label = "Style",
+        value = stylePreset.label,
+    ) { onDismiss ->
         RikkaStylePreset.entries.forEach { preset ->
-            Button(
+            PickerItem(
                 text = preset.label,
-                onClick = { onStyleChange(preset) },
-                variant =
-                    if (stylePreset == preset) {
-                        ButtonVariant.Default
-                    } else {
-                        ButtonVariant.Outline
-                    },
-                size = ButtonSize.Sm,
-                animation = ButtonAnimation.Scale,
+                selected = stylePreset == preset,
+                onClick = {
+                    onStyleChange(preset)
+                    onDismiss()
+                },
             )
         }
     }
 
-    Spacer(Modifier.height(RikkaTheme.spacing.lg))
-    Separator()
-    Spacer(Modifier.height(RikkaTheme.spacing.lg))
+    Spacer(Modifier.height(RikkaTheme.spacing.sm))
 
-    // ─── Palette ──────────────────────────────────────
-    SectionLabel("Palette")
-    Spacer(Modifier.height(RikkaTheme.spacing.xs))
-    FlowRow(
-        horizontalArrangement =
-            Arrangement.spacedBy(RikkaTheme.spacing.sm),
-        verticalArrangement =
-            Arrangement.spacedBy(RikkaTheme.spacing.sm),
-    ) {
+    // ─── Palette ────────────────────────────────────
+    PickerCard(
+        label = "Base Color",
+        value = palette.label,
+        trailing = {
+            Box(
+                modifier =
+                    Modifier
+                        .size(14.dp)
+                        .clip(CircleShape)
+                        .background(RikkaTheme.colors.primary, CircleShape),
+            )
+        },
+    ) { onDismiss ->
         RikkaPalette.entries.forEach { entry ->
-            Button(
+            PickerItem(
                 text = entry.label,
-                onClick = { onPaletteChange(entry) },
-                variant =
-                    if (palette == entry) {
-                        ButtonVariant.Default
-                    } else {
-                        ButtonVariant.Outline
-                    },
-                size = ButtonSize.Sm,
-                animation = ButtonAnimation.Scale,
+                selected = palette == entry,
+                onClick = {
+                    onPaletteChange(entry)
+                    onDismiss()
+                },
             )
         }
     }
 
-    Spacer(Modifier.height(RikkaTheme.spacing.lg))
-    Separator()
-    Spacer(Modifier.height(RikkaTheme.spacing.lg))
+    Spacer(Modifier.height(RikkaTheme.spacing.sm))
 
-    // ─── Accent ───────────────────────────────────────
-    SectionLabel("Accent")
-    Spacer(Modifier.height(RikkaTheme.spacing.xs))
-    FlowRow(
-        horizontalArrangement =
-            Arrangement.spacedBy(RikkaTheme.spacing.sm),
-        verticalArrangement =
-            Arrangement.spacedBy(RikkaTheme.spacing.sm),
-    ) {
+    // ─── Accent ─────────────────────────────────────
+    PickerCard(
+        label = "Accent",
+        value = accent.label,
+        trailing = {
+            val swatch = accent.previewColor
+            Box(
+                modifier =
+                    Modifier
+                        .size(14.dp)
+                        .clip(CircleShape)
+                        .background(
+                            swatch ?: RikkaTheme.colors.primary,
+                            CircleShape,
+                        ),
+            )
+        },
+    ) { onDismiss ->
         RikkaAccentPreset.entries.forEach { entry ->
-            Button(
-                onClick = { onAccentChange(entry) },
-                variant =
-                    if (accent == entry) {
-                        ButtonVariant.Default
-                    } else {
-                        ButtonVariant.Outline
-                    },
-                size = ButtonSize.Sm,
-                animation = ButtonAnimation.Scale,
-            ) {
-                val swatch = entry.previewColor
-                if (swatch != null) {
-                    Box(
-                        modifier =
-                            Modifier
-                                .size(12.dp)
-                                .clip(CircleShape)
-                                .background(swatch, CircleShape),
-                    )
-                    Spacer(Modifier.width(RikkaTheme.spacing.xs))
-                }
-                Text(
-                    text = entry.label,
-                    color =
-                        if (accent == entry) {
-                            RikkaTheme.colors.primaryForeground
-                        } else {
-                            RikkaTheme.colors.foreground
-                        },
-                    style = RikkaTheme.typography.small,
-                )
-            }
+            PickerItem(
+                text = entry.label,
+                selected = accent == entry,
+                onClick = {
+                    onAccentChange(entry)
+                    onDismiss()
+                },
+                leading = {
+                    val swatch = entry.previewColor
+                    if (swatch != null) {
+                        Box(
+                            modifier =
+                                Modifier
+                                    .size(10.dp)
+                                    .clip(CircleShape)
+                                    .background(swatch, CircleShape),
+                        )
+                    }
+                },
+            )
         }
     }
 
-    Spacer(Modifier.height(RikkaTheme.spacing.lg))
-    Separator()
-    Spacer(Modifier.height(RikkaTheme.spacing.lg))
+    Spacer(Modifier.height(RikkaTheme.spacing.sm))
 
-    // ─── Font ─────────────────────────────────────────
-    SectionLabel("Font")
-    Spacer(Modifier.height(RikkaTheme.spacing.xs))
-    FlowRow(
-        horizontalArrangement =
-            Arrangement.spacedBy(RikkaTheme.spacing.sm),
-        verticalArrangement =
-            Arrangement.spacedBy(RikkaTheme.spacing.sm),
-    ) {
+    // ─── Font ───────────────────────────────────────
+    val currentFont = availableFonts.find { it.id == fontId }
+    PickerCard(
+        label = "Font",
+        value = currentFont?.displayName ?: fontId,
+        trailing = {
+            Text(
+                text = "Aa",
+                style = RikkaTheme.typography.small,
+                color = RikkaTheme.colors.mutedForeground,
+            )
+        },
+    ) { onDismiss ->
         availableFonts.forEach { font ->
-            Button(
+            PickerItem(
                 text = font.displayName,
-                onClick = { onFontChange(font.id) },
-                variant =
-                    if (fontId == font.id) {
-                        ButtonVariant.Default
-                    } else {
-                        ButtonVariant.Outline
-                    },
-                size = ButtonSize.Sm,
-                animation = ButtonAnimation.Scale,
+                selected = fontId == font.id,
+                onClick = {
+                    onFontChange(font.id)
+                    onDismiss()
+                },
             )
         }
     }
 
     Spacer(Modifier.height(RikkaTheme.spacing.lg))
-    Separator()
-    Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
-    // ─── Preview Dark Mode ────────────────────────────
-    SectionLabel("Preview Mode")
-    Spacer(Modifier.height(RikkaTheme.spacing.xs))
+    // ─── Preview Dark Mode ──────────────────────────
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement =
@@ -223,14 +210,14 @@ fun ConfigPanel(
             label = "Toggle preview dark mode",
         )
         Text(
-            text = if (previewDark) "Dark" else "Light",
+            text = if (previewDark) "Preview: Dark" else "Preview: Light",
             variant = TextVariant.Muted,
         )
     }
 
     Spacer(Modifier.height(RikkaTheme.spacing.xxl))
 
-    // ─── Download Button ──────────────────────────────
+    // ─── Download Button ────────────────────────────
     Button(
         text = "Download Theme",
         onClick = onDownload,
@@ -239,10 +226,104 @@ fun ConfigPanel(
     )
 }
 
+/**
+ * A card-style picker that opens a popover with options.
+ * Inspired by shadcn's theme creator sidebar cards.
+ */
 @Composable
-private fun SectionLabel(text: String) {
-    Text(
-        text = text,
-        variant = TextVariant.Small,
-    )
+private fun PickerCard(
+    label: String,
+    value: String,
+    trailing: (@Composable () -> Unit)? = null,
+    popoverContent: @Composable (onDismiss: () -> Unit) -> Unit,
+) {
+    var expanded by remember { mutableStateOf(false) }
+
+    Popover(
+        expanded = expanded,
+        onDismiss = { expanded = false },
+        minWidth = 160.dp,
+        maxWidth = 220.dp,
+        placement = PopoverPlacement.BottomStart,
+        trigger = {
+            Card(
+                onClick = { expanded = !expanded },
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Column {
+                        Text(
+                            text = label,
+                            style = RikkaTheme.typography.muted,
+                            color = RikkaTheme.colors.mutedForeground,
+                        )
+                        Spacer(Modifier.height(RikkaTheme.spacing.xs))
+                        Text(
+                            text = value,
+                            variant = TextVariant.Large,
+                        )
+                    }
+                    if (trailing != null) {
+                        trailing()
+                    }
+                }
+            }
+        },
+    ) {
+        Column(
+            verticalArrangement =
+                Arrangement.spacedBy(RikkaTheme.spacing.xs),
+        ) {
+            popoverContent { expanded = false }
+        }
+    }
+}
+
+/**
+ * A single item in a picker popover.
+ * Shows a check icon when selected.
+ */
+@Composable
+private fun PickerItem(
+    text: String,
+    selected: Boolean,
+    onClick: () -> Unit,
+    leading: (@Composable () -> Unit)? = null,
+) {
+    Button(
+        onClick = onClick,
+        variant = ButtonVariant.Ghost,
+        size = ButtonSize.Sm,
+        animation = ButtonAnimation.Scale,
+        modifier = Modifier.fillMaxWidth(),
+    ) { foreground ->
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement =
+                Arrangement.spacedBy(RikkaTheme.spacing.xs),
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            if (leading != null) {
+                leading()
+            }
+            Text(
+                text = text,
+                color = foreground,
+                style = RikkaTheme.typography.small,
+                modifier = Modifier.weight(1f),
+            )
+            if (selected) {
+                Icon(
+                    RikkaIcons.Check,
+                    contentDescription = "Selected",
+                    size = IconSize.Sm,
+                    tint = foreground,
+                )
+            }
+        }
+    }
 }
