@@ -170,7 +170,7 @@ private fun FeatureItem(
     Column {
         Text(
             text = title,
-            variant = TextVariant.Large,
+            variant = TextVariant.P,
         )
         Spacer(Modifier.height(RikkaTheme.spacing.xs))
         Text(
