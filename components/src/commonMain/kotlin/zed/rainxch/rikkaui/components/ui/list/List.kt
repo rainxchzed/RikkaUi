@@ -132,7 +132,6 @@ interface ListScope {
      *
      * @param content The composable content for this list item.
      */
-    @Suppress("FunctionName")
     fun ListItem(content: @Composable () -> Unit)
 }
 
