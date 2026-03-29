@@ -117,9 +117,10 @@ fun RikkaTheme(
     accent: RikkaAccentPreset = RikkaAccentPreset.Default,
     isDark: Boolean = false,
     preset: RikkaStylePreset = RikkaStylePreset.Default,
-    typography: RikkaTypography = rikkaTypography(
-        scale = preset.typeScale,
-    ),
+    typography: RikkaTypography =
+        rikkaTypography(
+            scale = preset.typeScale,
+        ),
     content: @Composable () -> Unit,
 ) {
     val colors = accent.applyTo(palette.resolve(isDark), isDark)

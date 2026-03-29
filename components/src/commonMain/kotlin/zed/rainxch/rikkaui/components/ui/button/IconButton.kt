@@ -84,17 +84,19 @@ fun IconButton(
     enabled: Boolean = true,
     loading: Boolean = false,
 ) {
-    val buttonSize = when (size) {
-        IconButtonSize.Sm -> ButtonSize.Sm
-        IconButtonSize.Default -> ButtonSize.Icon
-        IconButtonSize.Lg -> ButtonSize.Lg
-    }
+    val buttonSize =
+        when (size) {
+            IconButtonSize.Sm -> ButtonSize.Sm
+            IconButtonSize.Default -> ButtonSize.Icon
+            IconButtonSize.Lg -> ButtonSize.Lg
+        }
 
-    val iconSize = when (size) {
-        IconButtonSize.Sm -> IconSize.Sm
-        IconButtonSize.Default -> IconSize.Default
-        IconButtonSize.Lg -> IconSize.Lg
-    }
+    val iconSize =
+        when (size) {
+            IconButtonSize.Sm -> IconSize.Sm
+            IconButtonSize.Default -> IconSize.Default
+            IconButtonSize.Lg -> IconSize.Lg
+        }
 
     Button(
         onClick = onClick,

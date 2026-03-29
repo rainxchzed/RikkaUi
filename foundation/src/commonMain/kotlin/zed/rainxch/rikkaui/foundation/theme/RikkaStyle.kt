@@ -88,38 +88,44 @@ enum class RikkaStylePreset(
 
     /** The resolved [RikkaStyle] for this preset. */
     val style: RikkaStyle
-        get() = when (this) {
-            Default -> RikkaStyle(
-                shapes = rikkaShapes(),
-                spacing = rikkaSpacing(),
-                motion = RikkaMotion(),
-                typeScale = 1f,
-            )
-            Nova -> RikkaStyle(
-                shapes = rikkaShapes(radius = 4.dp),
-                spacing = rikkaSpacing(base = 3.dp),
-                motion = RikkaMotionPresets.snappy(),
-                typeScale = 0.9f,
-            )
-            Vega -> RikkaStyle(
-                shapes = rikkaShapes(radius = 20.dp),
-                spacing = rikkaSpacing(base = 5.dp),
-                motion = RikkaMotionPresets.playful(),
-                typeScale = 1.05f,
-            )
-            Aurora -> RikkaStyle(
-                shapes = rikkaShapes(radius = 14.dp),
-                spacing = rikkaSpacing(base = 5.dp),
-                motion = RikkaMotion(),
-                typeScale = 1.1f,
-            )
-            Nebula -> RikkaStyle(
-                shapes = rikkaShapes(radius = 0.dp),
-                spacing = rikkaSpacing(base = 3.dp),
-                motion = RikkaMotionPresets.minimal(),
-                typeScale = 0.85f,
-            )
-        }
+        get() =
+            when (this) {
+                Default ->
+                    RikkaStyle(
+                        shapes = rikkaShapes(),
+                        spacing = rikkaSpacing(),
+                        motion = RikkaMotion(),
+                        typeScale = 1f,
+                    )
+                Nova ->
+                    RikkaStyle(
+                        shapes = rikkaShapes(radius = 4.dp),
+                        spacing = rikkaSpacing(base = 3.dp),
+                        motion = RikkaMotionPresets.snappy(),
+                        typeScale = 0.9f,
+                    )
+                Vega ->
+                    RikkaStyle(
+                        shapes = rikkaShapes(radius = 20.dp),
+                        spacing = rikkaSpacing(base = 5.dp),
+                        motion = RikkaMotionPresets.playful(),
+                        typeScale = 1.05f,
+                    )
+                Aurora ->
+                    RikkaStyle(
+                        shapes = rikkaShapes(radius = 14.dp),
+                        spacing = rikkaSpacing(base = 5.dp),
+                        motion = RikkaMotion(),
+                        typeScale = 1.1f,
+                    )
+                Nebula ->
+                    RikkaStyle(
+                        shapes = rikkaShapes(radius = 0.dp),
+                        spacing = rikkaSpacing(base = 3.dp),
+                        motion = RikkaMotionPresets.minimal(),
+                        typeScale = 0.85f,
+                    )
+            }
 
     /** Shortcut: the typography scale for this preset. */
     val typeScale: Float get() = style.typeScale

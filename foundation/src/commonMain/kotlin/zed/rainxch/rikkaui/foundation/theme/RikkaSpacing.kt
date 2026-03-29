@@ -95,7 +95,6 @@ fun defaultRikkaSpacing(): RikkaSpacing = rikkaSpacing()
  * ```
  */
 object RikkaSpacingPresets {
-
     /** Dense layout (3dp base). Dashboards, data-heavy UIs. */
     fun compact(): RikkaSpacing = rikkaSpacing(base = 3.dp)
 

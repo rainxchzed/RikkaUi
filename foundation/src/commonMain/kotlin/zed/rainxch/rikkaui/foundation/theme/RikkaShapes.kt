@@ -88,8 +88,7 @@ fun rikkaShapes(radius: Dp = 10.dp): RikkaShapes {
  *
  * Equivalent to `rikkaShapes(radius = 10.dp)`.
  */
-fun defaultRikkaShapes(baseRadius: Float = 10f): RikkaShapes =
-    rikkaShapes(radius = baseRadius.dp)
+fun defaultRikkaShapes(baseRadius: Float = 10f): RikkaShapes = rikkaShapes(radius = baseRadius.dp)
 
 /**
  * Pre-built shape presets for common visual styles.
@@ -99,7 +98,6 @@ fun defaultRikkaShapes(baseRadius: Float = 10f): RikkaShapes =
  * ```
  */
 object RikkaShapesPresets {
-
     /** No rounding at all. Technical, utilitarian look. */
     fun square(): RikkaShapes = rikkaShapes(radius = 0.dp)
 

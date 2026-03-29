@@ -287,12 +287,13 @@ fun TabContent(
         AnimatedContent(
             targetState = selectedIndex,
             transitionSpec = {
-                (fadeIn(tween(motion.durationDefault)) +
-                    slideInVertically(tween(motion.durationDefault)) { it / 8 })
-                    .togetherWith(
-                        fadeOut(tween(motion.durationFast)) +
-                            slideOutVertically(tween(motion.durationFast)) { -it / 8 },
-                    )
+                (
+                    fadeIn(tween(motion.durationDefault)) +
+                        slideInVertically(tween(motion.durationDefault)) { it / 8 }
+                ).togetherWith(
+                    fadeOut(tween(motion.durationFast)) +
+                        slideOutVertically(tween(motion.durationFast)) { -it / 8 },
+                )
             },
         ) {
             content()

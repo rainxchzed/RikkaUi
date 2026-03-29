@@ -132,6 +132,7 @@ interface ListScope {
      *
      * @param content The composable content for this list item.
      */
+    @Suppress("FunctionName")
     fun ListItem(content: @Composable () -> Unit)
 }
 
@@ -140,6 +141,7 @@ private class ListScopeImpl(
 ) : ListScope {
     val items = mutableListOf<@Composable () -> Unit>()
 
+    @Suppress("FunctionName")
     override fun ListItem(content: @Composable () -> Unit) {
         items.add(content)
     }
@@ -169,7 +171,10 @@ private fun ListItemRow(
     }
 }
 
-private fun resolveMarker(variant: ListVariant, index: Int): String =
+private fun resolveMarker(
+    variant: ListVariant,
+    index: Int,
+): String =
     when (variant) {
         ListVariant.Unordered -> "•"
         ListVariant.Ordered -> "${index + 1}."

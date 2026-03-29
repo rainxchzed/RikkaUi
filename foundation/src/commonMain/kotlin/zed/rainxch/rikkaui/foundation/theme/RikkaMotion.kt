@@ -127,7 +127,6 @@ fun defaultRikkaMotion(): RikkaMotion = RikkaMotion()
  * ```
  */
 object RikkaMotionPresets {
-
     /**
      * Fast, no-bounce animations. Professional, precise feel.
      * Good for data-heavy dashboards and productivity tools.
