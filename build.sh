@@ -18,4 +18,5 @@ curl -sL https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17
 export PATH=$JAVA_HOME/bin:$PATH
 
 export GRADLE_OPTS="-Xmx2048m -XX:+UseSerialGC"
-./gradlew wasmJsBrowserDistribution --no-parallel --max-workers=1
+# Use development distribution — production's wasm-opt OOMs on Vercel free tier
+./gradlew wasmJsBrowserDevelopmentExecutableDistribution --no-parallel --max-workers=1
