@@ -146,13 +146,11 @@ fun Popover(
     modifier: Modifier = Modifier,
     animation: PopoverAnimation = PopoverAnimation.FadeExpand,
     placement: PopoverPlacement = PopoverPlacement.BottomStart,
+    minWidth: Dp = 120.dp,
     maxWidth: Dp = 360.dp,
     trigger: @Composable () -> Unit,
     content: @Composable () -> Unit,
 ) {
-    val colors = RikkaTheme.colors
-    val shapes = RikkaTheme.shapes
-    val spacing = RikkaTheme.spacing
     val motion = RikkaTheme.motion
 
     val popupAlignment = resolvePlacement(placement)
@@ -205,6 +203,7 @@ fun Popover(
                                     ),
                         ) {
                             PopoverCard(
+                                minWidth = minWidth,
                                 maxWidth = maxWidth,
                                 content = content,
                             )
@@ -230,6 +229,7 @@ fun Popover(
                                 ),
                         ) {
                             PopoverCard(
+                                minWidth = minWidth,
                                 maxWidth = maxWidth,
                                 content = content,
                             )
@@ -238,6 +238,7 @@ fun Popover(
 
                     PopoverAnimation.None -> {
                         PopoverCard(
+                            minWidth = minWidth,
                             maxWidth = maxWidth,
                             content = content,
                         )
@@ -262,6 +263,7 @@ fun Popover(
  */
 @Composable
 private fun PopoverCard(
+    minWidth: Dp,
     maxWidth: Dp,
     content: @Composable () -> Unit,
 ) {
@@ -272,8 +274,7 @@ private fun PopoverCard(
     Box(
         modifier =
             Modifier
-                .defaultMinSize(minWidth = 200.dp)
-                .widthIn(max = maxWidth)
+                .widthIn(min = minWidth, max = maxWidth)
                 .shadow(8.dp, shapes.md)
                 .border(1.dp, colors.border, shapes.md)
                 .background(colors.popover, shapes.md)
