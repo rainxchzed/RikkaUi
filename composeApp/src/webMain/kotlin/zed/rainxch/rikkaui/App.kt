@@ -34,6 +34,7 @@ import zed.rainxch.rikkaui.navigation.ComponentDetailRoute
 import zed.rainxch.rikkaui.navigation.ComponentsRoute
 import zed.rainxch.rikkaui.navigation.CreatorRoute
 import zed.rainxch.rikkaui.navigation.DocsRoute
+import zed.rainxch.rikkaui.navigation.HashRouterEffect
 import zed.rainxch.rikkaui.navigation.HomeRoute
 import zed.rainxch.rikkaui.shell.TopNavBar
 import zed.rainxch.rikkaui.showcase.ShowcaseApp
@@ -76,6 +77,7 @@ private fun App() {
             ),
     ) {
         val navController = rememberNavController()
+        HashRouterEffect(navController)
 
         Column(
             modifier =

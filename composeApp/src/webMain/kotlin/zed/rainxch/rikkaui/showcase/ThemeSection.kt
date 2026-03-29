@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -15,21 +14,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import rikkaui.composeapp.generated.resources.Res
 import rikkaui.composeapp.generated.resources.accent
-import rikkaui.composeapp.generated.resources.dark
-import rikkaui.composeapp.generated.resources.dark_mode_label
-import rikkaui.composeapp.generated.resources.light
 import rikkaui.composeapp.generated.resources.palette
 import rikkaui.composeapp.generated.resources.style_label
 import rikkaui.composeapp.generated.resources.theme_description
 import rikkaui.composeapp.generated.resources.theme_title
-import rikkaui.composeapp.generated.resources.toggle_dark_mode
 import zed.rainxch.rikkaui.components.theme.RikkaAccentPreset
 import zed.rainxch.rikkaui.components.theme.RikkaPalette
 import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
@@ -41,7 +35,6 @@ import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
 import zed.rainxch.rikkaui.components.ui.card.Card
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
-import zed.rainxch.rikkaui.components.ui.toggle.Toggle
 
 @Composable
 fun ThemeSection(

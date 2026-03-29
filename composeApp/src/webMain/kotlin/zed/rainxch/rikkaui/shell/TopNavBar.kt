@@ -25,7 +25,6 @@ import zed.rainxch.rikkaui.components.ui.icon.IconSize
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
-import zed.rainxch.rikkaui.components.ui.toggle.Toggle
 import zed.rainxch.rikkaui.navigation.CreatorRoute
 import zed.rainxch.rikkaui.navigation.DocsRoute
 import zed.rainxch.rikkaui.navigation.HomeRoute

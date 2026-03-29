@@ -18,6 +18,20 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
+      - name: Verify secrets are set
+        run: |
+          if [ -z "$KEY" ]; then echo "WARNING: GPG_KEY_CONTENTS is empty!"; else echo "GPG key loaded (${#KEY} chars)"; fi
+          if [ -z "$USER" ]; then echo "WARNING: MAVEN_CENTRAL_USERNAME is empty!"; else echo "Maven username loaded"; fi
+          if [ -z "$PASS" ]; then echo "WARNING: MAVEN_CENTRAL_PASSWORD is empty!"; else echo "Maven password loaded"; fi
+          if [ -z "$KID" ]; then echo "WARNING: SIGNING_KEY_ID is empty!"; else echo "Signing key ID loaded"; fi
+          if [ -z "$KPASS" ]; then echo "WARNING: SIGNING_PASSWORD is empty!"; else echo "Signing password loaded"; fi
+        env:
+          KEY: ${{ secrets.GPG_KEY_CONTENTS }}
+          USER: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          PASS: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          KID: ${{ secrets.SIGNING_KEY_ID }}
+          KPASS: ${{ secrets.SIGNING_PASSWORD }}
+
       - name: Publish to Maven Central
         run: ./gradlew publishAndReleaseToMavenCentral --no-configuration-cache
         env:
