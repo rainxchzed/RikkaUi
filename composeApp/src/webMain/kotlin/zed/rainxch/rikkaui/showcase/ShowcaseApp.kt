@@ -13,6 +13,10 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -22,22 +26,31 @@ import rikkaui.composeapp.generated.resources.Res
 import rikkaui.composeapp.generated.resources.components_in_action
 import rikkaui.composeapp.generated.resources.components_in_action_desc
 import zed.rainxch.rikkaui.components.theme.RikkaAccentPreset
+import zed.rainxch.rikkaui.components.theme.RikkaFontFamily
 import zed.rainxch.rikkaui.components.theme.RikkaPalette
 import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
+import zed.rainxch.rikkaui.components.theme.rikkaTypography
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 
+/**
+ * Showcase landing page with its own local preview state.
+ *
+ * Theme changes here (palette, accent, style) only affect the
+ * example cards — they do NOT bleed into other screens.
+ */
 @Composable
 fun ShowcaseApp(
-    palette: RikkaPalette,
-    onPaletteChange: (RikkaPalette) -> Unit,
-    accent: RikkaAccentPreset,
-    onAccentChange: (RikkaAccentPreset) -> Unit,
-    stylePreset: RikkaStylePreset,
-    onStyleChange: (RikkaStylePreset) -> Unit,
+    isDark: Boolean,
+    fontFamily: RikkaFontFamily,
     onNavigateToCreator: () -> Unit = {},
 ) {
+    // ─── Local preview state (screen-scoped, not persisted) ───
+    var palette by remember { mutableStateOf(RikkaPalette.Zinc) }
+    var accent by remember { mutableStateOf(RikkaAccentPreset.Default) }
+    var stylePreset by remember { mutableStateOf(RikkaStylePreset.Default) }
+
     BoxWithConstraints(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.TopCenter,
@@ -89,17 +102,30 @@ fun ShowcaseApp(
             ) {
                 ThemeToolbar(
                     palette = palette,
-                    onPaletteChange = onPaletteChange,
+                    onPaletteChange = { palette = it },
                     accent = accent,
-                    onAccentChange = onAccentChange,
+                    onAccentChange = { accent = it },
                     stylePreset = stylePreset,
-                    onStyleChange = onStyleChange,
+                    onStyleChange = { stylePreset = it },
                 )
             }
 
             Spacer(Modifier.height(RikkaTheme.spacing.xxl))
 
-            ExamplesGrid(sizeClass)
+            // Nested RikkaTheme — preview changes only affect examples
+            RikkaTheme(
+                palette = palette,
+                accent = accent,
+                isDark = isDark,
+                preset = stylePreset,
+                typography =
+                    rikkaTypography(
+                        fontFamily = fontFamily,
+                        scale = stylePreset.typeScale,
+                    ),
+            ) {
+                ExamplesGrid(sizeClass)
+            }
 
             Spacer(Modifier.height(RikkaTheme.spacing.xxxl))
 

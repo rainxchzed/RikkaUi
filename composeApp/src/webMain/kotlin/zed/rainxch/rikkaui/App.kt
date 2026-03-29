@@ -5,10 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.ComposeViewport
@@ -26,7 +24,6 @@ import rikkaui.composeapp.generated.resources.inter_light
 import rikkaui.composeapp.generated.resources.inter_medium
 import rikkaui.composeapp.generated.resources.inter_regular
 import rikkaui.composeapp.generated.resources.inter_semi_bold
-import zed.rainxch.rikkaui.components.theme.RikkaAccentPreset
 import zed.rainxch.rikkaui.components.theme.RikkaPalette
 import zed.rainxch.rikkaui.components.theme.RikkaStylePreset
 import zed.rainxch.rikkaui.components.theme.RikkaTheme
@@ -41,6 +38,8 @@ import zed.rainxch.rikkaui.navigation.DocsRoute
 import zed.rainxch.rikkaui.navigation.HomeRoute
 import zed.rainxch.rikkaui.shell.TopNavBar
 import zed.rainxch.rikkaui.showcase.ShowcaseApp
+import zed.rainxch.rikkaui.theme.ThemeIntent
+import zed.rainxch.rikkaui.theme.rememberThemeViewModel
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalBrowserHistoryApi::class)
 fun main() {
@@ -53,12 +52,8 @@ fun main() {
 
 @Composable
 private fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
-    var isDark by remember { mutableStateOf(true) }
-    var palette by remember { mutableStateOf(RikkaPalette.Zinc) }
-    var accent by remember { mutableStateOf(RikkaAccentPreset.Default) }
-    var stylePreset by remember {
-        mutableStateOf(RikkaStylePreset.Default)
-    }
+    val viewModel = rememberThemeViewModel()
+    val themeState by viewModel.state.collectAsState()
 
     val fontFamily =
         rememberRikkaFontFamily(
@@ -70,15 +65,15 @@ private fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
             extraBold = Res.font.inter_black,
         )
 
+    // App-level theme: only isDark is persisted.
+    // Uses default palette/accent/style for shell (TopNavBar, Docs, etc.)
     RikkaTheme(
-        palette = palette,
-        accent = accent,
-        isDark = isDark,
-        preset = stylePreset,
+        palette = RikkaPalette.Zinc,
+        isDark = themeState.isDark,
+        preset = RikkaStylePreset.Default,
         typography =
             rikkaTypography(
                 fontFamily = fontFamily,
-                scale = stylePreset.typeScale,
             ),
     ) {
         val navController = rememberNavController()
@@ -94,8 +89,10 @@ private fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
         ) {
             TopNavBar(
                 navController = navController,
-                isDark = isDark,
-                onDarkChange = { isDark = it },
+                isDark = themeState.isDark,
+                onDarkChange = {
+                    viewModel.onIntent(ThemeIntent.SetDarkMode(it))
+                },
             )
 
             NavHost(
@@ -104,13 +101,10 @@ private fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
                 modifier = Modifier.weight(1f),
             ) {
                 composable<HomeRoute> {
+                    // Showcase has its own local preview state
                     ShowcaseApp(
-                        palette = palette,
-                        onPaletteChange = { palette = it },
-                        accent = accent,
-                        onAccentChange = { accent = it },
-                        stylePreset = stylePreset,
-                        onStyleChange = { stylePreset = it },
+                        isDark = themeState.isDark,
+                        fontFamily = fontFamily,
                         onNavigateToCreator = {
                             navController.navigate(DocsRoute)
                         },
