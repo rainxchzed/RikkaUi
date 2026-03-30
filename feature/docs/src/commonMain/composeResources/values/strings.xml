@@ -122,7 +122,7 @@
     <string name="intro_desc">A shadcn/ui-inspired component library and design system for Compose Multiplatform.</string>
     <string name="intro_section_what_is">What is RikkaUI?</string>
     <string name="intro_what_is_body">RikkaUI provides beautifully styled, copy-paste components for Jetpack Compose and Compose Multiplatform. Built entirely on compose.foundation with zero Material3 dependency.</string>
-    <string name="intro_name_meaning">The name means \"snowflake\" (\u516D\u82B1) or \"composing elements into harmony\" (\u7ACB\u82B1).</string>
+    <string name="intro_name_meaning">The name means snowflake (\u516D\u82B1) or composing elements into harmony (\u7ACB\u82B1).</string>
     <string name="intro_section_why">Why RikkaUI?</string>
     <string name="intro_feature_no_material_title">No Material3 Lock-in</string>
     <string name="intro_feature_no_material_desc">Every component is built on compose.foundation only. You get full control over styling without fighting Material3 defaults.</string>
@@ -535,7 +535,7 @@
     <!-- ─── Kbd Page ─────────────────────────────────────────── -->
     <string name="kbd_page_desc">A styled inline indicator for keyboard shortcuts and key combinations.</string>
     <string name="kbd_section_combos">Key Combinations</string>
-    <string name="kbd_prop_text_desc">The key label to display (e.g. \"\u2318K\").</string>
+    <string name="kbd_prop_text_desc">The key label to display (e.g. \u2318K).</string>
     <string name="kbd_prop_modifier_desc">Modifier for layout and decoration.</string>
     <string name="kbd_prop_size_desc">Size variant: Sm, Default, Lg.</string>
     <string name="kbd_prop_keys_desc">List of individual key labels for KbdCombo.</string>

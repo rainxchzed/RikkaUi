@@ -36,6 +36,9 @@ kotlin {
     wasmJs {
         browser()
     }
+    js {
+        browser()
+    }
 
     applyDefaultHierarchyTemplate()
 
