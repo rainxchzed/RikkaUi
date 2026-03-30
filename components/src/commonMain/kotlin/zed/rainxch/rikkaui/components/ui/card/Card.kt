@@ -247,7 +247,7 @@ private fun resolveCardStyle(variant: CardVariant): CardStyle {
         CardVariant.Elevated -> {
             CardStyle(
                 background = colors.card,
-                border = Color.Transparent,
+                border = colors.border.copy(alpha = 0.5f),
                 elevation = 4.dp,
             )
         }
