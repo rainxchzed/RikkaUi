@@ -21,6 +21,7 @@ private enum class ScaffoldSlot {
     BottomBar,
     Fab,
     SnackbarHost,
+    ToastHost,
     Content,
 }
 
@@ -43,6 +44,7 @@ fun Scaffold(
     bottomBar: @Composable () -> Unit = {},
     floatingActionButton: @Composable () -> Unit = {},
     snackbarHost: @Composable () -> Unit = {},
+    toastHost: @Composable () -> Unit = {},
     containerColor: Color = RikkaTheme.colors.background,
     contentColor: Color = RikkaTheme.colors.foreground,
     contentWindowInsets: ScaffoldWindowInsets = ScaffoldWindowInsets(),
@@ -94,6 +96,11 @@ fun Scaffold(
             ).map { it.measure(looseConstraints) }
         val snackbarWidth = snackbarPlaceables.maxOfOrNull { it.width } ?: 0
         val snackbarHeight = snackbarPlaceables.maxOfOrNull { it.height } ?: 0
+
+        // ── Measure toast host (full-screen overlay) ────────
+        val toastPlaceables =
+            subcompose(ScaffoldSlot.ToastHost, toastHost)
+                .map { it.measure(looseConstraints) }
 
         // ── Measure content ────────────────────────────────
         val totalTopPadding = topBarHeight + insetTop
@@ -150,6 +157,9 @@ fun Scaffold(
                         fabOffset - snackbarHeight - fabPadding
                 it.placeRelative(snackbarX, snackbarY)
             }
+
+            // Toast overlay on top of everything
+            toastPlaceables.forEach { it.placeRelative(0, 0) }
         }
     }
 }

@@ -166,34 +166,24 @@ fun ToastDoc() {
         CodeBlock(
             """
 val toastState = rememberToastHostState()
+
+// Pass toastHost to Scaffold — fixed position, never scrolls
+Scaffold(
+    toastHost = { ToastHost(hostState = toastState) },
+) {
+    MyScreen()
+}
+
+// Or access from anywhere via LocalToastHostState
+val toastState = LocalToastHostState.current
 val scope = rememberCoroutineScope()
 
-// Show a toast
 scope.launch {
     toastState.show(
         message = "File saved",
         variant = ToastVariant.Success,
     )
 }
-
-// With action button
-scope.launch {
-    toastState.show(
-        message = "Item deleted",
-        variant = ToastVariant.Destructive,
-        actionLabel = "Undo",
-        onAction = { undoDelete() },
-    )
-}
-
-// Wrap your app root with ToastHost
-ToastHost(position = ToastPosition.BottomRight) {
-    MyApp()
-}
-
-// Show toasts from anywhere via LocalToastHostState
-val toastState = LocalToastHostState.current
-scope.launch { toastState.show("Done!") }
             """.trimIndent(),
         )
     }

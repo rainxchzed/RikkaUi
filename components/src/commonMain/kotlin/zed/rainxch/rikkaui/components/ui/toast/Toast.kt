@@ -31,7 +31,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -176,17 +175,16 @@ val LocalToastHostState =
 
 @Composable
 fun ToastHost(
-    hostState: ToastHostState = rememberToastHostState(),
+    hostState: ToastHostState,
+    modifier: Modifier = Modifier,
     position: ToastPosition = ToastPosition.BottomRight,
     animation: ToastAnimation = ToastAnimation.SlideIn,
     maxVisibleToasts: Int = DEFAULT_MAX_VISIBLE_TOASTS,
     swipeToDismiss: Boolean = true,
     showProgressBar: Boolean = false,
-    content: @Composable () -> Unit,
 ) {
     val spacing = RikkaTheme.spacing
 
-    val alignment = resolveAlignment(position)
     val isTop =
         position == ToastPosition.TopCenter ||
             position == ToastPosition.TopRight
@@ -198,50 +196,44 @@ fun ToastHost(
         }
     }
 
-    CompositionLocalProvider(LocalToastHostState provides hostState) {
-        Box(Modifier.fillMaxSize()) {
-            content()
+    Column(
+        modifier =
+            modifier
+                .fillMaxSize()
+                .padding(spacing.lg),
+        verticalArrangement =
+            Arrangement.spacedBy(
+                spacing.sm,
+                if (isTop) Alignment.Top else Alignment.Bottom,
+            ),
+        horizontalAlignment =
+            when (position) {
+                ToastPosition.TopCenter,
+                ToastPosition.BottomCenter,
+                -> Alignment.CenterHorizontally
 
-            Column(
-                modifier =
-                    Modifier
-                        .fillMaxSize()
-                        .padding(spacing.lg),
-                verticalArrangement =
-                    Arrangement.spacedBy(
-                        spacing.sm,
-                        if (isTop) Alignment.Top else Alignment.Bottom,
-                    ),
-                horizontalAlignment =
-                    when (position) {
-                        ToastPosition.TopCenter,
-                        ToastPosition.BottomCenter,
-                        -> Alignment.CenterHorizontally
+                ToastPosition.TopRight,
+                ToastPosition.BottomRight,
+                -> Alignment.End
+            },
+    ) {
+        val items =
+            if (isTop) {
+                hostState.toasts.toList()
+            } else {
+                hostState.toasts.toList().reversed()
+            }
 
-                        ToastPosition.TopRight,
-                        ToastPosition.BottomRight,
-                        -> Alignment.End
-                    },
-            ) {
-                val items =
-                    if (isTop) {
-                        hostState.toasts.toList()
-                    } else {
-                        hostState.toasts.toList().reversed()
-                    }
-
-                items.forEach { toast ->
-                    key(toast.id) {
-                        ToastItem(
-                            data = toast,
-                            isTop = isTop,
-                            animation = animation,
-                            swipeToDismiss = swipeToDismiss,
-                            showProgressBar = showProgressBar,
-                            onDismiss = { hostState.dismiss(toast.id) },
-                        )
-                    }
-                }
+        items.forEach { toast ->
+            key(toast.id) {
+                ToastItem(
+                    data = toast,
+                    isTop = isTop,
+                    animation = animation,
+                    swipeToDismiss = swipeToDismiss,
+                    showProgressBar = showProgressBar,
+                    onDismiss = { hostState.dismiss(toast.id) },
+                )
             }
         }
     }

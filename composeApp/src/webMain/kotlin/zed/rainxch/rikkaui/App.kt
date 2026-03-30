@@ -17,9 +17,12 @@ import androidx.navigation.ExperimentalBrowserHistoryApi
 import androidx.navigation.NavController
 import androidx.navigation.bindToBrowserNavigation
 import androidx.navigation.compose.rememberNavController
+import androidx.compose.runtime.CompositionLocalProvider
 import zed.rainxch.rikkaui.components.TopNavBar
+import zed.rainxch.rikkaui.components.ui.scaffold.Scaffold
+import zed.rainxch.rikkaui.components.ui.toast.LocalToastHostState
 import zed.rainxch.rikkaui.components.ui.toast.ToastHost
-import zed.rainxch.rikkaui.components.ui.toast.ToastPosition
+import zed.rainxch.rikkaui.components.ui.toast.rememberToastHostState
 import zed.rainxch.rikkaui.foundation.RikkaPalette
 import zed.rainxch.rikkaui.foundation.RikkaStylePreset
 import zed.rainxch.rikkaui.foundation.RikkaTheme
@@ -57,6 +60,8 @@ private fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
         onNavHostReady(navController)
     }
 
+    val toastHostState = rememberToastHostState()
+
     RikkaTheme(
         palette = RikkaPalette.Zinc,
         isDark = themeState.isDark,
@@ -66,25 +71,32 @@ private fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
                 fontFamily = ThemeUtils.getFontFamily(),
             ),
     ) {
-        ToastHost(position = ToastPosition.BottomRight) {
-            Column(
-                modifier =
-                    Modifier
-                        .fillMaxSize()
-                        .background(RikkaTheme.colors.background),
-            ) {
-                TopNavBar(
-                    navController = navController,
-                    isDark = themeState.isDark,
-                    onDarkChange = {
-                        viewModel.onAction(ThemeAction.SetDarkMode(it))
-                    },
-                )
-
-                AppNavigation(
-                    navController = navController,
-                    themeState = themeState,
-                )
+        CompositionLocalProvider(LocalToastHostState provides toastHostState) {
+            Scaffold(
+                topBar = {
+                    TopNavBar(
+                        navController = navController,
+                        isDark = themeState.isDark,
+                        onDarkChange = {
+                            viewModel.onAction(ThemeAction.SetDarkMode(it))
+                        },
+                    )
+                },
+                toastHost = {
+                    ToastHost(hostState = toastHostState)
+                },
+            ) { _ ->
+                Column(
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .background(RikkaTheme.colors.background),
+                ) {
+                    AppNavigation(
+                        navController = navController,
+                        themeState = themeState,
+                    )
+                }
             }
         }
     }
