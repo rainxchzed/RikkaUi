@@ -181,14 +181,14 @@ Button(
     variant = ButtonVariant.Destructive,
 )
 
-// Content lambda receives the foreground color
+// Children auto-inherit the foreground color
 Button(
     onClick = { submit() },
     size = ButtonSize.Lg,
     animation = ButtonAnimation.Bounce,
-) { color ->
-    Icon(RikkaIcons.Send, "Send", tint = color)
-    Text("Submit", color = color)
+) {
+    Icon(RikkaIcons.Send, "Send")
+    Text("Submit")
 }
             """.trimIndent(),
         )

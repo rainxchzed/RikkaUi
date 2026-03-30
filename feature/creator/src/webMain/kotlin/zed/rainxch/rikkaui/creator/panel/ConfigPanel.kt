@@ -306,7 +306,7 @@ private fun PickerItem(
         size = ButtonSize.Sm,
         animation = ButtonAnimation.Scale,
         modifier = Modifier.fillMaxWidth(),
-    ) { foreground ->
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement =
@@ -318,7 +318,6 @@ private fun PickerItem(
             }
             Text(
                 text = text,
-                color = foreground,
                 style = RikkaTheme.typography.small,
                 modifier = Modifier.weight(1f),
             )
@@ -327,7 +326,6 @@ private fun PickerItem(
                     RikkaIcons.Check,
                     contentDescription = stringResource(Res.string.config_selected),
                     size = IconSize.Sm,
-                    tint = foreground,
                 )
             }
         }

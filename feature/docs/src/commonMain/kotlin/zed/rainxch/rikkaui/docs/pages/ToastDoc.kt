@@ -101,8 +101,8 @@ fun ToastDoc() {
                             variant = variant,
                         )
                     }
-                }) { color ->
-                    Text(showVariantLabel, color = color)
+                }) {
+                    Text(showVariantLabel)
                 }
             }
         }
@@ -135,8 +135,8 @@ fun ToastDoc() {
                         variant = ToastVariant.Success,
                     )
                 }
-            }) { color ->
-                Text(showAnimatedLabel, color = color)
+            }) {
+                Text(showAnimatedLabel)
             }
         }
     }
@@ -160,8 +160,8 @@ fun ToastDoc() {
                     }
                 },
                 variant = ButtonVariant.Outline,
-            ) { color ->
-                Text(showWithActionLabel, color = color)
+            ) {
+                Text(showWithActionLabel)
             }
         }
     }

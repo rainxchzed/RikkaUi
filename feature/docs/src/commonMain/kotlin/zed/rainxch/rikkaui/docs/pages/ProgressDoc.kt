@@ -75,11 +75,8 @@ fun ProgressDoc() {
                 )
                 Button(onClick = {
                     progress = if (progress >= 1f) 0.1f else progress + 0.2f
-                }) { color ->
-                    Text(
-                        stringResource(Res.string.progress_demo_advance),
-                        color = color,
-                    )
+                }) {
+                    Text(stringResource(Res.string.progress_demo_advance))
                 }
             }
         }

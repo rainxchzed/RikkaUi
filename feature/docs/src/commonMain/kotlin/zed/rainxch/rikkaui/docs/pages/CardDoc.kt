@@ -121,17 +121,11 @@ fun CardDoc() {
                         Button(
                             onClick = {},
                             variant = ButtonVariant.Outline,
-                        ) { color ->
-                            Text(
-                                stringResource(Res.string.card_demo_cancel),
-                                color = color,
-                            )
+                        ) {
+                            Text(stringResource(Res.string.card_demo_cancel))
                         }
-                        Button(onClick = {}) { color ->
-                            Text(
-                                stringResource(Res.string.card_demo_save),
-                                color = color,
-                            )
+                        Button(onClick = {}) {
+                            Text(stringResource(Res.string.card_demo_save))
                         }
                     }
                 }

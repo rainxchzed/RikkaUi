@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -32,6 +33,7 @@ import zed.rainxch.rikkaui.components.ui.icon.Icon
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.LocalContentColor
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation Enum ─────────────────────────────────────────
@@ -69,8 +71,8 @@ fun Pagination(
     maxVisiblePages: Int = 5,
     animation: PaginationAnimation = PaginationAnimation.Scale,
     buttonSize: PaginationSize = PaginationSize.Default,
-    previousContent: (@Composable (Color) -> Unit)? = null,
-    nextContent: (@Composable (Color) -> Unit)? = null,
+    previousContent: (@Composable () -> Unit)? = null,
+    nextContent: (@Composable () -> Unit)? = null,
 ) {
     val pageRange =
         resolvePageRange(
@@ -100,14 +102,13 @@ fun Pagination(
             buttonDp = sizeValues.buttonDp,
             iconDp = sizeValues.iconDp,
             animation = animation,
-        ) { tint ->
+        ) {
             if (previousContent != null) {
-                previousContent(tint)
+                previousContent()
             } else {
                 Icon(
                     imageVector = RikkaIcons.ChevronLeft,
                     contentDescription = null,
-                    tint = tint,
                     modifier = Modifier.size(sizeValues.iconDp),
                 )
             }
@@ -167,14 +168,13 @@ fun Pagination(
             buttonDp = sizeValues.buttonDp,
             iconDp = sizeValues.iconDp,
             animation = animation,
-        ) { tint ->
+        ) {
             if (nextContent != null) {
-                nextContent(tint)
+                nextContent()
             } else {
                 Icon(
                     imageVector = RikkaIcons.ChevronRight,
                     contentDescription = null,
-                    tint = tint,
                     modifier = Modifier.size(sizeValues.iconDp),
                 )
             }
@@ -270,7 +270,7 @@ private fun PaginationIconButton(
     iconDp: Dp,
     animation: PaginationAnimation,
     modifier: Modifier = Modifier,
-    content: @Composable (Color) -> Unit,
+    content: @Composable () -> Unit,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isHovered by interactionSource.collectIsHoveredAsState()
@@ -324,7 +324,9 @@ private fun PaginationIconButton(
                 },
         contentAlignment = Alignment.Center,
     ) {
-        content(colors.foreground)
+        CompositionLocalProvider(LocalContentColor provides colors.foreground) {
+            content()
+        }
     }
 }
 

@@ -156,7 +156,7 @@ fun ThemeToolbar(
                         variant = if (accent == entry) ButtonVariant.Default else ButtonVariant.Ghost,
                         size = ButtonSize.Sm,
                         animation = ButtonAnimation.Scale,
-                    ) { foreground ->
+                    ) {
                         val swatch = entry.previewColor
                         if (swatch != null) {
                             Box(
@@ -170,7 +170,6 @@ fun ThemeToolbar(
                         }
                         Text(
                             text = entry.label,
-                            color = foreground,
                             style = RikkaTheme.typography.small,
                         )
                     }
@@ -197,12 +196,11 @@ private fun ToolbarPopover(
                 onClick = { expanded = !expanded },
                 variant = ButtonVariant.Outline,
                 size = ButtonSize.Sm,
-            ) { foreground ->
+            ) {
                 icon()
                 Spacer(Modifier.width(RikkaTheme.spacing.xs))
                 Text(
                     text = label,
-                    color = foreground,
                     style = RikkaTheme.typography.small,
                 )
                 Spacer(Modifier.width(RikkaTheme.spacing.xs))
@@ -210,7 +208,6 @@ private fun ToolbarPopover(
                     RikkaIcons.ChevronDown,
                     contentDescription = stringResource(Res.string.toolbar_expand),
                     size = IconSize.Sm,
-                    tint = foreground,
                 )
             }
         },

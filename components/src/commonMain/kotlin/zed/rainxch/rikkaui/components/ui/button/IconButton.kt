@@ -55,11 +55,10 @@ fun IconButton(
         enabled = enabled,
         loading = loading,
         label = contentDescription,
-    ) { foreground ->
+    ) {
         Icon(
             imageVector = icon,
             contentDescription = contentDescription,
-            tint = foreground,
             size = iconSize,
         )
     }

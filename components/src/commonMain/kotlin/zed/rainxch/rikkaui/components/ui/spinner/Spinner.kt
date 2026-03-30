@@ -20,6 +20,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import zed.rainxch.rikkaui.foundation.LocalContentColor
 import zed.rainxch.rikkaui.foundation.RikkaMotion
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -54,11 +55,16 @@ fun Spinner(
     modifier: Modifier = Modifier,
     size: SpinnerSize = SpinnerSize.Default,
     animation: SpinnerAnimation = SpinnerAnimation.Spin,
-    color: Color = RikkaTheme.colors.primary,
+    color: Color = Color.Unspecified,
     trackColor: Color? = RikkaTheme.colors.muted,
     sweepAngle: Float = 240f,
     label: String = "Loading",
 ) {
+    val resolvedColor = when {
+        color != Color.Unspecified -> color
+        LocalContentColor.current != Color.Unspecified -> LocalContentColor.current
+        else -> RikkaTheme.colors.primary
+    }
     val motion = RikkaTheme.motion
 
     val resolved = resolveSpinnerAnimation(animation, motion)
@@ -93,7 +99,7 @@ fun Spinner(
         }
 
         drawArc(
-            color = color,
+            color = resolvedColor,
             startAngle = 0f,
             sweepAngle = sweepAngle,
             useCenter = false,

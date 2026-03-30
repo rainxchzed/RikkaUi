@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -34,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.ui.spinner.Spinner
 import zed.rainxch.rikkaui.components.ui.spinner.SpinnerSize
 import zed.rainxch.rikkaui.components.ui.text.Text
+import zed.rainxch.rikkaui.foundation.LocalContentColor
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Variant ────────────────────────────────────────────────
@@ -95,7 +97,7 @@ fun Button(
     enabled: Boolean = true,
     loading: Boolean = false,
     label: String = "",
-    content: @Composable (foreground: Color) -> Unit,
+    content: @Composable () -> Unit,
 ) {
     val isEffectivelyEnabled = enabled && !loading
     val interactionSource = remember { MutableInteractionSource() }
@@ -223,15 +225,16 @@ fun Button(
             ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        if (loading) {
-            Spinner(
-                size = SpinnerSize.Sm,
-                color = colors.foreground,
-                trackColor = null,
-                label = "Loading",
-            )
+        CompositionLocalProvider(LocalContentColor provides colors.foreground) {
+            if (loading) {
+                Spinner(
+                    size = SpinnerSize.Sm,
+                    trackColor = null,
+                    label = "Loading",
+                )
+            }
+            content()
         }
-        content(colors.foreground)
     }
 }
 
@@ -256,7 +259,7 @@ fun Button(
         animation = animation,
         enabled = enabled,
         loading = loading,
-    ) { foreground ->
+    ) {
         if (!loading) leadingIcon?.invoke()
 
         val textStyle =
@@ -268,7 +271,6 @@ fun Button(
 
         Text(
             text = text,
-            color = foreground,
             style = RikkaTheme.typography.small.merge(textStyle),
         )
 

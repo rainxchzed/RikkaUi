@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import zed.rainxch.rikkaui.foundation.LocalContentColor
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Size ───────────────────────────────────────────────────
@@ -41,10 +42,15 @@ fun Icon(
     imageVector: ImageVector,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    tint: Color = RikkaTheme.colors.foreground,
+    tint: Color = Color.Unspecified,
     size: IconSize? = null,
     spin: Boolean = false,
 ) {
+    val resolvedTint = when {
+        tint != Color.Unspecified -> tint
+        LocalContentColor.current != Color.Unspecified -> LocalContentColor.current
+        else -> RikkaTheme.colors.foreground
+    }
     val painter = rememberVectorPainter(imageVector)
 
     val semanticsModifier =
@@ -94,7 +100,7 @@ fun Icon(
         Image(
             painter = painter,
             contentDescription = contentDescription,
-            colorFilter = ColorFilter.tint(tint),
+            colorFilter = ColorFilter.tint(resolvedTint),
         )
     }
 }

@@ -10,6 +10,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import zed.rainxch.rikkaui.foundation.LocalContentColor
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /** Typography variant mapping to a theme text style. */
@@ -48,7 +49,12 @@ fun Text(
     style: TextStyle = TextStyle.Default,
 ) {
     val baseStyle = variantStyle(variant)
-    val resolvedColor = if (color != Color.Unspecified) color else variantColor(variant)
+    val contentColor = LocalContentColor.current
+    val resolvedColor = when {
+        color != Color.Unspecified -> color
+        contentColor != Color.Unspecified -> contentColor
+        else -> variantColor(variant)
+    }
 
     val textAlignStyle =
         if (textAlign != null) {

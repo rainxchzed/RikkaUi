@@ -48,3 +48,6 @@ val LocalRikkaColors =
     staticCompositionLocalOf<RikkaColors> {
         error("No RikkaColors provided. Wrap your content in RikkaTheme { ... }")
     }
+
+val LocalContentColor =
+    staticCompositionLocalOf { Color.Unspecified }
