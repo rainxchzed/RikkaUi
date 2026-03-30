@@ -31,9 +31,16 @@ class ListCommand : CliktCommand(name = "list") {
         echo("  RikkaUI v${index.version} — ${index.items.size} components")
         echo("")
 
-        index.items.forEach { item ->
-            val files = item.files.joinToString(", ") { it.name }
-            echo("  ${item.name.padEnd(20)} $files")
+        val grouped = index.items.groupBy { it.category.ifEmpty { "Other" } }
+        grouped.forEach { (category, items) ->
+            echo("  $category:")
+            items.forEach { item ->
+                val deps = if (item.registryDependencies.isNotEmpty()) {
+                    " [deps: ${item.registryDependencies.joinToString(", ")}]"
+                } else ""
+                echo("    ${item.name.padEnd(20)} ${item.description}$deps")
+            }
+            echo("")
         }
 
         echo("")

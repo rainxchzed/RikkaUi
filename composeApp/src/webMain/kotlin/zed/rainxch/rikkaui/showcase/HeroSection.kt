@@ -24,6 +24,7 @@ import zed.rainxch.rikkaui.components.ui.badge.Badge
 import zed.rainxch.rikkaui.components.ui.badge.BadgeVariant
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonAnimation
+import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.foundation.RikkaTheme
@@ -88,6 +89,7 @@ fun HeroSection(
             text = stringResource(Res.string.view_components),
             onClick = onViewComponentsClick,
             animation = ButtonAnimation.Bounce,
+            variant = ButtonVariant.Secondary,
         )
     }
 

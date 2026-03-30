@@ -56,7 +56,7 @@ fun RikkaTheme(
 @Composable
 fun RikkaTheme(
     colors: RikkaColors = RikkaPalettes.NeutralLight,
-    style: RikkaStyle = RikkaStylePreset.Default.style,
+    style: RikkaStyle,
     typography: RikkaTypography = rikkaTypography(scale = style.typeScale),
     content: @Composable () -> Unit,
 ) {
@@ -84,7 +84,7 @@ fun RikkaTheme(
 @Composable
 fun RikkaTheme(
     colors: RikkaColors = RikkaPalettes.NeutralLight,
-    preset: RikkaStylePreset = RikkaStylePreset.Default,
+    preset: RikkaStylePreset,
     typography: RikkaTypography = rikkaTypography(scale = preset.typeScale),
     content: @Composable () -> Unit,
 ) {
@@ -113,7 +113,7 @@ fun RikkaTheme(
  */
 @Composable
 fun RikkaTheme(
-    palette: RikkaPalette = RikkaPalette.Zinc,
+    palette: RikkaPalette,
     accent: RikkaAccentPreset = RikkaAccentPreset.Default,
     isDark: Boolean = false,
     preset: RikkaStylePreset = RikkaStylePreset.Default,

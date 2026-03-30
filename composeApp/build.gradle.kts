@@ -19,6 +19,11 @@ val generateRegistryJson by tasks.registering(GenerateRegistryJsonTask::class) {
             "../components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/ui",
         ),
     )
+    registrySourceFile.set(
+        layout.projectDirectory.file(
+            "../feature/docs/src/commonMain/kotlin/zed/rainxch/rikkaui/docs/catalog/ComponentRegistry.kt",
+        ),
+    )
     outputDir.set(
         layout.projectDirectory.dir("src/webMain/resources/r"),
     )
