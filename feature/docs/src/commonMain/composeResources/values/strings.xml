@@ -16,6 +16,7 @@
     <string name="guide_introduction">Introduction</string>
     <string name="guide_installation">Installation</string>
     <string name="guide_theming">Theming</string>
+    <string name="guide_cli">CLI</string>
 
     <!-- ─── Props Table Headers ──────────────────────────────── -->
     <string name="prop_header_prop">Prop</string>
@@ -972,6 +973,30 @@
     <!-- ─── Source Code Viewer ──────────────────────────────────── -->
     <string name="source_tab_docs">Docs</string>
     <string name="source_tab_code">Code</string>
+    <!-- ─── CLI Doc Page ──────────────────────────────────────── -->
+    <string name="cli_title">CLI</string>
+    <string name="cli_desc">Add components to your project from the command line. The RikkaUI CLI fetches components from the registry, rewrites package imports, and resolves dependencies automatically.</string>
+    <string name="cli_section_install">Install</string>
+    <string name="cli_install_body">Download and install the CLI with a single command. Requires Java 17+.</string>
+    <string name="cli_install_manual">Or download the JAR manually from GitHub Releases and run it with java -jar rikkaui.jar.</string>
+    <string name="cli_section_init">rikkaui init</string>
+    <string name="cli_init_body">Initialize a configuration file in your project. The CLI detects whether you have a KMP or Android project and suggests defaults.</string>
+    <string name="cli_init_creates">Creates a rikka.json file with your package name, components directory, and registry URL.</string>
+    <string name="cli_section_add">rikkaui add</string>
+    <string name="cli_add_body">Add one or more components to your project. Dependencies are resolved automatically.</string>
+    <string name="cli_add_deps">When you add a component that depends on others (e.g. Button depends on Icon, Spinner, Text), all dependencies are fetched and installed automatically.</string>
+    <string name="cli_add_flags_title">Flags</string>
+    <string name="cli_section_list">rikkaui list</string>
+    <string name="cli_list_body">List all available components in the registry, grouped by category with dependency info.</string>
+    <string name="cli_section_config">Configuration</string>
+    <string name="cli_config_body">The rikka.json file stores your project defaults. You can create it with rikkaui init or let the CLI prompt you on first use.</string>
+    <string name="cli_section_how">How It Works</string>
+    <string name="cli_how_step_1">Fetches component source from the registry at rikkaui.dev/r/{name}.json</string>
+    <string name="cli_how_step_2">Resolves all transitive dependencies (e.g. Button pulls Icon, Spinner, Text)</string>
+    <string name="cli_how_step_3">Rewrites package and import lines from the library namespace to your target package</string>
+    <string name="cli_how_step_4">Writes .kt files into your components directory, organized by subfolder</string>
+    <string name="cli_how_note">Foundation imports (theme tokens, colors, typography) are left untouched. You still need dev.rikkaui:foundation as a Gradle dependency.</string>
+
     <string name="source_copy_button">Copy Code</string>
     <string name="source_copied">Copied!</string>
     <string name="source_instruction">Add foundation to your project, then paste this file anywhere in your source.</string>

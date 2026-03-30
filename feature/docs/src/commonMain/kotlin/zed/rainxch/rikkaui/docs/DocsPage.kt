@@ -44,6 +44,7 @@ import rikkaui.feature.docs.generated.resources.docs_components
 import rikkaui.feature.docs.generated.resources.docs_getting_started
 import rikkaui.feature.docs.generated.resources.guide_installation
 import rikkaui.feature.docs.generated.resources.guide_introduction
+import rikkaui.feature.docs.generated.resources.guide_cli
 import rikkaui.feature.docs.generated.resources.guide_theming
 import rikkaui.feature.docs.generated.resources.source_tab_code
 import rikkaui.feature.docs.generated.resources.source_tab_docs
@@ -52,6 +53,7 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.docs.catalog.ComponentCategory
 import zed.rainxch.rikkaui.docs.catalog.ComponentEntry
 import zed.rainxch.rikkaui.docs.catalog.ComponentRegistry
+import zed.rainxch.rikkaui.docs.pages.CliDoc
 import zed.rainxch.rikkaui.docs.pages.InstallationDoc
 import zed.rainxch.rikkaui.docs.pages.IntroductionDoc
 import zed.rainxch.rikkaui.docs.pages.ThemingDoc
@@ -80,6 +82,11 @@ private val guidePages =
             id = "theming",
             nameRes = Res.string.guide_theming,
             content = { ThemingDoc() },
+        ),
+        GuidePage(
+            id = "cli",
+            nameRes = Res.string.guide_cli,
+            content = { CliDoc() },
         ),
     )
 
