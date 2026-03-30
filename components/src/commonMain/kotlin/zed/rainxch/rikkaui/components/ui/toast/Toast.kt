@@ -31,6 +31,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -40,6 +41,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -165,17 +167,22 @@ class ToastHostState {
 @Composable
 fun rememberToastHostState(): ToastHostState = remember { ToastHostState() }
 
+val LocalToastHostState =
+    staticCompositionLocalOf<ToastHostState> {
+        error("No ToastHostState provided. Place ToastHost at your app root.")
+    }
+
 // ─── Toast Host ─────────────────────────────────────────────
 
 @Composable
 fun ToastHost(
-    hostState: ToastHostState,
-    modifier: Modifier = Modifier,
+    hostState: ToastHostState = rememberToastHostState(),
     position: ToastPosition = ToastPosition.BottomRight,
     animation: ToastAnimation = ToastAnimation.SlideIn,
     maxVisibleToasts: Int = DEFAULT_MAX_VISIBLE_TOASTS,
     swipeToDismiss: Boolean = true,
     showProgressBar: Boolean = false,
+    content: @Composable () -> Unit,
 ) {
     val spacing = RikkaTheme.spacing
 
@@ -191,45 +198,49 @@ fun ToastHost(
         }
     }
 
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = alignment,
-    ) {
-        Column(
-            modifier = Modifier.padding(spacing.lg),
-            verticalArrangement =
-                Arrangement.spacedBy(
-                    spacing.sm,
-                    if (isTop) Alignment.Top else Alignment.Bottom,
-                ),
-            horizontalAlignment =
-                when (position) {
-                    ToastPosition.TopCenter,
-                    ToastPosition.BottomCenter,
-                    -> Alignment.CenterHorizontally
+    CompositionLocalProvider(LocalToastHostState provides hostState) {
+        Box(Modifier.fillMaxSize()) {
+            content()
 
-                    ToastPosition.TopRight,
-                    ToastPosition.BottomRight,
-                    -> Alignment.End
-                },
-        ) {
-            val items =
-                if (isTop) {
-                    hostState.toasts.toList()
-                } else {
-                    hostState.toasts.toList().reversed()
-                }
+            Column(
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .padding(spacing.lg),
+                verticalArrangement =
+                    Arrangement.spacedBy(
+                        spacing.sm,
+                        if (isTop) Alignment.Top else Alignment.Bottom,
+                    ),
+                horizontalAlignment =
+                    when (position) {
+                        ToastPosition.TopCenter,
+                        ToastPosition.BottomCenter,
+                        -> Alignment.CenterHorizontally
 
-            items.forEach { toast ->
-                key(toast.id) {
-                    ToastItem(
-                        data = toast,
-                        isTop = isTop,
-                        animation = animation,
-                        swipeToDismiss = swipeToDismiss,
-                        showProgressBar = showProgressBar,
-                        onDismiss = { hostState.dismiss(toast.id) },
-                    )
+                        ToastPosition.TopRight,
+                        ToastPosition.BottomRight,
+                        -> Alignment.End
+                    },
+            ) {
+                val items =
+                    if (isTop) {
+                        hostState.toasts.toList()
+                    } else {
+                        hostState.toasts.toList().reversed()
+                    }
+
+                items.forEach { toast ->
+                    key(toast.id) {
+                        ToastItem(
+                            data = toast,
+                            isTop = isTop,
+                            animation = animation,
+                            swipeToDismiss = swipeToDismiss,
+                            showProgressBar = showProgressBar,
+                            onDismiss = { hostState.dismiss(toast.id) },
+                        )
+                    }
                 }
             }
         }
@@ -597,19 +608,16 @@ fun Toast(
         // ─── Progress bar ────────────────────────────────
         if (showProgressBar) {
             Box(
-                modifier = Modifier.fillMaxWidth().height(2.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(3.dp)
+                    .background(colors.muted),
             ) {
                 Box(
                     modifier =
                         Modifier
-                            .fillMaxSize()
-                            .background(colors.muted),
-                )
-                Box(
-                    modifier =
-                        Modifier
                             .fillMaxWidth(progressFraction)
-                            .height(2.dp)
+                            .height(3.dp)
                             .background(resolved.accent.takeIf { it != Color.Transparent } ?: colors.primary),
                 )
             }

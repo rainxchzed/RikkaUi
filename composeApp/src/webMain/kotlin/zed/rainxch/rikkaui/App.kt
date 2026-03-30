@@ -18,6 +18,8 @@ import androidx.navigation.NavController
 import androidx.navigation.bindToBrowserNavigation
 import androidx.navigation.compose.rememberNavController
 import zed.rainxch.rikkaui.components.TopNavBar
+import zed.rainxch.rikkaui.components.ui.toast.ToastHost
+import zed.rainxch.rikkaui.components.ui.toast.ToastPosition
 import zed.rainxch.rikkaui.foundation.RikkaPalette
 import zed.rainxch.rikkaui.foundation.RikkaStylePreset
 import zed.rainxch.rikkaui.foundation.RikkaTheme
@@ -64,24 +66,26 @@ private fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
                 fontFamily = ThemeUtils.getFontFamily(),
             ),
     ) {
-        Column(
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .background(RikkaTheme.colors.background),
-        ) {
-            TopNavBar(
-                navController = navController,
-                isDark = themeState.isDark,
-                onDarkChange = {
-                    viewModel.onAction(ThemeAction.SetDarkMode(it))
-                },
-            )
+        ToastHost(position = ToastPosition.BottomRight) {
+            Column(
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .background(RikkaTheme.colors.background),
+            ) {
+                TopNavBar(
+                    navController = navController,
+                    isDark = themeState.isDark,
+                    onDarkChange = {
+                        viewModel.onAction(ThemeAction.SetDarkMode(it))
+                    },
+                )
 
-            AppNavigation(
-                navController = navController,
-                themeState = themeState,
-            )
+                AppNavigation(
+                    navController = navController,
+                    themeState = themeState,
+                )
+            }
         }
     }
 }

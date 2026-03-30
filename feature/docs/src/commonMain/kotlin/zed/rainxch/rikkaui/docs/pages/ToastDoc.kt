@@ -1,10 +1,8 @@
 package zed.rainxch.rikkaui.docs.pages
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -21,11 +19,8 @@ import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
 import zed.rainxch.rikkaui.components.ui.text.Text
-import zed.rainxch.rikkaui.components.ui.toast.ToastAnimation
-import zed.rainxch.rikkaui.components.ui.toast.ToastHost
-import zed.rainxch.rikkaui.components.ui.toast.ToastPosition
+import zed.rainxch.rikkaui.components.ui.toast.LocalToastHostState
 import zed.rainxch.rikkaui.components.ui.toast.ToastVariant
-import zed.rainxch.rikkaui.components.ui.toast.rememberToastHostState
 import zed.rainxch.rikkaui.docs.components.CodeBlock
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
@@ -43,7 +38,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
  */
 @Composable
 fun ToastDoc() {
-    val toastState = rememberToastHostState()
+    val toastState = LocalToastHostState.current
     val scope = rememberCoroutineScope()
 
     ComponentPageHeader(
@@ -166,16 +161,6 @@ fun ToastDoc() {
         }
     }
 
-    // ─── Toast Host (renders toasts) ────────────────────────
-    Box(Modifier.fillMaxWidth().height(120.dp)) {
-        ToastHost(
-            hostState = toastState,
-            position = ToastPosition.BottomCenter,
-            animation = ToastAnimation.SlideIn,
-            showProgressBar = true,
-        )
-    }
-
     // ─── Usage ──────────────────────────────────────────────
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
@@ -201,16 +186,14 @@ scope.launch {
     )
 }
 
-// Place ToastHost in your layout
-Box(Modifier.fillMaxSize()) {
-    MyScreen()
-    ToastHost(
-        hostState = toastState,
-        position = ToastPosition.BottomRight,
-        animation = ToastAnimation.SlideIn,
-        showProgressBar = true,
-    )
+// Wrap your app root with ToastHost
+ToastHost(position = ToastPosition.BottomRight) {
+    MyApp()
 }
+
+// Show toasts from anywhere via LocalToastHostState
+val toastState = LocalToastHostState.current
+scope.launch { toastState.show("Done!") }
             """.trimIndent(),
         )
     }
