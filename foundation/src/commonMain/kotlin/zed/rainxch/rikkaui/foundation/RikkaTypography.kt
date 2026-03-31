@@ -193,3 +193,34 @@ fun rikkaTypography(
  * Prefer [rikkaTypography] with a [RikkaFontFamily] for a polished look.
  */
 fun defaultRikkaTypography(): RikkaTypography = rikkaTypography()
+
+// ─── Emphasis Extensions ───────────────────────────────────
+
+/**
+ * Returns an emphasized version of this text style (SemiBold weight).
+ *
+ * Use when you need the same size but heavier weight for emphasis,
+ * without jumping to a heading level.
+ *
+ * ```
+ * Text(
+ *     text = "Important note",
+ *     style = RikkaTheme.typography.p.emphasized(),
+ * )
+ * ```
+ */
+fun TextStyle.emphasized(): TextStyle = copy(fontWeight = FontWeight.SemiBold)
+
+/**
+ * Returns a strong version of this text style (Bold weight).
+ *
+ * Stronger emphasis than [emphasized]. Use sparingly.
+ *
+ * ```
+ * Text(
+ *     text = "Critical warning",
+ *     style = RikkaTheme.typography.p.strong(),
+ * )
+ * ```
+ */
+fun TextStyle.strong(): TextStyle = copy(fontWeight = FontWeight.Bold)
