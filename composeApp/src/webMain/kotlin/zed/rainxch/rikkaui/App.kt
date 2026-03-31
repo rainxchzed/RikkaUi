@@ -11,6 +11,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -52,6 +53,7 @@ import zed.rainxch.rikkaui.foundation.rikkaTypography
 import zed.rainxch.rikkaui.navigation.AppNavGraph.HomeRoute
 import zed.rainxch.rikkaui.navigation.AppNavigation
 import zed.rainxch.rikkaui.navigation.NavEntry
+import zed.rainxch.rikkaui.navigation.resolveInitialRoute
 import zed.rainxch.rikkaui.theme.ThemeStore
 import zed.rainxch.rikkaui.utils.ThemeUtils
 
@@ -68,6 +70,7 @@ fun main() =
 @Composable
 private fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
     val navController = rememberNavController()
+    val initialRoute = remember { resolveInitialRoute() }
     val viewModel: AppViewModel =
         viewModel(
             factory =
@@ -116,6 +119,7 @@ private fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
             ) { _ ->
                 AppNavigation(
                     navController = navController,
+                    initialRoute = initialRoute,
                 )
             }
         }
