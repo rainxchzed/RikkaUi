@@ -47,6 +47,8 @@ data class RikkaColors(
     val border: Color,
     val input: Color,
     val ring: Color,
+    /** Semi-transparent overlay behind dialogs and sheets. */
+    val scrim: Color = Color.Black.copy(alpha = 0.5f),
 )
 
 val LocalRikkaColors =

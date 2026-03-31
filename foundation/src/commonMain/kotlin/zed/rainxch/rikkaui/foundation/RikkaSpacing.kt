@@ -52,6 +52,10 @@ data class RikkaSpacing(
     val xxl: Dp,
     /** 3x extra large — page-level spacing, hero padding. */
     val xxxl: Dp,
+    /** Shadow elevation for cards — subtle lift. */
+    val elevationLow: Dp = 4.dp,
+    /** Shadow elevation for popups, dropdowns, popovers — prominent lift. */
+    val elevationHigh: Dp = 8.dp,
 )
 
 val LocalRikkaSpacing =

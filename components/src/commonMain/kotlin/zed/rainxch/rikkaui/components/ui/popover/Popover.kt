@@ -186,7 +186,7 @@ private fun PopoverCard(
         modifier =
             Modifier
                 .widthIn(min = minWidth, max = maxWidth)
-                .shadow(8.dp, shapes.md)
+                .shadow(spacing.elevationHigh, shapes.md)
                 .border(1.dp, colors.border, shapes.md)
                 .background(colors.popover, shapes.md)
                 .clip(shapes.md)

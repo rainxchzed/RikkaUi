@@ -64,7 +64,7 @@ fun Dialog(
     modifier: Modifier = Modifier,
     label: String = "Dialog",
     animation: DialogAnimation = DialogAnimation.FadeScale,
-    scrimColor: Color = Color.Black.copy(alpha = 0.5f),
+    scrimColor: Color = RikkaTheme.colors.scrim,
     maxWidth: Dp = 480.dp,
     content: @Composable ColumnScope.() -> Unit,
 ) {

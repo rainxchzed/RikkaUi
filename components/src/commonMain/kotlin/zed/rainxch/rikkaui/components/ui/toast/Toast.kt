@@ -489,7 +489,7 @@ fun Toast(
                         onDismiss()
                         true
                     }
-                }.shadow(8.dp, shapes.lg)
+                }.shadow(spacing.elevationHigh, shapes.lg)
                 .border(1.dp, colors.border, shapes.lg)
                 .background(colors.popover, shapes.lg)
                 .clip(shapes.lg),

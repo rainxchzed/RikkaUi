@@ -17,7 +17,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -136,7 +135,7 @@ fun Toggle(
                     .size(sizeValues.thumbSize)
                     .clip(CircleShape)
                     .background(
-                        if (checked) colors.primaryForeground else Color.White,
+                        if (checked) colors.primaryForeground else colors.background,
                         CircleShape,
                     ),
         )

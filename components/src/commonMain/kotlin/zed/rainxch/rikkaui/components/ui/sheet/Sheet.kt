@@ -95,7 +95,7 @@ fun Sheet(
     modifier: Modifier = Modifier,
     label: String = "Sheet",
     animation: SheetAnimation = SheetAnimation.Slide,
-    scrimColor: Color = Color.Black.copy(alpha = 0.5f),
+    scrimColor: Color = RikkaTheme.colors.scrim,
     panelWidth: Dp = 320.dp,
     content: @Composable ColumnScope.() -> Unit,
 ) {
@@ -266,7 +266,25 @@ fun SheetFooter(
 
 @Composable
 private fun resolvePanelShape(side: SheetSide): Shape {
-    val radius = 10.dp
+    // Use the theme's lg shape as reference, extracting its corner radius.
+    val themeShape = RikkaTheme.shapes.lg
+    val radius =
+        (themeShape as? RoundedCornerShape)
+            ?.topStart
+            ?.let { corner ->
+                try {
+                    val size =
+                        androidx.compose.ui.geometry
+                            .Size(100f, 100f)
+                    val density =
+                        androidx.compose.ui.unit
+                            .Density(1f)
+                    corner.toPx(size, density).dp
+                } catch (_: Exception) {
+                    10.dp
+                }
+            } ?: 10.dp
+
     return when (side) {
         SheetSide.Left -> {
             RoundedCornerShape(
@@ -319,56 +337,13 @@ private fun resolveBorderModifier(
     side: SheetSide,
     borderColor: Color,
 ): Modifier {
+    val panelShape = resolvePanelShape(side)
     val width = 1.dp
-    return when (side) {
-        SheetSide.Left -> {
-            Modifier.border(
-                width = width,
-                color = borderColor,
-                shape =
-                    RoundedCornerShape(
-                        topEnd = 10.dp,
-                        bottomEnd = 10.dp,
-                    ),
-            )
-        }
-
-        SheetSide.Right -> {
-            Modifier.border(
-                width = width,
-                color = borderColor,
-                shape =
-                    RoundedCornerShape(
-                        topStart = 10.dp,
-                        bottomStart = 10.dp,
-                    ),
-            )
-        }
-
-        SheetSide.Top -> {
-            Modifier.border(
-                width = width,
-                color = borderColor,
-                shape =
-                    RoundedCornerShape(
-                        bottomStart = 10.dp,
-                        bottomEnd = 10.dp,
-                    ),
-            )
-        }
-
-        SheetSide.Bottom -> {
-            Modifier.border(
-                width = width,
-                color = borderColor,
-                shape =
-                    RoundedCornerShape(
-                        topStart = 10.dp,
-                        topEnd = 10.dp,
-                    ),
-            )
-        }
-    }
+    return Modifier.border(
+        width = width,
+        color = borderColor,
+        shape = panelShape,
+    )
 }
 
 // ─── Internal: Transition Resolution ────────────────────────

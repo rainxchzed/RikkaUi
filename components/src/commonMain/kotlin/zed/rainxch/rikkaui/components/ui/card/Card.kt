@@ -102,13 +102,14 @@ fun Card(
     )
 
     // ─── Hover elevation lift ────────────────────────────
+    val spacing = RikkaTheme.spacing
     val hoverElevationBoost =
         if (
             hasAnimation &&
             animation == CardAnimation.Hover &&
             isHovered
         ) {
-            4.dp
+            spacing.elevationLow
         } else {
             0.dp
         }
@@ -234,6 +235,7 @@ private data class CardStyle(
 @Composable
 private fun resolveCardStyle(variant: CardVariant): CardStyle {
     val colors = RikkaTheme.colors
+    val spacing = RikkaTheme.spacing
 
     return when (variant) {
         CardVariant.Default -> {
@@ -248,7 +250,7 @@ private fun resolveCardStyle(variant: CardVariant): CardStyle {
             CardStyle(
                 background = colors.card,
                 border = colors.border.copy(alpha = 0.5f),
-                elevation = 4.dp,
+                elevation = spacing.elevationLow,
             )
         }
 

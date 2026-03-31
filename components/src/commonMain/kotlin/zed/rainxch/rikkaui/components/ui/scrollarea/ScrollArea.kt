@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -249,7 +248,7 @@ private fun VerticalScrollbar(
     val density = LocalDensity.current
     val trackColor = RikkaTheme.colors.muted.copy(alpha = 0.5f)
     val thumbColor = thumbColorOverride ?: RikkaTheme.colors.mutedForeground
-    val thumbShape = RoundedCornerShape(50)
+    val thumbShape = RikkaTheme.shapes.full
 
     val minThumbPx: Float = with(density) { SCROLLBAR_MIN_THUMB.toPx() }
 
@@ -319,7 +318,7 @@ private fun HorizontalScrollbar(
     val density = LocalDensity.current
     val trackColor = RikkaTheme.colors.muted.copy(alpha = 0.5f)
     val thumbColor = thumbColorOverride ?: RikkaTheme.colors.mutedForeground
-    val thumbShape = RoundedCornerShape(50)
+    val thumbShape = RikkaTheme.shapes.full
 
     val minThumbPx: Float = with(density) { SCROLLBAR_MIN_THUMB.toPx() }
 

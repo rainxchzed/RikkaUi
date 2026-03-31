@@ -153,7 +153,7 @@ fun HoverCard(
                                 scaleY = scale
                             }.defaultMinSize(minWidth = 250.dp)
                             .widthIn(max = maxWidth)
-                            .shadow(8.dp, shapes.md)
+                            .shadow(spacing.elevationHigh, shapes.md)
                             .border(
                                 1.dp,
                                 colors.border,

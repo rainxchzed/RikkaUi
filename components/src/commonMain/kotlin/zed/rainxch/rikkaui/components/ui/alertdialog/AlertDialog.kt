@@ -69,7 +69,7 @@ fun AlertDialog(
     modifier: Modifier = Modifier,
     label: String = "Alert Dialog",
     animation: AlertDialogAnimation = AlertDialogAnimation.FadeScale,
-    scrimColor: Color = Color.Black.copy(alpha = 0.5f),
+    scrimColor: Color = RikkaTheme.colors.scrim,
     maxWidth: Dp = 520.dp,
     content: @Composable () -> Unit,
 ) {
@@ -145,7 +145,7 @@ fun AlertDialog(
                                     onDismiss()
                                     true
                                 }
-                            }.shadow(8.dp, shapes.lg)
+                            }.shadow(spacing.elevationHigh, shapes.lg)
                             .border(1.dp, colors.border, shapes.lg)
                             .background(colors.popover, shapes.lg)
                             .clip(shapes.lg)

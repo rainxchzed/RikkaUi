@@ -180,7 +180,7 @@ private fun ContextMenuPanel(
                     ).widthIn(max = maxWidth)
                     .heightIn(max = maxHeight)
                     .shadow(
-                        8.dp,
+                        spacing.elevationHigh,
                         shapes.md,
                     ).border(
                         1.dp,

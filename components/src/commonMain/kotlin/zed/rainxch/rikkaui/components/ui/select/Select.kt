@@ -198,7 +198,7 @@ private fun SelectDropdownContent(
                 Modifier
                     .width(triggerWidthDp)
                     .heightIn(max = maxHeight)
-                    .shadow(8.dp, shapes.md)
+                    .shadow(spacing.elevationHigh, shapes.md)
                     .border(
                         1.dp,
                         colors.border,
