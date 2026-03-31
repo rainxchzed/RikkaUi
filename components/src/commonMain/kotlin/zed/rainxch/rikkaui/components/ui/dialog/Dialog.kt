@@ -41,6 +41,7 @@ import kotlinx.coroutines.delay
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.foundation.LocalContentColor
+import zed.rainxch.rikkaui.foundation.LocalTextStyle
 import zed.rainxch.rikkaui.foundation.RikkaMotion
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -132,6 +133,7 @@ fun Dialog(
             ) {
                 CompositionLocalProvider(
                     LocalContentColor provides colors.cardForeground,
+                    LocalTextStyle provides RikkaTheme.typography.p,
                 ) {
                     Column(
                         modifier =
