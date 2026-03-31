@@ -23,6 +23,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -62,6 +63,47 @@ enum class InputAnimation {
     None,
 }
 
+// ─── Defaults ───────────────────────────────────────────────
+
+object InputDefaults {
+    @Composable
+    fun colors(): InputColorValues {
+        val c = RikkaTheme.colors
+        return InputColorValues(
+            background = c.background,
+            border = c.input,
+            focusedBorder = c.ring,
+            disabledBorder = c.input.copy(alpha = 0.5f),
+            disabledBackground = c.muted.copy(alpha = 0.3f),
+            text = c.foreground,
+            placeholder = c.mutedForeground,
+            ring = c.ring,
+        )
+    }
+}
+
+@Immutable
+data class InputColorValues(
+    val background: Color,
+    val border: Color,
+    val focusedBorder: Color,
+    val disabledBorder: Color,
+    val disabledBackground: Color,
+    val text: Color,
+    val placeholder: Color,
+    val ring: Color,
+) {
+    fun borderColor(
+        focused: Boolean,
+        enabled: Boolean,
+    ): Color =
+        when {
+            !enabled -> disabledBorder
+            focused -> focusedBorder
+            else -> border
+        }
+}
+
 // ─── Component ──────────────────────────────────────────────
 
 @Composable
@@ -85,22 +127,18 @@ fun Input(
     onClear: (() -> Unit)? = null,
     maxLength: Int? = null,
     showCharCount: Boolean = false,
+    colors: InputColorValues = InputDefaults.colors(),
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
 
-    val colors = RikkaTheme.colors
+    val themeColors = RikkaTheme.colors
     val motion = RikkaTheme.motion
     val shape = RikkaTheme.shapes.md
     val spacing = RikkaTheme.spacing
 
     // ─── Resolve border color & animation ─────────────────
-    val targetBorderColor =
-        when {
-            !enabled -> colors.input.copy(alpha = 0.5f)
-            isFocused -> colors.ring
-            else -> colors.input
-        }
+    val targetBorderColor = colors.borderColor(isFocused, enabled)
 
     val borderColor =
         when (animation) {
@@ -168,17 +206,17 @@ fun Input(
     val textStyle =
         RikkaTheme.typography.p
             .merge(
-                TextStyle(color = colors.foreground),
+                TextStyle(color = colors.text),
             ).merge(style)
 
     val placeholderStyle =
         RikkaTheme.typography.p.merge(
-            TextStyle(color = colors.mutedForeground),
+            TextStyle(color = colors.placeholder),
         )
 
     val countStyle =
         RikkaTheme.typography.small.merge(
-            TextStyle(color = colors.mutedForeground),
+            TextStyle(color = colors.placeholder),
         )
 
     // ─── Accessibility ─────────────────────────────────
@@ -194,6 +232,7 @@ fun Input(
         }
 
     val ringColor = colors.ring
+    val inputBgColor = colors.background
     val density = LocalDensity.current
 
     BasicTextField(
@@ -212,7 +251,7 @@ fun Input(
         keyboardActions = keyboardActions,
         visualTransformation = visualTransformation,
         interactionSource = interactionSource,
-        cursorBrush = SolidColor(colors.foreground),
+        cursorBrush = SolidColor(colors.text),
         decorationBox = { innerTextField ->
             Box(
                 modifier =
@@ -271,7 +310,7 @@ fun Input(
                                 Modifier
                             },
                         ).border(1.dp, borderColor, shape)
-                        .background(colors.background, shape)
+                        .background(inputBgColor, shape)
                         .clip(shape)
                         .padding(
                             horizontal = spacing.md,
@@ -279,7 +318,7 @@ fun Input(
                         ).then(
                             if (!enabled) {
                                 Modifier.background(
-                                    colors.muted.copy(alpha = 0.3f),
+                                    colors.disabledBackground,
                                     shape,
                                 )
                             } else {
@@ -301,7 +340,7 @@ fun Input(
                             modifier = Modifier.size(16.dp),
                             colorFilter =
                                 ColorFilter.tint(
-                                    colors.mutedForeground,
+                                    colors.placeholder,
                                 ),
                         )
                         Spacer(Modifier.width(spacing.sm))
@@ -362,7 +401,7 @@ fun Input(
                             contentAlignment = Alignment.Center,
                         ) {
                             ClearIcon(
-                                tint = colors.mutedForeground,
+                                tint = colors.placeholder,
                             )
                         }
                     } else if (trailingIcon != null) {
@@ -377,7 +416,7 @@ fun Input(
                             modifier = Modifier.size(16.dp),
                             colorFilter =
                                 ColorFilter.tint(
-                                    colors.mutedForeground,
+                                    colors.placeholder,
                                 ),
                         )
                     }
