@@ -2,7 +2,9 @@ package zed.rainxch.rikkaui.showcase.examples
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -56,54 +58,33 @@ fun FileExplorerExample() {
         }
 
         CardContent {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Icon(
-                    imageVector = RikkaIcons.Edit,
-                    contentDescription = stringResource(Res.string.kotlin_file_desc),
-                    tint = RikkaTheme.colors.foreground,
-                    modifier = Modifier.size(16.dp),
-                )
-                Text(text = stringResource(Res.string.app_kt_name), variant = TextVariant.P, modifier = Modifier.weight(1f))
-                Text(text = stringResource(Res.string.app_kt_size), variant = TextVariant.Muted)
-            }
+            // File rows — use md vertical spacing between rows (larger than
+            // the sm horizontal gap between icon and text) so the proximity
+            // principle groups each row as a visual unit.
+            FileRow(
+                icon = RikkaIcons.Edit,
+                iconDesc = stringResource(Res.string.kotlin_file_desc),
+                name = stringResource(Res.string.app_kt_name),
+                size = stringResource(Res.string.app_kt_size),
+            )
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Icon(
-                    imageVector = RikkaIcons.Settings,
-                    contentDescription = stringResource(Res.string.build_file_desc),
-                    tint = RikkaTheme.colors.foreground,
-                    modifier = Modifier.size(16.dp),
-                )
-                Text(
-                    text = stringResource(Res.string.build_gradle_name),
-                    variant = TextVariant.P,
-                    modifier = Modifier.weight(1f),
-                )
-                Text(text = stringResource(Res.string.build_gradle_size), variant = TextVariant.Muted)
-            }
+            Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Icon(
-                    imageVector = RikkaIcons.Download,
-                    contentDescription = stringResource(Res.string.readme_file_desc),
-                    tint = RikkaTheme.colors.foreground,
-                    modifier = Modifier.size(16.dp),
-                )
-                Text(text = stringResource(Res.string.readme_md_name), variant = TextVariant.P, modifier = Modifier.weight(1f))
-                Text(text = stringResource(Res.string.readme_size), variant = TextVariant.Muted)
-            }
+            FileRow(
+                icon = RikkaIcons.Settings,
+                iconDesc = stringResource(Res.string.build_file_desc),
+                name = stringResource(Res.string.build_gradle_name),
+                size = stringResource(Res.string.build_gradle_size),
+            )
+
+            Spacer(Modifier.height(RikkaTheme.spacing.md))
+
+            FileRow(
+                icon = RikkaIcons.Download,
+                iconDesc = stringResource(Res.string.readme_file_desc),
+                name = stringResource(Res.string.readme_md_name),
+                size = stringResource(Res.string.readme_size),
+            )
         }
 
         Separator()
@@ -135,7 +116,40 @@ fun FileExplorerExample() {
                 }
             }
 
+            // Breathing room between input and file count — not cramped,
+            // but not so much that it disconnects from the footer block.
+            Spacer(Modifier.height(RikkaTheme.spacing.sm))
+
             Text(text = stringResource(Res.string.file_count), variant = TextVariant.Muted)
         }
+    }
+}
+
+@Composable
+private fun FileRow(
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    iconDesc: String,
+    name: String,
+    size: String,
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        // sm horizontal gap between icon and text — tighter than the
+        // md vertical gap between rows, grouping icon+text as one unit.
+        horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = iconDesc,
+            tint = RikkaTheme.colors.mutedForeground,
+            modifier = Modifier.size(16.dp),
+        )
+        Text(
+            text = name,
+            variant = TextVariant.P,
+            modifier = Modifier.weight(1f),
+        )
+        Text(text = size, variant = TextVariant.Muted)
     }
 }

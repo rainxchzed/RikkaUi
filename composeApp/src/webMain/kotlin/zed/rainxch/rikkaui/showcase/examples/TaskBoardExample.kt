@@ -28,6 +28,7 @@ import rikkaui.composeapp.generated.resources.write_unit_tests
 import zed.rainxch.rikkaui.components.ui.avatar.Avatar
 import zed.rainxch.rikkaui.components.ui.avatar.AvatarSize
 import zed.rainxch.rikkaui.components.ui.badge.Badge
+import zed.rainxch.rikkaui.components.ui.badge.BadgeSize
 import zed.rainxch.rikkaui.components.ui.badge.BadgeVariant
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
@@ -64,6 +65,9 @@ fun TaskBoardExample() {
 
         CardContent {
             Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm)) {
+                // Priority badges use Sm size + Outline variant to stay
+                // secondary — they label the row but shouldn't compete
+                // with the task name for visual weight.
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
@@ -75,7 +79,11 @@ fun TaskBoardExample() {
                         label = stringResource(Res.string.design_token_system),
                     )
                     Spacer(modifier = Modifier.weight(1f))
-                    Badge(text = stringResource(Res.string.high), variant = BadgeVariant.Destructive)
+                    Badge(
+                        text = stringResource(Res.string.high),
+                        variant = BadgeVariant.Destructive,
+                        size = BadgeSize.Sm,
+                    )
                 }
 
                 Row(
@@ -89,7 +97,11 @@ fun TaskBoardExample() {
                         label = stringResource(Res.string.write_unit_tests),
                     )
                     Spacer(modifier = Modifier.weight(1f))
-                    Badge(text = stringResource(Res.string.medium), variant = BadgeVariant.Secondary)
+                    Badge(
+                        text = stringResource(Res.string.medium),
+                        variant = BadgeVariant.Outline,
+                        size = BadgeSize.Sm,
+                    )
                 }
 
                 Row(
@@ -103,7 +115,11 @@ fun TaskBoardExample() {
                         label = stringResource(Res.string.update_docs),
                     )
                     Spacer(modifier = Modifier.weight(1f))
-                    Badge(text = stringResource(Res.string.low), variant = BadgeVariant.Outline)
+                    Badge(
+                        text = stringResource(Res.string.low),
+                        variant = BadgeVariant.Outline,
+                        size = BadgeSize.Sm,
+                    )
                 }
             }
         }

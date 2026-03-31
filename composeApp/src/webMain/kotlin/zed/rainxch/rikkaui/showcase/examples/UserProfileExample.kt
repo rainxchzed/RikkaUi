@@ -25,12 +25,12 @@ import rikkaui.composeapp.generated.resources.user_name
 import zed.rainxch.rikkaui.components.ui.avatar.Avatar
 import zed.rainxch.rikkaui.components.ui.avatar.AvatarSize
 import zed.rainxch.rikkaui.components.ui.button.Button
-import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
 import zed.rainxch.rikkaui.components.ui.card.Card
 import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.toggle.Toggle
+import zed.rainxch.rikkaui.components.ui.toggle.ToggleSize
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 @Composable
@@ -40,6 +40,7 @@ fun UserProfileExample() {
     var newsletter by remember { mutableStateOf(true) }
 
     Card {
+        // ── Profile header ──
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -58,32 +59,36 @@ fun UserProfileExample() {
             )
         }
 
-        Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
+        Spacer(modifier = Modifier.height(RikkaTheme.spacing.md))
         Separator()
-        Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
+        Spacer(modifier = Modifier.height(RikkaTheme.spacing.md))
 
+        // ── Preferences — muted labels + small toggles to stay secondary ──
+        // These controls shouldn't compete with the primary action below.
         PreferenceRow(
             label = stringResource(Res.string.notifications),
             checked = notifications,
             onCheckedChange = { notifications = it },
         )
+        Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
         PreferenceRow(
             label = stringResource(Res.string.dark_mode_preference),
             checked = darkMode,
             onCheckedChange = { darkMode = it },
         )
+        Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
         PreferenceRow(
             label = stringResource(Res.string.newsletter),
             checked = newsletter,
             onCheckedChange = { newsletter = it },
         )
 
-        Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
+        Spacer(modifier = Modifier.height(RikkaTheme.spacing.lg))
 
+        // ── Primary action — strongest visual weight on this card ──
         Button(
             text = stringResource(Res.string.edit_profile),
             onClick = { },
-            variant = ButtonVariant.Outline,
             modifier = Modifier.fillMaxWidth(),
         )
     }
@@ -100,11 +105,18 @@ private fun PreferenceRow(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(text = label, variant = TextVariant.P)
+        // Muted text so preferences feel secondary to the main action
+        Text(
+            text = label,
+            variant = TextVariant.Small,
+            color = RikkaTheme.colors.mutedForeground,
+        )
+        // Small toggle — reduced visual weight
         Toggle(
             checked = checked,
             onCheckedChange = onCheckedChange,
             label = "$label toggle",
+            size = ToggleSize.Sm,
         )
     }
 }
