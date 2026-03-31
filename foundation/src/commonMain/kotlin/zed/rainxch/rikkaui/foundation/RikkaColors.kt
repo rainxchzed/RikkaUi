@@ -63,6 +63,32 @@ data class RikkaColors(
     val destructiveContainer: Color = Color.Unspecified,
     /** Text/icon color on [destructiveContainer]. */
     val destructiveContainerForeground: Color = Color.Unspecified,
+    /** Primary button/link background on hover. Unspecified = component computes via lerp. */
+    val primaryHover: Color = Color.Unspecified,
+    /** Primary button/link background on press. Unspecified = component computes via lerp. */
+    val primaryPress: Color = Color.Unspecified,
+    /** Destructive button background on hover. */
+    val destructiveHover: Color = Color.Unspecified,
+    /** Destructive button background on press. */
+    val destructivePress: Color = Color.Unspecified,
+    /** Secondary/muted surface on hover (ghost buttons, list items). */
+    val accentHover: Color = accent,
+    /** Secondary/muted surface on press. */
+    val accentPress: Color = accent,
+    /** Secondary text — descriptions, subtitles. 60% alpha of [foreground]. */
+    val foregroundSecondary: Color = foreground.copy(alpha = 0.6f),
+    /** Tertiary text — hints, placeholders. 30% alpha of [foreground]. */
+    val foregroundTertiary: Color = foreground.copy(alpha = 0.3f),
+    /** Primary fill — selected states, active backgrounds. 20% of [foreground]. */
+    val fill: Color = foreground.copy(alpha = 0.2f),
+    /** Secondary fill — hover states, subtle highlights. 16% of [foreground]. */
+    val fillSecondary: Color = foreground.copy(alpha = 0.16f),
+    /** Tertiary fill — divider backgrounds, faint accents. 12% of [foreground]. */
+    val fillTertiary: Color = foreground.copy(alpha = 0.12f),
+    /** Background for disabled interactive elements. */
+    val disabledBackground: Color = muted,
+    /** Foreground (text/icon) for disabled elements. */
+    val disabledForeground: Color = mutedForeground.copy(alpha = 0.5f),
 )
 
 val LocalRikkaColors =

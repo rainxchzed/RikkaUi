@@ -155,6 +155,7 @@ fun rikkaTypography(
                 fontSize = pSize * scale,
                 lineHeight = pSize * scale * 1.75f,
                 fontWeight = FontWeight.Normal,
+                letterSpacing = (-0.2).sp,
             ),
         lead =
             TextStyle(
@@ -169,6 +170,7 @@ fun rikkaTypography(
                 fontSize = largeSize * scale,
                 lineHeight = largeSize * scale * 1.56f,
                 fontWeight = FontWeight.SemiBold,
+                letterSpacing = (-0.15).sp,
             ),
         small =
             TextStyle(
@@ -176,6 +178,7 @@ fun rikkaTypography(
                 fontSize = smallSize * scale,
                 lineHeight = smallSize * scale * 1.43f,
                 fontWeight = FontWeight.Medium,
+                letterSpacing = (-0.1).sp,
             ),
         muted =
             TextStyle(
@@ -183,6 +186,7 @@ fun rikkaTypography(
                 fontSize = mutedSize * scale,
                 lineHeight = mutedSize * scale * 1.43f,
                 fontWeight = FontWeight.Normal,
+                letterSpacing = (-0.1).sp,
             ),
     )
 }

@@ -214,6 +214,7 @@ fun contentColorFor(backgroundColor: Color): Color {
         colors.inverseSurface -> colors.inverseOnSurface
         colors.primaryContainer -> colors.primaryContainerForeground
         colors.destructiveContainer -> colors.destructiveContainerForeground
+        colors.disabledBackground -> colors.disabledForeground
         else -> colors.foreground
     }
 }

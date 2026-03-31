@@ -131,3 +131,42 @@ fun CornerBasedShape.start(): CornerBasedShape = copy(topEnd = zeroCorner, botto
  * Useful for sheets sliding from the start, side panels.
  */
 fun CornerBasedShape.end(): CornerBasedShape = copy(topStart = zeroCorner, bottomStart = zeroCorner)
+
+// ─── Shape Presets ────────────────────────────────────────
+
+/**
+ * Pre-built shape presets for common design styles.
+ *
+ * ```
+ * RikkaTheme(shapes = RikkaShapesPresets.sharp()) { ... }
+ * ```
+ */
+object RikkaShapesPresets {
+    /** No rounding. Brutalist, geometric. */
+    fun square(): RikkaShapes = rikkaShapes(radius = 0.dp)
+
+    /** Minimal rounding. Clean, technical. */
+    fun sharp(): RikkaShapes = rikkaShapes(radius = 4.dp)
+
+    /** Soft rounding. Friendly, modern. */
+    fun rounded(): RikkaShapes = rikkaShapes(radius = 16.dp)
+
+    /** Heavy rounding. Pill-like, playful. */
+    fun pill(): RikkaShapes = rikkaShapes(radius = 24.dp)
+
+    /**
+     * Samsung One UI inspired shape scale.
+     *
+     * Larger radii than typical Material — 12dp small elements,
+     * 20dp medium containers, 26dp large cards/dialogs, 32dp sheets.
+     * Creates a soft, modern feel with generous rounding.
+     */
+    fun oneUI(): RikkaShapes =
+        RikkaShapes(
+            sm = RoundedCornerShape(12.dp),
+            md = RoundedCornerShape(20.dp),
+            lg = RoundedCornerShape(26.dp),
+            xl = RoundedCornerShape(32.dp),
+            full = RoundedCornerShape(50),
+        )
+}
