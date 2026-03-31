@@ -88,7 +88,7 @@ fun DropdownMenu(
                                 ).widthIn(max = maxWidth)
                                 .heightIn(max = maxHeight)
                                 .shadow(
-                                    spacing.elevationHigh,
+                                    RikkaTheme.elevation.high,
                                     shapes.md,
                                 ).border(
                                     1.dp,

@@ -153,7 +153,7 @@ fun HoverCard(
                                 scaleY = scale
                             }.defaultMinSize(minWidth = 250.dp)
                             .widthIn(max = maxWidth)
-                            .shadow(spacing.elevationHigh, shapes.md)
+                            .shadow(RikkaTheme.elevation.high, shapes.md)
                             .border(
                                 1.dp,
                                 colors.border,

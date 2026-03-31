@@ -7,7 +7,6 @@ import androidx.compose.ui.text.font.FontWeight
 import org.jetbrains.compose.resources.Font
 import rikkaui.feature.creator.generated.resources.*
 import zed.rainxch.rikkaui.creator.presentation.FontIds
-import zed.rainxch.rikkaui.foundation.RikkaFontFamily
 import zed.rainxch.rikkaui.foundation.rememberRikkaFontFamily
 
 /**
@@ -95,11 +94,11 @@ val availableFonts: List<FontEntry> =
     )
 
 /**
- * Resolves a [RikkaFontFamily] from a font [id] for the
+ * Resolves a [FontFamily] from a font [id] for the
  * live preview. Uses all available weights per font.
  */
 @Composable
-fun resolvePreviewFontFamily(id: String): RikkaFontFamily {
+fun resolvePreviewFontFamily(id: String): FontFamily {
     if (id == FontIds.INTER) {
         return rememberRikkaFontFamily(
             light = Res.font.inter_light,
@@ -254,5 +253,5 @@ fun resolvePreviewFontFamily(id: String): RikkaFontFamily {
                 )
             }
         }
-    return remember(id) { RikkaFontFamily(fontFamily = family) }
+    return remember(id) { family }
 }

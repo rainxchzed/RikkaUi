@@ -490,7 +490,7 @@ fun Toast(
                         onDismiss()
                         true
                     }
-                }.shadow(spacing.elevationHigh, shapes.lg)
+                }.shadow(RikkaTheme.elevation.high, shapes.lg)
                 .border(1.dp, colors.border, shapes.lg)
                 .background(colors.popover, shapes.lg)
                 .clip(shapes.lg),

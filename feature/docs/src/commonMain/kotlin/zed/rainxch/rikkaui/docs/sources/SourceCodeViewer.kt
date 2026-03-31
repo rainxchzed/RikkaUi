@@ -40,12 +40,13 @@ import rikkaui.feature.docs.generated.resources.source_dependency
 import rikkaui.feature.docs.generated.resources.source_file_label
 import rikkaui.feature.docs.generated.resources.source_instruction
 import rikkaui.feature.docs.generated.resources.source_no_source
-import zed.rainxch.rikkaui.foundation.RikkaTheme
 import zed.rainxch.rikkaui.components.ui.button.Button
+import zed.rainxch.rikkaui.components.ui.button.ButtonDefaults
 import zed.rainxch.rikkaui.components.ui.button.ButtonSize
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
 import zed.rainxch.rikkaui.components.ui.icon.Icon
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
+import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
  * Resolves the source directory name from a component registry ID.
@@ -74,9 +75,10 @@ fun SourceCodeViewer(componentId: String) {
     if (sourceFiles.isNullOrEmpty()) {
         BasicText(
             text = stringResource(Res.string.source_no_source),
-            style = RikkaTheme.typography.p.merge(
-                TextStyle(color = RikkaTheme.colors.mutedForeground),
-            ),
+            style =
+                RikkaTheme.typography.p.merge(
+                    TextStyle(color = RikkaTheme.colors.mutedForeground),
+                ),
         )
         return
     }
@@ -99,36 +101,40 @@ fun SourceCodeViewer(componentId: String) {
 @Composable
 private fun InstructionBanner() {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RikkaTheme.shapes.md)
-            .background(RikkaTheme.colors.muted.copy(alpha = 0.5f))
-            .padding(RikkaTheme.spacing.md),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clip(RikkaTheme.shapes.md)
+                .background(RikkaTheme.colors.muted.copy(alpha = 0.5f))
+                .padding(RikkaTheme.spacing.md),
         verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
     ) {
         BasicText(
             text = stringResource(Res.string.source_instruction),
-            style = RikkaTheme.typography.small.merge(
-                TextStyle(color = RikkaTheme.colors.foreground),
-            ),
+            style =
+                RikkaTheme.typography.small.merge(
+                    TextStyle(color = RikkaTheme.colors.foreground),
+                ),
         )
 
         Box(
-            modifier = Modifier
-                .clip(RikkaTheme.shapes.sm)
-                .background(RikkaTheme.colors.background)
-                .padding(
-                    horizontal = RikkaTheme.spacing.sm,
-                    vertical = RikkaTheme.spacing.xs,
-                ),
+            modifier =
+                Modifier
+                    .clip(RikkaTheme.shapes.sm)
+                    .background(RikkaTheme.colors.background)
+                    .padding(
+                        horizontal = RikkaTheme.spacing.sm,
+                        vertical = RikkaTheme.spacing.xs,
+                    ),
         ) {
             BasicText(
                 text = stringResource(Res.string.source_dependency),
-                style = TextStyle(
-                    fontFamily = FontFamily.Monospace,
-                    fontSize = 13.sp,
-                    color = RikkaTheme.colors.foreground,
-                ),
+                style =
+                    TextStyle(
+                        fontFamily = FontFamily.Monospace,
+                        fontSize = 13.sp,
+                        color = RikkaTheme.colors.foreground,
+                    ),
             )
         }
     }
@@ -147,31 +153,34 @@ private fun SourceFileBlock(
     val copiedLabel = stringResource(Res.string.source_copied)
 
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RikkaTheme.shapes.md)
-            .background(RikkaTheme.colors.muted.copy(alpha = 0.3f)),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clip(RikkaTheme.shapes.md)
+                .background(RikkaTheme.colors.muted.copy(alpha = 0.3f)),
     ) {
         // Header: file name + copy button
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(RikkaTheme.colors.muted.copy(alpha = 0.5f))
-                .padding(
-                    horizontal = RikkaTheme.spacing.md,
-                    vertical = RikkaTheme.spacing.xs,
-                ),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .background(RikkaTheme.colors.muted.copy(alpha = 0.5f))
+                    .padding(
+                        horizontal = RikkaTheme.spacing.md,
+                        vertical = RikkaTheme.spacing.xs,
+                    ),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             BasicText(
                 text = stringResource(Res.string.source_file_label, fileName),
-                style = TextStyle(
-                    fontFamily = FontFamily.Monospace,
-                    fontSize = 13.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = RikkaTheme.colors.mutedForeground,
-                ),
+                style =
+                    TextStyle(
+                        fontFamily = FontFamily.Monospace,
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = RikkaTheme.colors.mutedForeground,
+                    ),
             )
 
             Button(
@@ -184,32 +193,35 @@ private fun SourceFileBlock(
                         copied = false
                     }
                 },
-                variant = if (copied) {
-                    ButtonVariant.Secondary
-                } else {
-                    ButtonVariant.Outline
-                },
+                variant =
+                    if (copied) {
+                        ButtonVariant.Secondary
+                    } else {
+                        ButtonVariant.Outline
+                    },
                 size = ButtonSize.Sm,
             )
         }
 
         // Source code
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(500.dp)
-                .verticalScroll(rememberScrollState())
-                .horizontalScroll(rememberScrollState())
-                .padding(RikkaTheme.spacing.md),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(500.dp)
+                    .verticalScroll(rememberScrollState())
+                    .horizontalScroll(rememberScrollState())
+                    .padding(RikkaTheme.spacing.md),
         ) {
             BasicText(
                 text = content,
-                style = TextStyle(
-                    fontFamily = FontFamily.Monospace,
-                    fontSize = 13.sp,
-                    lineHeight = 20.sp,
-                    color = RikkaTheme.colors.foreground,
-                ),
+                style =
+                    TextStyle(
+                        fontFamily = FontFamily.Monospace,
+                        fontSize = 13.sp,
+                        lineHeight = 20.sp,
+                        color = RikkaTheme.colors.foreground,
+                    ),
                 modifier = Modifier.widthIn(min = 800.dp),
             )
         }

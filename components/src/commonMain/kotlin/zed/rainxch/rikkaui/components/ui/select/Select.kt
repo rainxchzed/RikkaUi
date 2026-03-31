@@ -198,7 +198,7 @@ private fun SelectDropdownContent(
                 Modifier
                     .width(triggerWidthDp)
                     .heightIn(max = maxHeight)
-                    .shadow(spacing.elevationHigh, shapes.md)
+                    .shadow(RikkaTheme.elevation.high, shapes.md)
                     .border(
                         1.dp,
                         colors.border,

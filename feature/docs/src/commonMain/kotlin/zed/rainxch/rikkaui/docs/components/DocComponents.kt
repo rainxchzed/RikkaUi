@@ -279,6 +279,7 @@ fun CodeBlock(
                 style =
                     RikkaTheme.typography.muted.merge(
                         TextStyle(
+                            color = RikkaTheme.colors.mutedForeground,
                             fontFamily = FontFamily.Monospace,
                             fontSize = 11.sp,
                         ),
