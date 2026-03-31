@@ -18,5 +18,8 @@ curl -sL https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17
 export PATH=$JAVA_HOME/bin:$PATH
 
 export GRADLE_OPTS="-Xmx2048m -XX:+UseSerialGC"
+# Build CLI shadow JAR and copy to web resources so it's served at rikkaui.dev/rikkaui.jar
+./gradlew :cli:shadowJar --no-parallel --max-workers=1
+cp cli/build/libs/rikkaui.jar composeApp/src/webMain/resources/rikkaui.jar
 # Use development distribution — production's wasm-opt OOMs on Vercel free tier
 ./gradlew wasmJsBrowserDevelopmentExecutableDistribution --no-parallel --max-workers=1
