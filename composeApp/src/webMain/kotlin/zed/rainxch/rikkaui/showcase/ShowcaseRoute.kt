@@ -4,19 +4,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
+import zed.rainxch.rikkaui.app.LocalAppState
 
 @Composable
 fun ShowcaseRoute(
-    isDark: Boolean,
     onNavigateToCreator: () -> Unit,
     onNavigateToComponents: () -> Unit,
     viewModel: ShowcaseViewModel = viewModel { ShowcaseViewModel() },
 ) {
     val state by viewModel.state.collectAsState()
+    val appState = LocalAppState.current
 
     ShowcaseScreen(
         state = state,
-        isDark = isDark,
+        isDark = appState.isDark,
         onAction = viewModel::onAction,
         onNavigateToCreator = onNavigateToCreator,
         onNavigateToComponents = onNavigateToComponents,

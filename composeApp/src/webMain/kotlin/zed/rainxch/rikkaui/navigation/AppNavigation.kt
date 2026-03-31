@@ -15,13 +15,9 @@ import zed.rainxch.rikkaui.navigation.AppNavGraph.DocsGuideRoute
 import zed.rainxch.rikkaui.navigation.AppNavGraph.DocsRoute
 import zed.rainxch.rikkaui.navigation.AppNavGraph.HomeRoute
 import zed.rainxch.rikkaui.showcase.ShowcaseRoute
-import zed.rainxch.rikkaui.theme.ThemeState
 
 @Composable
-fun AppNavigation(
-    navController: NavHostController,
-    themeState: ThemeState,
-) {
+fun AppNavigation(navController: NavHostController) {
     NavHost(
         navController = navController,
         startDestination = HomeRoute,
@@ -29,7 +25,6 @@ fun AppNavigation(
     ) {
         composable<HomeRoute> {
             ShowcaseRoute(
-                isDark = themeState.isDark,
                 onNavigateToCreator = {
                     navController.navigate(CreatorRoute)
                 },
