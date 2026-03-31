@@ -28,6 +28,14 @@ object ConfigManager {
         return prettyJson.decodeFromString<RikkaConfig>(file.readText())
     }
 
+    /**
+     * Returns the directory containing `rikka.json`, or null if
+     * no config file exists. Used to resolve relative paths
+     * (like `componentsDir`) against the project root rather
+     * than the current working directory.
+     */
+    fun projectRoot(): File? = findConfigFile()?.parentFile
+
     fun save(config: RikkaConfig, dir: File = File(System.getProperty("user.dir"))) {
         val file = dir.resolve(CONFIG_FILE)
         file.writeText(prettyJson.encodeToString(config))

@@ -71,7 +71,9 @@ class AddCommand : CliktCommand(name = "add") {
             throw Abort()
         }
 
-        val projectDir = File(System.getProperty("user.dir"))
+        // Resolve paths relative to the project root (where rikka.json lives)
+        // rather than CWD, so `rikkaui add` works from any subdirectory.
+        val projectDir = ConfigManager.projectRoot() ?: File(System.getProperty("user.dir"))
         val baseDir = projectDir.resolve(componentsDir)
         var filesWritten = 0
         var filesSkipped = 0
@@ -94,8 +96,16 @@ class AddCommand : CliktCommand(name = "add") {
                 if (dryRun) {
                     echo("  [dry-run] Would write: ${targetFile.relativeTo(projectDir)}")
                 } else {
-                    targetFile.parentFile.mkdirs()
-                    targetFile.writeText(rewritten)
+                    try {
+                        targetFile.parentFile.mkdirs()
+                        targetFile.writeText(rewritten)
+                    } catch (e: java.io.IOException) {
+                        echo(
+                            "Error: Cannot write to ${targetFile.path}: ${e.message}",
+                            err = true,
+                        )
+                        throw Abort()
+                    }
                     filesWritten++
                 }
                 componentWritten = true
