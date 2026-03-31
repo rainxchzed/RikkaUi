@@ -64,7 +64,22 @@ fun Modifier.minTouchTarget(): Modifier = this then MinTouchTargetElement
  * Default is `48.dp` per WCAG accessibility guidelines.
  */
 val LocalMinTouchTarget: ProvidableCompositionLocal<Dp> =
-    staticCompositionLocalOf { 48.dp }
+    staticCompositionLocalOf { MinTouchTargetDefaults.Default }
+
+/** Platform touch target size constants. */
+object MinTouchTargetDefaults {
+    /** Android guideline: 48dp. */
+    val Android = 48.dp
+
+    /** Apple HIG guideline: 44dp (44pt). */
+    val Apple = 44.dp
+
+    /** Default — uses Android guideline (48dp). */
+    val Default = Android
+
+    /** Disabled — no minimum enforced. */
+    val Disabled = 0.dp
+}
 
 // ─── Modifier.Node Implementation ──────────────────────────
 
