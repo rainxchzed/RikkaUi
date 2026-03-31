@@ -14,12 +14,14 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -27,6 +29,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.foundation.LocalContentColor
+import zed.rainxch.rikkaui.foundation.LocalTextStyle
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Variant ────────────────────────────────────────────────
@@ -55,6 +58,30 @@ enum class CardAnimation {
     None,
 }
 
+// ─── Defaults ───────────────────────────────────────────────
+
+object CardDefaults {
+    @Composable
+    fun shape(): Shape = RikkaTheme.shapes.lg
+
+    @Composable
+    fun colors(variant: CardVariant = CardVariant.Default): CardColorValues {
+        val resolved = resolveCardStyle(variant)
+        return CardColorValues(
+            background = resolved.background,
+            border = resolved.border,
+            elevation = resolved.elevation,
+        )
+    }
+}
+
+@Immutable
+data class CardColorValues(
+    val background: Color,
+    val border: Color,
+    val elevation: Dp,
+)
+
 // ─── Component ──────────────────────────────────────────────
 
 @Composable
@@ -65,14 +92,14 @@ fun Card(
     animation: CardAnimation = CardAnimation.Hover,
     elevation: Dp? = null,
     label: String = "",
+    colors: CardColorValues = CardDefaults.colors(variant),
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    val colors = RikkaTheme.colors
-    val shape = RikkaTheme.shapes.lg
+    val themeColors = RikkaTheme.colors
+    val shape = CardDefaults.shape()
     val motion = RikkaTheme.motion
 
-    val resolved = resolveCardStyle(variant)
-    val effectiveElevation = elevation ?: resolved.elevation
+    val effectiveElevation = elevation ?: colors.elevation
 
     // ─── Interaction tracking ────────────────────────────
     val interactionSource = remember { MutableInteractionSource() }
@@ -118,15 +145,15 @@ fun Card(
 
     // ─── Modifiers ───────────────────────────────────────
     val backgroundModifier =
-        if (resolved.background != Color.Transparent) {
-            Modifier.background(resolved.background, shape)
+        if (colors.background != Color.Transparent) {
+            Modifier.background(colors.background, shape)
         } else {
             Modifier
         }
 
     val borderModifier =
-        if (resolved.border != Color.Transparent) {
-            Modifier.border(1.dp, resolved.border, shape)
+        if (colors.border != Color.Transparent) {
+            Modifier.border(1.dp, colors.border, shape)
         } else {
             Modifier
         }
@@ -176,6 +203,7 @@ fun Card(
 
     CompositionLocalProvider(
         LocalContentColor provides RikkaTheme.colors.cardForeground,
+        LocalTextStyle provides RikkaTheme.typography.p,
     ) {
         Column(
             modifier =
