@@ -7,6 +7,8 @@
     <!-- ─── Components Catalog Page ────────────────────────────── -->
     <string name="catalog_title">Components</string>
     <string name="catalog_subtitle">Browse all %1$d components built with Compose Foundation. No Material3. Copy, paste, own.</string>
+    <string name="catalog_search_placeholder">Search components…</string>
+    <string name="catalog_no_results">No components match "%1$s"</string>
     <string name="catalog_component_count">%1$d components</string>
 
     <!-- ─── Categories ───────────────────────────────────────── -->
