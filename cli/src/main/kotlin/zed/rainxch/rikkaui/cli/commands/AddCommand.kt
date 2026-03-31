@@ -75,10 +75,15 @@ class AddCommand : CliktCommand(name = "add") {
         // rather than CWD, so `rikkaui add` works from any subdirectory.
         val projectDir = ConfigManager.projectRoot() ?: File(System.getProperty("user.dir"))
         val baseDir = projectDir.resolve(componentsDir)
+
+        echo("  Target: ${baseDir.absolutePath}")
+        echo("")
+
         var filesWritten = 0
         var filesSkipped = 0
         val addedComponents = mutableListOf<String>()
         val implicitDeps = mutableListOf<String>()
+        val writtenFiles = mutableListOf<String>()
 
         tree.forEach { component ->
             var componentWritten = false
@@ -99,7 +104,7 @@ class AddCommand : CliktCommand(name = "add") {
                     try {
                         targetFile.parentFile.mkdirs()
                         targetFile.writeText(rewritten)
-                    } catch (e: java.io.IOException) {
+                    } catch (e: Exception) {
                         echo(
                             "Error: Cannot write to ${targetFile.path}: ${e.message}",
                             err = true,
@@ -107,6 +112,7 @@ class AddCommand : CliktCommand(name = "add") {
                         throw Abort()
                     }
                     filesWritten++
+                    writtenFiles.add(targetFile.relativeTo(projectDir).path)
                 }
                 componentWritten = true
             }
@@ -123,19 +129,27 @@ class AddCommand : CliktCommand(name = "add") {
         echo("")
         if (dryRun) {
             echo("  Dry run complete. No files were written.")
-        } else {
+        } else if (filesWritten > 0) {
             addedComponents.forEach { name ->
                 echo("  + Added $name")
             }
             implicitDeps.forEach { name ->
                 echo("  + Added $name (dependency)")
             }
+            echo("")
+            echo("  Files written:")
+            writtenFiles.forEach { path ->
+                echo("    $path")
+            }
             if (filesSkipped > 0) {
+                echo("")
                 echo("  ~ Skipped $filesSkipped existing files (use --overwrite to replace)")
             }
-            if (filesWritten == 0 && filesSkipped > 0) {
-                echo("  All components already exist.")
-            }
+        } else if (filesSkipped > 0) {
+            echo("  All components already exist. ($filesSkipped files skipped)")
+            echo("  Use --overwrite to replace existing files.")
+        } else {
+            echo("  No files to write.")
         }
 
         val gradleDeps = tree.flatMap { it.gradleDependencies }.distinct()
