@@ -52,9 +52,13 @@ data class RikkaSpacing(
     val xxl: Dp,
     /** 3x extra large — page-level spacing, hero padding. */
     val xxxl: Dp,
-    /** Shadow elevation for cards — subtle lift. */
-    val elevationLow: Dp = 4.dp,
-    /** Shadow elevation for popups, dropdowns, popovers — prominent lift. */
+    /** No shadow elevation. Flat on surface. */
+    val elevationNone: Dp = 0.dp,
+    /** Subtle shadow — cards, low emphasis. */
+    val elevationLow: Dp = 2.dp,
+    /** Medium shadow — dropdowns, popovers. */
+    val elevationMedium: Dp = 4.dp,
+    /** Prominent shadow — dialogs, sheets, FABs. */
     val elevationHigh: Dp = 8.dp,
 )
 
