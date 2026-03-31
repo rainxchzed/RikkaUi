@@ -49,12 +49,19 @@ object RikkaPalettes {
             destructive = Color(0xFFEF4444),
             destructiveForeground = Color(0xFFFAFAFA),
             border = Color(0xFFE4E4E7),
+            borderVariant = Color(0xFFF4F4F5),
             input = Color(0xFFE4E4E7),
             warning = Color(0xFFF59E0B),
             warningForeground = Color(0xFF422006),
             success = Color(0xFF22C55E),
             successForeground = Color(0xFFFAFAFA),
             ring = Color(0xFF09090B),
+            inverseSurface = Color(0xFF18181B),
+            inverseOnSurface = Color(0xFFFAFAFA),
+            primaryContainer = Color(0xFFF4F4F5),
+            primaryContainerForeground = Color(0xFF09090B),
+            destructiveContainer = Color(0xFFFEE2E2),
+            destructiveContainerForeground = Color(0xFFDC2626),
         )
 
     /** Zinc base palette, dark variant. */
@@ -77,12 +84,19 @@ object RikkaPalettes {
             destructive = Color(0xFFDC2626),
             destructiveForeground = Color(0xFFFAFAFA),
             border = Color(0xFF27272A),
+            borderVariant = Color(0xFF18181B),
             input = Color(0xFF27272A),
             warning = Color(0xFFF59E0B),
             warningForeground = Color(0xFF422006),
             success = Color(0xFF22C55E),
             successForeground = Color(0xFF052E16),
             ring = Color(0xFFD4D4D8),
+            inverseSurface = Color(0xFFFAFAFA),
+            inverseOnSurface = Color(0xFF09090B),
+            primaryContainer = Color(0xFF27272A),
+            primaryContainerForeground = Color(0xFFFAFAFA),
+            destructiveContainer = Color(0xFF450A0A),
+            destructiveContainerForeground = Color(0xFFFCA5A5),
         )
 
     // ═══════════════════════════════════════════════
@@ -109,12 +123,19 @@ object RikkaPalettes {
             destructive = Color(0xFFEF4444),
             destructiveForeground = Color(0xFFF8FAFC),
             border = Color(0xFFCBD5E1),
+            borderVariant = Color(0xFFE2E8F0),
             input = Color(0xFFCBD5E1),
             warning = Color(0xFFF59E0B),
             warningForeground = Color(0xFF422006),
             success = Color(0xFF22C55E),
             successForeground = Color(0xFFFAFAFA),
             ring = Color(0xFF020817),
+            inverseSurface = Color(0xFF0F172A),
+            inverseOnSurface = Color(0xFFF8FAFC),
+            primaryContainer = Color(0xFFF1F5F9),
+            primaryContainerForeground = Color(0xFF020817),
+            destructiveContainer = Color(0xFFFEE2E2),
+            destructiveContainerForeground = Color(0xFFDC2626),
         )
 
     /** Slate base palette, dark variant. */
@@ -137,12 +158,19 @@ object RikkaPalettes {
             destructive = Color(0xFFDC2626),
             destructiveForeground = Color(0xFFF8FAFC),
             border = Color(0xFF1E293B),
+            borderVariant = Color(0xFF0F172A),
             input = Color(0xFF1E293B),
             warning = Color(0xFFF59E0B),
             warningForeground = Color(0xFF422006),
             success = Color(0xFF22C55E),
             successForeground = Color(0xFF052E16),
             ring = Color(0xFFCBD5E1),
+            inverseSurface = Color(0xFFF8FAFC),
+            inverseOnSurface = Color(0xFF020817),
+            primaryContainer = Color(0xFF1E293B),
+            primaryContainerForeground = Color(0xFFF8FAFC),
+            destructiveContainer = Color(0xFF450A0A),
+            destructiveContainerForeground = Color(0xFFFCA5A5),
         )
 
     // ═══════════════════════════════════════════════
@@ -169,12 +197,19 @@ object RikkaPalettes {
             destructive = Color(0xFFEF4444),
             destructiveForeground = Color(0xFFFAFAF9),
             border = Color(0xFFD6D3D1),
+            borderVariant = Color(0xFFE7E5E4),
             input = Color(0xFFD6D3D1),
             warning = Color(0xFFF59E0B),
             warningForeground = Color(0xFF422006),
             success = Color(0xFF22C55E),
             successForeground = Color(0xFFFAFAFA),
             ring = Color(0xFF0C0A09),
+            inverseSurface = Color(0xFF1C1917),
+            inverseOnSurface = Color(0xFFFAFAF9),
+            primaryContainer = Color(0xFFF5F5F4),
+            primaryContainerForeground = Color(0xFF0C0A09),
+            destructiveContainer = Color(0xFFFEE2E2),
+            destructiveContainerForeground = Color(0xFFDC2626),
         )
 
     /** Stone base palette, dark variant. */
@@ -197,12 +232,19 @@ object RikkaPalettes {
             destructive = Color(0xFFDC2626),
             destructiveForeground = Color(0xFFFAFAF9),
             border = Color(0xFF292524),
+            borderVariant = Color(0xFF1C1917),
             input = Color(0xFF292524),
             warning = Color(0xFFF59E0B),
             warningForeground = Color(0xFF422006),
             success = Color(0xFF22C55E),
             successForeground = Color(0xFF052E16),
             ring = Color(0xFFD6D3D1),
+            inverseSurface = Color(0xFFFAFAF9),
+            inverseOnSurface = Color(0xFF0C0A09),
+            primaryContainer = Color(0xFF292524),
+            primaryContainerForeground = Color(0xFFFAFAF9),
+            destructiveContainer = Color(0xFF450A0A),
+            destructiveContainerForeground = Color(0xFFFCA5A5),
         )
 
     // ═══════════════════════════════════════════════
@@ -229,12 +271,19 @@ object RikkaPalettes {
             destructive = Color(0xFFEF4444),
             destructiveForeground = Color(0xFFF9FAFB),
             border = Color(0xFFD1D5DB),
+            borderVariant = Color(0xFFE5E7EB),
             input = Color(0xFFD1D5DB),
             warning = Color(0xFFF59E0B),
             warningForeground = Color(0xFF422006),
             success = Color(0xFF22C55E),
             successForeground = Color(0xFFFAFAFA),
             ring = Color(0xFF030712),
+            inverseSurface = Color(0xFF111827),
+            inverseOnSurface = Color(0xFFF9FAFB),
+            primaryContainer = Color(0xFFF3F4F6),
+            primaryContainerForeground = Color(0xFF030712),
+            destructiveContainer = Color(0xFFFEE2E2),
+            destructiveContainerForeground = Color(0xFFDC2626),
         )
 
     /** Gray base palette, dark variant. */
@@ -257,12 +306,19 @@ object RikkaPalettes {
             destructive = Color(0xFFDC2626),
             destructiveForeground = Color(0xFFF9FAFB),
             border = Color(0xFF1F2937),
+            borderVariant = Color(0xFF111827),
             input = Color(0xFF1F2937),
             warning = Color(0xFFF59E0B),
             warningForeground = Color(0xFF422006),
             success = Color(0xFF22C55E),
             successForeground = Color(0xFF052E16),
             ring = Color(0xFFD1D5DB),
+            inverseSurface = Color(0xFFF9FAFB),
+            inverseOnSurface = Color(0xFF030712),
+            primaryContainer = Color(0xFF1F2937),
+            primaryContainerForeground = Color(0xFFF9FAFB),
+            destructiveContainer = Color(0xFF450A0A),
+            destructiveContainerForeground = Color(0xFFFCA5A5),
         )
 
     // ═══════════════════════════════════════════════
@@ -289,12 +345,19 @@ object RikkaPalettes {
             destructive = Color(0xFFEF4444),
             destructiveForeground = Color(0xFFFAFAFA),
             border = Color(0xFFD4D4D4),
+            borderVariant = Color(0xFFE5E5E5),
             input = Color(0xFFD4D4D4),
             warning = Color(0xFFF59E0B),
             warningForeground = Color(0xFF422006),
             success = Color(0xFF22C55E),
             successForeground = Color(0xFFFAFAFA),
             ring = Color(0xFF0A0A0A),
+            inverseSurface = Color(0xFF171717),
+            inverseOnSurface = Color(0xFFFAFAFA),
+            primaryContainer = Color(0xFFF5F5F5),
+            primaryContainerForeground = Color(0xFF0A0A0A),
+            destructiveContainer = Color(0xFFFEE2E2),
+            destructiveContainerForeground = Color(0xFFDC2626),
         )
 
     /** Neutral base palette, dark variant. */
@@ -317,12 +380,19 @@ object RikkaPalettes {
             destructive = Color(0xFFDC2626),
             destructiveForeground = Color(0xFFFAFAFA),
             border = Color(0xFF262626),
+            borderVariant = Color(0xFF171717),
             input = Color(0xFF262626),
             warning = Color(0xFFF59E0B),
             warningForeground = Color(0xFF422006),
             success = Color(0xFF22C55E),
             successForeground = Color(0xFF052E16),
             ring = Color(0xFFD4D4D4),
+            inverseSurface = Color(0xFFFAFAFA),
+            inverseOnSurface = Color(0xFF0A0A0A),
+            primaryContainer = Color(0xFF262626),
+            primaryContainerForeground = Color(0xFFFAFAFA),
+            destructiveContainer = Color(0xFF450A0A),
+            destructiveContainerForeground = Color(0xFFFCA5A5),
         )
 }
 
