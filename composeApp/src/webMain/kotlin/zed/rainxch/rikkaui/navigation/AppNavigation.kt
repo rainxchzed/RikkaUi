@@ -8,7 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import zed.rainxch.rikkaui.creator.DesignSystemCreatorPage
-import zed.rainxch.rikkaui.docs.DocsPage
+import zed.rainxch.rikkaui.docs.presentation.DocsRoute
 import zed.rainxch.rikkaui.navigation.AppNavGraph.ComponentDetailRoute
 import zed.rainxch.rikkaui.navigation.AppNavGraph.CreatorRoute
 import zed.rainxch.rikkaui.navigation.AppNavGraph.DocsGuideRoute
@@ -39,7 +39,7 @@ fun AppNavigation(navController: NavHostController) {
         }
 
         composable<DocsRoute> {
-            DocsPage(
+            DocsRoute(
                 onNavigateToComponent = { id ->
                     navController.navigate(ComponentDetailRoute(id)) {
                         popUpTo<DocsRoute> { inclusive = true }
@@ -56,7 +56,7 @@ fun AppNavigation(navController: NavHostController) {
         composable<DocsGuideRoute> { backStackEntry ->
             val route: DocsGuideRoute = backStackEntry.toRoute()
 
-            DocsPage(
+            DocsRoute(
                 initialComponentId = route.guideId,
                 onNavigateToComponent = { id ->
                     navController.navigate(ComponentDetailRoute(id)) {
@@ -74,7 +74,7 @@ fun AppNavigation(navController: NavHostController) {
         composable<ComponentDetailRoute> { backStackEntry ->
             val route: ComponentDetailRoute = backStackEntry.toRoute()
 
-            DocsPage(
+            DocsRoute(
                 initialComponentId = route.componentId,
                 onNavigateToComponent = { id ->
                     navController.navigate(ComponentDetailRoute(id)) {

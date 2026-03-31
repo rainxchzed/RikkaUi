@@ -20,17 +20,17 @@ data class NavEntry(
                 NavEntry(
                     label = Res.string.nav_home,
                     route = HomeRoute,
-                    matchPrefix = "home",
+                    matchPrefix = RoutePaths.HOME,
                 ),
                 NavEntry(
                     label = Res.string.nav_docs,
                     route = DocsRoute,
-                    matchPrefix = "docs",
+                    matchPrefix = RoutePaths.DOCS,
                 ),
                 NavEntry(
                     label = Res.string.nav_create,
                     route = CreatorRoute,
-                    matchPrefix = "create",
+                    matchPrefix = RoutePaths.CREATE,
                 ),
             )
     }

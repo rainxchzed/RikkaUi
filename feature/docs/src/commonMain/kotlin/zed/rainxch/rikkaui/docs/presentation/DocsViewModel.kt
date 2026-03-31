@@ -1,10 +1,11 @@
-package zed.rainxch.rikkaui.docs
+package zed.rainxch.rikkaui.docs.presentation
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import zed.rainxch.rikkaui.docs.catalog.GuideIds
 
 class DocsViewModel(
     initialComponentId: String? = null,
@@ -12,7 +13,7 @@ class DocsViewModel(
     private val _state =
         MutableStateFlow(
             DocsState(
-                selectedId = initialComponentId ?: "introduction",
+                selectedId = initialComponentId ?: GuideIds.INTRODUCTION,
             ),
         )
     val state: StateFlow<DocsState> = _state.asStateFlow()
