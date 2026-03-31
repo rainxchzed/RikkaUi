@@ -67,6 +67,13 @@ import androidx.compose.ui.unit.Dp
  * @param springBouncyDp Bouncy Dp spring for position animations.
  * @param pressScaleSubtle Subtle press scale (0.97).
  * @param pressScaleBouncy Noticeable press scale (0.93).
+ * @param overlayScaleIn Scale factor for overlay enter animations (dialogs, sheets, hover cards).
+ * @param toastScaleIn Scale factor for toast enter animation.
+ * @param hoverAlpha Alpha shift applied on hover for interactive feedback.
+ * @param pressAlpha Alpha shift applied on press for interactive feedback.
+ * @param durationInstant Zero-duration for intentionally instant transitions.
+ * @param durationSpin Full-rotation cycle duration for spinning indicators.
+ * @param durationPulse Full-cycle duration for pulsing/breathing animations.
  */
 @Immutable
 data class RikkaMotion(
@@ -93,6 +100,9 @@ data class RikkaMotion(
     val durationDefault: Int = 150,
     val durationSlow: Int = 250,
     val durationEnter: Int = 200,
+    val durationInstant: Int = 0,
+    val durationSpin: Int = 800,
+    val durationPulse: Int = 1000,
     val springDefaultDp: AnimationSpec<Dp> =
         spring(
             dampingRatio = Spring.DampingRatioMediumBouncy,
@@ -105,6 +115,10 @@ data class RikkaMotion(
         ),
     val pressScaleSubtle: Float = 0.97f,
     val pressScaleBouncy: Float = 0.93f,
+    val overlayScaleIn: Float = 0.95f,
+    val toastScaleIn: Float = 0.8f,
+    val hoverAlpha: Float = 0.85f,
+    val pressAlpha: Float = 0.7f,
 )
 
 val LocalRikkaMotion =
@@ -152,6 +166,9 @@ object RikkaMotionPresets {
             durationDefault = 120,
             durationSlow = 180,
             durationEnter = 150,
+            durationInstant = 0,
+            durationSpin = 600,
+            durationPulse = 800,
             tweenFast = tween(durationMillis = 80),
             tweenDefault = tween(durationMillis = 120),
             tweenSlow = tween(durationMillis = 180),
@@ -168,6 +185,10 @@ object RikkaMotionPresets {
                 ),
             pressScaleSubtle = 0.98f,
             pressScaleBouncy = 0.95f,
+            overlayScaleIn = 0.96f,
+            toastScaleIn = 0.85f,
+            hoverAlpha = 0.9f,
+            pressAlpha = 0.75f,
         )
 
     /**
@@ -195,6 +216,9 @@ object RikkaMotionPresets {
             durationDefault = 200,
             durationSlow = 350,
             durationEnter = 250,
+            durationInstant = 0,
+            durationSpin = 1000,
+            durationPulse = 1400,
             tweenFast = tween(durationMillis = 120),
             tweenDefault = tween(durationMillis = 200),
             tweenSlow = tween(durationMillis = 350),
@@ -211,6 +235,10 @@ object RikkaMotionPresets {
                 ),
             pressScaleSubtle = 0.95f,
             pressScaleBouncy = 0.88f,
+            overlayScaleIn = 0.92f,
+            toastScaleIn = 0.75f,
+            hoverAlpha = 0.8f,
+            pressAlpha = 0.65f,
         )
 
     /**
@@ -238,6 +266,9 @@ object RikkaMotionPresets {
             durationDefault = 100,
             durationSlow = 150,
             durationEnter = 120,
+            durationInstant = 0,
+            durationSpin = 700,
+            durationPulse = 900,
             tweenFast = tween(durationMillis = 60),
             tweenDefault = tween(durationMillis = 100),
             tweenSlow = tween(durationMillis = 150),
@@ -254,5 +285,9 @@ object RikkaMotionPresets {
                 ),
             pressScaleSubtle = 0.99f,
             pressScaleBouncy = 0.97f,
+            overlayScaleIn = 0.97f,
+            toastScaleIn = 0.9f,
+            hoverAlpha = 0.92f,
+            pressAlpha = 0.8f,
         )
 }

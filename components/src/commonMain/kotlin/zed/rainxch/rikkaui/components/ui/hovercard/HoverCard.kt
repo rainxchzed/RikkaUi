@@ -99,7 +99,7 @@ fun HoverCard(
     // ─── Animation values ────────────────────────────────
     val useAnimation = animation != HoverCardAnimation.None
     val targetAlpha = if (isVisible) 1f else 0f
-    val targetScale = if (isVisible) 1f else 0.95f
+    val targetScale = if (isVisible) 1f else motion.overlayScaleIn
 
     val alpha by animateFloatAsState(
         targetValue = if (useAnimation) targetAlpha else targetAlpha,
@@ -107,7 +107,7 @@ fun HoverCard(
             if (useAnimation) {
                 tween(motion.durationDefault)
             } else {
-                tween(0)
+                tween(motion.durationInstant)
             },
     )
 
@@ -115,7 +115,7 @@ fun HoverCard(
         targetValue =
             when (animation) {
                 HoverCardAnimation.FadeScale -> {
-                    if (isVisible) 1f else 0.95f
+                    if (isVisible) 1f else motion.overlayScaleIn
                 }
 
                 else -> {
@@ -126,7 +126,7 @@ fun HoverCard(
             if (animation == HoverCardAnimation.FadeScale) {
                 tween(motion.durationDefault)
             } else {
-                tween(0)
+                tween(motion.durationInstant)
             },
     )
 

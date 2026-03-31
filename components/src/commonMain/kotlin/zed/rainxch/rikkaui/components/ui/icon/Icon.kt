@@ -82,7 +82,7 @@ fun Icon(
                     infiniteRepeatable(
                         animation =
                             tween(
-                                durationMillis = 800,
+                                durationMillis = motion.durationSpin,
                                 easing = LinearEasing,
                             ),
                     ),

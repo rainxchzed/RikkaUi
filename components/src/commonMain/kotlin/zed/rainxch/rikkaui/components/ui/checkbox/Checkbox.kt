@@ -200,6 +200,7 @@ private fun resolveCheckboxColors(
     enabled: Boolean,
 ): CheckboxColors {
     val colors = RikkaTheme.colors
+    val motion = RikkaTheme.motion
 
     return when {
         !enabled && checked -> {
@@ -218,15 +219,15 @@ private fun resolveCheckboxColors(
 
         checked && isPressed -> {
             CheckboxColors(
-                background = colors.primary.copy(alpha = 0.8f),
-                border = colors.primary.copy(alpha = 0.8f),
+                background = colors.primary.copy(alpha = motion.pressAlpha),
+                border = colors.primary.copy(alpha = motion.pressAlpha),
             )
         }
 
         checked && isHovered -> {
             CheckboxColors(
-                background = colors.primary.copy(alpha = 0.9f),
-                border = colors.primary.copy(alpha = 0.9f),
+                background = colors.primary.copy(alpha = motion.hoverAlpha),
+                border = colors.primary.copy(alpha = motion.hoverAlpha),
             )
         }
 

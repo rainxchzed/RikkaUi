@@ -294,6 +294,7 @@ fun Button(
     val isPressed by interactionSource.collectIsPressedAsState()
 
     // ─── Resolved values ────────────────────────────────
+    val motion = RikkaTheme.motion
     val sizeValues = ButtonDefaults.sizeValues(size)
     val restingShape = ButtonDefaults.shape(size)
     val pressShape = ButtonDefaults.pressedShape(size)
@@ -313,13 +314,12 @@ fun Button(
             containerColor == Color.Transparent && isHovered -> {
                 RikkaTheme.colors.muted
             }
-            isPressed -> containerColor.copy(alpha = 0.7f)
-            isHovered -> containerColor.copy(alpha = 0.85f)
+            isPressed -> containerColor.copy(alpha = motion.pressAlpha)
+            isHovered -> containerColor.copy(alpha = motion.hoverAlpha)
             else -> containerColor
         }
 
     // ─── Animation (from theme motion tokens) ──────────
-    val motion = RikkaTheme.motion
 
     val animationSpec =
         when (animation) {

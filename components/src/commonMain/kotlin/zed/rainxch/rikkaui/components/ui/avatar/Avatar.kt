@@ -191,7 +191,7 @@ private fun resolveSizeValues(size: AvatarSize): AvatarSizeValues =
 @Composable
 private fun resolveStatusColor(status: AvatarStatus?): Color? =
     when (status) {
-        AvatarStatus.Online -> Color(0xFF22C55E)
+        AvatarStatus.Online -> RikkaTheme.colors.success
         AvatarStatus.Offline -> RikkaTheme.colors.mutedForeground
         AvatarStatus.Busy -> RikkaTheme.colors.destructive
         null -> null

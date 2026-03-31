@@ -90,7 +90,7 @@ fun Tooltip(
         targetValue = targetAlpha,
         animationSpec =
             when (animation) {
-                TooltipAnimation.None -> tween(0)
+                TooltipAnimation.None -> tween(motion.durationInstant)
                 else -> tween(motion.durationEnter)
             },
     )
@@ -99,7 +99,7 @@ fun Tooltip(
         targetValue =
             when (animation) {
                 TooltipAnimation.FadeScale -> {
-                    if (isVisible) 1f else 0.95f
+                    if (isVisible) 1f else motion.overlayScaleIn
                 }
 
                 else -> {
@@ -109,7 +109,7 @@ fun Tooltip(
         animationSpec =
             when (animation) {
                 TooltipAnimation.FadeScale -> tween(motion.durationEnter)
-                else -> tween(0)
+                else -> tween(motion.durationInstant)
             },
     )
 

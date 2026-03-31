@@ -50,6 +50,10 @@ object RikkaPalettes {
             destructiveForeground = Color(0xFFFAFAFA),
             border = Color(0xFFE4E4E7),
             input = Color(0xFFE4E4E7),
+            warning = Color(0xFFF59E0B),
+            warningForeground = Color(0xFF422006),
+            success = Color(0xFF22C55E),
+            successForeground = Color(0xFFFAFAFA),
             ring = Color(0xFF09090B),
         )
 
@@ -74,6 +78,10 @@ object RikkaPalettes {
             destructiveForeground = Color(0xFFFAFAFA),
             border = Color(0xFF27272A),
             input = Color(0xFF27272A),
+            warning = Color(0xFFF59E0B),
+            warningForeground = Color(0xFF422006),
+            success = Color(0xFF22C55E),
+            successForeground = Color(0xFF052E16),
             ring = Color(0xFFD4D4D8),
         )
 
@@ -102,6 +110,10 @@ object RikkaPalettes {
             destructiveForeground = Color(0xFFF8FAFC),
             border = Color(0xFFCBD5E1),
             input = Color(0xFFCBD5E1),
+            warning = Color(0xFFF59E0B),
+            warningForeground = Color(0xFF422006),
+            success = Color(0xFF22C55E),
+            successForeground = Color(0xFFFAFAFA),
             ring = Color(0xFF020817),
         )
 
@@ -126,6 +138,10 @@ object RikkaPalettes {
             destructiveForeground = Color(0xFFF8FAFC),
             border = Color(0xFF1E293B),
             input = Color(0xFF1E293B),
+            warning = Color(0xFFF59E0B),
+            warningForeground = Color(0xFF422006),
+            success = Color(0xFF22C55E),
+            successForeground = Color(0xFF052E16),
             ring = Color(0xFFCBD5E1),
         )
 
@@ -154,6 +170,10 @@ object RikkaPalettes {
             destructiveForeground = Color(0xFFFAFAF9),
             border = Color(0xFFD6D3D1),
             input = Color(0xFFD6D3D1),
+            warning = Color(0xFFF59E0B),
+            warningForeground = Color(0xFF422006),
+            success = Color(0xFF22C55E),
+            successForeground = Color(0xFFFAFAFA),
             ring = Color(0xFF0C0A09),
         )
 
@@ -178,6 +198,10 @@ object RikkaPalettes {
             destructiveForeground = Color(0xFFFAFAF9),
             border = Color(0xFF292524),
             input = Color(0xFF292524),
+            warning = Color(0xFFF59E0B),
+            warningForeground = Color(0xFF422006),
+            success = Color(0xFF22C55E),
+            successForeground = Color(0xFF052E16),
             ring = Color(0xFFD6D3D1),
         )
 
@@ -206,6 +230,10 @@ object RikkaPalettes {
             destructiveForeground = Color(0xFFF9FAFB),
             border = Color(0xFFD1D5DB),
             input = Color(0xFFD1D5DB),
+            warning = Color(0xFFF59E0B),
+            warningForeground = Color(0xFF422006),
+            success = Color(0xFF22C55E),
+            successForeground = Color(0xFFFAFAFA),
             ring = Color(0xFF030712),
         )
 
@@ -230,6 +258,10 @@ object RikkaPalettes {
             destructiveForeground = Color(0xFFF9FAFB),
             border = Color(0xFF1F2937),
             input = Color(0xFF1F2937),
+            warning = Color(0xFFF59E0B),
+            warningForeground = Color(0xFF422006),
+            success = Color(0xFF22C55E),
+            successForeground = Color(0xFF052E16),
             ring = Color(0xFFD1D5DB),
         )
 
@@ -258,6 +290,10 @@ object RikkaPalettes {
             destructiveForeground = Color(0xFFFAFAFA),
             border = Color(0xFFD4D4D4),
             input = Color(0xFFD4D4D4),
+            warning = Color(0xFFF59E0B),
+            warningForeground = Color(0xFF422006),
+            success = Color(0xFF22C55E),
+            successForeground = Color(0xFFFAFAFA),
             ring = Color(0xFF0A0A0A),
         )
 
@@ -282,6 +318,10 @@ object RikkaPalettes {
             destructiveForeground = Color(0xFFFAFAFA),
             border = Color(0xFF262626),
             input = Color(0xFF262626),
+            warning = Color(0xFFF59E0B),
+            warningForeground = Color(0xFF422006),
+            success = Color(0xFF22C55E),
+            successForeground = Color(0xFF052E16),
             ring = Color(0xFFD4D4D4),
         )
 }

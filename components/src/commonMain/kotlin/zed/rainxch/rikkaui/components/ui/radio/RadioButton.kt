@@ -187,6 +187,8 @@ private fun resolveRadioColors(
 ): RadioColors {
     val colors = RikkaTheme.colors
 
+    val motion = RikkaTheme.motion
+
     return when {
         !enabled && selected -> {
             RadioColors(
@@ -204,15 +206,15 @@ private fun resolveRadioColors(
 
         selected && isPressed -> {
             RadioColors(
-                ring = colors.primary.copy(alpha = 0.8f),
-                dot = colors.primary.copy(alpha = 0.8f),
+                ring = colors.primary.copy(alpha = motion.pressAlpha),
+                dot = colors.primary.copy(alpha = motion.pressAlpha),
             )
         }
 
         selected && isHovered -> {
             RadioColors(
-                ring = colors.primary.copy(alpha = 0.9f),
-                dot = colors.primary.copy(alpha = 0.9f),
+                ring = colors.primary.copy(alpha = motion.hoverAlpha),
+                dot = colors.primary.copy(alpha = motion.hoverAlpha),
             )
         }
 

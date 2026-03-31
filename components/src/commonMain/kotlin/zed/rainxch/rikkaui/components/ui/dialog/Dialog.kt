@@ -220,7 +220,7 @@ private fun resolveDialogTransition(
                     animationSpec = tween(motion.durationEnter),
                 ) +
                     scaleIn(
-                        initialScale = 0.95f,
+                        initialScale = motion.overlayScaleIn,
                         animationSpec = tween(motion.durationEnter),
                     )
             val exit =
@@ -228,7 +228,7 @@ private fun resolveDialogTransition(
                     animationSpec = tween(motion.durationEnter),
                 ) +
                     scaleOut(
-                        targetScale = 0.95f,
+                        targetScale = motion.overlayScaleIn,
                         animationSpec = tween(motion.durationEnter),
                     )
             enter to exit
@@ -247,8 +247,8 @@ private fun resolveDialogTransition(
         }
 
         DialogAnimation.None -> {
-            val enter = fadeIn(animationSpec = tween(0))
-            val exit = fadeOut(animationSpec = tween(0))
+            val enter = fadeIn(animationSpec = tween(motion.durationInstant))
+            val exit = fadeOut(animationSpec = tween(motion.durationInstant))
             enter to exit
         }
     }

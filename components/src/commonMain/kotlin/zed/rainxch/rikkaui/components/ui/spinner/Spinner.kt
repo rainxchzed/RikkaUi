@@ -133,7 +133,7 @@ private fun resolveSpinnerAnimation(
                     infiniteRepeatable(
                         animation =
                             tween(
-                                durationMillis = 800,
+                                durationMillis = motion.durationSpin,
                                 easing = LinearEasing,
                             ),
                     ),
@@ -149,7 +149,7 @@ private fun resolveSpinnerAnimation(
                 animationSpec =
                     infiniteRepeatable(
                         animation =
-                            tween(durationMillis = 1000),
+                            tween(durationMillis = motion.durationPulse),
                         repeatMode = RepeatMode.Reverse,
                     ),
             )

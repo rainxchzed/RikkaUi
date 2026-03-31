@@ -38,6 +38,11 @@ data class RikkaColors(
     // Destructive (delete, error, danger)
     val destructive: Color,
     val destructiveForeground: Color,
+    // Status / feedback
+    val warning: Color,
+    val warningForeground: Color,
+    val success: Color,
+    val successForeground: Color,
     // Standalone utility tokens
     val border: Color,
     val input: Color,

@@ -129,7 +129,7 @@ const val TOAST_DURATION_INFINITE = Long.MAX_VALUE
 private const val DEFAULT_MAX_VISIBLE_TOASTS = 5
 
 private const val SWIPE_DISMISS_THRESHOLD = 150f
-private const val SCALE_ANIMATION_INITIAL = 0.8f
+// Scale initial value now comes from RikkaTheme.motion.toastScaleIn
 
 // ─── Host State ─────────────────────────────────────────────
 
@@ -294,7 +294,7 @@ private fun ToastItem(
         }
     val animatedProgress by animateFloatAsState(
         targetValue = progressFraction,
-        animationSpec = tween(durationMillis = 100),
+        animationSpec = tween(durationMillis = motion.durationFast),
     )
 
     // Swipe-to-dismiss offset
@@ -313,6 +313,8 @@ private fun ToastItem(
             enterDirection = enterDirection,
             durationEnter = motion.durationEnter,
             durationExit = motion.durationDefault,
+            durationInstant = motion.durationInstant,
+            toastScaleIn = motion.toastScaleIn,
         )
 
     AnimatedVisibility(
@@ -388,6 +390,8 @@ private fun resolveTransitions(
     enterDirection: Int,
     durationEnter: Int,
     durationExit: Int,
+    durationInstant: Int,
+    toastScaleIn: Float,
 ): Pair<EnterTransition, ExitTransition> =
     when (animation) {
         ToastAnimation.SlideIn -> {
@@ -416,21 +420,21 @@ private fun resolveTransitions(
             val enter =
                 scaleIn(
                     animationSpec = tween(durationEnter),
-                    initialScale = SCALE_ANIMATION_INITIAL,
+                    initialScale = toastScaleIn,
                 ) + fadeIn(animationSpec = tween(durationEnter))
 
             val exit =
                 scaleOut(
                     animationSpec = tween(durationExit),
-                    targetScale = SCALE_ANIMATION_INITIAL,
+                    targetScale = toastScaleIn,
                 ) + fadeOut(animationSpec = tween(durationExit))
 
             enter to exit
         }
 
         ToastAnimation.None -> {
-            val enter = fadeIn(animationSpec = tween(0))
-            val exit = fadeOut(animationSpec = tween(0))
+            val enter = fadeIn(animationSpec = tween(durationInstant))
+            val exit = fadeOut(animationSpec = tween(durationInstant))
             enter to exit
         }
     }
@@ -538,12 +542,13 @@ fun Toast(
                     val actionHovered by actionInteraction
                         .collectIsHoveredAsState()
 
+                    val motion = RikkaTheme.motion
                     Text(
                         text = actionLabel,
                         variant = TextVariant.Small,
                         color =
                             if (actionHovered) {
-                                colors.primary.copy(alpha = 0.8f)
+                                colors.primary.copy(alpha = motion.hoverAlpha)
                             } else {
                                 colors.primary
                             },
@@ -649,9 +654,7 @@ private fun resolveColors(variant: ToastVariant): ToastColors {
         }
 
         ToastVariant.Warning -> {
-            ToastColors(
-                accent = Color(0xFFF59E0B),
-            )
+            ToastColors(accent = colors.warning)
         }
     }
 }
