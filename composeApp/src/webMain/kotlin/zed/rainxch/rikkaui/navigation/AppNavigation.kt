@@ -39,54 +39,17 @@ fun AppNavigation(navController: NavHostController) {
         }
 
         composable<DocsRoute> {
-            DocsRoute(
-                onNavigateToComponent = { id ->
-                    navController.navigate(ComponentDetailRoute(id)) {
-                        popUpTo<DocsRoute> { inclusive = true }
-                    }
-                },
-                onNavigateToGuide = { guideId ->
-                    navController.navigate(DocsGuideRoute(guideId)) {
-                        popUpTo<DocsRoute> { inclusive = true }
-                    }
-                },
-            )
+            DocsRoute()
         }
 
         composable<DocsGuideRoute> { backStackEntry ->
             val route: DocsGuideRoute = backStackEntry.toRoute()
-
-            DocsRoute(
-                initialComponentId = route.guideId,
-                onNavigateToComponent = { id ->
-                    navController.navigate(ComponentDetailRoute(id)) {
-                        popUpTo<DocsGuideRoute> { inclusive = true }
-                    }
-                },
-                onNavigateToGuide = { guideId ->
-                    navController.navigate(DocsGuideRoute(guideId)) {
-                        popUpTo<DocsGuideRoute> { inclusive = true }
-                    }
-                },
-            )
+            DocsRoute(initialComponentId = route.guideId)
         }
 
         composable<ComponentDetailRoute> { backStackEntry ->
             val route: ComponentDetailRoute = backStackEntry.toRoute()
-
-            DocsRoute(
-                initialComponentId = route.componentId,
-                onNavigateToComponent = { id ->
-                    navController.navigate(ComponentDetailRoute(id)) {
-                        popUpTo<ComponentDetailRoute> { inclusive = true }
-                    }
-                },
-                onNavigateToGuide = { guideId ->
-                    navController.navigate(DocsGuideRoute(guideId)) {
-                        popUpTo<ComponentDetailRoute> { inclusive = true }
-                    }
-                },
-            )
+            DocsRoute(initialComponentId = route.componentId)
         }
     }
 }
