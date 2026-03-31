@@ -4,8 +4,8 @@ import zed.rainxch.rikkaui.foundation.RikkaAccentPreset
 import zed.rainxch.rikkaui.foundation.RikkaPalette
 import zed.rainxch.rikkaui.foundation.RikkaStylePreset
 
-/** The base package for the future `:foundation` module. */
-private const val FOUNDATION_PKG = "zed.rainxch.rikkaui.foundation.theme"
+/** The base package for the `:foundation` module. */
+private const val FOUNDATION_PKG = "zed.rainxch.rikkaui.foundation"
 
 /**
  * Generates Kotlin source code for a user's configured design system.
@@ -25,19 +25,17 @@ fun generateThemeCode(
     fontDisplayName: String,
 ): String {
     val fontResourceNames = buildFontResourceNames(fontId)
-    val accentImport = buildAccentImport(accent)
-    val accentApplication = buildAccentApplication(accent)
 
     return buildString {
         appendLine("package com.example.app.theme")
         appendLine()
         appendLine("import androidx.compose.runtime.Composable")
+        appendLine("import $FOUNDATION_PKG.RikkaPalette")
+        appendLine("import $FOUNDATION_PKG.RikkaAccentPreset")
         appendLine("import $FOUNDATION_PKG.RikkaStylePreset")
         appendLine("import $FOUNDATION_PKG.RikkaTheme")
         appendLine("import $FOUNDATION_PKG.rikkaTypography")
         appendLine("import $FOUNDATION_PKG.rememberRikkaFontFamily")
-        appendLine("import $FOUNDATION_PKG.RikkaPalettes")
-        if (accentImport.isNotEmpty()) appendLine(accentImport)
         appendLine()
         appendLine("/**")
         appendLine(
@@ -55,19 +53,7 @@ fun generateThemeCode(
         appendLine("    isDark: Boolean = true,")
         appendLine("    content: @Composable () -> Unit,")
         appendLine(") {")
-        appendLine(
-            "    val preset = " +
-                "RikkaStylePreset.${stylePreset.name}",
-        )
-        appendLine()
-        appendLine("    // ── Colors ──")
-        appendLine(buildColorResolution(palette))
-        appendLine(accentApplication)
-        appendLine()
-        appendLine("    // ── Typography ──")
-        appendLine(
-            "    val fontFamily = rememberRikkaFontFamily(",
-        )
+        appendLine("    val fontFamily = rememberRikkaFontFamily(")
         appendLine(
             "        regular = " +
                 "Res.font.${fontResourceNames.first},",
@@ -79,14 +65,21 @@ fun generateThemeCode(
         appendLine("    )")
         appendLine()
         appendLine("    RikkaTheme(")
-        appendLine("        colors = colors,")
+        appendLine(
+            "        palette = RikkaPalette.${palette.name},",
+        )
+        appendLine(
+            "        accent = RikkaAccentPreset.${accent.name},",
+        )
+        appendLine("        isDark = isDark,")
+        appendLine(
+            "        preset = RikkaStylePreset.${stylePreset.name},",
+        )
         appendLine(
             "        typography = rikkaTypography(" +
-                "fontFamily, scale = preset.typeScale),",
+                "fontFamily, scale = " +
+                "RikkaStylePreset.${stylePreset.name}.typeScale),",
         )
-        appendLine("        spacing = preset.spacing,")
-        appendLine("        shapes = preset.shapes,")
-        appendLine("        motion = preset.motion,")
         appendLine("        content = content,")
         appendLine("    )")
         appendLine("}")
@@ -134,7 +127,7 @@ fun generateReadme(
         )
         appendLine(
             "    implementation(" +
-                "\"zed.rainxch.rikkaui:foundation:1.0.0\")",
+                "\"dev.rikkaui:foundation:0.1.0\")",
         )
         appendLine()
         appendLine(
@@ -143,7 +136,7 @@ fun generateReadme(
         )
         appendLine(
             "    implementation(" +
-                "\"zed.rainxch.rikkaui:components:1.0.0\")",
+                "\"dev.rikkaui:components:0.1.0\")",
         )
         appendLine("}")
         appendLine("```")
@@ -194,7 +187,8 @@ fun generateReadme(
         appendLine(
             "| `components` | Button, Card, Input," +
                 " Badge, Toggle, Checkbox, Dialog," +
-                " Sheet, Tabs, and 25+ more |",
+                " Sheet, Tabs, Toast, Select," +
+                " Accordion, Table, and 40+ more |",
         )
         appendLine()
         appendLine("## Customization")
@@ -210,27 +204,3 @@ fun generateReadme(
     }
 
 private fun buildFontResourceNames(fontId: String): Pair<String, String> = Pair("${fontId}_regular", "${fontId}_bold")
-
-private fun buildAccentImport(accent: RikkaAccentPreset): String {
-    if (accent == RikkaAccentPreset.Default) return ""
-    return "import $FOUNDATION_PKG.RikkaAccent\n" +
-        "import $FOUNDATION_PKG.RikkaAccentDark\n" +
-        "import $FOUNDATION_PKG.withAccent"
-}
-
-private fun buildColorResolution(palette: RikkaPalette): String {
-    val lightVal = "${palette.name}Light"
-    val darkVal = "${palette.name}Dark"
-    return "    val baseColors = if (isDark) " +
-        "RikkaPalettes.$darkVal else RikkaPalettes.$lightVal"
-}
-
-private fun buildAccentApplication(accent: RikkaAccentPreset): String {
-    if (accent == RikkaAccentPreset.Default) {
-        return "    val colors = baseColors"
-    }
-    return "    val accent = if (isDark) " +
-        "RikkaAccentDark.${accent.name} " +
-        "else RikkaAccent.${accent.name}\n" +
-        "    val colors = baseColors.withAccent(accent)"
-}
