@@ -7,6 +7,9 @@ plugins {
 dependencies {
     implementation(libs.clikt)
     implementation(libs.kotlinx.serialization.json)
+
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotlin.testJunit)
 }
 
 tasks.shadowJar {
