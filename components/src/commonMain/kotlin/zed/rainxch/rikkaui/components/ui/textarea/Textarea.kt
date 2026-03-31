@@ -123,8 +123,8 @@ fun Textarea(
             },
         animationSpec =
             spring(
-                dampingRatio = motion.pressScaleSubtle,
-                stiffness = 400f,
+                dampingRatio = motion.spatialDampingDefault,
+                stiffness = motion.spatialStiffnessDefault,
             ),
     )
     val glowAlpha by animateFloatAsState(

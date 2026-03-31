@@ -3,10 +3,8 @@ package zed.rainxch.rikkaui.components.ui.tabs
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.AnimationSpec
-import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.snap
-import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -116,10 +114,8 @@ fun Tab(
         }
 
     // ─── Resolve animation spec ───────────────────────────
-    val colorAnimSpec: AnimationSpec<Color> =
-        resolveColorAnimSpec(animation, motion.durationDefault)
-    val dpAnimSpec: AnimationSpec<Dp> =
-        resolveDpAnimSpec(animation, motion.durationDefault)
+    val colorAnimSpec: AnimationSpec<Color> = resolveAnimSpec(animation, motion)
+    val dpAnimSpec: AnimationSpec<Dp> = resolveAnimSpec(animation, motion)
 
     // ─── Animated colors ──────────────────────────────────
     val backgroundColor by animateColorAsState(
@@ -201,45 +197,12 @@ fun TabContent(
 // ─── Internal: Animation Spec Resolution ──────────────────
 
 @Composable
-private fun resolveColorAnimSpec(
+private fun <T> resolveAnimSpec(
     animation: TabAnimation,
-    durationMs: Int,
-): AnimationSpec<Color> =
+    motion: zed.rainxch.rikkaui.foundation.RikkaMotion,
+): AnimationSpec<T> =
     when (animation) {
-        TabAnimation.Spring -> {
-            spring(
-                dampingRatio = Spring.DampingRatioNoBouncy,
-                stiffness = Spring.StiffnessMedium,
-            )
-        }
-
-        TabAnimation.Tween -> {
-            tween(durationMs)
-        }
-
-        TabAnimation.None -> {
-            snap()
-        }
-    }
-
-@Composable
-private fun resolveDpAnimSpec(
-    animation: TabAnimation,
-    durationMs: Int,
-): AnimationSpec<Dp> =
-    when (animation) {
-        TabAnimation.Spring -> {
-            spring(
-                dampingRatio = Spring.DampingRatioNoBouncy,
-                stiffness = Spring.StiffnessMedium,
-            )
-        }
-
-        TabAnimation.Tween -> {
-            tween(durationMs)
-        }
-
-        TabAnimation.None -> {
-            snap()
-        }
+        TabAnimation.Spring -> motion.spatialSnap()
+        TabAnimation.Tween -> motion.effectsDefault()
+        TabAnimation.None -> snap()
     }

@@ -3,7 +3,6 @@ package zed.rainxch.rikkaui.components.ui.radio
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.snap
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
@@ -70,8 +69,8 @@ fun RadioButton(
         targetValue = resolvedColors.ring,
         animationSpec =
             when (animation) {
-                RadioAnimation.Spring -> tween(motion.durationDefault)
-                RadioAnimation.Tween -> tween(motion.durationDefault)
+                RadioAnimation.Spring -> motion.effectsDefault()
+                RadioAnimation.Tween -> motion.effectsDefault()
                 RadioAnimation.None -> snap()
             },
     )
@@ -80,8 +79,8 @@ fun RadioButton(
         targetValue = resolvedColors.dot,
         animationSpec =
             when (animation) {
-                RadioAnimation.Spring -> tween(motion.durationDefault)
-                RadioAnimation.Tween -> tween(motion.durationDefault)
+                RadioAnimation.Spring -> motion.effectsDefault()
+                RadioAnimation.Tween -> motion.effectsDefault()
                 RadioAnimation.None -> snap()
             },
     )
@@ -91,8 +90,8 @@ fun RadioButton(
         targetValue = if (selected) 1f else 0f,
         animationSpec =
             when (animation) {
-                RadioAnimation.Spring -> motion.springDefault
-                RadioAnimation.Tween -> tween(motion.durationDefault)
+                RadioAnimation.Spring -> motion.spatialDefault()
+                RadioAnimation.Tween -> motion.effectsDefault()
                 RadioAnimation.None -> snap()
             },
     )

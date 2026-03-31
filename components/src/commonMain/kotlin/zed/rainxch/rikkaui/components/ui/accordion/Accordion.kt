@@ -1,7 +1,6 @@
 package zed.rainxch.rikkaui.components.ui.accordion
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.spring
@@ -165,8 +164,8 @@ private fun resolveEnter(
             expandVertically(
                 animationSpec =
                     spring(
-                        dampingRatio = Spring.DampingRatioMediumBouncy,
-                        stiffness = Spring.StiffnessMediumLow,
+                        dampingRatio = motion.spatialDampingDefault,
+                        stiffness = motion.spatialStiffnessDefault,
                     ),
             )
         }
@@ -197,8 +196,8 @@ private fun resolveExit(
             shrinkVertically(
                 animationSpec =
                     spring(
-                        dampingRatio = Spring.DampingRatioMediumBouncy,
-                        stiffness = Spring.StiffnessMediumLow,
+                        dampingRatio = motion.spatialDampingDefault,
+                        stiffness = motion.spatialStiffnessDefault,
                     ),
             )
         }

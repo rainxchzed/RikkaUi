@@ -2,12 +2,9 @@ package zed.rainxch.rikkaui.components.ui.navigationbar
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.AnimationSpec
-import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.snap
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -121,12 +118,14 @@ fun RowScope.NavigationBarItem(
     val motion = RikkaTheme.motion
 
     // ─── Resolve animation specs ──────────────────────────
-    val floatAnimSpec: AnimationSpec<Float> =
-        resolveFloatAnimSpec(animation, motion.durationDefault)
-    val dpAnimSpec: AnimationSpec<Dp> =
-        resolveDpAnimSpec(animation, motion.durationDefault)
+    val floatAnimSpec: AnimationSpec<Float> = resolveAnimSpec(animation, motion)
+    val dpAnimSpec: AnimationSpec<Dp> = resolveAnimSpec(animation, motion)
     val fastFloatSpec: AnimationSpec<Float> =
-        resolveFloatAnimSpec(animation, motion.durationFast)
+        if (animation == NavigationBarAnimation.Tween) {
+            motion.effectsFast()
+        } else {
+            floatAnimSpec
+        }
 
     val resolvedIndicator =
         if (indicatorColor != Color.Unspecified) {
@@ -149,11 +148,7 @@ fun RowScope.NavigationBarItem(
     val showLabel = alwaysShowLabel || selected
     val labelAlpha by animateFloatAsState(
         targetValue = if (showLabel && label != null) 1f else 0f,
-        animationSpec =
-            resolveFloatAnimSpec(
-                animation,
-                motion.durationDefault,
-            ),
+        animationSpec = floatAnimSpec,
     )
     val labelOffset by animateDpAsState(
         targetValue = if (showLabel && label != null) 0.dp else 4.dp,
@@ -301,8 +296,7 @@ fun RowScope.NavigationBarItem(
         }
 
     // ─── Resolve animation spec for colors ────────────────
-    val colorAnimSpec: AnimationSpec<Color> =
-        resolveColorAnimSpec(animation, motion.durationDefault)
+    val colorAnimSpec: AnimationSpec<Color> = resolveAnimSpec(animation, motion)
 
     // ─── Animated icon + label colors ────────────────────
     val iconColor by animateColorAsState(
@@ -363,67 +357,12 @@ fun RowScope.NavigationBarItem(
 // ─── Internal: Animation Spec Resolution ──────────────────────
 
 @Composable
-private fun resolveFloatAnimSpec(
+private fun <T> resolveAnimSpec(
     animation: NavigationBarAnimation,
-    durationMs: Int,
-): AnimationSpec<Float> =
+    motion: zed.rainxch.rikkaui.foundation.RikkaMotion,
+): AnimationSpec<T> =
     when (animation) {
-        NavigationBarAnimation.Spring -> {
-            spring(
-                dampingRatio = Spring.DampingRatioMediumBouncy,
-                stiffness = Spring.StiffnessMediumLow,
-            )
-        }
-
-        NavigationBarAnimation.Tween -> {
-            tween(durationMs)
-        }
-
-        NavigationBarAnimation.None -> {
-            snap()
-        }
-    }
-
-@Composable
-private fun resolveDpAnimSpec(
-    animation: NavigationBarAnimation,
-    durationMs: Int,
-): AnimationSpec<Dp> =
-    when (animation) {
-        NavigationBarAnimation.Spring -> {
-            spring(
-                dampingRatio = Spring.DampingRatioMediumBouncy,
-                stiffness = Spring.StiffnessMediumLow,
-            )
-        }
-
-        NavigationBarAnimation.Tween -> {
-            tween(durationMs)
-        }
-
-        NavigationBarAnimation.None -> {
-            snap()
-        }
-    }
-
-@Composable
-private fun resolveColorAnimSpec(
-    animation: NavigationBarAnimation,
-    durationMs: Int,
-): AnimationSpec<Color> =
-    when (animation) {
-        NavigationBarAnimation.Spring -> {
-            spring(
-                dampingRatio = Spring.DampingRatioMediumBouncy,
-                stiffness = Spring.StiffnessMediumLow,
-            )
-        }
-
-        NavigationBarAnimation.Tween -> {
-            tween(durationMs)
-        }
-
-        NavigationBarAnimation.None -> {
-            snap()
-        }
+        NavigationBarAnimation.Spring -> motion.spatialDefault()
+        NavigationBarAnimation.Tween -> motion.effectsDefault()
+        NavigationBarAnimation.None -> snap()
     }

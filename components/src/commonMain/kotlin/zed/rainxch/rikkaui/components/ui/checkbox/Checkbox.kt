@@ -3,7 +3,6 @@ package zed.rainxch.rikkaui.components.ui.checkbox
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.snap
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -76,8 +75,8 @@ fun Checkbox(
         targetValue = resolvedColors.background,
         animationSpec =
             when (animation) {
-                CheckboxAnimation.Spring -> tween(motion.durationDefault)
-                CheckboxAnimation.Tween -> tween(motion.durationDefault)
+                CheckboxAnimation.Spring -> motion.effectsDefault()
+                CheckboxAnimation.Tween -> motion.effectsDefault()
                 CheckboxAnimation.None -> snap()
             },
     )
@@ -86,8 +85,8 @@ fun Checkbox(
         targetValue = resolvedColors.border,
         animationSpec =
             when (animation) {
-                CheckboxAnimation.Spring -> tween(motion.durationDefault)
-                CheckboxAnimation.Tween -> tween(motion.durationDefault)
+                CheckboxAnimation.Spring -> motion.effectsDefault()
+                CheckboxAnimation.Tween -> motion.effectsDefault()
                 CheckboxAnimation.None -> snap()
             },
     )
@@ -97,8 +96,8 @@ fun Checkbox(
         targetValue = if (checked) 1f else 0f,
         animationSpec =
             when (animation) {
-                CheckboxAnimation.Spring -> motion.springDefault
-                CheckboxAnimation.Tween -> tween(motion.durationDefault)
+                CheckboxAnimation.Spring -> motion.spatialDefault()
+                CheckboxAnimation.Tween -> motion.effectsDefault()
                 CheckboxAnimation.None -> snap()
             },
     )

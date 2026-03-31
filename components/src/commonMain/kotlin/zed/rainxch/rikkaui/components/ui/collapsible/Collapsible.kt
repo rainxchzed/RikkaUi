@@ -1,7 +1,6 @@
 package zed.rainxch.rikkaui.components.ui.collapsible
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
@@ -176,32 +175,23 @@ private fun resolveEnter(
             expandVertically(
                 animationSpec =
                     spring(
-                        dampingRatio = Spring.DampingRatioMediumBouncy,
-                        stiffness = Spring.StiffnessMediumLow,
+                        dampingRatio = motion.spatialDampingDefault,
+                        stiffness = motion.spatialStiffnessDefault,
                     ),
                 expandFrom = Alignment.Top,
             ) +
                 fadeIn(
-                    animationSpec =
-                        tween(
-                            durationMillis = motion.durationDefault,
-                        ),
+                    animationSpec = tween(motion.durationDefault),
                 )
         }
 
         CollapsibleAnimation.Tween -> {
             expandVertically(
-                animationSpec =
-                    tween(
-                        durationMillis = motion.durationSlow,
-                    ),
+                animationSpec = tween(motion.durationSlow),
                 expandFrom = Alignment.Top,
             ) +
                 fadeIn(
-                    animationSpec =
-                        tween(
-                            durationMillis = motion.durationDefault,
-                        ),
+                    animationSpec = tween(motion.durationDefault),
                 )
         }
 
@@ -223,32 +213,23 @@ private fun resolveExit(
             shrinkVertically(
                 animationSpec =
                     spring(
-                        dampingRatio = Spring.DampingRatioMediumBouncy,
-                        stiffness = Spring.StiffnessMediumLow,
+                        dampingRatio = motion.spatialDampingDefault,
+                        stiffness = motion.spatialStiffnessDefault,
                     ),
                 shrinkTowards = Alignment.Top,
             ) +
                 fadeOut(
-                    animationSpec =
-                        tween(
-                            durationMillis = motion.durationFast,
-                        ),
+                    animationSpec = tween(motion.durationFast),
                 )
         }
 
         CollapsibleAnimation.Tween -> {
             shrinkVertically(
-                animationSpec =
-                    tween(
-                        durationMillis = motion.durationSlow,
-                    ),
+                animationSpec = tween(motion.durationSlow),
                 shrinkTowards = Alignment.Top,
             ) +
                 fadeOut(
-                    animationSpec =
-                        tween(
-                            durationMillis = motion.durationFast,
-                        ),
+                    animationSpec = tween(motion.durationFast),
                 )
         }
 

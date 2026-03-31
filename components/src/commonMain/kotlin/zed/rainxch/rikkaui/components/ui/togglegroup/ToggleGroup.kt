@@ -2,10 +2,7 @@ package zed.rainxch.rikkaui.components.ui.togglegroup
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.AnimationSpec
-import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.snap
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -98,8 +95,7 @@ fun ToggleGroupItem(
         )
 
     // ─── Resolve animation spec ───────────────────────────
-    val colorAnimSpec: AnimationSpec<Color> =
-        resolveColorAnimSpec(animation, motion.durationDefault)
+    val colorAnimSpec: AnimationSpec<Color> = resolveAnimSpec(animation, motion)
 
     // ─── Animated background (from theme motion tokens) ──
     val animatedBackground by animateColorAsState(
@@ -167,10 +163,7 @@ fun ToggleGroupItem(
 
     // ─── Resolve animation spec for text color ────────────
     val colorAnimSpec: AnimationSpec<Color> =
-        resolveColorAnimSpec(
-            animation,
-            RikkaTheme.motion.durationDefault,
-        )
+        resolveAnimSpec(animation, RikkaTheme.motion)
 
     val animatedForeground by animateColorAsState(
         targetValue = resolved.foreground,
@@ -255,23 +248,12 @@ private fun resolveColors(
 // ─── Internal: Animation Spec Resolution ──────────────────
 
 @Composable
-private fun resolveColorAnimSpec(
+private fun <T> resolveAnimSpec(
     animation: ToggleGroupAnimation,
-    durationMs: Int,
-): AnimationSpec<Color> =
+    motion: zed.rainxch.rikkaui.foundation.RikkaMotion,
+): AnimationSpec<T> =
     when (animation) {
-        ToggleGroupAnimation.Spring -> {
-            spring(
-                dampingRatio = Spring.DampingRatioMediumBouncy,
-                stiffness = Spring.StiffnessMediumLow,
-            )
-        }
-
-        ToggleGroupAnimation.Tween -> {
-            tween(durationMs)
-        }
-
-        ToggleGroupAnimation.None -> {
-            snap()
-        }
+        ToggleGroupAnimation.Spring -> motion.spatialDefault()
+        ToggleGroupAnimation.Tween -> motion.effectsDefault()
+        ToggleGroupAnimation.None -> snap()
     }

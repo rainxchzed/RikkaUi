@@ -2,7 +2,6 @@ package zed.rainxch.rikkaui.components.ui.pagination
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -366,11 +365,7 @@ private fun resolveAnimationModifier(
         PaginationAnimation.Scale -> {
             val scale by animateFloatAsState(
                 targetValue = if (isActive) 1.1f else 1f,
-                animationSpec =
-                    spring(
-                        dampingRatio = motion.springDefault.let { 0.6f },
-                        stiffness = motion.springDefault.let { 400f },
-                    ),
+                animationSpec = motion.spatialDefault(),
             )
             Modifier.graphicsLayer {
                 scaleX = scale
