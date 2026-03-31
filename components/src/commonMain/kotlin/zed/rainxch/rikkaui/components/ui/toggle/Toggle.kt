@@ -98,7 +98,7 @@ fun Toggle(
         targetValue = targetOffset,
         animationSpec =
             when (animation) {
-                ToggleAnimation.Spring -> motion.springDefaultDp
+                ToggleAnimation.Spring -> motion.spatialDefault()
                 ToggleAnimation.Tween -> tween(motion.durationDefault)
                 ToggleAnimation.None -> snap()
             },

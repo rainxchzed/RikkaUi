@@ -6,7 +6,6 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
-import androidx.compose.ui.unit.Dp
 
 /**
  * RikkaMotion defines the animation token system for the design system.
@@ -18,6 +17,16 @@ import androidx.compose.ui.unit.Dp
  * This is something shadcn/ui **can't do**. Web CSS transitions are limited
  * to duration + easing. We have full spring physics, velocity preservation
  * on interruption, and per-component overrides.
+ *
+ * ### Motion categories (inspired by M3 MotionScheme)
+ *
+ * Animations are split into two categories:
+ * - **Spatial**: Position, size, scale. Springs handle interruptions gracefully.
+ * - **Effects**: Color, opacity, alpha. Tweens give predictable durations.
+ *
+ * Factory methods like [spatialDefault] and [effectsDefault] return generic
+ * `AnimationSpec<T>`, so they work with any type (Float, Dp, Color, etc.)
+ * without duplication.
  *
  * ### Customization levels
  *
@@ -41,61 +50,47 @@ import androidx.compose.ui.unit.Dp
  * **3. Full override:**
  * ```
  * val motion = RikkaMotion(
- *     springDefault = spring(stiffness = 500f, dampingRatio = 0.7f),
- *     springBouncy = spring(stiffness = 200f, dampingRatio = 0.4f),
+ *     spatialDampingDefault = Spring.DampingRatioMediumBouncy,
+ *     spatialStiffnessDefault = Spring.StiffnessMediumLow,
  *     ...
  * )
  * ```
  *
  * Design principles:
  * - **Spring first**: Springs handle interruptions gracefully.
- * - **Tween for color**: Predictable duration for color transitions.
+ * - **Tween for effects**: Predictable duration for color/opacity transitions.
  * - **graphicsLayer for transforms**: Skip composition + layout phases.
  *
- * @param springDefault Default spring. Medium bouncy, medium-low stiffness.
- * @param springBouncy Gentle spring for playful interactions.
- * @param springSnap Snappy spring for instant transitions.
- * @param tweenFast Fast tween (100ms) for micro-interactions.
- * @param tweenDefault Standard tween (150ms) for color/opacity.
- * @param tweenSlow Slow tween (250ms) for larger transitions.
- * @param tweenEnter Enter/exit tween (200ms).
- * @param durationFast Fast duration in ms.
- * @param durationDefault Default duration in ms.
- * @param durationSlow Slow duration in ms.
+ * @param spatialDampingDefault Damping ratio for default spatial spring.
+ * @param spatialStiffnessDefault Stiffness for default spatial spring.
+ * @param spatialDampingBouncy Damping ratio for bouncy spatial spring.
+ * @param spatialStiffnessBouncy Stiffness for bouncy spatial spring.
+ * @param spatialDampingSnap Damping ratio for snap spatial spring.
+ * @param spatialStiffnessSnap Stiffness for snap spatial spring.
+ * @param durationFast Fast duration in ms (micro-interactions).
+ * @param durationDefault Default duration in ms (color/opacity).
+ * @param durationSlow Slow duration in ms (larger transitions).
  * @param durationEnter Enter/exit duration in ms.
- * @param springDefaultDp Default Dp spring for position/size animations.
- * @param springBouncyDp Bouncy Dp spring for position animations.
- * @param pressScaleSubtle Subtle press scale (0.97).
- * @param pressScaleBouncy Noticeable press scale (0.93).
- * @param overlayScaleIn Scale factor for overlay enter animations (dialogs, sheets, hover cards).
- * @param toastScaleIn Scale factor for toast enter animation.
- * @param hoverAlpha Alpha shift applied on hover for interactive feedback.
- * @param pressAlpha Alpha shift applied on press for interactive feedback.
  * @param durationInstant Zero-duration for intentionally instant transitions.
  * @param durationSpin Full-rotation cycle duration for spinning indicators.
  * @param durationPulse Full-cycle duration for pulsing/breathing animations.
+ * @param pressScaleSubtle Subtle press scale (0.97).
+ * @param pressScaleBouncy Noticeable press scale (0.93).
+ * @param overlayScaleIn Scale factor for overlay enter animations.
+ * @param toastScaleIn Scale factor for toast enter animation.
+ * @param hoverAlpha Alpha shift applied on hover for interactive feedback.
+ * @param pressAlpha Alpha shift applied on press for interactive feedback.
  */
 @Immutable
 data class RikkaMotion(
-    val springDefault: AnimationSpec<Float> =
-        spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessMediumLow,
-        ),
-    val springBouncy: AnimationSpec<Float> =
-        spring(
-            dampingRatio = Spring.DampingRatioLowBouncy,
-            stiffness = Spring.StiffnessLow,
-        ),
-    val springSnap: AnimationSpec<Float> =
-        spring(
-            dampingRatio = Spring.DampingRatioNoBouncy,
-            stiffness = Spring.StiffnessHigh,
-        ),
-    val tweenFast: AnimationSpec<Float> = tween(durationMillis = 100),
-    val tweenDefault: AnimationSpec<Float> = tween(durationMillis = 150),
-    val tweenSlow: AnimationSpec<Float> = tween(durationMillis = 250),
-    val tweenEnter: AnimationSpec<Float> = tween(durationMillis = 200),
+    // ─── Spatial spring parameters (position, size, scale) ───
+    val spatialDampingDefault: Float = Spring.DampingRatioMediumBouncy,
+    val spatialStiffnessDefault: Float = Spring.StiffnessMediumLow,
+    val spatialDampingBouncy: Float = Spring.DampingRatioLowBouncy,
+    val spatialStiffnessBouncy: Float = Spring.StiffnessLow,
+    val spatialDampingSnap: Float = Spring.DampingRatioNoBouncy,
+    val spatialStiffnessSnap: Float = Spring.StiffnessHigh,
+    // ─── Effects durations (color, opacity, alpha) ───
     val durationFast: Int = 100,
     val durationDefault: Int = 150,
     val durationSlow: Int = 250,
@@ -103,23 +98,84 @@ data class RikkaMotion(
     val durationInstant: Int = 0,
     val durationSpin: Int = 800,
     val durationPulse: Int = 1000,
-    val springDefaultDp: AnimationSpec<Dp> =
-        spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessMediumLow,
-        ),
-    val springBouncyDp: AnimationSpec<Dp> =
-        spring(
-            dampingRatio = Spring.DampingRatioLowBouncy,
-            stiffness = Spring.StiffnessLow,
-        ),
+    // ─── Scale tokens ───
     val pressScaleSubtle: Float = 0.97f,
     val pressScaleBouncy: Float = 0.93f,
     val overlayScaleIn: Float = 0.95f,
     val toastScaleIn: Float = 0.8f,
+    // ─── Alpha tokens ───
     val hoverAlpha: Float = 0.85f,
     val pressAlpha: Float = 0.7f,
-)
+) {
+    // ─── Spatial factory methods (generic — works with Float, Dp, etc.) ───
+
+    /**
+     * Default spatial spring. Medium bouncy, medium-low stiffness.
+     * Use for most position/size/scale animations.
+     */
+    fun <T> spatialDefault(): AnimationSpec<T> = spring(dampingRatio = spatialDampingDefault, stiffness = spatialStiffnessDefault)
+
+    /**
+     * Bouncy spatial spring. Playful, exaggerated motion.
+     * Use for delightful interactions (toggles, expand/collapse).
+     */
+    fun <T> spatialBouncy(): AnimationSpec<T> = spring(dampingRatio = spatialDampingBouncy, stiffness = spatialStiffnessBouncy)
+
+    /**
+     * Snap spatial spring. Instant, no-bounce.
+     * Use for quick snapping (selection indicators, tabs).
+     */
+    fun <T> spatialSnap(): AnimationSpec<T> = spring(dampingRatio = spatialDampingSnap, stiffness = spatialStiffnessSnap)
+
+    // ─── Effects factory methods (generic — works with Float, Color, etc.) ───
+
+    /**
+     * Fast effects tween (100ms default). Micro-interactions.
+     * Use for hover state color changes.
+     */
+    fun <T> effectsFast(): AnimationSpec<T> = tween(durationMillis = durationFast)
+
+    /**
+     * Default effects tween (150ms default). Standard color/opacity.
+     * Use for most color and alpha transitions.
+     */
+    fun <T> effectsDefault(): AnimationSpec<T> = tween(durationMillis = durationDefault)
+
+    /**
+     * Slow effects tween (250ms default). Larger transitions.
+     * Use for page-level color changes, theme switching.
+     */
+    fun <T> effectsSlow(): AnimationSpec<T> = tween(durationMillis = durationSlow)
+
+    /**
+     * Enter/exit effects tween (200ms default).
+     * Use for element appear/disappear animations.
+     */
+    fun <T> effectsEnter(): AnimationSpec<T> = tween(durationMillis = durationEnter)
+
+    // ─── Backward-compatible pre-built specs (Float) ───
+
+    /** @see spatialDefault */
+    val springDefault: AnimationSpec<Float> get() = spatialDefault()
+
+    /** @see spatialBouncy */
+    val springBouncy: AnimationSpec<Float> get() = spatialBouncy()
+
+    /** @see spatialSnap */
+    val springSnap: AnimationSpec<Float> get() = spatialSnap()
+
+    /** @see effectsFast */
+    val tweenFast: AnimationSpec<Float> get() = effectsFast()
+
+    /** @see effectsDefault */
+    val tweenDefault: AnimationSpec<Float> get() = effectsDefault()
+
+    /** @see effectsSlow */
+    val tweenSlow: AnimationSpec<Float> get() = effectsSlow()
+
+    /** @see effectsEnter */
+    val tweenEnter: AnimationSpec<Float> get() = effectsEnter()
+}
 
 val LocalRikkaMotion =
     staticCompositionLocalOf<RikkaMotion> {
@@ -147,21 +203,12 @@ object RikkaMotionPresets {
      */
     fun snappy(): RikkaMotion =
         RikkaMotion(
-            springDefault =
-                spring(
-                    dampingRatio = Spring.DampingRatioNoBouncy,
-                    stiffness = Spring.StiffnessHigh,
-                ),
-            springBouncy =
-                spring(
-                    dampingRatio = Spring.DampingRatioNoBouncy,
-                    stiffness = Spring.StiffnessMedium,
-                ),
-            springSnap =
-                spring(
-                    dampingRatio = Spring.DampingRatioNoBouncy,
-                    stiffness = Spring.StiffnessHigh,
-                ),
+            spatialDampingDefault = Spring.DampingRatioNoBouncy,
+            spatialStiffnessDefault = Spring.StiffnessHigh,
+            spatialDampingBouncy = Spring.DampingRatioNoBouncy,
+            spatialStiffnessBouncy = Spring.StiffnessMedium,
+            spatialDampingSnap = Spring.DampingRatioNoBouncy,
+            spatialStiffnessSnap = Spring.StiffnessHigh,
             durationFast = 80,
             durationDefault = 120,
             durationSlow = 180,
@@ -169,20 +216,6 @@ object RikkaMotionPresets {
             durationInstant = 0,
             durationSpin = 600,
             durationPulse = 800,
-            tweenFast = tween(durationMillis = 80),
-            tweenDefault = tween(durationMillis = 120),
-            tweenSlow = tween(durationMillis = 180),
-            tweenEnter = tween(durationMillis = 150),
-            springDefaultDp =
-                spring(
-                    dampingRatio = Spring.DampingRatioNoBouncy,
-                    stiffness = Spring.StiffnessHigh,
-                ),
-            springBouncyDp =
-                spring(
-                    dampingRatio = Spring.DampingRatioNoBouncy,
-                    stiffness = Spring.StiffnessMedium,
-                ),
             pressScaleSubtle = 0.98f,
             pressScaleBouncy = 0.95f,
             overlayScaleIn = 0.96f,
@@ -197,21 +230,12 @@ object RikkaMotionPresets {
      */
     fun playful(): RikkaMotion =
         RikkaMotion(
-            springDefault =
-                spring(
-                    dampingRatio = Spring.DampingRatioLowBouncy,
-                    stiffness = Spring.StiffnessLow,
-                ),
-            springBouncy =
-                spring(
-                    dampingRatio = Spring.DampingRatioHighBouncy,
-                    stiffness = Spring.StiffnessLow,
-                ),
-            springSnap =
-                spring(
-                    dampingRatio = Spring.DampingRatioMediumBouncy,
-                    stiffness = Spring.StiffnessMedium,
-                ),
+            spatialDampingDefault = Spring.DampingRatioLowBouncy,
+            spatialStiffnessDefault = Spring.StiffnessLow,
+            spatialDampingBouncy = Spring.DampingRatioHighBouncy,
+            spatialStiffnessBouncy = Spring.StiffnessLow,
+            spatialDampingSnap = Spring.DampingRatioMediumBouncy,
+            spatialStiffnessSnap = Spring.StiffnessMedium,
             durationFast = 120,
             durationDefault = 200,
             durationSlow = 350,
@@ -219,20 +243,6 @@ object RikkaMotionPresets {
             durationInstant = 0,
             durationSpin = 1000,
             durationPulse = 1400,
-            tweenFast = tween(durationMillis = 120),
-            tweenDefault = tween(durationMillis = 200),
-            tweenSlow = tween(durationMillis = 350),
-            tweenEnter = tween(durationMillis = 250),
-            springDefaultDp =
-                spring(
-                    dampingRatio = Spring.DampingRatioLowBouncy,
-                    stiffness = Spring.StiffnessLow,
-                ),
-            springBouncyDp =
-                spring(
-                    dampingRatio = Spring.DampingRatioHighBouncy,
-                    stiffness = Spring.StiffnessLow,
-                ),
             pressScaleSubtle = 0.95f,
             pressScaleBouncy = 0.88f,
             overlayScaleIn = 0.92f,
@@ -247,21 +257,12 @@ object RikkaMotionPresets {
      */
     fun minimal(): RikkaMotion =
         RikkaMotion(
-            springDefault =
-                spring(
-                    dampingRatio = Spring.DampingRatioNoBouncy,
-                    stiffness = Spring.StiffnessMedium,
-                ),
-            springBouncy =
-                spring(
-                    dampingRatio = Spring.DampingRatioNoBouncy,
-                    stiffness = Spring.StiffnessMediumLow,
-                ),
-            springSnap =
-                spring(
-                    dampingRatio = Spring.DampingRatioNoBouncy,
-                    stiffness = Spring.StiffnessHigh,
-                ),
+            spatialDampingDefault = Spring.DampingRatioNoBouncy,
+            spatialStiffnessDefault = Spring.StiffnessMedium,
+            spatialDampingBouncy = Spring.DampingRatioNoBouncy,
+            spatialStiffnessBouncy = Spring.StiffnessMediumLow,
+            spatialDampingSnap = Spring.DampingRatioNoBouncy,
+            spatialStiffnessSnap = Spring.StiffnessHigh,
             durationFast = 60,
             durationDefault = 100,
             durationSlow = 150,
@@ -269,20 +270,6 @@ object RikkaMotionPresets {
             durationInstant = 0,
             durationSpin = 700,
             durationPulse = 900,
-            tweenFast = tween(durationMillis = 60),
-            tweenDefault = tween(durationMillis = 100),
-            tweenSlow = tween(durationMillis = 150),
-            tweenEnter = tween(durationMillis = 120),
-            springDefaultDp =
-                spring(
-                    dampingRatio = Spring.DampingRatioNoBouncy,
-                    stiffness = Spring.StiffnessMedium,
-                ),
-            springBouncyDp =
-                spring(
-                    dampingRatio = Spring.DampingRatioNoBouncy,
-                    stiffness = Spring.StiffnessMediumLow,
-                ),
             pressScaleSubtle = 0.99f,
             pressScaleBouncy = 0.97f,
             overlayScaleIn = 0.97f,
