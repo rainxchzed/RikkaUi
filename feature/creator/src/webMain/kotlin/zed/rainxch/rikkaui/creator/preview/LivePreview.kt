@@ -44,6 +44,7 @@ import zed.rainxch.rikkaui.components.ui.textarea.Textarea
 import zed.rainxch.rikkaui.components.ui.toggle.Toggle
 import zed.rainxch.rikkaui.creator.fonts.availableFonts
 import zed.rainxch.rikkaui.creator.fonts.resolvePreviewFontFamily
+import zed.rainxch.rikkaui.creator.presentation.FontIds
 import zed.rainxch.rikkaui.creator.preview.examples.ExampleActivityLog
 import zed.rainxch.rikkaui.creator.preview.examples.ExampleApiKeyManager
 import zed.rainxch.rikkaui.creator.preview.examples.ExampleBookAppointment
@@ -89,7 +90,7 @@ fun LivePreview(
     palette: RikkaPalette,
     accent: RikkaAccentPreset,
     isDark: Boolean,
-    fontId: String = "inter",
+    fontId: String = FontIds.INTER,
     modifier: Modifier = Modifier,
 ) {
     val baseColors = resolvePalette(palette, isDark)

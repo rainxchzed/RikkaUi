@@ -8,7 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import kotlinx.browser.window
-import zed.rainxch.rikkaui.creator.DesignSystemCreatorPage
+import zed.rainxch.rikkaui.creator.presentation.CreatorRoute
 import zed.rainxch.rikkaui.docs.catalog.guidePageIds
 import zed.rainxch.rikkaui.docs.presentation.DocsRoute
 import zed.rainxch.rikkaui.navigation.AppNavGraph.ComponentDetailRoute
@@ -47,7 +47,7 @@ fun AppNavigation(navController: NavHostController) {
         }
 
         composable<CreatorRoute> {
-            DesignSystemCreatorPage()
+            CreatorRoute()
         }
 
         composable<DocsRoute> {

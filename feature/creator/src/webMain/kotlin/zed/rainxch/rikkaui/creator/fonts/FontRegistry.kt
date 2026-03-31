@@ -6,6 +6,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import org.jetbrains.compose.resources.Font
 import rikkaui.feature.creator.generated.resources.*
+import zed.rainxch.rikkaui.creator.presentation.FontIds
 import zed.rainxch.rikkaui.foundation.RikkaFontFamily
 import zed.rainxch.rikkaui.foundation.rememberRikkaFontFamily
 
@@ -36,7 +37,7 @@ private val FULL_WEIGHTS =
 /** All available font families for the Design System Creator. */
 val availableFonts: List<FontEntry> =
     listOf(
-        FontEntry("Inter", "inter", FULL_WEIGHTS),
+        FontEntry("Inter", FontIds.INTER, FULL_WEIGHTS),
         FontEntry("DM Sans", "dm_sans", FULL_WEIGHTS),
         FontEntry(
             "Lato",
@@ -99,7 +100,7 @@ val availableFonts: List<FontEntry> =
  */
 @Composable
 fun resolvePreviewFontFamily(id: String): RikkaFontFamily {
-    if (id == "inter") {
+    if (id == FontIds.INTER) {
         return rememberRikkaFontFamily(
             light = Res.font.inter_light,
             regular = Res.font.inter_regular,
