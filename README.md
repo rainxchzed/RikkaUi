@@ -71,11 +71,23 @@ RikkaTheme {
 > Works out of the box for native Android projects — no KMP setup needed.
 > For Compose Multiplatform, add to your `commonMain` source set.
 
-**Option 2 — Copy-paste** *(Coming soon, full ownership, recommended)*
+**Option 2 — CLI** *(copy-paste with a command, full ownership)*
 
-Browse components at [rikkaui.dev](https://www.rikkaui.dev), copy any component directly into your project. You own the source. No version conflicts, no breaking updates, no opinions you can't change.
+```bash
+curl -fsSL https://rikkaui.dev/install.sh | bash
+```
 
-Only `foundation` is required as a Gradle dependency — it provides the theme system your components build on.
+Then in your project:
+
+```bash
+rikkaui init    # set up your project for RikkaUI
+rikkaui add button card input   # copy components into your source
+rikkaui list    # browse all available components
+```
+
+Components are copied directly into your source. You own the code — no version conflicts, no breaking updates, no opinions you can't change.
+
+Only `foundation` is required as a Gradle dependency — it provides the theme system your copied components build on.
 
 ---
 
@@ -84,27 +96,49 @@ Only `foundation` is required as a Gradle dependency — it provides the theme s
 One line changes your entire app's personality:
 
 ```kotlin
-RikkaTheme(preset = RikkaStylePreset.Default)  // Balanced
-RikkaTheme(preset = RikkaStylePreset.Nova)     // Sharp & dense
-RikkaTheme(preset = RikkaStylePreset.Vega)     // Rounded & bouncy
-RikkaTheme(preset = RikkaStylePreset.Aurora)   // Spacious & large
-RikkaTheme(preset = RikkaStylePreset.Nebula)   // Square & tight
+// Style presets — shapes, spacing, motion, type scale
+RikkaTheme(preset = RikkaStylePreset.Default) { }  // Balanced
+RikkaTheme(preset = RikkaStylePreset.Nova) { }     // Sharp & dense
+RikkaTheme(preset = RikkaStylePreset.Vega) { }     // Rounded & bouncy
+RikkaTheme(preset = RikkaStylePreset.Aurora) { }   // Spacious & large
+RikkaTheme(preset = RikkaStylePreset.Nebula) { }   // Square & tight
+
+// Color palettes
+RikkaTheme(palette = RikkaPalette.Zinc) { }    // Pure & clean
+RikkaTheme(palette = RikkaPalette.Slate) { }   // Cool blue tint
+RikkaTheme(palette = RikkaPalette.Stone) { }   // Warm earth tint
+
+// Or just the defaults
+RikkaTheme { }
 ```
 
 5 palettes × 7 accent colors × light/dark mode. Every token is overridable.
-Try it interactively at [rikkaui.dev/create](https://www.rikkaui.dev/create).
+
+**Implicit color propagation** — Components automatically inherit the right foreground color via `LocalContentColor`. Icons, text, and spinners inside a Button just work:
+
+```kotlin
+Button(onClick = { }) {
+    Icon(RikkaIcons.Send)  // automatically uses button's foreground color
+    Text("Send")           // same — no manual color passing needed
+}
+```
+
+Try the theme system interactively at [rikkaui.dev](https://www.rikkaui.dev).
 
 ---
 
 ## Components
 
+40+ components, all built on `compose.foundation` only.
+
 | Category | Components |
 |----------|------------|
-| Layout | Card, Separator, Scaffold, Scroll Area, Accordion, Collapsible |
-| Forms | Button, Input, Textarea, Select, Checkbox, Radio, Toggle, Slider, Label |
-| Data Display | Text, Badge, Avatar, Progress, Tooltip |
-| Navigation | Tabs, Bottom Navigation |
-| Feedback | Dialog, Bottom Sheet, Snackbar, Loading |
+| Layout | Card, Separator, Scaffold, Scroll Area, Accordion, Collapsible, Table, List |
+| Forms | Button, Icon Button, Input, Textarea, Select, Checkbox, Radio, Toggle, Toggle Group, Slider, Label |
+| Data Display | Text, Badge, Avatar, Progress, Skeleton, Spinner, Kbd, Icon |
+| Navigation | Tabs, Navigation Bar, Top App Bar, Breadcrumb, Pagination |
+| Feedback | Dialog, Alert Dialog, Sheet, Toast, Alert, Tooltip, Popover, Hover Card |
+| Overlay | Dropdown Menu, Context Menu |
 
 Full docs and live previews at [rikkaui.dev](https://www.rikkaui.dev).
 
