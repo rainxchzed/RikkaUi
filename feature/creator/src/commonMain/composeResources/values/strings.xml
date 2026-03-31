@@ -4,7 +4,7 @@
     <!-- ConfigPanel                                             -->
     <!-- ════════════════════════════════════════════════════════ -->
     <string name="config_title">Create Your Design System</string>
-    <string name="config_description">Configure your theme and preview it live. When you\'re happy, download the generated code.</string>
+    <string name="config_description">Configure your theme and preview it live. When you're happy, download the generated code.</string>
     <string name="config_label_style">Style</string>
     <string name="config_label_base_color">Base Color</string>
     <string name="config_label_accent">Accent</string>
@@ -214,7 +214,7 @@
 
     <!-- ExampleCards2 — Chat / Messages -->
     <string name="example_chat_title">Messages</string>
-    <string name="example_chat_msg1">Hey, how\'s the project going?</string>
+    <string name="example_chat_msg1">Hey, how's the project going?</string>
     <string name="example_chat_msg2">Did you push the latest changes?</string>
     <string name="example_chat_msg3">Yes! Just deployed to staging.</string>
     <string name="example_chat_input_placeholder">Type a message...</string>
@@ -278,7 +278,7 @@
 
     <!-- ExampleCards2 — Onboarding -->
     <string name="example_onboarding_title">Welcome to RikkaUI</string>
-    <string name="example_onboarding_description">Let\'s get you set up in a few steps.</string>
+    <string name="example_onboarding_description">Let's get you set up in a few steps.</string>
     <string name="example_onboarding_step1">Create your project</string>
     <string name="example_onboarding_step2">Configure theme</string>
     <string name="example_onboarding_step3">Add components</string>

@@ -371,7 +371,7 @@
     <string name="badge_prop_size_desc">Size preset: Sm, Default, Lg.</string>
 
     <!-- ─── Breadcrumb Page ──────────────────────────────────── -->
-    <string name="breadcrumb_page_desc">Displays the user\'s current location in a page hierarchy with clickable navigation links.</string>
+    <string name="breadcrumb_page_desc">Displays the user's current location in a page hierarchy with clickable navigation links.</string>
     <string name="breadcrumb_section_basic">Basic Usage</string>
     <string name="breadcrumb_section_data_driven">Data-Driven</string>
     <string name="breadcrumb_section_ellipsis">Ellipsis Collapsing</string>
