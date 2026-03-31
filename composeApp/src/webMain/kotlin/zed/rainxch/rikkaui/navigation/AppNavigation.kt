@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalWasmJsInterop::class)
+
 package zed.rainxch.rikkaui.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,12 +15,8 @@ import androidx.navigation.toRoute
 import kotlinx.browser.window
 import zed.rainxch.rikkaui.creator.presentation.CreatorRoute
 import zed.rainxch.rikkaui.docs.catalog.guidePageIds
+import zed.rainxch.rikkaui.docs.presentation.ComponentsCatalogScreen
 import zed.rainxch.rikkaui.docs.presentation.DocsRoute
-import zed.rainxch.rikkaui.navigation.AppNavGraph.ComponentDetailRoute
-import zed.rainxch.rikkaui.navigation.AppNavGraph.CreatorRoute
-import zed.rainxch.rikkaui.navigation.AppNavGraph.DocsGuideRoute
-import zed.rainxch.rikkaui.navigation.AppNavGraph.DocsRoute
-import zed.rainxch.rikkaui.navigation.AppNavGraph.HomeRoute
 import zed.rainxch.rikkaui.showcase.ShowcaseRoute
 
 private fun updateDocsHash(pageId: String) {
@@ -34,17 +32,14 @@ private fun updateDocsHash(pageId: String) {
 @Composable
 fun AppNavigation(
     navController: NavHostController,
-    initialRoute: Any = HomeRoute,
+    initialRoute: AppNavGraph = AppNavGraph.HomeRoute,
 ) {
-    // Navigate to the deep-linked route on first composition.
-    // startDestination is always HomeRoute (required for the graph root),
-    // but if the URL hash pointed elsewhere we immediately navigate there.
     val hasNavigated = remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {
-        if (!hasNavigated.value && initialRoute != HomeRoute) {
+        if (!hasNavigated.value && initialRoute != AppNavGraph.HomeRoute) {
             hasNavigated.value = true
             navController.navigate(initialRoute) {
-                popUpTo<HomeRoute> { inclusive = true }
+                popUpTo<AppNavGraph.HomeRoute> { inclusive = true }
                 launchSingleTop = true
             }
         }
@@ -52,38 +47,48 @@ fun AppNavigation(
 
     NavHost(
         navController = navController,
-        startDestination = HomeRoute,
+        startDestination = AppNavGraph.HomeRoute,
         modifier = Modifier.fillMaxSize(),
     ) {
-        composable<HomeRoute> {
+        composable<AppNavGraph.HomeRoute> {
             ShowcaseRoute(
                 onNavigateToCreator = {
-                    navController.navigate(CreatorRoute)
+                    navController.navigate(AppNavGraph.CreatorRoute)
                 },
                 onNavigateToComponents = {
-                    navController.navigate(DocsRoute)
+                    navController.navigate(AppNavGraph.ComponentsCatalogRoute)
                 },
             )
         }
 
-        composable<CreatorRoute> {
+        composable<AppNavGraph.ComponentsCatalogRoute> {
+            ComponentsCatalogScreen(
+                onComponentClick = { componentId ->
+                    navController.navigate(
+                        AppNavGraph.ComponentDetailRoute(componentId),
+                    )
+                },
+            )
+        }
+
+        composable<AppNavGraph.CreatorRoute> {
             CreatorRoute()
         }
 
-        composable<DocsRoute> {
+        composable<AppNavGraph.DocsRoute> {
             DocsRoute(onPageSelected = ::updateDocsHash)
         }
 
-        composable<DocsGuideRoute> { backStackEntry ->
-            val route: DocsGuideRoute = backStackEntry.toRoute()
+        composable<AppNavGraph.DocsGuideRoute> { backStackEntry ->
+            val route: AppNavGraph.DocsGuideRoute = backStackEntry.toRoute()
             DocsRoute(
                 initialComponentId = route.guideId,
                 onPageSelected = ::updateDocsHash,
             )
         }
 
-        composable<ComponentDetailRoute> { backStackEntry ->
-            val route: ComponentDetailRoute = backStackEntry.toRoute()
+        composable<AppNavGraph.ComponentDetailRoute> { backStackEntry ->
+            val route: AppNavGraph.ComponentDetailRoute = backStackEntry.toRoute()
             DocsRoute(
                 initialComponentId = route.componentId,
                 onPageSelected = ::updateDocsHash,

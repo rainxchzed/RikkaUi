@@ -4,6 +4,11 @@
     <string name="docs_getting_started">Getting Started</string>
     <string name="docs_components">Components</string>
 
+    <!-- ─── Components Catalog Page ────────────────────────────── -->
+    <string name="catalog_title">Components</string>
+    <string name="catalog_subtitle">Browse all %1$d components built with Compose Foundation. No Material3. Copy, paste, own.</string>
+    <string name="catalog_component_count">%1$d components</string>
+
     <!-- ─── Categories ───────────────────────────────────────── -->
     <string name="category_layout">Layout</string>
     <string name="category_forms">Forms</string>

@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 
 object RoutePaths {
     const val HOME = "home"
+    const val COMPONENTS = "components"
     const val CREATE = "create"
     const val DOCS = "docs"
     const val DOCS_GUIDE = "docs/guide"
@@ -18,6 +19,10 @@ sealed class AppNavGraph {
     @Serializable
     @SerialName(RoutePaths.HOME)
     data object HomeRoute : AppNavGraph()
+
+    @Serializable
+    @SerialName(RoutePaths.COMPONENTS)
+    data object ComponentsCatalogRoute : AppNavGraph()
 
     @Serializable
     @SerialName(RoutePaths.CREATE)
