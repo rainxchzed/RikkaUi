@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -24,6 +25,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.LocalContentColor
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Variant ───────────────────────────────────────────────
@@ -97,9 +99,14 @@ fun ToggleGroupItem(
     // ─── Resolve animation spec ───────────────────────────
     val colorAnimSpec: AnimationSpec<Color> = resolveAnimSpec(animation, motion)
 
-    // ─── Animated background (from theme motion tokens) ──
+    // ─── Animated colors (from theme motion tokens) ───────
     val animatedBackground by animateColorAsState(
         targetValue = resolved.background,
+        animationSpec = colorAnimSpec,
+    )
+
+    val animatedForeground by animateColorAsState(
+        targetValue = resolved.foreground,
         animationSpec = colorAnimSpec,
     )
 
@@ -138,7 +145,9 @@ fun ToggleGroupItem(
                 },
         contentAlignment = Alignment.Center,
     ) {
-        content()
+        CompositionLocalProvider(LocalContentColor provides animatedForeground) {
+            content()
+        }
     }
 }
 
@@ -153,23 +162,6 @@ fun ToggleGroupItem(
     selectedColor: Color = Color.Unspecified,
     unselectedColor: Color = Color.Unspecified,
 ) {
-    val resolved =
-        resolveColors(
-            variant = variant,
-            selected = selected,
-            selectedColorOverride = selectedColor,
-            unselectedColorOverride = unselectedColor,
-        )
-
-    // ─── Resolve animation spec for text color ────────────
-    val colorAnimSpec: AnimationSpec<Color> =
-        resolveAnimSpec(animation, RikkaTheme.motion)
-
-    val animatedForeground by animateColorAsState(
-        targetValue = resolved.foreground,
-        animationSpec = colorAnimSpec,
-    )
-
     ToggleGroupItem(
         selected = selected,
         onClick = onClick,
@@ -183,7 +175,6 @@ fun ToggleGroupItem(
         Text(
             text = text,
             variant = TextVariant.Small,
-            color = animatedForeground,
         )
     }
 }

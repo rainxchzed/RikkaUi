@@ -40,6 +40,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -65,6 +66,7 @@ import zed.rainxch.rikkaui.components.ui.icon.Icon
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.LocalContentColor
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
@@ -495,6 +497,7 @@ fun Toast(
                 .background(colors.popover, shapes.lg)
                 .clip(shapes.lg),
     ) {
+        CompositionLocalProvider(LocalContentColor provides colors.popoverForeground) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -530,7 +533,6 @@ fun Toast(
                 Text(
                     text = message,
                     variant = TextVariant.Small,
-                    color = colors.popoverForeground,
                     modifier = Modifier.weight(1f),
                 )
 
@@ -626,6 +628,7 @@ fun Toast(
                             .background(resolved.accent.takeIf { it != Color.Transparent } ?: colors.primary),
                 )
             }
+        }
         }
     }
 }
