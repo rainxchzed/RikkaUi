@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.foundation.LocalContentColor
+import zed.rainxch.rikkaui.foundation.LocalTextStyle
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Variant ────────────────────────────────────────────────
@@ -92,6 +93,7 @@ fun Alert(
 
     CompositionLocalProvider(
         LocalContentColor provides resolved.foreground,
+        LocalTextStyle provides RikkaTheme.typography.small,
     ) {
         if (icon != null) {
             Row(
