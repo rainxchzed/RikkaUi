@@ -12,11 +12,13 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -49,6 +51,46 @@ enum class ToggleSize {
     Sm,
 }
 
+// ─── Defaults ───────────────────────────────────────────────
+
+object ToggleDefaults {
+    @Composable
+    fun colors(): ToggleColorValues {
+        val c = RikkaTheme.colors
+        return ToggleColorValues(
+            checkedTrack = c.primary,
+            uncheckedTrack = c.input,
+            checkedThumb = c.primaryForeground,
+            uncheckedThumb = c.background,
+            disabledCheckedTrack = c.primary.copy(alpha = 0.5f),
+            disabledUncheckedTrack = c.input.copy(alpha = 0.5f),
+        )
+    }
+}
+
+@Immutable
+data class ToggleColorValues(
+    val checkedTrack: Color,
+    val uncheckedTrack: Color,
+    val checkedThumb: Color,
+    val uncheckedThumb: Color,
+    val disabledCheckedTrack: Color,
+    val disabledUncheckedTrack: Color,
+) {
+    fun trackColor(
+        checked: Boolean,
+        enabled: Boolean,
+    ): Color =
+        when {
+            !enabled && checked -> disabledCheckedTrack
+            !enabled -> disabledUncheckedTrack
+            checked -> checkedTrack
+            else -> uncheckedTrack
+        }
+
+    fun thumbColor(checked: Boolean): Color = if (checked) checkedThumb else uncheckedThumb
+}
+
 // ─── Component ──────────────────────────────────────────────
 
 @Composable
@@ -60,21 +102,15 @@ fun Toggle(
     animation: ToggleAnimation = ToggleAnimation.Spring,
     enabled: Boolean = true,
     label: String = "",
+    colors: ToggleColorValues = ToggleDefaults.colors(),
 ) {
     val interactionSource = remember { MutableInteractionSource() }
-    val colors = RikkaTheme.colors
     val motion = RikkaTheme.motion
 
     val sizeValues = resolveSizeValues(size)
 
     // ─── Resolve target values ───────────────────────────
-    val targetBgColor =
-        when {
-            !enabled && checked -> colors.primary.copy(alpha = 0.5f)
-            !enabled -> colors.input.copy(alpha = 0.5f)
-            checked -> colors.primary
-            else -> colors.input
-        }
+    val targetBgColor = colors.trackColor(checked, enabled)
 
     val targetOffset =
         if (checked) {
@@ -135,7 +171,7 @@ fun Toggle(
                     .size(sizeValues.thumbSize)
                     .clip(CircleShape)
                     .background(
-                        if (checked) colors.primaryForeground else colors.background,
+                        colors.thumbColor(checked),
                         CircleShape,
                     ),
         )
