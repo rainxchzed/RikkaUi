@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -25,6 +26,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import zed.rainxch.rikkaui.foundation.LocalContentColor
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Variant ────────────────────────────────────────────────
@@ -172,20 +174,24 @@ fun Card(
             Modifier
         }
 
-    Column(
-        modifier =
-            modifier
-                .then(semanticsModifier)
-                .then(animationModifier)
-                .then(shadowModifier)
-                .then(borderModifier)
-                .then(backgroundModifier)
-                .clip(shape)
-                .then(clickModifier)
-                .padding(RikkaTheme.spacing.lg),
-        verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
-        content = content,
-    )
+    CompositionLocalProvider(
+        LocalContentColor provides RikkaTheme.colors.cardForeground,
+    ) {
+        Column(
+            modifier =
+                modifier
+                    .then(semanticsModifier)
+                    .then(animationModifier)
+                    .then(shadowModifier)
+                    .then(borderModifier)
+                    .then(backgroundModifier)
+                    .clip(shape)
+                    .then(clickModifier)
+                    .padding(RikkaTheme.spacing.lg),
+            verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
+            content = content,
+        )
+    }
 }
 
 // ─── Structured Sections ────────────────────────────────────

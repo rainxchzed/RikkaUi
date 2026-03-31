@@ -415,6 +415,8 @@ data class RikkaAccentColor(
     val primary: Color,
     val primaryForeground: Color,
     val ring: Color,
+    val primaryHover: Color = Color.Unspecified,
+    val primaryPress: Color = Color.Unspecified,
 )
 
 /**
@@ -581,6 +583,8 @@ fun RikkaColors.withAccent(accent: RikkaAccentColor): RikkaColors =
         primary = accent.primary,
         primaryForeground = accent.primaryForeground,
         ring = accent.ring,
+        primaryHover = accent.primaryHover,
+        primaryPress = accent.primaryPress,
     )
 
 /**

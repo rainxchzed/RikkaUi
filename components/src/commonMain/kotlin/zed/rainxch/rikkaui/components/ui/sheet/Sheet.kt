@@ -29,6 +29,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -48,6 +49,7 @@ import androidx.compose.ui.window.Popup
 import kotlinx.coroutines.delay
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.LocalContentColor
 import zed.rainxch.rikkaui.foundation.RikkaMotion
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -173,26 +175,30 @@ fun Sheet(
                         }
                     }
 
-                Column(
-                    modifier =
-                        modifier
-                            .then(sizeModifier)
-                            .semantics(mergeDescendants = true) {
-                                paneTitle = label
-                                dismiss {
-                                    onDismiss()
-                                    true
-                                }
-                            }.then(borderModifier)
-                            .background(colors.card, panelShape)
-                            .clip(panelShape)
-                            .padding(spacing.xl),
-                    verticalArrangement =
-                        Arrangement.spacedBy(
-                            spacing.md,
-                        ),
-                    content = content,
-                )
+                CompositionLocalProvider(
+                    LocalContentColor provides colors.cardForeground,
+                ) {
+                    Column(
+                        modifier =
+                            modifier
+                                .then(sizeModifier)
+                                .semantics(mergeDescendants = true) {
+                                    paneTitle = label
+                                    dismiss {
+                                        onDismiss()
+                                        true
+                                    }
+                                }.then(borderModifier)
+                                .background(colors.card, panelShape)
+                                .clip(panelShape)
+                                .padding(spacing.xl),
+                        verticalArrangement =
+                            Arrangement.spacedBy(
+                                spacing.md,
+                            ),
+                        content = content,
+                    )
+                }
             }
 
             if (!open) {

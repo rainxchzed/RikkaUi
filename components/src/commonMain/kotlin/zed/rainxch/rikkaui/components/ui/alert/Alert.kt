@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,6 +28,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.LocalContentColor
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Variant ────────────────────────────────────────────────
@@ -88,31 +90,35 @@ fun Alert(
             .clip(shape)
             .padding(RikkaTheme.spacing.lg)
 
-    if (icon != null) {
-        Row(
-            modifier = baseModifier,
-            horizontalArrangement =
-                Arrangement.spacedBy(
-                    RikkaTheme.spacing.md,
-                ),
-            verticalAlignment = Alignment.Top,
-        ) {
-            Box(
-                modifier =
-                    Modifier
-                        .padding(top = 2.dp)
-                        .size(16.dp),
-                contentAlignment = Alignment.Center,
+    CompositionLocalProvider(
+        LocalContentColor provides resolved.foreground,
+    ) {
+        if (icon != null) {
+            Row(
+                modifier = baseModifier,
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        RikkaTheme.spacing.md,
+                    ),
+                verticalAlignment = Alignment.Top,
             ) {
-                icon()
+                Box(
+                    modifier =
+                        Modifier
+                            .padding(top = 2.dp)
+                            .size(16.dp),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    icon()
+                }
+                Column(content = content)
             }
-            Column(content = content)
+        } else {
+            Column(
+                modifier = baseModifier,
+                content = content,
+            )
         }
-    } else {
-        Column(
-            modifier = baseModifier,
-            content = content,
-        )
     }
 }
 
@@ -202,6 +208,7 @@ private fun resolveAnimationModifier(animation: AlertAnimation): Modifier {
 private data class AlertColors(
     val background: Color,
     val border: Color,
+    val foreground: Color,
 )
 
 @Composable
@@ -213,6 +220,7 @@ private fun resolveColors(variant: AlertVariant): AlertColors {
             AlertColors(
                 background = colors.card,
                 border = colors.border,
+                foreground = colors.cardForeground,
             )
         }
 
@@ -220,6 +228,7 @@ private fun resolveColors(variant: AlertVariant): AlertColors {
             AlertColors(
                 background = colors.destructive.copy(alpha = 0.1f),
                 border = colors.destructive.copy(alpha = 0.3f),
+                foreground = colors.destructive,
             )
         }
     }

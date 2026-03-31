@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,6 +40,7 @@ import androidx.compose.ui.window.Popup
 import kotlinx.coroutines.delay
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.foundation.LocalContentColor
 import zed.rainxch.rikkaui.foundation.RikkaMotion
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -128,26 +130,30 @@ fun Dialog(
                 enter = cardEnter,
                 exit = cardExit,
             ) {
-                Column(
-                    modifier =
-                        modifier
-                            .widthIn(max = maxWidth)
-                            .semantics(mergeDescendants = true) {
-                                paneTitle = label
-                                dismiss {
-                                    onDismiss()
-                                    true
-                                }
-                            }.border(1.dp, colors.border, shapes.lg)
-                            .background(colors.card, shapes.lg)
-                            .clip(shapes.lg)
-                            .padding(spacing.xl),
-                    verticalArrangement =
-                        Arrangement.spacedBy(
-                            spacing.md,
-                        ),
-                    content = content,
-                )
+                CompositionLocalProvider(
+                    LocalContentColor provides colors.cardForeground,
+                ) {
+                    Column(
+                        modifier =
+                            modifier
+                                .widthIn(max = maxWidth)
+                                .semantics(mergeDescendants = true) {
+                                    paneTitle = label
+                                    dismiss {
+                                        onDismiss()
+                                        true
+                                    }
+                                }.border(1.dp, colors.border, shapes.lg)
+                                .background(colors.card, shapes.lg)
+                                .clip(shapes.lg)
+                                .padding(spacing.xl),
+                        verticalArrangement =
+                            Arrangement.spacedBy(
+                                spacing.md,
+                            ),
+                        content = content,
+                    )
+                }
             }
         }
 
