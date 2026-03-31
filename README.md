@@ -13,7 +13,7 @@
 <br/>
 
 <!-- Replace with an actual screenshot or GIF of your theme configurator -->
-<img src="docs/preview.png" width="80%" alt="RikkaUI component preview"/>
+<img src="docs/preview.png" width="90%" alt="RikkaUI component preview"/>
 
 <br/>
 <br/>
@@ -33,7 +33,7 @@
 
 <br/>
 
-[**Live Demo & Docs**](https://www.rikkaui.dev) &nbsp;&bull;&nbsp; [**Quick Start**](#-quick-start) &nbsp;&bull;&nbsp; [**Theming**](#-theme-system) &nbsp;&bull;&nbsp; [**Components**](#-components)
+[**Live Demo & Docs**](https://www.rikkaui.dev) &nbsp;&bull;&nbsp; [**Quick Start**](#quick-start) &nbsp;&bull;&nbsp; [**Theming**](#theme-system) &nbsp;&bull;&nbsp; [**Components**](#components)
 
 <br/>
 </div>
@@ -114,17 +114,6 @@ RikkaTheme { }
 
 5 palettes × 7 accent colors × light/dark mode. Every token is overridable.
 
-**Implicit color propagation** — Components automatically inherit the right foreground color via `LocalContentColor`. Icons, text, and spinners inside a Button just work:
-
-```kotlin
-Button(onClick = { }) {
-    Icon(RikkaIcons.Send)  // automatically uses button's foreground color
-    Text("Send")           // same — no manual color passing needed
-}
-```
-
-Try the theme system interactively at [rikkaui.dev](https://www.rikkaui.dev).
-
 ---
 
 ## Components
@@ -140,7 +129,7 @@ Try the theme system interactively at [rikkaui.dev](https://www.rikkaui.dev).
 | Feedback | Dialog, Alert Dialog, Sheet, Toast, Alert, Tooltip, Popover, Hover Card |
 | Overlay | Dropdown Menu, Context Menu |
 
-Full docs and live previews at [rikkaui.dev](https://www.rikkaui.dev).
+Full docs and live previews at [rikkaui.dev](https://www.rikkaui.dev/#docs/components).
 
 ---
 
@@ -155,12 +144,7 @@ Full docs and live previews at [rikkaui.dev](https://www.rikkaui.dev).
 
 ---
 
-## License
-
-Apache 2.0 — see [LICENSE](LICENSE).
-
 <div align="center">
-<br/>
 
 *RikkaUI (六花) — composing elements into harmony.*
 
