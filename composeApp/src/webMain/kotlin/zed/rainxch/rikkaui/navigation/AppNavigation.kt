@@ -1,6 +1,6 @@
 package zed.rainxch.rikkaui.navigation
 
-import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -14,21 +14,21 @@ import zed.rainxch.rikkaui.navigation.AppNavGraph.CreatorRoute
 import zed.rainxch.rikkaui.navigation.AppNavGraph.DocsGuideRoute
 import zed.rainxch.rikkaui.navigation.AppNavGraph.DocsRoute
 import zed.rainxch.rikkaui.navigation.AppNavGraph.HomeRoute
-import zed.rainxch.rikkaui.showcase.ShowcaseApp
+import zed.rainxch.rikkaui.showcase.ShowcaseRoute
 import zed.rainxch.rikkaui.theme.ThemeState
 
 @Composable
-fun ColumnScope.AppNavigation(
+fun AppNavigation(
     navController: NavHostController,
     themeState: ThemeState,
 ) {
     NavHost(
         navController = navController,
         startDestination = HomeRoute,
-        modifier = Modifier.weight(1f),
+        modifier = Modifier.fillMaxSize(),
     ) {
         composable<HomeRoute> {
-            ShowcaseApp(
+            ShowcaseRoute(
                 isDark = themeState.isDark,
                 onNavigateToCreator = {
                     navController.navigate(CreatorRoute)

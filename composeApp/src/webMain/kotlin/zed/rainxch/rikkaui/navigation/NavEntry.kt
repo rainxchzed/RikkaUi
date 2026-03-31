@@ -1,4 +1,4 @@
-package zed.rainxch.rikkaui.components.model
+package zed.rainxch.rikkaui.navigation
 
 import org.jetbrains.compose.resources.StringResource
 import rikkaui.composeapp.generated.resources.Res

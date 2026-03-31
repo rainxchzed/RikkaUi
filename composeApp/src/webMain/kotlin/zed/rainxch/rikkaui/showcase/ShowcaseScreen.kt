@@ -13,10 +13,6 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -27,24 +23,23 @@ import rikkaui.composeapp.generated.resources.components_in_action
 import rikkaui.composeapp.generated.resources.components_in_action_desc
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
-import zed.rainxch.rikkaui.foundation.RikkaAccentPreset
-import zed.rainxch.rikkaui.foundation.RikkaPalette
-import zed.rainxch.rikkaui.foundation.RikkaStylePreset
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 import zed.rainxch.rikkaui.foundation.rikkaTypography
+import zed.rainxch.rikkaui.showcase.components.ExamplesGrid
+import zed.rainxch.rikkaui.showcase.components.FooterSection
+import zed.rainxch.rikkaui.showcase.components.HeroSection
+import zed.rainxch.rikkaui.showcase.components.ThemeToolbar
 import zed.rainxch.rikkaui.utils.ThemeUtils
 import zed.rainxch.rikkaui.utils.WindowSizeClass
 
 @Composable
-fun ShowcaseApp(
+fun ShowcaseScreen(
+    state: ShowcaseState,
     isDark: Boolean,
+    onAction: (ShowcaseAction) -> Unit,
     onNavigateToCreator: () -> Unit,
     onNavigateToComponents: () -> Unit,
 ) {
-    var palette by remember { mutableStateOf(RikkaPalette.Zinc) }
-    var accent by remember { mutableStateOf(RikkaAccentPreset.Default) }
-    var stylePreset by remember { mutableStateOf(RikkaStylePreset.Default) }
-
     BoxWithConstraints(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.TopCenter,
@@ -96,26 +91,26 @@ fun ShowcaseApp(
                 horizontalArrangement = Arrangement.Center,
             ) {
                 ThemeToolbar(
-                    palette = palette,
-                    onPaletteChange = { palette = it },
-                    accent = accent,
-                    onAccentChange = { accent = it },
-                    stylePreset = stylePreset,
-                    onStyleChange = { stylePreset = it },
+                    palette = state.palette,
+                    onPaletteChange = { onAction(ShowcaseAction.ChangePalette(it)) },
+                    accent = state.accent,
+                    onAccentChange = { onAction(ShowcaseAction.ChangeAccent(it)) },
+                    stylePreset = state.stylePreset,
+                    onStyleChange = { onAction(ShowcaseAction.ChangeStylePreset(it)) },
                 )
             }
 
             Spacer(Modifier.height(RikkaTheme.spacing.xxl))
 
             RikkaTheme(
-                palette = palette,
-                accent = accent,
+                palette = state.palette,
+                accent = state.accent,
                 isDark = isDark,
-                preset = stylePreset,
+                preset = state.stylePreset,
                 typography =
                     rikkaTypography(
                         fontFamily = ThemeUtils.getFontFamily(),
-                        scale = stylePreset.typeScale,
+                        scale = state.stylePreset.typeScale,
                     ),
             ) {
                 ExamplesGrid(sizeClass)

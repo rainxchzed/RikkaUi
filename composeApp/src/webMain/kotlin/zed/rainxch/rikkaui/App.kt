@@ -1,14 +1,11 @@
 package zed.rainxch.rikkaui
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.ComposeViewport
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.initializer
@@ -17,8 +14,6 @@ import androidx.navigation.ExperimentalBrowserHistoryApi
 import androidx.navigation.NavController
 import androidx.navigation.bindToBrowserNavigation
 import androidx.navigation.compose.rememberNavController
-import androidx.compose.runtime.CompositionLocalProvider
-import zed.rainxch.rikkaui.components.TopNavBar
 import zed.rainxch.rikkaui.components.ui.scaffold.Scaffold
 import zed.rainxch.rikkaui.components.ui.toast.LocalToastHostState
 import zed.rainxch.rikkaui.components.ui.toast.ToastHost
@@ -28,18 +23,20 @@ import zed.rainxch.rikkaui.foundation.RikkaStylePreset
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 import zed.rainxch.rikkaui.foundation.rikkaTypography
 import zed.rainxch.rikkaui.navigation.AppNavigation
+import zed.rainxch.rikkaui.shell.TopNavBar
 import zed.rainxch.rikkaui.theme.ThemeAction
 import zed.rainxch.rikkaui.theme.ThemeViewModel
 import zed.rainxch.rikkaui.utils.ThemeUtils
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalBrowserHistoryApi::class)
-fun main() {
+fun main() =
     ComposeViewport {
         App(
-            onNavHostReady = { it.bindToBrowserNavigation() },
+            onNavHostReady = {
+                it.bindToBrowserNavigation()
+            },
         )
     }
-}
 
 @Composable
 private fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
@@ -85,18 +82,12 @@ private fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
                 toastHost = {
                     ToastHost(hostState = toastHostState)
                 },
+                containerColor = RikkaTheme.colors.background,
             ) { _ ->
-                Column(
-                    modifier =
-                        Modifier
-                            .fillMaxSize()
-                            .background(RikkaTheme.colors.background),
-                ) {
-                    AppNavigation(
-                        navController = navController,
-                        themeState = themeState,
-                    )
-                }
+                AppNavigation(
+                    navController = navController,
+                    themeState = themeState,
+                )
             }
         }
     }

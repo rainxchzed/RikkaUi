@@ -1,4 +1,4 @@
-package zed.rainxch.rikkaui.showcase
+package zed.rainxch.rikkaui.showcase.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth

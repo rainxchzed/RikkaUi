@@ -1,4 +1,4 @@
-package zed.rainxch.rikkaui.components
+package zed.rainxch.rikkaui.shell
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -19,7 +19,6 @@ import rikkaui.composeapp.generated.resources.Res
 import rikkaui.composeapp.generated.resources.app_name
 import rikkaui.composeapp.generated.resources.github
 import rikkaui.composeapp.generated.resources.toggle_dark_mode
-import zed.rainxch.rikkaui.components.model.NavEntry
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonSize
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
@@ -29,6 +28,7 @@ import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.navigation.NavEntry
 import zed.rainxch.rikkaui.navigation.AppNavGraph.HomeRoute
 
 @Composable
