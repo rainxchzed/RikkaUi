@@ -1,7 +1,6 @@
 package zed.rainxch.rikkaui.foundation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -9,13 +8,10 @@ import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.FontResource
 
 /**
- * RikkaFontFamily defines the font used across the entire design system.
+ * Creates a [FontFamily] from font resources with all required weights.
  *
- * Instead of hardcoding a specific font, the user provides their font files
- * and RikkaUi wires them into every typography style automatically.
- *
- * When downloading the design system from RikkaUi, users receive font files
- * (Inter by default) to drop into their `composeResources/font/` directory.
+ * This is the primary way to set up fonts. Provide your font files for each
+ * weight and the design system handles the rest.
  *
  * Usage:
  * ```
@@ -34,17 +30,6 @@ import org.jetbrains.compose.resources.FontResource
  *     // All Text and Button components now use Inter
  * }
  * ```
- */
-@Immutable
-data class RikkaFontFamily(
-    val fontFamily: FontFamily,
-)
-
-/**
- * Creates a [RikkaFontFamily] from font resources with all required weights.
- *
- * This is the primary way to set up fonts. Provide your font files for each
- * weight and the design system handles the rest.
  *
  * @param light FontResource for weight 300 (used in subtle/decorative text)
  * @param regular FontResource for weight 400 (body text, paragraphs)
@@ -61,7 +46,7 @@ fun rememberRikkaFontFamily(
     semiBold: FontResource,
     bold: FontResource,
     extraBold: FontResource,
-): RikkaFontFamily {
+): FontFamily {
     val family =
         FontFamily(
             Font(light, FontWeight.Light),
@@ -71,14 +56,5 @@ fun rememberRikkaFontFamily(
             Font(bold, FontWeight.Bold),
             Font(extraBold, FontWeight.ExtraBold),
         )
-    return remember(family) { RikkaFontFamily(fontFamily = family) }
+    return remember(family) { family }
 }
-
-/**
- * Default font family using system fonts.
- *
- * This is used when no custom fonts are provided.
- * For the best experience, use [rememberRikkaFontFamily] with Inter
- * or another font from the RikkaUi font collection.
- */
-val DefaultRikkaFontFamily = RikkaFontFamily(fontFamily = FontFamily.Default)

@@ -89,13 +89,6 @@ fun rikkaShapes(radius: Dp = 10.dp): RikkaShapes {
     )
 }
 
-/**
- * Default shape scale (10dp base radius).
- *
- * Equivalent to `rikkaShapes(radius = 10.dp)`.
- */
-fun defaultRikkaShapes(baseRadius: Float = 10f): RikkaShapes = rikkaShapes(radius = baseRadius.dp)
-
 // ─── Directional Shape Extensions ──────────────────────────
 
 private val zeroCorner = CornerSize(0.dp)

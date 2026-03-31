@@ -52,14 +52,6 @@ data class RikkaSpacing(
     val xxl: Dp,
     /** 3x extra large — page-level spacing, hero padding. */
     val xxxl: Dp,
-    /** No shadow elevation. Flat on surface. */
-    val elevationNone: Dp = 0.dp,
-    /** Subtle shadow — cards, low emphasis. */
-    val elevationLow: Dp = 2.dp,
-    /** Medium shadow — dropdowns, popovers. */
-    val elevationMedium: Dp = 4.dp,
-    /** Prominent shadow — dialogs, sheets, FABs. */
-    val elevationHigh: Dp = 8.dp,
 )
 
 val LocalRikkaSpacing =
@@ -87,10 +79,3 @@ fun rikkaSpacing(base: Dp = 4.dp): RikkaSpacing =
         xxl = base * 8,
         xxxl = base * 12,
     )
-
-/**
- * Default spacing scale (4dp base grid).
- *
- * Equivalent to `rikkaSpacing(base = 4.dp)`.
- */
-fun defaultRikkaSpacing(): RikkaSpacing = rikkaSpacing()

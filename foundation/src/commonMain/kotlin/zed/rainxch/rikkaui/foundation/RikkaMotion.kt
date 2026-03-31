@@ -185,11 +185,6 @@ val LocalRikkaMotion =
     }
 
 /**
- * Creates a default [RikkaMotion] with balanced animation tokens.
- */
-fun defaultRikkaMotion(): RikkaMotion = RikkaMotion()
-
-/**
  * Pre-built motion presets for common animation styles.
  *
  * ```

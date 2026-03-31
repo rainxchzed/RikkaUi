@@ -26,10 +26,11 @@ import zed.rainxch.rikkaui.foundation.modifier.LocalMinTouchTarget
 @Composable
 fun RikkaTheme(
     colors: RikkaColors = RikkaPalettes.NeutralLight,
-    typography: RikkaTypography = defaultRikkaTypography(),
-    spacing: RikkaSpacing = defaultRikkaSpacing(),
-    shapes: RikkaShapes = defaultRikkaShapes(),
-    motion: RikkaMotion = defaultRikkaMotion(),
+    typography: RikkaTypography = rikkaTypography(),
+    spacing: RikkaSpacing = rikkaSpacing(),
+    shapes: RikkaShapes = rikkaShapes(),
+    motion: RikkaMotion = RikkaMotion(),
+    elevation: RikkaElevation = RikkaElevation(),
     minTouchTarget: Dp = 48.dp,
     content: @Composable () -> Unit,
 ) {
@@ -39,6 +40,7 @@ fun RikkaTheme(
         LocalRikkaSpacing provides spacing,
         LocalRikkaShapes provides shapes,
         LocalRikkaMotion provides motion,
+        LocalRikkaElevation provides elevation,
         LocalMinTouchTarget provides minTouchTarget,
         content = content,
     )
@@ -178,6 +180,11 @@ object RikkaTheme {
         @ReadOnlyComposable
         get() = LocalRikkaMotion.current
 
+    val elevation: RikkaElevation
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalRikkaElevation.current
+
     val minTouchTarget: Dp
         @Composable
         @ReadOnlyComposable
@@ -200,21 +207,41 @@ object RikkaTheme {
 @ReadOnlyComposable
 fun contentColorFor(backgroundColor: Color): Color {
     val colors = RikkaTheme.colors
-    return when (backgroundColor) {
-        colors.background -> colors.foreground
-        colors.card -> colors.cardForeground
-        colors.popover -> colors.popoverForeground
-        colors.primary -> colors.primaryForeground
-        colors.secondary -> colors.secondaryForeground
-        colors.muted -> colors.mutedForeground
-        colors.accent -> colors.accentForeground
-        colors.destructive -> colors.destructiveForeground
-        colors.warning -> colors.warningForeground
-        colors.success -> colors.successForeground
-        colors.inverseSurface -> colors.inverseOnSurface
-        colors.primaryContainer -> colors.primaryContainerForeground
-        colors.destructiveContainer -> colors.destructiveContainerForeground
-        colors.disabledBackground -> colors.disabledForeground
+    // Most specific first — containers and inverse may share values
+    // with common surfaces (e.g. primaryContainer == muted in some palettes).
+    // Skip Unspecified tokens to avoid false matches on unset containers.
+    return when {
+        backgroundColor == Color.Unspecified -> colors.foreground
+
+        colors.primaryContainer != Color.Unspecified &&
+            backgroundColor == colors.primaryContainer -> colors.primaryContainerForeground
+
+        colors.destructiveContainer != Color.Unspecified &&
+            backgroundColor == colors.destructiveContainer -> colors.destructiveContainerForeground
+
+        colors.inverseSurface != Color.Unspecified &&
+            backgroundColor == colors.inverseSurface -> colors.inverseOnSurface
+
+        backgroundColor == colors.primary -> colors.primaryForeground
+
+        backgroundColor == colors.destructive -> colors.destructiveForeground
+
+        backgroundColor == colors.warning -> colors.warningForeground
+
+        backgroundColor == colors.success -> colors.successForeground
+
+        backgroundColor == colors.secondary -> colors.secondaryForeground
+
+        backgroundColor == colors.accent -> colors.accentForeground
+
+        backgroundColor == colors.muted -> colors.mutedForeground
+
+        backgroundColor == colors.card -> colors.cardForeground
+
+        backgroundColor == colors.popover -> colors.popoverForeground
+
+        backgroundColor == colors.background -> colors.foreground
+
         else -> colors.foreground
     }
 }

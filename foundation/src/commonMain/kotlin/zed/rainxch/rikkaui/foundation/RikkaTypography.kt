@@ -3,6 +3,7 @@ package zed.rainxch.rikkaui.foundation
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
@@ -104,7 +105,7 @@ val LocalTextStyle =
  */
 @Suppress("LongParameterList")
 fun rikkaTypography(
-    fontFamily: RikkaFontFamily = DefaultRikkaFontFamily,
+    fontFamily: FontFamily = FontFamily.Default,
     scale: Float = 1f,
     h1Size: TextUnit = 36.sp,
     h2Size: TextUnit = 30.sp,
@@ -116,7 +117,7 @@ fun rikkaTypography(
     smallSize: TextUnit = 14.sp,
     mutedSize: TextUnit = 14.sp,
 ): RikkaTypography {
-    val family = fontFamily.fontFamily
+    val family = fontFamily
 
     return RikkaTypography(
         h1 =
@@ -190,13 +191,6 @@ fun rikkaTypography(
             ),
     )
 }
-
-/**
- * Creates a default [RikkaTypography] using system fonts.
- *
- * Prefer [rikkaTypography] with a [RikkaFontFamily] for a polished look.
- */
-fun defaultRikkaTypography(): RikkaTypography = rikkaTypography()
 
 // ─── Emphasis Extensions ───────────────────────────────────
 
