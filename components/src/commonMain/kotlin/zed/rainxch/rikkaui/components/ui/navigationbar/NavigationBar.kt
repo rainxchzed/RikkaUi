@@ -65,18 +65,18 @@ fun NavigationBar(
     content: @Composable RowScope.() -> Unit,
 ) {
     val borderColor = RikkaTheme.colors.border
+    val dividerHeight = 1.dp
 
     Box(
         modifier =
             modifier
                 .fillMaxWidth()
                 .drawBehind {
-                    // Top border line (1dp)
                     drawLine(
                         color = borderColor,
                         start = Offset(0f, 0f),
                         end = Offset(size.width, 0f),
-                        strokeWidth = 1.dp.toPx(),
+                        strokeWidth = dividerHeight.toPx(),
                     )
                 }.background(containerColor),
     ) {

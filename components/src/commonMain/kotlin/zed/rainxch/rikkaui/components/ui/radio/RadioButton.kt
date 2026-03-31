@@ -61,6 +61,7 @@ fun RadioButton(
     val isPressed by interactionSource.collectIsPressedAsState()
 
     val motion = RikkaTheme.motion
+    val ringStrokeWidth = 1.5.dp
 
     // ─── Color resolution ───────────────────────────────
     val resolvedColors = resolveRadioColors(selected, isHovered, isPressed, enabled)
@@ -124,7 +125,7 @@ fun RadioButton(
                     .size(20.dp)
                     .then(if (!enabled) Modifier.alpha(0.5f) else Modifier)
                     .drawBehind {
-                        val strokeWidth = 1.5.dp.toPx()
+                        val strokeWidth = ringStrokeWidth.toPx()
                         val radius = (size.minDimension - strokeWidth) / 2f
 
                         // Outer ring

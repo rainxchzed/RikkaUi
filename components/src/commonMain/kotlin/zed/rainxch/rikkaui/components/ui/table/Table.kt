@@ -143,6 +143,7 @@ fun TableRow(
     val animation = LocalTableAnimation.current
     val borderStyle = LocalTableBorderStyle.current
     val borderColor = RikkaTheme.colors.border
+    val dividerHeight = 1.dp
     val motion = RikkaTheme.motion
     val colors = RikkaTheme.colors
 
@@ -183,7 +184,7 @@ fun TableRow(
                             color = borderColor,
                             start = Offset(0f, size.height),
                             end = Offset(size.width, size.height),
-                            strokeWidth = 1.dp.toPx(),
+                            strokeWidth = dividerHeight.toPx(),
                         )
                     }
                 } else {
