@@ -31,8 +31,10 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 enum class ToggleAnimation {
     /** Bouncy spring physics (default). */
     Spring,
+
     /** Linear tween transition. */
     Tween,
+
     /** Instant state change, no animation. */
     None,
 }
@@ -43,6 +45,7 @@ enum class ToggleAnimation {
 enum class ToggleSize {
     /** Standard toggle (44x24dp). */
     Default,
+
     /** Compact toggle (36x20dp). */
     Sm,
 }

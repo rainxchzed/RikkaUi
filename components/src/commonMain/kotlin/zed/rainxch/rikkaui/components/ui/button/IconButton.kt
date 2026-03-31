@@ -12,8 +12,10 @@ import zed.rainxch.rikkaui.components.ui.icon.IconSize
 enum class IconButtonSize {
     /** 36x36 dp button, 20 dp icon. */
     Default,
+
     /** 28x28 dp button, 16 dp icon. */
     Sm,
+
     /** 44x44 dp button, 24 dp icon. */
     Lg,
 }

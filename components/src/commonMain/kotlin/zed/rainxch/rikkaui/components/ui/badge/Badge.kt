@@ -27,10 +27,13 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 enum class BadgeVariant {
     /** Solid primary background. */
     Default,
+
     /** Muted background, less prominent. */
     Secondary,
+
     /** Bordered, transparent background. */
     Outline,
+
     /** Red tint for error or critical status. */
     Destructive,
 }
@@ -41,8 +44,10 @@ enum class BadgeVariant {
 enum class BadgeAnimation {
     /** Subtle pulse/pop on appear. */
     Pulse,
+
     /** Scale up from 0 to full size. */
     Scale,
+
     /** No animation. */
     None,
 }
@@ -53,8 +58,10 @@ enum class BadgeAnimation {
 enum class BadgeSize {
     /** Compact size for dense layouts. */
     Sm,
+
     /** Standard size. */
     Default,
+
     /** Larger size for prominent labels. */
     Lg,
 }

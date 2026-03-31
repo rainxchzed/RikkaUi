@@ -41,8 +41,10 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 enum class CheckboxAnimation {
     /** Bouncy spring physics (default). */
     Spring,
+
     /** Linear tween transition. */
     Tween,
+
     /** Instant state change, no animation. */
     None,
 }

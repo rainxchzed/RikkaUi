@@ -11,26 +11,35 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import zed.rainxch.rikkaui.foundation.LocalContentColor
+import zed.rainxch.rikkaui.foundation.LocalTextStyle
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /** Typography variant mapping to a theme text style. */
 enum class TextVariant {
     /** Largest heading */
     H1,
+
     /** Second-level heading */
     H2,
+
     /** Third-level heading */
     H3,
+
     /** Fourth-level heading */
     H4,
+
     /** Body paragraph (default) */
     P,
+
     /** Lead paragraph, muted color */
     Lead,
+
     /** Large emphasis text */
     Large,
+
     /** Small text */
     Small,
+
     /** Muted/secondary text */
     Muted,
 }
@@ -49,12 +58,14 @@ fun Text(
     style: TextStyle = TextStyle.Default,
 ) {
     val baseStyle = variantStyle(variant)
+    val parentTextStyle = LocalTextStyle.current
     val contentColor = LocalContentColor.current
-    val resolvedColor = when {
-        color != Color.Unspecified -> color
-        contentColor != Color.Unspecified -> contentColor
-        else -> variantColor(variant)
-    }
+    val resolvedColor =
+        when {
+            color != Color.Unspecified -> color
+            contentColor != Color.Unspecified -> contentColor
+            else -> variantColor(variant)
+        }
 
     val textAlignStyle =
         if (textAlign != null) {
@@ -63,8 +74,12 @@ fun Text(
             TextStyle.Default
         }
 
+    // Merge order: base variant → parent-provided style → explicit style → color → alignment.
+    // This lets containers (Button, Card) inject a default text style that the caller
+    // can still override with an explicit `style` parameter.
     val mergedStyle =
         baseStyle
+            .merge(parentTextStyle)
             .merge(style)
             .merge(
                 TextStyle(color = resolvedColor),

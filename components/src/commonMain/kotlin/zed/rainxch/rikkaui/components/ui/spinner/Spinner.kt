@@ -42,8 +42,10 @@ enum class SpinnerSize(
 enum class SpinnerAnimation {
     /** Continuous rotation. */
     Spin,
+
     /** Pulsing opacity. */
     Pulse,
+
     /** Static, no animation. */
     None,
 }
@@ -60,11 +62,12 @@ fun Spinner(
     sweepAngle: Float = 240f,
     label: String = "Loading",
 ) {
-    val resolvedColor = when {
-        color != Color.Unspecified -> color
-        LocalContentColor.current != Color.Unspecified -> LocalContentColor.current
-        else -> RikkaTheme.colors.primary
-    }
+    val resolvedColor =
+        when {
+            color != Color.Unspecified -> color
+            LocalContentColor.current != Color.Unspecified -> LocalContentColor.current
+            else -> RikkaTheme.colors.primary
+        }
     val motion = RikkaTheme.motion
 
     val resolved = resolveSpinnerAnimation(animation, motion)

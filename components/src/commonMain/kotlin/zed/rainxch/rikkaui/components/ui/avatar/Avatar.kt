@@ -29,8 +29,10 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 enum class AvatarSize {
     /** 32dp — compact contexts. */
     Sm,
+
     /** 40dp — standard usage. */
     Default,
+
     /** 48dp — prominent placement. */
     Lg,
 }
@@ -40,8 +42,10 @@ enum class AvatarSize {
 enum class AvatarAnimation {
     /** Fade in from transparent. */
     FadeIn,
+
     /** Scale up from 0 to full size. */
     Scale,
+
     /** Instant appear, no animation. */
     None,
 }
@@ -51,8 +55,10 @@ enum class AvatarAnimation {
 enum class AvatarStatus {
     /** Green dot. */
     Online,
+
     /** Gray dot. */
     Offline,
+
     /** Red dot. */
     Busy,
 }

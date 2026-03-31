@@ -73,10 +73,13 @@ import kotlin.math.roundToInt
 enum class ToastVariant {
     /** Neutral popover card. */
     Default,
+
     /** Green accent. Confirmations and positive outcomes. */
     Success,
+
     /** Red accent. Errors and critical failures. */
     Destructive,
+
     /** Yellow/orange accent. Caution alerts. */
     Warning,
 }
@@ -86,10 +89,13 @@ enum class ToastVariant {
 enum class ToastAnimation {
     /** Slide from nearest edge with fade. */
     SlideIn,
+
     /** Simple fade in/out. */
     Fade,
+
     /** Scale up from 0.8 with fade. */
     Scale,
+
     /** Instant appear/disappear. */
     None,
 }
@@ -600,10 +606,11 @@ fun Toast(
         // ─── Progress bar ────────────────────────────────
         if (showProgressBar) {
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(3.dp)
-                    .background(colors.muted),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(3.dp)
+                        .background(colors.muted),
             ) {
                 Box(
                     modifier =

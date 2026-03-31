@@ -16,17 +16,20 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDecoration
@@ -36,6 +39,7 @@ import zed.rainxch.rikkaui.components.ui.spinner.Spinner
 import zed.rainxch.rikkaui.components.ui.spinner.SpinnerSize
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.foundation.LocalContentColor
+import zed.rainxch.rikkaui.foundation.LocalTextStyle
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Variant ────────────────────────────────────────────────
@@ -85,8 +89,190 @@ enum class ButtonAnimation {
     Bounce,
 }
 
+// ─── Colors ─────────────────────────────────────────────────
+
+/**
+ * Resolved container, content, and border colors for a button.
+ *
+ * Callers should use [ButtonDefaults.colors] to create instances — that
+ * path caches the default resolution per theme, avoiding allocations on
+ * every recomposition.
+ *
+ * @param containerColor Background color when enabled.
+ * @param contentColor Foreground (text/icon) color when enabled.
+ * @param borderColor Border color when enabled (Transparent = no border).
+ * @param disabledContainerColor Background color when disabled.
+ * @param disabledContentColor Foreground color when disabled.
+ * @param disabledBorderColor Border color when disabled.
+ */
+@Immutable
+class ButtonColorValues internal constructor(
+    val containerColor: Color,
+    val contentColor: Color,
+    val borderColor: Color,
+    val disabledContainerColor: Color,
+    val disabledContentColor: Color,
+    val disabledBorderColor: Color,
+) {
+    /** Resolved container color for the given [enabled] state. */
+    @Stable
+    internal fun container(enabled: Boolean): Color = if (enabled) containerColor else disabledContainerColor
+
+    /** Resolved content color for the given [enabled] state. */
+    @Stable
+    internal fun content(enabled: Boolean): Color = if (enabled) contentColor else disabledContentColor
+
+    /** Resolved border color for the given [enabled] state. */
+    @Stable
+    internal fun border(enabled: Boolean): Color = if (enabled) borderColor else disabledBorderColor
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is ButtonColorValues) return false
+        return containerColor == other.containerColor &&
+            contentColor == other.contentColor &&
+            borderColor == other.borderColor &&
+            disabledContainerColor == other.disabledContainerColor &&
+            disabledContentColor == other.disabledContentColor &&
+            disabledBorderColor == other.disabledBorderColor
+    }
+
+    override fun hashCode(): Int {
+        var result = containerColor.hashCode()
+        result = 31 * result + contentColor.hashCode()
+        result = 31 * result + borderColor.hashCode()
+        result = 31 * result + disabledContainerColor.hashCode()
+        result = 31 * result + disabledContentColor.hashCode()
+        result = 31 * result + disabledBorderColor.hashCode()
+        return result
+    }
+}
+
+// ─── Size Values ────────────────────────────────────────────
+
+@Immutable
+internal data class SizeValues(
+    val minHeight: Dp,
+    val minWidth: Dp,
+    val horizontalPadding: Dp,
+    val verticalPadding: Dp,
+    val contentSpacing: Dp,
+)
+
+// ─── Defaults ───────────────────────────────────────────────
+
+/** Default values for [Button] configuration. */
+object ButtonDefaults {
+    /**
+     * Creates [ButtonColorValues] for the given [variant].
+     *
+     * Prefer calling with only [variant] — the result is cached per theme
+     * to avoid allocations on every recomposition.
+     */
+    @Composable
+    fun colors(variant: ButtonVariant = ButtonVariant.Default): ButtonColorValues = resolveVariantColors(variant)
+
+    /**
+     * Returns the default [Shape] for the given [size].
+     */
+    @Composable
+    fun shape(size: ButtonSize = ButtonSize.Default): Shape =
+        when (size) {
+            ButtonSize.Sm -> RikkaTheme.shapes.md
+            else -> RikkaTheme.shapes.lg
+        }
+
+    /**
+     * Returns the pressed [Shape] for the given [size].
+     *
+     * Slightly more rounded than the resting shape, giving a soft
+     * "cushion" feel when pressed.
+     */
+    @Composable
+    fun pressedShape(size: ButtonSize = ButtonSize.Default): Shape =
+        when (size) {
+            ButtonSize.Sm -> RikkaTheme.shapes.lg
+            else -> RikkaTheme.shapes.xl
+        }
+
+    /**
+     * Returns the resolved [SizeValues] for the given [size].
+     */
+    @Composable
+    internal fun sizeValues(size: ButtonSize): SizeValues =
+        when (size) {
+            ButtonSize.Default ->
+                SizeValues(
+                    minHeight = 36.dp,
+                    minWidth = 0.dp,
+                    horizontalPadding = RikkaTheme.spacing.md,
+                    verticalPadding = RikkaTheme.spacing.sm,
+                    contentSpacing = 6.dp,
+                )
+
+            ButtonSize.Sm ->
+                SizeValues(
+                    minHeight = 28.dp,
+                    minWidth = 0.dp,
+                    horizontalPadding = RikkaTheme.spacing.sm,
+                    verticalPadding = 4.dp,
+                    contentSpacing = 4.dp,
+                )
+
+            ButtonSize.Lg ->
+                SizeValues(
+                    minHeight = 44.dp,
+                    minWidth = 0.dp,
+                    horizontalPadding = RikkaTheme.spacing.lg,
+                    verticalPadding = RikkaTheme.spacing.sm,
+                    contentSpacing = 6.dp,
+                )
+
+            ButtonSize.Icon ->
+                SizeValues(
+                    minHeight = 36.dp,
+                    minWidth = 36.dp,
+                    horizontalPadding = 0.dp,
+                    verticalPadding = 0.dp,
+                    contentSpacing = 0.dp,
+                )
+        }
+}
+
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * RikkaUi button — the primary interactive element.
+ *
+ * Supports 6 visual [variant]s, 4 [size]s, 3 press [animation]s,
+ * a [loading] spinner state, and optional shape morphing on press.
+ *
+ * Children automatically inherit the correct foreground color via
+ * [LocalContentColor] and the correct text style via [LocalTextStyle],
+ * so bare `Text("Save")` and `Icon(...)` inside the content lambda
+ * "just work" without explicit color or style parameters.
+ *
+ * ```
+ * Button(onClick = { save() }) {
+ *     Icon(imageVector = RikkaIcons.Check, contentDescription = null)
+ *     Text("Save")
+ * }
+ * ```
+ *
+ * @param onClick Called when the button is clicked.
+ * @param modifier Modifier applied to the button container.
+ * @param variant Visual style — [ButtonVariant.Default], Outline, Secondary, Ghost, Destructive, Link.
+ * @param size Touch target and padding — [ButtonSize.Default], Sm, Lg, Icon.
+ * @param animation Press feedback — [ButtonAnimation.Scale], Bounce, None.
+ * @param enabled Whether the button responds to input.
+ * @param loading Shows a spinner alongside content when true.
+ * @param label Accessibility content description.
+ * @param colors Override resolved colors. Defaults to [ButtonDefaults.colors] for the [variant].
+ * @param interactionSource Optional hoisted [MutableInteractionSource] for observing or
+ *   emitting interactions. Pass your own to share hover/press state with sibling components,
+ *   or leave null (default) for a private internal source.
+ * @param content Composable content displayed inside the button.
+ */
 @Composable
 fun Button(
     onClick: () -> Unit,
@@ -97,60 +283,61 @@ fun Button(
     enabled: Boolean = true,
     loading: Boolean = false,
     label: String = "",
+    colors: ButtonColorValues = ButtonDefaults.colors(variant),
+    interactionSource: MutableInteractionSource? = null,
     content: @Composable () -> Unit,
 ) {
+    @Suppress("NAME_SHADOWING")
+    val interactionSource = interactionSource ?: remember { MutableInteractionSource() }
     val isEffectivelyEnabled = enabled && !loading
-    val interactionSource = remember { MutableInteractionSource() }
     val isHovered by interactionSource.collectIsHoveredAsState()
     val isPressed by interactionSource.collectIsPressedAsState()
 
-    val colors = resolveColors(variant, isHovered, isPressed)
-    val sizeValues = resolveSizeValues(size)
-    val shape =
-        when (size) {
-            ButtonSize.Sm -> RikkaTheme.shapes.md
-            else -> RikkaTheme.shapes.lg
+    // ─── Resolved values ────────────────────────────────
+    val sizeValues = ButtonDefaults.sizeValues(size)
+    val restingShape = ButtonDefaults.shape(size)
+    val pressShape = ButtonDefaults.pressedShape(size)
+
+    val containerColor = colors.container(isEffectivelyEnabled)
+    val contentColor = colors.content(isEffectivelyEnabled)
+    val borderColor = colors.border(isEffectivelyEnabled)
+
+    // ─── Hover/press color modulation ───────────────────
+    // Shift the base container color for hover/press feedback.
+    val modulatedContainer =
+        when {
+            !isEffectivelyEnabled -> containerColor
+            containerColor == Color.Transparent && isPressed -> {
+                RikkaTheme.colors.muted.copy(alpha = 0.6f)
+            }
+            containerColor == Color.Transparent && isHovered -> {
+                RikkaTheme.colors.muted
+            }
+            isPressed -> containerColor.copy(alpha = 0.7f)
+            isHovered -> containerColor.copy(alpha = 0.85f)
+            else -> containerColor
         }
 
-    // ─── Animation values (from theme motion tokens) ────
+    // ─── Animation (from theme motion tokens) ──────────
     val motion = RikkaTheme.motion
 
     val animationSpec =
         when (animation) {
-            ButtonAnimation.None -> {
-                null
-            }
-
-            ButtonAnimation.Scale -> {
-                motion.springDefault
-            }
-
-            ButtonAnimation.Bounce -> {
-                motion.springBouncy
-            }
+            ButtonAnimation.None -> null
+            ButtonAnimation.Scale -> motion.springDefault
+            ButtonAnimation.Bounce -> motion.springBouncy
         }
 
     val targetScale =
         when {
-            !isEffectivelyEnabled -> {
-                1f
-            }
-
-            animation == ButtonAnimation.None -> {
-                1f
-            }
-
-            isPressed -> {
+            !isEffectivelyEnabled || animation == ButtonAnimation.None -> 1f
+            isPressed ->
                 when (animation) {
                     ButtonAnimation.Scale -> motion.pressScaleSubtle
                     ButtonAnimation.Bounce -> motion.pressScaleBouncy
                     ButtonAnimation.None -> 1f
                 }
-            }
-
-            else -> {
-                1f
-            }
+            else -> 1f
         }
 
     val scale by animateFloatAsState(
@@ -158,23 +345,31 @@ fun Button(
         animationSpec = animationSpec ?: spring(),
     )
 
-    // ─── Color animations (from theme motion tokens) ────
     val animatedBackground by animateColorAsState(
-        targetValue = colors.background,
+        targetValue = modulatedContainer,
         animationSpec = tween(motion.durationDefault),
     )
 
+    // ─── Shape morphing on press ────────────────────────
+    // Interpolate corner radius: resting → pressed shape.
+    // Uses the same spring as the scale animation for cohesion.
+    val shapeMorphProgress by animateFloatAsState(
+        targetValue = if (isPressed && isEffectivelyEnabled) 1f else 0f,
+        animationSpec = animationSpec ?: spring(),
+    )
+    val currentShape = lerpShape(restingShape, pressShape, shapeMorphProgress)
+
     // ─── Modifiers ──────────────────────────────────────
     val backgroundModifier =
-        if (colors.background != Color.Transparent) {
-            Modifier.background(animatedBackground, shape)
+        if (animatedBackground != Color.Transparent) {
+            Modifier.background(animatedBackground, currentShape)
         } else {
             Modifier
         }
 
     val borderModifier =
-        if (colors.border != Color.Transparent) {
-            Modifier.border(1.dp, colors.border, shape)
+        if (borderColor != Color.Transparent) {
+            Modifier.border(1.dp, borderColor, currentShape)
         } else {
             Modifier
         }
@@ -193,9 +388,17 @@ fun Button(
         modifier =
             modifier
                 .then(animationModifier)
-                .then(borderModifier)
+                .semantics(mergeDescendants = true) {
+                    role = Role.Button
+                    if (label.isNotEmpty()) {
+                        contentDescription = label
+                    }
+                    if (!isEffectivelyEnabled) {
+                        disabled()
+                    }
+                }.then(borderModifier)
                 .then(backgroundModifier)
-                .clip(shape)
+                .clip(currentShape)
                 .clickable(
                     interactionSource = interactionSource,
                     indication = null,
@@ -208,16 +411,7 @@ fun Button(
                 ).padding(
                     horizontal = sizeValues.horizontalPadding,
                     vertical = sizeValues.verticalPadding,
-                ).then(
-                    if (!isEffectivelyEnabled) Modifier.alpha(0.5f) else Modifier,
-                ).semantics(mergeDescendants = true) {
-                    if (label.isNotEmpty()) {
-                        contentDescription = label
-                    }
-                    if (!isEffectivelyEnabled) {
-                        disabled()
-                    }
-                },
+                ),
         horizontalArrangement =
             Arrangement.spacedBy(
                 sizeValues.contentSpacing,
@@ -225,7 +419,11 @@ fun Button(
             ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        CompositionLocalProvider(LocalContentColor provides colors.foreground) {
+        // Provide both foreground color AND default text style to children.
+        CompositionLocalProvider(
+            LocalContentColor provides contentColor,
+            LocalTextStyle provides RikkaTheme.typography.small,
+        ) {
             if (loading) {
                 Spinner(
                     size = SpinnerSize.Sm,
@@ -238,6 +436,30 @@ fun Button(
     }
 }
 
+/**
+ * Convenience overload that renders a text label with optional leading/trailing icons.
+ *
+ * ```
+ * Button(
+ *     text = "Save",
+ *     onClick = { save() },
+ *     leadingIcon = { Icon(RikkaIcons.Check, "Saved") },
+ * )
+ * ```
+ *
+ * @param text The button label.
+ * @param onClick Called when the button is clicked.
+ * @param modifier Modifier applied to the button container.
+ * @param variant Visual style.
+ * @param size Touch target and padding.
+ * @param animation Press feedback.
+ * @param enabled Whether the button responds to input.
+ * @param loading Shows a spinner alongside content when true.
+ * @param colors Override resolved colors.
+ * @param interactionSource Optional hoisted interaction source.
+ * @param leadingIcon Optional composable before the label (hidden during loading).
+ * @param trailingIcon Optional composable after the label (hidden during loading).
+ */
 @Composable
 fun Button(
     text: String,
@@ -248,6 +470,8 @@ fun Button(
     animation: ButtonAnimation = ButtonAnimation.Scale,
     enabled: Boolean = true,
     loading: Boolean = false,
+    colors: ButtonColorValues = ButtonDefaults.colors(variant),
+    interactionSource: MutableInteractionSource? = null,
     leadingIcon: (@Composable () -> Unit)? = null,
     trailingIcon: (@Composable () -> Unit)? = null,
 ) {
@@ -259,6 +483,8 @@ fun Button(
         animation = animation,
         enabled = enabled,
         loading = loading,
+        colors = colors,
+        interactionSource = interactionSource,
     ) {
         if (!loading) leadingIcon?.invoke()
 
@@ -280,146 +506,165 @@ fun Button(
 
 // ─── Internal: Color Resolution ─────────────────────────────
 
-private data class ButtonColors(
-    val background: Color,
-    val foreground: Color,
-    val border: Color,
-)
-
+/**
+ * Resolves [ButtonColorValues] for a given [variant] using the current theme.
+ *
+ * Each variant defines both enabled AND disabled colors explicitly,
+ * giving per-variant control over the disabled appearance rather than
+ * a blanket alpha dim.
+ */
 @Composable
-private fun resolveColors(
-    variant: ButtonVariant,
-    isHovered: Boolean,
-    isPressed: Boolean,
-): ButtonColors {
+private fun resolveVariantColors(variant: ButtonVariant): ButtonColorValues {
     val colors = RikkaTheme.colors
+    val disabledAlpha = 0.5f
 
     return when (variant) {
-        ButtonVariant.Default -> {
-            ButtonColors(
-                background =
-                    when {
-                        isPressed -> colors.primary.copy(alpha = 0.7f)
-                        isHovered -> colors.primary.copy(alpha = 0.8f)
-                        else -> colors.primary
-                    },
-                foreground = colors.primaryForeground,
-                border = Color.Transparent,
+        ButtonVariant.Default ->
+            ButtonColorValues(
+                containerColor = colors.primary,
+                contentColor = colors.primaryForeground,
+                borderColor = Color.Transparent,
+                disabledContainerColor = colors.primary.copy(alpha = disabledAlpha),
+                disabledContentColor = colors.primaryForeground.copy(alpha = 0.7f),
+                disabledBorderColor = Color.Transparent,
             )
-        }
 
-        ButtonVariant.Outline -> {
-            ButtonColors(
-                background =
-                    when {
-                        isPressed -> colors.muted.copy(alpha = 0.8f)
-                        isHovered -> colors.muted
-                        else -> Color.Transparent
-                    },
-                foreground = colors.foreground,
-                border = colors.border,
+        ButtonVariant.Outline ->
+            ButtonColorValues(
+                containerColor = Color.Transparent,
+                contentColor = colors.foreground,
+                borderColor = colors.border,
+                disabledContainerColor = Color.Transparent,
+                disabledContentColor = colors.foreground.copy(alpha = disabledAlpha),
+                disabledBorderColor = colors.border.copy(alpha = disabledAlpha),
             )
-        }
 
-        ButtonVariant.Secondary -> {
-            ButtonColors(
-                background =
-                    when {
-                        isPressed -> colors.secondary.copy(alpha = 0.7f)
-                        isHovered -> colors.secondary.copy(alpha = 0.8f)
-                        else -> colors.secondary
-                    },
-                foreground = colors.secondaryForeground,
-                border = Color.Transparent,
+        ButtonVariant.Secondary ->
+            ButtonColorValues(
+                containerColor = colors.secondary,
+                contentColor = colors.secondaryForeground,
+                borderColor = Color.Transparent,
+                disabledContainerColor = colors.secondary.copy(alpha = disabledAlpha),
+                disabledContentColor = colors.secondaryForeground.copy(alpha = 0.7f),
+                disabledBorderColor = Color.Transparent,
             )
-        }
 
-        ButtonVariant.Ghost -> {
-            ButtonColors(
-                background =
-                    when {
-                        isPressed -> colors.muted.copy(alpha = 0.6f)
-                        isHovered -> colors.muted
-                        else -> Color.Transparent
-                    },
-                foreground = colors.foreground,
-                border = Color.Transparent,
+        ButtonVariant.Ghost ->
+            ButtonColorValues(
+                containerColor = Color.Transparent,
+                contentColor = colors.foreground,
+                borderColor = Color.Transparent,
+                disabledContainerColor = Color.Transparent,
+                disabledContentColor = colors.foreground.copy(alpha = disabledAlpha),
+                disabledBorderColor = Color.Transparent,
             )
-        }
 
-        ButtonVariant.Destructive -> {
-            ButtonColors(
-                background =
-                    when {
-                        isPressed -> colors.destructive.copy(alpha = 0.2f)
-                        isHovered -> colors.destructive.copy(alpha = 0.15f)
-                        else -> colors.destructive.copy(alpha = 0.1f)
-                    },
-                foreground = colors.destructive,
-                border = Color.Transparent,
+        ButtonVariant.Destructive ->
+            ButtonColorValues(
+                containerColor = colors.destructive.copy(alpha = 0.1f),
+                contentColor = colors.destructive,
+                borderColor = Color.Transparent,
+                disabledContainerColor = colors.destructive.copy(alpha = 0.05f),
+                disabledContentColor = colors.destructive.copy(alpha = 0.4f),
+                disabledBorderColor = Color.Transparent,
             )
-        }
 
-        ButtonVariant.Link -> {
-            ButtonColors(
-                background = Color.Transparent,
-                foreground = colors.primary,
-                border = Color.Transparent,
+        ButtonVariant.Link ->
+            ButtonColorValues(
+                containerColor = Color.Transparent,
+                contentColor = colors.primary,
+                borderColor = Color.Transparent,
+                disabledContainerColor = Color.Transparent,
+                disabledContentColor = colors.primary.copy(alpha = disabledAlpha),
+                disabledBorderColor = Color.Transparent,
             )
-        }
     }
 }
 
-// ─── Internal: Size Resolution ──────────────────────────────
+// ─── Internal: Shape Interpolation ──────────────────────────
 
-private data class SizeValues(
-    val minHeight: Dp,
-    val minWidth: Dp,
-    val horizontalPadding: Dp,
-    val verticalPadding: Dp,
-    val contentSpacing: Dp,
-)
-
+/**
+ * Linearly interpolates between two [Shape]s.
+ *
+ * If both are [androidx.compose.foundation.shape.RoundedCornerShape],
+ * this interpolates corner radii for a smooth morph. Otherwise falls
+ * back to a discrete swap at the midpoint.
+ */
 @Composable
-private fun resolveSizeValues(size: ButtonSize): SizeValues =
-    when (size) {
-        ButtonSize.Default -> {
-            SizeValues(
-                minHeight = 36.dp,
-                minWidth = 0.dp,
-                horizontalPadding = RikkaTheme.spacing.md,
-                verticalPadding = RikkaTheme.spacing.sm,
-                contentSpacing = 6.dp,
-            )
-        }
+private fun lerpShape(
+    start: Shape,
+    end: Shape,
+    @Suppress("UNUSED_PARAMETER") fraction: Float,
+): Shape {
+    if (fraction <= 0f) return start
+    if (fraction >= 1f) return end
 
-        ButtonSize.Sm -> {
-            SizeValues(
-                minHeight = 28.dp,
-                minWidth = 0.dp,
-                horizontalPadding = RikkaTheme.spacing.sm,
-                verticalPadding = 4.dp,
-                contentSpacing = 4.dp,
-            )
-        }
+    // Both shapes must be RoundedCornerShape for smooth interpolation.
+    val startRounded =
+        start as? androidx.compose.foundation.shape.RoundedCornerShape
+            ?: return if (fraction < 0.5f) start else end
+    val endRounded =
+        end as? androidx.compose.foundation.shape.RoundedCornerShape
+            ?: return if (fraction < 0.5f) start else end
 
-        ButtonSize.Lg -> {
-            SizeValues(
-                minHeight = 44.dp,
-                minWidth = 0.dp,
-                horizontalPadding = RikkaTheme.spacing.lg,
-                verticalPadding = RikkaTheme.spacing.sm,
-                contentSpacing = 6.dp,
-            )
-        }
+    // Interpolate corner percentages.
+    val topStart =
+        lerp(
+            startRounded.topStart.toPx(100f),
+            endRounded.topStart.toPx(100f),
+            fraction,
+        )
+    val topEnd =
+        lerp(
+            startRounded.topEnd.toPx(100f),
+            endRounded.topEnd.toPx(100f),
+            fraction,
+        )
+    val bottomEnd =
+        lerp(
+            startRounded.bottomEnd.toPx(100f),
+            endRounded.bottomEnd.toPx(100f),
+            fraction,
+        )
+    val bottomStart =
+        lerp(
+            startRounded.bottomStart.toPx(100f),
+            endRounded.bottomStart.toPx(100f),
+            fraction,
+        )
 
-        ButtonSize.Icon -> {
-            SizeValues(
-                minHeight = 36.dp,
-                minWidth = 36.dp,
-                horizontalPadding = 0.dp,
-                verticalPadding = 0.dp,
-                contentSpacing = 0.dp,
-            )
-        }
+    return androidx.compose.foundation.shape.RoundedCornerShape(
+        topStart = topStart.dp,
+        topEnd = topEnd.dp,
+        bottomEnd = bottomEnd.dp,
+        bottomStart = bottomStart.dp,
+    )
+}
+
+private fun lerp(
+    start: Float,
+    stop: Float,
+    fraction: Float,
+): Float = start + (stop - start) * fraction
+
+/**
+ * Resolves a [androidx.compose.foundation.shape.CornerSize] to pixels
+ * for a given reference size. This is a best-effort extraction —
+ * percent-based corners are resolved against [referenceSize].
+ */
+private fun androidx.compose.foundation.shape.CornerSize.toPx(referenceSize: Float): Float {
+    // CornerSize doesn't expose its value directly, but toPx() needs a
+    // Size and Density. We use a simplified approach: resolve using a
+    // square reference and extract the pixel value.
+    return try {
+        val size =
+            androidx.compose.ui.geometry
+                .Size(referenceSize, referenceSize)
+        val density =
+            androidx.compose.ui.unit
+                .Density(1f)
+        toPx(size, density)
+    } catch (_: Exception) {
+        0f
     }
+}

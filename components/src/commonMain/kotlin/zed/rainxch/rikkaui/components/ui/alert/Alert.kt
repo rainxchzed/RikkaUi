@@ -35,6 +35,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 enum class AlertVariant {
     /** Bordered card background with foreground text. */
     Default,
+
     /** Destructive border tint with destructive text color. */
     Destructive,
 }
@@ -45,8 +46,10 @@ enum class AlertVariant {
 enum class AlertAnimation {
     /** Slide in from the left with a fade. */
     SlideIn,
+
     /** Simple fade in. */
     Fade,
+
     /** Instant appear, no animation. */
     None,
 }

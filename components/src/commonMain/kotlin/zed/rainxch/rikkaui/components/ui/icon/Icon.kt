@@ -46,11 +46,12 @@ fun Icon(
     size: IconSize? = null,
     spin: Boolean = false,
 ) {
-    val resolvedTint = when {
-        tint != Color.Unspecified -> tint
-        LocalContentColor.current != Color.Unspecified -> LocalContentColor.current
-        else -> RikkaTheme.colors.foreground
-    }
+    val resolvedTint =
+        when {
+            tint != Color.Unspecified -> tint
+            LocalContentColor.current != Color.Unspecified -> LocalContentColor.current
+            else -> RikkaTheme.colors.foreground
+        }
     val painter = rememberVectorPainter(imageVector)
 
     val semanticsModifier =

@@ -76,6 +76,17 @@ val LocalRikkaTypography =
     }
 
 /**
+ * Composition local for the current default text style.
+ *
+ * Containers like Button provide this so their children (Text, etc.)
+ * inherit the correct typography without explicit parameters.
+ * When [TextStyle.Default], the Text component falls back to its
+ * variant-based style resolution.
+ */
+val LocalTextStyle =
+    staticCompositionLocalOf { TextStyle.Default }
+
+/**
  * Creates a [RikkaTypography] with full customization.
  *
  * @param fontFamily Font family for all styles.

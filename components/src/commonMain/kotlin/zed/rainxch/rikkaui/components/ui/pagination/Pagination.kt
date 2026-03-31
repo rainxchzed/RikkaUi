@@ -42,8 +42,10 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 enum class PaginationAnimation {
     /** Spring scale-up effect (default). */
     Scale,
+
     /** Alpha crossfade between states. */
     Fade,
+
     /** No animation. */
     None,
 }
@@ -54,8 +56,10 @@ enum class PaginationAnimation {
 enum class PaginationSize {
     /** 28dp, compact. */
     Small,
+
     /** 36dp, standard. */
     Default,
+
     /** 44dp, touch-friendly. */
     Large,
 }

@@ -57,10 +57,13 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 enum class SheetSide {
     /** Slides down from the top edge. */
     Top,
+
     /** Slides up from the bottom edge. */
     Bottom,
+
     /** Slides in from the left edge. */
     Left,
+
     /** Slides in from the right edge (default). */
     Right,
 }
@@ -71,10 +74,13 @@ enum class SheetSide {
 enum class SheetAnimation {
     /** Slide from edge + fade. */
     Slide,
+
     /** Fade + subtle scale from 0.95. */
     FadeScale,
+
     /** Opacity-only fade. */
     Fade,
+
     /** Instant appear/disappear. */
     None,
 }

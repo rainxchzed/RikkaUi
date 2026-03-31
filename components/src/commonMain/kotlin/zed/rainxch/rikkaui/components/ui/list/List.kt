@@ -19,8 +19,10 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 enum class ListVariant {
     /** Bullet points (•). */
     Unordered,
+
     /** Numbered items (1. 2. 3.). */
     Ordered,
+
     /** No markers, just indented items. */
     None,
 }

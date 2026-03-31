@@ -20,6 +20,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 enum class SeparatorOrientation {
     /** Full-width line divider. */
     Horizontal,
+
     /** Full-height line divider. */
     Vertical,
 }
@@ -29,8 +30,10 @@ enum class SeparatorOrientation {
 enum class SeparatorStyle {
     /** Continuous line. */
     Solid,
+
     /** Dashed line with configurable dash/gap lengths. */
     Dashed,
+
     /** Dotted line (short dashes with equal gaps). */
     Dotted,
 }
