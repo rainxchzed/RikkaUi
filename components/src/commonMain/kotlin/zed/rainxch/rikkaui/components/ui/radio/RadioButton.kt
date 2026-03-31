@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
@@ -205,16 +206,18 @@ private fun resolveRadioColors(
         }
 
         selected && isPressed -> {
+            val pressed = lerp(colors.primary, colors.foreground, 1f - motion.pressAlpha)
             RadioColors(
-                ring = colors.primary.copy(alpha = motion.pressAlpha),
-                dot = colors.primary.copy(alpha = motion.pressAlpha),
+                ring = pressed,
+                dot = pressed,
             )
         }
 
         selected && isHovered -> {
+            val hovered = lerp(colors.primary, colors.foreground, 1f - motion.hoverAlpha)
             RadioColors(
-                ring = colors.primary.copy(alpha = motion.hoverAlpha),
-                dot = colors.primary.copy(alpha = motion.hoverAlpha),
+                ring = hovered,
+                dot = hovered,
             )
         }
 

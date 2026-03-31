@@ -26,6 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
@@ -304,18 +305,28 @@ fun Button(
     val borderColor = colors.border(isEffectivelyEnabled)
 
     // ─── Hover/press color modulation ───────────────────
-    // Shift the base container color for hover/press feedback.
+    // Uses solid color lerp for opaque variants, alpha-matched rest color
+    // for transparent variants to prevent dark-flash during animation.
+    val colors = RikkaTheme.colors
+    val isTransparentVariant = containerColor == Color.Transparent
+
+    // For transparent variants, rest state uses muted RGB with alpha=0.
+    // This ensures animateColorAsState only interpolates alpha (not RGB),
+    // avoiding the dark flash from Color.Transparent (black, alpha=0).
     val modulatedContainer =
         when {
             !isEffectivelyEnabled -> containerColor
-            containerColor == Color.Transparent && isPressed -> {
-                RikkaTheme.colors.muted.copy(alpha = 0.6f)
+            isTransparentVariant && isPressed -> {
+                lerp(colors.muted, colors.foreground, 0.08f)
             }
-            containerColor == Color.Transparent && isHovered -> {
-                RikkaTheme.colors.muted
+            isTransparentVariant && isHovered -> {
+                colors.muted
             }
-            isPressed -> containerColor.copy(alpha = motion.pressAlpha)
-            isHovered -> containerColor.copy(alpha = motion.hoverAlpha)
+            isTransparentVariant -> {
+                colors.muted.copy(alpha = 0f)
+            }
+            isPressed -> lerp(containerColor, colors.foreground, 1f - motion.pressAlpha)
+            isHovered -> lerp(containerColor, colors.foreground, 1f - motion.hoverAlpha)
             else -> containerColor
         }
 
@@ -360,12 +371,9 @@ fun Button(
     val currentShape = lerpShape(restingShape, pressShape, shapeMorphProgress)
 
     // ─── Modifiers ──────────────────────────────────────
-    val backgroundModifier =
-        if (animatedBackground != Color.Transparent) {
-            Modifier.background(animatedBackground, currentShape)
-        } else {
-            Modifier
-        }
+    // Always apply background — alpha=0 is invisible but ensures
+    // smooth animation without conditional modifier changes.
+    val backgroundModifier = Modifier.background(animatedBackground, currentShape)
 
     val borderModifier =
         if (borderColor != Color.Transparent) {

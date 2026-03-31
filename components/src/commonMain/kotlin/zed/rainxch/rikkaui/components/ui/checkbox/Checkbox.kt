@@ -27,6 +27,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
@@ -218,16 +219,18 @@ private fun resolveCheckboxColors(
         }
 
         checked && isPressed -> {
+            val pressed = lerp(colors.primary, colors.foreground, 1f - motion.pressAlpha)
             CheckboxColors(
-                background = colors.primary.copy(alpha = motion.pressAlpha),
-                border = colors.primary.copy(alpha = motion.pressAlpha),
+                background = pressed,
+                border = pressed,
             )
         }
 
         checked && isHovered -> {
+            val hovered = lerp(colors.primary, colors.foreground, 1f - motion.hoverAlpha)
             CheckboxColors(
-                background = colors.primary.copy(alpha = motion.hoverAlpha),
-                border = colors.primary.copy(alpha = motion.hoverAlpha),
+                background = hovered,
+                border = hovered,
             )
         }
 

@@ -47,6 +47,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.Role
@@ -548,7 +549,7 @@ fun Toast(
                         variant = TextVariant.Small,
                         color =
                             if (actionHovered) {
-                                colors.primary.copy(alpha = motion.hoverAlpha)
+                                lerp(colors.primary, colors.background, 1f - motion.hoverAlpha)
                             } else {
                                 colors.primary
                             },
