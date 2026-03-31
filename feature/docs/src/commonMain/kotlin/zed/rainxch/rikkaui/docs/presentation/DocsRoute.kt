@@ -12,6 +12,7 @@ import zed.rainxch.rikkaui.docs.catalog.ComponentRegistry
 @Composable
 fun DocsRoute(
     initialComponentId: String? = null,
+    onPageSelected: (String) -> Unit = {},
 ) {
     val viewModel: DocsViewModel =
         viewModel(
@@ -36,6 +37,9 @@ fun DocsRoute(
     DocsScreen(
         state = state,
         registry = ComponentRegistry,
-        onSelect = { id -> viewModel.onAction(DocsAction.SelectPage(id)) },
+        onSelect = { id ->
+            viewModel.onAction(DocsAction.SelectPage(id))
+            onPageSelected(id)
+        },
     )
 }

@@ -9,6 +9,8 @@ object RoutePaths {
     const val DOCS = "docs"
     const val DOCS_GUIDE = "docs/guide"
     const val DOCS_COMPONENTS = "docs/components"
+    const val GUIDE_ID_PARAM = "guideId"
+    const val COMPONENT_ID_PARAM = "componentId"
 }
 
 @Serializable
