@@ -21,25 +21,29 @@ Tagline: "Share UI via Compose Multiplatform UI framework"
 ### Package Structure
 
 ```
-components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/
-  theme/
+foundation/src/commonMain/kotlin/zed/rainxch/rikkaui/foundation/
     RikkaColors.kt       — 20 semantic color tokens (@Immutable, staticCompositionLocalOf)
+                            + LocalContentColor for implicit foreground propagation
     ColorScheme.kt        — 5 base palettes (Zinc/Slate/Stone/Gray/Neutral) x Light/Dark = 10 schemes
                             + 7 accent colors (Red/Rose/Orange/Green/Blue/Yellow/Violet) x Light/Dark
                             + withAccent() extension + RikkaAccentColor data class
+                            + RikkaPalette enum + RikkaAccentPreset enum with resolve()/applyTo()
     RikkaTypography.kt    — 9-level type scale (h1-h4, p, lead, large, small, muted)
     RikkaSpacing.kt       — 7-level spacing scale (xs=4dp through xxxl=48dp, 4dp base grid)
     RikkaShapes.kt        — 5-level shape scale (sm/md/lg/xl/full) from base radius
     RikkaMotion.kt        — Animation token system (springs, tweens, durations, press scales)
     RikkaStyle.kt         — RikkaStyle data class + RikkaStylePreset enum (Default/Nova/Vega/Aurora/Nebula)
     RikkaFontFamily.kt    — Font wrapper with rememberRikkaFontFamily() composable
-    RikkaTheme.kt         — CompositionLocalProvider + RikkaTheme object + convenience style overload
-  ui/
+    RikkaTheme.kt         — 4 RikkaTheme overloads + RikkaTheme object (see Theme System section)
+
+components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/ui/
     text/Text.kt          — BasicText wrapper with TextVariant enum, heading accessibility
+                             Color resolution: explicit → LocalContentColor → variantColor()
     button/Button.kt      — 6 variants (Default/Secondary/Destructive/Outline/Ghost/Link), 4 sizes (Default/Sm/Lg/Icon), 3 animations
-                             Content lambda passes resolved foreground Color: content: @Composable (foreground: Color) -> Unit
+                             Provides LocalContentColor to children. Content lambda: @Composable () -> Unit
     button/IconButton.kt  — Convenience wrapper over Button with ButtonSize.Icon. 3 sizes (Sm/Default/Lg). Defaults to Ghost variant.
-    card/Card.kt          — 3 variants + CardHeader/CardContent/CardFooter, semantic grouping
+    card/Card.kt          — 3 variants (Default/Ghost/Elevated) + CardHeader/CardContent/CardFooter
+                             Elevated uses subtle border (alpha 0.5) for dark mode visibility
     badge/Badge.kt        — 4 variants (Default/Secondary/Destructive/Outline), text + content overloads
     separator/Separator.kt — Horizontal/Vertical, decorative (clearAndSetSemantics)
     input/Input.kt        — BasicTextField wrapper, animated focus border, placeholder, accessibility
@@ -49,7 +53,7 @@ components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/
     textarea/Textarea.kt   — Multi-line text input
     label/Label.kt         — Form label with disabled state
     skeleton/Skeleton.kt   — Pulsing loading placeholder
-    spinner/Spinner.kt     — Rotating loading indicator (3 sizes), stroke inset padding to prevent clipping
+    spinner/Spinner.kt     — Rotating loading indicator (3 sizes), defaults to LocalContentColor
     alert/Alert.kt         — Alert + AlertTitle + AlertDescription (Default/Destructive variants)
                              Destructive uses semi-transparent red bg/border + destructive text color
     avatar/Avatar.kt       — Fallback initials (3 sizes: Sm/Default/Lg)
@@ -64,16 +68,22 @@ components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/
     sheet/Sheet.kt         — Sheet + SheetHeader/Content/Footer (4 sides)
     select/Select.kt       — Dropdown select with chevron/check icons
     breadcrumb/Breadcrumb.kt — Navigation breadcrumbs with auto-separators
-    pagination/Pagination.kt — Smart page navigation with icons
+    pagination/Pagination.kt — Smart page navigation with icons, provides LocalContentColor
     scrollarea/ScrollArea.kt — Custom scrollbar (vertical + horizontal)
     popover/Popover.kt     — Click-triggered popup
     dropdown/DropdownMenu.kt — Action menu with items/separators/labels
+    contextmenu/ContextMenu.kt — Right-click triggered menu
+    alertdialog/AlertDialog.kt — Confirmation dialog with actions
     hovercard/HoverCard.kt — Hover-triggered popup with delay
     tooltip/Tooltip.kt     — Tooltip on hover
+    toast/Toast.kt         — ToastHost + LocalToastHostState, rendered via Scaffold slot (not Popup)
+    scaffold/Scaffold.kt   — SubcomposeLayout with topBar + content + toastHost slots
+    collapsible/Collapsible.kt — Animated expand/collapse container
+    navigationbar/NavigationBar.kt — Bottom navigation bar
+    topappbar/TopAppBar.kt — Top app bar with navigation + actions
     list/List.kt           — RikkaList with ListVariant (Unordered/Ordered/None), string items + DSL (ListScope)
-    icon/Icon.kt           — Foundation-only icon composable (ImageVector + ColorFilter.tint)
+    icon/Icon.kt           — Foundation-only icon composable (ImageVector + ColorFilter.tint), defaults to LocalContentColor
     icon/RikkaIcons.kt     — 30 Lucide-style icons as lazy ImageVector definitions
-    indication/RikkaIndication.kt — IndicationNodeFactory using Modifier.Node API (draw phase only)
 ```
 
 ### Showcase Website Structure
@@ -81,6 +91,7 @@ components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/
 ```
 composeApp/src/webMain/kotlin/zed/rainxch/rikkaui/
   App.kt                  — Entry point: main(), ComposeViewport, RikkaTheme wiring, bindToBrowserNavigation()
+                            Uses Scaffold with topBar + toastHost slots. Provides LocalToastHostState.
   navigation/
     Routes.kt             — 5 serializable routes: HomeRoute, CreatorRoute, DocsRoute, ComponentsRoute, ComponentDetailRoute
   shell/
@@ -128,7 +139,7 @@ Routes use `@SerialName` for clean URL paths. Browser back/forward and page refr
 8. **Accessibility** — Every interactive component MUST have: Role, contentDescription via `label` param, disabled() semantics. Headings get `heading()`. Decorative elements get `clearAndSetSemantics {}`
 9. **No Material3** — Use BasicText (not Text), clickable with Role (not Button), compose.foundation only
 10. **KDoc on everything** — With usage examples in code blocks
-11. **Button foreground propagation** — Button content lambda passes resolved foreground Color to children: `content: @Composable (foreground: Color) -> Unit`. Never use LocalContentColor.
+11. **LocalContentColor propagation** — Button (and other containers) provide `LocalContentColor` via `CompositionLocalProvider`. Content lambda is `@Composable () -> Unit`. Text, Icon, and Spinner auto-resolve color: explicit → `LocalContentColor` → theme default. Never pass foreground color as a lambda parameter.
 
 ### Performance Rules
 
@@ -158,7 +169,12 @@ Every theme token is customizable at 3 levels: presets, factory functions, or fu
   - `RikkaStylePreset.Aurora`: radius 14dp, spacing 5dp, default motion, scale 1.1 (spacious, large)
   - `RikkaStylePreset.Nebula`: radius 0dp, spacing 3dp, minimal motion, scale 0.85 (square, tight)
   - Iterate with `RikkaStylePreset.entries`
-- **Convenience `RikkaTheme` overloads:** `RikkaTheme(colors, style: RikkaStyle, typography)` and `RikkaTheme(colors, preset: RikkaStylePreset, typography)`.
+- **`RikkaTheme` overloads (4 total):**
+  1. `RikkaTheme(colors, typography, spacing, shapes, motion) { }` — full manual control, all params have defaults
+  2. `RikkaTheme(colors, style: RikkaStyle, typography) { }` — `style` has NO default (avoids overload ambiguity)
+  3. `RikkaTheme(colors, preset: RikkaStylePreset, typography) { }` — `preset` has NO default
+  4. `RikkaTheme(palette: RikkaPalette, accent, isDark, preset) { }` — `palette` has NO default, all-in-one overload
+  - **Important:** Distinguishing params (`style`, `preset`, `palette`) intentionally have no defaults. This prevents `RikkaTheme { }` from matching multiple overloads. `RikkaTheme { }` always resolves to overload #1.
 - **Website demo:** ThemeSection iterates `RikkaStylePreset.entries` for type-safe style switching.
 
 ## Build & Run
@@ -175,6 +191,13 @@ Every theme token is customizable at 3 levels: presets, factory functions, or fu
 
 # Format code (runs before build via hook)
 ./gradlew :components:ktlintFormat
+
+# Generate registry JSON manifests
+./gradlew generateRegistryJson
+
+# Build CLI shadow JAR + copy to web resources for Vercel
+./gradlew :cli:shadowJar
+cp cli/build/libs/rikkaui.jar composeApp/src/webMain/resources/rikkaui.jar
 
 # Preview server (after building distributable)
 # Uses .claude/launch.json: npx serve on port 3000
@@ -315,22 +338,32 @@ ktlint { ignoreFailures = true }
 - **Output dir:** `composeApp/build/dist/wasmJs/productionExecutable`
 - **`build.sh`:** Installs `libatomic` (required by Node.js v25 on Amazon Linux 2023), then runs Gradle
 - Kotlin 2.3.0 downloads Node.js v25 internally; `version.set()` on `NodeJsEnvSpec` is ignored
+- **Static assets served via Vercel** from `composeApp/src/webMain/resources/`:
+  - `rikkaui.dev/install.sh` — CLI install script
+  - `rikkaui.dev/rikkaui.jar` — CLI shadow JAR (not in git, copied during build)
+  - `rikkaui.dev/r/` — Registry JSON manifests (auto-generated)
 
 ## Known Bugs & Issues Fixed (for context)
 
 ### Fixed in Recent Sessions
 - **Toggle thumb invisible in dark mode (default accent):** `primary` is near-white (0xFFFAFAFA), thumb was hardcoded `Color.White`. Fix: thumb now uses `primaryForeground` when checked.
-- **Play button icon invisible:** Default Button uses `primary` bg with `primaryForeground` text, but Text inside used theme `foreground` instead. Fix: Button content lambda now passes foreground color to children.
+- **Button/Icon/Text color mismatch:** Children inside Button used theme `foreground` instead of button's resolved foreground. Fix: replaced foreground lambda with `LocalContentColor` propagation. Text/Icon/Spinner now auto-resolve: explicit → LocalContentColor → theme default.
+- **RikkaTheme overload ambiguity:** `RikkaTheme { }` matched 4 overloads (all had defaults). Fix: distinguishing params (`style`, `preset`, `palette`) now have NO defaults.
+- **Toast relative positioning:** Toast used Popup which positions relative to parent (not viewport) in CMP WasmJs. Fix: Toast integrated into Scaffold as a slot via SubcomposeLayout, rendered last = always on top. Access via `LocalToastHostState`.
+- **Card Elevated indistinguishable from Ghost in dark mode:** Shadow invisible on dark backgrounds. Fix: Elevated variant now uses `border = colors.border.copy(alpha = 0.5f)`.
 - **Alert Destructive text invisible in light mode:** `destructiveForeground` is near-white on white `card` background. Fix: Destructive Alert now uses `destructive.copy(alpha=0.1f)` background, `destructive.copy(alpha=0.3f)` border, and `destructive` color for both title and description text.
 - **Light mode palettes indistinguishable:** All 5 light palettes had identical white backgrounds and near-identical token values. Fix: Zinc keeps white bg as baseline, Slate/Stone/Gray/Neutral now use tinted backgrounds and more distinct border/secondary colors.
 - **Spinner cropped in Button loading state:** drawArc stroke extends beyond Canvas bounds. Fix: added `padding(stroke/2)` inset.
 - **Tabs text overlapping:** DemoBox is a Box (not Column), so TabList and TabContent stacked. Fix: wrapped in Column.
 - **Button loading hides content:** Users want to see both spinner AND text while loading. Fix: loading shows both Spinner and content.
+- **CodeBlock copy not working:** Ctrl+C doesn't work in Compose WasmJs canvas. Fix: added explicit Copy button using `LocalClipboardManager` + `AnnotatedString`.
 
 ### Important Gotchas
 - **Checkbox `label` renders visually** — Don't add a separate Text composable next to Checkbox with label; it will show the text twice.
 - **Compose PathBuilder** uses `curveTo` (not `cubicTo`), has no `addOval`/`addRoundRect`. Use custom `circle()` and `roundRect()` helper extensions in RikkaIcons.kt.
 - **Compose Wasm canvas rendering** — `window.scrollBy()` doesn't work for scrolling. The scroll is internal to the Compose canvas. Use WheelEvent dispatch or page reload for screenshot navigation.
+- **Compose WasmJs Popup positions relative to parent** — No CSS `position: fixed` equivalent. Don't use Popup for viewport-level overlays (toasts, snackbars). Use Scaffold slots or SubcomposeLayout instead.
+- **Compose WasmJs clipboard** — `SelectionContainer` + Ctrl+C doesn't copy text reliably. Use `LocalClipboardManager.setText(AnnotatedString(...))` with an explicit Copy button.
 - **`Modifier.weight()`** is a `RowScope`/`ColumnScope` extension — don't import `foundation.layout.weight` directly (it's internal).
 - **DemoBox in docs uses `Box`** — Children stack (overlap), not flow. Wrap multiple elements in `Column` or `Row`.
 - **WasmJs has no `dynamic` type** — Unlike Kotlin/JS. Use typed APIs (e.g., `(Event) -> Unit` not `(dynamic) -> Unit`).
@@ -349,21 +382,39 @@ ktlint { ignoreFailures = true }
 
 ## MVP Scope
 
-**CLI is deferred.** MVP = design system + components + registry + website.
+MVP = design system + components + registry + CLI + website.
 
-Priority order:
+Status:
 1. Website showcasing all components with live examples (DONE - 10 original example cards)
-2. Documentation for all components (DONE - integrated into website via `:feature:docs`)
-3. Maven Central publishing (IN PROGRESS - v0.1.0)
-4. Registry system: JSON manifests describing components + dependencies
-5. Community: Post on X/LinkedIn, Discord, collect weekly feedback
+2. Documentation for all components (DONE - integrated into website via `:feature:docs`, including CLI docs)
+3. Maven Central publishing (DONE - v0.1.0 on `dev.rikkaui`)
+4. Registry system: JSON manifests with auto-dependency detection (DONE - `GenerateRegistryJsonTask` in buildSrc)
+5. CLI: `rikkaui init/add/list` commands (DONE - self-hosted on Vercel via `rikkaui.dev/install.sh`)
+6. Community: Post on X/LinkedIn, Discord, collect weekly feedback
+
+## CLI
+
+- **Module:** `:cli` — Kotlin/JVM shadow JAR
+- **Install:** `curl -fsSL https://rikkaui.dev/install.sh | bash`
+- **Commands:** `rikkaui init`, `rikkaui add <components...>`, `rikkaui list`
+- **Self-hosted on Vercel** — install.sh and rikkaui.jar served as static files from `composeApp/src/webMain/resources/`
+- **Independent of GitHub Releases** — no GitHub API calls in install script
+- **Docs:** CLI documentation page at `feature/docs/.../pages/CliDoc.kt`, accessible via website
+
+## Registry System
+
+- **`GenerateRegistryJsonTask`** in `buildSrc/` — Gradle task that generates JSON manifests for all components
+- **Auto-dependency detection** — parses Kotlin source files for import statements, resolves inter-component dependencies
+- **Output:** `composeApp/src/webMain/resources/r/` — one JSON file per component (e.g., `button.json`, `card.json`)
+- **Cleans stale files** — deletes `r/` directory before regenerating
+- **Fields:** name, description, category, dependencies, files, registryDependencies
 
 ## Key Technical Decisions
 
 - **Foundation only, no Material3** — Compose Foundation provides BasicText, clickable, InteractionSource. We build everything else.
 - **staticCompositionLocalOf** for theme — tokens rarely change, avoid tracking overhead.
 - **Spring physics default** — Handles interruptions gracefully, feels native across platforms.
-- **RikkaIndication over per-component feedback** — Single IndicationNodeFactory for design-system-wide hover/press/focus.
+- **LocalContentColor over foreground lambda** — Implicit color propagation via `CompositionLocalProvider`. Children auto-inherit foreground color. No need to pass colors through lambdas.
 - **Experimental Styles API** — Future migration target when Foundation 1.11+ stabilizes. Currently we use manual InteractionSource + animateColorAsState.
 - **Wasm/Web target** — Canvas-based (no SEO). Target dashboards/apps, not content sites. Hover states critical.
 - **bindToBrowserNavigation()** — Official Compose Navigation API for browser hash routing. Replaces custom HashRouter.
