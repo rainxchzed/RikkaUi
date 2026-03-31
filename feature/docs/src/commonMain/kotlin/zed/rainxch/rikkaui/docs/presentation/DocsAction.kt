@@ -1,7 +1,11 @@
 package zed.rainxch.rikkaui.docs.presentation
 
 sealed interface DocsAction {
-    data class SelectPage(val id: String) : DocsAction
+    data class SelectPage(
+        val id: String,
+    ) : DocsAction
 
-    data class NavigateToComponent(val componentId: String) : DocsAction
+    data class NavigateToComponent(
+        val componentId: String,
+    ) : DocsAction
 }

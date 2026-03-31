@@ -6,9 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun CreatorRoute(
-    viewModel: CreatorViewModel = viewModel { CreatorViewModel() },
-) {
+fun CreatorRoute(viewModel: CreatorViewModel = viewModel { CreatorViewModel() }) {
     val state by viewModel.state.collectAsState()
 
     CreatorScreen(

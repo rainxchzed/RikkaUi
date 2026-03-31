@@ -50,19 +50,8 @@ import zed.rainxch.rikkaui.docs.catalog.ComponentEntry
 import zed.rainxch.rikkaui.docs.catalog.ComponentRegistry
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
-/**
- * Full-page component catalog that displays all components
- * grouped by category in a responsive grid layout.
- *
- * Includes a search bar that filters components by matching
- * against both name and description. Each component is shown
- * as a clickable card. Clicking navigates to the component's
- * documentation page.
- */
 @Composable
-fun ComponentsCatalogScreen(
-    onComponentClick: (String) -> Unit,
-) {
+fun ComponentsCatalogScreen(onComponentClick: (String) -> Unit) {
     val allEntries = remember { ComponentRegistry.entries }
     val totalCount = remember { allEntries.size }
 

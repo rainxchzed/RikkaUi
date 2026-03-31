@@ -23,10 +23,14 @@ abstract class GenerateComponentSourcesTask : DefaultTask() {
 
     @TaskAction
     fun generate() {
-        val dirs = componentsUiDir.get().asFile.listFiles()
-            ?.filter { it.isDirectory }
-            ?.sortedBy { it.name }
-            ?: emptyList()
+        val dirs =
+            componentsUiDir
+                .get()
+                .asFile
+                .listFiles()
+                ?.filter { it.isDirectory }
+                ?.sortedBy { it.name }
+                ?: emptyList()
 
         val sb = StringBuilder()
         sb.appendLine("package zed.rainxch.rikkaui.docs.sources")
@@ -44,15 +48,19 @@ abstract class GenerateComponentSourcesTask : DefaultTask() {
         sb.appendLine("    val sources: Map<String, List<SourceFile>> = mapOf(")
 
         dirs.forEach { dir ->
-            val ktFiles = dir.listFiles()
-                ?.filter { it.extension == "kt" }
-                ?.sortedBy { it.name }
-                ?: emptyList()
+            val ktFiles =
+                dir
+                    .listFiles()
+                    ?.filter { it.extension == "kt" }
+                    ?.sortedBy { it.name }
+                    ?: emptyList()
             if (ktFiles.isNotEmpty()) {
                 sb.appendLine("        \"${dir.name}\" to listOf(")
                 ktFiles.forEach { file ->
-                    val encoded = Base64.getEncoder()
-                        .encodeToString(file.readBytes())
+                    val encoded =
+                        Base64
+                            .getEncoder()
+                            .encodeToString(file.readBytes())
                     sb.appendLine("            SourceFile(\"${file.name}\", d(\"$encoded\")),")
                 }
                 sb.appendLine("        ),")
@@ -62,9 +70,10 @@ abstract class GenerateComponentSourcesTask : DefaultTask() {
         sb.appendLine("    )")
         sb.appendLine("}")
 
-        val outFile = outputDir.get().asFile.resolve(
-            "zed/rainxch/rikkaui/docs/sources/ComponentSources.kt",
-        )
+        val outFile =
+            outputDir.get().asFile.resolve(
+                "zed/rainxch/rikkaui/docs/sources/ComponentSources.kt",
+            )
         outFile.parentFile.mkdirs()
         outFile.writeText(sb.toString())
     }

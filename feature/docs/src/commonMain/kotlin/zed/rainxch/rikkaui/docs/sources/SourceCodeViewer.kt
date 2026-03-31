@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -41,32 +40,16 @@ import rikkaui.feature.docs.generated.resources.source_file_label
 import rikkaui.feature.docs.generated.resources.source_instruction
 import rikkaui.feature.docs.generated.resources.source_no_source
 import zed.rainxch.rikkaui.components.ui.button.Button
-import zed.rainxch.rikkaui.components.ui.button.ButtonDefaults
 import zed.rainxch.rikkaui.components.ui.button.ButtonSize
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
-import zed.rainxch.rikkaui.components.ui.icon.Icon
-import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
-/**
- * Resolves the source directory name from a component registry ID.
- *
- * Most IDs match by just removing hyphens:
- * "scroll-area" → "scrollarea", "toggle-group" → "togglegroup"
- *
- * The "dropdown-menu" → "dropdown" case is an explicit override.
- */
 private fun resolveSourceDir(componentId: String): String =
     when (componentId) {
         "dropdown-menu" -> "dropdown"
         else -> componentId.replace("-", "")
     }
 
-/**
- * Displays the full source code of a component with a copy button.
- *
- * @param componentId The registry ID (e.g. "button", "scroll-area").
- */
 @Composable
 fun SourceCodeViewer(componentId: String) {
     val dirName = resolveSourceDir(componentId)

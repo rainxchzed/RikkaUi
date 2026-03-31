@@ -161,44 +161,45 @@ Resolving dependencies...
         Spacer(Modifier.height(RikkaTheme.spacing.sm))
 
         PropsTable(
-            props = listOf(
-                PropInfo(
-                    name = "--path",
-                    type = "String",
-                    default = "from config",
-                    description = "Target directory for component files",
+            props =
+                listOf(
+                    PropInfo(
+                        name = "--path",
+                        type = "String",
+                        default = "from config",
+                        description = "Target directory for component files",
+                    ),
+                    PropInfo(
+                        name = "--package",
+                        type = "String",
+                        default = "from config",
+                        description = "Target package name for import rewriting",
+                    ),
+                    PropInfo(
+                        name = "--dry-run",
+                        type = "Flag",
+                        default = "false",
+                        description = "Preview file operations without writing",
+                    ),
+                    PropInfo(
+                        name = "--overwrite",
+                        type = "Flag",
+                        default = "false",
+                        description = "Overwrite existing files",
+                    ),
+                    PropInfo(
+                        name = "--all",
+                        type = "Flag",
+                        default = "false",
+                        description = "Add all components from the registry",
+                    ),
+                    PropInfo(
+                        name = "--registry",
+                        type = "String",
+                        default = "rikkaui.dev/r",
+                        description = "Custom registry URL",
+                    ),
                 ),
-                PropInfo(
-                    name = "--package",
-                    type = "String",
-                    default = "from config",
-                    description = "Target package name for import rewriting",
-                ),
-                PropInfo(
-                    name = "--dry-run",
-                    type = "Flag",
-                    default = "false",
-                    description = "Preview file operations without writing",
-                ),
-                PropInfo(
-                    name = "--overwrite",
-                    type = "Flag",
-                    default = "false",
-                    description = "Overwrite existing files",
-                ),
-                PropInfo(
-                    name = "--all",
-                    type = "Flag",
-                    default = "false",
-                    description = "Add all components from the registry",
-                ),
-                PropInfo(
-                    name = "--registry",
-                    type = "String",
-                    default = "rikkaui.dev/r",
-                    description = "Custom registry URL",
-                ),
-            ),
         )
     }
 

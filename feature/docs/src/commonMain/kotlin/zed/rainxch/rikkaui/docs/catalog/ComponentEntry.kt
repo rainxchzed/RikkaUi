@@ -10,7 +10,9 @@ import rikkaui.feature.docs.generated.resources.category_layout
 import rikkaui.feature.docs.generated.resources.category_navigation
 import rikkaui.feature.docs.generated.resources.category_overlays
 
-enum class ComponentCategory(val labelRes: StringResource) {
+enum class ComponentCategory(
+    val labelRes: StringResource,
+) {
     Layout(Res.string.category_layout),
     Forms(Res.string.category_forms),
     DataDisplay(Res.string.category_data_display),

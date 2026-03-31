@@ -112,8 +112,8 @@ import zed.rainxch.rikkaui.docs.pages.SheetDoc
 import zed.rainxch.rikkaui.docs.pages.SkeletonDoc
 import zed.rainxch.rikkaui.docs.pages.SliderDoc
 import zed.rainxch.rikkaui.docs.pages.SpinnerDoc
-import zed.rainxch.rikkaui.docs.pages.TabsDoc
 import zed.rainxch.rikkaui.docs.pages.TableDoc
+import zed.rainxch.rikkaui.docs.pages.TabsDoc
 import zed.rainxch.rikkaui.docs.pages.TextDoc
 import zed.rainxch.rikkaui.docs.pages.TextareaDoc
 import zed.rainxch.rikkaui.docs.pages.ToastDoc
@@ -493,12 +493,11 @@ object ComponentRegistry {
             ),
         )
 
-    fun findById(id: String): ComponentEntry? =
-        entries.find { it.id == id }
+    fun findById(id: String): ComponentEntry? = entries.find { it.id == id }
 
-    fun groupedByCategory():
-        Map<ComponentCategory, List<ComponentEntry>> =
-        ComponentCategory.entries.associateWith { cat ->
-            entries.filter { it.category == cat }
-        }.filterValues { it.isNotEmpty() }
+    fun groupedByCategory(): Map<ComponentCategory, List<ComponentEntry>> =
+        ComponentCategory.entries
+            .associateWith { cat ->
+                entries.filter { it.category == cat }
+            }.filterValues { it.isNotEmpty() }
 }
