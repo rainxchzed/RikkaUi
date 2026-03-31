@@ -1,22 +1,13 @@
 #!/bin/bash
 set -e
 
-REPO="rainxchzed/RikkaUi"
 INSTALL_DIR="${RIKKAUI_INSTALL_DIR:-$HOME/.rikkaui}"
 BIN_NAME="rikkaui"
+BASE_URL="https://rikkaui.dev"
 
 echo "Installing RikkaUI CLI..."
 
-# Get latest release tag
-TAG=$(curl -fsSL "https://api.github.com/repos/$REPO/releases/latest" | grep '"tag_name"' | head -1 | cut -d'"' -f4)
-if [ -z "$TAG" ]; then
-    echo "Error: Could not determine latest release."
-    exit 1
-fi
-
-echo "Latest version: $TAG"
-
-JAR_URL="https://github.com/$REPO/releases/download/$TAG/rikkaui.jar"
+JAR_URL="$BASE_URL/rikkaui.jar"
 
 mkdir -p "$INSTALL_DIR"
 
