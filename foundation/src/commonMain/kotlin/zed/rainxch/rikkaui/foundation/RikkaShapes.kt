@@ -1,8 +1,11 @@
 package zed.rainxch.rikkaui.foundation
 
+import androidx.compose.foundation.shape.CornerBasedShape
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -55,7 +58,10 @@ data class RikkaShapes(
     val xl: Shape,
     /** Fully rounded — avatars, circular buttons, pills. */
     val full: Shape,
-)
+) {
+    /** No rounding at all — sharp rectangle. Table cells, code blocks, dividers. */
+    val none: Shape get() = RectangleShape
+}
 
 val LocalRikkaShapes =
     staticCompositionLocalOf<RikkaShapes> {
@@ -89,3 +95,39 @@ fun rikkaShapes(radius: Dp = 10.dp): RikkaShapes {
  * Equivalent to `rikkaShapes(radius = 10.dp)`.
  */
 fun defaultRikkaShapes(baseRadius: Float = 10f): RikkaShapes = rikkaShapes(radius = baseRadius.dp)
+
+// ─── Directional Shape Extensions ──────────────────────────
+
+private val zeroCorner = CornerSize(0.dp)
+
+/**
+ * Returns a copy with only the **top** corners rounded (bottom zeroed).
+ *
+ * Useful for sheets sliding from the bottom, top app bars.
+ *
+ * ```
+ * val topRounded = (RikkaTheme.shapes.lg as CornerBasedShape).top()
+ * ```
+ */
+fun CornerBasedShape.top(): CornerBasedShape = copy(bottomStart = zeroCorner, bottomEnd = zeroCorner)
+
+/**
+ * Returns a copy with only the **bottom** corners rounded (top zeroed).
+ *
+ * Useful for sheets sliding from the top, bottom bars.
+ */
+fun CornerBasedShape.bottom(): CornerBasedShape = copy(topStart = zeroCorner, topEnd = zeroCorner)
+
+/**
+ * Returns a copy with only the **start** (left in LTR) corners rounded (end zeroed).
+ *
+ * Useful for sheets sliding from the end, navigation drawers.
+ */
+fun CornerBasedShape.start(): CornerBasedShape = copy(topEnd = zeroCorner, bottomEnd = zeroCorner)
+
+/**
+ * Returns a copy with only the **end** (right in LTR) corners rounded (start zeroed).
+ *
+ * Useful for sheets sliding from the start, side panels.
+ */
+fun CornerBasedShape.end(): CornerBasedShape = copy(topStart = zeroCorner, bottomStart = zeroCorner)
