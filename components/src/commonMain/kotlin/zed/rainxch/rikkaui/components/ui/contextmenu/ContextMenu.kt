@@ -40,6 +40,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
@@ -302,11 +303,14 @@ fun ContextMenuItem(
                 .padding(
                     horizontal = spacing.md,
                     vertical = spacing.sm,
-                ).then(
+                ).semantics {
+                    contentDescription = text
                     if (!enabled) {
-                        Modifier
-                            .alpha(0.5f)
-                            .semantics { disabled() }
+                        disabled()
+                    }
+                }.then(
+                    if (!enabled) {
+                        Modifier.alpha(0.5f)
                     } else {
                         Modifier
                     },

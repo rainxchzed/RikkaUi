@@ -322,8 +322,11 @@ private fun SelectItem(
                 .clickable(
                     interactionSource = interactionSource,
                     indication = null,
+                    role = Role.Button,
                     onClick = onClick,
-                ).padding(
+                ).semantics {
+                    contentDescription = option.label
+                }.padding(
                     horizontal = spacing.md,
                     vertical = spacing.sm,
                 ),

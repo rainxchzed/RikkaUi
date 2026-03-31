@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
@@ -160,6 +161,9 @@ fun Toggle(
                         contentDescription = label
                     }
                     stateDescription = if (checked) "On" else "Off"
+                    if (!enabled) {
+                        disabled()
+                    }
                 },
         contentAlignment = Alignment.CenterStart,
     ) {
