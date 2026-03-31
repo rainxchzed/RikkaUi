@@ -3,6 +3,10 @@ package zed.rainxch.rikkaui.foundation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import zed.rainxch.rikkaui.foundation.modifier.LocalMinTouchTarget
 
 /**
  * RikkaTheme is the top-level theme composable for the RikkaUi design system.
@@ -26,6 +30,7 @@ fun RikkaTheme(
     spacing: RikkaSpacing = defaultRikkaSpacing(),
     shapes: RikkaShapes = defaultRikkaShapes(),
     motion: RikkaMotion = defaultRikkaMotion(),
+    minTouchTarget: Dp = 48.dp,
     content: @Composable () -> Unit,
 ) {
     CompositionLocalProvider(
@@ -34,6 +39,7 @@ fun RikkaTheme(
         LocalRikkaSpacing provides spacing,
         LocalRikkaShapes provides shapes,
         LocalRikkaMotion provides motion,
+        LocalMinTouchTarget provides minTouchTarget,
         content = content,
     )
 }
@@ -171,4 +177,43 @@ object RikkaTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalRikkaMotion.current
+
+    val minTouchTarget: Dp
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalMinTouchTarget.current
+}
+
+/**
+ * Returns the appropriate content (foreground) color for the given [backgroundColor].
+ *
+ * Matches against the current theme's color tokens to find the corresponding
+ * foreground color. Falls back to [RikkaColors.foreground] if no match is found.
+ *
+ * ### Usage
+ * ```
+ * val bg = RikkaTheme.colors.primary
+ * val fg = contentColorFor(bg) // → primaryForeground
+ * ```
+ */
+@Composable
+@ReadOnlyComposable
+fun contentColorFor(backgroundColor: Color): Color {
+    val colors = RikkaTheme.colors
+    return when (backgroundColor) {
+        colors.background -> colors.foreground
+        colors.card -> colors.cardForeground
+        colors.popover -> colors.popoverForeground
+        colors.primary -> colors.primaryForeground
+        colors.secondary -> colors.secondaryForeground
+        colors.muted -> colors.mutedForeground
+        colors.accent -> colors.accentForeground
+        colors.destructive -> colors.destructiveForeground
+        colors.warning -> colors.warningForeground
+        colors.success -> colors.successForeground
+        colors.inverseSurface -> colors.inverseOnSurface
+        colors.primaryContainer -> colors.primaryContainerForeground
+        colors.destructiveContainer -> colors.destructiveContainerForeground
+        else -> colors.foreground
+    }
 }
