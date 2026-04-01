@@ -22,12 +22,16 @@ Tagline: "Share UI via Compose Multiplatform UI framework"
 
 ```
 foundation/src/commonMain/kotlin/zed/rainxch/rikkaui/foundation/
-    RikkaColors.kt       — 20 semantic color tokens (@Immutable, staticCompositionLocalOf)
+    RikkaColors.kt       — 31 semantic color tokens (@Immutable, staticCompositionLocalOf)
                             + LocalContentColor for implicit foreground propagation
+                            + on* naming pattern for content colors (onBackground, onSurface, onPrimary, etc.)
+                            + Hover/press tokens (primaryHover, primaryPressed, etc.) default to Color.Unspecified
+                            + Tinted container tokens (primaryTinted, destructiveTinted)
     ColorScheme.kt        — 5 base palettes (Zinc/Slate/Stone/Gray/Neutral) x Light/Dark = 10 schemes
                             + 7 accent colors (Red/Rose/Orange/Green/Blue/Yellow/Violet) x Light/Dark
-                            + withAccent() extension + RikkaAccentColor data class
+                            + withAccent() extension + RikkaAccentColor data class (onPrimary, primaryHover, primaryPressed)
                             + RikkaPalette enum + RikkaAccentPreset enum with resolve()/applyTo()
+                            + All palettes include hover/press values following Tailwind color scale
     RikkaTypography.kt    — 9-level type scale (h1-h4, p, lead, large, small, muted)
     RikkaSpacing.kt       — 7-level spacing scale (xs=4dp through xxxl=48dp, 4dp base grid)
     RikkaShapes.kt        — 5-level shape scale (sm/md/lg/xl/full) from base radius
@@ -47,7 +51,7 @@ components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/ui/
     badge/Badge.kt        — 4 variants (Default/Secondary/Destructive/Outline), text + content overloads
     separator/Separator.kt — Horizontal/Vertical, decorative (clearAndSetSemantics)
     input/Input.kt        — BasicTextField wrapper, animated focus border, placeholder, accessibility
-    toggle/Toggle.kt      — Spring-animated thumb, 2 sizes, thumb uses primaryForeground when checked
+    toggle/Toggle.kt      — Spring-animated thumb, 2 sizes, thumb uses onPrimary when checked
     checkbox/Checkbox.kt   — Animated checkmark, label renders visually (not just a11y)
     radio/RadioButton.kt   — Radio selection control
     textarea/Textarea.kt   — Multi-line text input
@@ -154,10 +158,10 @@ Routes use `@SerialName` for clean URL paths. Browser back/forward and page refr
 
 Every theme token is customizable at 3 levels: presets, factory functions, or full override.
 
-- **Colors:** 20 semantic tokens in bg/fg pairs. 5 base palettes x light/dark = 10 schemes. 7 accent colors x light/dark = 14 accents. Composable via `withAccent()`.
+- **Colors:** 31 semantic tokens with `on*` naming pattern (background/onBackground, surface/onSurface, primary/onPrimary, etc.). 5 base palettes x light/dark = 10 schemes. 7 accent colors x light/dark = 14 accents. Composable via `withAccent()`. Includes hover/press tokens (primaryHover, primaryPressed, etc.) and tinted containers (primaryTinted, destructiveTinted).
 - **Light palettes:** Zinc uses pure white background. Slate/Stone/Gray/Neutral use slightly tinted backgrounds with darker borders/secondary for visible differentiation.
 - **Dark palettes:** Each palette has distinct background tints and border colors.
-- **Accent system:** `RikkaAccentColor` overrides primary/primaryForeground/ring. Applied via `base.withAccent(accent)`.
+- **Accent system:** `RikkaAccentColor` overrides primary/onPrimary/ring/primaryHover/primaryPressed. Applied via `base.withAccent(accent)`.
 - **Typography:** `rikkaTypography(fontFamily, scale, h1Size, h2Size, ...)` — font, proportional scale factor (0.85=compact, 1.15=large), or individual size overrides. Line heights auto-calculated from font size ratios.
 - **Spacing:** `rikkaSpacing(base = 4.dp)` — generates proportional scale (xs=1x, sm=2x, md=3x, lg=4x, xl=6x, xxl=8x, xxxl=12x). Presets: `RikkaSpacingPresets.compact()` (3dp), `.comfortable()` (5dp), `.spacious()` (6dp).
 - **Shapes:** `rikkaShapes(radius = 10.dp)` — generates sm/md/lg/xl/full from one base radius. Presets: `RikkaShapesPresets.square()` (0dp), `.sharp()` (4dp), `.rounded()` (16dp), `.pill()` (24dp).
@@ -346,8 +350,8 @@ ktlint { ignoreFailures = true }
 ## Known Bugs & Issues Fixed (for context)
 
 ### Fixed in Recent Sessions
-- **Toggle thumb invisible in dark mode (default accent):** `primary` is near-white (0xFFFAFAFA), thumb was hardcoded `Color.White`. Fix: thumb now uses `primaryForeground` when checked.
-- **Button/Icon/Text color mismatch:** Children inside Button used theme `foreground` instead of button's resolved foreground. Fix: replaced foreground lambda with `LocalContentColor` propagation. Text/Icon/Spinner now auto-resolve: explicit → LocalContentColor → theme default.
+- **Toggle thumb invisible in dark mode (default accent):** `primary` is near-white (0xFFFAFAFA), thumb was hardcoded `Color.White`. Fix: thumb now uses `onPrimary` when checked.
+- **Button/Icon/Text color mismatch:** Children inside Button used theme `onBackground` instead of button's resolved foreground. Fix: replaced foreground lambda with `LocalContentColor` propagation. Text/Icon/Spinner now auto-resolve: explicit → LocalContentColor → theme default.
 - **RikkaTheme overload ambiguity:** `RikkaTheme { }` matched 4 overloads (all had defaults). Fix: distinguishing params (`style`, `preset`, `palette`) now have NO defaults.
 - **Toast relative positioning:** Toast used Popup which positions relative to parent (not viewport) in CMP WasmJs. Fix: Toast integrated into Scaffold as a slot via SubcomposeLayout, rendered last = always on top. Access via `LocalToastHostState`.
 - **Card Elevated indistinguishable from Ghost in dark mode:** Shadow invisible on dark backgrounds. Fix: Elevated variant now uses `border = colors.border.copy(alpha = 0.5f)`.
