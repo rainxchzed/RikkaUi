@@ -7,12 +7,15 @@ import rikkaui.feature.docs.generated.resources.guide_cli
 import rikkaui.feature.docs.generated.resources.guide_installation
 import rikkaui.feature.docs.generated.resources.guide_introduction
 import rikkaui.feature.docs.generated.resources.guide_theming
+import rikkaui.feature.docs.generated.resources.guide_whats_new
 import zed.rainxch.rikkaui.docs.pages.CliDoc
 import zed.rainxch.rikkaui.docs.pages.InstallationDoc
 import zed.rainxch.rikkaui.docs.pages.IntroductionDoc
 import zed.rainxch.rikkaui.docs.pages.ThemingDoc
+import zed.rainxch.rikkaui.docs.pages.WhatsNewDoc
 
 object GuideIds {
+    const val WHATS_NEW = "whats-new"
     const val INTRODUCTION = "introduction"
     const val INSTALLATION = "installation"
     const val THEMING = "theming"
@@ -27,6 +30,11 @@ data class GuidePage(
 
 val guidePages =
     listOf(
+        GuidePage(
+            id = GuideIds.WHATS_NEW,
+            nameRes = Res.string.guide_whats_new,
+            content = { WhatsNewDoc() },
+        ),
         GuidePage(
             id = GuideIds.INTRODUCTION,
             nameRes = Res.string.guide_introduction,
