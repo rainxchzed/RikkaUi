@@ -237,7 +237,7 @@ private fun TopNavBar(
 
                     Button(
                         onClick = { onDarkChange(!isDark) },
-                        variant = ButtonVariant.Link,
+                        variant = ButtonVariant.Ghost,
                         size = ButtonSize.Icon,
                     ) {
                         Icon(
