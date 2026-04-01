@@ -44,8 +44,9 @@ import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
-import zed.rainxch.rikkaui.foundation.RikkaMotion
 import zed.rainxch.rikkaui.foundation.LocalContentColor
+import zed.rainxch.rikkaui.foundation.LocalTextStyle
+import zed.rainxch.rikkaui.foundation.RikkaMotion
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation Enum ─────────────────────────────────────────
@@ -157,7 +158,10 @@ fun AlertDialog(
                             spacing.md,
                         ),
                 ) {
-                    CompositionLocalProvider(LocalContentColor provides colors.popoverForeground) {
+                    CompositionLocalProvider(
+                        LocalContentColor provides colors.popoverForeground,
+                        LocalTextStyle provides RikkaTheme.typography.p,
+                    ) {
                         content()
                     }
                 }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -19,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -84,6 +86,7 @@ fun ToggleGroupItem(
     content: @Composable () -> Unit,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
+    val isHovered by interactionSource.collectIsHoveredAsState()
     val colors = RikkaTheme.colors
     val motion = RikkaTheme.motion
     val shape = RikkaTheme.shapes.md
@@ -130,7 +133,9 @@ fun ToggleGroupItem(
                 .then(borderModifier)
                 .then(backgroundModifier)
                 .clip(shape)
-                .clickable(
+                .graphicsLayer {
+                    alpha = if (isHovered && !selected) motion.hoverAlpha else 1f
+                }.clickable(
                     interactionSource = interactionSource,
                     indication = null,
                     role = Role.Button,

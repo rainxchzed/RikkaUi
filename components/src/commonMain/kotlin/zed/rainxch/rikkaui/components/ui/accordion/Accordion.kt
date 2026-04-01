@@ -10,6 +10,7 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,6 +30,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.ui.icon.Icon
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
@@ -66,6 +68,7 @@ fun AccordionItem(
     val spacing = RikkaTheme.spacing
     val motion = RikkaTheme.motion
     val interactionSource = remember { MutableInteractionSource() }
+    val isHovered by interactionSource.collectIsHoveredAsState()
 
     // ─── Chevron rotation ─────────────────────────────────
     val chevronRotation by animateFloatAsState(
@@ -98,7 +101,16 @@ fun AccordionItem(
             Text(
                 text = title,
                 variant = TextVariant.P,
-                style = TextStyle(fontWeight = FontWeight.Medium),
+                style =
+                    TextStyle(
+                        fontWeight = FontWeight.Medium,
+                        textDecoration =
+                            if (isHovered) {
+                                TextDecoration.Underline
+                            } else {
+                                TextDecoration.None
+                            },
+                    ),
                 modifier = Modifier.weight(1f),
             )
 

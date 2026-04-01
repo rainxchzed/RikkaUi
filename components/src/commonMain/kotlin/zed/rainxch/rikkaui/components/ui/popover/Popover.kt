@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import kotlinx.coroutines.delay
 import zed.rainxch.rikkaui.foundation.LocalContentColor
+import zed.rainxch.rikkaui.foundation.LocalTextStyle
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ─────────────────────────────────────────────
@@ -194,7 +195,10 @@ private fun PopoverCard(
                 .clip(shapes.md)
                 .padding(spacing.lg),
     ) {
-        CompositionLocalProvider(LocalContentColor provides colors.popoverForeground) {
+        CompositionLocalProvider(
+            LocalContentColor provides colors.popoverForeground,
+            LocalTextStyle provides RikkaTheme.typography.small,
+        ) {
             content()
         }
     }

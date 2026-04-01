@@ -7,6 +7,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
@@ -19,11 +20,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -106,6 +109,7 @@ fun Toggle(
     colors: ToggleColorValues = ToggleDefaults.colors(),
 ) {
     val interactionSource = remember { MutableInteractionSource() }
+    val isHovered by interactionSource.collectIsHoveredAsState()
     val motion = RikkaTheme.motion
 
     val sizeValues = resolveSizeValues(size)
@@ -150,7 +154,9 @@ fun Toggle(
                     height = sizeValues.trackHeight,
                 ).clip(RikkaTheme.shapes.full)
                 .background(backgroundColor, RikkaTheme.shapes.full)
-                .clickable(
+                .graphicsLayer {
+                    alpha = if (isHovered && enabled) motion.hoverAlpha else 1f
+                }.clickable(
                     interactionSource = interactionSource,
                     indication = null,
                     enabled = enabled,
@@ -171,8 +177,12 @@ fun Toggle(
         Box(
             modifier =
                 Modifier
-                    .offset(x = sizeValues.thumbPadding + thumbOffset)
-                    .size(sizeValues.thumbSize)
+                    .offset {
+                        IntOffset(
+                            x = (sizeValues.thumbPadding + thumbOffset).roundToPx(),
+                            y = 0,
+                        )
+                    }.size(sizeValues.thumbSize)
                     .clip(CircleShape)
                     .background(
                         colors.thumbColor(checked),

@@ -37,6 +37,7 @@ import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.ui.icon.Icon
 import zed.rainxch.rikkaui.components.ui.text.Text
@@ -251,7 +252,7 @@ fun RowScope.NavigationBarItem(
                     modifier =
                         Modifier
                             .padding(top = RikkaTheme.spacing.xs)
-                            .offset(y = labelOffset)
+                            .offset { IntOffset(x = 0, y = labelOffset.roundToPx()) }
                             .graphicsLayer { alpha = labelAlpha },
                 ) {
                     label()

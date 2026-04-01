@@ -14,6 +14,7 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -87,6 +89,7 @@ fun Tab(
     inactiveBackground: Color = Color.Unspecified,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
+    val isHovered by interactionSource.collectIsHoveredAsState()
     val colors = RikkaTheme.colors
     val motion = RikkaTheme.motion
     val shape = RikkaTheme.shapes.sm
@@ -141,7 +144,9 @@ fun Tab(
                 .shadow(shadowElevation, shape)
                 .background(backgroundColor, shape)
                 .clip(shape)
-                .clickable(
+                .graphicsLayer {
+                    alpha = if (isHovered && !selected) motion.hoverAlpha else 1f
+                }.clickable(
                     interactionSource = interactionSource,
                     indication = null,
                     role = Role.Tab,

@@ -31,6 +31,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -40,7 +41,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -498,137 +498,137 @@ fun Toast(
                 .clip(shapes.lg),
     ) {
         CompositionLocalProvider(LocalContentColor provides colors.popoverForeground) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            // ─── Left accent border ──────────────────────
-            if (resolved.accent != Color.Transparent) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                // ─── Left accent border ──────────────────────
+                if (resolved.accent != Color.Transparent) {
+                    Box(
+                        modifier =
+                            Modifier
+                                .size(width = 4.dp, height = 48.dp)
+                                .background(resolved.accent),
+                    )
+                }
+
+                // ─── Content ─────────────────────────────────
+                Row(
+                    modifier =
+                        Modifier
+                            .weight(1f)
+                            .padding(
+                                start =
+                                    if (resolved.accent != Color.Transparent) {
+                                        spacing.md
+                                    } else {
+                                        spacing.lg
+                                    },
+                                top = spacing.md,
+                                bottom = spacing.md,
+                                end = spacing.sm,
+                            ),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(spacing.sm),
+                ) {
+                    Text(
+                        text = message,
+                        variant = TextVariant.Small,
+                        modifier = Modifier.weight(1f),
+                    )
+
+                    // ─── Action button ───────────────────────
+                    if (actionLabel != null && onAction != null) {
+                        val actionInteraction =
+                            remember {
+                                MutableInteractionSource()
+                            }
+                        val actionHovered by actionInteraction
+                            .collectIsHoveredAsState()
+
+                        val motion = RikkaTheme.motion
+                        Text(
+                            text = actionLabel,
+                            variant = TextVariant.Small,
+                            color =
+                                if (actionHovered) {
+                                    lerp(colors.primary, colors.background, 1f - motion.hoverAlpha)
+                                } else {
+                                    colors.primary
+                                },
+                            modifier =
+                                Modifier
+                                    .hoverable(actionInteraction)
+                                    .clickable(
+                                        interactionSource = actionInteraction,
+                                        indication = null,
+                                        role = Role.Button,
+                                        onClick = {
+                                            onAction()
+                                            onDismiss()
+                                        },
+                                    ).semantics {
+                                        contentDescription = actionLabel
+                                    }.padding(
+                                        horizontal = spacing.sm,
+                                        vertical = spacing.xs,
+                                    ),
+                        )
+                    }
+                }
+
+                // ─── Dismiss button ──────────────────────────
+                val dismissInteraction =
+                    remember {
+                        MutableInteractionSource()
+                    }
+                val dismissHovered by dismissInteraction
+                    .collectIsHoveredAsState()
+
                 Box(
                     modifier =
                         Modifier
-                            .size(width = 4.dp, height = 48.dp)
-                            .background(resolved.accent),
-                )
-            }
-
-            // ─── Content ─────────────────────────────────
-            Row(
-                modifier =
-                    Modifier
-                        .weight(1f)
-                        .padding(
-                            start =
-                                if (resolved.accent != Color.Transparent) {
-                                    spacing.md
-                                } else {
-                                    spacing.lg
-                                },
-                            top = spacing.md,
-                            bottom = spacing.md,
-                            end = spacing.sm,
-                        ),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(spacing.sm),
-            ) {
-                Text(
-                    text = message,
-                    variant = TextVariant.Small,
-                    modifier = Modifier.weight(1f),
-                )
-
-                // ─── Action button ───────────────────────
-                if (actionLabel != null && onAction != null) {
-                    val actionInteraction =
-                        remember {
-                            MutableInteractionSource()
-                        }
-                    val actionHovered by actionInteraction
-                        .collectIsHoveredAsState()
-
-                    val motion = RikkaTheme.motion
-                    Text(
-                        text = actionLabel,
-                        variant = TextVariant.Small,
-                        color =
-                            if (actionHovered) {
-                                lerp(colors.primary, colors.background, 1f - motion.hoverAlpha)
+                            .hoverable(dismissInteraction)
+                            .clickable(
+                                interactionSource = dismissInteraction,
+                                indication = null,
+                                role = Role.Button,
+                                onClick = onDismiss,
+                            ).semantics {
+                                contentDescription = "Dismiss notification"
+                            }.padding(spacing.md),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Icon(
+                        imageVector = RikkaIcons.X,
+                        contentDescription = null,
+                        tint =
+                            if (dismissHovered) {
+                                colors.foreground
                             } else {
-                                colors.primary
+                                colors.mutedForeground
                             },
-                        modifier =
-                            Modifier
-                                .hoverable(actionInteraction)
-                                .clickable(
-                                    interactionSource = actionInteraction,
-                                    indication = null,
-                                    role = Role.Button,
-                                    onClick = {
-                                        onAction()
-                                        onDismiss()
-                                    },
-                                ).semantics {
-                                    contentDescription = actionLabel
-                                }.padding(
-                                    horizontal = spacing.sm,
-                                    vertical = spacing.xs,
-                                ),
                     )
                 }
             }
 
-            // ─── Dismiss button ──────────────────────────
-            val dismissInteraction =
-                remember {
-                    MutableInteractionSource()
-                }
-            val dismissHovered by dismissInteraction
-                .collectIsHoveredAsState()
-
-            Box(
-                modifier =
-                    Modifier
-                        .hoverable(dismissInteraction)
-                        .clickable(
-                            interactionSource = dismissInteraction,
-                            indication = null,
-                            role = Role.Button,
-                            onClick = onDismiss,
-                        ).semantics {
-                            contentDescription = "Dismiss notification"
-                        }.padding(spacing.md),
-                contentAlignment = Alignment.Center,
-            ) {
-                Icon(
-                    imageVector = RikkaIcons.X,
-                    contentDescription = null,
-                    tint =
-                        if (dismissHovered) {
-                            colors.foreground
-                        } else {
-                            colors.mutedForeground
-                        },
-                )
-            }
-        }
-
-        // ─── Progress bar ────────────────────────────────
-        if (showProgressBar) {
-            Box(
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .height(3.dp)
-                        .background(colors.muted),
-            ) {
+            // ─── Progress bar ────────────────────────────────
+            if (showProgressBar) {
                 Box(
                     modifier =
                         Modifier
-                            .fillMaxWidth(progressFraction)
+                            .fillMaxWidth()
                             .height(3.dp)
-                            .background(resolved.accent.takeIf { it != Color.Transparent } ?: colors.primary),
-                )
+                            .background(colors.muted),
+                ) {
+                    Box(
+                        modifier =
+                            Modifier
+                                .fillMaxWidth(progressFraction)
+                                .height(3.dp)
+                                .background(resolved.accent.takeIf { it != Color.Transparent } ?: colors.primary),
+                    )
+                }
             }
-        }
         }
     }
 }
