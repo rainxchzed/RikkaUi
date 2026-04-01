@@ -3,6 +3,7 @@ package zed.rainxch.rikkaui.components.ui.contextmenu
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
+import androidx.compose.ui.graphics.Color
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
@@ -283,7 +284,11 @@ fun ContextMenuItem(
     val spacing = RikkaTheme.spacing
 
     val backgroundColor =
-        if (isHovered && enabled) colors.secondary else colors.surface
+        if (isHovered && enabled) {
+            if (colors.secondaryHover != Color.Unspecified) colors.secondaryHover else colors.secondary
+        } else {
+            colors.surface
+        }
 
     val textColor =
         if (enabled) colors.onSurface else colors.onMuted

@@ -551,7 +551,8 @@ fun Toast(
                             variant = TextVariant.Small,
                             color =
                                 if (actionHovered) {
-                                    lerp(colors.primary, colors.background, 1f - motion.hoverAlpha)
+                                    if (colors.primaryHover != Color.Unspecified) colors.primaryHover
+                                    else lerp(colors.primary, colors.background, 1f - motion.hoverAlpha)
                                 } else {
                                     colors.primary
                                 },

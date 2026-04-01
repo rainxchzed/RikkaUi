@@ -218,7 +218,9 @@ private fun resolveCheckboxColors(
         }
 
         checked && isPressed -> {
-            val pressed = lerp(colors.primary, colors.onBackground, 1f - motion.pressAlpha)
+            val pressed =
+                if (colors.primaryPressed != Color.Unspecified) colors.primaryPressed
+                else lerp(colors.primary, colors.onBackground, 1f - motion.pressAlpha)
             CheckboxColors(
                 background = pressed,
                 border = pressed,
@@ -226,7 +228,9 @@ private fun resolveCheckboxColors(
         }
 
         checked && isHovered -> {
-            val hovered = lerp(colors.primary, colors.onBackground, 1f - motion.hoverAlpha)
+            val hovered =
+                if (colors.primaryHover != Color.Unspecified) colors.primaryHover
+                else lerp(colors.primary, colors.onBackground, 1f - motion.hoverAlpha)
             CheckboxColors(
                 background = hovered,
                 border = hovered,

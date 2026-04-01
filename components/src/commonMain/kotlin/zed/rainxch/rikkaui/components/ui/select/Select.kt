@@ -3,6 +3,7 @@ package zed.rainxch.rikkaui.components.ui.select
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.ui.graphics.Color
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -308,7 +309,8 @@ private fun SelectItem(
     val backgroundColor by animateColorAsState(
         targetValue =
             when {
-                isHovered -> colors.secondary
+                isHovered ->
+                    if (colors.secondaryHover != Color.Unspecified) colors.secondaryHover else colors.secondary
                 else -> colors.surface
             },
         animationSpec = tween(motion.durationFast),

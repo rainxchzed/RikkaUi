@@ -448,7 +448,9 @@ private fun resolveButtonColors(
         PaginationButtonColors(
             background =
                 when {
-                    isHovered -> colors.muted
+                    isHovered ->
+                        if (colors.secondaryHover != Color.Unspecified) colors.secondaryHover
+                        else colors.muted
                     else -> Color.Transparent
                 },
             foreground = colors.onBackground,

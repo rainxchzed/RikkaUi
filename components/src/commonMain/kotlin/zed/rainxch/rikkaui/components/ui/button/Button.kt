@@ -105,6 +105,8 @@ enum class ButtonAnimation {
  * @param disabledContainerColor Background color when disabled.
  * @param disabledContentColor Foreground color when disabled.
  * @param disabledBorderColor Border color when disabled.
+ * @param hoverContainerColor Background color on hover. [Color.Unspecified] = compute via lerp.
+ * @param pressedContainerColor Background color on press. [Color.Unspecified] = compute via lerp.
  */
 @Immutable
 class ButtonColorValues internal constructor(
@@ -114,6 +116,8 @@ class ButtonColorValues internal constructor(
     val disabledContainerColor: Color,
     val disabledContentColor: Color,
     val disabledBorderColor: Color,
+    val hoverContainerColor: Color = Color.Unspecified,
+    val pressedContainerColor: Color = Color.Unspecified,
 ) {
     /** Resolved container color for the given [enabled] state. */
     @Stable
@@ -135,7 +139,9 @@ class ButtonColorValues internal constructor(
             borderColor == other.borderColor &&
             disabledContainerColor == other.disabledContainerColor &&
             disabledContentColor == other.disabledContentColor &&
-            disabledBorderColor == other.disabledBorderColor
+            disabledBorderColor == other.disabledBorderColor &&
+            hoverContainerColor == other.hoverContainerColor &&
+            pressedContainerColor == other.pressedContainerColor
     }
 
     override fun hashCode(): Int {
@@ -145,6 +151,8 @@ class ButtonColorValues internal constructor(
         result = 31 * result + disabledContainerColor.hashCode()
         result = 31 * result + disabledContentColor.hashCode()
         result = 31 * result + disabledBorderColor.hashCode()
+        result = 31 * result + hoverContainerColor.hashCode()
+        result = 31 * result + pressedContainerColor.hashCode()
         return result
     }
 }
@@ -305,28 +313,46 @@ fun Button(
     val borderColor = colors.border(isEffectivelyEnabled)
 
     // ─── Hover/press color modulation ───────────────────
-    // Uses solid color lerp for opaque variants, alpha-matched rest color
-    // for transparent variants to prevent dark-flash during animation.
-    val colors = RikkaTheme.colors
+    // Uses theme hover/press tokens when specified, falls back to lerp.
+    // Transparent variants use alpha-matched rest color to prevent
+    // dark-flash during animation.
+    val themeColors = RikkaTheme.colors
     val isTransparentVariant = containerColor == Color.Transparent
 
-    // For transparent variants, rest state uses muted RGB with alpha=0.
-    // This ensures animateColorAsState only interpolates alpha (not RGB),
-    // avoiding the dark flash from Color.Transparent (black, alpha=0).
     val modulatedContainer =
         when {
             !isEffectivelyEnabled -> containerColor
             isTransparentVariant && isPressed -> {
-                lerp(colors.muted, colors.onBackground, 0.08f)
+                if (colors.pressedContainerColor != Color.Unspecified) {
+                    colors.pressedContainerColor
+                } else {
+                    lerp(themeColors.muted, themeColors.onBackground, 0.08f)
+                }
             }
             isTransparentVariant && isHovered -> {
-                colors.muted
+                if (colors.hoverContainerColor != Color.Unspecified) {
+                    colors.hoverContainerColor
+                } else {
+                    themeColors.muted
+                }
             }
             isTransparentVariant -> {
-                colors.muted.copy(alpha = 0f)
+                themeColors.muted.copy(alpha = 0f)
             }
-            isPressed -> lerp(containerColor, colors.onBackground, 1f - motion.pressAlpha)
-            isHovered -> lerp(containerColor, colors.onBackground, 1f - motion.hoverAlpha)
+            isPressed -> {
+                if (colors.pressedContainerColor != Color.Unspecified) {
+                    colors.pressedContainerColor
+                } else {
+                    lerp(containerColor, themeColors.onBackground, 1f - motion.pressAlpha)
+                }
+            }
+            isHovered -> {
+                if (colors.hoverContainerColor != Color.Unspecified) {
+                    colors.hoverContainerColor
+                } else {
+                    lerp(containerColor, themeColors.onBackground, 1f - motion.hoverAlpha)
+                }
+            }
             else -> containerColor
         }
 
@@ -535,6 +561,8 @@ private fun resolveVariantColors(variant: ButtonVariant): ButtonColorValues {
                 disabledContainerColor = colors.primary.copy(alpha = disabledAlpha),
                 disabledContentColor = colors.onPrimary.copy(alpha = 0.7f),
                 disabledBorderColor = Color.Transparent,
+                hoverContainerColor = colors.primaryHover,
+                pressedContainerColor = colors.primaryPressed,
             )
 
         ButtonVariant.Outline ->
@@ -545,6 +573,8 @@ private fun resolveVariantColors(variant: ButtonVariant): ButtonColorValues {
                 disabledContainerColor = Color.Transparent,
                 disabledContentColor = colors.onBackground.copy(alpha = disabledAlpha),
                 disabledBorderColor = colors.border.copy(alpha = disabledAlpha),
+                hoverContainerColor = colors.secondaryHover,
+                pressedContainerColor = colors.secondaryPressed,
             )
 
         ButtonVariant.Secondary ->
@@ -555,6 +585,8 @@ private fun resolveVariantColors(variant: ButtonVariant): ButtonColorValues {
                 disabledContainerColor = colors.secondary.copy(alpha = disabledAlpha),
                 disabledContentColor = colors.onSecondary.copy(alpha = 0.7f),
                 disabledBorderColor = Color.Transparent,
+                hoverContainerColor = colors.secondaryHover,
+                pressedContainerColor = colors.secondaryPressed,
             )
 
         ButtonVariant.Ghost ->
@@ -565,6 +597,8 @@ private fun resolveVariantColors(variant: ButtonVariant): ButtonColorValues {
                 disabledContainerColor = Color.Transparent,
                 disabledContentColor = colors.onBackground.copy(alpha = disabledAlpha),
                 disabledBorderColor = Color.Transparent,
+                hoverContainerColor = colors.secondaryHover,
+                pressedContainerColor = colors.secondaryPressed,
             )
 
         ButtonVariant.Destructive ->
@@ -575,6 +609,8 @@ private fun resolveVariantColors(variant: ButtonVariant): ButtonColorValues {
                 disabledContainerColor = colors.destructive.copy(alpha = 0.05f),
                 disabledContentColor = colors.destructive.copy(alpha = 0.4f),
                 disabledBorderColor = Color.Transparent,
+                hoverContainerColor = colors.destructiveHover,
+                pressedContainerColor = colors.destructivePressed,
             )
 
         ButtonVariant.Link ->
@@ -585,6 +621,8 @@ private fun resolveVariantColors(variant: ButtonVariant): ButtonColorValues {
                 disabledContainerColor = Color.Transparent,
                 disabledContentColor = colors.primary.copy(alpha = disabledAlpha),
                 disabledBorderColor = Color.Transparent,
+                hoverContainerColor = colors.primaryHover,
+                pressedContainerColor = colors.primaryPressed,
             )
     }
 }
