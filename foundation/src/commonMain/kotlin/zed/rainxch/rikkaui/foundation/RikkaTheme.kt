@@ -36,6 +36,7 @@ fun RikkaTheme(
 ) {
     CompositionLocalProvider(
         LocalRikkaColors provides colors,
+        LocalContentColor provides colors.foreground,
         LocalRikkaTypography provides typography,
         LocalRikkaSpacing provides spacing,
         LocalRikkaShapes provides shapes,
