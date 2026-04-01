@@ -191,12 +191,12 @@ private fun PopoverCard(
                 .widthIn(min = minWidth, max = maxWidth)
                 .shadow(RikkaTheme.elevation.high, shapes.md)
                 .border(1.dp, colors.border, shapes.md)
-                .background(colors.popover, shapes.md)
+                .background(colors.surface, shapes.md)
                 .clip(shapes.md)
                 .padding(spacing.lg),
     ) {
         CompositionLocalProvider(
-            LocalContentColor provides colors.popoverForeground,
+            LocalContentColor provides colors.onSurface,
             LocalTextStyle provides RikkaTheme.typography.small,
         ) {
             content()

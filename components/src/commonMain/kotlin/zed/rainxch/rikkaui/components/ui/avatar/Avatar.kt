@@ -150,7 +150,7 @@ fun Avatar(
         Text(
             text = fallback,
             variant = resolved.textVariant,
-            color = RikkaTheme.colors.mutedForeground,
+            color = RikkaTheme.colors.onMuted,
         )
     }
 }
@@ -192,7 +192,7 @@ private fun resolveSizeValues(size: AvatarSize): AvatarSizeValues =
 private fun resolveStatusColor(status: AvatarStatus?): Color? =
     when (status) {
         AvatarStatus.Online -> RikkaTheme.colors.success
-        AvatarStatus.Offline -> RikkaTheme.colors.mutedForeground
+        AvatarStatus.Offline -> RikkaTheme.colors.onMuted
         AvatarStatus.Busy -> RikkaTheme.colors.destructive
         null -> null
     }

@@ -60,7 +60,7 @@ fun FeedbackFormExample() {
                                 if (star <= rating) {
                                     RikkaTheme.colors.primary
                                 } else {
-                                    RikkaTheme.colors.mutedForeground
+                                    RikkaTheme.colors.onMuted
                                 },
                         )
                     }

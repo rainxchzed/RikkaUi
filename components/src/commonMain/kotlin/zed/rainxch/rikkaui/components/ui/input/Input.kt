@@ -71,12 +71,12 @@ object InputDefaults {
         val c = RikkaTheme.colors
         return InputColorValues(
             background = c.background,
-            border = c.input,
+            border = c.border,
             focusedBorder = c.ring,
-            disabledBorder = c.input.copy(alpha = 0.5f),
+            disabledBorder = c.border.copy(alpha = 0.5f),
             disabledBackground = c.muted.copy(alpha = 0.3f),
-            text = c.foreground,
-            placeholder = c.mutedForeground,
+            text = c.onBackground,
+            placeholder = c.onMuted,
             ring = c.ring,
         )
     }

@@ -83,7 +83,7 @@ fun Scaffold(
     snackbarHost: @Composable () -> Unit = {},
     toastHost: @Composable () -> Unit = {},
     containerColor: Color = RikkaTheme.colors.background,
-    contentColor: Color = RikkaTheme.colors.foreground,
+    contentColor: Color = RikkaTheme.colors.onBackground,
     contentWindowInsets: ScaffoldWindowInsets = ScaffoldWindowInsets(),
     content: @Composable (PaddingValues) -> Unit,
 ) {

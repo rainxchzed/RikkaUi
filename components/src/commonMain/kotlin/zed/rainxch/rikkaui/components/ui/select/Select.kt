@@ -100,7 +100,7 @@ fun Select(
                     .defaultMinSize(minHeight = 40.dp)
                     .onGloballyPositioned { coordinates ->
                         triggerWidth = coordinates.size.width
-                    }.border(1.dp, colors.input, shapes.md)
+                    }.border(1.dp, colors.border, shapes.md)
                     .background(colors.background, shapes.md)
                     .clip(shapes.md)
                     .clickable(
@@ -136,9 +136,9 @@ fun Select(
                 variant = TextVariant.P,
                 color =
                     if (isPlaceholder) {
-                        colors.mutedForeground
+                        colors.onMuted
                     } else {
-                        colors.foreground
+                        colors.onBackground
                     },
                 modifier = Modifier.weight(1f),
                 maxLines = 1,
@@ -146,7 +146,7 @@ fun Select(
             Icon(
                 imageVector = RikkaIcons.ChevronDown,
                 contentDescription = null,
-                tint = colors.mutedForeground,
+                tint = colors.onMuted,
                 modifier = Modifier.size(16.dp),
             )
         }
@@ -204,7 +204,7 @@ private fun SelectDropdownContent(
                         colors.border,
                         shapes.md,
                     ).background(
-                        colors.popover,
+                        colors.surface,
                         shapes.md,
                     ).clip(shapes.md)
                     .padding(vertical = spacing.xs),
@@ -308,8 +308,8 @@ private fun SelectItem(
     val backgroundColor by animateColorAsState(
         targetValue =
             when {
-                isHovered -> colors.accent
-                else -> colors.popover
+                isHovered -> colors.secondary
+                else -> colors.surface
             },
         animationSpec = tween(motion.durationFast),
     )
@@ -339,7 +339,7 @@ private fun SelectItem(
             Icon(
                 imageVector = RikkaIcons.Check,
                 contentDescription = null,
-                tint = colors.foreground,
+                tint = colors.onBackground,
                 modifier = Modifier.size(16.dp),
             )
         } else {
@@ -350,9 +350,9 @@ private fun SelectItem(
             variant = TextVariant.P,
             color =
                 if (isHovered) {
-                    colors.accentForeground
+                    colors.onSecondary
                 } else {
-                    colors.popoverForeground
+                    colors.onSurface
                 },
             maxLines = 1,
         )

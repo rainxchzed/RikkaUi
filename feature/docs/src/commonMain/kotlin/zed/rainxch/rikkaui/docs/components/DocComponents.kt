@@ -116,7 +116,7 @@ fun DemoBox(
                     RikkaTheme.colors.border,
                     RikkaTheme.shapes.lg,
                 ).background(
-                    RikkaTheme.colors.card,
+                    RikkaTheme.colors.surface,
                     RikkaTheme.shapes.lg,
                 ).clip(RikkaTheme.shapes.lg)
                 .padding(RikkaTheme.spacing.xl),
@@ -165,9 +165,9 @@ fun VariantSelector(
                 }
             val fg =
                 if (isActive) {
-                    RikkaTheme.colors.primaryForeground
+                    RikkaTheme.colors.onPrimary
                 } else {
-                    RikkaTheme.colors.foreground
+                    RikkaTheme.colors.onBackground
                 }
 
             Box(
@@ -248,7 +248,7 @@ fun CodeBlock(
                     style =
                         RikkaTheme.typography.small.merge(
                             TextStyle(
-                                color = RikkaTheme.colors.foreground,
+                                color = RikkaTheme.colors.onBackground,
                                 fontFamily = FontFamily.Monospace,
                             ),
                         ),
@@ -279,7 +279,7 @@ fun CodeBlock(
                 style =
                     RikkaTheme.typography.muted.merge(
                         TextStyle(
-                            color = RikkaTheme.colors.mutedForeground,
+                            color = RikkaTheme.colors.onMuted,
                             fontFamily = FontFamily.Monospace,
                             fontSize = 11.sp,
                         ),
@@ -402,7 +402,7 @@ private fun PropHeaderCell(
         style =
             RikkaTheme.typography.small.merge(
                 TextStyle(
-                    color = RikkaTheme.colors.foreground,
+                    color = RikkaTheme.colors.onBackground,
                     fontWeight = FontWeight.SemiBold,
                 ),
             ),
@@ -421,7 +421,7 @@ private fun PropCell(
         style =
             RikkaTheme.typography.small.merge(
                 TextStyle(
-                    color = RikkaTheme.colors.mutedForeground,
+                    color = RikkaTheme.colors.onMuted,
                     fontFamily =
                         if (isMono) {
                             FontFamily.Monospace

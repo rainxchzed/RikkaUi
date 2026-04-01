@@ -145,7 +145,7 @@ fun MusicPlayerExample() {
                         Text(
                             text = if (isPlaying) "\u23F8" else "\u25B6",
                             variant = TextVariant.P,
-                            color = RikkaTheme.colors.primaryForeground,
+                            color = RikkaTheme.colors.onPrimary,
                         )
                     }
                     Button(

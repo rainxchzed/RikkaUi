@@ -50,7 +50,7 @@ fun Icon(
         when {
             tint != Color.Unspecified -> tint
             LocalContentColor.current != Color.Unspecified -> LocalContentColor.current
-            else -> RikkaTheme.colors.foreground
+            else -> RikkaTheme.colors.onBackground
         }
     val painter = rememberVectorPainter(imageVector)
 

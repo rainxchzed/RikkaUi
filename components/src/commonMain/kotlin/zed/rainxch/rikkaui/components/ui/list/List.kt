@@ -107,7 +107,7 @@ private fun ListItemRow(
             Text(
                 text = marker,
                 variant = textVariant,
-                color = RikkaTheme.colors.mutedForeground,
+                color = RikkaTheme.colors.onMuted,
                 modifier = Modifier.widthIn(min = 20.dp),
                 style = TextStyle.Default,
             )

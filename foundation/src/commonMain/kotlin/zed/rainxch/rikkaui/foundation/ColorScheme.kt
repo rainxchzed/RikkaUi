@@ -7,9 +7,9 @@ import androidx.compose.ui.graphics.Color
  *
  * shadcn v4 separates theming into **base palettes** (gray scale) and
  * **accent colors** (primary color override). Each base palette provides
- * light and dark variants with all 19 semantic tokens. Accent colors can
+ * light and dark variants with all semantic tokens. Accent colors can
  * then be layered on top via [withAccent] to override `primary`,
- * `primaryForeground`, and `ring`.
+ * `onPrimary`, and `ring`.
  *
  * ### Quick start
  * ```
@@ -33,70 +33,60 @@ object RikkaPalettes {
     val ZincLight =
         RikkaColors(
             background = Color(0xFFFFFFFF),
-            foreground = Color(0xFF09090B),
-            card = Color(0xFFFFFFFF),
-            cardForeground = Color(0xFF09090B),
-            popover = Color(0xFFFFFFFF),
-            popoverForeground = Color(0xFF09090B),
+            onBackground = Color(0xFF09090B),
+            surface = Color(0xFFFFFFFF),
+            onSurface = Color(0xFF09090B),
             primary = Color(0xFF18181B),
-            primaryForeground = Color(0xFFFAFAFA),
+            onPrimary = Color(0xFFFAFAFA),
             secondary = Color(0xFFF4F4F5),
-            secondaryForeground = Color(0xFF18181B),
+            onSecondary = Color(0xFF18181B),
             muted = Color(0xFFF4F4F5),
-            mutedForeground = Color(0xFF71717A),
-            accent = Color(0xFFF4F4F5),
-            accentForeground = Color(0xFF18181B),
+            onMuted = Color(0xFF71717A),
             destructive = Color(0xFFEF4444),
-            destructiveForeground = Color(0xFFFAFAFA),
+            onDestructive = Color(0xFFFAFAFA),
             border = Color(0xFFE4E4E7),
-            borderVariant = Color(0xFFF4F4F5),
-            input = Color(0xFFE4E4E7),
-            warning = Color(0xFFF59E0B),
-            warningForeground = Color(0xFF422006),
-            success = Color(0xFF22C55E),
-            successForeground = Color(0xFFFAFAFA),
+            borderSubtle = Color(0xFFF4F4F5),
             ring = Color(0xFF09090B),
+            warning = Color(0xFFF59E0B),
+            onWarning = Color(0xFF422006),
+            success = Color(0xFF22C55E),
+            onSuccess = Color(0xFFFAFAFA),
             inverseSurface = Color(0xFF18181B),
-            inverseOnSurface = Color(0xFFFAFAFA),
-            primaryContainer = Color(0xFFF4F4F5),
-            primaryContainerForeground = Color(0xFF09090B),
-            destructiveContainer = Color(0xFFFEE2E2),
-            destructiveContainerForeground = Color(0xFFDC2626),
+            onInverseSurface = Color(0xFFFAFAFA),
+            primaryTinted = Color(0xFFF4F4F5),
+            onPrimaryTinted = Color(0xFF09090B),
+            destructiveTinted = Color(0xFFFEE2E2),
+            onDestructiveTinted = Color(0xFFDC2626),
         )
 
     /** Zinc base palette, dark variant. */
     val ZincDark =
         RikkaColors(
             background = Color(0xFF09090B),
-            foreground = Color(0xFFFAFAFA),
-            card = Color(0xFF09090B),
-            cardForeground = Color(0xFFFAFAFA),
-            popover = Color(0xFF09090B),
-            popoverForeground = Color(0xFFFAFAFA),
+            onBackground = Color(0xFFFAFAFA),
+            surface = Color(0xFF09090B),
+            onSurface = Color(0xFFFAFAFA),
             primary = Color(0xFFFAFAFA),
-            primaryForeground = Color(0xFF18181B),
+            onPrimary = Color(0xFF18181B),
             secondary = Color(0xFF27272A),
-            secondaryForeground = Color(0xFFFAFAFA),
+            onSecondary = Color(0xFFFAFAFA),
             muted = Color(0xFF27272A),
-            mutedForeground = Color(0xFFA1A1AA),
-            accent = Color(0xFF27272A),
-            accentForeground = Color(0xFFFAFAFA),
+            onMuted = Color(0xFFA1A1AA),
             destructive = Color(0xFFDC2626),
-            destructiveForeground = Color(0xFFFAFAFA),
+            onDestructive = Color(0xFFFAFAFA),
             border = Color(0xFF27272A),
-            borderVariant = Color(0xFF18181B),
-            input = Color(0xFF27272A),
-            warning = Color(0xFFF59E0B),
-            warningForeground = Color(0xFF422006),
-            success = Color(0xFF22C55E),
-            successForeground = Color(0xFF052E16),
+            borderSubtle = Color(0xFF18181B),
             ring = Color(0xFFD4D4D8),
+            warning = Color(0xFFF59E0B),
+            onWarning = Color(0xFF422006),
+            success = Color(0xFF22C55E),
+            onSuccess = Color(0xFF052E16),
             inverseSurface = Color(0xFFFAFAFA),
-            inverseOnSurface = Color(0xFF09090B),
-            primaryContainer = Color(0xFF27272A),
-            primaryContainerForeground = Color(0xFFFAFAFA),
-            destructiveContainer = Color(0xFF450A0A),
-            destructiveContainerForeground = Color(0xFFFCA5A5),
+            onInverseSurface = Color(0xFF09090B),
+            primaryTinted = Color(0xFF27272A),
+            onPrimaryTinted = Color(0xFFFAFAFA),
+            destructiveTinted = Color(0xFF450A0A),
+            onDestructiveTinted = Color(0xFFFCA5A5),
         )
 
     // ═══════════════════════════════════════════════
@@ -107,70 +97,60 @@ object RikkaPalettes {
     val SlateLight =
         RikkaColors(
             background = Color(0xFFF8FAFC),
-            foreground = Color(0xFF020817),
-            card = Color(0xFFFFFFFF),
-            cardForeground = Color(0xFF020817),
-            popover = Color(0xFFFFFFFF),
-            popoverForeground = Color(0xFF020817),
+            onBackground = Color(0xFF020817),
+            surface = Color(0xFFFFFFFF),
+            onSurface = Color(0xFF020817),
             primary = Color(0xFF0F172A),
-            primaryForeground = Color(0xFFF8FAFC),
+            onPrimary = Color(0xFFF8FAFC),
             secondary = Color(0xFFE2E8F0),
-            secondaryForeground = Color(0xFF0F172A),
+            onSecondary = Color(0xFF0F172A),
             muted = Color(0xFFF1F5F9),
-            mutedForeground = Color(0xFF64748B),
-            accent = Color(0xFFE2E8F0),
-            accentForeground = Color(0xFF0F172A),
+            onMuted = Color(0xFF64748B),
             destructive = Color(0xFFEF4444),
-            destructiveForeground = Color(0xFFF8FAFC),
+            onDestructive = Color(0xFFF8FAFC),
             border = Color(0xFFCBD5E1),
-            borderVariant = Color(0xFFE2E8F0),
-            input = Color(0xFFCBD5E1),
-            warning = Color(0xFFF59E0B),
-            warningForeground = Color(0xFF422006),
-            success = Color(0xFF22C55E),
-            successForeground = Color(0xFFFAFAFA),
+            borderSubtle = Color(0xFFE2E8F0),
             ring = Color(0xFF020817),
+            warning = Color(0xFFF59E0B),
+            onWarning = Color(0xFF422006),
+            success = Color(0xFF22C55E),
+            onSuccess = Color(0xFFFAFAFA),
             inverseSurface = Color(0xFF0F172A),
-            inverseOnSurface = Color(0xFFF8FAFC),
-            primaryContainer = Color(0xFFF1F5F9),
-            primaryContainerForeground = Color(0xFF020817),
-            destructiveContainer = Color(0xFFFEE2E2),
-            destructiveContainerForeground = Color(0xFFDC2626),
+            onInverseSurface = Color(0xFFF8FAFC),
+            primaryTinted = Color(0xFFF1F5F9),
+            onPrimaryTinted = Color(0xFF020817),
+            destructiveTinted = Color(0xFFFEE2E2),
+            onDestructiveTinted = Color(0xFFDC2626),
         )
 
     /** Slate base palette, dark variant. */
     val SlateDark =
         RikkaColors(
             background = Color(0xFF020817),
-            foreground = Color(0xFFF8FAFC),
-            card = Color(0xFF020817),
-            cardForeground = Color(0xFFF8FAFC),
-            popover = Color(0xFF020817),
-            popoverForeground = Color(0xFFF8FAFC),
+            onBackground = Color(0xFFF8FAFC),
+            surface = Color(0xFF020817),
+            onSurface = Color(0xFFF8FAFC),
             primary = Color(0xFFF8FAFC),
-            primaryForeground = Color(0xFF0F172A),
+            onPrimary = Color(0xFF0F172A),
             secondary = Color(0xFF1E293B),
-            secondaryForeground = Color(0xFFF8FAFC),
+            onSecondary = Color(0xFFF8FAFC),
             muted = Color(0xFF1E293B),
-            mutedForeground = Color(0xFF94A3B8),
-            accent = Color(0xFF1E293B),
-            accentForeground = Color(0xFFF8FAFC),
+            onMuted = Color(0xFF94A3B8),
             destructive = Color(0xFFDC2626),
-            destructiveForeground = Color(0xFFF8FAFC),
+            onDestructive = Color(0xFFF8FAFC),
             border = Color(0xFF1E293B),
-            borderVariant = Color(0xFF0F172A),
-            input = Color(0xFF1E293B),
-            warning = Color(0xFFF59E0B),
-            warningForeground = Color(0xFF422006),
-            success = Color(0xFF22C55E),
-            successForeground = Color(0xFF052E16),
+            borderSubtle = Color(0xFF0F172A),
             ring = Color(0xFFCBD5E1),
+            warning = Color(0xFFF59E0B),
+            onWarning = Color(0xFF422006),
+            success = Color(0xFF22C55E),
+            onSuccess = Color(0xFF052E16),
             inverseSurface = Color(0xFFF8FAFC),
-            inverseOnSurface = Color(0xFF020817),
-            primaryContainer = Color(0xFF1E293B),
-            primaryContainerForeground = Color(0xFFF8FAFC),
-            destructiveContainer = Color(0xFF450A0A),
-            destructiveContainerForeground = Color(0xFFFCA5A5),
+            onInverseSurface = Color(0xFF020817),
+            primaryTinted = Color(0xFF1E293B),
+            onPrimaryTinted = Color(0xFFF8FAFC),
+            destructiveTinted = Color(0xFF450A0A),
+            onDestructiveTinted = Color(0xFFFCA5A5),
         )
 
     // ═══════════════════════════════════════════════
@@ -181,70 +161,60 @@ object RikkaPalettes {
     val StoneLight =
         RikkaColors(
             background = Color(0xFFFAFAF9),
-            foreground = Color(0xFF0C0A09),
-            card = Color(0xFFFFFFFF),
-            cardForeground = Color(0xFF0C0A09),
-            popover = Color(0xFFFFFFFF),
-            popoverForeground = Color(0xFF0C0A09),
+            onBackground = Color(0xFF0C0A09),
+            surface = Color(0xFFFFFFFF),
+            onSurface = Color(0xFF0C0A09),
             primary = Color(0xFF1C1917),
-            primaryForeground = Color(0xFFFAFAF9),
+            onPrimary = Color(0xFFFAFAF9),
             secondary = Color(0xFFE7E5E4),
-            secondaryForeground = Color(0xFF1C1917),
+            onSecondary = Color(0xFF1C1917),
             muted = Color(0xFFF5F5F4),
-            mutedForeground = Color(0xFF78716C),
-            accent = Color(0xFFE7E5E4),
-            accentForeground = Color(0xFF1C1917),
+            onMuted = Color(0xFF78716C),
             destructive = Color(0xFFEF4444),
-            destructiveForeground = Color(0xFFFAFAF9),
+            onDestructive = Color(0xFFFAFAF9),
             border = Color(0xFFD6D3D1),
-            borderVariant = Color(0xFFE7E5E4),
-            input = Color(0xFFD6D3D1),
-            warning = Color(0xFFF59E0B),
-            warningForeground = Color(0xFF422006),
-            success = Color(0xFF22C55E),
-            successForeground = Color(0xFFFAFAFA),
+            borderSubtle = Color(0xFFE7E5E4),
             ring = Color(0xFF0C0A09),
+            warning = Color(0xFFF59E0B),
+            onWarning = Color(0xFF422006),
+            success = Color(0xFF22C55E),
+            onSuccess = Color(0xFFFAFAFA),
             inverseSurface = Color(0xFF1C1917),
-            inverseOnSurface = Color(0xFFFAFAF9),
-            primaryContainer = Color(0xFFF5F5F4),
-            primaryContainerForeground = Color(0xFF0C0A09),
-            destructiveContainer = Color(0xFFFEE2E2),
-            destructiveContainerForeground = Color(0xFFDC2626),
+            onInverseSurface = Color(0xFFFAFAF9),
+            primaryTinted = Color(0xFFF5F5F4),
+            onPrimaryTinted = Color(0xFF0C0A09),
+            destructiveTinted = Color(0xFFFEE2E2),
+            onDestructiveTinted = Color(0xFFDC2626),
         )
 
     /** Stone base palette, dark variant. */
     val StoneDark =
         RikkaColors(
             background = Color(0xFF0C0A09),
-            foreground = Color(0xFFFAFAF9),
-            card = Color(0xFF0C0A09),
-            cardForeground = Color(0xFFFAFAF9),
-            popover = Color(0xFF0C0A09),
-            popoverForeground = Color(0xFFFAFAF9),
+            onBackground = Color(0xFFFAFAF9),
+            surface = Color(0xFF0C0A09),
+            onSurface = Color(0xFFFAFAF9),
             primary = Color(0xFFFAFAF9),
-            primaryForeground = Color(0xFF1C1917),
+            onPrimary = Color(0xFF1C1917),
             secondary = Color(0xFF292524),
-            secondaryForeground = Color(0xFFFAFAF9),
+            onSecondary = Color(0xFFFAFAF9),
             muted = Color(0xFF292524),
-            mutedForeground = Color(0xFFA8A29E),
-            accent = Color(0xFF292524),
-            accentForeground = Color(0xFFFAFAF9),
+            onMuted = Color(0xFFA8A29E),
             destructive = Color(0xFFDC2626),
-            destructiveForeground = Color(0xFFFAFAF9),
+            onDestructive = Color(0xFFFAFAF9),
             border = Color(0xFF292524),
-            borderVariant = Color(0xFF1C1917),
-            input = Color(0xFF292524),
-            warning = Color(0xFFF59E0B),
-            warningForeground = Color(0xFF422006),
-            success = Color(0xFF22C55E),
-            successForeground = Color(0xFF052E16),
+            borderSubtle = Color(0xFF1C1917),
             ring = Color(0xFFD6D3D1),
+            warning = Color(0xFFF59E0B),
+            onWarning = Color(0xFF422006),
+            success = Color(0xFF22C55E),
+            onSuccess = Color(0xFF052E16),
             inverseSurface = Color(0xFFFAFAF9),
-            inverseOnSurface = Color(0xFF0C0A09),
-            primaryContainer = Color(0xFF292524),
-            primaryContainerForeground = Color(0xFFFAFAF9),
-            destructiveContainer = Color(0xFF450A0A),
-            destructiveContainerForeground = Color(0xFFFCA5A5),
+            onInverseSurface = Color(0xFF0C0A09),
+            primaryTinted = Color(0xFF292524),
+            onPrimaryTinted = Color(0xFFFAFAF9),
+            destructiveTinted = Color(0xFF450A0A),
+            onDestructiveTinted = Color(0xFFFCA5A5),
         )
 
     // ═══════════════════════════════════════════════
@@ -255,70 +225,60 @@ object RikkaPalettes {
     val GrayLight =
         RikkaColors(
             background = Color(0xFFF9FAFB),
-            foreground = Color(0xFF030712),
-            card = Color(0xFFFFFFFF),
-            cardForeground = Color(0xFF030712),
-            popover = Color(0xFFFFFFFF),
-            popoverForeground = Color(0xFF030712),
+            onBackground = Color(0xFF030712),
+            surface = Color(0xFFFFFFFF),
+            onSurface = Color(0xFF030712),
             primary = Color(0xFF111827),
-            primaryForeground = Color(0xFFF9FAFB),
+            onPrimary = Color(0xFFF9FAFB),
             secondary = Color(0xFFE5E7EB),
-            secondaryForeground = Color(0xFF111827),
+            onSecondary = Color(0xFF111827),
             muted = Color(0xFFF3F4F6),
-            mutedForeground = Color(0xFF6B7280),
-            accent = Color(0xFFE5E7EB),
-            accentForeground = Color(0xFF111827),
+            onMuted = Color(0xFF6B7280),
             destructive = Color(0xFFEF4444),
-            destructiveForeground = Color(0xFFF9FAFB),
+            onDestructive = Color(0xFFF9FAFB),
             border = Color(0xFFD1D5DB),
-            borderVariant = Color(0xFFE5E7EB),
-            input = Color(0xFFD1D5DB),
-            warning = Color(0xFFF59E0B),
-            warningForeground = Color(0xFF422006),
-            success = Color(0xFF22C55E),
-            successForeground = Color(0xFFFAFAFA),
+            borderSubtle = Color(0xFFE5E7EB),
             ring = Color(0xFF030712),
+            warning = Color(0xFFF59E0B),
+            onWarning = Color(0xFF422006),
+            success = Color(0xFF22C55E),
+            onSuccess = Color(0xFFFAFAFA),
             inverseSurface = Color(0xFF111827),
-            inverseOnSurface = Color(0xFFF9FAFB),
-            primaryContainer = Color(0xFFF3F4F6),
-            primaryContainerForeground = Color(0xFF030712),
-            destructiveContainer = Color(0xFFFEE2E2),
-            destructiveContainerForeground = Color(0xFFDC2626),
+            onInverseSurface = Color(0xFFF9FAFB),
+            primaryTinted = Color(0xFFF3F4F6),
+            onPrimaryTinted = Color(0xFF030712),
+            destructiveTinted = Color(0xFFFEE2E2),
+            onDestructiveTinted = Color(0xFFDC2626),
         )
 
     /** Gray base palette, dark variant. */
     val GrayDark =
         RikkaColors(
             background = Color(0xFF030712),
-            foreground = Color(0xFFF9FAFB),
-            card = Color(0xFF030712),
-            cardForeground = Color(0xFFF9FAFB),
-            popover = Color(0xFF030712),
-            popoverForeground = Color(0xFFF9FAFB),
+            onBackground = Color(0xFFF9FAFB),
+            surface = Color(0xFF030712),
+            onSurface = Color(0xFFF9FAFB),
             primary = Color(0xFFF9FAFB),
-            primaryForeground = Color(0xFF111827),
+            onPrimary = Color(0xFF111827),
             secondary = Color(0xFF1F2937),
-            secondaryForeground = Color(0xFFF9FAFB),
+            onSecondary = Color(0xFFF9FAFB),
             muted = Color(0xFF1F2937),
-            mutedForeground = Color(0xFF9CA3AF),
-            accent = Color(0xFF1F2937),
-            accentForeground = Color(0xFFF9FAFB),
+            onMuted = Color(0xFF9CA3AF),
             destructive = Color(0xFFDC2626),
-            destructiveForeground = Color(0xFFF9FAFB),
+            onDestructive = Color(0xFFF9FAFB),
             border = Color(0xFF1F2937),
-            borderVariant = Color(0xFF111827),
-            input = Color(0xFF1F2937),
-            warning = Color(0xFFF59E0B),
-            warningForeground = Color(0xFF422006),
-            success = Color(0xFF22C55E),
-            successForeground = Color(0xFF052E16),
+            borderSubtle = Color(0xFF111827),
             ring = Color(0xFFD1D5DB),
+            warning = Color(0xFFF59E0B),
+            onWarning = Color(0xFF422006),
+            success = Color(0xFF22C55E),
+            onSuccess = Color(0xFF052E16),
             inverseSurface = Color(0xFFF9FAFB),
-            inverseOnSurface = Color(0xFF030712),
-            primaryContainer = Color(0xFF1F2937),
-            primaryContainerForeground = Color(0xFFF9FAFB),
-            destructiveContainer = Color(0xFF450A0A),
-            destructiveContainerForeground = Color(0xFFFCA5A5),
+            onInverseSurface = Color(0xFF030712),
+            primaryTinted = Color(0xFF1F2937),
+            onPrimaryTinted = Color(0xFFF9FAFB),
+            destructiveTinted = Color(0xFF450A0A),
+            onDestructiveTinted = Color(0xFFFCA5A5),
         )
 
     // ═══════════════════════════════════════════════
@@ -329,70 +289,60 @@ object RikkaPalettes {
     val NeutralLight =
         RikkaColors(
             background = Color(0xFFFAFAFA),
-            foreground = Color(0xFF0A0A0A),
-            card = Color(0xFFFFFFFF),
-            cardForeground = Color(0xFF0A0A0A),
-            popover = Color(0xFFFFFFFF),
-            popoverForeground = Color(0xFF0A0A0A),
+            onBackground = Color(0xFF0A0A0A),
+            surface = Color(0xFFFFFFFF),
+            onSurface = Color(0xFF0A0A0A),
             primary = Color(0xFF171717),
-            primaryForeground = Color(0xFFFAFAFA),
+            onPrimary = Color(0xFFFAFAFA),
             secondary = Color(0xFFE5E5E5),
-            secondaryForeground = Color(0xFF171717),
+            onSecondary = Color(0xFF171717),
             muted = Color(0xFFF5F5F5),
-            mutedForeground = Color(0xFF737373),
-            accent = Color(0xFFE5E5E5),
-            accentForeground = Color(0xFF171717),
+            onMuted = Color(0xFF737373),
             destructive = Color(0xFFEF4444),
-            destructiveForeground = Color(0xFFFAFAFA),
+            onDestructive = Color(0xFFFAFAFA),
             border = Color(0xFFD4D4D4),
-            borderVariant = Color(0xFFE5E5E5),
-            input = Color(0xFFD4D4D4),
-            warning = Color(0xFFF59E0B),
-            warningForeground = Color(0xFF422006),
-            success = Color(0xFF22C55E),
-            successForeground = Color(0xFFFAFAFA),
+            borderSubtle = Color(0xFFE5E5E5),
             ring = Color(0xFF0A0A0A),
+            warning = Color(0xFFF59E0B),
+            onWarning = Color(0xFF422006),
+            success = Color(0xFF22C55E),
+            onSuccess = Color(0xFFFAFAFA),
             inverseSurface = Color(0xFF171717),
-            inverseOnSurface = Color(0xFFFAFAFA),
-            primaryContainer = Color(0xFFF5F5F5),
-            primaryContainerForeground = Color(0xFF0A0A0A),
-            destructiveContainer = Color(0xFFFEE2E2),
-            destructiveContainerForeground = Color(0xFFDC2626),
+            onInverseSurface = Color(0xFFFAFAFA),
+            primaryTinted = Color(0xFFF5F5F5),
+            onPrimaryTinted = Color(0xFF0A0A0A),
+            destructiveTinted = Color(0xFFFEE2E2),
+            onDestructiveTinted = Color(0xFFDC2626),
         )
 
     /** Neutral base palette, dark variant. */
     val NeutralDark =
         RikkaColors(
             background = Color(0xFF0A0A0A),
-            foreground = Color(0xFFFAFAFA),
-            card = Color(0xFF0A0A0A),
-            cardForeground = Color(0xFFFAFAFA),
-            popover = Color(0xFF0A0A0A),
-            popoverForeground = Color(0xFFFAFAFA),
+            onBackground = Color(0xFFFAFAFA),
+            surface = Color(0xFF0A0A0A),
+            onSurface = Color(0xFFFAFAFA),
             primary = Color(0xFFFAFAFA),
-            primaryForeground = Color(0xFF171717),
+            onPrimary = Color(0xFF171717),
             secondary = Color(0xFF262626),
-            secondaryForeground = Color(0xFFFAFAFA),
+            onSecondary = Color(0xFFFAFAFA),
             muted = Color(0xFF262626),
-            mutedForeground = Color(0xFFA3A3A3),
-            accent = Color(0xFF262626),
-            accentForeground = Color(0xFFFAFAFA),
+            onMuted = Color(0xFFA3A3A3),
             destructive = Color(0xFFDC2626),
-            destructiveForeground = Color(0xFFFAFAFA),
+            onDestructive = Color(0xFFFAFAFA),
             border = Color(0xFF262626),
-            borderVariant = Color(0xFF171717),
-            input = Color(0xFF262626),
-            warning = Color(0xFFF59E0B),
-            warningForeground = Color(0xFF422006),
-            success = Color(0xFF22C55E),
-            successForeground = Color(0xFF052E16),
+            borderSubtle = Color(0xFF171717),
             ring = Color(0xFFD4D4D4),
+            warning = Color(0xFFF59E0B),
+            onWarning = Color(0xFF422006),
+            success = Color(0xFF22C55E),
+            onSuccess = Color(0xFF052E16),
             inverseSurface = Color(0xFFFAFAFA),
-            inverseOnSurface = Color(0xFF0A0A0A),
-            primaryContainer = Color(0xFF262626),
-            primaryContainerForeground = Color(0xFFFAFAFA),
-            destructiveContainer = Color(0xFF450A0A),
-            destructiveContainerForeground = Color(0xFFFCA5A5),
+            onInverseSurface = Color(0xFF0A0A0A),
+            primaryTinted = Color(0xFF262626),
+            onPrimaryTinted = Color(0xFFFAFAFA),
+            destructiveTinted = Color(0xFF450A0A),
+            onDestructiveTinted = Color(0xFFFCA5A5),
         )
 }
 
@@ -404,7 +354,7 @@ object RikkaPalettes {
  * secondary, muted, destructive, border, etc.) from the base palette.
  *
  * @property primary The primary action color (buttons, links, active states).
- * @property primaryForeground Text/icon color that sits on the [primary] surface.
+ * @property onPrimary Text/icon color that sits on the [primary] surface.
  * @property ring Focus ring color, typically matching [primary].
  *
  * @see RikkaAccent for light-mode accent presets.
@@ -413,17 +363,17 @@ object RikkaPalettes {
  */
 data class RikkaAccentColor(
     val primary: Color,
-    val primaryForeground: Color,
+    val onPrimary: Color,
     val ring: Color,
     val primaryHover: Color = Color.Unspecified,
-    val primaryPress: Color = Color.Unspecified,
+    val primaryPressed: Color = Color.Unspecified,
 )
 
 /**
  * Accent color presets for **light** base palettes.
  *
  * These map directly to shadcn/ui v4's accent color options.
- * Each accent overrides `primary`, `primaryForeground`, and `ring`.
+ * Each accent overrides `primary`, `onPrimary`, and `ring`.
  *
  * ### Usage
  * ```
@@ -436,7 +386,7 @@ object RikkaAccent {
     val Red =
         RikkaAccentColor(
             primary = Color(0xFFDC2626),
-            primaryForeground = Color(0xFFFAFAFA),
+            onPrimary = Color(0xFFFAFAFA),
             ring = Color(0xFFDC2626),
         )
 
@@ -444,7 +394,7 @@ object RikkaAccent {
     val Rose =
         RikkaAccentColor(
             primary = Color(0xFFE11D48),
-            primaryForeground = Color(0xFFFFF1F2),
+            onPrimary = Color(0xFFFFF1F2),
             ring = Color(0xFFE11D48),
         )
 
@@ -452,7 +402,7 @@ object RikkaAccent {
     val Orange =
         RikkaAccentColor(
             primary = Color(0xFFF97316),
-            primaryForeground = Color(0xFFFAFAFA),
+            onPrimary = Color(0xFFFAFAFA),
             ring = Color(0xFFF97316),
         )
 
@@ -460,7 +410,7 @@ object RikkaAccent {
     val Green =
         RikkaAccentColor(
             primary = Color(0xFF16A34A),
-            primaryForeground = Color(0xFFFAFAFA),
+            onPrimary = Color(0xFFFAFAFA),
             ring = Color(0xFF16A34A),
         )
 
@@ -468,7 +418,7 @@ object RikkaAccent {
     val Blue =
         RikkaAccentColor(
             primary = Color(0xFF2563EB),
-            primaryForeground = Color(0xFFEFF6FF),
+            onPrimary = Color(0xFFEFF6FF),
             ring = Color(0xFF2563EB),
         )
 
@@ -476,7 +426,7 @@ object RikkaAccent {
     val Yellow =
         RikkaAccentColor(
             primary = Color(0xFFFACC15),
-            primaryForeground = Color(0xFF422006),
+            onPrimary = Color(0xFF422006),
             ring = Color(0xFFFACC15),
         )
 
@@ -484,7 +434,7 @@ object RikkaAccent {
     val Violet =
         RikkaAccentColor(
             primary = Color(0xFF7C3AED),
-            primaryForeground = Color(0xFFF5F3FF),
+            onPrimary = Color(0xFFF5F3FF),
             ring = Color(0xFF7C3AED),
         )
 }
@@ -506,7 +456,7 @@ object RikkaAccentDark {
     val Red =
         RikkaAccentColor(
             primary = Color(0xFFDC2626),
-            primaryForeground = Color(0xFFFAFAFA),
+            onPrimary = Color(0xFFFAFAFA),
             ring = Color(0xFFDC2626),
         )
 
@@ -514,7 +464,7 @@ object RikkaAccentDark {
     val Rose =
         RikkaAccentColor(
             primary = Color(0xFFE11D48),
-            primaryForeground = Color(0xFFFFF1F2),
+            onPrimary = Color(0xFFFFF1F2),
             ring = Color(0xFFE11D48),
         )
 
@@ -522,7 +472,7 @@ object RikkaAccentDark {
     val Orange =
         RikkaAccentColor(
             primary = Color(0xFFEA580C),
-            primaryForeground = Color(0xFFFAFAFA),
+            onPrimary = Color(0xFFFAFAFA),
             ring = Color(0xFFEA580C),
         )
 
@@ -530,7 +480,7 @@ object RikkaAccentDark {
     val Green =
         RikkaAccentColor(
             primary = Color(0xFF22C55E),
-            primaryForeground = Color(0xFF052E16),
+            onPrimary = Color(0xFF052E16),
             ring = Color(0xFF22C55E),
         )
 
@@ -538,7 +488,7 @@ object RikkaAccentDark {
     val Blue =
         RikkaAccentColor(
             primary = Color(0xFF3B82F6),
-            primaryForeground = Color(0xFFEFF6FF),
+            onPrimary = Color(0xFFEFF6FF),
             ring = Color(0xFF3B82F6),
         )
 
@@ -546,7 +496,7 @@ object RikkaAccentDark {
     val Yellow =
         RikkaAccentColor(
             primary = Color(0xFFFACC15),
-            primaryForeground = Color(0xFF422006),
+            onPrimary = Color(0xFF422006),
             ring = Color(0xFFFACC15),
         )
 
@@ -554,7 +504,7 @@ object RikkaAccentDark {
     val Violet =
         RikkaAccentColor(
             primary = Color(0xFF6D28D9),
-            primaryForeground = Color(0xFFF5F3FF),
+            onPrimary = Color(0xFFF5F3FF),
             ring = Color(0xFF6D28D9),
         )
 }
@@ -562,7 +512,7 @@ object RikkaAccentDark {
 /**
  * Applies an [accent] color override to this [RikkaColors] instance.
  *
- * This replaces [RikkaColors.primary], [RikkaColors.primaryForeground],
+ * This replaces [RikkaColors.primary], [RikkaColors.onPrimary],
  * and [RikkaColors.ring] with the values from the given [RikkaAccentColor],
  * while keeping all other tokens unchanged.
  *
@@ -581,10 +531,10 @@ object RikkaAccentDark {
 fun RikkaColors.withAccent(accent: RikkaAccentColor): RikkaColors =
     copy(
         primary = accent.primary,
-        primaryForeground = accent.primaryForeground,
+        onPrimary = accent.onPrimary,
         ring = accent.ring,
         primaryHover = accent.primaryHover,
-        primaryPress = accent.primaryPress,
+        primaryPressed = accent.primaryPressed,
     )
 
 /**

@@ -61,7 +61,7 @@ fun ScaffoldDoc() {
                             modifier =
                                 Modifier
                                     .fillMaxWidth()
-                                    .background(RikkaTheme.colors.card)
+                                    .background(RikkaTheme.colors.surface)
                                     .padding(RikkaTheme.spacing.md),
                         ) {
                             Text(
@@ -75,7 +75,7 @@ fun ScaffoldDoc() {
                             modifier =
                                 Modifier
                                     .fillMaxWidth()
-                                    .background(RikkaTheme.colors.card)
+                                    .background(RikkaTheme.colors.surface)
                                     .padding(RikkaTheme.spacing.md),
                             contentAlignment = Alignment.Center,
                         ) {
@@ -122,7 +122,7 @@ fun ScaffoldDoc() {
                             modifier =
                                 Modifier
                                     .fillMaxWidth()
-                                    .background(RikkaTheme.colors.card)
+                                    .background(RikkaTheme.colors.surface)
                                     .padding(RikkaTheme.spacing.md),
                         ) {
                             Text(
@@ -199,7 +199,7 @@ Scaffold(
         Box(
             Modifier
                 .fillMaxWidth()
-                .background(RikkaTheme.colors.card)
+                .background(RikkaTheme.colors.surface)
                 .padding(RikkaTheme.spacing.md),
         ) {
             Text("My App", variant = TextVariant.H4)

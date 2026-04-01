@@ -96,12 +96,12 @@ fun Tab(
 
     // ─── Resolve color targets ────────────────────────────
     val resolvedActiveColor =
-        if (activeColor != Color.Unspecified) activeColor else colors.foreground
+        if (activeColor != Color.Unspecified) activeColor else colors.onBackground
     val resolvedInactiveColor =
         if (inactiveColor != Color.Unspecified) {
             inactiveColor
         } else {
-            colors.mutedForeground
+            colors.onMuted
         }
     val resolvedActiveBg =
         if (activeBackground != Color.Unspecified) {

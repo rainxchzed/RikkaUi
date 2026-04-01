@@ -132,7 +132,7 @@ fun Dialog(
                 exit = cardExit,
             ) {
                 CompositionLocalProvider(
-                    LocalContentColor provides colors.cardForeground,
+                    LocalContentColor provides colors.onSurface,
                     LocalTextStyle provides RikkaTheme.typography.p,
                 ) {
                     Column(
@@ -146,7 +146,7 @@ fun Dialog(
                                         true
                                     }
                                 }.border(1.dp, colors.border, shapes.lg)
-                                .background(colors.card, shapes.lg)
+                                .background(colors.surface, shapes.lg)
                                 .clip(shapes.lg)
                                 .padding(spacing.xl),
                         verticalArrangement =

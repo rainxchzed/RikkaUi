@@ -110,7 +110,7 @@ fun FileExplorerExample() {
                     Icon(
                         imageVector = RikkaIcons.Search,
                         contentDescription = stringResource(Res.string.search_files_desc),
-                        tint = RikkaTheme.colors.primaryForeground,
+                        tint = RikkaTheme.colors.onPrimary,
                         modifier = Modifier.size(16.dp),
                     )
                 }
@@ -142,7 +142,7 @@ private fun FileRow(
         Icon(
             imageVector = icon,
             contentDescription = iconDesc,
-            tint = RikkaTheme.colors.mutedForeground,
+            tint = RikkaTheme.colors.onMuted,
             modifier = Modifier.size(16.dp),
         )
         Text(

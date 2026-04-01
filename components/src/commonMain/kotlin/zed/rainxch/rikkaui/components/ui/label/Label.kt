@@ -62,7 +62,7 @@ fun Label(
 @Composable
 private fun resolveColor(disabled: Boolean): Color =
     if (disabled) {
-        RikkaTheme.colors.mutedForeground
+        RikkaTheme.colors.onMuted
     } else {
-        RikkaTheme.colors.foreground
+        RikkaTheme.colors.onBackground
     }

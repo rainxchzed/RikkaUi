@@ -143,7 +143,7 @@ fun BreadcrumbItem(
         Text(
             text = text,
             variant = TextVariant.Small,
-            color = RikkaTheme.colors.mutedForeground,
+            color = RikkaTheme.colors.onMuted,
             style = textStyle,
             modifier =
                 modifier
@@ -160,7 +160,7 @@ fun BreadcrumbItem(
         Text(
             text = text,
             variant = TextVariant.Small,
-            color = RikkaTheme.colors.foreground,
+            color = RikkaTheme.colors.onBackground,
             modifier =
                 modifier.semantics {
                     contentDescription = "$text, current page"
@@ -182,7 +182,7 @@ fun BreadcrumbSeparator(
         Text(
             text = "/",
             variant = TextVariant.Small,
-            color = RikkaTheme.colors.mutedForeground,
+            color = RikkaTheme.colors.onMuted,
             modifier = modifier,
         )
     }

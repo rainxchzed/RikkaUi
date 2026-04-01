@@ -75,7 +75,7 @@ fun SliderDoc() {
                 Text(
                     text = "${(value * 100).toInt()}%",
                     variant = TextVariant.Small,
-                    color = RikkaTheme.colors.mutedForeground,
+                    color = RikkaTheme.colors.onMuted,
                 )
             }
         }

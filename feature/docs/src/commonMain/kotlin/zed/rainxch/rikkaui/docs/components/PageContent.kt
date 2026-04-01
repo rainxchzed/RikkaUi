@@ -98,9 +98,9 @@ private fun SourceTab(
         }
     val fg =
         if (isActive) {
-            RikkaTheme.colors.primaryForeground
+            RikkaTheme.colors.onPrimary
         } else {
-            RikkaTheme.colors.foreground
+            RikkaTheme.colors.onBackground
         }
 
     Box(

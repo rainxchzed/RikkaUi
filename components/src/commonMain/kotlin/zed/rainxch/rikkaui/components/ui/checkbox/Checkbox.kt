@@ -102,7 +102,7 @@ fun Checkbox(
             },
     )
 
-    val checkmarkColor = colors.primaryForeground
+    val checkmarkColor = colors.onPrimary
 
     // ─── Layout ─────────────────────────────────────────
     Row(
@@ -175,9 +175,9 @@ fun Checkbox(
                 text = label,
                 color =
                     if (enabled) {
-                        RikkaTheme.colors.foreground
+                        RikkaTheme.colors.onBackground
                     } else {
-                        RikkaTheme.colors.mutedForeground
+                        RikkaTheme.colors.onMuted
                     },
                 style = RikkaTheme.typography.small,
             )
@@ -218,7 +218,7 @@ private fun resolveCheckboxColors(
         }
 
         checked && isPressed -> {
-            val pressed = lerp(colors.primary, colors.foreground, 1f - motion.pressAlpha)
+            val pressed = lerp(colors.primary, colors.onBackground, 1f - motion.pressAlpha)
             CheckboxColors(
                 background = pressed,
                 border = pressed,
@@ -226,7 +226,7 @@ private fun resolveCheckboxColors(
         }
 
         checked && isHovered -> {
-            val hovered = lerp(colors.primary, colors.foreground, 1f - motion.hoverAlpha)
+            val hovered = lerp(colors.primary, colors.onBackground, 1f - motion.hoverAlpha)
             CheckboxColors(
                 background = hovered,
                 border = hovered,

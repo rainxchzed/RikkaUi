@@ -77,7 +77,7 @@ fun DocsSidebar(
                         TextStyle(
                             color =
                                 RikkaTheme.colors
-                                    .mutedForeground,
+                                    .onMuted,
                             fontWeight = FontWeight.SemiBold,
                         ),
                     ),
@@ -126,9 +126,9 @@ private fun SidebarItem(
 
     val fg =
         if (isSelected) {
-            RikkaTheme.colors.foreground
+            RikkaTheme.colors.onBackground
         } else {
-            RikkaTheme.colors.mutedForeground
+            RikkaTheme.colors.onMuted
         }
 
     Box(

@@ -177,7 +177,7 @@ fun Sheet(
                     }
 
                 CompositionLocalProvider(
-                    LocalContentColor provides colors.cardForeground,
+                    LocalContentColor provides colors.onSurface,
                     LocalTextStyle provides RikkaTheme.typography.p,
                 ) {
                     Column(
@@ -191,7 +191,7 @@ fun Sheet(
                                         true
                                     }
                                 }.then(borderModifier)
-                                .background(colors.card, panelShape)
+                                .background(colors.surface, panelShape)
                                 .clip(panelShape)
                                 .padding(spacing.xl),
                         verticalArrangement =

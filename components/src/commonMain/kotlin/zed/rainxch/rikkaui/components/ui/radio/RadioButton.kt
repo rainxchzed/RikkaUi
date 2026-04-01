@@ -162,9 +162,9 @@ fun RadioButton(
                 text = label,
                 color =
                     if (enabled) {
-                        RikkaTheme.colors.foreground
+                        RikkaTheme.colors.onBackground
                     } else {
-                        RikkaTheme.colors.mutedForeground
+                        RikkaTheme.colors.onMuted
                     },
                 style = RikkaTheme.typography.small,
             )
@@ -206,7 +206,7 @@ private fun resolveRadioColors(
         }
 
         selected && isPressed -> {
-            val pressed = lerp(colors.primary, colors.foreground, 1f - motion.pressAlpha)
+            val pressed = lerp(colors.primary, colors.onBackground, 1f - motion.pressAlpha)
             RadioColors(
                 ring = pressed,
                 dot = pressed,
@@ -214,7 +214,7 @@ private fun resolveRadioColors(
         }
 
         selected && isHovered -> {
-            val hovered = lerp(colors.primary, colors.foreground, 1f - motion.hoverAlpha)
+            val hovered = lerp(colors.primary, colors.onBackground, 1f - motion.hoverAlpha)
             RadioColors(
                 ring = hovered,
                 dot = hovered,

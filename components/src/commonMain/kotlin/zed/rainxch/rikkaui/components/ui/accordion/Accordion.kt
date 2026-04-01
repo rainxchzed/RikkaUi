@@ -118,7 +118,7 @@ fun AccordionItem(
             Icon(
                 imageVector = chevronIcon,
                 contentDescription = null,
-                tint = colors.mutedForeground,
+                tint = colors.onMuted,
                 modifier =
                     Modifier.graphicsLayer {
                         rotationZ = chevronRotation

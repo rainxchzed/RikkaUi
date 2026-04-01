@@ -65,7 +65,7 @@ fun ThemeToolbar(
                 Text(
                     text = stringResource(Res.string.toolbar_style),
                     style = RikkaTheme.typography.small,
-                    color = RikkaTheme.colors.mutedForeground,
+                    color = RikkaTheme.colors.onMuted,
                 )
                 Spacer(Modifier.height(RikkaTheme.spacing.xs))
                 RikkaStylePreset.entries.forEach { preset ->
@@ -99,7 +99,7 @@ fun ThemeToolbar(
                 Text(
                     text = stringResource(Res.string.toolbar_palette),
                     style = RikkaTheme.typography.small,
-                    color = RikkaTheme.colors.mutedForeground,
+                    color = RikkaTheme.colors.onMuted,
                 )
                 Spacer(Modifier.height(RikkaTheme.spacing.xs))
                 RikkaPalette.entries.forEach { entry ->
@@ -144,7 +144,7 @@ fun ThemeToolbar(
                 Text(
                     text = stringResource(Res.string.toolbar_accent),
                     style = RikkaTheme.typography.small,
-                    color = RikkaTheme.colors.mutedForeground,
+                    color = RikkaTheme.colors.onMuted,
                 )
                 Spacer(Modifier.height(RikkaTheme.spacing.xs))
                 RikkaAccentPreset.entries.forEach { entry ->

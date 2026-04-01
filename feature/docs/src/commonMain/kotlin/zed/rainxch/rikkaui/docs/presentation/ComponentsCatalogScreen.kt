@@ -214,7 +214,7 @@ private fun ComponentCard(
         if (isHovered) {
             RikkaTheme.colors.muted.copy(alpha = 0.4f)
         } else {
-            RikkaTheme.colors.card
+            RikkaTheme.colors.surface
         }
 
     val borderColor =

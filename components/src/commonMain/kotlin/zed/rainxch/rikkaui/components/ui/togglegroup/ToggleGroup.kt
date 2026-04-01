@@ -212,11 +212,11 @@ private fun resolveColors(
             }
 
             selected -> {
-                colors.foreground
+                colors.onBackground
             }
 
             else -> {
-                colors.mutedForeground
+                colors.onMuted
             }
         }
 

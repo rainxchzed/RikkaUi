@@ -277,9 +277,9 @@ private fun ChatBubble(
         }
     val textColor =
         if (isFromUser) {
-            RikkaTheme.colors.primaryForeground
+            RikkaTheme.colors.onPrimary
         } else {
-            RikkaTheme.colors.foreground
+            RikkaTheme.colors.onBackground
         }
     val alignment =
         if (isFromUser) {
@@ -376,7 +376,7 @@ private fun FileRow(
         Icon(
             imageVector = icon,
             contentDescription = null,
-            tint = RikkaTheme.colors.mutedForeground,
+            tint = RikkaTheme.colors.onMuted,
             modifier = Modifier.size(16.dp),
         )
         Text(text = name, variant = TextVariant.Small)
@@ -384,7 +384,7 @@ private fun FileRow(
         Text(
             text = size,
             variant = TextVariant.Small,
-            color = RikkaTheme.colors.mutedForeground,
+            color = RikkaTheme.colors.onMuted,
         )
         IconButton(
             icon = RikkaIcons.MoreHorizontal,
@@ -611,7 +611,7 @@ private fun CommandRow(
         Icon(
             imageVector = icon,
             contentDescription = null,
-            tint = RikkaTheme.colors.mutedForeground,
+            tint = RikkaTheme.colors.onMuted,
             modifier = Modifier.size(16.dp),
         )
         Text(
@@ -698,7 +698,7 @@ private fun OnboardingStep(
             Text(
                 text = number,
                 variant = TextVariant.Small,
-                color = RikkaTheme.colors.primaryForeground,
+                color = RikkaTheme.colors.onPrimary,
             )
         }
         Text(
@@ -782,7 +782,7 @@ private fun ActivityEntry(
             Text(
                 text = timestamp,
                 variant = TextVariant.Small,
-                color = RikkaTheme.colors.mutedForeground,
+                color = RikkaTheme.colors.onMuted,
             )
         }
     }

@@ -228,7 +228,7 @@ private fun resolveColors(variant: BadgeVariant): BadgeColors {
         BadgeVariant.Default -> {
             BadgeColors(
                 background = colors.primary,
-                foreground = colors.primaryForeground,
+                foreground = colors.onPrimary,
                 border = Color.Transparent,
             )
         }
@@ -236,7 +236,7 @@ private fun resolveColors(variant: BadgeVariant): BadgeColors {
         BadgeVariant.Secondary -> {
             BadgeColors(
                 background = colors.secondary,
-                foreground = colors.secondaryForeground,
+                foreground = colors.onSecondary,
                 border = Color.Transparent,
             )
         }
@@ -244,7 +244,7 @@ private fun resolveColors(variant: BadgeVariant): BadgeColors {
         BadgeVariant.Outline -> {
             BadgeColors(
                 background = Color.Transparent,
-                foreground = colors.foreground,
+                foreground = colors.onBackground,
                 border = colors.border,
             )
         }
@@ -252,7 +252,7 @@ private fun resolveColors(variant: BadgeVariant): BadgeColors {
         BadgeVariant.Destructive -> {
             BadgeColors(
                 background = colors.destructive,
-                foreground = colors.destructiveForeground,
+                foreground = colors.onDestructive,
                 border = Color.Transparent,
             )
         }

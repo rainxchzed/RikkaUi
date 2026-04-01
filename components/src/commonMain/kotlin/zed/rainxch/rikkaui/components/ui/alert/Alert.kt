@@ -134,7 +134,7 @@ fun AlertTitle(
 ) {
     val color =
         when (variant) {
-            AlertVariant.Default -> RikkaTheme.colors.foreground
+            AlertVariant.Default -> RikkaTheme.colors.onBackground
             AlertVariant.Destructive -> RikkaTheme.colors.destructive
         }
     Text(
@@ -220,9 +220,9 @@ private fun resolveColors(variant: AlertVariant): AlertColors {
     return when (variant) {
         AlertVariant.Default -> {
             AlertColors(
-                background = colors.card,
+                background = colors.surface,
                 border = colors.border,
-                foreground = colors.cardForeground,
+                foreground = colors.onSurface,
             )
         }
 
@@ -241,7 +241,7 @@ private fun resolveDescriptionColor(variant: AlertVariant): Color {
     val colors = RikkaTheme.colors
 
     return when (variant) {
-        AlertVariant.Default -> colors.mutedForeground
+        AlertVariant.Default -> colors.onMuted
         AlertVariant.Destructive -> colors.destructive
     }
 }

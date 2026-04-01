@@ -181,7 +181,7 @@ fun ConfigPanel(
             Text(
                 text = stringResource(Res.string.config_font_preview),
                 style = RikkaTheme.typography.small,
-                color = RikkaTheme.colors.mutedForeground,
+                color = RikkaTheme.colors.onMuted,
             )
         },
     ) { onDismiss ->
@@ -265,7 +265,7 @@ private fun PickerCard(
                         Text(
                             text = label,
                             style = RikkaTheme.typography.muted,
-                            color = RikkaTheme.colors.mutedForeground,
+                            color = RikkaTheme.colors.onMuted,
                         )
                         Spacer(Modifier.height(RikkaTheme.spacing.xs))
                         Text(

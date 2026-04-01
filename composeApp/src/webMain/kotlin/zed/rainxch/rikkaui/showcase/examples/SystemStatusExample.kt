@@ -98,7 +98,7 @@ fun SystemStatusExample() {
             Text(
                 text = stringResource(Res.string.uptime_text),
                 variant = TextVariant.Small,
-                color = RikkaTheme.colors.mutedForeground,
+                color = RikkaTheme.colors.onMuted,
             )
 
             Spacer(modifier = Modifier.height(RikkaTheme.spacing.xs))

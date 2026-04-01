@@ -56,7 +56,7 @@ fun ColorSwatches(modifier: Modifier = Modifier) {
             )
             ColorSwatch(
                 stringResource(Res.string.color_foreground),
-                RikkaTheme.colors.foreground,
+                RikkaTheme.colors.onBackground,
                 shape,
             )
             ColorSwatch(
@@ -76,12 +76,12 @@ fun ColorSwatches(modifier: Modifier = Modifier) {
             )
             ColorSwatch(
                 stringResource(Res.string.color_accent),
-                RikkaTheme.colors.accent,
+                RikkaTheme.colors.secondary,
                 shape,
             )
             ColorSwatch(
                 stringResource(Res.string.color_card),
-                RikkaTheme.colors.card,
+                RikkaTheme.colors.surface,
                 shape,
             )
             ColorSwatch(
@@ -96,7 +96,7 @@ fun ColorSwatches(modifier: Modifier = Modifier) {
             )
             ColorSwatch(
                 stringResource(Res.string.color_input),
-                RikkaTheme.colors.input,
+                RikkaTheme.colors.border,
                 shape,
             )
             ColorSwatch(

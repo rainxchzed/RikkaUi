@@ -150,7 +150,7 @@ fun Tooltip(
                                 this.alpha = alpha
                                 scaleX = scale
                                 scaleY = scale
-                            }.background(colors.foreground, shape)
+                            }.background(colors.onBackground, shape)
                             .clip(shape)
                             .padding(
                                 horizontal = RikkaTheme.spacing.sm,

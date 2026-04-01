@@ -181,7 +181,7 @@ private fun TopNavBar(
                     Text(
                         text = stringResource(Res.string.app_name),
                         variant = TextVariant.Large,
-                        color = RikkaTheme.colors.foreground,
+                        color = RikkaTheme.colors.onBackground,
                     )
 
                     if (!isCompact) {
@@ -298,7 +298,7 @@ private fun MobileMenu(
         modifier =
             Modifier
                 .fillMaxWidth()
-                .background(RikkaTheme.colors.card)
+                .background(RikkaTheme.colors.surface)
                 .padding(
                     horizontal = RikkaTheme.spacing.lg,
                     vertical = RikkaTheme.spacing.sm,
@@ -352,7 +352,7 @@ private fun MobileMenuItem(
         when {
             isActive -> RikkaTheme.colors.muted
             isHovered -> RikkaTheme.colors.muted.copy(alpha = 0.5f)
-            else -> RikkaTheme.colors.card
+            else -> RikkaTheme.colors.surface
         }
 
     Box(
@@ -377,9 +377,9 @@ private fun MobileMenuItem(
                 if (isActive) TextVariant.Large else TextVariant.P,
             color =
                 if (isActive) {
-                    RikkaTheme.colors.foreground
+                    RikkaTheme.colors.onBackground
                 } else {
-                    RikkaTheme.colors.mutedForeground
+                    RikkaTheme.colors.onMuted
                 },
         )
     }

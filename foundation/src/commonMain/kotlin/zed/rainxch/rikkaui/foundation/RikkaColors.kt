@@ -7,76 +7,115 @@ import androidx.compose.ui.graphics.Color
 /**
  * RikkaColors defines all semantic color tokens for the design system.
  *
- * Every token comes in background/foreground pairs — the background token
- * is the surface color, the foreground token is the text/icon color that sits on it.
+ * Tokens are organized as `surface` / `on*` pairs — the surface token is the
+ * background color, the `on*` token is the text/icon color that sits on it.
  *
- * This mirrors shadcn/ui's color token system, adapted for Compose.
+ * ### Token groups
+ * | Group | Surface | Content |
+ * |-------|---------|---------|
+ * | App background | `background` | `onBackground` |
+ * | Elevated surface (cards, popovers, dialogs, sheets) | `surface` | `onSurface` |
+ * | Primary action | `primary` | `onPrimary` |
+ * | Secondary/subtle action | `secondary` | `onSecondary` |
+ * | Muted/disabled | `muted` | `onMuted` |
+ * | Destructive | `destructive` | `onDestructive` |
+ * | Warning | `warning` | `onWarning` |
+ * | Success | `success` | `onSuccess` |
+ * | Tinted primary | `primaryTinted` | `onPrimaryTinted` |
+ * | Tinted destructive | `destructiveTinted` | `onDestructiveTinted` |
+ * | Inverse contrast | `inverseSurface` | `onInverseSurface` |
  */
 @Immutable
 data class RikkaColors(
-    // Core surface
+    // ── App background ──────────────────────────────────────────────────
+    /** The root background of the app. */
     val background: Color,
-    val foreground: Color,
-    // Card surfaces
-    val card: Color,
-    val cardForeground: Color,
-    // Popover / dropdown / dialog surfaces
-    val popover: Color,
-    val popoverForeground: Color,
-    // Primary action (buttons, links, active states)
+    /** Default text/icon color on [background]. */
+    val onBackground: Color,
+
+    // ── Elevated surface ────────────────────────────────────────────────
+    /** Elevated surfaces: cards, popovers, dialogs, sheets, dropdown menus. */
+    val surface: Color,
+    /** Text/icon color on [surface]. */
+    val onSurface: Color,
+
+    // ── Primary action ──────────────────────────────────────────────────
+    /** Main action color — filled buttons, links, active indicators. */
     val primary: Color,
-    val primaryForeground: Color,
-    // Secondary action (outline buttons, less prominent)
+    /** Text/icon color on [primary]. */
+    val onPrimary: Color,
+
+    // ── Secondary action ────────────────────────────────────────────────
+    /** Less prominent actions, subtle backgrounds, hover highlights. */
     val secondary: Color,
-    val secondaryForeground: Color,
-    // Muted (disabled states, subtle backgrounds, helper text)
+    /** Text/icon color on [secondary]. */
+    val onSecondary: Color,
+
+    // ── Muted ───────────────────────────────────────────────────────────
+    /** Subtle backgrounds for disabled states, helper areas. */
     val muted: Color,
-    val mutedForeground: Color,
-    // Accent (hover highlights, subtle interactive feedback)
-    val accent: Color,
-    val accentForeground: Color,
-    // Destructive (delete, error, danger)
+    /** Subdued text/icon color — placeholders, helper text, captions. */
+    val onMuted: Color,
+
+    // ── Destructive ─────────────────────────────────────────────────────
+    /** Danger/error/delete action color. */
     val destructive: Color,
-    val destructiveForeground: Color,
-    // Status / feedback
+    /** Text/icon color on [destructive]. */
+    val onDestructive: Color,
+
+    // ── Status / feedback ───────────────────────────────────────────────
+    /** Warning indicator color. */
     val warning: Color,
-    val warningForeground: Color,
+    /** Text/icon color on [warning]. */
+    val onWarning: Color,
+    /** Success indicator color. */
     val success: Color,
-    val successForeground: Color,
-    // Standalone utility tokens
+    /** Text/icon color on [success]. */
+    val onSuccess: Color,
+
+    // ── Utility (standalone, no pairs) ──────────────────────────────────
+    /** Default border color for inputs, cards, separators. */
     val border: Color,
     /** Subtler border for decorative/separating lines. Lighter than [border]. */
-    val borderVariant: Color = border.copy(alpha = 0.5f),
-    val input: Color,
+    val borderSubtle: Color = border.copy(alpha = 0.5f),
+    /** Focus ring color. */
     val ring: Color,
     /** Semi-transparent overlay behind dialogs and sheets. */
     val scrim: Color = Color.Black.copy(alpha = 0.5f),
-    /** A surface color that contrasts sharply with [background] (e.g., snackbar on light theme). */
-    val inverseSurface: Color = Color.Unspecified,
-    /** Content color for text/icons on [inverseSurface]. */
-    val inverseOnSurface: Color = Color.Unspecified,
+
+    // ── Inverse contrast ────────────────────────────────────────────────
+    /** A surface that contrasts sharply with [background] (e.g., snackbar on light theme). */
+    val inverseSurface: Color,
+    /** Text/icon color on [inverseSurface]. */
+    val onInverseSurface: Color,
+
+    // ── Tinted containers ───────────────────────────────────────────────
     /** Subtle primary-tinted background for selected states, tonal buttons. */
-    val primaryContainer: Color = Color.Unspecified,
-    /** Text/icon color on [primaryContainer]. */
-    val primaryContainerForeground: Color = Color.Unspecified,
+    val primaryTinted: Color,
+    /** Text/icon color on [primaryTinted]. */
+    val onPrimaryTinted: Color,
     /** Subtle destructive-tinted background for error banners, alerts. */
-    val destructiveContainer: Color = Color.Unspecified,
-    /** Text/icon color on [destructiveContainer]. */
-    val destructiveContainerForeground: Color = Color.Unspecified,
+    val destructiveTinted: Color,
+    /** Text/icon color on [destructiveTinted]. */
+    val onDestructiveTinted: Color,
+
+    // ── Interaction states ──────────────────────────────────────────────
     /** Primary button/link background on hover. Unspecified = component computes via lerp. */
     val primaryHover: Color = Color.Unspecified,
     /** Primary button/link background on press. Unspecified = component computes via lerp. */
-    val primaryPress: Color = Color.Unspecified,
+    val primaryPressed: Color = Color.Unspecified,
     /** Destructive button background on hover. */
     val destructiveHover: Color = Color.Unspecified,
     /** Destructive button background on press. */
-    val destructivePress: Color = Color.Unspecified,
+    val destructivePressed: Color = Color.Unspecified,
     /** Secondary/muted surface on hover (ghost buttons, list items). */
-    val accentHover: Color = Color.Unspecified,
+    val secondaryHover: Color = Color.Unspecified,
     /** Secondary/muted surface on press. */
-    val accentPress: Color = Color.Unspecified,
-    /** Foreground (text/icon) for disabled elements. */
-    val disabledForeground: Color = mutedForeground.copy(alpha = 0.5f),
+    val secondaryPressed: Color = Color.Unspecified,
+
+    // ── Disabled ────────────────────────────────────────────────────────
+    /** Text/icon color for disabled elements. */
+    val disabledContent: Color = onMuted.copy(alpha = 0.5f),
 )
 
 val LocalRikkaColors =

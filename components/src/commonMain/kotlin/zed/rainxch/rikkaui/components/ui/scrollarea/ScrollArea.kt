@@ -247,7 +247,7 @@ private fun VerticalScrollbar(
 ) {
     val density = LocalDensity.current
     val trackColor = RikkaTheme.colors.muted.copy(alpha = 0.5f)
-    val thumbColor = thumbColorOverride ?: RikkaTheme.colors.mutedForeground
+    val thumbColor = thumbColorOverride ?: RikkaTheme.colors.onMuted
     val thumbShape = RikkaTheme.shapes.full
 
     val minThumbPx: Float = with(density) { SCROLLBAR_MIN_THUMB.toPx() }
@@ -317,7 +317,7 @@ private fun HorizontalScrollbar(
 ) {
     val density = LocalDensity.current
     val trackColor = RikkaTheme.colors.muted.copy(alpha = 0.5f)
-    val thumbColor = thumbColorOverride ?: RikkaTheme.colors.mutedForeground
+    val thumbColor = thumbColorOverride ?: RikkaTheme.colors.onMuted
     val thumbShape = RikkaTheme.shapes.full
 
     val minThumbPx: Float = with(density) { SCROLLBAR_MIN_THUMB.toPx() }

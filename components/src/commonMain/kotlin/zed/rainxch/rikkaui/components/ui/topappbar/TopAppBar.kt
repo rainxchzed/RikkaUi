@@ -218,7 +218,7 @@ private fun resolveColors(variant: TopAppBarVariant): TopAppBarColors {
         TopAppBarVariant.Default -> {
             TopAppBarColors(
                 background = colors.background,
-                foreground = colors.foreground,
+                foreground = colors.onBackground,
                 hasBorder = true,
             )
         }
@@ -226,7 +226,7 @@ private fun resolveColors(variant: TopAppBarVariant): TopAppBarColors {
         TopAppBarVariant.Transparent -> {
             TopAppBarColors(
                 background = Color.Transparent,
-                foreground = colors.foreground,
+                foreground = colors.onBackground,
                 hasBorder = false,
             )
         }

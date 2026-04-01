@@ -81,9 +81,9 @@ fun Textarea(
     // ─── Resolve border color & animation ─────────────────
     val targetBorderColor =
         when {
-            !enabled -> colors.input.copy(alpha = 0.5f)
+            !enabled -> colors.border.copy(alpha = 0.5f)
             isFocused -> colors.ring
-            else -> colors.input
+            else -> colors.border
         }
 
     val borderColor =
@@ -152,17 +152,17 @@ fun Textarea(
     val textStyle =
         RikkaTheme.typography.p
             .merge(
-                TextStyle(color = colors.foreground),
+                TextStyle(color = colors.onBackground),
             ).merge(style)
 
     val placeholderStyle =
         RikkaTheme.typography.p.merge(
-            TextStyle(color = colors.mutedForeground),
+            TextStyle(color = colors.onMuted),
         )
 
     val countStyle =
         RikkaTheme.typography.small.merge(
-            TextStyle(color = colors.mutedForeground),
+            TextStyle(color = colors.onMuted),
         )
 
     // ─── Accessibility ─────────────────────────────────
@@ -196,7 +196,7 @@ fun Textarea(
             minLines = minLines,
             maxLines = maxLines,
             interactionSource = interactionSource,
-            cursorBrush = SolidColor(colors.foreground),
+            cursorBrush = SolidColor(colors.onBackground),
             decorationBox = { innerTextField ->
                 Box(
                     modifier =

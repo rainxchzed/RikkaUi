@@ -63,11 +63,11 @@ object ToggleDefaults {
         val c = RikkaTheme.colors
         return ToggleColorValues(
             checkedTrack = c.primary,
-            uncheckedTrack = c.input,
-            checkedThumb = c.primaryForeground,
+            uncheckedTrack = c.border,
+            checkedThumb = c.onPrimary,
             uncheckedThumb = c.background,
             disabledCheckedTrack = c.primary.copy(alpha = 0.5f),
-            disabledUncheckedTrack = c.input.copy(alpha = 0.5f),
+            disabledUncheckedTrack = c.border.copy(alpha = 0.5f),
         )
     }
 }

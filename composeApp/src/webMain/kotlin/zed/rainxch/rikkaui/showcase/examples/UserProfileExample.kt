@@ -109,7 +109,7 @@ private fun PreferenceRow(
         Text(
             text = label,
             variant = TextVariant.Small,
-            color = RikkaTheme.colors.mutedForeground,
+            color = RikkaTheme.colors.onMuted,
         )
         // Small toggle — reduced visual weight
         Toggle(

@@ -60,7 +60,7 @@ fun SourceCodeViewer(componentId: String) {
             text = stringResource(Res.string.source_no_source),
             style =
                 RikkaTheme.typography.p.merge(
-                    TextStyle(color = RikkaTheme.colors.mutedForeground),
+                    TextStyle(color = RikkaTheme.colors.onMuted),
                 ),
         )
         return
@@ -96,7 +96,7 @@ private fun InstructionBanner() {
             text = stringResource(Res.string.source_instruction),
             style =
                 RikkaTheme.typography.small.merge(
-                    TextStyle(color = RikkaTheme.colors.foreground),
+                    TextStyle(color = RikkaTheme.colors.onBackground),
                 ),
         )
 
@@ -116,7 +116,7 @@ private fun InstructionBanner() {
                     TextStyle(
                         fontFamily = FontFamily.Monospace,
                         fontSize = 13.sp,
-                        color = RikkaTheme.colors.foreground,
+                        color = RikkaTheme.colors.onBackground,
                     ),
             )
         }
@@ -162,7 +162,7 @@ private fun SourceFileBlock(
                         fontFamily = FontFamily.Monospace,
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Medium,
-                        color = RikkaTheme.colors.mutedForeground,
+                        color = RikkaTheme.colors.onMuted,
                     ),
             )
 
@@ -203,7 +203,7 @@ private fun SourceFileBlock(
                         fontFamily = FontFamily.Monospace,
                         fontSize = 13.sp,
                         lineHeight = 20.sp,
-                        color = RikkaTheme.colors.foreground,
+                        color = RikkaTheme.colors.onBackground,
                     ),
                 modifier = Modifier.widthIn(min = 800.dp),
             )

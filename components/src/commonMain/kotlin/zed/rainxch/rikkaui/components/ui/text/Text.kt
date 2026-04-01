@@ -131,7 +131,7 @@ private fun variantStyle(variant: TextVariant): TextStyle =
 @Composable
 private fun variantColor(variant: TextVariant): Color =
     when (variant) {
-        TextVariant.Lead -> RikkaTheme.colors.mutedForeground
-        TextVariant.Muted -> RikkaTheme.colors.mutedForeground
-        else -> RikkaTheme.colors.foreground
+        TextVariant.Lead -> RikkaTheme.colors.onMuted
+        TextVariant.Muted -> RikkaTheme.colors.onMuted
+        else -> RikkaTheme.colors.onBackground
     }

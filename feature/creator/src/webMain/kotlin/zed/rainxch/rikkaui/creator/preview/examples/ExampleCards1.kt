@@ -112,7 +112,7 @@ private fun EnvRow(
         Text(
             text = key,
             variant = TextVariant.Small,
-            color = RikkaTheme.colors.foreground,
+            color = RikkaTheme.colors.onBackground,
         )
         Spacer(Modifier.weight(1f))
         Text(
@@ -249,7 +249,7 @@ fun ExampleInviteTeam(modifier: Modifier = Modifier) {
             Text(
                 text = stringResource(Res.string.example_invite_share_link),
                 variant = TextVariant.Small,
-                color = RikkaTheme.colors.mutedForeground,
+                color = RikkaTheme.colors.onMuted,
             )
 
             Row(

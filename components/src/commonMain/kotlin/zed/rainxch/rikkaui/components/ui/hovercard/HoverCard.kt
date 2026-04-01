@@ -162,13 +162,13 @@ fun HoverCard(
                                 colors.border,
                                 shapes.md,
                             ).background(
-                                colors.popover,
+                                colors.surface,
                                 shapes.md,
                             ).clip(shapes.md)
                             .padding(spacing.lg),
                 ) {
                     CompositionLocalProvider(
-                        LocalContentColor provides colors.popoverForeground,
+                        LocalContentColor provides colors.onSurface,
                         LocalTextStyle provides RikkaTheme.typography.small,
                     ) {
                         content()

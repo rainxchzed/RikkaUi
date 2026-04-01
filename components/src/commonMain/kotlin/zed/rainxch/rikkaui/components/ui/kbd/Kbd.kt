@@ -59,7 +59,7 @@ fun Kbd(
         Text(
             text = text,
             variant = textVariant,
-            color = RikkaTheme.colors.foreground,
+            color = RikkaTheme.colors.onBackground,
             style = TextStyle(fontFamily = FontFamily.Monospace),
         )
     }
@@ -83,7 +83,7 @@ fun KbdCombo(
                 Text(
                     text = separator,
                     variant = TextVariant.Muted,
-                    color = RikkaTheme.colors.mutedForeground,
+                    color = RikkaTheme.colors.onMuted,
                 )
             }
         }

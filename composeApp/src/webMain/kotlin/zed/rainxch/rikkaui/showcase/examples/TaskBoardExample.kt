@@ -136,7 +136,7 @@ fun TaskBoardExample() {
                 Text(
                     text = stringResource(Res.string.assigned_to_you),
                     variant = TextVariant.Small,
-                    color = RikkaTheme.colors.mutedForeground,
+                    color = RikkaTheme.colors.onMuted,
                     modifier = Modifier.weight(1f),
                 )
                 Button(

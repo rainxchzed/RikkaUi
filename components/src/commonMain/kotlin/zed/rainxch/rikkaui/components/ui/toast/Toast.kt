@@ -494,10 +494,10 @@ fun Toast(
                     }
                 }.shadow(RikkaTheme.elevation.high, shapes.lg)
                 .border(1.dp, colors.border, shapes.lg)
-                .background(colors.popover, shapes.lg)
+                .background(colors.surface, shapes.lg)
                 .clip(shapes.lg),
     ) {
-        CompositionLocalProvider(LocalContentColor provides colors.popoverForeground) {
+        CompositionLocalProvider(LocalContentColor provides colors.onSurface) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
@@ -603,9 +603,9 @@ fun Toast(
                         contentDescription = null,
                         tint =
                             if (dismissHovered) {
-                                colors.foreground
+                                colors.onBackground
                             } else {
-                                colors.mutedForeground
+                                colors.onMuted
                             },
                     )
                 }

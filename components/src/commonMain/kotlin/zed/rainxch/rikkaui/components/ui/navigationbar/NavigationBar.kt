@@ -132,7 +132,7 @@ fun RowScope.NavigationBarItem(
         if (indicatorColor != Color.Unspecified) {
             indicatorColor
         } else {
-            colors.accent
+            colors.secondary
         }
 
     // ─── Indicator animation ─────────────────────────────
@@ -293,7 +293,7 @@ fun RowScope.NavigationBarItem(
         if (inactiveColor != Color.Unspecified) {
             inactiveColor
         } else {
-            colors.mutedForeground
+            colors.onMuted
         }
 
     // ─── Resolve animation spec for colors ────────────────

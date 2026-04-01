@@ -202,7 +202,7 @@ fun Card(
         }
 
     CompositionLocalProvider(
-        LocalContentColor provides RikkaTheme.colors.cardForeground,
+        LocalContentColor provides RikkaTheme.colors.onSurface,
         LocalTextStyle provides RikkaTheme.typography.p,
     ) {
         Column(
@@ -274,7 +274,7 @@ private fun resolveCardStyle(variant: CardVariant): CardStyle {
     return when (variant) {
         CardVariant.Default -> {
             CardStyle(
-                background = colors.card,
+                background = colors.surface,
                 border = colors.border,
                 elevation = 0.dp,
             )
@@ -282,7 +282,7 @@ private fun resolveCardStyle(variant: CardVariant): CardStyle {
 
         CardVariant.Elevated -> {
             CardStyle(
-                background = colors.card,
+                background = colors.surface,
                 border = colors.border.copy(alpha = 0.5f),
                 elevation = elevation.low,
             )

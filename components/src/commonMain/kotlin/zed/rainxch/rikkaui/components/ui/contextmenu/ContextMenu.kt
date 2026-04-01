@@ -188,7 +188,7 @@ private fun ContextMenuPanel(
                         colors.border,
                         shapes.md,
                     ).background(
-                        colors.popover,
+                        colors.surface,
                         shapes.md,
                     ).clip(shapes.md)
                     .verticalScroll(
@@ -283,10 +283,10 @@ fun ContextMenuItem(
     val spacing = RikkaTheme.spacing
 
     val backgroundColor =
-        if (isHovered && enabled) colors.accent else colors.popover
+        if (isHovered && enabled) colors.secondary else colors.surface
 
     val textColor =
-        if (enabled) colors.popoverForeground else colors.mutedForeground
+        if (enabled) colors.onSurface else colors.onMuted
 
     Row(
         modifier =
@@ -338,7 +338,7 @@ fun ContextMenuItem(
                 style =
                     RikkaTheme.typography.small.merge(
                         TextStyle(
-                            color = colors.mutedForeground,
+                            color = colors.onMuted,
                         ),
                     ),
             )
@@ -387,7 +387,7 @@ fun ContextMenuLabel(
                 RikkaTheme.typography.small.merge(
                     TextStyle(
                         color =
-                            RikkaTheme.colors.popoverForeground,
+                            RikkaTheme.colors.onSurface,
                         fontWeight = FontWeight.SemiBold,
                     ),
                 ),

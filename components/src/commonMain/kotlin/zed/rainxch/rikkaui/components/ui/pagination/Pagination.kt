@@ -347,7 +347,7 @@ private fun PaginationEllipsis(
         Text(
             text = "\u2026",
             variant = TextVariant.Small,
-            color = RikkaTheme.colors.mutedForeground,
+            color = RikkaTheme.colors.onMuted,
         )
     }
 }
@@ -441,7 +441,7 @@ private fun resolveButtonColors(
     return if (isActive) {
         PaginationButtonColors(
             background = colors.primary,
-            foreground = colors.primaryForeground,
+            foreground = colors.onPrimary,
             border = Color.Transparent,
         )
     } else {
@@ -451,7 +451,7 @@ private fun resolveButtonColors(
                     isHovered -> colors.muted
                     else -> Color.Transparent
                 },
-            foreground = colors.foreground,
+            foreground = colors.onBackground,
             border = colors.border,
         )
     }

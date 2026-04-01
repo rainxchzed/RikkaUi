@@ -317,7 +317,7 @@ fun Button(
         when {
             !isEffectivelyEnabled -> containerColor
             isTransparentVariant && isPressed -> {
-                lerp(colors.muted, colors.foreground, 0.08f)
+                lerp(colors.muted, colors.onBackground, 0.08f)
             }
             isTransparentVariant && isHovered -> {
                 colors.muted
@@ -325,8 +325,8 @@ fun Button(
             isTransparentVariant -> {
                 colors.muted.copy(alpha = 0f)
             }
-            isPressed -> lerp(containerColor, colors.foreground, 1f - motion.pressAlpha)
-            isHovered -> lerp(containerColor, colors.foreground, 1f - motion.hoverAlpha)
+            isPressed -> lerp(containerColor, colors.onBackground, 1f - motion.pressAlpha)
+            isHovered -> lerp(containerColor, colors.onBackground, 1f - motion.hoverAlpha)
             else -> containerColor
         }
 
@@ -530,40 +530,40 @@ private fun resolveVariantColors(variant: ButtonVariant): ButtonColorValues {
         ButtonVariant.Default ->
             ButtonColorValues(
                 containerColor = colors.primary,
-                contentColor = colors.primaryForeground,
+                contentColor = colors.onPrimary,
                 borderColor = Color.Transparent,
                 disabledContainerColor = colors.primary.copy(alpha = disabledAlpha),
-                disabledContentColor = colors.primaryForeground.copy(alpha = 0.7f),
+                disabledContentColor = colors.onPrimary.copy(alpha = 0.7f),
                 disabledBorderColor = Color.Transparent,
             )
 
         ButtonVariant.Outline ->
             ButtonColorValues(
                 containerColor = Color.Transparent,
-                contentColor = colors.foreground,
+                contentColor = colors.onBackground,
                 borderColor = colors.border,
                 disabledContainerColor = Color.Transparent,
-                disabledContentColor = colors.foreground.copy(alpha = disabledAlpha),
+                disabledContentColor = colors.onBackground.copy(alpha = disabledAlpha),
                 disabledBorderColor = colors.border.copy(alpha = disabledAlpha),
             )
 
         ButtonVariant.Secondary ->
             ButtonColorValues(
                 containerColor = colors.secondary,
-                contentColor = colors.secondaryForeground,
+                contentColor = colors.onSecondary,
                 borderColor = Color.Transparent,
                 disabledContainerColor = colors.secondary.copy(alpha = disabledAlpha),
-                disabledContentColor = colors.secondaryForeground.copy(alpha = 0.7f),
+                disabledContentColor = colors.onSecondary.copy(alpha = 0.7f),
                 disabledBorderColor = Color.Transparent,
             )
 
         ButtonVariant.Ghost ->
             ButtonColorValues(
                 containerColor = Color.Transparent,
-                contentColor = colors.foreground,
+                contentColor = colors.onBackground,
                 borderColor = Color.Transparent,
                 disabledContainerColor = Color.Transparent,
-                disabledContentColor = colors.foreground.copy(alpha = disabledAlpha),
+                disabledContentColor = colors.onBackground.copy(alpha = disabledAlpha),
                 disabledBorderColor = Color.Transparent,
             )
 

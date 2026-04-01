@@ -252,7 +252,7 @@ fun RowScope.TableHeaderCell(
         Text(
             text = text,
             variant = TextVariant.Small,
-            color = RikkaTheme.colors.mutedForeground,
+            color = RikkaTheme.colors.onMuted,
         )
     }
 }

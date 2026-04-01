@@ -36,7 +36,7 @@ fun RikkaTheme(
 ) {
     CompositionLocalProvider(
         LocalRikkaColors provides colors,
-        LocalContentColor provides colors.foreground,
+        LocalContentColor provides colors.onBackground,
         LocalRikkaTypography provides typography,
         LocalRikkaSpacing provides spacing,
         LocalRikkaShapes provides shapes,
@@ -208,41 +208,37 @@ object RikkaTheme {
 @ReadOnlyComposable
 fun contentColorFor(backgroundColor: Color): Color {
     val colors = RikkaTheme.colors
-    // Most specific first — containers and inverse may share values
-    // with common surfaces (e.g. primaryContainer == muted in some palettes).
+    // Most specific first — tinted and inverse may share values
+    // with common surfaces (e.g. primaryTinted == muted in some palettes).
     // Skip Unspecified tokens to avoid false matches on unset containers.
     return when {
-        backgroundColor == Color.Unspecified -> colors.foreground
+        backgroundColor == Color.Unspecified -> colors.onBackground
 
-        colors.primaryContainer != Color.Unspecified &&
-            backgroundColor == colors.primaryContainer -> colors.primaryContainerForeground
+        colors.primaryTinted != Color.Unspecified &&
+            backgroundColor == colors.primaryTinted -> colors.onPrimaryTinted
 
-        colors.destructiveContainer != Color.Unspecified &&
-            backgroundColor == colors.destructiveContainer -> colors.destructiveContainerForeground
+        colors.destructiveTinted != Color.Unspecified &&
+            backgroundColor == colors.destructiveTinted -> colors.onDestructiveTinted
 
         colors.inverseSurface != Color.Unspecified &&
-            backgroundColor == colors.inverseSurface -> colors.inverseOnSurface
+            backgroundColor == colors.inverseSurface -> colors.onInverseSurface
 
-        backgroundColor == colors.primary -> colors.primaryForeground
+        backgroundColor == colors.primary -> colors.onPrimary
 
-        backgroundColor == colors.destructive -> colors.destructiveForeground
+        backgroundColor == colors.destructive -> colors.onDestructive
 
-        backgroundColor == colors.warning -> colors.warningForeground
+        backgroundColor == colors.warning -> colors.onWarning
 
-        backgroundColor == colors.success -> colors.successForeground
+        backgroundColor == colors.success -> colors.onSuccess
 
-        backgroundColor == colors.secondary -> colors.secondaryForeground
+        backgroundColor == colors.secondary -> colors.onSecondary
 
-        backgroundColor == colors.accent -> colors.accentForeground
+        backgroundColor == colors.muted -> colors.onMuted
 
-        backgroundColor == colors.muted -> colors.mutedForeground
+        backgroundColor == colors.surface -> colors.onSurface
 
-        backgroundColor == colors.card -> colors.cardForeground
+        backgroundColor == colors.background -> colors.onBackground
 
-        backgroundColor == colors.popover -> colors.popoverForeground
-
-        backgroundColor == colors.background -> colors.foreground
-
-        else -> colors.foreground
+        else -> colors.onBackground
     }
 }

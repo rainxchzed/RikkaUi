@@ -150,7 +150,7 @@ fun AlertDialog(
                                 }
                             }.shadow(RikkaTheme.elevation.high, shapes.lg)
                             .border(1.dp, colors.border, shapes.lg)
-                            .background(colors.popover, shapes.lg)
+                            .background(colors.surface, shapes.lg)
                             .clip(shapes.lg)
                             .padding(spacing.xl),
                     verticalArrangement =
@@ -159,7 +159,7 @@ fun AlertDialog(
                         ),
                 ) {
                     CompositionLocalProvider(
-                        LocalContentColor provides colors.popoverForeground,
+                        LocalContentColor provides colors.onSurface,
                         LocalTextStyle provides RikkaTheme.typography.p,
                     ) {
                         content()
