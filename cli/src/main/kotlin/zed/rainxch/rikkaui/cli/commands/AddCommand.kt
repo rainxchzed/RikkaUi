@@ -168,16 +168,16 @@ class AddCommand : CliktCommand(name = "add") {
      * Resolves where to put components and what package to use.
      *
      * Priority:
-     * 1. --path + --package flags → use directly
-     * 2. rikka.json config → use saved values
-     * 3. Interactive prompt → ask, then offer to save
+     * 1. --path + --package flags -> use directly
+     * 2. rikka.json config -> use saved values
+     * 3. Interactive prompt -> ask, then offer to save
      *
      * Returns Triple(componentsDir, packageName, registryUrl)
      */
     private fun resolveTargets(): Triple<String, String, String> {
         val defaultRegistry = "https://rikkaui.dev/r"
 
-        // 1. Explicit flags — use as-is, no config needed
+        // 1. Explicit flags -- use as-is, no config needed
         if (pathFlag != null && packageFlag != null) {
             return Triple(pathFlag!!, packageFlag!!, registryFlag ?: defaultRegistry)
         }
@@ -193,13 +193,14 @@ class AddCommand : CliktCommand(name = "add") {
             )
         }
 
-        // 3. Interactive — no config, no (or partial) flags
+        // 3. Interactive -- no config, no (or partial) flags
+        val projectDir = File(System.getProperty("user.dir"))
         echo("")
         echo("  No rikka.json found. Let's set up.")
         echo("")
 
         val packageName = packageFlag ?: run {
-            val detected = detectPackageName()
+            val detected = detectPackageName(projectDir)
             if (detected != null) {
                 echo("  Detected package: $detected")
                 echo("  Package name [$detected]: ", trailingNewline = false)
@@ -217,10 +218,33 @@ class AddCommand : CliktCommand(name = "add") {
         }
 
         val componentsDir = pathFlag ?: run {
-            val defaultPath = suggestComponentsDir(packageName)
-            echo("  Components directory [$defaultPath]: ", trailingNewline = false)
-            val input = readlnOrNull()?.trim()
-            if (input.isNullOrBlank()) defaultPath else input
+            val candidates = scanSourceDirs(projectDir)
+            val packagePath = packageName.replace('.', '/')
+
+            if (candidates.isNotEmpty()) {
+                echo("")
+                echo("  Where should components be added?")
+                echo("")
+                candidates.forEachIndexed { index, dir ->
+                    val fullPath = "$dir/$packagePath"
+                    echo("  ${index + 1}) $fullPath")
+                }
+                echo("  ${candidates.size + 1}) Enter custom path")
+                echo("")
+                echo("  Choose [1]: ", trailingNewline = false)
+                val input = readlnOrNull()?.trim()
+                val choice = if (input.isNullOrBlank()) 1 else input.toIntOrNull() ?: 1
+
+                if (choice in 1..candidates.size) {
+                    "${candidates[choice - 1]}/$packagePath"
+                } else {
+                    promptCustomPath()
+                }
+            } else {
+                echo("")
+                echo("  No source directories detected.")
+                promptCustomPath()
+            }
         }
 
         echo("")
@@ -245,17 +269,13 @@ class AddCommand : CliktCommand(name = "add") {
         return Triple(componentsDir, packageName, registryFlag ?: defaultRegistry)
     }
 
-    private fun detectPackageName(): String? {
-        val projectDir = File(System.getProperty("user.dir"))
-
+    private fun detectPackageName(projectDir: File): String? {
         // Try parsing android namespace from build.gradle.kts
         val buildFile = projectDir.resolve("build.gradle.kts")
         if (buildFile.exists()) {
             val content = buildFile.readText()
             val namespaceMatch = Regex("""namespace\s*=\s*"([^"]+)"""").find(content)
-            if (namespaceMatch != null) {
-                return namespaceMatch.groupValues[1]
-            }
+            if (namespaceMatch != null) return namespaceMatch.groupValues[1]
         }
 
         // Try app/build.gradle.kts for multi-module projects
@@ -263,25 +283,60 @@ class AddCommand : CliktCommand(name = "add") {
         if (appBuildFile.exists()) {
             val content = appBuildFile.readText()
             val namespaceMatch = Regex("""namespace\s*=\s*"([^"]+)"""").find(content)
-            if (namespaceMatch != null) {
-                return namespaceMatch.groupValues[1]
-            }
+            if (namespaceMatch != null) return namespaceMatch.groupValues[1]
+        }
+
+        // Try composeApp/build.gradle.kts for KMP projects
+        val composeAppBuildFile = projectDir.resolve("composeApp/build.gradle.kts")
+        if (composeAppBuildFile.exists()) {
+            val content = composeAppBuildFile.readText()
+            val namespaceMatch = Regex("""namespace\s*=\s*"([^"]+)"""").find(content)
+            if (namespaceMatch != null) return namespaceMatch.groupValues[1]
         }
 
         return null
     }
 
-    private fun suggestComponentsDir(packageName: String): String {
-        val projectDir = File(System.getProperty("user.dir"))
-        val packagePath = packageName.replace('.', '/')
+    /**
+     * Scans the project tree for Kotlin source directories.
+     *
+     * Looks for `src/{sourceSet}/kotlin` paths under any module,
+     * returning them as paths relative to the project root.
+     * Common source sets like commonMain are prioritized first.
+     */
+    private fun scanSourceDirs(projectDir: File): List<String> {
+        val sourceSets = listOf("commonMain", "main", "webMain", "desktopMain", "androidMain")
+        val found = mutableListOf<String>()
 
-        // Detect KMP vs Android
-        return if (projectDir.resolve("src/commonMain").exists()) {
-            "src/commonMain/kotlin/$packagePath"
-        } else if (projectDir.resolve("src/main").exists()) {
-            "src/main/kotlin/$packagePath"
-        } else {
-            "src/commonMain/kotlin/$packagePath"
+        projectDir.walk()
+            .maxDepth(4)
+            .filter { it.isDirectory && it.name == "kotlin" }
+            .forEach { kotlinDir ->
+                val sourceSetDir = kotlinDir.parentFile ?: return@forEach
+                val srcDir = sourceSetDir.parentFile ?: return@forEach
+                if (srcDir.name != "src") return@forEach
+
+                val relativePath = kotlinDir.relativeTo(projectDir).path
+                if (relativePath.contains("build/") || relativePath.contains("buildSrc/")) return@forEach
+
+                found.add(relativePath)
+            }
+
+        return found.sortedWith(
+            compareBy<String> { path ->
+                val sourceSet = sourceSets.indexOfFirst { path.contains("/$it/") || path.contains("\\$it\\") }
+                if (sourceSet >= 0) sourceSet else sourceSets.size
+            }.thenBy { it.length }
+        ).distinct()
+    }
+
+    private fun promptCustomPath(): String {
+        echo("  Components directory (e.g. composeApp/src/commonMain/kotlin/com/myapp): ", trailingNewline = false)
+        val input = readlnOrNull()?.trim()
+        if (input.isNullOrBlank()) {
+            echo("Error: Components directory is required.", err = true)
+            throw Abort()
         }
+        return input
     }
 }

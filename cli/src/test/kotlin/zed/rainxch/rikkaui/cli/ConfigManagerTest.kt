@@ -47,16 +47,14 @@ class ConfigManagerTest {
     fun `load returns saved config`() {
         val config = RikkaConfig(
             packageName = "com.myapp.ui",
-            componentsDir = "src/commonMain/kotlin/com/myapp/ui",
-            sourceSet = "commonMain",
+            componentsDir = "composeApp/src/commonMain/kotlin/com/myapp/ui",
         )
         ConfigManager.save(config)
 
         val loaded = ConfigManager.load()
         assertNotNull(loaded)
         assertEquals("com.myapp.ui", loaded.packageName)
-        assertEquals("src/commonMain/kotlin/com/myapp/ui", loaded.componentsDir)
-        assertEquals("commonMain", loaded.sourceSet)
+        assertEquals("composeApp/src/commonMain/kotlin/com/myapp/ui", loaded.componentsDir)
     }
 
     @Test
@@ -129,7 +127,6 @@ class ConfigManagerTest {
         val config = RikkaConfig()
         assertEquals("dev.rikkaui:foundation:0.1.0", config.foundation)
         assertEquals("https://rikkaui.dev/r", config.registry)
-        assertEquals("commonMain", config.sourceSet)
         assertEquals("", config.packageName)
         assertEquals("", config.componentsDir)
     }
