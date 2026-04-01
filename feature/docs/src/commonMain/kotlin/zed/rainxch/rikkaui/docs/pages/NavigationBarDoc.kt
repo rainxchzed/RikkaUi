@@ -204,8 +204,20 @@ NavigationBar {
                 PropInfo(
                     "indicatorColor",
                     "Color",
-                    "accent",
+                    "Unspecified",
                     stringResource(Res.string.nav_bar_prop_indicator_color_desc),
+                ),
+                PropInfo(
+                    "activeColor",
+                    "Color",
+                    "Unspecified",
+                    stringResource(Res.string.nav_bar_prop_active_color_desc),
+                ),
+                PropInfo(
+                    "inactiveColor",
+                    "Color",
+                    "Unspecified",
+                    stringResource(Res.string.nav_bar_prop_inactive_color_desc),
                 ),
             ),
         )

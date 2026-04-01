@@ -152,19 +152,19 @@ Spinner(sweepAngle = 180f)
                 PropInfo(
                     "color",
                     "Color",
-                    "primary",
+                    "Unspecified",
                     stringResource(Res.string.spinner_prop_color_desc),
                 ),
                 PropInfo(
                     "trackColor",
                     "Color?",
-                    "null",
+                    "colors.muted",
                     stringResource(Res.string.spinner_prop_track_color_desc),
                 ),
                 PropInfo(
                     "sweepAngle",
                     "Float",
-                    "270f",
+                    "240f",
                     stringResource(Res.string.spinner_prop_sweep_angle_desc),
                 ),
                 PropInfo(

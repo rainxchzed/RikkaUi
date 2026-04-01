@@ -20,8 +20,10 @@ import rikkaui.feature.docs.generated.resources.button_demo_outline
 import rikkaui.feature.docs.generated.resources.button_demo_press_me
 import rikkaui.feature.docs.generated.resources.button_page_desc
 import rikkaui.feature.docs.generated.resources.button_prop_animation_desc
+import rikkaui.feature.docs.generated.resources.button_prop_colors_desc
 import rikkaui.feature.docs.generated.resources.button_prop_content_desc
 import rikkaui.feature.docs.generated.resources.button_prop_enabled_desc
+import rikkaui.feature.docs.generated.resources.button_prop_interaction_desc
 import rikkaui.feature.docs.generated.resources.button_prop_label_desc
 import rikkaui.feature.docs.generated.resources.button_prop_loading_desc
 import rikkaui.feature.docs.generated.resources.button_prop_onclick_desc
@@ -181,7 +183,7 @@ Button(
     variant = ButtonVariant.Destructive,
 )
 
-// Children auto-inherit the foreground color
+// Children auto-inherit color via LocalContentColor
 Button(
     onClick = { submit() },
     size = ButtonSize.Lg,
@@ -240,8 +242,20 @@ Button(
                     stringResource(Res.string.button_prop_label_desc),
                 ),
                 PropInfo(
+                    "colors",
+                    "ButtonColorValues",
+                    "ButtonDefaults.colors(variant)",
+                    stringResource(Res.string.button_prop_colors_desc),
+                ),
+                PropInfo(
+                    "interactionSource",
+                    "MutableInteractionSource?",
+                    "null",
+                    stringResource(Res.string.button_prop_interaction_desc),
+                ),
+                PropInfo(
                     "content",
-                    "@Composable (Color) -> Unit",
+                    "@Composable () -> Unit",
                     "-",
                     stringResource(Res.string.button_prop_content_desc),
                 ),

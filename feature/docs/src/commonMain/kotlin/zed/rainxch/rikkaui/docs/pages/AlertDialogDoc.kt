@@ -262,7 +262,7 @@ AlertDialog(
                 PropInfo(
                     "scrimColor",
                     "Color",
-                    "Black(0.5f)",
+                    "colors.scrim",
                     stringResource(
                         Res.string.alert_dialog_prop_scrim_desc,
                     ),
@@ -277,7 +277,7 @@ AlertDialog(
                 ),
                 PropInfo(
                     "content",
-                    "() -> Unit",
+                    "@Composable () -> Unit",
                     "required",
                     stringResource(
                         Res.string.alert_dialog_prop_content_desc,

@@ -219,6 +219,12 @@ Toggle(
                     "\"\"",
                     stringResource(Res.string.toggle_prop_label_desc),
                 ),
+                PropInfo(
+                    "colors",
+                    "ToggleColorValues",
+                    "ToggleDefaults.colors()",
+                    stringResource(Res.string.toggle_prop_colors_desc),
+                ),
             ),
         )
     }

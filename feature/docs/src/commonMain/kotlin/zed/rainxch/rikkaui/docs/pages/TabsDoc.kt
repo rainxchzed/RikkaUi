@@ -218,13 +218,13 @@ TabContent {
                 PropInfo(
                     "activeColor",
                     "Color",
-                    "foreground",
+                    "Unspecified",
                     stringResource(Res.string.tabs_prop_active_color_desc),
                 ),
                 PropInfo(
                     "inactiveColor",
                     "Color",
-                    "mutedForeground",
+                    "Unspecified",
                     stringResource(Res.string.tabs_prop_inactive_color_desc),
                 ),
                 PropInfo(

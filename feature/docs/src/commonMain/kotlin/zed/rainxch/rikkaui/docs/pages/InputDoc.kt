@@ -198,6 +198,36 @@ Input(
                     "true",
                     stringResource(Res.string.input_prop_enabled_desc),
                 ),
+                PropInfo(
+                    "readOnly",
+                    "Boolean",
+                    "false",
+                    stringResource(Res.string.input_prop_read_only_desc),
+                ),
+                PropInfo(
+                    "singleLine",
+                    "Boolean",
+                    "true",
+                    stringResource(Res.string.input_prop_single_line_desc),
+                ),
+                PropInfo(
+                    "label",
+                    "String",
+                    "\"\"",
+                    stringResource(Res.string.input_prop_label_desc),
+                ),
+                PropInfo(
+                    "onClear",
+                    "(() -> Unit)?",
+                    "null",
+                    stringResource(Res.string.input_prop_on_clear_desc),
+                ),
+                PropInfo(
+                    "colors",
+                    "InputColorValues",
+                    "InputDefaults.colors()",
+                    stringResource(Res.string.input_prop_colors_desc),
+                ),
             ),
         )
     }

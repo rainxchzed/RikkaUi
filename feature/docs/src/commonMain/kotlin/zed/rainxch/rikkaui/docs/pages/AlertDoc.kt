@@ -249,7 +249,7 @@ Alert(animation = AlertAnimation.SlideIn) {
                 ),
                 PropInfo(
                     "content",
-                    "ColumnScope.() -> Unit",
+                    "@Composable ColumnScope.() -> Unit",
                     "required",
                     stringResource(
                         Res.string.alert_prop_content_desc,

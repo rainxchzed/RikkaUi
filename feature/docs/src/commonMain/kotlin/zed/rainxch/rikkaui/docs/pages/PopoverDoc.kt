@@ -202,6 +202,12 @@ Popover(
                     stringResource(Res.string.popover_prop_max_width_desc),
                 ),
                 PropInfo(
+                    "minWidth",
+                    "Dp",
+                    "120.dp",
+                    stringResource(Res.string.popover_prop_min_width_desc),
+                ),
+                PropInfo(
                     "trigger",
                     "() -> Unit",
                     "required",

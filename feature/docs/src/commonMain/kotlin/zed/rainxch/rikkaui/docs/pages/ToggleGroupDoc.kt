@@ -231,15 +231,21 @@ ToggleGroup {
                     stringResource(Res.string.toggle_group_prop_animation_desc),
                 ),
                 PropInfo(
+                    "label",
+                    "String",
+                    "\"\"",
+                    stringResource(Res.string.toggle_group_prop_label_desc),
+                ),
+                PropInfo(
                     "selectedColor",
                     "Color",
-                    "foreground",
+                    "Unspecified",
                     stringResource(Res.string.toggle_group_prop_selected_color_desc),
                 ),
                 PropInfo(
                     "unselectedColor",
                     "Color",
-                    "mutedForeground",
+                    "Unspecified",
                     stringResource(Res.string.toggle_group_prop_unselected_color_desc),
                 ),
             ),

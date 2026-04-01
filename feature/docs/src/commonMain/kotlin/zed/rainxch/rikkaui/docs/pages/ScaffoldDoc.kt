@@ -207,9 +207,11 @@ Scaffold(
     },
     bottomBar = { /* footer content */ },
     floatingActionButton = {
-        Button(onClick = {}, size = ButtonSize.Icon) {
-            Icon(RikkaIcons.Plus, "Add")
-        }
+        IconButton(
+            icon = RikkaIcons.Plus,
+            contentDescription = "Add",
+            onClick = {},
+        )
     },
     contentWindowInsets = ScaffoldWindowInsets(
         left = 16.dp, right = 16.dp,
@@ -252,10 +254,22 @@ Scaffold(
                     stringResource(Res.string.scaffold_prop_fab_desc),
                 ),
                 PropInfo(
+                    "floatingActionButtonPosition",
+                    "FabPosition",
+                    "End",
+                    stringResource(Res.string.scaffold_prop_fab_position_desc),
+                ),
+                PropInfo(
                     "snackbarHost",
                     "() -> Unit",
                     "{}",
                     stringResource(Res.string.scaffold_prop_snackbar_desc),
+                ),
+                PropInfo(
+                    "toastHost",
+                    "() -> Unit",
+                    "{}",
+                    stringResource(Res.string.scaffold_prop_toast_host_desc),
                 ),
                 PropInfo(
                     "containerColor",
@@ -266,7 +280,7 @@ Scaffold(
                 PropInfo(
                     "contentColor",
                     "Color",
-                    "foreground",
+                    "onBackground",
                     stringResource(Res.string.scaffold_prop_content_color_desc),
                 ),
                 PropInfo(

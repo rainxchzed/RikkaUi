@@ -276,7 +276,9 @@
     <string name="button_prop_enabled_desc">Whether the button is interactive.</string>
     <string name="button_prop_loading_desc">Shows a Spinner and disables interaction.</string>
     <string name="button_prop_label_desc">Accessibility label for screen readers.</string>
-    <string name="button_prop_content_desc">Button content. Receives the resolved foreground Color for children.</string>
+    <string name="button_prop_colors_desc">Custom color values. Defaults to variant-resolved colors.</string>
+    <string name="button_prop_interaction_desc">Optional hoisted interaction source for sharing hover/press state.</string>
+    <string name="button_prop_content_desc">Button content. Children auto-inherit foreground color via LocalContentColor.</string>
 
     <!-- ─── Card Page ────────────────────────────────────────── -->
     <string name="card_page_desc">A container that groups related content with visual separation.</string>
@@ -300,6 +302,7 @@
     <string name="card_prop_animation_desc">Interaction animation: Hover, Press, None.</string>
     <string name="card_prop_elevation_desc">Custom shadow elevation. Overrides variant default.</string>
     <string name="card_prop_label_desc">Accessibility label for screen readers.</string>
+    <string name="card_prop_colors_desc">Custom color values. Defaults to variant-resolved colors.</string>
     <string name="card_prop_content_desc">Card content. Use CardHeader/CardContent/CardFooter.</string>
 
     <!-- ─── Accordion Page ───────────────────────────────────── -->
@@ -556,6 +559,12 @@
     <string name="input_prop_max_length_desc">Maximum character limit.</string>
     <string name="input_prop_show_char_count_desc">Displays character count when maxLength is set.</string>
     <string name="input_prop_enabled_desc">Whether the input is interactive.</string>
+    <string name="input_prop_read_only_desc">When true, text is not editable but still selectable.</string>
+    <string name="input_prop_single_line_desc">Constrains the field to a single line.</string>
+    <string name="input_prop_label_desc">Accessibility label for screen readers.</string>
+    <string name="input_prop_style_desc">TextStyle applied to the input text.</string>
+    <string name="input_prop_on_clear_desc">Callback when the clear button is tapped. Shows clear icon when non-null.</string>
+    <string name="input_prop_colors_desc">Custom color values for background, border, text, and placeholder.</string>
 
     <!-- ─── Kbd Page ─────────────────────────────────────────── -->
     <string name="kbd_page_desc">A styled inline indicator for keyboard shortcuts and key combinations.</string>
@@ -622,6 +631,8 @@
     <string name="nav_bar_prop_always_show_label_desc">When false, label fades when not selected.</string>
     <string name="nav_bar_prop_animation_desc">Animation strategy: Spring, Tween, None.</string>
     <string name="nav_bar_prop_indicator_color_desc">Override for the pill indicator color.</string>
+    <string name="nav_bar_prop_active_color_desc">Override for selected item color.</string>
+    <string name="nav_bar_prop_inactive_color_desc">Override for unselected item color.</string>
 
     <!-- ─── Pagination Page ──────────────────────────────────── -->
     <string name="pagination_page_desc">A smart page navigation component with automatic ellipsis and Previous/Next buttons.</string>
@@ -650,6 +661,7 @@
     <string name="popover_prop_placement_desc">Popup position relative to trigger.</string>
     <string name="popover_prop_max_width_desc">Maximum width of the popup card.</string>
     <string name="popover_prop_trigger_desc">The composable that anchors the popover.</string>
+    <string name="popover_prop_min_width_desc">Minimum width of the popup card.</string>
     <string name="popover_prop_content_desc">Content displayed inside the floating card.</string>
 
     <!-- ─── Progress Page ────────────────────────────────────── -->
@@ -698,9 +710,11 @@
     <string name="scaffold_prop_top_bar_desc">Slot rendered at the top, spanning full width.</string>
     <string name="scaffold_prop_bottom_bar_desc">Slot rendered at the bottom, spanning full width.</string>
     <string name="scaffold_prop_fab_desc">FAB slot at bottom-end above the bottom bar.</string>
-    <string name="scaffold_prop_snackbar_desc">Snackbar/toast host above bottom bar and FAB.</string>
+    <string name="scaffold_prop_fab_position_desc">FAB position: Start, Center, End, or EndOverlay.</string>
+    <string name="scaffold_prop_snackbar_desc">Snackbar host slot above bottom bar and FAB.</string>
+    <string name="scaffold_prop_toast_host_desc">Toast host slot. Use with LocalToastHostState for toast messages.</string>
     <string name="scaffold_prop_container_color_desc">Background color for the scaffold.</string>
-    <string name="scaffold_prop_content_color_desc">Foreground color hint for content.</string>
+    <string name="scaffold_prop_content_color_desc">Content color provided via LocalContentColor.</string>
     <string name="scaffold_prop_insets_desc">Insets added to content PaddingValues.</string>
     <string name="scaffold_prop_content_desc">Main content. Receives PaddingValues for bars + insets.</string>
 
@@ -804,6 +818,8 @@
     <string name="slider_prop_fill_color_desc">Filled track color. Defaults to theme primary.</string>
     <string name="slider_prop_thumb_color_desc">Thumb fill color. Defaults to theme background.</string>
     <string name="slider_prop_enabled_desc">Whether the slider is interactive.</string>
+    <string name="slider_prop_thumb_border_color_desc">Border color for the thumb. Defaults to theme border.</string>
+    <string name="slider_prop_label_desc">Accessibility label for screen readers.</string>
 
     <!-- ─── Spinner Page ─────────────────────────────────────── -->
     <string name="spinner_page_desc">A circular loading indicator with configurable animation, size, and color.</string>
@@ -897,6 +913,8 @@
     <string name="textarea_prop_show_char_count_desc">Displays character count when maxLength is set.</string>
     <string name="textarea_prop_enabled_desc">Whether the textarea is interactive.</string>
     <string name="textarea_prop_read_only_desc">Whether the textarea is read-only.</string>
+    <string name="textarea_prop_label_desc">Accessibility label for screen readers.</string>
+    <string name="textarea_prop_style_desc">TextStyle applied to the textarea text.</string>
 
     <!-- ─── Toast Page ───────────────────────────────────────── -->
     <string name="toast_page_desc">A non-intrusive notification system with auto-dismiss, swipe gestures, and variant accents.</string>
@@ -927,6 +945,7 @@
     <string name="toggle_prop_animation_desc">Animation: Spring, Tween, None.</string>
     <string name="toggle_prop_enabled_desc">Whether the toggle is interactive.</string>
     <string name="toggle_prop_label_desc">Accessibility label for screen readers.</string>
+    <string name="toggle_prop_colors_desc">Custom color values for track, thumb, and border.</string>
 
     <!-- ─── Toggle Group Page ────────────────────────────────── -->
     <string name="toggle_group_page_desc">A horizontal group of toggle buttons for mutually exclusive selection.</string>
@@ -949,6 +968,7 @@
     <string name="toggle_group_prop_animation_desc">Animation strategy: Spring, Tween, None.</string>
     <string name="toggle_group_prop_selected_color_desc">Override for selected foreground color.</string>
     <string name="toggle_group_prop_unselected_color_desc">Override for unselected foreground color.</string>
+    <string name="toggle_group_prop_label_desc">Accessibility label for screen readers.</string>
 
     <!-- ─── Tooltip Page ─────────────────────────────────────── -->
     <string name="tooltip_page_desc">A small popup label that appears on hover with inverted theme colors for contrast.</string>

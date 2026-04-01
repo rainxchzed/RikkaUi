@@ -183,6 +183,18 @@ Textarea(
                     "false",
                     stringResource(Res.string.textarea_prop_read_only_desc),
                 ),
+                PropInfo(
+                    "label",
+                    "String",
+                    "\"\"",
+                    stringResource(Res.string.textarea_prop_label_desc),
+                ),
+                PropInfo(
+                    "style",
+                    "TextStyle",
+                    "TextStyle.Default",
+                    stringResource(Res.string.textarea_prop_style_desc),
+                ),
             ),
         )
     }

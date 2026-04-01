@@ -212,7 +212,7 @@ Sheet(
                 PropInfo(
                     "scrimColor",
                     "Color",
-                    "Black(0.5f)",
+                    "colors.scrim",
                     stringResource(Res.string.sheet_prop_scrim_desc),
                 ),
                 PropInfo(
@@ -223,7 +223,7 @@ Sheet(
                 ),
                 PropInfo(
                     "content",
-                    "ColumnScope.() -> Unit",
+                    "@Composable ColumnScope.() -> Unit",
                     "required",
                     stringResource(Res.string.sheet_prop_content_desc),
                 ),

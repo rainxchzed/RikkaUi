@@ -174,13 +174,13 @@ Pagination(
                 ),
                 PropInfo(
                     "previousContent",
-                    "((Color) -> Unit)?",
+                    "(@Composable () -> Unit)?",
                     "null",
                     stringResource(Res.string.pagination_prop_previous_desc),
                 ),
                 PropInfo(
                     "nextContent",
-                    "((Color) -> Unit)?",
+                    "(@Composable () -> Unit)?",
                     "null",
                     stringResource(Res.string.pagination_prop_next_desc),
                 ),

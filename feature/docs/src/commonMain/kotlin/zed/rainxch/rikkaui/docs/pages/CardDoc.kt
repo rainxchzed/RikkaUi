@@ -266,8 +266,14 @@ Card(
                     stringResource(Res.string.card_prop_label_desc),
                 ),
                 PropInfo(
+                    "colors",
+                    "CardColorValues",
+                    "CardDefaults.colors(variant)",
+                    stringResource(Res.string.card_prop_colors_desc),
+                ),
+                PropInfo(
                     "content",
-                    "ColumnScope.() -> Unit",
+                    "@Composable ColumnScope.() -> Unit",
                     "required",
                     stringResource(Res.string.card_prop_content_desc),
                 ),

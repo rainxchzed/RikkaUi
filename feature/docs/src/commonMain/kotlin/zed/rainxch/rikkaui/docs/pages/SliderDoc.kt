@@ -183,10 +183,22 @@ Slider(
                     stringResource(Res.string.slider_prop_thumb_color_desc),
                 ),
                 PropInfo(
+                    "thumbBorderColor",
+                    "Color",
+                    "Unspecified",
+                    stringResource(Res.string.slider_prop_thumb_border_color_desc),
+                ),
+                PropInfo(
                     "enabled",
                     "Boolean",
                     "true",
                     stringResource(Res.string.slider_prop_enabled_desc),
+                ),
+                PropInfo(
+                    "label",
+                    "String",
+                    "\"\"",
+                    stringResource(Res.string.slider_prop_label_desc),
                 ),
             ),
         )
