@@ -115,7 +115,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(
-                "zed.rainxch.rikkaui:components:<version>"
+                "dev.rikkaui:components:<version>"
             )
         }
     }
@@ -149,7 +149,7 @@ kotlin {
 // build.gradle.kts (app module)
 dependencies {
     implementation(
-        "zed.rainxch.rikkaui:components-android:<version>"
+        "dev.rikkaui:components-android:<version>"
     )
 }
             """.trimIndent(),
@@ -275,8 +275,8 @@ dependencies {
 
         CodeBlock(
             """
-import zed.rainxch.rikkaui.components.theme.RikkaTheme
-import zed.rainxch.rikkaui.components.theme.RikkaPalette
+import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.RikkaPalette
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.text.Text
 

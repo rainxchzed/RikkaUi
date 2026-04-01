@@ -40,15 +40,15 @@
     <!-- ════════════════════════════════════════════════════════ -->
     <string name="colors_heading">Colors</string>
     <string name="color_background">background</string>
-    <string name="color_foreground">foreground</string>
+    <string name="color_on_background">onBackground</string>
+    <string name="color_surface">surface</string>
     <string name="color_primary">primary</string>
     <string name="color_secondary">secondary</string>
     <string name="color_muted">muted</string>
-    <string name="color_accent">accent</string>
-    <string name="color_card">card</string>
-    <string name="color_border">border</string>
     <string name="color_destructive">destructive</string>
-    <string name="color_input">input</string>
+    <string name="color_warning">warning</string>
+    <string name="color_success">success</string>
+    <string name="color_border">border</string>
     <string name="color_ring">ring</string>
 
     <!-- ════════════════════════════════════════════════════════ -->

@@ -46,30 +46,47 @@ import rikkaui.feature.docs.generated.resources.theming_section_style_presets
 import rikkaui.feature.docs.generated.resources.theming_section_token_overrides
 import rikkaui.feature.docs.generated.resources.theming_style_presets_body
 import rikkaui.feature.docs.generated.resources.theming_subsection_border_colors
+import rikkaui.feature.docs.generated.resources.theming_subsection_interaction_states
 import rikkaui.feature.docs.generated.resources.theming_subsection_interactive_colors
-import rikkaui.feature.docs.generated.resources.theming_subsection_subtle_colors
+import rikkaui.feature.docs.generated.resources.theming_subsection_inverse_colors
+import rikkaui.feature.docs.generated.resources.theming_subsection_muted_colors
+import rikkaui.feature.docs.generated.resources.theming_subsection_status_colors
 import rikkaui.feature.docs.generated.resources.theming_subsection_surface_colors
+import rikkaui.feature.docs.generated.resources.theming_subsection_tinted_surfaces
 import rikkaui.feature.docs.generated.resources.theming_title
-import rikkaui.feature.docs.generated.resources.theming_token_accent_desc
-import rikkaui.feature.docs.generated.resources.theming_token_accent_foreground_desc
 import rikkaui.feature.docs.generated.resources.theming_token_background_desc
 import rikkaui.feature.docs.generated.resources.theming_token_border_desc
-import rikkaui.feature.docs.generated.resources.theming_token_card_desc
-import rikkaui.feature.docs.generated.resources.theming_token_card_foreground_desc
+import rikkaui.feature.docs.generated.resources.theming_token_border_subtle_desc
 import rikkaui.feature.docs.generated.resources.theming_token_destructive_desc
-import rikkaui.feature.docs.generated.resources.theming_token_destructive_foreground_desc
-import rikkaui.feature.docs.generated.resources.theming_token_foreground_desc
-import rikkaui.feature.docs.generated.resources.theming_token_input_desc
+import rikkaui.feature.docs.generated.resources.theming_token_destructive_hover_desc
+import rikkaui.feature.docs.generated.resources.theming_token_destructive_pressed_desc
+import rikkaui.feature.docs.generated.resources.theming_token_destructive_tinted_desc
+import rikkaui.feature.docs.generated.resources.theming_token_inverse_surface_desc
 import rikkaui.feature.docs.generated.resources.theming_token_muted_desc
-import rikkaui.feature.docs.generated.resources.theming_token_muted_foreground_desc
+import rikkaui.feature.docs.generated.resources.theming_token_on_background_desc
+import rikkaui.feature.docs.generated.resources.theming_token_on_destructive_desc
+import rikkaui.feature.docs.generated.resources.theming_token_on_destructive_tinted_desc
+import rikkaui.feature.docs.generated.resources.theming_token_on_inverse_surface_desc
+import rikkaui.feature.docs.generated.resources.theming_token_on_muted_desc
+import rikkaui.feature.docs.generated.resources.theming_token_on_primary_desc
+import rikkaui.feature.docs.generated.resources.theming_token_on_primary_tinted_desc
+import rikkaui.feature.docs.generated.resources.theming_token_on_secondary_desc
+import rikkaui.feature.docs.generated.resources.theming_token_on_success_desc
+import rikkaui.feature.docs.generated.resources.theming_token_on_surface_desc
+import rikkaui.feature.docs.generated.resources.theming_token_on_warning_desc
 import rikkaui.feature.docs.generated.resources.theming_token_overrides_body
-import rikkaui.feature.docs.generated.resources.theming_token_popover_desc
-import rikkaui.feature.docs.generated.resources.theming_token_popover_foreground_desc
 import rikkaui.feature.docs.generated.resources.theming_token_primary_desc
-import rikkaui.feature.docs.generated.resources.theming_token_primary_foreground_desc
+import rikkaui.feature.docs.generated.resources.theming_token_primary_hover_desc
+import rikkaui.feature.docs.generated.resources.theming_token_primary_pressed_desc
+import rikkaui.feature.docs.generated.resources.theming_token_primary_tinted_desc
 import rikkaui.feature.docs.generated.resources.theming_token_ring_desc
+import rikkaui.feature.docs.generated.resources.theming_token_scrim_desc
 import rikkaui.feature.docs.generated.resources.theming_token_secondary_desc
-import rikkaui.feature.docs.generated.resources.theming_token_secondary_foreground_desc
+import rikkaui.feature.docs.generated.resources.theming_token_secondary_hover_desc
+import rikkaui.feature.docs.generated.resources.theming_token_secondary_pressed_desc
+import rikkaui.feature.docs.generated.resources.theming_token_success_desc
+import rikkaui.feature.docs.generated.resources.theming_token_surface_desc
+import rikkaui.feature.docs.generated.resources.theming_token_warning_desc
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.docs.components.CodeBlock
@@ -448,6 +465,8 @@ RikkaTheme(
 
         Spacer(Modifier.height(RikkaTheme.spacing.md))
 
+        // ── Surface Colors ──
+
         Text(
             text =
                 stringResource(
@@ -470,49 +489,35 @@ RikkaTheme(
                         ),
                     ),
                     PropInfo(
-                        "foreground",
+                        "onBackground",
                         "Color",
                         "\u2014",
                         stringResource(
-                            Res.string.theming_token_foreground_desc,
+                            Res.string.theming_token_on_background_desc,
                         ),
                     ),
                     PropInfo(
-                        "card",
+                        "surface",
                         "Color",
                         "\u2014",
                         stringResource(
-                            Res.string.theming_token_card_desc,
+                            Res.string.theming_token_surface_desc,
                         ),
                     ),
                     PropInfo(
-                        "cardForeground",
+                        "onSurface",
                         "Color",
                         "\u2014",
                         stringResource(
-                            Res.string.theming_token_card_foreground_desc,
-                        ),
-                    ),
-                    PropInfo(
-                        "popover",
-                        "Color",
-                        "\u2014",
-                        stringResource(
-                            Res.string.theming_token_popover_desc,
-                        ),
-                    ),
-                    PropInfo(
-                        "popoverForeground",
-                        "Color",
-                        "\u2014",
-                        stringResource(
-                            Res.string.theming_token_popover_foreground_desc,
+                            Res.string.theming_token_on_surface_desc,
                         ),
                     ),
                 ),
         )
 
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
+
+        // ── Interactive Colors ──
 
         Text(
             text =
@@ -536,11 +541,11 @@ RikkaTheme(
                         ),
                     ),
                     PropInfo(
-                        "primaryForeground",
+                        "onPrimary",
                         "Color",
                         "\u2014",
                         stringResource(
-                            Res.string.theming_token_primary_foreground_desc,
+                            Res.string.theming_token_on_primary_desc,
                         ),
                     ),
                     PropInfo(
@@ -552,11 +557,11 @@ RikkaTheme(
                         ),
                     ),
                     PropInfo(
-                        "secondaryForeground",
+                        "onSecondary",
                         "Color",
                         "\u2014",
                         stringResource(
-                            Res.string.theming_token_secondary_foreground_desc,
+                            Res.string.theming_token_on_secondary_desc,
                         ),
                     ),
                     PropInfo(
@@ -568,11 +573,11 @@ RikkaTheme(
                         ),
                     ),
                     PropInfo(
-                        "destructiveForeground",
+                        "onDestructive",
                         "Color",
                         "\u2014",
                         stringResource(
-                            Res.string.theming_token_destructive_foreground_desc,
+                            Res.string.theming_token_on_destructive_desc,
                         ),
                     ),
                 ),
@@ -580,10 +585,64 @@ RikkaTheme(
 
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
+        // ── Status Colors ──
+
         Text(
             text =
                 stringResource(
-                    Res.string.theming_subsection_subtle_colors,
+                    Res.string.theming_subsection_status_colors,
+                ),
+            variant = TextVariant.H4,
+        )
+
+        Spacer(Modifier.height(RikkaTheme.spacing.sm))
+
+        PropsTable(
+            props =
+                listOf(
+                    PropInfo(
+                        "warning",
+                        "Color",
+                        "\u2014",
+                        stringResource(
+                            Res.string.theming_token_warning_desc,
+                        ),
+                    ),
+                    PropInfo(
+                        "onWarning",
+                        "Color",
+                        "\u2014",
+                        stringResource(
+                            Res.string.theming_token_on_warning_desc,
+                        ),
+                    ),
+                    PropInfo(
+                        "success",
+                        "Color",
+                        "\u2014",
+                        stringResource(
+                            Res.string.theming_token_success_desc,
+                        ),
+                    ),
+                    PropInfo(
+                        "onSuccess",
+                        "Color",
+                        "\u2014",
+                        stringResource(
+                            Res.string.theming_token_on_success_desc,
+                        ),
+                    ),
+                ),
+        )
+
+        Spacer(Modifier.height(RikkaTheme.spacing.lg))
+
+        // ── Muted Colors ──
+
+        Text(
+            text =
+                stringResource(
+                    Res.string.theming_subsection_muted_colors,
                 ),
             variant = TextVariant.H4,
         )
@@ -602,33 +661,71 @@ RikkaTheme(
                         ),
                     ),
                     PropInfo(
-                        "mutedForeground",
+                        "onMuted",
                         "Color",
                         "\u2014",
                         stringResource(
-                            Res.string.theming_token_muted_foreground_desc,
-                        ),
-                    ),
-                    PropInfo(
-                        "accent",
-                        "Color",
-                        "\u2014",
-                        stringResource(
-                            Res.string.theming_token_accent_desc,
-                        ),
-                    ),
-                    PropInfo(
-                        "accentForeground",
-                        "Color",
-                        "\u2014",
-                        stringResource(
-                            Res.string.theming_token_accent_foreground_desc,
+                            Res.string.theming_token_on_muted_desc,
                         ),
                     ),
                 ),
         )
 
         Spacer(Modifier.height(RikkaTheme.spacing.lg))
+
+        // ── Tinted Surfaces ──
+
+        Text(
+            text =
+                stringResource(
+                    Res.string.theming_subsection_tinted_surfaces,
+                ),
+            variant = TextVariant.H4,
+        )
+
+        Spacer(Modifier.height(RikkaTheme.spacing.sm))
+
+        PropsTable(
+            props =
+                listOf(
+                    PropInfo(
+                        "primaryTinted",
+                        "Color",
+                        "\u2014",
+                        stringResource(
+                            Res.string.theming_token_primary_tinted_desc,
+                        ),
+                    ),
+                    PropInfo(
+                        "onPrimaryTinted",
+                        "Color",
+                        "\u2014",
+                        stringResource(
+                            Res.string.theming_token_on_primary_tinted_desc,
+                        ),
+                    ),
+                    PropInfo(
+                        "destructiveTinted",
+                        "Color",
+                        "\u2014",
+                        stringResource(
+                            Res.string.theming_token_destructive_tinted_desc,
+                        ),
+                    ),
+                    PropInfo(
+                        "onDestructiveTinted",
+                        "Color",
+                        "\u2014",
+                        stringResource(
+                            Res.string.theming_token_on_destructive_tinted_desc,
+                        ),
+                    ),
+                ),
+        )
+
+        Spacer(Modifier.height(RikkaTheme.spacing.lg))
+
+        // ── Border & Focus Colors ──
 
         Text(
             text =
@@ -652,11 +749,11 @@ RikkaTheme(
                         ),
                     ),
                     PropInfo(
-                        "input",
+                        "borderSubtle",
                         "Color",
                         "\u2014",
                         stringResource(
-                            Res.string.theming_token_input_desc,
+                            Res.string.theming_token_border_subtle_desc,
                         ),
                     ),
                     PropInfo(
@@ -665,6 +762,118 @@ RikkaTheme(
                         "\u2014",
                         stringResource(
                             Res.string.theming_token_ring_desc,
+                        ),
+                    ),
+                    PropInfo(
+                        "scrim",
+                        "Color",
+                        "\u2014",
+                        stringResource(
+                            Res.string.theming_token_scrim_desc,
+                        ),
+                    ),
+                ),
+        )
+
+        Spacer(Modifier.height(RikkaTheme.spacing.lg))
+
+        // ── Inverse & Utility ──
+
+        Text(
+            text =
+                stringResource(
+                    Res.string.theming_subsection_inverse_colors,
+                ),
+            variant = TextVariant.H4,
+        )
+
+        Spacer(Modifier.height(RikkaTheme.spacing.sm))
+
+        PropsTable(
+            props =
+                listOf(
+                    PropInfo(
+                        "inverseSurface",
+                        "Color",
+                        "\u2014",
+                        stringResource(
+                            Res.string.theming_token_inverse_surface_desc,
+                        ),
+                    ),
+                    PropInfo(
+                        "onInverseSurface",
+                        "Color",
+                        "\u2014",
+                        stringResource(
+                            Res.string.theming_token_on_inverse_surface_desc,
+                        ),
+                    ),
+                ),
+        )
+
+        Spacer(Modifier.height(RikkaTheme.spacing.lg))
+
+        // ── Interaction States ──
+
+        Text(
+            text =
+                stringResource(
+                    Res.string.theming_subsection_interaction_states,
+                ),
+            variant = TextVariant.H4,
+        )
+
+        Spacer(Modifier.height(RikkaTheme.spacing.sm))
+
+        PropsTable(
+            props =
+                listOf(
+                    PropInfo(
+                        "primaryHover",
+                        "Color",
+                        "\u2014",
+                        stringResource(
+                            Res.string.theming_token_primary_hover_desc,
+                        ),
+                    ),
+                    PropInfo(
+                        "primaryPressed",
+                        "Color",
+                        "\u2014",
+                        stringResource(
+                            Res.string.theming_token_primary_pressed_desc,
+                        ),
+                    ),
+                    PropInfo(
+                        "destructiveHover",
+                        "Color",
+                        "\u2014",
+                        stringResource(
+                            Res.string.theming_token_destructive_hover_desc,
+                        ),
+                    ),
+                    PropInfo(
+                        "destructivePressed",
+                        "Color",
+                        "\u2014",
+                        stringResource(
+                            Res.string.theming_token_destructive_pressed_desc,
+                        ),
+                    ),
+                    PropInfo(
+                        "secondaryHover",
+                        "Color",
+                        "\u2014",
+                        stringResource(
+                            Res.string.theming_token_secondary_hover_desc,
+                        ),
+                    ),
+                    PropInfo(
+                        "secondaryPressed",
+                        "Color",
+                        "\u2014",
+                        stringResource(
+                            Res.string.theming_token_secondary_pressed_desc,
                         ),
                     ),
                 ),
