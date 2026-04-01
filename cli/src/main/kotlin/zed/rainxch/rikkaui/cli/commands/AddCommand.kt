@@ -185,7 +185,6 @@ class AddCommand : CliktCommand(name = "add") {
         // 2. Existing config
         val config = ConfigManager.load()
         if (config != null) {
-            // Allow flag overrides on top of config
             return Triple(
                 pathFlag ?: config.componentsDir,
                 packageFlag ?: config.packageName,
@@ -199,53 +198,9 @@ class AddCommand : CliktCommand(name = "add") {
         echo("  No rikka.json found. Let's set up.")
         echo("")
 
-        val packageName = packageFlag ?: run {
-            val detected = detectPackageName(projectDir)
-            if (detected != null) {
-                echo("  Detected package: $detected")
-                echo("  Package name [$detected]: ", trailingNewline = false)
-                val input = readlnOrNull()?.trim()
-                if (input.isNullOrBlank()) detected else input
-            } else {
-                echo("  Package name (e.g. com.myapp.ui): ", trailingNewline = false)
-                val input = readlnOrNull()?.trim()
-                if (input.isNullOrBlank()) {
-                    echo("Error: Package name is required.", err = true)
-                    throw Abort()
-                }
-                input
-            }
-        }
+        val packageName = packageFlag ?: promptPackageName(projectDir)
 
-        val componentsDir = pathFlag ?: run {
-            val candidates = scanSourceDirs(projectDir)
-            val packagePath = packageName.replace('.', '/')
-
-            if (candidates.isNotEmpty()) {
-                echo("")
-                echo("  Where should components be added?")
-                echo("")
-                candidates.forEachIndexed { index, dir ->
-                    val fullPath = "$dir/$packagePath"
-                    echo("  ${index + 1}) $fullPath")
-                }
-                echo("  ${candidates.size + 1}) Enter custom path")
-                echo("")
-                echo("  Choose [1]: ", trailingNewline = false)
-                val input = readlnOrNull()?.trim()
-                val choice = if (input.isNullOrBlank()) 1 else input.toIntOrNull() ?: 1
-
-                if (choice in 1..candidates.size) {
-                    "${candidates[choice - 1]}/$packagePath"
-                } else {
-                    promptCustomPath()
-                }
-            } else {
-                echo("")
-                echo("  No source directories detected.")
-                promptCustomPath()
-            }
-        }
+        val componentsDir = pathFlag ?: promptComponentsDir(projectDir, packageName)
 
         echo("")
         echo("  Package:    $packageName")
@@ -269,74 +224,66 @@ class AddCommand : CliktCommand(name = "add") {
         return Triple(componentsDir, packageName, registryFlag ?: defaultRegistry)
     }
 
-    private fun detectPackageName(projectDir: File): String? {
-        // Try parsing android namespace from build.gradle.kts
-        val buildFile = projectDir.resolve("build.gradle.kts")
-        if (buildFile.exists()) {
-            val content = buildFile.readText()
-            val namespaceMatch = Regex("""namespace\s*=\s*"([^"]+)"""").find(content)
-            if (namespaceMatch != null) return namespaceMatch.groupValues[1]
+    private fun promptPackageName(projectDir: File): String {
+        val detected = ProjectDetector.detectPackageName(projectDir)
+        if (detected != null) {
+            echo("  Detected package: $detected")
+            echo("  Package name [$detected]: ", trailingNewline = false)
+            val input = readlnOrNull()?.trim()
+            return if (input.isNullOrBlank()) detected else input
         }
 
-        // Try app/build.gradle.kts for multi-module projects
-        val appBuildFile = projectDir.resolve("app/build.gradle.kts")
-        if (appBuildFile.exists()) {
-            val content = appBuildFile.readText()
-            val namespaceMatch = Regex("""namespace\s*=\s*"([^"]+)"""").find(content)
-            if (namespaceMatch != null) return namespaceMatch.groupValues[1]
-        }
-
-        // Try composeApp/build.gradle.kts for KMP projects
-        val composeAppBuildFile = projectDir.resolve("composeApp/build.gradle.kts")
-        if (composeAppBuildFile.exists()) {
-            val content = composeAppBuildFile.readText()
-            val namespaceMatch = Regex("""namespace\s*=\s*"([^"]+)"""").find(content)
-            if (namespaceMatch != null) return namespaceMatch.groupValues[1]
-        }
-
-        return null
-    }
-
-    /**
-     * Scans the project tree for Kotlin source directories.
-     *
-     * Looks for `src/{sourceSet}/kotlin` paths under any module,
-     * returning them as paths relative to the project root.
-     * Common source sets like commonMain are prioritized first.
-     */
-    private fun scanSourceDirs(projectDir: File): List<String> {
-        val sourceSets = listOf("commonMain", "main", "webMain", "desktopMain", "androidMain")
-        val found = mutableListOf<String>()
-
-        projectDir.walk()
-            .maxDepth(4)
-            .filter { it.isDirectory && it.name == "kotlin" }
-            .forEach { kotlinDir ->
-                val sourceSetDir = kotlinDir.parentFile ?: return@forEach
-                val srcDir = sourceSetDir.parentFile ?: return@forEach
-                if (srcDir.name != "src") return@forEach
-
-                val relativePath = kotlinDir.relativeTo(projectDir).path
-                if (relativePath.contains("build/") || relativePath.contains("buildSrc/")) return@forEach
-
-                found.add(relativePath)
-            }
-
-        return found.sortedWith(
-            compareBy<String> { path ->
-                val sourceSet = sourceSets.indexOfFirst { path.contains("/$it/") || path.contains("\\$it\\") }
-                if (sourceSet >= 0) sourceSet else sourceSets.size
-            }.thenBy { it.length }
-        ).distinct()
-    }
-
-    private fun promptCustomPath(): String {
-        echo("  Components directory (e.g. composeApp/src/commonMain/kotlin/com/myapp): ", trailingNewline = false)
+        echo("  Package name (e.g. com.myapp.ui): ", trailingNewline = false)
         val input = readlnOrNull()?.trim()
         if (input.isNullOrBlank()) {
-            echo("Error: Components directory is required.", err = true)
+            echo("Error: Package name is required.", err = true)
             throw Abort()
         }
         return input
+    }
+
+    private fun promptComponentsDir(projectDir: File, packageName: String): String {
+        val candidates = ProjectDetector.scanSourceDirs(projectDir)
+        val packagePath = packageName.replace('.', '/')
+
+        if (candidates.isNotEmpty()) {
+            echo("")
+            echo("  Where should components be added?")
+            echo("")
+            candidates.forEachIndexed { index, dir ->
+                echo("  ${index + 1}) $dir/$packagePath")
+            }
+            echo("  ${candidates.size + 1}) Browse folders...")
+            echo("")
+            echo("  Choose [1]: ", trailingNewline = false)
+            val input = readlnOrNull()?.trim()
+            val choice = if (input.isNullOrBlank()) 1 else input.toIntOrNull() ?: 1
+
+            return if (choice in 1..candidates.size) {
+                "${candidates[choice - 1]}/$packagePath"
+            } else {
+                browseFolders(projectDir) ?: throw Abort()
+            }
+        }
+
+        echo("")
+        echo("  No source directories detected.")
+        return browseFolders(projectDir) ?: throw Abort()
+    }
+
+    private fun browseFolders(projectDir: File): String? {
+        val selected = FolderBrowser.browse(
+            projectRoot = projectDir,
+            echo = { msg, newline -> echo(msg, trailingNewline = newline) },
+        )
+
+        if (selected == null) {
+            echo("  Cancelled.")
+            return null
+        }
+
+        echo("")
+        echo("  Selected: $selected")
+        return selected
     }
 }
