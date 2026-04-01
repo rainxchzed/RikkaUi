@@ -3,6 +3,7 @@ package zed.rainxch.rikkaui.creator.codegen
 import zed.rainxch.rikkaui.foundation.RikkaAccentPreset
 import zed.rainxch.rikkaui.foundation.RikkaPalette
 import zed.rainxch.rikkaui.foundation.RikkaStylePreset
+import zed.rainxch.rikkaui.foundation.RikkaVersion
 
 /** The base package for the `:foundation` module. */
 private const val FOUNDATION_PKG = "zed.rainxch.rikkaui.foundation"
@@ -127,7 +128,7 @@ fun generateReadme(
         )
         appendLine(
             "    implementation(" +
-                "\"dev.rikkaui:foundation:0.1.0\")",
+                "\"${RikkaVersion.FOUNDATION}\")",
         )
         appendLine()
         appendLine(
@@ -136,7 +137,7 @@ fun generateReadme(
         )
         appendLine(
             "    implementation(" +
-                "\"dev.rikkaui:components:0.1.0\")",
+                "\"${RikkaVersion.COMPONENTS}\")",
         )
         appendLine("}")
         appendLine("```")

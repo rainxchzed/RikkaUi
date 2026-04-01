@@ -43,6 +43,7 @@ import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonSize
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
 import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.RikkaVersion
 
 private fun resolveSourceDir(componentId: String): String =
     when (componentId) {
@@ -111,7 +112,10 @@ private fun InstructionBanner() {
                     ),
         ) {
             BasicText(
-                text = stringResource(Res.string.source_dependency),
+                text = stringResource(
+                    Res.string.source_dependency,
+                    RikkaVersion.FOUNDATION,
+                ),
                 style =
                     TextStyle(
                         fontFamily = FontFamily.Monospace,

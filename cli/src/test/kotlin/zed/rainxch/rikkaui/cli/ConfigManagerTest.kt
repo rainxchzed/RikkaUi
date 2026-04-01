@@ -125,7 +125,7 @@ class ConfigManagerTest {
     @Test
     fun `default config has expected defaults`() {
         val config = RikkaConfig()
-        assertEquals("dev.rikkaui:foundation:0.1.0", config.foundation)
+        assertEquals(CliVersion.FOUNDATION, config.foundation)
         assertEquals("https://rikkaui.dev/r", config.registry)
         assertEquals("", config.packageName)
         assertEquals("", config.componentsDir)

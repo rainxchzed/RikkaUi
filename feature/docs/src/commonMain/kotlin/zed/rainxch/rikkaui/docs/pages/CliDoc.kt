@@ -38,6 +38,7 @@ import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
 import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.RikkaVersion
 
 @Composable
 fun CliDoc() {
@@ -147,7 +148,7 @@ Resolving dependencies...
   + Added text (dependency)
 
   Ensure these dependencies are in your build.gradle.kts:
-  implementation("dev.rikkaui:foundation:0.1.0")
+  implementation("${RikkaVersion.FOUNDATION}")
             """.trimIndent(),
         )
 
@@ -216,7 +217,7 @@ Resolving dependencies...
             """
 $ rikkaui list
 
-  RikkaUI v0.1.0 — 40 components
+  RikkaUI v${RikkaVersion.NAME} — 40 components
 
   Layout:
     card                 A container with border and shadow.
@@ -246,9 +247,8 @@ $ rikkaui list
             """
 // rikka.json
 {
-  "foundation": "dev.rikkaui:foundation:0.1.0",
+  "foundation": "${RikkaVersion.FOUNDATION}",
   "registry": "https://rikkaui.dev/r",
-  "sourceSet": "commonMain",
   "packageName": "com.myapp.ui",
   "componentsDir": "shared/src/commonMain/kotlin/com/myapp/ui"
 }
