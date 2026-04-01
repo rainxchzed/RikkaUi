@@ -25,10 +25,6 @@ import androidx.compose.ui.graphics.Color
  * converted from HSL to sRGB hex.
  */
 object RikkaPalettes {
-    // ═══════════════════════════════════════════════
-    //  Zinc — Cool, modern, blue-tinted gray
-    // ═══════════════════════════════════════════════
-
     /** Zinc base palette, light variant. */
     val ZincLight =
         RikkaColors(
@@ -57,6 +53,12 @@ object RikkaPalettes {
             onPrimaryTinted = Color(0xFF09090B),
             destructiveTinted = Color(0xFFFEE2E2),
             onDestructiveTinted = Color(0xFFDC2626),
+            primaryHover = Color(0xFF27272A),
+            primaryPressed = Color(0xFF3F3F46),
+            destructiveHover = Color(0xFFDC2626),
+            destructivePressed = Color(0xFFB91C1C),
+            secondaryHover = Color(0xFFE4E4E7),
+            secondaryPressed = Color(0xFFD4D4D8),
         )
 
     /** Zinc base palette, dark variant. */
@@ -87,11 +89,13 @@ object RikkaPalettes {
             onPrimaryTinted = Color(0xFFFAFAFA),
             destructiveTinted = Color(0xFF450A0A),
             onDestructiveTinted = Color(0xFFFCA5A5),
+            primaryHover = Color(0xFFE4E4E7),
+            primaryPressed = Color(0xFFD4D4D8),
+            destructiveHover = Color(0xFFEF4444),
+            destructivePressed = Color(0xFFF87171),
+            secondaryHover = Color(0xFF3F3F46),
+            secondaryPressed = Color(0xFF52525B),
         )
-
-    // ═══════════════════════════════════════════════
-    //  Slate — Sophisticated, blue-gray undertone
-    // ═══════════════════════════════════════════════
 
     /** Slate base palette, light variant. Blue-gray undertone. */
     val SlateLight =
@@ -121,6 +125,12 @@ object RikkaPalettes {
             onPrimaryTinted = Color(0xFF020817),
             destructiveTinted = Color(0xFFFEE2E2),
             onDestructiveTinted = Color(0xFFDC2626),
+            primaryHover = Color(0xFF1E293B),
+            primaryPressed = Color(0xFF334155),
+            destructiveHover = Color(0xFFDC2626),
+            destructivePressed = Color(0xFFB91C1C),
+            secondaryHover = Color(0xFFCBD5E1),
+            secondaryPressed = Color(0xFF94A3B8),
         )
 
     /** Slate base palette, dark variant. */
@@ -151,11 +161,13 @@ object RikkaPalettes {
             onPrimaryTinted = Color(0xFFF8FAFC),
             destructiveTinted = Color(0xFF450A0A),
             onDestructiveTinted = Color(0xFFFCA5A5),
+            primaryHover = Color(0xFFE2E8F0),
+            primaryPressed = Color(0xFFCBD5E1),
+            destructiveHover = Color(0xFFEF4444),
+            destructivePressed = Color(0xFFF87171),
+            secondaryHover = Color(0xFF334155),
+            secondaryPressed = Color(0xFF475569),
         )
-
-    // ═══════════════════════════════════════════════
-    //  Stone — Warm, earthy, brown-tinted gray
-    // ═══════════════════════════════════════════════
 
     /** Stone base palette, light variant. Warm, earthy undertone. */
     val StoneLight =
@@ -185,6 +197,12 @@ object RikkaPalettes {
             onPrimaryTinted = Color(0xFF0C0A09),
             destructiveTinted = Color(0xFFFEE2E2),
             onDestructiveTinted = Color(0xFFDC2626),
+            primaryHover = Color(0xFF292524),
+            primaryPressed = Color(0xFF44403C),
+            destructiveHover = Color(0xFFDC2626),
+            destructivePressed = Color(0xFFB91C1C),
+            secondaryHover = Color(0xFFD6D3D1),
+            secondaryPressed = Color(0xFFA8A29E),
         )
 
     /** Stone base palette, dark variant. */
@@ -215,11 +233,13 @@ object RikkaPalettes {
             onPrimaryTinted = Color(0xFFFAFAF9),
             destructiveTinted = Color(0xFF450A0A),
             onDestructiveTinted = Color(0xFFFCA5A5),
+            primaryHover = Color(0xFFE7E5E4),
+            primaryPressed = Color(0xFFD6D3D1),
+            destructiveHover = Color(0xFFEF4444),
+            destructivePressed = Color(0xFFF87171),
+            secondaryHover = Color(0xFF44403C),
+            secondaryPressed = Color(0xFF57534E),
         )
-
-    // ═══════════════════════════════════════════════
-    //  Gray — Balanced, true gray with slight cool cast
-    // ═══════════════════════════════════════════════
 
     /** Gray base palette, light variant. Balanced cool cast. */
     val GrayLight =
@@ -249,6 +269,12 @@ object RikkaPalettes {
             onPrimaryTinted = Color(0xFF030712),
             destructiveTinted = Color(0xFFFEE2E2),
             onDestructiveTinted = Color(0xFFDC2626),
+            primaryHover = Color(0xFF1F2937),
+            primaryPressed = Color(0xFF374151),
+            destructiveHover = Color(0xFFDC2626),
+            destructivePressed = Color(0xFFB91C1C),
+            secondaryHover = Color(0xFFD1D5DB),
+            secondaryPressed = Color(0xFF9CA3AF),
         )
 
     /** Gray base palette, dark variant. */
@@ -279,11 +305,13 @@ object RikkaPalettes {
             onPrimaryTinted = Color(0xFFF9FAFB),
             destructiveTinted = Color(0xFF450A0A),
             onDestructiveTinted = Color(0xFFFCA5A5),
+            primaryHover = Color(0xFFE5E7EB),
+            primaryPressed = Color(0xFFD1D5DB),
+            destructiveHover = Color(0xFFEF4444),
+            destructivePressed = Color(0xFFF87171),
+            secondaryHover = Color(0xFF374151),
+            secondaryPressed = Color(0xFF4B5563),
         )
-
-    // ═══════════════════════════════════════════════
-    //  Neutral — Pure achromatic, no hue
-    // ═══════════════════════════════════════════════
 
     /** Neutral base palette, light variant. Pure achromatic. */
     val NeutralLight =
@@ -313,6 +341,12 @@ object RikkaPalettes {
             onPrimaryTinted = Color(0xFF0A0A0A),
             destructiveTinted = Color(0xFFFEE2E2),
             onDestructiveTinted = Color(0xFFDC2626),
+            primaryHover = Color(0xFF262626),
+            primaryPressed = Color(0xFF404040),
+            destructiveHover = Color(0xFFDC2626),
+            destructivePressed = Color(0xFFB91C1C),
+            secondaryHover = Color(0xFFD4D4D4),
+            secondaryPressed = Color(0xFFA3A3A3),
         )
 
     /** Neutral base palette, dark variant. */
@@ -343,6 +377,12 @@ object RikkaPalettes {
             onPrimaryTinted = Color(0xFFFAFAFA),
             destructiveTinted = Color(0xFF450A0A),
             onDestructiveTinted = Color(0xFFFCA5A5),
+            primaryHover = Color(0xFFE5E5E5),
+            primaryPressed = Color(0xFFD4D4D4),
+            destructiveHover = Color(0xFFEF4444),
+            destructivePressed = Color(0xFFF87171),
+            secondaryHover = Color(0xFF404040),
+            secondaryPressed = Color(0xFF525252),
         )
 }
 
@@ -382,60 +422,74 @@ data class RikkaAccentColor(
  * ```
  */
 object RikkaAccent {
-    /** Vibrant red accent. */
+    /** Vibrant red accent. red-600 → hover red-700, press red-800 */
     val Red =
         RikkaAccentColor(
             primary = Color(0xFFDC2626),
             onPrimary = Color(0xFFFAFAFA),
             ring = Color(0xFFDC2626),
+            primaryHover = Color(0xFFB91C1C),
+            primaryPressed = Color(0xFF991B1B),
         )
 
-    /** Warm rose/pink accent. */
+    /** Warm rose/pink accent. rose-600 → hover rose-700, press rose-800 */
     val Rose =
         RikkaAccentColor(
             primary = Color(0xFFE11D48),
             onPrimary = Color(0xFFFFF1F2),
             ring = Color(0xFFE11D48),
+            primaryHover = Color(0xFFBE123C),
+            primaryPressed = Color(0xFF9F1239),
         )
 
-    /** Energetic orange accent. */
+    /** Energetic orange accent. orange-500 → hover orange-600, press orange-700 */
     val Orange =
         RikkaAccentColor(
             primary = Color(0xFFF97316),
             onPrimary = Color(0xFFFAFAFA),
             ring = Color(0xFFF97316),
+            primaryHover = Color(0xFFEA580C),
+            primaryPressed = Color(0xFFC2410C),
         )
 
-    /** Fresh green accent. */
+    /** Fresh green accent. green-600 → hover green-700, press green-800 */
     val Green =
         RikkaAccentColor(
             primary = Color(0xFF16A34A),
             onPrimary = Color(0xFFFAFAFA),
             ring = Color(0xFF16A34A),
+            primaryHover = Color(0xFF15803D),
+            primaryPressed = Color(0xFF166534),
         )
 
-    /** Classic blue accent. */
+    /** Classic blue accent. blue-600 → hover blue-700, press blue-800 */
     val Blue =
         RikkaAccentColor(
             primary = Color(0xFF2563EB),
             onPrimary = Color(0xFFEFF6FF),
             ring = Color(0xFF2563EB),
+            primaryHover = Color(0xFF1D4ED8),
+            primaryPressed = Color(0xFF1E40AF),
         )
 
-    /** Sunny yellow accent. */
+    /** Sunny yellow accent. yellow-400 → hover yellow-500, press yellow-600 */
     val Yellow =
         RikkaAccentColor(
             primary = Color(0xFFFACC15),
             onPrimary = Color(0xFF422006),
             ring = Color(0xFFFACC15),
+            primaryHover = Color(0xFFEAB308),
+            primaryPressed = Color(0xFFCA8A04),
         )
 
-    /** Rich violet/purple accent. */
+    /** Rich violet/purple accent. violet-600 → hover violet-700, press violet-800 */
     val Violet =
         RikkaAccentColor(
             primary = Color(0xFF7C3AED),
             onPrimary = Color(0xFFF5F3FF),
             ring = Color(0xFF7C3AED),
+            primaryHover = Color(0xFF6D28D9),
+            primaryPressed = Color(0xFF5B21B6),
         )
 }
 
@@ -518,10 +572,10 @@ object RikkaAccentDark {
  *
  * ### Example
  * ```
- * // Light theme with blue primary
+ *
  * val lightBlue = RikkaPalettes.SlateLight.withAccent(RikkaAccent.Blue)
  *
- * // Dark theme with violet primary
+ *
  * val darkViolet = RikkaPalettes.SlateDark.withAccent(RikkaAccentDark.Violet)
  * ```
  *

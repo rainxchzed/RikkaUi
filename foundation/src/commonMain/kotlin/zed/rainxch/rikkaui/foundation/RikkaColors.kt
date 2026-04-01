@@ -32,37 +32,31 @@ data class RikkaColors(
     val background: Color,
     /** Default text/icon color on [background]. */
     val onBackground: Color,
-
     // ── Elevated surface ────────────────────────────────────────────────
     /** Elevated surfaces: cards, popovers, dialogs, sheets, dropdown menus. */
     val surface: Color,
     /** Text/icon color on [surface]. */
     val onSurface: Color,
-
     // ── Primary action ──────────────────────────────────────────────────
     /** Main action color — filled buttons, links, active indicators. */
     val primary: Color,
     /** Text/icon color on [primary]. */
     val onPrimary: Color,
-
     // ── Secondary action ────────────────────────────────────────────────
     /** Less prominent actions, subtle backgrounds, hover highlights. */
     val secondary: Color,
     /** Text/icon color on [secondary]. */
     val onSecondary: Color,
-
     // ── Muted ───────────────────────────────────────────────────────────
     /** Subtle backgrounds for disabled states, helper areas. */
     val muted: Color,
     /** Subdued text/icon color — placeholders, helper text, captions. */
     val onMuted: Color,
-
     // ── Destructive ─────────────────────────────────────────────────────
     /** Danger/error/delete action color. */
     val destructive: Color,
     /** Text/icon color on [destructive]. */
     val onDestructive: Color,
-
     // ── Status / feedback ───────────────────────────────────────────────
     /** Warning indicator color. */
     val warning: Color,
@@ -72,7 +66,6 @@ data class RikkaColors(
     val success: Color,
     /** Text/icon color on [success]. */
     val onSuccess: Color,
-
     // ── Utility (standalone, no pairs) ──────────────────────────────────
     /** Default border color for inputs, cards, separators. */
     val border: Color,
@@ -82,13 +75,11 @@ data class RikkaColors(
     val ring: Color,
     /** Semi-transparent overlay behind dialogs and sheets. */
     val scrim: Color = Color.Black.copy(alpha = 0.5f),
-
     // ── Inverse contrast ────────────────────────────────────────────────
     /** A surface that contrasts sharply with [background] (e.g., snackbar on light theme). */
     val inverseSurface: Color,
     /** Text/icon color on [inverseSurface]. */
     val onInverseSurface: Color,
-
     // ── Tinted containers ───────────────────────────────────────────────
     /** Subtle primary-tinted background for selected states, tonal buttons. */
     val primaryTinted: Color,
@@ -98,7 +89,6 @@ data class RikkaColors(
     val destructiveTinted: Color,
     /** Text/icon color on [destructiveTinted]. */
     val onDestructiveTinted: Color,
-
     // ── Interaction states ──────────────────────────────────────────────
     /** Primary button/link background on hover. Unspecified = component computes via lerp. */
     val primaryHover: Color = Color.Unspecified,
@@ -112,10 +102,6 @@ data class RikkaColors(
     val secondaryHover: Color = Color.Unspecified,
     /** Secondary/muted surface on press. */
     val secondaryPressed: Color = Color.Unspecified,
-
-    // ── Disabled ────────────────────────────────────────────────────────
-    /** Text/icon color for disabled elements. */
-    val disabledContent: Color = onMuted.copy(alpha = 0.5f),
 )
 
 val LocalRikkaColors =
