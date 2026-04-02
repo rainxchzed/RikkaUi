@@ -23,7 +23,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -44,6 +46,9 @@ import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
 import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.do_label
+import rikkaui.feature.docs.generated.resources.doc_preview_auto
+import rikkaui.feature.docs.generated.resources.doc_preview_dark
+import rikkaui.feature.docs.generated.resources.doc_preview_light
 import rikkaui.feature.docs.generated.resources.doc_tab_api
 import rikkaui.feature.docs.generated.resources.doc_tab_overview
 import rikkaui.feature.docs.generated.resources.doc_tab_usage
@@ -53,6 +58,9 @@ import rikkaui.feature.docs.generated.resources.prop_header_default
 import rikkaui.feature.docs.generated.resources.prop_header_description
 import rikkaui.feature.docs.generated.resources.prop_header_prop
 import rikkaui.feature.docs.generated.resources.prop_header_type
+import zed.rainxch.rikkaui.components.ui.button.Button
+import zed.rainxch.rikkaui.components.ui.button.ButtonSize
+import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
 import zed.rainxch.rikkaui.components.ui.icon.Icon
 import zed.rainxch.rikkaui.components.ui.icon.IconSize
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
@@ -61,7 +69,24 @@ import zed.rainxch.rikkaui.components.ui.tabs.Tab
 import zed.rainxch.rikkaui.components.ui.tabs.TabList
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.components.ui.tooltip.Tooltip
+import zed.rainxch.rikkaui.foundation.RikkaPalette
 import zed.rainxch.rikkaui.foundation.RikkaTheme
+
+// ─── Preview Theme Local ────────────────────────────────────
+
+/**
+ * Per-page dark/light preview override for component demos.
+ *
+ * - `null` → follow the global site theme (default)
+ * - `true` → force dark mode for demos
+ * - `false` → force light mode for demos
+ *
+ * Provided by [TabbedDocPage] and consumed by [DemoBox] /
+ * [DoAndDont] so developers can preview components in the
+ * opposite theme without switching the entire site.
+ */
+val LocalDocPreviewIsDark = compositionLocalOf<Boolean?> { null }
 
 // ─── Page Header ─────────────────────────────────────────────
 
@@ -121,6 +146,22 @@ fun DocSection(
  */
 @Composable
 fun DemoBox(
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
+) {
+    val previewIsDark = LocalDocPreviewIsDark.current
+
+    if (previewIsDark != null) {
+        RikkaTheme(palette = RikkaPalette.Zinc, isDark = previewIsDark) {
+            DemoBoxContent(modifier = modifier, content = content)
+        }
+    } else {
+        DemoBoxContent(modifier = modifier, content = content)
+    }
+}
+
+@Composable
+private fun DemoBoxContent(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
@@ -489,6 +530,9 @@ fun TabbedDocPage(
 ) {
     var selectedTab by remember { mutableIntStateOf(0) }
 
+    // null = follow site, false = light, true = dark
+    var previewIsDark by remember { mutableStateOf<Boolean?>(null) }
+
     val tabLabels =
         listOf(
             stringResource(Res.string.doc_tab_overview),
@@ -496,25 +540,71 @@ fun TabbedDocPage(
             stringResource(Res.string.doc_tab_api),
         )
 
-    Column(modifier = modifier.fillMaxWidth()) {
-        Spacer(Modifier.height(RikkaTheme.spacing.lg))
-
-        TabList {
-            tabLabels.forEachIndexed { index, label ->
-                Tab(
-                    selected = selectedTab == index,
-                    onClick = { selectedTab = index },
-                    text = label,
-                )
-            }
+    val tooltipText =
+        when (previewIsDark) {
+            null -> stringResource(Res.string.doc_preview_auto)
+            true -> stringResource(Res.string.doc_preview_dark)
+            false -> stringResource(Res.string.doc_preview_light)
         }
 
-        Spacer(Modifier.height(RikkaTheme.spacing.md))
+    CompositionLocalProvider(LocalDocPreviewIsDark provides previewIsDark) {
+        Column(modifier = modifier.fillMaxWidth()) {
+            Spacer(Modifier.height(RikkaTheme.spacing.lg))
 
-        when (selectedTab) {
-            0 -> overview()
-            1 -> usage()
-            2 -> api()
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                TabList {
+                    tabLabels.forEachIndexed { index, label ->
+                        Tab(
+                            selected = selectedTab == index,
+                            onClick = { selectedTab = index },
+                            text = label,
+                        )
+                    }
+                }
+
+                Tooltip(tooltip = tooltipText) {
+                    Button(
+                        onClick = {
+                            previewIsDark =
+                                when (previewIsDark) {
+                                    null -> false // auto → light
+                                    false -> true // light → dark
+                                    true -> null // dark → auto
+                                }
+                        },
+                        variant =
+                            if (previewIsDark != null) {
+                                ButtonVariant.Secondary
+                            } else {
+                                ButtonVariant.Ghost
+                            },
+                        size = ButtonSize.Icon,
+                    ) {
+                        Icon(
+                            imageVector =
+                                when (previewIsDark) {
+                                    false -> RikkaIcons.Sun
+                                    true -> RikkaIcons.Moon
+                                    null -> RikkaIcons.Sun
+                                },
+                            contentDescription = tooltipText,
+                            size = IconSize.Sm,
+                        )
+                    }
+                }
+            }
+
+            Spacer(Modifier.height(RikkaTheme.spacing.md))
+
+            when (selectedTab) {
+                0 -> overview()
+                1 -> usage()
+                2 -> api()
+            }
         }
     }
 }
@@ -629,17 +719,27 @@ private fun DoOrDontPanel(
 
             Spacer(Modifier.height(RikkaTheme.spacing.md))
 
-            // Demo area
-            Box(
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .background(RikkaTheme.colors.surface, RikkaTheme.shapes.md)
-                        .clip(RikkaTheme.shapes.md)
-                        .padding(RikkaTheme.spacing.md),
-                contentAlignment = Alignment.Center,
-            ) {
-                content()
+            // Demo area — respects per-page preview theme
+            val previewIsDark = LocalDocPreviewIsDark.current
+            val demoArea: @Composable () -> Unit = {
+                Box(
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .background(RikkaTheme.colors.surface, RikkaTheme.shapes.md)
+                            .clip(RikkaTheme.shapes.md)
+                            .padding(RikkaTheme.spacing.md),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    content()
+                }
+            }
+            if (previewIsDark != null) {
+                RikkaTheme(palette = RikkaPalette.Zinc, isDark = previewIsDark) {
+                    demoArea()
+                }
+            } else {
+                demoArea()
             }
 
             Spacer(Modifier.height(RikkaTheme.spacing.sm))

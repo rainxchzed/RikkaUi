@@ -24,8 +24,10 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import rikkaui.composeapp.generated.resources.Res
 import rikkaui.composeapp.generated.resources.toolbar_accent
+import rikkaui.composeapp.generated.resources.toolbar_accent_label
 import rikkaui.composeapp.generated.resources.toolbar_expand
 import rikkaui.composeapp.generated.resources.toolbar_palette
+import rikkaui.composeapp.generated.resources.toolbar_palette_label
 import rikkaui.composeapp.generated.resources.toolbar_style
 import rikkaui.composeapp.generated.resources.toolbar_style_label
 import zed.rainxch.rikkaui.components.ui.button.Button
@@ -84,7 +86,7 @@ fun ThemeToolbar(
         }
 
         ToolbarPopover(
-            label = palette.label,
+            label = stringResource(Res.string.toolbar_palette_label, palette.label),
             icon = {
                 Box(
                     modifier =
@@ -118,7 +120,7 @@ fun ThemeToolbar(
         }
 
         ToolbarPopover(
-            label = accent.label,
+            label = stringResource(Res.string.toolbar_accent_label, accent.label),
             icon = {
                 val swatch = accent.previewColor
                 if (swatch != null) {
