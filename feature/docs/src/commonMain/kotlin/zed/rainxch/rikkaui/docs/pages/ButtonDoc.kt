@@ -18,6 +18,10 @@ import rikkaui.feature.docs.generated.resources.button_demo_enabled
 import rikkaui.feature.docs.generated.resources.button_demo_loading
 import rikkaui.feature.docs.generated.resources.button_demo_outline
 import rikkaui.feature.docs.generated.resources.button_demo_press_me
+import rikkaui.feature.docs.generated.resources.button_do_default_desc
+import rikkaui.feature.docs.generated.resources.button_do_size_desc
+import rikkaui.feature.docs.generated.resources.button_dont_default_desc
+import rikkaui.feature.docs.generated.resources.button_dont_size_desc
 import rikkaui.feature.docs.generated.resources.button_page_desc
 import rikkaui.feature.docs.generated.resources.button_prop_animation_desc
 import rikkaui.feature.docs.generated.resources.button_prop_colors_desc
@@ -29,6 +33,7 @@ import rikkaui.feature.docs.generated.resources.button_prop_loading_desc
 import rikkaui.feature.docs.generated.resources.button_prop_onclick_desc
 import rikkaui.feature.docs.generated.resources.button_prop_size_desc
 import rikkaui.feature.docs.generated.resources.button_prop_variant_desc
+import rikkaui.feature.docs.generated.resources.button_section_dos_donts
 import rikkaui.feature.docs.generated.resources.component_button_name
 import rikkaui.feature.docs.generated.resources.section_animations
 import rikkaui.feature.docs.generated.resources.section_api_reference
@@ -40,12 +45,16 @@ import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonAnimation
 import zed.rainxch.rikkaui.components.ui.button.ButtonSize
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -56,6 +65,22 @@ fun ButtonDoc() {
         description = stringResource(Res.string.button_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.BUTTONS,
+        currentId = "button",
+    )
+
+    TabbedDocPage(
+        overview = { ButtonOverviewTab() },
+        usage = { ButtonUsageTab() },
+        api = { ButtonApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun ButtonOverviewTab() {
     DocSection(stringResource(Res.string.section_variants)) {
         var selectedVariant by remember {
             mutableStateOf(ButtonVariant.Default.name)
@@ -171,7 +196,12 @@ fun ButtonDoc() {
             }
         }
     }
+}
 
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun ButtonUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -196,6 +226,62 @@ Button(
         )
     }
 
+    DocSection(stringResource(Res.string.button_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                Button(
+                    text = "Save changes",
+                    onClick = {},
+                )
+            },
+            doDescription = stringResource(Res.string.button_do_default_desc),
+            dontContent = {
+                Button(
+                    text = "Save changes",
+                    onClick = {},
+                    variant = ButtonVariant.Destructive,
+                )
+            },
+            dontDescription = stringResource(Res.string.button_dont_default_desc),
+        )
+
+        Spacer(Modifier.height(RikkaTheme.spacing.md))
+
+        DoAndDont(
+            doContent = {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
+                ) {
+                    Button(text = "Confirm", onClick = {})
+                    Button(
+                        text = "Cancel",
+                        onClick = {},
+                        variant = ButtonVariant.Outline,
+                    )
+                }
+            },
+            doDescription = stringResource(Res.string.button_do_size_desc),
+            dontContent = {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
+                ) {
+                    Button(text = "Confirm", onClick = {}, size = ButtonSize.Lg)
+                    Button(
+                        text = "Cancel",
+                        onClick = {},
+                        size = ButtonSize.Sm,
+                    )
+                }
+            },
+            dontDescription = stringResource(Res.string.button_dont_size_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun ButtonApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
