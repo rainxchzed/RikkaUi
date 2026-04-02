@@ -21,12 +21,16 @@ import zed.rainxch.rikkaui.components.ui.sheet.SheetHeader
 import zed.rainxch.rikkaui.components.ui.sheet.SheetSide
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -43,6 +47,22 @@ fun SheetDoc() {
         description = stringResource(Res.string.sheet_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.DIALOGS,
+        currentId = "sheet",
+    )
+
+    TabbedDocPage(
+        overview = { SheetOverviewTab() },
+        usage = { SheetUsageTab() },
+        api = { SheetApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun SheetOverviewTab() {
     // ─── Side Variants ──────────────────────────────────────
     DocSection(stringResource(Res.string.sheet_section_sides)) {
         var selectedSide by remember { mutableStateOf("Right") }
@@ -139,8 +159,12 @@ fun SheetDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun SheetUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -169,7 +193,76 @@ Sheet(
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.sheet_section_dos_donts)) {
+        var doOpen by remember { mutableStateOf(false) }
+        var dontOpen by remember { mutableStateOf(false) }
+
+        DoAndDont(
+            doContent = {
+                Button(
+                    "Filters",
+                    onClick = { doOpen = true },
+                    variant = ButtonVariant.Outline,
+                )
+                Sheet(
+                    open = doOpen,
+                    onDismiss = { doOpen = false },
+                ) {
+                    SheetHeader(
+                        title = "Filter Results",
+                        description = "Narrow down what you see.",
+                    )
+                    SheetContent {
+                        Text("Filter options here.", variant = TextVariant.Muted)
+                    }
+                    SheetFooter {
+                        Button(
+                            "Reset",
+                            onClick = { doOpen = false },
+                            variant = ButtonVariant.Outline,
+                        )
+                        Button("Apply", onClick = { doOpen = false })
+                    }
+                }
+            },
+            doDescription = stringResource(Res.string.sheet_do_supplementary_desc),
+            dontContent = {
+                Button(
+                    "Delete Account",
+                    onClick = { dontOpen = true },
+                    variant = ButtonVariant.Destructive,
+                )
+                Sheet(
+                    open = dontOpen,
+                    onDismiss = { dontOpen = false },
+                ) {
+                    SheetHeader(
+                        title = "Delete Account",
+                        description = "This action cannot be undone.",
+                    )
+                    SheetFooter {
+                        Button(
+                            "Cancel",
+                            onClick = { dontOpen = false },
+                            variant = ButtonVariant.Outline,
+                        )
+                        Button(
+                            "Delete",
+                            onClick = { dontOpen = false },
+                            variant = ButtonVariant.Destructive,
+                        )
+                    }
+                }
+            },
+            dontDescription = stringResource(Res.string.sheet_dont_critical_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun SheetApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

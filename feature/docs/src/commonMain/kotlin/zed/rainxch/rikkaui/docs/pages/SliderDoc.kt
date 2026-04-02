@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import rikkaui.feature.docs.generated.resources.*
 import rikkaui.feature.docs.generated.resources.Res
+import zed.rainxch.rikkaui.components.ui.input.Input
 import zed.rainxch.rikkaui.components.ui.slider.Slider
 import zed.rainxch.rikkaui.components.ui.slider.SliderAnimation
 import zed.rainxch.rikkaui.components.ui.text.Text
@@ -24,8 +25,10 @@ import zed.rainxch.rikkaui.docs.components.CodeBlock
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
 import zed.rainxch.rikkaui.docs.components.DocSection
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -42,6 +45,15 @@ fun SliderDoc() {
         description = stringResource(Res.string.slider_page_desc),
     )
 
+    TabbedDocPage(
+        overview = { SliderOverviewTab() },
+        usage = { SliderUsageTab() },
+        api = { SliderApiTab() },
+    )
+}
+
+@Composable
+private fun SliderOverviewTab() {
     // ─── Animations Demo ────────────────────────────────────
     DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember {
@@ -107,8 +119,11 @@ fun SliderDoc() {
             )
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+@Composable
+private fun SliderUsageTab() {
+    // ─── Code Example ───────────────────────────────────────
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -130,6 +145,42 @@ Slider(
         )
     }
 
+    // ─── Do / Don't ─────────────────────────────────────────
+    Spacer(Modifier.height(RikkaTheme.spacing.xl))
+
+    var doValue by remember { mutableFloatStateOf(0.6f) }
+    var dontText by remember { mutableStateOf("60") }
+
+    DoAndDont(
+        doContent = {
+            Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm)) {
+                Slider(
+                    value = doValue,
+                    onValueChange = { doValue = it },
+                    modifier = Modifier.width(200.dp),
+                )
+                Text(
+                    text = "${(doValue * 100).toInt()}%",
+                    variant = TextVariant.Small,
+                    color = RikkaTheme.colors.onMuted,
+                )
+            }
+        },
+        doDescription = stringResource(Res.string.slider_do_range_desc),
+        dontContent = {
+            Input(
+                value = dontText,
+                onValueChange = { dontText = it },
+                placeholder = "0",
+                modifier = Modifier.width(120.dp),
+            )
+        },
+        dontDescription = stringResource(Res.string.slider_dont_precise_desc),
+    )
+}
+
+@Composable
+private fun SliderApiTab() {
     // ─── API Reference ──────────────────────────────────────
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(

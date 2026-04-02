@@ -17,12 +17,16 @@ import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.tooltip.Tooltip
 import zed.rainxch.rikkaui.components.ui.tooltip.TooltipAnimation
 import zed.rainxch.rikkaui.components.ui.tooltip.TooltipPlacement
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -39,6 +43,22 @@ fun TooltipDoc() {
         description = stringResource(Res.string.tooltip_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.POPUPS,
+        currentId = "tooltip",
+    )
+
+    TabbedDocPage(
+        overview = { TooltipOverviewTab() },
+        usage = { TooltipUsageTab() },
+        api = { TooltipApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun TooltipOverviewTab() {
     // ─── Animation Variants ─────────────────────────────────
     DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("FadeScale") }
@@ -75,10 +95,7 @@ fun TooltipDoc() {
     DocSection(stringResource(Res.string.section_placements)) {
         DemoBox {
             Row(
-                horizontalArrangement =
-                    Arrangement.spacedBy(
-                        RikkaTheme.spacing.md,
-                    ),
+                horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
             ) {
                 Tooltip(
                     tooltip = stringResource(Res.string.tooltip_demo_top_tooltip),
@@ -124,10 +141,7 @@ fun TooltipDoc() {
     DocSection(stringResource(Res.string.tooltip_section_custom_delay)) {
         DemoBox {
             Row(
-                horizontalArrangement =
-                    Arrangement.spacedBy(
-                        RikkaTheme.spacing.md,
-                    ),
+                horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
             ) {
                 Tooltip(
                     tooltip = stringResource(Res.string.tooltip_demo_instant),
@@ -150,8 +164,12 @@ fun TooltipDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun TooltipUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -172,7 +190,30 @@ Tooltip(
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.tooltip_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                Tooltip(tooltip = "Save changes") {
+                    Button("Save", onClick = {})
+                }
+            },
+            doDescription = stringResource(Res.string.tooltip_do_brief_desc),
+            dontContent = {
+                Tooltip(
+                    tooltip = "Click here for more",
+                ) {
+                    Button("Settings", onClick = {})
+                }
+            },
+            dontDescription = stringResource(Res.string.tooltip_dont_interactive_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun TooltipApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

@@ -16,12 +16,16 @@ import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.spinner.Spinner
 import zed.rainxch.rikkaui.components.ui.spinner.SpinnerAnimation
 import zed.rainxch.rikkaui.components.ui.spinner.SpinnerSize
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
 import zed.rainxch.rikkaui.docs.components.DocSection
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -38,6 +42,22 @@ fun SpinnerDoc() {
         description = stringResource(Res.string.spinner_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.LOADING,
+        currentId = "spinner",
+    )
+
+    TabbedDocPage(
+        overview = { SpinnerOverviewTab() },
+        usage = { SpinnerUsageTab() },
+        api = { SpinnerApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun SpinnerOverviewTab() {
     // ─── Sizes ──────────────────────────────────────────────
     DocSection(stringResource(Res.string.section_sizes)) {
         DemoBox {
@@ -105,8 +125,12 @@ fun SpinnerDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun SpinnerUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -127,7 +151,24 @@ Spinner(sweepAngle = 180f)
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.spinner_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                Spinner(size = SpinnerSize.Default)
+            },
+            doDescription = stringResource(Res.string.spinner_do_indeterminate_desc),
+            dontContent = {
+                Spinner(sweepAngle = 180f, size = SpinnerSize.Default)
+            },
+            dontDescription = stringResource(Res.string.spinner_dont_indeterminate_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun SpinnerApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

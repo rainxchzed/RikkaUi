@@ -13,16 +13,21 @@ import rikkaui.feature.docs.generated.resources.*
 import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.PopupAnimation
 import zed.rainxch.rikkaui.components.ui.button.Button
+import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
 import zed.rainxch.rikkaui.components.ui.dropdown.DropdownMenu
 import zed.rainxch.rikkaui.components.ui.dropdown.DropdownMenuItem
 import zed.rainxch.rikkaui.components.ui.dropdown.DropdownMenuLabel
 import zed.rainxch.rikkaui.components.ui.dropdown.DropdownMenuSeparator
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -39,6 +44,22 @@ fun DropdownMenuDoc() {
         description = stringResource(Res.string.dropdown_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.POPUPS,
+        currentId = "dropdown-menu",
+    )
+
+    TabbedDocPage(
+        overview = { DropdownMenuOverviewTab() },
+        usage = { DropdownMenuUsageTab() },
+        api = { DropdownMenuApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun DropdownMenuOverviewTab() {
     // ─── Animation Variants ─────────────────────────────────
     DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("FadeExpand") }
@@ -71,9 +92,7 @@ fun DropdownMenuDoc() {
                     )
                 },
             ) {
-                DropdownMenuLabel(
-                    stringResource(Res.string.dropdown_demo_file),
-                )
+                DropdownMenuLabel(stringResource(Res.string.dropdown_demo_file))
                 DropdownMenuItem(
                     stringResource(Res.string.dropdown_demo_new),
                     onClick = { open = false },
@@ -83,9 +102,7 @@ fun DropdownMenuDoc() {
                     onClick = { open = false },
                 )
                 DropdownMenuSeparator()
-                DropdownMenuLabel(
-                    stringResource(Res.string.dropdown_demo_edit),
-                )
+                DropdownMenuLabel(stringResource(Res.string.dropdown_demo_edit))
                 DropdownMenuItem(
                     stringResource(Res.string.dropdown_demo_copy),
                     onClick = { open = false },
@@ -130,8 +147,12 @@ fun DropdownMenuDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun DropdownMenuUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -155,7 +176,55 @@ DropdownMenu(
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.dropdown_section_dos_donts)) {
+        var doOpen by remember { mutableStateOf(false) }
+        var dontOpen by remember { mutableStateOf(false) }
+
+        DoAndDont(
+            doContent = {
+                DropdownMenu(
+                    expanded = doOpen,
+                    onDismiss = { doOpen = false },
+                    trigger = {
+                        Button(
+                            "Actions",
+                            onClick = { doOpen = !doOpen },
+                            variant = ButtonVariant.Outline,
+                        )
+                    },
+                ) {
+                    DropdownMenuItem("Edit", onClick = { doOpen = false })
+                    DropdownMenuItem("Duplicate", onClick = { doOpen = false })
+                    DropdownMenuSeparator()
+                    DropdownMenuItem("Delete", onClick = { doOpen = false })
+                }
+            },
+            doDescription = stringResource(Res.string.dropdown_do_actions_desc),
+            dontContent = {
+                DropdownMenu(
+                    expanded = dontOpen,
+                    onDismiss = { dontOpen = false },
+                    trigger = {
+                        Button(
+                            "Go to",
+                            onClick = { dontOpen = !dontOpen },
+                        )
+                    },
+                ) {
+                    DropdownMenuItem("Home", onClick = { dontOpen = false })
+                    DropdownMenuItem("Docs", onClick = { dontOpen = false })
+                    DropdownMenuItem("Settings", onClick = { dontOpen = false })
+                }
+            },
+            dontDescription = stringResource(Res.string.dropdown_dont_navigation_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun DropdownMenuApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

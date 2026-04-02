@@ -18,18 +18,14 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.docs.components.CodeBlock
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
-/**
- * Documentation page for the Text component.
- *
- * Demonstrates all typography variants, color overrides,
- * and selectable text.
- */
 @Composable
 fun TextDoc() {
     ComponentPageHeader(
@@ -37,7 +33,17 @@ fun TextDoc() {
         description = stringResource(Res.string.text_page_desc),
     )
 
-    // ─── Variants ───────────────────────────────────────────
+    TabbedDocPage(
+        overview = { TextOverviewTab() },
+        usage = { TextUsageTab() },
+        api = { TextApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun TextOverviewTab() {
     DocSection(stringResource(Res.string.section_variants)) {
         var selected by remember { mutableStateOf("P") }
 
@@ -81,7 +87,6 @@ fun TextDoc() {
         }
     }
 
-    // ─── All Variants Preview ───────────────────────────────
     DocSection(stringResource(Res.string.text_section_all_variants)) {
         DemoBox {
             Column(
@@ -103,7 +108,6 @@ fun TextDoc() {
         }
     }
 
-    // ─── Selectable Text ────────────────────────────────────
     DocSection(stringResource(Res.string.text_section_selectable)) {
         DemoBox {
             Text(
@@ -113,8 +117,12 @@ fun TextDoc() {
             )
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun TextUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -127,7 +135,36 @@ Text("Selectable", selectable = true)
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.text_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
+                ) {
+                    Text("Page Title", variant = TextVariant.H2)
+                    Text("Body text with details.", variant = TextVariant.P)
+                    Text("Last updated: today", variant = TextVariant.Muted)
+                }
+            },
+            doDescription = stringResource(Res.string.text_do_hierarchy_desc),
+            dontContent = {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
+                ) {
+                    Text("Page Title", variant = TextVariant.H1)
+                    Text("Body text with details.", variant = TextVariant.H1)
+                    Text("Last updated: today", variant = TextVariant.H1)
+                }
+            },
+            dontDescription = stringResource(Res.string.text_dont_hierarchy_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun TextApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

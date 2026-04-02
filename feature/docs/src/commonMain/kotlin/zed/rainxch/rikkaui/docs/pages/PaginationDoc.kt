@@ -14,12 +14,16 @@ import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.pagination.Pagination
 import zed.rainxch.rikkaui.components.ui.pagination.PaginationAnimation
 import zed.rainxch.rikkaui.components.ui.pagination.PaginationSize
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
 import zed.rainxch.rikkaui.docs.components.DocSection
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -36,6 +40,22 @@ fun PaginationDoc() {
         description = stringResource(Res.string.pagination_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.NAVIGATION,
+        currentId = "pagination",
+    )
+
+    TabbedDocPage(
+        overview = { PaginationOverviewTab() },
+        usage = { PaginationUsageTab() },
+        api = { PaginationApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun PaginationOverviewTab() {
     // ─── Animation Variants ─────────────────────────────────
     DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("Scale") }
@@ -108,8 +128,12 @@ fun PaginationDoc() {
             )
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun PaginationUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -126,7 +150,34 @@ Pagination(
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.pagination_section_dos_donts)) {
+        var currentPage by remember { mutableStateOf(3) }
+
+        DoAndDont(
+            doContent = {
+                Pagination(
+                    currentPage = currentPage,
+                    totalPages = 20,
+                    onPageChange = { currentPage = it },
+                )
+            },
+            doDescription = stringResource(Res.string.pagination_do_large_data_desc),
+            dontContent = {
+                Pagination(
+                    currentPage = 1,
+                    totalPages = 1,
+                    onPageChange = {},
+                )
+            },
+            dontDescription = stringResource(Res.string.pagination_dont_few_pages_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun PaginationApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

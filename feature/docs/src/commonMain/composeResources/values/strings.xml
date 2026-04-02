@@ -104,6 +104,7 @@
     <string name="section_api_reference">API Reference</string>
     <string name="section_disabled">Disabled</string>
     <string name="section_states">States</string>
+    <string name="section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
     <string name="section_placements">Placements</string>
 
     <!-- ─── Component Names ──────────────────────────────────── -->
@@ -1146,4 +1147,191 @@
     <string name="fab_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
     <string name="fab_do_primary_desc">Use a single FAB for the primary action on the screen.</string>
     <string name="fab_dont_primary_desc">Don&#39;t use multiple FABs on the same screen. It dilutes the primary action.</string>
+
+    <!-- Card Do's & Don'ts -->
+    <string name="card_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="card_do_structure_desc">Use CardHeader, CardContent, and CardFooter to organize related content clearly.</string>
+    <string name="card_dont_structure_desc">Don&#39;t put everything in a single Text inside Card with no structure.</string>
+
+    <!-- Separator Do's & Don'ts -->
+    <string name="separator_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="separator_do_groups_desc">Use Separator to visually divide distinct logical groups of content.</string>
+    <string name="separator_dont_groups_desc">Don&#39;t insert a Separator between every single item — it adds visual noise without clarity.</string>
+
+    <!-- Scaffold Do's & Don'ts -->
+    <string name="scaffold_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="scaffold_do_root_desc">Use Scaffold as the root layout for a screen to coordinate top bar, bottom bar, and content slots.</string>
+    <string name="scaffold_dont_root_desc">Don&#39;t nest multiple Scaffolds inside each other — it causes layout conflicts and unexpected padding.</string>
+
+    <!-- ScrollArea Do's & Don'ts -->
+    <string name="scroll_area_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="scroll_area_do_overflow_desc">Use ScrollArea to contain content that overflows its bounds, keeping the UI clean and scrollable.</string>
+    <string name="scroll_area_dont_overflow_desc">Don&#39;t nest a ScrollArea inside another ScrollArea — it creates conflicting scroll gestures.</string>
+
+    <!-- Accordion Do's & Don'ts -->
+    <string name="accordion_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="accordion_do_group_desc">Group related settings or FAQ items in a single Accordion to let users expand only what they need.</string>
+    <string name="accordion_dont_group_desc">Don&#39;t use Accordion for a single item — a plain collapsible section or visible text is clearer.</string>
+
+    <!-- Collapsible Do's & Don'ts -->
+    <string name="collapsible_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="collapsible_do_optional_desc">Use Collapsible to reveal optional or secondary details that not every user needs to see.</string>
+    <string name="collapsible_dont_optional_desc">Don&#39;t hide critical information inside a Collapsible — important content should always be visible.</string>
+
+    <!-- Table Do's & Don'ts -->
+    <string name="table_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="table_do_header_desc">Use TableHeaderCell for all column headers to create a clear visual hierarchy.</string>
+    <string name="table_dont_header_desc">Don&#39;t mix data cells and headers in the same cell type — it breaks screen reader semantics.</string>
+
+    <!-- List Do's & Don'ts -->
+    <string name="list_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="list_do_variant_desc">Choose ListVariant.Ordered when sequence matters, and Unordered when items are parallel and unranked.</string>
+    <string name="list_dont_variant_desc">Don&#39;t use an Ordered list for unrelated items — numbered lists imply priority or sequence.</string>
+
+    <!-- Spinner Do's & Don'ts -->
+    <string name="spinner_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="spinner_do_indeterminate_desc">Use Spinner for indeterminate loading when the duration is unknown.</string>
+    <string name="spinner_dont_indeterminate_desc">Don&#39;t use Spinner when a progress percentage is known — use Progress instead.</string>
+
+    <!-- Tabs Do's & Don'ts -->
+    <string name="tabs_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="tabs_do_related_views_desc">Use Tabs for switching between related, parallel views of the same content.</string>
+    <string name="tabs_dont_sequential_desc">Don&#39;t use Tabs for sequential steps — use a stepper or wizard pattern instead.</string>
+
+    <!-- Breadcrumb Do's & Don'ts -->
+    <string name="breadcrumb_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="breadcrumb_do_full_path_desc">Show the full navigation path in Breadcrumb so users always know where they are.</string>
+    <string name="breadcrumb_dont_flat_desc">Don&#39;t use Breadcrumb for flat navigation — it adds complexity without providing orientation value.</string>
+
+    <!-- Pagination Do's & Don'ts -->
+    <string name="pagination_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="pagination_do_large_data_desc">Use Pagination for large data sets where loading all items at once would hurt performance.</string>
+    <string name="pagination_dont_few_pages_desc">Don&#39;t use Pagination for fewer than 2 pages — a single page needs no navigation.</string>
+
+    <!-- NavigationBar Do's & Don'ts -->
+    <string name="nav_bar_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="nav_bar_do_primary_nav_desc">Use NavigationBar for primary app-level navigation between top-level destinations.</string>
+    <string name="nav_bar_dont_too_many_items_desc">Don&#39;t put more than 5 items in NavigationBar — too many choices overwhelm users.</string>
+
+    <!-- TopAppBar Do's & Don'ts -->
+    <string name="top_app_bar_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="top_app_bar_do_title_actions_desc">Use TopAppBar to show the current page title and a small number of contextual actions.</string>
+    <string name="top_app_bar_dont_overload_desc">Don&#39;t overload TopAppBar with too many action buttons — limit to 2-3 icons at most.</string>
+
+    <!-- ToggleGroup Do's & Don'ts -->
+    <string name="toggle_group_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="toggle_group_do_exclusive_desc">Use ToggleGroup for related, mutually exclusive options like text alignment or view mode.</string>
+    <string name="toggle_group_dont_independent_desc">Don&#39;t use ToggleGroup for independent toggles — use individual Toggle components instead.</string>
+
+    <!-- Dialog Do's & Don'ts -->
+    <string name="dialog_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="dialog_do_structure_desc">Use DialogHeader and DialogFooter to give structured dialogs a clear title, description, and action buttons.</string>
+    <string name="dialog_dont_simple_desc">Don&#39;t use Dialog for simple yes/no confirmations — use AlertDialog instead, which is purpose-built for that pattern.</string>
+
+    <!-- AlertDialog Do's & Don'ts -->
+    <string name="alert_dialog_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="alert_dialog_do_confirm_desc">Use AlertDialog for confirm/cancel decisions, especially destructive actions like deleting data.</string>
+    <string name="alert_dialog_dont_complex_desc">Don&#39;t use AlertDialog for complex forms or multi-step flows — use Dialog for richer content.</string>
+
+    <!-- Sheet Do's & Don'ts -->
+    <string name="sheet_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="sheet_do_supplementary_desc">Use Sheet for supplementary content like settings panels, filter options, or detail views that don&#39;t block primary tasks.</string>
+    <string name="sheet_dont_critical_desc">Don&#39;t use Sheet for critical, irreversible actions — use Dialog or AlertDialog so users consciously acknowledge the action.</string>
+
+    <!-- Popover Do's & Don'ts -->
+    <string name="popover_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="popover_do_additional_info_desc">Use Popover to reveal additional information or controls on click without navigating away from the current context.</string>
+    <string name="popover_dont_essential_desc">Don&#39;t use Popover for essential content — if the information is critical, show it inline so it&#39;s always visible.</string>
+
+    <!-- Tooltip Do's & Don'ts -->
+    <string name="tooltip_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="tooltip_do_brief_desc">Use Tooltip for brief, text-only hints that clarify icon buttons or truncated labels on hover.</string>
+    <string name="tooltip_dont_interactive_desc">Don&#39;t put interactive content like buttons or links inside a Tooltip — use Popover or HoverCard instead.</string>
+
+    <!-- HoverCard Do's & Don'ts -->
+    <string name="hover_card_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="hover_card_do_rich_preview_desc">Use HoverCard for rich preview content like user profiles or link previews that appear on hover.</string>
+    <string name="hover_card_dont_mobile_desc">Don&#39;t rely on HoverCard for mobile — hover events don&#39;t exist on touch screens, so the content will be inaccessible.</string>
+
+    <!-- DropdownMenu Do's & Don'ts -->
+    <string name="dropdown_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="dropdown_do_actions_desc">Use DropdownMenu for contextual action lists that are secondary to the main UI flow.</string>
+    <string name="dropdown_dont_navigation_desc">Don&#39;t use DropdownMenu for primary navigation between pages — use Tabs or NavigationBar instead.</string>
+
+    <!-- ContextMenu Do's & Don'ts -->
+    <string name="context_menu_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="context_menu_do_right_click_desc">Use ContextMenu to expose power-user actions on right-click, reducing visual clutter in the main UI.</string>
+    <string name="context_menu_dont_only_access_desc">Don&#39;t make ContextMenu the only way to access important actions — always provide a visible alternative for discoverability.</string>
+
+    <!-- Input Do's & Don'ts -->
+    <string name="input_do_placeholder_desc">Add placeholder text to guide users when the field is empty.</string>
+    <string name="input_dont_multiline_desc">Don&#39;t use Input for multi-line content — use Textarea instead.</string>
+
+    <!-- Textarea Do's & Don'ts -->
+    <string name="textarea_do_multiline_desc">Use Textarea for multi-line content like bios, messages, or descriptions.</string>
+    <string name="textarea_dont_singleline_desc">Don&#39;t use Textarea for single-line values like email or username — use Input instead.</string>
+
+    <!-- Select Do's & Don'ts -->
+    <string name="select_do_predefined_desc">Use Select when users must choose from a fixed list of predefined options.</string>
+    <string name="select_dont_two_options_desc">Don&#39;t use Select with only 2 options — use a Toggle or pair of Radio buttons instead.</string>
+
+    <!-- Checkbox Do's & Don'ts -->
+    <string name="checkbox_do_independent_desc">Use Checkbox for independent on/off choices that do not affect each other.</string>
+    <string name="checkbox_dont_exclusive_desc">Don&#39;t use Checkbox for mutually exclusive options — use RadioButton instead.</string>
+
+    <!-- Radio Do's & Don'ts -->
+    <string name="radio_do_exclusive_desc">Use RadioButton for mutually exclusive choices where only one can be selected at a time.</string>
+    <string name="radio_dont_multiple_desc">Don&#39;t use RadioButton when multiple selections are allowed — use Checkbox instead.</string>
+
+    <!-- Toggle Do's & Don'ts -->
+    <string name="toggle_do_instant_desc">Use Toggle for settings that take effect instantly, like enabling dark mode.</string>
+    <string name="toggle_dont_form_desc">Don&#39;t use Toggle for form submissions — use Checkbox with a submit button instead.</string>
+
+    <!-- Slider Do's & Don'ts -->
+    <string name="slider_do_range_desc">Use Slider for continuous range values like volume, brightness, or opacity.</string>
+    <string name="slider_dont_precise_desc">Don&#39;t use Slider for precise number entry — use Input with a number keyboard instead.</string>
+
+    <!-- Label Do's & Don'ts -->
+    <string name="label_do_associate_desc">Associate Label with its form control to improve accessibility and usability.</string>
+    <string name="label_dont_decorative_desc">Don&#39;t use Label for decorative or non-form text — use Text with an appropriate variant instead.</string>
+
+    <!-- Text Do's & Don'ts -->
+    <string name="text_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="text_do_hierarchy_desc">Use TextVariant to establish visual hierarchy — H1 for page titles, P for body text, Muted for secondary info.</string>
+    <string name="text_dont_hierarchy_desc">Don&#39;t use H1 for every text element — it destroys visual hierarchy and makes nothing stand out.</string>
+
+    <!-- Badge Do's & Don'ts -->
+    <string name="badge_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="badge_do_status_desc">Use Badge to highlight short status labels or notification counts.</string>
+    <string name="badge_dont_long_text_desc">Don&#39;t use Badge for long text — keep it to 1-2 words or a number.</string>
+
+    <!-- Avatar Do's & Don'ts -->
+    <string name="avatar_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="avatar_do_fallback_desc">Use Avatar with fallback initials so users always see a meaningful placeholder.</string>
+    <string name="avatar_dont_empty_desc">Don&#39;t leave Avatar without a fallback — an empty circle gives no context about the user.</string>
+
+    <!-- Kbd Do's & Don'ts -->
+    <string name="kbd_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="kbd_do_shortcuts_desc">Use Kbd to display keyboard shortcuts and key combinations.</string>
+    <string name="kbd_dont_inline_code_desc">Don&#39;t use Kbd for inline code or variable names — use a monospace text style instead.</string>
+
+    <!-- Alert Do's & Don'ts -->
+    <string name="alert_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="alert_do_important_desc">Use Alert for important messages that need user attention, like warnings or status changes.</string>
+    <string name="alert_dont_every_status_desc">Don&#39;t use Alert for every status message — overuse causes alert fatigue and users will ignore them.</string>
+
+    <!-- Toast Do's & Don'ts -->
+    <string name="toast_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="toast_do_brief_desc">Use Toast for brief, non-blocking feedback like "Saved" or "Copied to clipboard".</string>
+    <string name="toast_dont_critical_desc">Don&#39;t use Toast for critical errors that need user action — use Alert or AlertDialog instead.</string>
+
+    <!-- Progress Do's & Don'ts -->
+    <string name="progress_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="progress_do_known_desc">Use Progress when the completion percentage is known, like file uploads or multi-step forms.</string>
+    <string name="progress_dont_indeterminate_desc">Don&#39;t use Progress for indeterminate loading — use Spinner when you cannot predict the duration.</string>
+
+    <!-- Skeleton Do's & Don'ts -->
+    <string name="skeleton_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
+    <string name="skeleton_do_layout_desc">Use Skeleton to show the expected layout shape while content is loading, reducing perceived wait time.</string>
+    <string name="skeleton_dont_instant_desc">Don&#39;t use Skeleton for content that loads instantly — a flash of skeleton is more distracting than no indicator.</string>
 </resources>

@@ -13,14 +13,19 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import rikkaui.feature.docs.generated.resources.*
 import rikkaui.feature.docs.generated.resources.Res
+import zed.rainxch.rikkaui.components.ui.input.Input
 import zed.rainxch.rikkaui.components.ui.textarea.Textarea
 import zed.rainxch.rikkaui.components.ui.textarea.TextareaAnimation
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
 import zed.rainxch.rikkaui.docs.components.DocSection
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -37,6 +42,20 @@ fun TextareaDoc() {
         description = stringResource(Res.string.textarea_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.TEXT_INPUTS,
+        currentId = "textarea",
+    )
+
+    TabbedDocPage(
+        overview = { TextareaOverviewTab() },
+        usage = { TextareaUsageTab() },
+        api = { TextareaApiTab() },
+    )
+}
+
+@Composable
+private fun TextareaOverviewTab() {
     // ─── Focus Animations Demo ──────────────────────────────
     DocSection(stringResource(Res.string.textarea_section_focus)) {
         var selectedAnim by remember {
@@ -93,8 +112,11 @@ fun TextareaDoc() {
             )
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+@Composable
+private fun TextareaUsageTab() {
+    // ─── Code Example ───────────────────────────────────────
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -119,6 +141,36 @@ Textarea(
         )
     }
 
+    // ─── Do / Don't ─────────────────────────────────────────
+    Spacer(Modifier.height(RikkaTheme.spacing.xl))
+
+    var doText by remember { mutableStateOf("") }
+    var dontText by remember { mutableStateOf("") }
+
+    DoAndDont(
+        doContent = {
+            Textarea(
+                value = doText,
+                onValueChange = { doText = it },
+                placeholder = stringResource(Res.string.textarea_demo_write_placeholder),
+                modifier = Modifier.width(220.dp),
+            )
+        },
+        doDescription = stringResource(Res.string.textarea_do_multiline_desc),
+        dontContent = {
+            Input(
+                value = dontText,
+                onValueChange = { dontText = it },
+                placeholder = "you@example.com",
+                modifier = Modifier.width(220.dp),
+            )
+        },
+        dontDescription = stringResource(Res.string.textarea_dont_singleline_desc),
+    )
+}
+
+@Composable
+private fun TextareaApiTab() {
     // ─── API Reference ──────────────────────────────────────
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(

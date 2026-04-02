@@ -27,9 +27,11 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.docs.components.CodeBlock
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -46,6 +48,17 @@ fun ScrollAreaDoc() {
         description = stringResource(Res.string.scroll_area_page_desc),
     )
 
+    TabbedDocPage(
+        overview = { ScrollAreaOverviewTab() },
+        usage = { ScrollAreaUsageTab() },
+        api = { ScrollAreaApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun ScrollAreaOverviewTab() {
     // ─── Scrollbar Animations ───────────────────────────────
     DocSection(stringResource(Res.string.scroll_area_section_scrollbar_anims)) {
         var selectedAnim by remember { mutableStateOf("Fade") }
@@ -142,8 +155,12 @@ fun ScrollAreaDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun ScrollAreaUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -173,7 +190,49 @@ HorizontalScrollArea(
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.scroll_area_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                ScrollArea(
+                    modifier = Modifier.fillMaxWidth().height(100.dp),
+                    scrollbarAnimation = ScrollbarAnimation.Always,
+                ) {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
+                        modifier = Modifier.padding(RikkaTheme.spacing.xs),
+                    ) {
+                        repeat(8) { index ->
+                            Text("Item ${index + 1}", variant = TextVariant.Small)
+                        }
+                    }
+                }
+            },
+            doDescription = stringResource(Res.string.scroll_area_do_overflow_desc),
+            dontContent = {
+                ScrollArea(
+                    modifier = Modifier.fillMaxWidth().height(100.dp),
+                ) {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
+                        modifier = Modifier.padding(RikkaTheme.spacing.xs),
+                    ) {
+                        ScrollArea(modifier = Modifier.fillMaxWidth().height(60.dp)) {
+                            repeat(5) { index ->
+                                Text("Nested ${index + 1}", variant = TextVariant.Small)
+                            }
+                        }
+                    }
+                }
+            },
+            dontDescription = stringResource(Res.string.scroll_area_dont_overflow_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun ScrollAreaApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         Text(
             stringResource(Res.string.scroll_area_subsection_vertical),

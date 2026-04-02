@@ -13,17 +13,22 @@ import org.jetbrains.compose.resources.stringResource
 import rikkaui.feature.docs.generated.resources.*
 import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.button.Button
+import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
 import zed.rainxch.rikkaui.components.ui.popover.Popover
 import zed.rainxch.rikkaui.components.ui.popover.PopoverAnimation
 import zed.rainxch.rikkaui.components.ui.popover.PopoverPlacement
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -40,6 +45,22 @@ fun PopoverDoc() {
         description = stringResource(Res.string.popover_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.POPUPS,
+        currentId = "popover",
+    )
+
+    TabbedDocPage(
+        overview = { PopoverOverviewTab() },
+        usage = { PopoverUsageTab() },
+        api = { PopoverApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun PopoverOverviewTab() {
     // ─── Animation Variants ─────────────────────────────────
     DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("FadeExpand") }
@@ -89,9 +110,7 @@ fun PopoverDoc() {
 
     // ─── Placements ─────────────────────────────────────────
     DocSection(stringResource(Res.string.section_placements)) {
-        var selectedPlacement by remember {
-            mutableStateOf("BottomStart")
-        }
+        var selectedPlacement by remember { mutableStateOf("BottomStart") }
         var open by remember { mutableStateOf(false) }
 
         VariantSelector(
@@ -139,8 +158,12 @@ fun PopoverDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun PopoverUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -161,7 +184,57 @@ Popover(
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.popover_section_dos_donts)) {
+        var doOpen by remember { mutableStateOf(false) }
+        var dontOpen by remember { mutableStateOf(false) }
+
+        DoAndDont(
+            doContent = {
+                Popover(
+                    expanded = doOpen,
+                    onDismiss = { doOpen = false },
+                    trigger = {
+                        Button(
+                            "More info",
+                            onClick = { doOpen = !doOpen },
+                            variant = ButtonVariant.Outline,
+                        )
+                    },
+                ) {
+                    Column {
+                        Text("How it works", variant = TextVariant.Large)
+                        Spacer(Modifier.height(RikkaTheme.spacing.xs))
+                        Text("Click anywhere outside to close.", variant = TextVariant.Muted)
+                    }
+                }
+            },
+            doDescription = stringResource(Res.string.popover_do_additional_info_desc),
+            dontContent = {
+                Popover(
+                    expanded = dontOpen,
+                    onDismiss = { dontOpen = false },
+                    trigger = {
+                        Button(
+                            "Show terms",
+                            onClick = { dontOpen = !dontOpen },
+                        )
+                    },
+                ) {
+                    Text(
+                        "You must accept terms to continue. Click accept below.",
+                        variant = TextVariant.P,
+                    )
+                }
+            },
+            dontDescription = stringResource(Res.string.popover_dont_essential_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun PopoverApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

@@ -18,18 +18,23 @@ import org.jetbrains.compose.resources.stringResource
 import rikkaui.feature.docs.generated.resources.*
 import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.PopupAnimation
+import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.contextmenu.ContextMenu
 import zed.rainxch.rikkaui.components.ui.contextmenu.ContextMenuItem
 import zed.rainxch.rikkaui.components.ui.contextmenu.ContextMenuLabel
 import zed.rainxch.rikkaui.components.ui.contextmenu.ContextMenuSeparator
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -46,6 +51,22 @@ fun ContextMenuDoc() {
         description = stringResource(Res.string.context_menu_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.POPUPS,
+        currentId = "context-menu",
+    )
+
+    TabbedDocPage(
+        overview = { ContextMenuOverviewTab() },
+        usage = { ContextMenuUsageTab() },
+        api = { ContextMenuApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun ContextMenuOverviewTab() {
     // ─── Animation Variants ─────────────────────────────────
     DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("FadeExpand") }
@@ -69,9 +90,7 @@ fun ContextMenuDoc() {
             ContextMenu(
                 animation = animation,
                 menuContent = {
-                    ContextMenuLabel(
-                        stringResource(Res.string.context_menu_demo_edit),
-                    )
+                    ContextMenuLabel(stringResource(Res.string.context_menu_demo_edit))
                     ContextMenuItem(
                         stringResource(Res.string.context_menu_demo_cut),
                         onClick = {},
@@ -97,14 +116,9 @@ fun ContextMenuDoc() {
                 Box(
                     modifier =
                         Modifier
-                            .border(
-                                1.dp,
-                                RikkaTheme.colors.border,
-                                RikkaTheme.shapes.md,
-                            ).background(
-                                RikkaTheme.colors.muted,
-                                RikkaTheme.shapes.md,
-                            ).padding(RikkaTheme.spacing.xl),
+                            .border(1.dp, RikkaTheme.colors.border, RikkaTheme.shapes.md)
+                            .background(RikkaTheme.colors.muted, RikkaTheme.shapes.md)
+                            .padding(RikkaTheme.spacing.xl),
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
@@ -121,9 +135,7 @@ fun ContextMenuDoc() {
         DemoBox {
             ContextMenu(
                 menuContent = {
-                    ContextMenuLabel(
-                        stringResource(Res.string.context_menu_demo_actions),
-                    )
+                    ContextMenuLabel(stringResource(Res.string.context_menu_demo_actions))
                     ContextMenuItem(
                         stringResource(Res.string.context_menu_demo_edit),
                         onClick = {},
@@ -144,14 +156,9 @@ fun ContextMenuDoc() {
                 Box(
                     modifier =
                         Modifier
-                            .border(
-                                1.dp,
-                                RikkaTheme.colors.border,
-                                RikkaTheme.shapes.md,
-                            ).background(
-                                RikkaTheme.colors.muted,
-                                RikkaTheme.shapes.md,
-                            ).padding(RikkaTheme.spacing.xl),
+                            .border(1.dp, RikkaTheme.colors.border, RikkaTheme.shapes.md)
+                            .background(RikkaTheme.colors.muted, RikkaTheme.shapes.md)
+                            .padding(RikkaTheme.spacing.xl),
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
@@ -162,8 +169,12 @@ fun ContextMenuDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun ContextMenuUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -187,7 +198,58 @@ ContextMenu(
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.context_menu_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                ContextMenu(
+                    menuContent = {
+                        ContextMenuLabel("File Actions")
+                        ContextMenuItem("Rename", onClick = {}, shortcut = "F2")
+                        ContextMenuItem("Copy", onClick = {}, shortcut = "\u2318C")
+                        ContextMenuSeparator()
+                        ContextMenuItem("Delete", onClick = {})
+                    },
+                ) {
+                    Box(
+                        modifier =
+                            Modifier
+                                .border(1.dp, RikkaTheme.colors.border, RikkaTheme.shapes.md)
+                                .background(RikkaTheme.colors.muted, RikkaTheme.shapes.md)
+                                .padding(RikkaTheme.spacing.lg),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text("Right-click me", variant = TextVariant.Muted)
+                    }
+                }
+            },
+            doDescription = stringResource(Res.string.context_menu_do_right_click_desc),
+            dontContent = {
+                Box(
+                    modifier =
+                        Modifier
+                            .border(1.dp, RikkaTheme.colors.border, RikkaTheme.shapes.md)
+                            .background(RikkaTheme.colors.muted, RikkaTheme.shapes.md)
+                            .padding(RikkaTheme.spacing.lg),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    ContextMenu(
+                        menuContent = {
+                            ContextMenuItem("The only way to delete", onClick = {})
+                        },
+                    ) {
+                        Text("Right-click to delete", variant = TextVariant.Muted)
+                    }
+                }
+            },
+            dontDescription = stringResource(Res.string.context_menu_dont_only_access_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun ContextMenuApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

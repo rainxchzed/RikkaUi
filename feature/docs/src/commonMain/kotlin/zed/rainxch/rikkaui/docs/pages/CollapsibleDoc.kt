@@ -25,12 +25,16 @@ import zed.rainxch.rikkaui.components.ui.icon.Icon
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -47,6 +51,22 @@ fun CollapsibleDoc() {
         description = stringResource(Res.string.collapsible_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.EXPANDABLE,
+        currentId = "collapsible",
+    )
+
+    TabbedDocPage(
+        overview = { CollapsibleOverviewTab() },
+        usage = { CollapsibleUsageTab() },
+        api = { CollapsibleApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun CollapsibleOverviewTab() {
     // ─── Controlled Usage ───────────────────────────────────
     DocSection(stringResource(Res.string.collapsible_section_controlled)) {
         DemoBox {
@@ -93,18 +113,9 @@ fun CollapsibleDoc() {
                                 bottom = RikkaTheme.spacing.sm,
                             ),
                     ) {
-                        Text(
-                            "@rikka/components",
-                            variant = TextVariant.Muted,
-                        )
-                        Text(
-                            "@rikka/theme",
-                            variant = TextVariant.Muted,
-                        )
-                        Text(
-                            "@rikka/icons",
-                            variant = TextVariant.Muted,
-                        )
+                        Text("@rikka/components", variant = TextVariant.Muted)
+                        Text("@rikka/theme", variant = TextVariant.Muted)
+                        Text("@rikka/icons", variant = TextVariant.Muted)
                     }
                 }
             }
@@ -229,8 +240,12 @@ fun CollapsibleDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun CollapsibleUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -273,7 +288,80 @@ Collapsible(
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.collapsible_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    var open by remember { mutableStateOf(false) }
+                    Collapsible(
+                        open = open,
+                        onOpenChange = { open = it },
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        CollapsibleTrigger(
+                            onClick = { open = !open },
+                            expanded = open,
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = RikkaTheme.spacing.sm),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                            ) {
+                                Text("Advanced options", variant = TextVariant.P)
+                                Icon(RikkaIcons.ChevronDown, null)
+                            }
+                        }
+                        CollapsibleContent(open = open) {
+                            Column(modifier = Modifier.padding(bottom = RikkaTheme.spacing.sm)) {
+                                Text("Optional detail here", variant = TextVariant.Muted)
+                            }
+                        }
+                    }
+                }
+            },
+            doDescription = stringResource(Res.string.collapsible_do_optional_desc),
+            dontContent = {
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    var open by remember { mutableStateOf(false) }
+                    Collapsible(
+                        open = open,
+                        onOpenChange = { open = it },
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        CollapsibleTrigger(
+                            onClick = { open = !open },
+                            expanded = open,
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = RikkaTheme.spacing.sm),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                            ) {
+                                Text("Tap to see your balance", variant = TextVariant.P)
+                                Icon(RikkaIcons.ChevronDown, null)
+                            }
+                        }
+                        CollapsibleContent(open = open) {
+                            Column(modifier = Modifier.padding(bottom = RikkaTheme.spacing.sm)) {
+                                Text("$1,234.56", variant = TextVariant.Muted)
+                            }
+                        }
+                    }
+                }
+            },
+            dontDescription = stringResource(Res.string.collapsible_dont_optional_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun CollapsibleApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         Text(
             stringResource(Res.string.collapsible_subsection_controlled),

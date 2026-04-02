@@ -26,6 +26,8 @@ import rikkaui.feature.docs.generated.resources.accordion_demo_returns
 import rikkaui.feature.docs.generated.resources.accordion_demo_returns_desc
 import rikkaui.feature.docs.generated.resources.accordion_demo_shipping
 import rikkaui.feature.docs.generated.resources.accordion_demo_shipping_desc
+import rikkaui.feature.docs.generated.resources.accordion_do_group_desc
+import rikkaui.feature.docs.generated.resources.accordion_dont_group_desc
 import rikkaui.feature.docs.generated.resources.accordion_page_desc
 import rikkaui.feature.docs.generated.resources.accordion_prop_animation_desc
 import rikkaui.feature.docs.generated.resources.accordion_prop_chevron_desc
@@ -36,6 +38,7 @@ import rikkaui.feature.docs.generated.resources.accordion_prop_on_expanded_chang
 import rikkaui.feature.docs.generated.resources.accordion_prop_title_desc
 import rikkaui.feature.docs.generated.resources.accordion_section_animation_styles
 import rikkaui.feature.docs.generated.resources.accordion_section_basic
+import rikkaui.feature.docs.generated.resources.accordion_section_dos_donts
 import rikkaui.feature.docs.generated.resources.accordion_section_multiple_open
 import rikkaui.feature.docs.generated.resources.component_accordion_name
 import rikkaui.feature.docs.generated.resources.section_api_reference
@@ -44,12 +47,16 @@ import zed.rainxch.rikkaui.components.ui.accordion.AccordionAnimation
 import zed.rainxch.rikkaui.components.ui.accordion.AccordionItem
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -62,82 +69,63 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 @Composable
 fun AccordionDoc() {
     ComponentPageHeader(
-        name =
-            stringResource(
-                Res.string.component_accordion_name,
-            ),
-        description =
-            stringResource(
-                Res.string.accordion_page_desc,
-            ),
+        name = stringResource(Res.string.component_accordion_name),
+        description = stringResource(Res.string.accordion_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.EXPANDABLE,
+        currentId = "accordion",
+    )
+
+    TabbedDocPage(
+        overview = { AccordionOverviewTab() },
+        usage = { AccordionUsageTab() },
+        api = { AccordionApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun AccordionOverviewTab() {
     // ─── Basic Accordion ─────────────────────────────
-    DocSection(
-        stringResource(Res.string.accordion_section_basic),
-    ) {
+    DocSection(stringResource(Res.string.accordion_section_basic)) {
         DemoBox {
             Column(modifier = Modifier.fillMaxWidth()) {
-                var notificationsOpen by remember {
-                    mutableStateOf(false)
-                }
-                var privacyOpen by remember {
-                    mutableStateOf(false)
-                }
-                var appearanceOpen by remember {
-                    mutableStateOf(false)
-                }
+                var notificationsOpen by remember { mutableStateOf(false) }
+                var privacyOpen by remember { mutableStateOf(false) }
+                var appearanceOpen by remember { mutableStateOf(false) }
 
                 AccordionItem(
-                    title =
-                        stringResource(
-                            Res.string.accordion_demo_notifications,
-                        ),
+                    title = stringResource(Res.string.accordion_demo_notifications),
                     expanded = notificationsOpen,
-                    onExpandedChange = {
-                        notificationsOpen = it
-                    },
+                    onExpandedChange = { notificationsOpen = it },
                 ) {
                     Text(
-                        stringResource(
-                            Res.string.accordion_demo_notifications_desc,
-                        ),
+                        stringResource(Res.string.accordion_demo_notifications_desc),
                         variant = TextVariant.Muted,
                     )
                 }
 
                 AccordionItem(
-                    title =
-                        stringResource(
-                            Res.string.accordion_demo_privacy,
-                        ),
+                    title = stringResource(Res.string.accordion_demo_privacy),
                     expanded = privacyOpen,
-                    onExpandedChange = {
-                        privacyOpen = it
-                    },
+                    onExpandedChange = { privacyOpen = it },
                 ) {
                     Text(
-                        stringResource(
-                            Res.string.accordion_demo_privacy_desc,
-                        ),
+                        stringResource(Res.string.accordion_demo_privacy_desc),
                         variant = TextVariant.Muted,
                     )
                 }
 
                 AccordionItem(
-                    title =
-                        stringResource(
-                            Res.string.accordion_demo_appearance,
-                        ),
+                    title = stringResource(Res.string.accordion_demo_appearance),
                     expanded = appearanceOpen,
-                    onExpandedChange = {
-                        appearanceOpen = it
-                    },
+                    onExpandedChange = { appearanceOpen = it },
                 ) {
                     Text(
-                        stringResource(
-                            Res.string.accordion_demo_appearance_desc,
-                        ),
+                        stringResource(Res.string.accordion_demo_appearance_desc),
                         variant = TextVariant.Muted,
                     )
                 }
@@ -146,11 +134,7 @@ fun AccordionDoc() {
     }
 
     // ─── Animation Styles ────────────────────────────
-    DocSection(
-        stringResource(
-            Res.string.accordion_section_animation_styles,
-        ),
-    ) {
+    DocSection(stringResource(Res.string.accordion_section_animation_styles)) {
         var selectedAnim by remember { mutableStateOf("Spring") }
 
         VariantSelector(
@@ -170,25 +154,16 @@ fun AccordionDoc() {
 
         DemoBox {
             Column(modifier = Modifier.fillMaxWidth()) {
-                var expanded by remember {
-                    mutableStateOf(false)
-                }
+                var expanded by remember { mutableStateOf(false) }
 
                 AccordionItem(
-                    title =
-                        stringResource(
-                            Res.string.accordion_demo_animation_title,
-                            selectedAnim,
-                        ),
+                    title = stringResource(Res.string.accordion_demo_animation_title, selectedAnim),
                     expanded = expanded,
                     onExpandedChange = { expanded = it },
                     animation = animation,
                 ) {
                     Text(
-                        stringResource(
-                            Res.string.accordion_demo_animation_body,
-                            selectedAnim,
-                        ),
+                        stringResource(Res.string.accordion_demo_animation_body, selectedAnim),
                         variant = TextVariant.Muted,
                     )
                 }
@@ -197,81 +172,54 @@ fun AccordionDoc() {
     }
 
     // ─── Multiple Open Items ─────────────────────────
-    DocSection(
-        stringResource(
-            Res.string.accordion_section_multiple_open,
-        ),
-    ) {
+    DocSection(stringResource(Res.string.accordion_section_multiple_open)) {
         DemoBox {
             Column(modifier = Modifier.fillMaxWidth()) {
-                var generalOpen by remember {
-                    mutableStateOf(true)
-                }
-                var shippingOpen by remember {
-                    mutableStateOf(true)
-                }
-                var returnsOpen by remember {
-                    mutableStateOf(false)
-                }
+                var generalOpen by remember { mutableStateOf(true) }
+                var shippingOpen by remember { mutableStateOf(true) }
+                var returnsOpen by remember { mutableStateOf(false) }
 
                 AccordionItem(
-                    title =
-                        stringResource(
-                            Res.string.accordion_demo_general,
-                        ),
+                    title = stringResource(Res.string.accordion_demo_general),
                     expanded = generalOpen,
-                    onExpandedChange = {
-                        generalOpen = it
-                    },
+                    onExpandedChange = { generalOpen = it },
                 ) {
                     Text(
-                        stringResource(
-                            Res.string.accordion_demo_general_desc,
-                        ),
+                        stringResource(Res.string.accordion_demo_general_desc),
                         variant = TextVariant.Muted,
                     )
                 }
 
                 AccordionItem(
-                    title =
-                        stringResource(
-                            Res.string.accordion_demo_shipping,
-                        ),
+                    title = stringResource(Res.string.accordion_demo_shipping),
                     expanded = shippingOpen,
-                    onExpandedChange = {
-                        shippingOpen = it
-                    },
+                    onExpandedChange = { shippingOpen = it },
                 ) {
                     Text(
-                        stringResource(
-                            Res.string.accordion_demo_shipping_desc,
-                        ),
+                        stringResource(Res.string.accordion_demo_shipping_desc),
                         variant = TextVariant.Muted,
                     )
                 }
 
                 AccordionItem(
-                    title =
-                        stringResource(
-                            Res.string.accordion_demo_returns,
-                        ),
+                    title = stringResource(Res.string.accordion_demo_returns),
                     expanded = returnsOpen,
-                    onExpandedChange = {
-                        returnsOpen = it
-                    },
+                    onExpandedChange = { returnsOpen = it },
                 ) {
                     Text(
-                        stringResource(
-                            Res.string.accordion_demo_returns_desc,
-                        ),
+                        stringResource(Res.string.accordion_demo_returns_desc),
                         variant = TextVariant.Muted,
                     )
                 }
             }
         }
     }
+}
 
-    // ─── Usage ───────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun AccordionUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -288,67 +236,103 @@ AccordionItem(
         )
     }
 
-    // ─── API Reference ───────────────────────────────
-    DocSection(
-        stringResource(Res.string.section_api_reference),
-    ) {
+    DocSection(stringResource(Res.string.accordion_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    var faqOpen by remember { mutableStateOf(false) }
+                    var shippingOpen by remember { mutableStateOf(false) }
+                    var returnsOpen by remember { mutableStateOf(false) }
+
+                    AccordionItem(
+                        title = "Frequently Asked Questions",
+                        expanded = faqOpen,
+                        onExpandedChange = { faqOpen = it },
+                    ) {
+                        Text("Multiple items grouped logically.", variant = TextVariant.Muted)
+                    }
+                    AccordionItem(
+                        title = "Shipping Info",
+                        expanded = shippingOpen,
+                        onExpandedChange = { shippingOpen = it },
+                    ) {
+                        Text("Arrives in 3-5 business days.", variant = TextVariant.Muted)
+                    }
+                    AccordionItem(
+                        title = "Returns",
+                        expanded = returnsOpen,
+                        onExpandedChange = { returnsOpen = it },
+                    ) {
+                        Text("30-day return policy.", variant = TextVariant.Muted)
+                    }
+                }
+            },
+            doDescription = stringResource(Res.string.accordion_do_group_desc),
+            dontContent = {
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    var singleOpen by remember { mutableStateOf(false) }
+                    AccordionItem(
+                        title = "Only Item",
+                        expanded = singleOpen,
+                        onExpandedChange = { singleOpen = it },
+                    ) {
+                        Text("Single item doesn't benefit from accordion.", variant = TextVariant.Muted)
+                    }
+                }
+            },
+            dontDescription = stringResource(Res.string.accordion_dont_group_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun AccordionApiTab() {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(
                     "title",
                     "String",
                     "required",
-                    stringResource(
-                        Res.string.accordion_prop_title_desc,
-                    ),
+                    stringResource(Res.string.accordion_prop_title_desc),
                 ),
                 PropInfo(
                     "expanded",
                     "Boolean",
                     "required",
-                    stringResource(
-                        Res.string.accordion_prop_expanded_desc,
-                    ),
+                    stringResource(Res.string.accordion_prop_expanded_desc),
                 ),
                 PropInfo(
                     "onExpandedChange",
                     "(Boolean) -> Unit",
                     "required",
-                    stringResource(
-                        Res.string.accordion_prop_on_expanded_change_desc,
-                    ),
+                    stringResource(Res.string.accordion_prop_on_expanded_change_desc),
                 ),
                 PropInfo(
                     "modifier",
                     "Modifier",
                     "Modifier",
-                    stringResource(
-                        Res.string.accordion_prop_modifier_desc,
-                    ),
+                    stringResource(Res.string.accordion_prop_modifier_desc),
                 ),
                 PropInfo(
                     "animation",
                     "AccordionAnimation",
                     "Spring",
-                    stringResource(
-                        Res.string.accordion_prop_animation_desc,
-                    ),
+                    stringResource(Res.string.accordion_prop_animation_desc),
                 ),
                 PropInfo(
                     "chevronIcon",
                     "ImageVector",
                     "RikkaIcons.ChevronRight",
-                    stringResource(
-                        Res.string.accordion_prop_chevron_desc,
-                    ),
+                    stringResource(Res.string.accordion_prop_chevron_desc),
                 ),
                 PropInfo(
                     "content",
                     "() -> Unit",
                     "required",
-                    stringResource(
-                        Res.string.accordion_prop_content_desc,
-                    ),
+                    stringResource(Res.string.accordion_prop_content_desc),
                 ),
             ),
         )

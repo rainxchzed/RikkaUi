@@ -9,31 +9,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.*
 import rikkaui.feature.docs.generated.resources.Res
-import rikkaui.feature.docs.generated.resources.breadcrumb_demo_components
-import rikkaui.feature.docs.generated.resources.breadcrumb_demo_current_page
-import rikkaui.feature.docs.generated.resources.breadcrumb_demo_design
-import rikkaui.feature.docs.generated.resources.breadcrumb_demo_documents
-import rikkaui.feature.docs.generated.resources.breadcrumb_demo_home
-import rikkaui.feature.docs.generated.resources.breadcrumb_demo_products
-import rikkaui.feature.docs.generated.resources.breadcrumb_demo_projects
-import rikkaui.feature.docs.generated.resources.breadcrumb_demo_widgets
-import rikkaui.feature.docs.generated.resources.breadcrumb_page_desc
-import rikkaui.feature.docs.generated.resources.breadcrumb_prop_animation_desc
-import rikkaui.feature.docs.generated.resources.breadcrumb_prop_ellipsis_click_desc
-import rikkaui.feature.docs.generated.resources.breadcrumb_prop_items_desc
-import rikkaui.feature.docs.generated.resources.breadcrumb_prop_label_desc
-import rikkaui.feature.docs.generated.resources.breadcrumb_prop_max_visible_desc
-import rikkaui.feature.docs.generated.resources.breadcrumb_prop_modifier_desc
-import rikkaui.feature.docs.generated.resources.breadcrumb_prop_onclick_desc
-import rikkaui.feature.docs.generated.resources.breadcrumb_prop_separator_desc
-import rikkaui.feature.docs.generated.resources.breadcrumb_section_basic
-import rikkaui.feature.docs.generated.resources.breadcrumb_section_data_driven
-import rikkaui.feature.docs.generated.resources.breadcrumb_section_ellipsis
-import rikkaui.feature.docs.generated.resources.breadcrumb_subsection_item_data
-import rikkaui.feature.docs.generated.resources.component_breadcrumb_name
-import rikkaui.feature.docs.generated.resources.section_api_reference
-import rikkaui.feature.docs.generated.resources.section_usage
 import zed.rainxch.rikkaui.components.ui.breadcrumb.Breadcrumb
 import zed.rainxch.rikkaui.components.ui.breadcrumb.BreadcrumbAnimation
 import zed.rainxch.rikkaui.components.ui.breadcrumb.BreadcrumbItem
@@ -41,12 +18,16 @@ import zed.rainxch.rikkaui.components.ui.breadcrumb.BreadcrumbItemData
 import zed.rainxch.rikkaui.components.ui.breadcrumb.BreadcrumbSeparator
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
 import zed.rainxch.rikkaui.docs.components.DocSection
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -57,6 +38,22 @@ fun BreadcrumbDoc() {
         description = stringResource(Res.string.breadcrumb_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.NAVIGATION,
+        currentId = "breadcrumb",
+    )
+
+    TabbedDocPage(
+        overview = { BreadcrumbOverviewTab() },
+        usage = { BreadcrumbUsageTab() },
+        api = { BreadcrumbApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun BreadcrumbOverviewTab() {
     DocSection(
         stringResource(Res.string.breadcrumb_section_basic),
     ) {
@@ -155,7 +152,12 @@ fun BreadcrumbDoc() {
             )
         }
     }
+}
 
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun BreadcrumbUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -182,6 +184,42 @@ Breadcrumb(
         )
     }
 
+    DocSection(stringResource(Res.string.breadcrumb_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                Breadcrumb(
+                    items = listOf(
+                        BreadcrumbItemData(
+                            stringResource(Res.string.breadcrumb_demo_home),
+                            onClick = {},
+                        ),
+                        BreadcrumbItemData(
+                            stringResource(Res.string.breadcrumb_demo_products),
+                            onClick = {},
+                        ),
+                        BreadcrumbItemData(
+                            stringResource(Res.string.breadcrumb_demo_widgets),
+                        ),
+                    ),
+                )
+            },
+            doDescription = stringResource(Res.string.breadcrumb_do_full_path_desc),
+            dontContent = {
+                Breadcrumb {
+                    BreadcrumbItem(
+                        stringResource(Res.string.breadcrumb_demo_widgets),
+                    )
+                }
+            },
+            dontDescription = stringResource(Res.string.breadcrumb_dont_flat_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun BreadcrumbApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

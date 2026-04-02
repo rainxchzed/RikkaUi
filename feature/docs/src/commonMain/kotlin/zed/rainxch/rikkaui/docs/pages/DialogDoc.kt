@@ -19,12 +19,16 @@ import zed.rainxch.rikkaui.components.ui.dialog.DialogFooter
 import zed.rainxch.rikkaui.components.ui.dialog.DialogHeader
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -41,6 +45,22 @@ fun DialogDoc() {
         description = stringResource(Res.string.dialog_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.DIALOGS,
+        currentId = "dialog",
+    )
+
+    TabbedDocPage(
+        overview = { DialogOverviewTab() },
+        usage = { DialogUsageTab() },
+        api = { DialogApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun DialogOverviewTab() {
     // ─── Animation Variants ─────────────────────────────────
     DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("FadeScale") }
@@ -155,8 +175,12 @@ fun DialogDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun DialogUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -187,7 +211,65 @@ Dialog(
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.dialog_section_dos_donts)) {
+        var doOpen by remember { mutableStateOf(false) }
+        var dontOpen by remember { mutableStateOf(false) }
+
+        DoAndDont(
+            doContent = {
+                Button(
+                    "Edit Profile",
+                    onClick = { doOpen = true },
+                )
+                Dialog(
+                    open = doOpen,
+                    onDismiss = { doOpen = false },
+                ) {
+                    DialogHeader(
+                        title = "Edit Profile",
+                        description = "Update your information below.",
+                    )
+                    DialogFooter {
+                        Button(
+                            "Cancel",
+                            onClick = { doOpen = false },
+                            variant = ButtonVariant.Outline,
+                        )
+                        Button("Save", onClick = { doOpen = false })
+                    }
+                }
+            },
+            doDescription = stringResource(Res.string.dialog_do_structure_desc),
+            dontContent = {
+                Button(
+                    "Delete Account",
+                    onClick = { dontOpen = true },
+                    variant = ButtonVariant.Destructive,
+                )
+                Dialog(
+                    open = dontOpen,
+                    onDismiss = { dontOpen = false },
+                ) {
+                    Text("Are you sure?", variant = TextVariant.P)
+                    DialogFooter {
+                        Button("Yes", onClick = { dontOpen = false })
+                        Button(
+                            "No",
+                            onClick = { dontOpen = false },
+                            variant = ButtonVariant.Outline,
+                        )
+                    }
+                }
+            },
+            dontDescription = stringResource(Res.string.dialog_dont_simple_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun DialogApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

@@ -2,6 +2,8 @@ package zed.rainxch.rikkaui.docs.pages
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,12 +17,16 @@ import rikkaui.feature.docs.generated.resources.*
 import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.input.Input
 import zed.rainxch.rikkaui.components.ui.label.Label
+import zed.rainxch.rikkaui.components.ui.text.Text
+import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.docs.components.CodeBlock
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
 import zed.rainxch.rikkaui.docs.components.DocSection
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
@@ -36,6 +42,15 @@ fun LabelDoc() {
         description = stringResource(Res.string.label_page_desc),
     )
 
+    TabbedDocPage(
+        overview = { LabelOverviewTab() },
+        usage = { LabelUsageTab() },
+        api = { LabelApiTab() },
+    )
+}
+
+@Composable
+private fun LabelOverviewTab() {
     // ─── Basic Labels Demo ──────────────────────────────────
     DocSection(stringResource(Res.string.label_section_examples)) {
         DemoBox {
@@ -103,8 +118,11 @@ fun LabelDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+@Composable
+private fun LabelUsageTab() {
+    // ─── Code Example ───────────────────────────────────────
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -125,6 +143,38 @@ Column {
         )
     }
 
+    // ─── Do / Don't ─────────────────────────────────────────
+    Spacer(Modifier.height(RikkaTheme.spacing.xl))
+
+    var doEmail by remember { mutableStateOf("") }
+
+    DoAndDont(
+        doContent = {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
+                modifier = Modifier.width(180.dp),
+            ) {
+                Label(text = stringResource(Res.string.label_demo_email))
+                Input(
+                    value = doEmail,
+                    onValueChange = { doEmail = it },
+                    placeholder = stringResource(Res.string.label_demo_email_placeholder),
+                )
+            }
+        },
+        doDescription = stringResource(Res.string.label_do_associate_desc),
+        dontContent = {
+            Text(
+                text = stringResource(Res.string.label_demo_email),
+                variant = TextVariant.Muted,
+            )
+        },
+        dontDescription = stringResource(Res.string.label_dont_decorative_desc),
+    )
+}
+
+@Composable
+private fun LabelApiTab() {
     // ─── API Reference ──────────────────────────────────────
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(

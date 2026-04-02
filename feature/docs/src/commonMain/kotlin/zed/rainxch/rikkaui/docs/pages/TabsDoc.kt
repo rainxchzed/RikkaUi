@@ -18,12 +18,16 @@ import zed.rainxch.rikkaui.components.ui.tabs.TabContent
 import zed.rainxch.rikkaui.components.ui.tabs.TabList
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
 import zed.rainxch.rikkaui.docs.components.DocSection
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -40,6 +44,22 @@ fun TabsDoc() {
         description = stringResource(Res.string.tabs_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.NAVIGATION,
+        currentId = "tabs",
+    )
+
+    TabbedDocPage(
+        overview = { TabsOverviewTab() },
+        usage = { TabsUsageTab() },
+        api = { TabsApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun TabsOverviewTab() {
     // ─── Animation Variants ─────────────────────────────────
     DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("Spring") }
@@ -150,8 +170,12 @@ fun TabsDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun TabsUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -181,7 +205,75 @@ TabContent {
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.tabs_section_dos_donts)) {
+        var selectedTab by remember { mutableStateOf(0) }
+
+        DoAndDont(
+            doContent = {
+                Column {
+                    TabList {
+                        Tab(
+                            selected = selectedTab == 0,
+                            onClick = { selectedTab = 0 },
+                            text = stringResource(Res.string.tabs_demo_overview),
+                        )
+                        Tab(
+                            selected = selectedTab == 1,
+                            onClick = { selectedTab = 1 },
+                            text = stringResource(Res.string.tabs_demo_analytics),
+                        )
+                    }
+                    TabContent(selectedIndex = selectedTab) {
+                        when (selectedTab) {
+                            0 -> Text(
+                                stringResource(Res.string.tabs_demo_overview_content),
+                                variant = TextVariant.Muted,
+                            )
+                            1 -> Text(
+                                stringResource(Res.string.tabs_demo_analytics_content),
+                                variant = TextVariant.Muted,
+                            )
+                        }
+                    }
+                }
+            },
+            doDescription = stringResource(Res.string.tabs_do_related_views_desc),
+            dontContent = {
+                Column {
+                    TabList {
+                        Tab(
+                            selected = true,
+                            onClick = {},
+                            text = "Step 1",
+                        )
+                        Tab(
+                            selected = false,
+                            onClick = {},
+                            text = "Step 2",
+                        )
+                        Tab(
+                            selected = false,
+                            onClick = {},
+                            text = "Step 3",
+                        )
+                    }
+                    TabContent(selectedIndex = 0) {
+                        Text(
+                            "Step 1 content",
+                            variant = TextVariant.Muted,
+                        )
+                    }
+                }
+            },
+            dontDescription = stringResource(Res.string.tabs_dont_sequential_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun TabsApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

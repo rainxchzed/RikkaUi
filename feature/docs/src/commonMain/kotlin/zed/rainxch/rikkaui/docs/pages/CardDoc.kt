@@ -28,9 +28,11 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.docs.components.CodeBlock
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -47,6 +49,17 @@ fun CardDoc() {
         description = stringResource(Res.string.card_page_desc),
     )
 
+    TabbedDocPage(
+        overview = { CardOverviewTab() },
+        usage = { CardUsageTab() },
+        api = { CardApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun CardOverviewTab() {
     // ─── Variants ───────────────────────────────────────────
     DocSection(stringResource(Res.string.section_variants)) {
         var selectedVariant by remember { mutableStateOf("Default") }
@@ -195,8 +208,12 @@ fun CardDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun CardUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -225,7 +242,34 @@ Card(
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.card_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                Card {
+                    CardHeader {
+                        Text("Project Settings", variant = TextVariant.H4)
+                        Text("Manage your config", variant = TextVariant.Muted)
+                    }
+                    CardContent {
+                        Text("Use structured sections.", variant = TextVariant.P)
+                    }
+                }
+            },
+            doDescription = stringResource(Res.string.card_do_structure_desc),
+            dontContent = {
+                Card {
+                    Text("Title — Description — Content — Action all in one Text", variant = TextVariant.P)
+                }
+            },
+            dontDescription = stringResource(Res.string.card_dont_structure_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun CardApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

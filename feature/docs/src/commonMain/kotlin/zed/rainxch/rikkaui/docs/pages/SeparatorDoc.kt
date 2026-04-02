@@ -23,9 +23,11 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.docs.components.CodeBlock
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -42,6 +44,17 @@ fun SeparatorDoc() {
         description = stringResource(Res.string.separator_page_desc),
     )
 
+    TabbedDocPage(
+        overview = { SeparatorOverviewTab() },
+        usage = { SeparatorUsageTab() },
+        api = { SeparatorApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun SeparatorOverviewTab() {
     // ─── Line Styles ────────────────────────────────────────
     DocSection(stringResource(Res.string.separator_section_line_styles)) {
         var selectedStyle by remember { mutableStateOf("Solid") }
@@ -119,8 +132,12 @@ fun SeparatorDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun SeparatorUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -149,7 +166,42 @@ Separator(
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.separator_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
+                ) {
+                    Text("Profile", variant = TextVariant.P)
+                    Separator()
+                    Text("Settings", variant = TextVariant.P)
+                    Separator()
+                    Text("Notifications", variant = TextVariant.P)
+                }
+            },
+            doDescription = stringResource(Res.string.separator_do_groups_desc),
+            dontContent = {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
+                ) {
+                    Text("Item 1", variant = TextVariant.Small)
+                    Separator()
+                    Text("Item 2", variant = TextVariant.Small)
+                    Separator()
+                    Text("Item 3", variant = TextVariant.Small)
+                    Separator()
+                    Text("Item 4", variant = TextVariant.Small)
+                }
+            },
+            dontDescription = stringResource(Res.string.separator_dont_groups_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun SeparatorApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

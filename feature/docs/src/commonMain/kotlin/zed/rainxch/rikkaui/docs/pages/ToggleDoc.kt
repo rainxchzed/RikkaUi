@@ -16,17 +16,22 @@ import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
 import rikkaui.feature.docs.generated.resources.*
 import rikkaui.feature.docs.generated.resources.Res
+import zed.rainxch.rikkaui.components.ui.checkbox.Checkbox
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.components.ui.toggle.Toggle
 import zed.rainxch.rikkaui.components.ui.toggle.ToggleAnimation
 import zed.rainxch.rikkaui.components.ui.toggle.ToggleSize
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
 import zed.rainxch.rikkaui.docs.components.DocSection
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -43,6 +48,20 @@ fun ToggleDoc() {
         description = stringResource(Res.string.toggle_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.SELECTION,
+        currentId = "toggle",
+    )
+
+    TabbedDocPage(
+        overview = { ToggleOverviewTab() },
+        usage = { ToggleUsageTab() },
+        api = { ToggleApiTab() },
+    )
+}
+
+@Composable
+private fun ToggleOverviewTab() {
     // ─── Animations Demo ────────────────────────────────────
     DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember {
@@ -157,8 +176,11 @@ fun ToggleDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+@Composable
+private fun ToggleUsageTab() {
+    // ─── Code Example ───────────────────────────────────────
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -179,6 +201,42 @@ Toggle(
         )
     }
 
+    // ─── Do / Don't ─────────────────────────────────────────
+    Spacer(Modifier.height(RikkaTheme.spacing.xl))
+
+    var doChecked by remember { mutableStateOf(false) }
+    var dontChecked by remember { mutableStateOf(false) }
+
+    DoAndDont(
+        doContent = {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
+            ) {
+                Text(
+                    text = stringResource(Res.string.toggle_demo_dark_mode),
+                    variant = TextVariant.Small,
+                )
+                Toggle(
+                    checked = doChecked,
+                    onCheckedChange = { doChecked = it },
+                )
+            }
+        },
+        doDescription = stringResource(Res.string.toggle_do_instant_desc),
+        dontContent = {
+            Checkbox(
+                checked = dontChecked,
+                onCheckedChange = { dontChecked = it },
+                label = stringResource(Res.string.checkbox_demo_accept_terms),
+            )
+        },
+        dontDescription = stringResource(Res.string.toggle_dont_form_desc),
+    )
+}
+
+@Composable
+private fun ToggleApiTab() {
     // ─── API Reference ──────────────────────────────────────
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(

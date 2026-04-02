@@ -19,21 +19,21 @@ import rikkaui.feature.docs.generated.resources.*
 import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.skeleton.Skeleton
 import zed.rainxch.rikkaui.components.ui.skeleton.SkeletonAnimation
+import zed.rainxch.rikkaui.components.ui.text.Text
+import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
-/**
- * Documentation page for the Skeleton component.
- *
- * Demonstrates loading placeholders with different
- * animation styles and shapes.
- */
 @Composable
 fun SkeletonDoc() {
     ComponentPageHeader(
@@ -41,7 +41,22 @@ fun SkeletonDoc() {
         description = stringResource(Res.string.skeleton_page_desc),
     )
 
-    // ─── Animation Modes ────────────────────────────────────
+    ComponentFamily(
+        related = ComponentFamilies.LOADING,
+        currentId = "skeleton",
+    )
+
+    TabbedDocPage(
+        overview = { SkeletonOverviewTab() },
+        usage = { SkeletonUsageTab() },
+        api = { SkeletonApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun SkeletonOverviewTab() {
     DocSection(stringResource(Res.string.skeleton_section_animation_modes)) {
         var selectedAnim by remember { mutableStateOf("Pulse") }
 
@@ -83,7 +98,6 @@ fun SkeletonDoc() {
         }
     }
 
-    // ─── Card Placeholder ───────────────────────────────────
     DocSection(stringResource(Res.string.skeleton_section_card_placeholder)) {
         DemoBox {
             Column(
@@ -129,8 +143,12 @@ fun SkeletonDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun SkeletonUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -154,7 +172,29 @@ Skeleton(
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.skeleton_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
+                ) {
+                    Skeleton(modifier = Modifier.fillMaxWidth().height(16.dp))
+                    Skeleton(modifier = Modifier.fillMaxWidth(0.7f).height(16.dp))
+                }
+            },
+            doDescription = stringResource(Res.string.skeleton_do_layout_desc),
+            dontContent = {
+                Text("Instantly loaded content", variant = TextVariant.Muted)
+            },
+            dontDescription = stringResource(Res.string.skeleton_dont_instant_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun SkeletonApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

@@ -23,9 +23,11 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.docs.components.CodeBlock
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /**
@@ -41,6 +43,17 @@ fun ScaffoldDoc() {
         description = stringResource(Res.string.scaffold_page_desc),
     )
 
+    TabbedDocPage(
+        overview = { ScaffoldOverviewTab() },
+        usage = { ScaffoldUsageTab() },
+        api = { ScaffoldApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun ScaffoldOverviewTab() {
     // ─── Basic Scaffold ─────────────────────────────────────
     DocSection(stringResource(Res.string.scaffold_section_basic)) {
         DemoBox {
@@ -189,8 +202,12 @@ fun ScaffoldDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun ScaffoldUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -225,7 +242,61 @@ Scaffold(
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.scaffold_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(120.dp)
+                        .border(1.dp, RikkaTheme.colors.border, RikkaTheme.shapes.md),
+                ) {
+                    Scaffold(
+                        topBar = {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .background(RikkaTheme.colors.surface)
+                                    .padding(RikkaTheme.spacing.sm),
+                            ) {
+                                Text("App", variant = TextVariant.Small)
+                            }
+                        },
+                    ) { padding ->
+                        Column(modifier = Modifier.padding(padding).padding(RikkaTheme.spacing.sm)) {
+                            Text("Root screen content", variant = TextVariant.Muted)
+                        }
+                    }
+                }
+            },
+            doDescription = stringResource(Res.string.scaffold_do_root_desc),
+            dontContent = {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(120.dp)
+                        .border(1.dp, RikkaTheme.colors.border, RikkaTheme.shapes.md),
+                ) {
+                    Scaffold { outerPadding ->
+                        Column(modifier = Modifier.padding(outerPadding)) {
+                            Scaffold { innerPadding ->
+                                Column(modifier = Modifier.padding(innerPadding)) {
+                                    Text("Nested Scaffold", variant = TextVariant.Muted)
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            dontDescription = stringResource(Res.string.scaffold_dont_root_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun ScaffoldApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

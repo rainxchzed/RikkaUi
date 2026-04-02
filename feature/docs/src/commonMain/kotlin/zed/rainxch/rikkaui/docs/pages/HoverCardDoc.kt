@@ -17,12 +17,16 @@ import zed.rainxch.rikkaui.components.ui.hovercard.HoverCardAnimation
 import zed.rainxch.rikkaui.components.ui.hovercard.HoverCardPlacement
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -39,6 +43,22 @@ fun HoverCardDoc() {
         description = stringResource(Res.string.hover_card_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.POPUPS,
+        currentId = "hover-card",
+    )
+
+    TabbedDocPage(
+        overview = { HoverCardOverviewTab() },
+        usage = { HoverCardUsageTab() },
+        api = { HoverCardApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun HoverCardOverviewTab() {
     // ─── Animation Variants ─────────────────────────────────
     DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("FadeScale") }
@@ -86,18 +106,10 @@ fun HoverCardDoc() {
 
     // ─── Placements ─────────────────────────────────────────
     DocSection(stringResource(Res.string.section_placements)) {
-        var selectedPlacement by remember {
-            mutableStateOf("BottomStart")
-        }
+        var selectedPlacement by remember { mutableStateOf("BottomStart") }
 
         VariantSelector(
-            options =
-                listOf(
-                    "BottomStart",
-                    "BottomEnd",
-                    "TopStart",
-                    "TopEnd",
-                ),
+            options = listOf("BottomStart", "BottomEnd", "TopStart", "TopEnd"),
             selected = selectedPlacement,
             onSelect = { selectedPlacement = it },
         )
@@ -117,27 +129,25 @@ fun HoverCardDoc() {
                 placement = placement,
                 trigger = {
                     Text(
-                        stringResource(
-                            Res.string.hover_card_demo_hover_me,
-                            selectedPlacement,
-                        ),
+                        stringResource(Res.string.hover_card_demo_hover_me, selectedPlacement),
                         variant = TextVariant.P,
                         color = RikkaTheme.colors.primary,
                     )
                 },
             ) {
                 Text(
-                    stringResource(
-                        Res.string.hover_card_demo_card_at,
-                        selectedPlacement,
-                    ),
+                    stringResource(Res.string.hover_card_demo_card_at, selectedPlacement),
                     variant = TextVariant.P,
                 )
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun HoverCardUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -167,7 +177,48 @@ HoverCard(
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.hover_card_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                HoverCard(
+                    trigger = {
+                        Text(
+                            "@rikkaui",
+                            variant = TextVariant.P,
+                            color = RikkaTheme.colors.primary,
+                        )
+                    },
+                ) {
+                    Column {
+                        Text("RikkaUi", variant = TextVariant.Large)
+                        Spacer(Modifier.height(RikkaTheme.spacing.xs))
+                        Text("shadcn/ui for Compose Multiplatform.", variant = TextVariant.Muted)
+                    }
+                }
+            },
+            doDescription = stringResource(Res.string.hover_card_do_rich_preview_desc),
+            dontContent = {
+                HoverCard(
+                    trigger = {
+                        Text(
+                            "Tap here",
+                            variant = TextVariant.P,
+                            color = RikkaTheme.colors.primary,
+                        )
+                    },
+                ) {
+                    Text("This only works on desktop.", variant = TextVariant.Muted)
+                }
+            },
+            dontDescription = stringResource(Res.string.hover_card_dont_mobile_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun HoverCardApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

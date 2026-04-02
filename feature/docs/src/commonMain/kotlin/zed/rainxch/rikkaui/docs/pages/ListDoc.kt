@@ -27,12 +27,15 @@ import rikkaui.feature.docs.generated.resources.list_demo_spring_anims
 import rikkaui.feature.docs.generated.resources.list_demo_theme_aware
 import rikkaui.feature.docs.generated.resources.list_demo_use_component
 import rikkaui.feature.docs.generated.resources.list_demo_wrap_theme
+import rikkaui.feature.docs.generated.resources.list_do_variant_desc
+import rikkaui.feature.docs.generated.resources.list_dont_variant_desc
 import rikkaui.feature.docs.generated.resources.list_page_desc
 import rikkaui.feature.docs.generated.resources.list_prop_items_desc
 import rikkaui.feature.docs.generated.resources.list_prop_modifier_desc
 import rikkaui.feature.docs.generated.resources.list_prop_text_variant_desc
 import rikkaui.feature.docs.generated.resources.list_prop_variant_desc
 import rikkaui.feature.docs.generated.resources.list_section_custom
+import rikkaui.feature.docs.generated.resources.list_section_dos_donts
 import rikkaui.feature.docs.generated.resources.list_section_ordered
 import rikkaui.feature.docs.generated.resources.list_section_unordered
 import rikkaui.feature.docs.generated.resources.section_api_reference
@@ -45,9 +48,11 @@ import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.docs.components.CodeBlock
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -58,6 +63,17 @@ fun ListDoc() {
         description = stringResource(Res.string.list_page_desc),
     )
 
+    TabbedDocPage(
+        overview = { ListOverviewTab() },
+        usage = { ListUsageTab() },
+        api = { ListApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun ListOverviewTab() {
     DocSection(stringResource(Res.string.section_variants)) {
         var selected by remember { mutableStateOf("Unordered") }
 
@@ -89,9 +105,7 @@ fun ListDoc() {
         }
     }
 
-    DocSection(
-        stringResource(Res.string.list_section_unordered),
-    ) {
+    DocSection(stringResource(Res.string.list_section_unordered)) {
         DemoBox {
             RikkaList(
                 items =
@@ -105,9 +119,7 @@ fun ListDoc() {
         }
     }
 
-    DocSection(
-        stringResource(Res.string.list_section_ordered),
-    ) {
+    DocSection(stringResource(Res.string.list_section_ordered)) {
         DemoBox {
             RikkaList(
                 items =
@@ -122,9 +134,7 @@ fun ListDoc() {
         }
     }
 
-    DocSection(
-        stringResource(Res.string.list_section_custom),
-    ) {
+    DocSection(stringResource(Res.string.list_section_custom)) {
         DemoBox {
             Column {
                 Text(
@@ -155,7 +165,12 @@ fun ListDoc() {
             }
         }
     }
+}
 
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun ListUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -179,6 +194,30 @@ RikkaList(variant = ListVariant.Unordered) {
         )
     }
 
+    DocSection(stringResource(Res.string.list_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                RikkaList(
+                    items = listOf("Clone repo", "Install deps", "Run dev server"),
+                    variant = ListVariant.Ordered,
+                )
+            },
+            doDescription = stringResource(Res.string.list_do_variant_desc),
+            dontContent = {
+                RikkaList(
+                    items = listOf("Alice", "Bob", "Carol", "Dave"),
+                    variant = ListVariant.Ordered,
+                )
+            },
+            dontDescription = stringResource(Res.string.list_dont_variant_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun ListApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

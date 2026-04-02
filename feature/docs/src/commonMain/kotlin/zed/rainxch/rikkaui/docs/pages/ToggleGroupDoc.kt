@@ -14,16 +14,21 @@ import rikkaui.feature.docs.generated.resources.*
 import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
+import zed.rainxch.rikkaui.components.ui.toggle.Toggle
 import zed.rainxch.rikkaui.components.ui.togglegroup.ToggleGroup
 import zed.rainxch.rikkaui.components.ui.togglegroup.ToggleGroupAnimation
 import zed.rainxch.rikkaui.components.ui.togglegroup.ToggleGroupItem
 import zed.rainxch.rikkaui.components.ui.togglegroup.ToggleGroupVariant
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
 import zed.rainxch.rikkaui.docs.components.DocSection
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -40,6 +45,22 @@ fun ToggleGroupDoc() {
         description = stringResource(Res.string.toggle_group_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.SELECTION,
+        currentId = "toggle-group",
+    )
+
+    TabbedDocPage(
+        overview = { ToggleGroupOverviewTab() },
+        usage = { ToggleGroupUsageTab() },
+        api = { ToggleGroupApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun ToggleGroupOverviewTab() {
     // ─── Variants ───────────────────────────────────────────
     DocSection(stringResource(Res.string.section_variants)) {
         var selectedVariant by remember { mutableStateOf("Default") }
@@ -160,8 +181,12 @@ fun ToggleGroupDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun ToggleGroupUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -190,7 +215,56 @@ ToggleGroup {
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.toggle_group_section_dos_donts)) {
+        var selected by remember { mutableStateOf(0) }
+        var notificationsOn by remember { mutableStateOf(true) }
+        var darkModeOn by remember { mutableStateOf(false) }
+
+        DoAndDont(
+            doContent = {
+                ToggleGroup {
+                    ToggleGroupItem(
+                        text = stringResource(Res.string.toggle_group_demo_left),
+                        selected = selected == 0,
+                        onClick = { selected = 0 },
+                    )
+                    ToggleGroupItem(
+                        text = stringResource(Res.string.toggle_group_demo_center),
+                        selected = selected == 1,
+                        onClick = { selected = 1 },
+                    )
+                    ToggleGroupItem(
+                        text = stringResource(Res.string.toggle_group_demo_right),
+                        selected = selected == 2,
+                        onClick = { selected = 2 },
+                    )
+                }
+            },
+            doDescription = stringResource(Res.string.toggle_group_do_exclusive_desc),
+            dontContent = {
+                Column {
+                    Toggle(
+                        checked = notificationsOn,
+                        onCheckedChange = { notificationsOn = it },
+                        label = "Notifications",
+                    )
+                    Spacer(Modifier.height(RikkaTheme.spacing.sm))
+                    Toggle(
+                        checked = darkModeOn,
+                        onCheckedChange = { darkModeOn = it },
+                        label = "Dark Mode",
+                    )
+                }
+            },
+            dontDescription = stringResource(Res.string.toggle_group_dont_independent_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun ToggleGroupApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

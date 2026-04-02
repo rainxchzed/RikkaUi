@@ -14,14 +14,19 @@ import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
 import rikkaui.feature.docs.generated.resources.*
 import rikkaui.feature.docs.generated.resources.Res
+import zed.rainxch.rikkaui.components.ui.checkbox.Checkbox
 import zed.rainxch.rikkaui.components.ui.radio.RadioAnimation
 import zed.rainxch.rikkaui.components.ui.radio.RadioButton
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
 import zed.rainxch.rikkaui.docs.components.DocSection
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -38,6 +43,20 @@ fun RadioDoc() {
         description = stringResource(Res.string.radio_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.SELECTION,
+        currentId = "radio",
+    )
+
+    TabbedDocPage(
+        overview = { RadioOverviewTab() },
+        usage = { RadioUsageTab() },
+        api = { RadioApiTab() },
+    )
+}
+
+@Composable
+private fun RadioOverviewTab() {
     // ─── Animations Demo ────────────────────────────────────
     DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember {
@@ -138,8 +157,11 @@ fun RadioDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+@Composable
+private fun RadioUsageTab() {
+    // ─── Code Example ───────────────────────────────────────
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -160,6 +182,49 @@ RadioButton(
         )
     }
 
+    // ─── Do / Don't ─────────────────────────────────────────
+    Spacer(Modifier.height(RikkaTheme.spacing.xl))
+
+    var doSelected by remember { mutableIntStateOf(0) }
+    var dontCheckedA by remember { mutableStateOf(true) }
+    var dontCheckedB by remember { mutableStateOf(true) }
+
+    DoAndDont(
+        doContent = {
+            Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm)) {
+                RadioButton(
+                    selected = doSelected == 0,
+                    onClick = { doSelected = 0 },
+                    label = stringResource(Res.string.radio_demo_free),
+                )
+                RadioButton(
+                    selected = doSelected == 1,
+                    onClick = { doSelected = 1 },
+                    label = stringResource(Res.string.radio_demo_pro),
+                )
+            }
+        },
+        doDescription = stringResource(Res.string.radio_do_exclusive_desc),
+        dontContent = {
+            Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm)) {
+                Checkbox(
+                    checked = dontCheckedA,
+                    onCheckedChange = { dontCheckedA = it },
+                    label = stringResource(Res.string.checkbox_demo_email_notifications),
+                )
+                Checkbox(
+                    checked = dontCheckedB,
+                    onCheckedChange = { dontCheckedB = it },
+                    label = stringResource(Res.string.checkbox_demo_sms_notifications),
+                )
+            }
+        },
+        dontDescription = stringResource(Res.string.radio_dont_multiple_desc),
+    )
+}
+
+@Composable
+private fun RadioApiTab() {
     // ─── API Reference ──────────────────────────────────────
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(

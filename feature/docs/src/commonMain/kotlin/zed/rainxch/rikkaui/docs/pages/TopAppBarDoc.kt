@@ -16,12 +16,16 @@ import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.topappbar.TopAppBar
 import zed.rainxch.rikkaui.components.ui.topappbar.TopAppBarSize
 import zed.rainxch.rikkaui.components.ui.topappbar.TopAppBarVariant
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
 import zed.rainxch.rikkaui.docs.components.DocSection
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -38,6 +42,22 @@ fun TopAppBarDoc() {
         description = stringResource(Res.string.top_app_bar_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.NAVIGATION,
+        currentId = "top-app-bar",
+    )
+
+    TabbedDocPage(
+        overview = { TopAppBarOverviewTab() },
+        usage = { TopAppBarUsageTab() },
+        api = { TopAppBarApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun TopAppBarOverviewTab() {
     // ─── Variants ───────────────────────────────────────────
     DocSection(stringResource(Res.string.section_variants)) {
         var selectedVariant by remember { mutableStateOf("Default") }
@@ -119,8 +139,12 @@ fun TopAppBarDoc() {
             )
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun TopAppBarUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -151,7 +175,66 @@ TopAppBar(
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.top_app_bar_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                TopAppBar(
+                    title = stringResource(Res.string.top_app_bar_demo_profile),
+                    navigationIcon = {
+                        IconButton(
+                            icon = RikkaIcons.ArrowLeft,
+                            contentDescription =
+                                stringResource(Res.string.top_app_bar_demo_back),
+                            onClick = {},
+                        )
+                    },
+                    actions = {
+                        IconButton(
+                            icon = RikkaIcons.Settings,
+                            contentDescription =
+                                stringResource(Res.string.top_app_bar_demo_settings),
+                            onClick = {},
+                        )
+                    },
+                )
+            },
+            doDescription = stringResource(Res.string.top_app_bar_do_title_actions_desc),
+            dontContent = {
+                TopAppBar(
+                    title = stringResource(Res.string.top_app_bar_demo_dashboard),
+                    actions = {
+                        IconButton(
+                            icon = RikkaIcons.Settings,
+                            contentDescription = "Settings",
+                            onClick = {},
+                        )
+                        IconButton(
+                            icon = RikkaIcons.Search,
+                            contentDescription = "Search",
+                            onClick = {},
+                        )
+                        IconButton(
+                            icon = RikkaIcons.Edit,
+                            contentDescription = "Edit",
+                            onClick = {},
+                        )
+                        IconButton(
+                            icon = RikkaIcons.MoreHorizontal,
+                            contentDescription = "More",
+                            onClick = {},
+                        )
+                    },
+                )
+            },
+            dontDescription = stringResource(Res.string.top_app_bar_dont_overload_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun TopAppBarApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

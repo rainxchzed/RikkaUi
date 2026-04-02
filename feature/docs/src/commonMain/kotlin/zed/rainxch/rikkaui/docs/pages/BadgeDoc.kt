@@ -11,23 +11,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
+import rikkaui.feature.docs.generated.resources.*
 import rikkaui.feature.docs.generated.resources.Res
-import rikkaui.feature.docs.generated.resources.badge_demo_default
-import rikkaui.feature.docs.generated.resources.badge_demo_large
-import rikkaui.feature.docs.generated.resources.badge_demo_new
-import rikkaui.feature.docs.generated.resources.badge_demo_small
-import rikkaui.feature.docs.generated.resources.badge_page_desc
-import rikkaui.feature.docs.generated.resources.badge_prop_animation_desc
-import rikkaui.feature.docs.generated.resources.badge_prop_modifier_desc
-import rikkaui.feature.docs.generated.resources.badge_prop_size_desc
-import rikkaui.feature.docs.generated.resources.badge_prop_text_desc
-import rikkaui.feature.docs.generated.resources.badge_prop_variant_desc
-import rikkaui.feature.docs.generated.resources.component_badge_name
-import rikkaui.feature.docs.generated.resources.section_animations
-import rikkaui.feature.docs.generated.resources.section_api_reference
-import rikkaui.feature.docs.generated.resources.section_sizes
-import rikkaui.feature.docs.generated.resources.section_usage
-import rikkaui.feature.docs.generated.resources.section_variants
 import zed.rainxch.rikkaui.components.ui.badge.Badge
 import zed.rainxch.rikkaui.components.ui.badge.BadgeAnimation
 import zed.rainxch.rikkaui.components.ui.badge.BadgeSize
@@ -35,9 +20,11 @@ import zed.rainxch.rikkaui.components.ui.badge.BadgeVariant
 import zed.rainxch.rikkaui.docs.components.CodeBlock
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -48,6 +35,17 @@ fun BadgeDoc() {
         description = stringResource(Res.string.badge_page_desc),
     )
 
+    TabbedDocPage(
+        overview = { BadgeOverviewTab() },
+        usage = { BadgeUsageTab() },
+        api = { BadgeApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun BadgeOverviewTab() {
     DocSection(stringResource(Res.string.section_variants)) {
         var selectedVariant by remember { mutableStateOf("Default") }
 
@@ -140,7 +138,12 @@ fun BadgeDoc() {
             }
         }
     }
+}
 
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun BadgeUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -159,6 +162,29 @@ Badge(
         )
     }
 
+    DocSection(stringResource(Res.string.badge_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
+                ) {
+                    Badge(text = "New")
+                    Badge(text = "3", variant = BadgeVariant.Destructive)
+                }
+            },
+            doDescription = stringResource(Res.string.badge_do_status_desc),
+            dontContent = {
+                Badge(text = "This is a very long badge label that should be shorter")
+            },
+            dontDescription = stringResource(Res.string.badge_dont_long_text_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun BadgeApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

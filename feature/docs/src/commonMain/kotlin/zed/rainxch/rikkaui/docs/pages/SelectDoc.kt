@@ -1,5 +1,7 @@
 package zed.rainxch.rikkaui.docs.pages
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -16,12 +18,17 @@ import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.PopupAnimation
 import zed.rainxch.rikkaui.components.ui.select.Select
 import zed.rainxch.rikkaui.components.ui.select.SelectOption
+import zed.rainxch.rikkaui.components.ui.toggle.Toggle
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
 import zed.rainxch.rikkaui.docs.components.DocSection
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -54,6 +61,23 @@ fun SelectDoc() {
         description = stringResource(Res.string.select_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.TEXT_INPUTS,
+        currentId = "select",
+    )
+
+    TabbedDocPage(
+        overview = { SelectOverviewTab(themeOptions, fruitOptions) },
+        usage = { SelectUsageTab(themeOptions) },
+        api = { SelectApiTab() },
+    )
+}
+
+@Composable
+private fun SelectOverviewTab(
+    themeOptions: List<SelectOption>,
+    fruitOptions: List<SelectOption>,
+) {
     // ─── Popup Animations Demo ──────────────────────────────
     DocSection(stringResource(Res.string.select_section_popup_anims)) {
         var selectedAnim by remember {
@@ -111,8 +135,11 @@ fun SelectDoc() {
             )
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+@Composable
+private fun SelectUsageTab(themeOptions: List<SelectOption>) {
+    // ─── Code Example ───────────────────────────────────────
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -141,6 +168,38 @@ Select(
         )
     }
 
+    // ─── Do / Don't ─────────────────────────────────────────
+    Spacer(Modifier.height(RikkaTheme.spacing.xl))
+
+    var doSelected by remember { mutableStateOf("") }
+    var dontChecked by remember { mutableStateOf(false) }
+
+    DoAndDont(
+        doContent = {
+            Select(
+                selectedValue = doSelected,
+                onValueChange = { doSelected = it },
+                options = themeOptions,
+                placeholder = stringResource(Res.string.select_demo_choose_theme),
+                modifier = Modifier.width(200.dp),
+            )
+        },
+        doDescription = stringResource(Res.string.select_do_predefined_desc),
+        dontContent = {
+            Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm)) {
+                Toggle(
+                    checked = dontChecked,
+                    onCheckedChange = { dontChecked = it },
+                    label = "Enable",
+                )
+            }
+        },
+        dontDescription = stringResource(Res.string.select_dont_two_options_desc),
+    )
+}
+
+@Composable
+private fun SelectApiTab() {
     // ─── API Reference ──────────────────────────────────────
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(

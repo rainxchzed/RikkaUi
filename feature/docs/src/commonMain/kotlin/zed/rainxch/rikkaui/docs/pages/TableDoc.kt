@@ -21,9 +21,11 @@ import zed.rainxch.rikkaui.components.ui.table.TableRow
 import zed.rainxch.rikkaui.docs.components.CodeBlock
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -40,6 +42,17 @@ fun TableDoc() {
         description = stringResource(Res.string.table_page_desc),
     )
 
+    TabbedDocPage(
+        overview = { TableOverviewTab() },
+        usage = { TableUsageTab() },
+        api = { TableApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun TableOverviewTab() {
     // ─── Animation Modes ────────────────────────────────────
     DocSection(stringResource(Res.string.table_section_animation_modes)) {
         var selectedAnim by remember { mutableStateOf("Hover") }
@@ -121,9 +134,13 @@ fun TableDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
-    DocSection("Usage") {
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun TableUsageTab() {
+    DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
 Table {
@@ -150,8 +167,51 @@ Table(
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
-    DocSection("API Reference") {
+    DocSection(stringResource(Res.string.table_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                Table {
+                    TableHeader {
+                        TableHeaderCell("Name", Modifier.weight(1f))
+                        TableHeaderCell("Role", Modifier.weight(1f))
+                    }
+                    TableRow(rowIndex = 0) {
+                        TableCell("Alice", Modifier.weight(1f))
+                        TableCell("Engineer", Modifier.weight(1f))
+                    }
+                    TableRow(rowIndex = 1) {
+                        TableCell("Bob", Modifier.weight(1f))
+                        TableCell("Designer", Modifier.weight(1f))
+                    }
+                }
+            },
+            doDescription = stringResource(Res.string.table_do_header_desc),
+            dontContent = {
+                Table {
+                    TableRow(rowIndex = 0) {
+                        TableCell("Name", Modifier.weight(1f))
+                        TableCell("Role", Modifier.weight(1f))
+                    }
+                    TableRow(rowIndex = 1) {
+                        TableCell("Alice", Modifier.weight(1f))
+                        TableCell("Engineer", Modifier.weight(1f))
+                    }
+                    TableRow(rowIndex = 2) {
+                        TableCell("Bob", Modifier.weight(1f))
+                        TableCell("Designer", Modifier.weight(1f))
+                    }
+                }
+            },
+            dontDescription = stringResource(Res.string.table_dont_header_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun TableApiTab() {
+    DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
                 PropInfo(

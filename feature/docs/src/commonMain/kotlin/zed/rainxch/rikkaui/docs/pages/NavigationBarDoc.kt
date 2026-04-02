@@ -15,12 +15,16 @@ import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.navigationbar.NavigationBar
 import zed.rainxch.rikkaui.components.ui.navigationbar.NavigationBarAnimation
 import zed.rainxch.rikkaui.components.ui.navigationbar.NavigationBarItem
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
 import zed.rainxch.rikkaui.docs.components.DocSection
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -37,6 +41,22 @@ fun NavigationBarDoc() {
         description = stringResource(Res.string.nav_bar_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.NAVIGATION,
+        currentId = "navigation-bar",
+    )
+
+    TabbedDocPage(
+        overview = { NavigationBarOverviewTab() },
+        usage = { NavigationBarUsageTab() },
+        api = { NavigationBarApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun NavigationBarOverviewTab() {
     // ─── Animation Variants ─────────────────────────────────
     DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("Spring") }
@@ -117,8 +137,12 @@ fun NavigationBarDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun NavigationBarUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -143,7 +167,82 @@ NavigationBar {
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.nav_bar_section_dos_donts)) {
+        var selectedIndex by remember { mutableStateOf(0) }
+
+        DoAndDont(
+            doContent = {
+                NavigationBar {
+                    NavigationBarItem(
+                        selected = selectedIndex == 0,
+                        onClick = { selectedIndex = 0 },
+                        icon = RikkaIcons.User,
+                        label = stringResource(Res.string.nav_bar_demo_home),
+                    )
+                    NavigationBarItem(
+                        selected = selectedIndex == 1,
+                        onClick = { selectedIndex = 1 },
+                        icon = RikkaIcons.Search,
+                        label = stringResource(Res.string.nav_bar_demo_search),
+                    )
+                    NavigationBarItem(
+                        selected = selectedIndex == 2,
+                        onClick = { selectedIndex = 2 },
+                        icon = RikkaIcons.Settings,
+                        label = stringResource(Res.string.nav_bar_demo_settings),
+                    )
+                }
+            },
+            doDescription = stringResource(Res.string.nav_bar_do_primary_nav_desc),
+            dontContent = {
+                NavigationBar {
+                    NavigationBarItem(
+                        selected = selectedIndex == 0,
+                        onClick = { selectedIndex = 0 },
+                        icon = RikkaIcons.User,
+                        label = stringResource(Res.string.nav_bar_demo_home),
+                    )
+                    NavigationBarItem(
+                        selected = selectedIndex == 1,
+                        onClick = { selectedIndex = 1 },
+                        icon = RikkaIcons.Search,
+                        label = stringResource(Res.string.nav_bar_demo_search),
+                    )
+                    NavigationBarItem(
+                        selected = selectedIndex == 2,
+                        onClick = { selectedIndex = 2 },
+                        icon = RikkaIcons.Heart,
+                        label = stringResource(Res.string.nav_bar_demo_favorites),
+                    )
+                    NavigationBarItem(
+                        selected = selectedIndex == 3,
+                        onClick = { selectedIndex = 3 },
+                        icon = RikkaIcons.Settings,
+                        label = stringResource(Res.string.nav_bar_demo_settings),
+                    )
+                    NavigationBarItem(
+                        selected = selectedIndex == 4,
+                        onClick = { selectedIndex = 4 },
+                        icon = RikkaIcons.Star,
+                        label = "More",
+                    )
+                    NavigationBarItem(
+                        selected = selectedIndex == 5,
+                        onClick = { selectedIndex = 5 },
+                        icon = RikkaIcons.Menu,
+                        label = "Extra",
+                    )
+                }
+            },
+            dontDescription = stringResource(Res.string.nav_bar_dont_too_many_items_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun NavigationBarApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

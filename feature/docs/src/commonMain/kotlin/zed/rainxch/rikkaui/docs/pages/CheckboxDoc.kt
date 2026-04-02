@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -15,12 +16,17 @@ import rikkaui.feature.docs.generated.resources.*
 import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.checkbox.Checkbox
 import zed.rainxch.rikkaui.components.ui.checkbox.CheckboxAnimation
+import zed.rainxch.rikkaui.components.ui.radio.RadioButton
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
 import zed.rainxch.rikkaui.docs.components.DocSection
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -37,6 +43,20 @@ fun CheckboxDoc() {
         description = stringResource(Res.string.checkbox_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.SELECTION,
+        currentId = "checkbox",
+    )
+
+    TabbedDocPage(
+        overview = { CheckboxOverviewTab() },
+        usage = { CheckboxUsageTab() },
+        api = { CheckboxApiTab() },
+    )
+}
+
+@Composable
+private fun CheckboxOverviewTab() {
     // ─── Animations Demo ────────────────────────────────────
     DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember {
@@ -120,8 +140,11 @@ fun CheckboxDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+@Composable
+private fun CheckboxUsageTab() {
+    // ─── Code Example ───────────────────────────────────────
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -142,6 +165,49 @@ Checkbox(
         )
     }
 
+    // ─── Do / Don't ─────────────────────────────────────────
+    Spacer(Modifier.height(RikkaTheme.spacing.xl))
+
+    var doCheckedA by remember { mutableStateOf(true) }
+    var doCheckedB by remember { mutableStateOf(false) }
+    var dontSelected by remember { mutableIntStateOf(0) }
+
+    DoAndDont(
+        doContent = {
+            Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm)) {
+                Checkbox(
+                    checked = doCheckedA,
+                    onCheckedChange = { doCheckedA = it },
+                    label = stringResource(Res.string.checkbox_demo_email_notifications),
+                )
+                Checkbox(
+                    checked = doCheckedB,
+                    onCheckedChange = { doCheckedB = it },
+                    label = stringResource(Res.string.checkbox_demo_sms_notifications),
+                )
+            }
+        },
+        doDescription = stringResource(Res.string.checkbox_do_independent_desc),
+        dontContent = {
+            Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm)) {
+                RadioButton(
+                    selected = dontSelected == 0,
+                    onClick = { dontSelected = 0 },
+                    label = stringResource(Res.string.radio_demo_option_a),
+                )
+                RadioButton(
+                    selected = dontSelected == 1,
+                    onClick = { dontSelected = 1 },
+                    label = stringResource(Res.string.radio_demo_option_b),
+                )
+            }
+        },
+        dontDescription = stringResource(Res.string.checkbox_dont_exclusive_desc),
+    )
+}
+
+@Composable
+private fun CheckboxApiTab() {
     // ─── API Reference ──────────────────────────────────────
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(

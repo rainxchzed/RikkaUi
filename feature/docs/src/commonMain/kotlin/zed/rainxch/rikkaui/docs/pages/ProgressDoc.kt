@@ -18,22 +18,21 @@ import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.progress.Progress
 import zed.rainxch.rikkaui.components.ui.progress.ProgressAnimation
+import zed.rainxch.rikkaui.components.ui.spinner.Spinner
 import zed.rainxch.rikkaui.components.ui.text.Text
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
-/**
- * Documentation page for the Progress component.
- *
- * Demonstrates animated progress bars with different
- * animation styles and customization options.
- */
 @Composable
 fun ProgressDoc() {
     ComponentPageHeader(
@@ -41,7 +40,22 @@ fun ProgressDoc() {
         description = stringResource(Res.string.progress_page_desc),
     )
 
-    // ─── Animation Modes ────────────────────────────────────
+    ComponentFamily(
+        related = ComponentFamilies.LOADING,
+        currentId = "progress",
+    )
+
+    TabbedDocPage(
+        overview = { ProgressOverviewTab() },
+        usage = { ProgressUsageTab() },
+        api = { ProgressApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun ProgressOverviewTab() {
     DocSection(stringResource(Res.string.progress_section_animation_modes)) {
         var selectedAnim by remember { mutableStateOf("Spring") }
         var progress by remember { mutableStateOf(0.6f) }
@@ -82,7 +96,6 @@ fun ProgressDoc() {
         }
     }
 
-    // ─── Custom Height ──────────────────────────────────────
     DocSection(stringResource(Res.string.progress_section_custom_height)) {
         DemoBox {
             Column(
@@ -109,8 +122,12 @@ fun ProgressDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun ProgressUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -133,7 +150,27 @@ Progress(
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.progress_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                Progress(
+                    progress = 0.7f,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            },
+            doDescription = stringResource(Res.string.progress_do_known_desc),
+            dontContent = {
+                Spinner()
+            },
+            dontDescription = stringResource(Res.string.progress_dont_indeterminate_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun ProgressApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

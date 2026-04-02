@@ -16,12 +16,17 @@ import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.input.Input
 import zed.rainxch.rikkaui.components.ui.input.InputAnimation
+import zed.rainxch.rikkaui.components.ui.textarea.Textarea
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
 import zed.rainxch.rikkaui.docs.components.DocSection
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -38,6 +43,20 @@ fun InputDoc() {
         description = stringResource(Res.string.input_page_desc),
     )
 
+    ComponentFamily(
+        related = ComponentFamilies.TEXT_INPUTS,
+        currentId = "input",
+    )
+
+    TabbedDocPage(
+        overview = { InputOverviewTab() },
+        usage = { InputUsageTab() },
+        api = { InputApiTab() },
+    )
+}
+
+@Composable
+private fun InputOverviewTab() {
     // ─── Focus Animations Demo ──────────────────────────────
     DocSection(stringResource(Res.string.input_section_focus)) {
         var selectedAnim by remember {
@@ -109,8 +128,11 @@ fun InputDoc() {
             )
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+@Composable
+private fun InputUsageTab() {
+    // ─── Code Example ───────────────────────────────────────
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -134,6 +156,36 @@ Input(
         )
     }
 
+    // ─── Do / Don't ─────────────────────────────────────────
+    Spacer(Modifier.height(RikkaTheme.spacing.xl))
+
+    var doText by remember { mutableStateOf("") }
+    var dontText by remember { mutableStateOf("") }
+
+    DoAndDont(
+        doContent = {
+            Input(
+                value = doText,
+                onValueChange = { doText = it },
+                placeholder = stringResource(Res.string.input_demo_focus_placeholder),
+                modifier = Modifier.width(220.dp),
+            )
+        },
+        doDescription = stringResource(Res.string.input_do_placeholder_desc),
+        dontContent = {
+            Textarea(
+                value = dontText,
+                onValueChange = { dontText = it },
+                placeholder = "Long text...",
+                modifier = Modifier.width(220.dp),
+            )
+        },
+        dontDescription = stringResource(Res.string.input_dont_multiline_desc),
+    )
+}
+
+@Composable
+private fun InputApiTab() {
     // ─── API Reference ──────────────────────────────────────
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(

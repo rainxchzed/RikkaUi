@@ -15,17 +15,25 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import rikkaui.feature.docs.generated.resources.*
 import rikkaui.feature.docs.generated.resources.Res
+import zed.rainxch.rikkaui.components.ui.alert.Alert
+import zed.rainxch.rikkaui.components.ui.alert.AlertDescription
+import zed.rainxch.rikkaui.components.ui.alert.AlertTitle
+import zed.rainxch.rikkaui.components.ui.alert.AlertVariant
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.toast.LocalToastHostState
 import zed.rainxch.rikkaui.components.ui.toast.ToastVariant
+import zed.rainxch.rikkaui.docs.catalog.ComponentFamilies
 import zed.rainxch.rikkaui.docs.components.CodeBlock
+import zed.rainxch.rikkaui.docs.components.ComponentFamily
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -39,7 +47,25 @@ fun ToastDoc() {
         description = stringResource(Res.string.toast_page_desc),
     )
 
-    // ─── Variants ───────────────────────────────────────────
+    ComponentFamily(
+        related = ComponentFamilies.MESSAGING,
+        currentId = "toast",
+    )
+
+    TabbedDocPage(
+        overview = { ToastOverviewTab(toastState, scope) },
+        usage = { ToastUsageTab() },
+        api = { ToastApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun ToastOverviewTab(
+    toastState: zed.rainxch.rikkaui.components.ui.toast.ToastHostState,
+    scope: kotlinx.coroutines.CoroutineScope,
+) {
     DocSection(stringResource(Res.string.section_variants)) {
         var selectedVariant by remember { mutableStateOf("Default") }
 
@@ -96,7 +122,6 @@ fun ToastDoc() {
         }
     }
 
-    // ─── Animations ─────────────────────────────────────────
     DocSection(stringResource(Res.string.section_animations)) {
         var selectedAnim by remember { mutableStateOf("SlideIn") }
 
@@ -129,7 +154,6 @@ fun ToastDoc() {
         }
     }
 
-    // ─── With Action ────────────────────────────────────────
     DocSection(stringResource(Res.string.toast_section_with_action)) {
         val itemDeletedMessage = stringResource(Res.string.toast_demo_item_deleted)
         val undoLabel = stringResource(Res.string.toast_demo_undo)
@@ -153,8 +177,12 @@ fun ToastDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun ToastUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -181,7 +209,30 @@ scope.launch {
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.toast_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                Button(text = "Save", onClick = {})
+            },
+            doDescription = stringResource(Res.string.toast_do_brief_desc),
+            dontContent = {
+                Alert(variant = AlertVariant.Destructive) {
+                    AlertTitle("Error", variant = AlertVariant.Destructive)
+                    AlertDescription(
+                        "Connection failed",
+                        variant = AlertVariant.Destructive,
+                    )
+                }
+            },
+            dontDescription = stringResource(Res.string.toast_dont_critical_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun ToastApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(

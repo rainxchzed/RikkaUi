@@ -17,21 +17,19 @@ import rikkaui.feature.docs.generated.resources.Res
 import zed.rainxch.rikkaui.components.ui.kbd.Kbd
 import zed.rainxch.rikkaui.components.ui.kbd.KbdCombo
 import zed.rainxch.rikkaui.components.ui.kbd.KbdSize
+import zed.rainxch.rikkaui.components.ui.text.Text
+import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.docs.components.CodeBlock
 import zed.rainxch.rikkaui.docs.components.ComponentPageHeader
 import zed.rainxch.rikkaui.docs.components.DemoBox
+import zed.rainxch.rikkaui.docs.components.DoAndDont
 import zed.rainxch.rikkaui.docs.components.DocSection
 import zed.rainxch.rikkaui.docs.components.PropInfo
 import zed.rainxch.rikkaui.docs.components.PropsTable
+import zed.rainxch.rikkaui.docs.components.TabbedDocPage
 import zed.rainxch.rikkaui.docs.components.VariantSelector
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
-/**
- * Documentation page for the Kbd component.
- *
- * Demonstrates keyboard shortcut indicators in various
- * sizes and the KbdCombo helper.
- */
 @Composable
 fun KbdDoc() {
     ComponentPageHeader(
@@ -39,7 +37,17 @@ fun KbdDoc() {
         description = stringResource(Res.string.kbd_page_desc),
     )
 
-    // ─── Sizes ──────────────────────────────────────────────
+    TabbedDocPage(
+        overview = { KbdOverviewTab() },
+        usage = { KbdUsageTab() },
+        api = { KbdApiTab() },
+    )
+}
+
+// ─── Overview Tab ───────────────────────────────────────────
+
+@Composable
+private fun KbdOverviewTab() {
     DocSection(stringResource(Res.string.section_sizes)) {
         var selectedSize by remember { mutableStateOf("Default") }
 
@@ -72,7 +80,6 @@ fun KbdDoc() {
         }
     }
 
-    // ─── Kbd Combo ──────────────────────────────────────────
     DocSection(stringResource(Res.string.kbd_section_combos)) {
         DemoBox {
             Column(
@@ -90,8 +97,12 @@ fun KbdDoc() {
             }
         }
     }
+}
 
-    // ─── Usage ──────────────────────────────────────────────
+// ─── Usage Tab ──────────────────────────────────────────────
+
+@Composable
+private fun KbdUsageTab() {
     DocSection(stringResource(Res.string.section_usage)) {
         CodeBlock(
             """
@@ -107,7 +118,28 @@ KbdCombo(
         )
     }
 
-    // ─── API Reference ──────────────────────────────────────
+    DocSection(stringResource(Res.string.kbd_section_dos_donts)) {
+        DoAndDont(
+            doContent = {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
+                ) {
+                    KbdCombo(keys = listOf("Ctrl", "S"))
+                }
+            },
+            doDescription = stringResource(Res.string.kbd_do_shortcuts_desc),
+            dontContent = {
+                Kbd(text = "myVariable")
+            },
+            dontDescription = stringResource(Res.string.kbd_dont_inline_code_desc),
+        )
+    }
+}
+
+// ─── API Tab ────────────────────────────────────────────────
+
+@Composable
+private fun KbdApiTab() {
     DocSection(stringResource(Res.string.section_api_reference)) {
         PropsTable(
             listOf(
