@@ -15,15 +15,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import rikkaui.feature.docs.generated.resources.Res
 import rikkaui.feature.docs.generated.resources.docs_components
 import rikkaui.feature.docs.generated.resources.docs_getting_started
+import rikkaui.feature.docs.generated.resources.docs_search_placeholder
+import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
+import zed.rainxch.rikkaui.components.ui.input.Input
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.docs.catalog.ComponentCategory
@@ -38,61 +44,101 @@ fun DocsSidebar(
     onSelect: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    var searchQuery by remember { mutableStateOf("") }
+
     Column(
         modifier = modifier,
         verticalArrangement =
             Arrangement.spacedBy(RikkaTheme.spacing.xs),
     ) {
-        Text(
-            text = stringResource(Res.string.docs_getting_started),
-            variant = TextVariant.H4,
+        // ─── Search Field ──────────────────────────────────
+        Input(
+            value = searchQuery,
+            onValueChange = { searchQuery = it },
+            placeholder = stringResource(Res.string.docs_search_placeholder),
+            leadingIcon = RikkaIcons.Search,
+            clearable = searchQuery.isNotEmpty(),
+            modifier = Modifier.fillMaxWidth().padding(bottom = RikkaTheme.spacing.sm),
         )
 
-        Spacer(Modifier.height(RikkaTheme.spacing.xs))
+        val query = searchQuery.trim().lowercase()
 
-        guidePages.forEach { page ->
-            SidebarItem(
-                name = stringResource(page.nameRes),
-                isSelected = page.id == selectedId,
-                onClick = { onSelect(page.id) },
+        // ─── Getting Started ───────────────────────────────
+        val filteredGuides =
+            if (query.isEmpty()) {
+                guidePages
+            } else {
+                guidePages.filter { page ->
+                    page.id.lowercase().contains(query)
+                }
+            }
+
+        if (filteredGuides.isNotEmpty()) {
+            Text(
+                text = stringResource(Res.string.docs_getting_started),
+                variant = TextVariant.H4,
             )
+
+            Spacer(Modifier.height(RikkaTheme.spacing.xs))
+
+            filteredGuides.forEach { page ->
+                SidebarItem(
+                    name = stringResource(page.nameRes),
+                    isSelected = page.id == selectedId,
+                    onClick = { onSelect(page.id) },
+                )
+            }
+
+            Spacer(Modifier.height(RikkaTheme.spacing.lg))
         }
 
-        Spacer(Modifier.height(RikkaTheme.spacing.lg))
+        // ─── Components ────────────────────────────────────
+        val filteredGrouped =
+            if (query.isEmpty()) {
+                grouped
+            } else {
+                grouped.mapValues { (_, entries) ->
+                    entries.filter { entry ->
+                        entry.id.lowercase().contains(query)
+                    }
+                }.filterValues { it.isNotEmpty() }
+            }
 
-        Text(
-            text = stringResource(Res.string.docs_components),
-            variant = TextVariant.H4,
-        )
-
-        Spacer(Modifier.height(RikkaTheme.spacing.xs))
-
-        grouped.forEach { (category, entries) ->
-            Spacer(Modifier.height(RikkaTheme.spacing.sm))
-
-            BasicText(
-                text = stringResource(category.labelRes),
-                style =
-                    RikkaTheme.typography.small.merge(
-                        TextStyle(
-                            color =
-                                RikkaTheme.colors
-                                    .onMuted,
-                            fontWeight = FontWeight.SemiBold,
-                        ),
-                    ),
-                modifier =
-                    Modifier.padding(
-                        vertical = RikkaTheme.spacing.xs,
-                    ),
+        if (filteredGrouped.isNotEmpty()) {
+            Text(
+                text = stringResource(Res.string.docs_components),
+                variant = TextVariant.H4,
             )
 
-            entries.forEach { entry ->
-                SidebarItem(
-                    name = stringResource(entry.nameRes),
-                    isSelected = entry.id == selectedId,
-                    onClick = { onSelect(entry.id) },
+            Spacer(Modifier.height(RikkaTheme.spacing.xs))
+
+            filteredGrouped.forEach { (category, entries) ->
+                Spacer(Modifier.height(RikkaTheme.spacing.sm))
+
+                BasicText(
+                    text = stringResource(category.labelRes),
+                    style =
+                        RikkaTheme.typography.small.merge(
+                            TextStyle(
+                                color =
+                                    RikkaTheme.colors
+                                        .onMuted,
+                                fontWeight = FontWeight.SemiBold,
+                            ),
+                        ),
+                    modifier =
+                        Modifier.padding(
+                            vertical = RikkaTheme.spacing.xs,
+                        ),
                 )
+
+                entries.forEach { entry ->
+                    SidebarItem(
+                        name = stringResource(entry.nameRes),
+                        isSelected = entry.id == selectedId,
+                        onClick = { onSelect(entry.id) },
+                    )
+                }
             }
         }
     }
