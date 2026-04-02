@@ -27,6 +27,8 @@ import rikkaui.feature.docs.generated.resources.component_dialog_desc
 import rikkaui.feature.docs.generated.resources.component_dialog_name
 import rikkaui.feature.docs.generated.resources.component_dropdown_menu_desc
 import rikkaui.feature.docs.generated.resources.component_dropdown_menu_name
+import rikkaui.feature.docs.generated.resources.component_fab_desc
+import rikkaui.feature.docs.generated.resources.component_fab_name
 import rikkaui.feature.docs.generated.resources.component_hover_card_desc
 import rikkaui.feature.docs.generated.resources.component_hover_card_name
 import rikkaui.feature.docs.generated.resources.component_input_desc
@@ -94,6 +96,7 @@ import zed.rainxch.rikkaui.docs.pages.CollapsibleDoc
 import zed.rainxch.rikkaui.docs.pages.ContextMenuDoc
 import zed.rainxch.rikkaui.docs.pages.DialogDoc
 import zed.rainxch.rikkaui.docs.pages.DropdownMenuDoc
+import zed.rainxch.rikkaui.docs.pages.FabDoc
 import zed.rainxch.rikkaui.docs.pages.HoverCardDoc
 import zed.rainxch.rikkaui.docs.pages.InputDoc
 import zed.rainxch.rikkaui.docs.pages.KbdDoc
@@ -189,6 +192,15 @@ object ComponentRegistry {
                 descriptionRes = Res.string.component_button_desc,
                 category = ComponentCategory.Forms,
                 content = { ButtonDoc() },
+            ),
+            ComponentEntry(
+                id = "fab",
+                rawName = "FAB",
+                rawDescription = "Floating action button with 4 variants, 3 sizes, and extended label mode.",
+                nameRes = Res.string.component_fab_name,
+                descriptionRes = Res.string.component_fab_desc,
+                category = ComponentCategory.Forms,
+                content = { FabDoc() },
             ),
             ComponentEntry(
                 id = "input",

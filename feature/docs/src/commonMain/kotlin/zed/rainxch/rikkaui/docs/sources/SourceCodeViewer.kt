@@ -112,10 +112,11 @@ private fun InstructionBanner() {
                     ),
         ) {
             BasicText(
-                text = stringResource(
-                    Res.string.source_dependency,
-                    RikkaVersion.FOUNDATION,
-                ),
+                text =
+                    stringResource(
+                        Res.string.source_dependency,
+                        RikkaVersion.FOUNDATION,
+                    ),
                 style =
                     TextStyle(
                         fontFamily = FontFamily.Monospace,

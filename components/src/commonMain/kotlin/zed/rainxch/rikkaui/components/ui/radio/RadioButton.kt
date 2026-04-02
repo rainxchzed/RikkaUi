@@ -3,7 +3,6 @@ package zed.rainxch.rikkaui.components.ui.radio
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.snap
-import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
@@ -20,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.lerp
@@ -208,8 +208,11 @@ private fun resolveRadioColors(
 
         selected && isPressed -> {
             val pressed =
-                if (colors.primaryPressed != Color.Unspecified) colors.primaryPressed
-                else lerp(colors.primary, colors.onBackground, 1f - motion.pressAlpha)
+                if (colors.primaryPressed != Color.Unspecified) {
+                    colors.primaryPressed
+                } else {
+                    lerp(colors.primary, colors.onBackground, 1f - motion.pressAlpha)
+                }
             RadioColors(
                 ring = pressed,
                 dot = pressed,
@@ -218,8 +221,11 @@ private fun resolveRadioColors(
 
         selected && isHovered -> {
             val hovered =
-                if (colors.primaryHover != Color.Unspecified) colors.primaryHover
-                else lerp(colors.primary, colors.onBackground, 1f - motion.hoverAlpha)
+                if (colors.primaryHover != Color.Unspecified) {
+                    colors.primaryHover
+                } else {
+                    lerp(colors.primary, colors.onBackground, 1f - motion.hoverAlpha)
+                }
             RadioColors(
                 ring = hovered,
                 dot = hovered,

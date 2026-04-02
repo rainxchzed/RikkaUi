@@ -48,13 +48,14 @@ fun WhatsNewDoc() {
         Spacer(Modifier.height(RikkaTheme.spacing.sm))
 
         RikkaList(
-            items = listOf(
-                stringResource(Res.string.whats_new_colors_item_token_count),
-                stringResource(Res.string.whats_new_colors_item_on_naming),
-                stringResource(Res.string.whats_new_colors_item_hover_press),
-                stringResource(Res.string.whats_new_colors_item_tinted),
-                stringResource(Res.string.whats_new_colors_item_tailwind),
-            ),
+            items =
+                listOf(
+                    stringResource(Res.string.whats_new_colors_item_token_count),
+                    stringResource(Res.string.whats_new_colors_item_on_naming),
+                    stringResource(Res.string.whats_new_colors_item_hover_press),
+                    stringResource(Res.string.whats_new_colors_item_tinted),
+                    stringResource(Res.string.whats_new_colors_item_tailwind),
+                ),
             variant = ListVariant.Unordered,
         )
 
@@ -106,14 +107,15 @@ Button(onClick = {}) {
         Spacer(Modifier.height(RikkaTheme.spacing.sm))
 
         RikkaList(
-            items = listOf(
-                stringResource(Res.string.whats_new_foundation_item_motion),
-                stringResource(Res.string.whats_new_foundation_item_elevation),
-                stringResource(Res.string.whats_new_foundation_item_shapes),
-                stringResource(Res.string.whats_new_foundation_item_typography),
-                stringResource(Res.string.whats_new_foundation_item_touch),
-                stringResource(Res.string.whats_new_foundation_item_focus_ring),
-            ),
+            items =
+                listOf(
+                    stringResource(Res.string.whats_new_foundation_item_motion),
+                    stringResource(Res.string.whats_new_foundation_item_elevation),
+                    stringResource(Res.string.whats_new_foundation_item_shapes),
+                    stringResource(Res.string.whats_new_foundation_item_typography),
+                    stringResource(Res.string.whats_new_foundation_item_touch),
+                    stringResource(Res.string.whats_new_foundation_item_focus_ring),
+                ),
             variant = ListVariant.Unordered,
         )
     }
@@ -160,11 +162,12 @@ Button(
         Spacer(Modifier.height(RikkaTheme.spacing.sm))
 
         RikkaList(
-            items = listOf(
-                stringResource(Res.string.whats_new_a11y_item_roles),
-                stringResource(Res.string.whats_new_a11y_item_touch),
-                stringResource(Res.string.whats_new_a11y_item_staggered),
-            ),
+            items =
+                listOf(
+                    stringResource(Res.string.whats_new_a11y_item_roles),
+                    stringResource(Res.string.whats_new_a11y_item_touch),
+                    stringResource(Res.string.whats_new_a11y_item_staggered),
+                ),
             variant = ListVariant.Unordered,
         )
     }
@@ -179,11 +182,12 @@ Button(
         Spacer(Modifier.height(RikkaTheme.spacing.sm))
 
         RikkaList(
-            items = listOf(
-                stringResource(Res.string.whats_new_cli_item_browser),
-                stringResource(Res.string.whats_new_cli_item_detection),
-                stringResource(Res.string.whats_new_cli_item_tests),
-            ),
+            items =
+                listOf(
+                    stringResource(Res.string.whats_new_cli_item_browser),
+                    stringResource(Res.string.whats_new_cli_item_detection),
+                    stringResource(Res.string.whats_new_cli_item_tests),
+                ),
             variant = ListVariant.Unordered,
         )
     }
@@ -198,13 +202,14 @@ Button(
         Spacer(Modifier.height(RikkaTheme.spacing.sm))
 
         RikkaList(
-            items = listOf(
-                stringResource(Res.string.whats_new_website_item_hash_routing),
-                stringResource(Res.string.whats_new_website_item_catalog),
-                stringResource(Res.string.whats_new_website_item_source_viewer),
-                stringResource(Res.string.whats_new_website_item_creator),
-                stringResource(Res.string.whats_new_website_item_responsive),
-            ),
+            items =
+                listOf(
+                    stringResource(Res.string.whats_new_website_item_hash_routing),
+                    stringResource(Res.string.whats_new_website_item_catalog),
+                    stringResource(Res.string.whats_new_website_item_source_viewer),
+                    stringResource(Res.string.whats_new_website_item_creator),
+                    stringResource(Res.string.whats_new_website_item_responsive),
+                ),
             variant = ListVariant.Unordered,
         )
     }
@@ -224,28 +229,29 @@ Button(
 
 @Composable
 private fun MigrationTable() {
-    val renames = listOf(
-        "foreground" to "onBackground",
-        "card" to "surface",
-        "cardForeground" to "onSurface",
-        "primaryForeground" to "onPrimary",
-        "secondaryForeground" to "onSecondary",
-        "mutedForeground" to "onMuted",
-        "destructiveForeground" to "onDestructive",
-        "accentForeground" to "onPrimary",
-        "popover" to "surface",
-        "popoverForeground" to "onSurface",
-        "input" to "border",
-    )
+    val renames =
+        listOf(
+            "foreground" to "onBackground",
+            "card" to "surface",
+            "cardForeground" to "onSurface",
+            "primaryForeground" to "onPrimary",
+            "secondaryForeground" to "onSecondary",
+            "mutedForeground" to "onMuted",
+            "destructiveForeground" to "onDestructive",
+            "accentForeground" to "onPrimary",
+            "popover" to "surface",
+            "popoverForeground" to "onSurface",
+            "input" to "border",
+        )
 
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(
-                RikkaTheme.colors.surface,
-                RikkaTheme.shapes.md,
-            )
-            .padding(RikkaTheme.spacing.md),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .background(
+                    RikkaTheme.colors.surface,
+                    RikkaTheme.shapes.md,
+                ).padding(RikkaTheme.spacing.md),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),

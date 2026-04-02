@@ -449,8 +449,11 @@ private fun resolveButtonColors(
             background =
                 when {
                     isHovered ->
-                        if (colors.secondaryHover != Color.Unspecified) colors.secondaryHover
-                        else colors.muted
+                        if (colors.secondaryHover != Color.Unspecified) {
+                            colors.secondaryHover
+                        } else {
+                            colors.muted
+                        }
                     else -> Color.Transparent
                 },
             foreground = colors.onBackground,

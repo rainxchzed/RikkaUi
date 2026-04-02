@@ -14,11 +14,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.docs.catalog.ComponentRegistry
 import zed.rainxch.rikkaui.docs.components.CompactSelector
 import zed.rainxch.rikkaui.docs.components.DocsSidebar
+import zed.rainxch.rikkaui.docs.components.LocalDocNavigation
 import zed.rainxch.rikkaui.docs.components.PageContent
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
@@ -28,21 +30,23 @@ fun DocsScreen(
     registry: ComponentRegistry,
     onSelect: (String) -> Unit,
 ) {
-    BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
-        val isWide = maxWidth >= 800.dp
+    CompositionLocalProvider(LocalDocNavigation provides onSelect) {
+        BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+            val isWide = maxWidth >= 800.dp
 
-        if (isWide) {
-            WideLayout(
-                state = state,
-                registry = registry,
-                onSelect = onSelect,
-            )
-        } else {
-            CompactLayout(
-                state = state,
-                registry = registry,
-                onSelect = onSelect,
-            )
+            if (isWide) {
+                WideLayout(
+                    state = state,
+                    registry = registry,
+                    onSelect = onSelect,
+                )
+            } else {
+                CompactLayout(
+                    state = state,
+                    registry = registry,
+                    onSelect = onSelect,
+                )
+            }
         }
     }
 }
