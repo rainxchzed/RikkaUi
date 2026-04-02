@@ -39,7 +39,7 @@ fun AppNavigation(
         if (!hasNavigated.value && initialRoute != AppNavGraph.HomeRoute) {
             hasNavigated.value = true
             navController.navigate(initialRoute) {
-                popUpTo<AppNavGraph.HomeRoute> { inclusive = true }
+                popUpTo<AppNavGraph.HomeRoute> { inclusive = false }
                 launchSingleTop = true
             }
         }

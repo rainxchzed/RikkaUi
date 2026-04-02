@@ -65,7 +65,6 @@ import zed.rainxch.rikkaui.foundation.RikkaPalette
 import zed.rainxch.rikkaui.foundation.RikkaStylePreset
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 import zed.rainxch.rikkaui.foundation.rikkaTypography
-import zed.rainxch.rikkaui.navigation.AppNavGraph.HomeRoute
 import zed.rainxch.rikkaui.navigation.AppNavigation
 import zed.rainxch.rikkaui.navigation.NavEntry
 import zed.rainxch.rikkaui.navigation.resolveInitialRoute
@@ -198,8 +197,8 @@ private fun TopNavBar(
                                     text = stringResource(link.label),
                                     onClick = {
                                         navController.navigate(link.route) {
-                                            popUpTo<HomeRoute> {
-                                                inclusive = false
+                                            popUpTo(navController.graph.id) {
+                                                inclusive = true
                                             }
                                             launchSingleTop = true
                                         }
@@ -316,7 +315,9 @@ private fun MobileMenu(
                 isActive = isActive,
                 onClick = {
                     navController.navigate(link.route) {
-                        popUpTo<HomeRoute> { inclusive = false }
+                        popUpTo(navController.graph.id) {
+                            inclusive = true
+                        }
                         launchSingleTop = true
                     }
                     onNavigate()

@@ -3,6 +3,7 @@
     <!-- ─── Sidebar / Navigation ─────────────────────────────── -->
     <string name="docs_getting_started">Getting Started</string>
     <string name="docs_components">Components</string>
+    <string name="docs_search_placeholder">Search docs...</string>
 
     <!-- ─── Components Catalog Page ────────────────────────────── -->
     <string name="catalog_title">Components</string>
@@ -88,6 +89,9 @@
     <string name="doc_tab_overview">Overview</string>
     <string name="doc_tab_usage">Usage</string>
     <string name="doc_tab_api">API</string>
+    <string name="doc_preview_light">Preview in light mode</string>
+    <string name="doc_preview_dark">Preview in dark mode</string>
+    <string name="doc_preview_auto">Follow site theme</string>
 
     <!-- ─── Do and Dont ─────────────────────────────────────── -->
     <string name="do_label">Do</string>
@@ -216,7 +220,7 @@
     <string name="intro_platform_body">RikkaUI works in both Compose Multiplatform (KMP) projects and native Android projects that use Jetpack Compose. No KMP setup required for Android-only projects \u2014 just add the dependency and go.</string>
     <string name="intro_section_component_count">Component Count</string>
     <string name="intro_stat_total_components">Total Components</string>
-    <string name="intro_stat_total_components_value">41</string>
+    <string name="intro_stat_total_components_value">42</string>
     <string name="intro_stat_animation_enums">Animation Enums</string>
     <string name="intro_stat_animation_enums_value">20+</string>
     <string name="intro_stat_style_presets">Style Presets</string>
