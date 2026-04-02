@@ -431,6 +431,19 @@ Developers starting NEW Compose Multiplatform projects who want:
 - Copy-paste components they own (no dependency lock-in)
 - shadcn-style registry for community component sharing
 
+## Specialized Agents (`.claude/agents/`)
+
+Four agents handle different aspects of RikkaUI development. **Auto-invoke them during conversation based on the task — the user should never have to ask for a specific agent.**
+
+| Agent | Model | When to use |
+|---|---|---|
+| `rikka-researcher` | Opus | Studying other design systems, comparing approaches, extracting patterns |
+| `rikka-component-writer` | Opus | Writing or improving components, quality passes |
+| `rikka-doc-writer` | Sonnet | Creating/updating doc pages, bulk doc migrations |
+| `rikka-auditor` | Opus | Reviewing components for quality, accessibility, correctness |
+
+**Workflow pattern:** Researcher → Component Writer → Doc Writer → Auditor. Spawn them as subagents in parallel where possible.
+
 ## Font Resources
 
 Located at `composeApp/src/webMain/composeResources/font/`:
