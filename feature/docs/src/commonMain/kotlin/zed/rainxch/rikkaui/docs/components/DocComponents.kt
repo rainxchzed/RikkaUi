@@ -58,7 +58,6 @@ import zed.rainxch.rikkaui.components.ui.icon.IconSize
 import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.tabs.Tab
-import zed.rainxch.rikkaui.components.ui.tabs.TabContent
 import zed.rainxch.rikkaui.components.ui.tabs.TabList
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
@@ -510,12 +509,12 @@ fun TabbedDocPage(
             }
         }
 
-        TabContent(selectedIndex = selectedTab) {
-            when (selectedTab) {
-                0 -> overview()
-                1 -> usage()
-                2 -> api()
-            }
+        Spacer(Modifier.height(RikkaTheme.spacing.md))
+
+        when (selectedTab) {
+            0 -> overview()
+            1 -> usage()
+            2 -> api()
         }
     }
 }

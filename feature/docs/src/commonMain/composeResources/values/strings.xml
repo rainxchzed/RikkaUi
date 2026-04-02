@@ -91,7 +91,7 @@
 
     <!-- ─── Do and Dont ─────────────────────────────────────── -->
     <string name="do_label">Do</string>
-    <string name="dont_label">Don\'t</string>
+    <string name="dont_label">Don&#39;t</string>
 
     <!-- ─── Component Family ────────────────────────────────── -->
     <string name="family_see_also">See also:</string>
@@ -344,11 +344,11 @@
     <string name="button_prop_colors_desc">Custom color values. Defaults to variant-resolved colors.</string>
     <string name="button_prop_interaction_desc">Optional hoisted interaction source for sharing hover/press state.</string>
     <string name="button_prop_content_desc">Button content. Children auto-inherit foreground color via LocalContentColor.</string>
-    <string name="button_section_dos_donts">Do\'s &amp; Don\'ts</string>
+    <string name="button_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
     <string name="button_do_default_desc">Use the Default variant for primary actions like saving or submitting.</string>
-    <string name="button_dont_default_desc">Don\'t use the Destructive variant for non-destructive actions.</string>
+    <string name="button_dont_default_desc">Don&#39;t use the Destructive variant for non-destructive actions.</string>
     <string name="button_do_size_desc">Use the same size for buttons in a group to maintain visual hierarchy.</string>
-    <string name="button_dont_size_desc">Don\'t mix different sizes in the same button group.</string>
+    <string name="button_dont_size_desc">Don&#39;t mix different sizes in the same button group.</string>
 
     <!-- ─── Card Page ────────────────────────────────────────── -->
     <string name="card_page_desc">A container that groups related content with visual separation.</string>
@@ -1143,7 +1143,7 @@
     <string name="fab_prop_elevation_desc">Shadow elevation. Defaults to RikkaTheme.elevation.high.</string>
     <string name="fab_prop_interaction_desc">Optional hoisted interaction source for sharing hover/press state.</string>
     <string name="fab_prop_content_desc">Custom composable content. Children inherit foreground via LocalContentColor.</string>
-    <string name="fab_section_dos_donts">Do\'s &amp; Don\'ts</string>
+    <string name="fab_section_dos_donts">Do&#39;s &amp; Don&#39;ts</string>
     <string name="fab_do_primary_desc">Use a single FAB for the primary action on the screen.</string>
-    <string name="fab_dont_primary_desc">Don\'t use multiple FABs on the same screen. It dilutes the primary action.</string>
+    <string name="fab_dont_primary_desc">Don&#39;t use multiple FABs on the same screen. It dilutes the primary action.</string>
 </resources>
