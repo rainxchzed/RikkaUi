@@ -247,7 +247,7 @@ cp cli/build/libs/rikkaui.jar composeApp/src/webMain/resources/rikkaui.jar
 ```kotlin
 // For ANY platform (Android, Desktop, iOS, Web) — Gradle resolves the right artifact
 dependencies {
-    implementation("dev.rikkaui:components:0.1.0")
+    implementation("dev.rikkaui:components:0.3.0")
 }
 ```
 
@@ -264,7 +264,7 @@ Native Android developers need NO KMP configuration — just add the dependency.
 
 ```properties
 GROUP=dev.rikkaui
-VERSION_NAME=0.1.0
+VERSION_NAME=0.3.0
 SONATYPE_HOST=CENTRAL_PORTAL
 RELEASE_SIGNING_ENABLED=true
 POM_URL=https://github.com/rainxchzed/RikkaUi
@@ -391,7 +391,7 @@ MVP = design system + components + registry + CLI + website.
 Status:
 1. Website showcasing all components with live examples (DONE - 10 original example cards)
 2. Documentation for all components (DONE - integrated into website via `:feature:docs`, including CLI docs)
-3. Maven Central publishing (DONE - v0.1.0 on `dev.rikkaui`)
+3. Maven Central publishing (DONE - 0.3.0 on `dev.rikkaui`)
 4. Registry system: JSON manifests with auto-dependency detection (DONE - `GenerateRegistryJsonTask` in buildSrc)
 5. CLI: `rikkaui init/add/list` commands (DONE - self-hosted on Vercel via `rikkaui.dev/install.sh`)
 6. Community: Post on X/LinkedIn, Discord, collect weekly feedback

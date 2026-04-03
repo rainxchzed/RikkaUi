@@ -57,8 +57,8 @@ The same philosophy shadcn/ui brought to the web, now for Compose Multiplatform.
 ```kotlin
 // build.gradle.kts
 dependencies {
-    implementation("dev.rikkaui:foundation:0.1.0") // theme system
-    implementation("dev.rikkaui:components:0.1.0") // all components
+    implementation("dev.rikkaui:foundation:0.3.0") // theme system
+    implementation("dev.rikkaui:components:0.3.0") // all components
 }
 ```
 

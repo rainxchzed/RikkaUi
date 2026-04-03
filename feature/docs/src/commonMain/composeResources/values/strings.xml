@@ -28,56 +28,50 @@
     <string name="guide_whats_new">What's New</string>
 
     <!-- ─── What's New Page ───────────────────────────────────── -->
-    <string name="whats_new_title">What's New in 0.2.0</string>
-    <string name="whats_new_desc">Redesigned color system. Implicit color propagation. Foundation modifiers. Smarter CLI. 84 commits across 218 files.</string>
+    <string name="whats_new_title">What&#39;s New in 0.3.0</string>
+    <string name="whats_new_desc">Accessibility overhaul. Distinct palettes. Tighter spacing. Tabbed docs. FAB component. 33 commits across 122 files.</string>
 
-    <string name="whats_new_section_colors">Color System Overhaul</string>
-    <string name="whats_new_colors_body">The color token system has been redesigned from scratch for clarity and consistency across all 4 platforms.</string>
-    <string name="whats_new_colors_item_token_count">31 semantic tokens (down from 40) — duplicates merged, naming unified</string>
-    <string name="whats_new_colors_item_on_naming">on* naming pattern — onBackground, onSurface, onPrimary, onDestructive, onMuted</string>
-    <string name="whats_new_colors_item_hover_press">Hover/press tokens — primaryHover, primaryPressed, destructiveHover, secondaryHover and more</string>
-    <string name="whats_new_colors_item_tinted">Tinted containers — primaryTinted and destructiveTinted for subtle backgrounds</string>
-    <string name="whats_new_colors_item_tailwind">All 10 palettes + 14 accents populated with Tailwind color scale values</string>
+    <string name="whats_new_section_a11y">Accessibility Overhaul</string>
+    <string name="whats_new_a11y_body">The biggest focus of this release. Every interactive component was audited and improved:</string>
+    <string name="whats_new_a11y_item_roles">Semantic roles — all components declare proper Role (Button, Switch, Checkbox, Tab, etc.) with contentDescription</string>
+    <string name="whats_new_a11y_item_collection">Collection info — Tab, Pagination, and list components report collection size and index</string>
+    <string name="whats_new_a11y_item_keyboard">Keyboard navigation — improved focus management across Dialog, Sheet, Popover, and DropdownMenu</string>
+    <string name="whats_new_a11y_item_live_region">liveRegion — Alert component announces content changes to screen readers</string>
+    <string name="whats_new_a11y_item_touch">Touch targets refined — minTouchTarget removed from labeled controls; disabled inside popups via LocalMinTouchTarget</string>
 
-    <string name="whats_new_section_content_color">LocalContentColor Propagation</string>
-    <string name="whats_new_content_color_body">RikkaTheme now provides LocalContentColor automatically. Containers like Button, Card, and Alert propagate their foreground to children — Text, Icon, and Spinner resolve color as: explicit > LocalContentColor > theme default. No more passing Color through lambdas.</string>
+    <string name="whats_new_section_palettes">Distinct Color Palettes</string>
+    <string name="whats_new_palettes_body">All 5 base palettes are now visually distinguishable in both light and dark mode. Light palettes use tinted backgrounds from the Tailwind -100 scale. Dark palettes separate surface from background for visible card contrast.</string>
 
-    <string name="whats_new_section_foundation">Foundation Enhancements</string>
-    <string name="whats_new_foundation_body">Major additions to the theme foundation that every component benefits from:</string>
-    <string name="whats_new_foundation_item_motion">RikkaMotion — redesigned as a generic, parameter-driven animation token system with springs, tweens, and durations</string>
-    <string name="whats_new_foundation_item_elevation">RikkaElevation — standard shadow scale for consistent depth across platforms</string>
-    <string name="whats_new_foundation_item_shapes">RikkaShapes — directional rounding utilities (topOnly, bottomOnly) and a none variant</string>
-    <string name="whats_new_foundation_item_typography">RikkaTypography — emphasis extensions (emphasis, strongEmphasis) for contextual text weight</string>
-    <string name="whats_new_foundation_item_touch">minTouchTarget modifier — platform-aware accessible touch targets (48dp Android, 44dp iOS)</string>
-    <string name="whats_new_foundation_item_focus_ring">focusRing modifier — visible keyboard focus indicator for accessibility</string>
+    <string name="whats_new_section_spacing">Spacing &amp; Layout Fixes</string>
+    <string name="whats_new_spacing_body">Components now render at their natural size in dense contexts:</string>
+    <string name="whats_new_spacing_item_card">Card — removed double padding from CardContent/CardFooter that compounded with spacedBy(sm)</string>
+    <string name="whats_new_spacing_item_form">Checkbox, RadioButton, Toggle — removed minTouchTarget inflation (the labeled Row is the touch target)</string>
+    <string name="whats_new_spacing_item_popup">Popover provides LocalMinTouchTarget = 0.dp so nested Buttons render compactly</string>
+    <string name="whats_new_spacing_item_menu">DropdownMenuItem, ContextMenuItem, Select — removed minTouchTarget for dense menu items</string>
 
-    <string name="whats_new_section_component_colors">Per-Component Color Systems</string>
-    <string name="whats_new_component_colors_body">Button, Card, Input, and Toggle now have dedicated ColorValues classes with Defaults factories. Override any color per-instance without creating a full theme.</string>
+    <string name="whats_new_section_components">New Components</string>
+    <string name="whats_new_components_body">FAB (Floating Action Button) — with Scaffold integration and flexible positioning via FabPosition.</string>
 
-    <string name="whats_new_section_a11y">Accessibility</string>
-    <string name="whats_new_a11y_body">Comprehensive accessibility pass across all interactive components:</string>
-    <string name="whats_new_a11y_item_roles">Every interactive component now declares a semantic Role with contentDescription via the label parameter</string>
-    <string name="whats_new_a11y_item_touch">MinTouchTargetDefaults provides platform-specific constants (48dp on Android, 44dp on iOS/Desktop)</string>
-    <string name="whats_new_a11y_item_staggered">staggeredEnter modifier — built with Modifier.Node for performant list entry animations</string>
+    <string name="whats_new_section_text">Text &amp; Typography Fixes</string>
+    <string name="whats_new_text_body">Several rendering issues fixed:</string>
+    <string name="whats_new_text_item_merge">Text merge order — variant styles (H1, H2) now properly override parent styles inside Card</string>
+    <string name="whats_new_text_item_kbd">Kbd — removed Monospace font (broken glyphs on WasmJs), added maxLines = 1</string>
+    <string name="whats_new_text_item_branding">Branding — removed CJK characters from tagline (not supported by Inter font)</string>
 
-    <string name="whats_new_section_cli">CLI Improvements</string>
-    <string name="whats_new_cli_body">The CLI has been reworked for multi-module KMP projects:</string>
-    <string name="whats_new_cli_item_browser">Interactive folder browser — navigate your project tree and select the target directory visually</string>
-    <string name="whats_new_cli_item_detection">Smart source detection — scans for src/commonMain/kotlin across all modules, not just the root</string>
-    <string name="whats_new_cli_item_tests">Test suite — unit tests for ConfigManager, PackageRewriter, and integration tests for the add command</string>
+    <string name="whats_new_section_docs">Documentation</string>
+    <string name="whats_new_docs_body">The documentation system has been significantly improved:</string>
+    <string name="whats_new_docs_item_tabs">Tabbed layout — all component doc pages refactored to tabs with Do&#39;s &amp; Don&#39;ts sections</string>
+    <string name="whats_new_docs_item_preview">Theme preview overrides — live theme switching within component documentation</string>
+    <string name="whats_new_docs_item_search">Sidebar search — filter documentation pages by name</string>
+    <string name="whats_new_docs_item_why">\"Why RikkaUI\" manifesto — new page explaining the project&#39;s positioning</string>
 
-    <string name="whats_new_section_website">Website</string>
-    <string name="whats_new_website_body">The showcase website has been rebuilt with proper navigation and architecture:</string>
-    <string name="whats_new_website_item_hash_routing">Hash-based URL routing with browser back/forward support via bindToBrowserNavigation()</string>
-    <string name="whats_new_website_item_catalog">Component catalog page with search, filtering, and categories</string>
-    <string name="whats_new_website_item_source_viewer">Live source code viewer for every component</string>
-    <string name="whats_new_website_item_creator">Design system creator page refactored with ViewModel pattern</string>
-    <string name="whats_new_website_item_responsive">Responsive navigation bar with mobile menu drawer</string>
+    <string name="whats_new_section_examples">Example Cards Polish</string>
+    <string name="whats_new_examples_body">Both home and creator page examples have been reworked:</string>
+    <string name="whats_new_examples_item_home">Home — proper token usage, Icon composables replacing unicode, Card Header/Content/Footer structure</string>
+    <string name="whats_new_examples_item_creator">Creator — removed double padding, replaced Spacer chains with Column(spacedBy(...))</string>
 
-    <string name="whats_new_section_migration">Migration from 0.1.0</string>
-    <string name="whats_new_migration_body">Color token renames are the only breaking change. Find-and-replace these in your codebase:</string>
-    <string name="whats_new_migration_old">0.1.0</string>
-    <string name="whats_new_migration_new">0.2.0</string>
+    <string name="whats_new_section_migration">Migration from 0.2.0</string>
+    <string name="whats_new_migration_body">No breaking API changes. If you use minTouchTarget() on Checkbox, RadioButton, or Toggle directly, note that these components no longer apply it internally — the labeled Row already provides an adequate touch target.</string>
 
     <!-- ─── Props Table Headers ──────────────────────────────── -->
     <string name="prop_header_prop">Prop</string>
