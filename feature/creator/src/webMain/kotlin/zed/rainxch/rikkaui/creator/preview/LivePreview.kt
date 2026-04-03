@@ -287,7 +287,7 @@ private fun ComponentStrip() {
         Checkbox(
             checked = checkState,
             onCheckedChange = { checkState = it },
-            label = "",
+            label = stringResource(Res.string.preview_toggle_label),
         )
 
         var toggleState by remember { mutableStateOf(false) }

@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -58,59 +57,64 @@ fun ExampleTaskList(modifier: Modifier = Modifier) {
     var task5 by remember { mutableStateOf(true) }
 
     Card(modifier = modifier) {
-        Text(text = stringResource(Res.string.example_tasks_title), variant = TextVariant.H4)
-        Spacer(Modifier.height(RikkaTheme.spacing.xs))
-        Text(
-            text = stringResource(Res.string.example_tasks_progress),
-            variant = TextVariant.Muted,
-        )
-
-        Spacer(Modifier.height(RikkaTheme.spacing.md))
-        Progress(
-            progress = 0.6f,
-            modifier = Modifier.fillMaxWidth(),
-        )
-
-        Spacer(Modifier.height(RikkaTheme.spacing.md))
         Column(
-            verticalArrangement =
-                Arrangement.spacedBy(RikkaTheme.spacing.sm),
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
-            TaskRow(
-                checked = task1,
-                onCheckedChange = { task1 = it },
-                label = stringResource(Res.string.example_tasks_ci),
-                badgeText = stringResource(Res.string.example_tasks_done),
-                badgeVariant = BadgeVariant.Default,
+            Column(
+                verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
+            ) {
+                Text(text = stringResource(Res.string.example_tasks_title), variant = TextVariant.H4)
+                Text(
+                    text = stringResource(Res.string.example_tasks_progress),
+                    variant = TextVariant.Muted,
+                )
+            }
+
+            Progress(
+                progress = 0.6f,
+                modifier = Modifier.fillMaxWidth(),
             )
-            TaskRow(
-                checked = task2,
-                onCheckedChange = { task2 = it },
-                label = stringResource(Res.string.example_tasks_api_docs),
-                badgeText = stringResource(Res.string.example_tasks_done),
-                badgeVariant = BadgeVariant.Default,
-            )
-            TaskRow(
-                checked = task3,
-                onCheckedChange = { task3 = it },
-                label = stringResource(Res.string.example_tasks_staging),
-                badgeText = stringResource(Res.string.example_tasks_in_progress),
-                badgeVariant = BadgeVariant.Secondary,
-            )
-            TaskRow(
-                checked = task4,
-                onCheckedChange = { task4 = it },
-                label = stringResource(Res.string.example_tasks_review),
-                badgeText = stringResource(Res.string.example_tasks_pending),
-                badgeVariant = BadgeVariant.Outline,
-            )
-            TaskRow(
-                checked = task5,
-                onCheckedChange = { task5 = it },
-                label = stringResource(Res.string.example_tasks_auth_bug),
-                badgeText = stringResource(Res.string.example_tasks_done),
-                badgeVariant = BadgeVariant.Default,
-            )
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
+            ) {
+                TaskRow(
+                    checked = task1,
+                    onCheckedChange = { task1 = it },
+                    label = stringResource(Res.string.example_tasks_ci),
+                    badgeText = stringResource(Res.string.example_tasks_done),
+                    badgeVariant = BadgeVariant.Default,
+                )
+                TaskRow(
+                    checked = task2,
+                    onCheckedChange = { task2 = it },
+                    label = stringResource(Res.string.example_tasks_api_docs),
+                    badgeText = stringResource(Res.string.example_tasks_done),
+                    badgeVariant = BadgeVariant.Default,
+                )
+                TaskRow(
+                    checked = task3,
+                    onCheckedChange = { task3 = it },
+                    label = stringResource(Res.string.example_tasks_staging),
+                    badgeText = stringResource(Res.string.example_tasks_in_progress),
+                    badgeVariant = BadgeVariant.Secondary,
+                )
+                TaskRow(
+                    checked = task4,
+                    onCheckedChange = { task4 = it },
+                    label = stringResource(Res.string.example_tasks_review),
+                    badgeText = stringResource(Res.string.example_tasks_pending),
+                    badgeVariant = BadgeVariant.Outline,
+                )
+                TaskRow(
+                    checked = task5,
+                    onCheckedChange = { task5 = it },
+                    label = stringResource(Res.string.example_tasks_auth_bug),
+                    badgeText = stringResource(Res.string.example_tasks_done),
+                    badgeVariant = BadgeVariant.Default,
+                )
+            }
         }
     }
 }
@@ -144,38 +148,43 @@ private fun TaskRow(
 @Composable
 fun ExampleApiKeyManager(modifier: Modifier = Modifier) {
     Card(modifier = modifier) {
-        Text(text = stringResource(Res.string.example_api_title), variant = TextVariant.H4)
-        Spacer(Modifier.height(RikkaTheme.spacing.xs))
-        Text(
-            text = stringResource(Res.string.example_api_description),
-            variant = TextVariant.Muted,
-        )
-
-        Spacer(Modifier.height(RikkaTheme.spacing.md))
         Column(
-            verticalArrangement =
-                Arrangement.spacedBy(RikkaTheme.spacing.sm),
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
-            ApiKeyRow(
-                name = stringResource(Res.string.example_api_production),
-                masked = stringResource(Res.string.example_api_masked_a3f9),
-            )
-            ApiKeyRow(
-                name = stringResource(Res.string.example_api_staging),
-                masked = stringResource(Res.string.example_api_masked_7b2e),
-            )
-            ApiKeyRow(
-                name = stringResource(Res.string.example_api_development),
-                masked = stringResource(Res.string.example_api_masked_1d4c),
-            )
-        }
+            Column(
+                verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
+            ) {
+                Text(text = stringResource(Res.string.example_api_title), variant = TextVariant.H4)
+                Text(
+                    text = stringResource(Res.string.example_api_description),
+                    variant = TextVariant.Muted,
+                )
+            }
 
-        Spacer(Modifier.height(RikkaTheme.spacing.md))
-        Alert(variant = AlertVariant.Destructive) {
-            AlertDescription(
-                text = stringResource(Res.string.example_api_deleted_warning),
-                variant = AlertVariant.Destructive,
-            )
+            Column(
+                verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
+            ) {
+                ApiKeyRow(
+                    name = stringResource(Res.string.example_api_production),
+                    masked = stringResource(Res.string.example_api_masked_a3f9),
+                )
+                ApiKeyRow(
+                    name = stringResource(Res.string.example_api_staging),
+                    masked = stringResource(Res.string.example_api_masked_7b2e),
+                )
+                ApiKeyRow(
+                    name = stringResource(Res.string.example_api_development),
+                    masked = stringResource(Res.string.example_api_masked_1d4c),
+                )
+            }
+
+            Alert(variant = AlertVariant.Destructive) {
+                AlertDescription(
+                    text = stringResource(Res.string.example_api_deleted_warning),
+                    variant = AlertVariant.Destructive,
+                )
+            }
         }
     }
 }
@@ -217,49 +226,47 @@ fun ExampleChatComposer(modifier: Modifier = Modifier) {
     var messageText by remember { mutableStateOf("") }
 
     Card(modifier = modifier) {
-        Text(text = stringResource(Res.string.example_chat_title), variant = TextVariant.H4)
-
-        Spacer(Modifier.height(RikkaTheme.spacing.md))
         Column(
-            verticalArrangement =
-                Arrangement.spacedBy(RikkaTheme.spacing.sm),
-        ) {
-            // Other person's message (left-aligned)
-            ChatBubble(
-                text = stringResource(Res.string.example_chat_msg1),
-                isFromUser = false,
-            )
-            // Other person's message (left-aligned)
-            ChatBubble(
-                text = stringResource(Res.string.example_chat_msg2),
-                isFromUser = false,
-            )
-            // User's message (right-aligned)
-            ChatBubble(
-                text = stringResource(Res.string.example_chat_msg3),
-                isFromUser = true,
-            )
-        }
-
-        Spacer(Modifier.height(RikkaTheme.spacing.md))
-        Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement =
-                Arrangement.spacedBy(RikkaTheme.spacing.sm),
-            verticalAlignment = Alignment.CenterVertically,
+            verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
-            Input(
-                value = messageText,
-                onValueChange = { messageText = it },
-                placeholder = stringResource(Res.string.example_chat_input_placeholder),
-                label = stringResource(Res.string.example_chat_input_label),
-                modifier = Modifier.weight(1f),
-            )
-            IconButton(
-                icon = RikkaIcons.Send,
-                contentDescription = stringResource(Res.string.example_chat_send),
-                onClick = {},
-            )
+            Text(text = stringResource(Res.string.example_chat_title), variant = TextVariant.H4)
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
+            ) {
+                ChatBubble(
+                    text = stringResource(Res.string.example_chat_msg1),
+                    isFromUser = false,
+                )
+                ChatBubble(
+                    text = stringResource(Res.string.example_chat_msg2),
+                    isFromUser = false,
+                )
+                ChatBubble(
+                    text = stringResource(Res.string.example_chat_msg3),
+                    isFromUser = true,
+                )
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Input(
+                    value = messageText,
+                    onValueChange = { messageText = it },
+                    placeholder = stringResource(Res.string.example_chat_input_placeholder),
+                    label = stringResource(Res.string.example_chat_input_label),
+                    modifier = Modifier.weight(1f),
+                )
+                IconButton(
+                    icon = RikkaIcons.Send,
+                    contentDescription = stringResource(Res.string.example_chat_send),
+                    onClick = {},
+                )
+            }
         }
     }
 }
@@ -316,45 +323,51 @@ private fun ChatBubble(
 @Composable
 fun ExampleFileManager(modifier: Modifier = Modifier) {
     Card(modifier = modifier) {
-        Text(text = stringResource(Res.string.example_files_title), variant = TextVariant.H4)
-        Spacer(Modifier.height(RikkaTheme.spacing.xs))
-        Text(
-            text = stringResource(Res.string.example_files_subtitle),
-            variant = TextVariant.Muted,
-        )
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
+        ) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
+            ) {
+                Text(text = stringResource(Res.string.example_files_title), variant = TextVariant.H4)
+                Text(
+                    text = stringResource(Res.string.example_files_subtitle),
+                    variant = TextVariant.Muted,
+                )
+            }
 
-        Spacer(Modifier.height(RikkaTheme.spacing.md))
-        Column {
-            FileRow(
-                icon = RikkaIcons.Edit,
-                name = stringResource(Res.string.example_files_name1),
-                size = stringResource(Res.string.example_files_size1),
-            )
-            Separator()
-            FileRow(
-                icon = RikkaIcons.Settings,
-                name = stringResource(Res.string.example_files_name2),
-                size = stringResource(Res.string.example_files_size2),
-            )
-            Separator()
-            FileRow(
-                icon = RikkaIcons.Download,
-                name = stringResource(Res.string.example_files_name3),
-                size = stringResource(Res.string.example_files_size3),
-            )
-            Separator()
-            FileRow(
-                icon = RikkaIcons.Edit,
-                name = stringResource(Res.string.example_files_name4),
-                size = stringResource(Res.string.example_files_size4),
+            Column {
+                FileRow(
+                    icon = RikkaIcons.Edit,
+                    name = stringResource(Res.string.example_files_name1),
+                    size = stringResource(Res.string.example_files_size1),
+                )
+                Separator()
+                FileRow(
+                    icon = RikkaIcons.Settings,
+                    name = stringResource(Res.string.example_files_name2),
+                    size = stringResource(Res.string.example_files_size2),
+                )
+                Separator()
+                FileRow(
+                    icon = RikkaIcons.Download,
+                    name = stringResource(Res.string.example_files_name3),
+                    size = stringResource(Res.string.example_files_size3),
+                )
+                Separator()
+                FileRow(
+                    icon = RikkaIcons.Edit,
+                    name = stringResource(Res.string.example_files_name4),
+                    size = stringResource(Res.string.example_files_size4),
+                )
+            }
+
+            Text(
+                text = stringResource(Res.string.example_files_summary),
+                variant = TextVariant.Muted,
             )
         }
-
-        Spacer(Modifier.height(RikkaTheme.spacing.md))
-        Text(
-            text = stringResource(Res.string.example_files_summary),
-            variant = TextVariant.Muted,
-        )
     }
 }
 
@@ -399,48 +412,51 @@ private fun FileRow(
 @Composable
 fun ExampleUserDirectory(modifier: Modifier = Modifier) {
     Card(modifier = modifier) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(text = stringResource(Res.string.example_team_title), variant = TextVariant.H4)
-            Badge(text = stringResource(Res.string.example_team_count))
-        }
-
-        Spacer(Modifier.height(RikkaTheme.spacing.md))
         Column(
-            verticalArrangement =
-                Arrangement.spacedBy(RikkaTheme.spacing.sm),
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
-            UserRow(
-                initials = "AC",
-                name = stringResource(Res.string.example_team_name1),
-                role = stringResource(Res.string.example_team_role1),
-                status = stringResource(Res.string.example_team_status_active),
-                statusVariant = BadgeVariant.Default,
-            )
-            UserRow(
-                initials = "BK",
-                name = stringResource(Res.string.example_team_name2),
-                role = stringResource(Res.string.example_team_role2),
-                status = stringResource(Res.string.example_team_status_active),
-                statusVariant = BadgeVariant.Default,
-            )
-            UserRow(
-                initials = "CD",
-                name = stringResource(Res.string.example_team_name3),
-                role = stringResource(Res.string.example_team_role3),
-                status = stringResource(Res.string.example_team_status_away),
-                statusVariant = BadgeVariant.Secondary,
-            )
-            UserRow(
-                initials = "DP",
-                name = stringResource(Res.string.example_team_name4),
-                role = stringResource(Res.string.example_team_role4),
-                status = stringResource(Res.string.example_team_status_offline),
-                statusVariant = BadgeVariant.Outline,
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(text = stringResource(Res.string.example_team_title), variant = TextVariant.H4)
+                Badge(text = stringResource(Res.string.example_team_count))
+            }
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
+            ) {
+                UserRow(
+                    initials = "AC",
+                    name = stringResource(Res.string.example_team_name1),
+                    role = stringResource(Res.string.example_team_role1),
+                    status = stringResource(Res.string.example_team_status_active),
+                    statusVariant = BadgeVariant.Default,
+                )
+                UserRow(
+                    initials = "BK",
+                    name = stringResource(Res.string.example_team_name2),
+                    role = stringResource(Res.string.example_team_role2),
+                    status = stringResource(Res.string.example_team_status_active),
+                    statusVariant = BadgeVariant.Default,
+                )
+                UserRow(
+                    initials = "CD",
+                    name = stringResource(Res.string.example_team_name3),
+                    role = stringResource(Res.string.example_team_role3),
+                    status = stringResource(Res.string.example_team_status_away),
+                    statusVariant = BadgeVariant.Secondary,
+                )
+                UserRow(
+                    initials = "DP",
+                    name = stringResource(Res.string.example_team_name4),
+                    role = stringResource(Res.string.example_team_role4),
+                    status = stringResource(Res.string.example_team_status_offline),
+                    statusVariant = BadgeVariant.Outline,
+                )
+            }
         }
     }
 }
@@ -476,50 +492,57 @@ private fun UserRow(
 @Composable
 fun ExamplePricingCard(modifier: Modifier = Modifier) {
     Card(modifier = modifier) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(text = stringResource(Res.string.example_pricing_title), variant = TextVariant.H4)
-            Badge(text = stringResource(Res.string.example_pricing_popular))
-        }
-
-        Spacer(Modifier.height(RikkaTheme.spacing.sm))
-        Text(text = stringResource(Res.string.example_pricing_price), variant = TextVariant.H2)
-        Spacer(Modifier.height(RikkaTheme.spacing.xs))
-        Text(
-            text = stringResource(Res.string.example_pricing_description),
-            variant = TextVariant.Muted,
-        )
-
-        Spacer(Modifier.height(RikkaTheme.spacing.md))
         Column(
-            verticalArrangement =
-                Arrangement.spacedBy(RikkaTheme.spacing.sm),
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
-            FeatureItem(text = stringResource(Res.string.example_pricing_feature1))
-            FeatureItem(text = stringResource(Res.string.example_pricing_feature2))
-            FeatureItem(text = stringResource(Res.string.example_pricing_feature3))
-            FeatureItem(text = stringResource(Res.string.example_pricing_feature4))
-            FeatureItem(text = stringResource(Res.string.example_pricing_feature5))
-        }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(text = stringResource(Res.string.example_pricing_title), variant = TextVariant.H4)
+                Badge(text = stringResource(Res.string.example_pricing_popular))
+            }
 
-        Spacer(Modifier.height(RikkaTheme.spacing.lg))
-        Button(
-            text = stringResource(Res.string.example_pricing_upgrade),
-            onClick = {},
-            modifier = Modifier.fillMaxWidth(),
-        )
-        Spacer(Modifier.height(RikkaTheme.spacing.sm))
-        Box(
-            modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.Center,
-        ) {
-            Text(
-                text = stringResource(Res.string.example_pricing_cancel),
-                variant = TextVariant.Muted,
-            )
+            Column(
+                verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
+            ) {
+                Text(text = stringResource(Res.string.example_pricing_price), variant = TextVariant.H2)
+                Text(
+                    text = stringResource(Res.string.example_pricing_description),
+                    variant = TextVariant.Muted,
+                )
+            }
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
+            ) {
+                FeatureItem(text = stringResource(Res.string.example_pricing_feature1))
+                FeatureItem(text = stringResource(Res.string.example_pricing_feature2))
+                FeatureItem(text = stringResource(Res.string.example_pricing_feature3))
+                FeatureItem(text = stringResource(Res.string.example_pricing_feature4))
+                FeatureItem(text = stringResource(Res.string.example_pricing_feature5))
+            }
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
+            ) {
+                Button(
+                    text = stringResource(Res.string.example_pricing_upgrade),
+                    onClick = {},
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text(
+                        text = stringResource(Res.string.example_pricing_cancel),
+                        variant = TextVariant.Muted,
+                    )
+                }
+            }
         }
     }
 }
@@ -548,42 +571,44 @@ fun ExampleSearchCommand(modifier: Modifier = Modifier) {
     var searchText by remember { mutableStateOf("") }
 
     Card(modifier = modifier) {
-        Text(text = stringResource(Res.string.example_search_title), variant = TextVariant.H4)
-
-        Spacer(Modifier.height(RikkaTheme.spacing.md))
-        Input(
-            value = searchText,
-            onValueChange = { searchText = it },
-            placeholder = stringResource(Res.string.example_search_placeholder),
-            label = stringResource(Res.string.example_search_label),
-            modifier = Modifier.fillMaxWidth(),
-        )
-
-        Spacer(Modifier.height(RikkaTheme.spacing.md))
         Column(
-            verticalArrangement =
-                Arrangement.spacedBy(RikkaTheme.spacing.xs),
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
-            CommandRow(
-                icon = RikkaIcons.Search,
-                label = stringResource(Res.string.example_search_files),
-                shortcut = stringResource(Res.string.example_search_files_shortcut),
+            Text(text = stringResource(Res.string.example_search_title), variant = TextVariant.H4)
+
+            Input(
+                value = searchText,
+                onValueChange = { searchText = it },
+                placeholder = stringResource(Res.string.example_search_placeholder),
+                label = stringResource(Res.string.example_search_label),
+                modifier = Modifier.fillMaxWidth(),
             )
-            CommandRow(
-                icon = RikkaIcons.Settings,
-                label = stringResource(Res.string.example_search_settings),
-                shortcut = stringResource(Res.string.example_search_settings_shortcut),
-            )
-            CommandRow(
-                icon = RikkaIcons.User,
-                label = stringResource(Res.string.example_search_account),
-                shortcut = stringResource(Res.string.example_search_account_shortcut),
-            )
-            CommandRow(
-                icon = RikkaIcons.Moon,
-                label = stringResource(Res.string.example_search_theme),
-                shortcut = stringResource(Res.string.example_search_theme_shortcut),
-            )
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
+            ) {
+                CommandRow(
+                    icon = RikkaIcons.Search,
+                    label = stringResource(Res.string.example_search_files),
+                    shortcut = stringResource(Res.string.example_search_files_shortcut),
+                )
+                CommandRow(
+                    icon = RikkaIcons.Settings,
+                    label = stringResource(Res.string.example_search_settings),
+                    shortcut = stringResource(Res.string.example_search_settings_shortcut),
+                )
+                CommandRow(
+                    icon = RikkaIcons.User,
+                    label = stringResource(Res.string.example_search_account),
+                    shortcut = stringResource(Res.string.example_search_account_shortcut),
+                )
+                CommandRow(
+                    icon = RikkaIcons.Moon,
+                    label = stringResource(Res.string.example_search_theme),
+                    shortcut = stringResource(Res.string.example_search_theme_shortcut),
+                )
+            }
         }
     }
 }
@@ -628,50 +653,54 @@ private fun CommandRow(
 @Composable
 fun ExampleOnboarding(modifier: Modifier = Modifier) {
     Card(modifier = modifier) {
-        Text(
-            text = stringResource(Res.string.example_onboarding_title),
-            variant = TextVariant.H4,
-        )
-        Spacer(Modifier.height(RikkaTheme.spacing.xs))
-        Text(
-            text = stringResource(Res.string.example_onboarding_description),
-            variant = TextVariant.Muted,
-        )
-
-        Spacer(Modifier.height(RikkaTheme.spacing.md))
         Column(
-            verticalArrangement =
-                Arrangement.spacedBy(RikkaTheme.spacing.sm),
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
-            OnboardingStep(
-                number = "1",
-                title = stringResource(Res.string.example_onboarding_step1),
-                isCompleted = true,
+            Column(
+                verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
+            ) {
+                Text(
+                    text = stringResource(Res.string.example_onboarding_title),
+                    variant = TextVariant.H4,
+                )
+                Text(
+                    text = stringResource(Res.string.example_onboarding_description),
+                    variant = TextVariant.Muted,
+                )
+            }
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
+            ) {
+                OnboardingStep(
+                    number = "1",
+                    title = stringResource(Res.string.example_onboarding_step1),
+                    isCompleted = true,
+                )
+                OnboardingStep(
+                    number = "2",
+                    title = stringResource(Res.string.example_onboarding_step2),
+                    isCompleted = true,
+                )
+                OnboardingStep(
+                    number = "3",
+                    title = stringResource(Res.string.example_onboarding_step3),
+                    isCompleted = false,
+                )
+            }
+
+            Progress(
+                progress = 0.66f,
+                modifier = Modifier.fillMaxWidth(),
             )
-            OnboardingStep(
-                number = "2",
-                title = stringResource(Res.string.example_onboarding_step2),
-                isCompleted = true,
-            )
-            OnboardingStep(
-                number = "3",
-                title = stringResource(Res.string.example_onboarding_step3),
-                isCompleted = false,
+
+            Button(
+                text = stringResource(Res.string.example_onboarding_continue),
+                onClick = {},
+                modifier = Modifier.fillMaxWidth(),
             )
         }
-
-        Spacer(Modifier.height(RikkaTheme.spacing.md))
-        Progress(
-            progress = 0.66f,
-            modifier = Modifier.fillMaxWidth(),
-        )
-
-        Spacer(Modifier.height(RikkaTheme.spacing.md))
-        Button(
-            text = stringResource(Res.string.example_onboarding_continue),
-            onClick = {},
-            modifier = Modifier.fillMaxWidth(),
-        )
     }
 }
 
@@ -722,38 +751,44 @@ private fun OnboardingStep(
 @Composable
 fun ExampleActivityLog(modifier: Modifier = Modifier) {
     Card(modifier = modifier) {
-        Text(text = stringResource(Res.string.example_activity_title), variant = TextVariant.H4)
-        Spacer(Modifier.height(RikkaTheme.spacing.xs))
-        Text(
-            text = stringResource(Res.string.example_activity_subtitle),
-            variant = TextVariant.Muted,
-        )
-
-        Spacer(Modifier.height(RikkaTheme.spacing.md))
         Column(
-            verticalArrangement =
-                Arrangement.spacedBy(RikkaTheme.spacing.md),
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
-            ActivityEntry(
-                text = stringResource(Res.string.example_activity_event1),
-                timestamp = stringResource(Res.string.example_activity_time1),
-            )
-            ActivityEntry(
-                text = stringResource(Res.string.example_activity_event2),
-                timestamp = stringResource(Res.string.example_activity_time2),
-            )
-            ActivityEntry(
-                text = stringResource(Res.string.example_activity_event3),
-                timestamp = stringResource(Res.string.example_activity_time3),
-            )
-            ActivityEntry(
-                text = stringResource(Res.string.example_activity_event4),
-                timestamp = stringResource(Res.string.example_activity_time4),
-            )
-            ActivityEntry(
-                text = stringResource(Res.string.example_activity_event5),
-                timestamp = stringResource(Res.string.example_activity_time5),
-            )
+            Column(
+                verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
+            ) {
+                Text(text = stringResource(Res.string.example_activity_title), variant = TextVariant.H4)
+                Text(
+                    text = stringResource(Res.string.example_activity_subtitle),
+                    variant = TextVariant.Muted,
+                )
+            }
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
+            ) {
+                ActivityEntry(
+                    text = stringResource(Res.string.example_activity_event1),
+                    timestamp = stringResource(Res.string.example_activity_time1),
+                )
+                ActivityEntry(
+                    text = stringResource(Res.string.example_activity_event2),
+                    timestamp = stringResource(Res.string.example_activity_time2),
+                )
+                ActivityEntry(
+                    text = stringResource(Res.string.example_activity_event3),
+                    timestamp = stringResource(Res.string.example_activity_time3),
+                )
+                ActivityEntry(
+                    text = stringResource(Res.string.example_activity_event4),
+                    timestamp = stringResource(Res.string.example_activity_time4),
+                )
+                ActivityEntry(
+                    text = stringResource(Res.string.example_activity_event5),
+                    timestamp = stringResource(Res.string.example_activity_time5),
+                )
+            }
         }
     }
 }
@@ -798,52 +833,54 @@ fun ExampleQuickNote(modifier: Modifier = Modifier) {
     var selectedFormat by remember { mutableStateOf(boldLabel) }
 
     Card(modifier = modifier) {
-        Text(text = stringResource(Res.string.example_note_title), variant = TextVariant.H4)
-
-        Spacer(Modifier.height(RikkaTheme.spacing.md))
-        Textarea(
-            value = noteText,
-            onValueChange = { noteText = it },
-            placeholder = stringResource(Res.string.example_note_placeholder),
-            label = stringResource(Res.string.example_note_label),
+        Column(
             modifier = Modifier.fillMaxWidth(),
-        )
-
-        Spacer(Modifier.height(RikkaTheme.spacing.sm))
-        val italicLabel = stringResource(Res.string.example_note_italic)
-        val codeLabel = stringResource(Res.string.example_note_code)
-        ToggleGroup {
-            ToggleGroupItem(
-                text = boldLabel,
-                selected = selectedFormat == boldLabel,
-                onClick = { selectedFormat = boldLabel },
-            )
-            ToggleGroupItem(
-                text = italicLabel,
-                selected = selectedFormat == italicLabel,
-                onClick = { selectedFormat = italicLabel },
-            )
-            ToggleGroupItem(
-                text = codeLabel,
-                selected = selectedFormat == codeLabel,
-                onClick = { selectedFormat = codeLabel },
-            )
-        }
-
-        Spacer(Modifier.height(RikkaTheme.spacing.sm))
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
+            verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
-            Badge(
-                text = stringResource(Res.string.example_note_auto_saved),
-                variant = BadgeVariant.Secondary,
+            Text(text = stringResource(Res.string.example_note_title), variant = TextVariant.H4)
+
+            Textarea(
+                value = noteText,
+                onValueChange = { noteText = it },
+                placeholder = stringResource(Res.string.example_note_placeholder),
+                label = stringResource(Res.string.example_note_label),
+                modifier = Modifier.fillMaxWidth(),
             )
-            Text(
-                text = stringResource(Res.string.example_note_last_edited),
-                variant = TextVariant.Muted,
-            )
+
+            val italicLabel = stringResource(Res.string.example_note_italic)
+            val codeLabel = stringResource(Res.string.example_note_code)
+            ToggleGroup {
+                ToggleGroupItem(
+                    text = boldLabel,
+                    selected = selectedFormat == boldLabel,
+                    onClick = { selectedFormat = boldLabel },
+                )
+                ToggleGroupItem(
+                    text = italicLabel,
+                    selected = selectedFormat == italicLabel,
+                    onClick = { selectedFormat = italicLabel },
+                )
+                ToggleGroupItem(
+                    text = codeLabel,
+                    selected = selectedFormat == codeLabel,
+                    onClick = { selectedFormat = codeLabel },
+                )
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Badge(
+                    text = stringResource(Res.string.example_note_auto_saved),
+                    variant = BadgeVariant.Secondary,
+                )
+                Text(
+                    text = stringResource(Res.string.example_note_last_edited),
+                    variant = TextVariant.Muted,
+                )
+            }
         }
     }
 }

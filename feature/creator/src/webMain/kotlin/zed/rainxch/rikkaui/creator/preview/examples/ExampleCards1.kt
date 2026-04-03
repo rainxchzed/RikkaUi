@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -48,8 +47,7 @@ fun ExampleEnvVariables(modifier: Modifier = Modifier) {
         Column(
             modifier =
                 Modifier
-                    .fillMaxWidth()
-                    .padding(RikkaTheme.spacing.lg),
+                    .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(text = stringResource(Res.string.example_env_title), variant = TextVariant.H4)
@@ -141,8 +139,7 @@ fun ExampleBookAppointment(modifier: Modifier = Modifier) {
         Column(
             modifier =
                 Modifier
-                    .fillMaxWidth()
-                    .padding(RikkaTheme.spacing.lg),
+                    .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(text = stringResource(Res.string.example_appt_title), variant = TextVariant.H4)
@@ -212,8 +209,7 @@ fun ExampleInviteTeam(modifier: Modifier = Modifier) {
         Column(
             modifier =
                 Modifier
-                    .fillMaxWidth()
-                    .padding(RikkaTheme.spacing.lg),
+                    .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(text = stringResource(Res.string.example_invite_title), variant = TextVariant.H4)
@@ -344,8 +340,7 @@ fun ExampleReportBug(modifier: Modifier = Modifier) {
         Column(
             modifier =
                 Modifier
-                    .fillMaxWidth()
-                    .padding(RikkaTheme.spacing.lg),
+                    .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(text = stringResource(Res.string.example_bug_title), variant = TextVariant.H4)
@@ -410,8 +405,7 @@ fun ExampleProfileSettings(modifier: Modifier = Modifier) {
         Column(
             modifier =
                 Modifier
-                    .fillMaxWidth()
-                    .padding(RikkaTheme.spacing.lg),
+                    .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(text = stringResource(Res.string.example_profile_title), variant = TextVariant.H4)
@@ -471,8 +465,7 @@ fun ExampleFeedbackForm(modifier: Modifier = Modifier) {
         Column(
             modifier =
                 Modifier
-                    .fillMaxWidth()
-                    .padding(RikkaTheme.spacing.lg),
+                    .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(text = stringResource(Res.string.example_feedback_title), variant = TextVariant.H4)
@@ -506,8 +499,7 @@ fun ExampleNotificationSettings(modifier: Modifier = Modifier) {
         Column(
             modifier =
                 Modifier
-                    .fillMaxWidth()
-                    .padding(RikkaTheme.spacing.lg),
+                    .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(
@@ -586,8 +578,7 @@ fun ExampleShippingAddress(modifier: Modifier = Modifier) {
         Column(
             modifier =
                 Modifier
-                    .fillMaxWidth()
-                    .padding(RikkaTheme.spacing.lg),
+                    .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(text = stringResource(Res.string.example_shipping_title), variant = TextVariant.H4)
@@ -656,8 +647,7 @@ fun ExampleCookieSettings(modifier: Modifier = Modifier) {
         Column(
             modifier =
                 Modifier
-                    .fillMaxWidth()
-                    .padding(RikkaTheme.spacing.lg),
+                    .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(text = stringResource(Res.string.example_cookie_title), variant = TextVariant.H4)
@@ -739,8 +729,7 @@ fun ExamplePaymentMethod(modifier: Modifier = Modifier) {
         Column(
             modifier =
                 Modifier
-                    .fillMaxWidth()
-                    .padding(RikkaTheme.spacing.lg),
+                    .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md),
         ) {
             Text(text = stringResource(Res.string.example_payment_title), variant = TextVariant.H4)
