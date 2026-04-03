@@ -66,7 +66,7 @@ object RikkaPalettes {
         RikkaColors(
             background = Color(0xFF09090B),
             onBackground = Color(0xFFFAFAFA),
-            surface = Color(0xFF09090B),
+            surface = Color(0xFF18181B),
             onSurface = Color(0xFFFAFAFA),
             primary = Color(0xFFFAFAFA),
             onPrimary = Color(0xFF18181B),
@@ -100,9 +100,9 @@ object RikkaPalettes {
     /** Slate base palette, light variant. Blue-gray undertone. */
     val SlateLight =
         RikkaColors(
-            background = Color(0xFFF8FAFC),
+            background = Color(0xFFF1F5F9),
             onBackground = Color(0xFF020817),
-            surface = Color(0xFFFFFFFF),
+            surface = Color(0xFFF8FAFC),
             onSurface = Color(0xFF020817),
             primary = Color(0xFF0F172A),
             onPrimary = Color(0xFFF8FAFC),
@@ -138,7 +138,7 @@ object RikkaPalettes {
         RikkaColors(
             background = Color(0xFF020817),
             onBackground = Color(0xFFF8FAFC),
-            surface = Color(0xFF020817),
+            surface = Color(0xFF0F172A),
             onSurface = Color(0xFFF8FAFC),
             primary = Color(0xFFF8FAFC),
             onPrimary = Color(0xFF0F172A),
@@ -172,9 +172,9 @@ object RikkaPalettes {
     /** Stone base palette, light variant. Warm, earthy undertone. */
     val StoneLight =
         RikkaColors(
-            background = Color(0xFFFAFAF9),
+            background = Color(0xFFF5F5F4),
             onBackground = Color(0xFF0C0A09),
-            surface = Color(0xFFFFFFFF),
+            surface = Color(0xFFFAFAF9),
             onSurface = Color(0xFF0C0A09),
             primary = Color(0xFF1C1917),
             onPrimary = Color(0xFFFAFAF9),
@@ -210,7 +210,7 @@ object RikkaPalettes {
         RikkaColors(
             background = Color(0xFF0C0A09),
             onBackground = Color(0xFFFAFAF9),
-            surface = Color(0xFF0C0A09),
+            surface = Color(0xFF1C1917),
             onSurface = Color(0xFFFAFAF9),
             primary = Color(0xFFFAFAF9),
             onPrimary = Color(0xFF1C1917),
@@ -244,9 +244,9 @@ object RikkaPalettes {
     /** Gray base palette, light variant. Balanced cool cast. */
     val GrayLight =
         RikkaColors(
-            background = Color(0xFFF9FAFB),
+            background = Color(0xFFF3F4F6),
             onBackground = Color(0xFF030712),
-            surface = Color(0xFFFFFFFF),
+            surface = Color(0xFFF9FAFB),
             onSurface = Color(0xFF030712),
             primary = Color(0xFF111827),
             onPrimary = Color(0xFFF9FAFB),
@@ -282,7 +282,7 @@ object RikkaPalettes {
         RikkaColors(
             background = Color(0xFF030712),
             onBackground = Color(0xFFF9FAFB),
-            surface = Color(0xFF030712),
+            surface = Color(0xFF111827),
             onSurface = Color(0xFFF9FAFB),
             primary = Color(0xFFF9FAFB),
             onPrimary = Color(0xFF111827),
@@ -316,9 +316,9 @@ object RikkaPalettes {
     /** Neutral base palette, light variant. Pure achromatic. */
     val NeutralLight =
         RikkaColors(
-            background = Color(0xFFFAFAFA),
+            background = Color(0xFFF5F5F5),
             onBackground = Color(0xFF0A0A0A),
-            surface = Color(0xFFFFFFFF),
+            surface = Color(0xFFFAFAFA),
             onSurface = Color(0xFF0A0A0A),
             primary = Color(0xFF171717),
             onPrimary = Color(0xFFFAFAFA),
@@ -354,7 +354,7 @@ object RikkaPalettes {
         RikkaColors(
             background = Color(0xFF0A0A0A),
             onBackground = Color(0xFFFAFAFA),
-            surface = Color(0xFF0A0A0A),
+            surface = Color(0xFF171717),
             onSurface = Color(0xFFFAFAFA),
             primary = Color(0xFFFAFAFA),
             onPrimary = Color(0xFF171717),
