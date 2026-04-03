@@ -9,6 +9,8 @@
 composeApp/src/webMain/resources/r/
 composeApp/src/webMain/resources/rikkaui.jar
 
+buildSrc/.gradle/
+
 RELEASE_NOTES.md
 
 .claude/worktrees/

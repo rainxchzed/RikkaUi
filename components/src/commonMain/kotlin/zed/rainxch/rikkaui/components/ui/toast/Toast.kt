@@ -68,6 +68,7 @@ import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.foundation.LocalContentColor
 import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
@@ -124,8 +125,8 @@ data class ToastData(
     val onAction: (() -> Unit)? = null,
 )
 
-const val DEFAULT_TOAST_DURATION = 4000L
-const val TOAST_DURATION_SHORT = 2000L
+const val DEFAULT_TOAST_DURATION = 5000L
+const val TOAST_DURATION_SHORT = 5000L
 const val TOAST_DURATION_LONG = 7000L
 const val TOAST_DURATION_INFINITE = Long.MAX_VALUE
 
@@ -487,7 +488,12 @@ fun Toast(
                 .hoverable(hoverInteraction)
                 .semantics(mergeDescendants = true) {
                     contentDescription = accessibilityLabel
-                    liveRegion = LiveRegionMode.Polite
+                    liveRegion =
+                        if (variant == ToastVariant.Destructive) {
+                            LiveRegionMode.Assertive
+                        } else {
+                            LiveRegionMode.Polite
+                        }
                     dismiss {
                         onDismiss()
                         true
@@ -570,7 +576,8 @@ fun Toast(
                                             onAction()
                                             onDismiss()
                                         },
-                                    ).semantics {
+                                    ).minTouchTarget()
+                                    .semantics {
                                         contentDescription = actionLabel
                                     }.padding(
                                         horizontal = spacing.sm,

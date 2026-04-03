@@ -9,6 +9,7 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -38,12 +39,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.paneTitle
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
@@ -52,6 +63,7 @@ import androidx.compose.ui.window.Popup
 import kotlinx.coroutines.delay
 import zed.rainxch.rikkaui.components.ui.PopupAnimation
 import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 
 // ─── Component ──────────────────────────────────────────────
 
@@ -59,6 +71,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 fun ContextMenu(
     menuContent: @Composable ColumnScope.() -> Unit,
     modifier: Modifier = Modifier,
+    label: String = "Context menu",
     animation: PopupAnimation = PopupAnimation.FadeExpand,
     minWidth: Dp = 200.dp,
     maxWidth: Dp = 280.dp,
@@ -67,6 +80,7 @@ fun ContextMenu(
 ) {
     var expanded by remember { mutableStateOf(false) }
     val motion = RikkaTheme.motion
+    val focusRequester = remember { FocusRequester() }
 
     var showPopup by remember { mutableStateOf(false) }
     LaunchedEffect(expanded) {
@@ -76,11 +90,21 @@ fun ContextMenu(
     Box(modifier = modifier) {
         Box(
             modifier =
-                Modifier.pointerInput(Unit) {
-                    detectTapGestures(
-                        onLongPress = { expanded = true },
-                    )
-                },
+                Modifier
+                    .semantics {
+                        stateDescription = if (expanded) "Expanded" else "Collapsed"
+                    }.onKeyEvent {
+                        if (it.key == Key.F10 && it.type == KeyEventType.KeyDown) {
+                            expanded = true
+                            true
+                        } else {
+                            false
+                        }
+                    }.pointerInput(Unit) {
+                        detectTapGestures(
+                            onLongPress = { expanded = true },
+                        )
+                    },
         ) {
             content()
         }
@@ -90,6 +114,10 @@ fun ContextMenu(
                 alignment = Alignment.TopStart,
                 onDismissRequest = { expanded = false },
             ) {
+                LaunchedEffect(Unit) {
+                    focusRequester.requestFocus()
+                }
+
                 ContextMenuPanel(
                     visible = expanded,
                     animation = animation,
@@ -97,6 +125,9 @@ fun ContextMenu(
                     maxWidth = maxWidth,
                     maxHeight = maxHeight,
                     menuContent = menuContent,
+                    label = label,
+                    focusRequester = focusRequester,
+                    onDismiss = { expanded = false },
                 )
 
                 if (!expanded) {
@@ -116,6 +147,7 @@ fun ControlledContextMenu(
     onDismiss: () -> Unit,
     menuContent: @Composable ColumnScope.() -> Unit,
     modifier: Modifier = Modifier,
+    label: String = "Context menu",
     animation: PopupAnimation = PopupAnimation.FadeExpand,
     minWidth: Dp = 200.dp,
     maxWidth: Dp = 280.dp,
@@ -123,6 +155,7 @@ fun ControlledContextMenu(
     content: @Composable () -> Unit,
 ) {
     val motion = RikkaTheme.motion
+    val focusRequester = remember { FocusRequester() }
 
     var showPopup by remember { mutableStateOf(false) }
     LaunchedEffect(expanded) {
@@ -137,6 +170,10 @@ fun ControlledContextMenu(
                 alignment = Alignment.TopStart,
                 onDismissRequest = onDismiss,
             ) {
+                LaunchedEffect(Unit) {
+                    focusRequester.requestFocus()
+                }
+
                 ContextMenuPanel(
                     visible = expanded,
                     animation = animation,
@@ -144,6 +181,9 @@ fun ControlledContextMenu(
                     maxWidth = maxWidth,
                     maxHeight = maxHeight,
                     menuContent = menuContent,
+                    label = label,
+                    focusRequester = focusRequester,
+                    onDismiss = onDismiss,
                 )
 
                 if (!expanded) {
@@ -167,6 +207,9 @@ private fun ContextMenuPanel(
     maxWidth: Dp,
     maxHeight: Dp,
     menuContent: @Composable ColumnScope.() -> Unit,
+    label: String = "Context menu",
+    focusRequester: FocusRequester? = null,
+    onDismiss: (() -> Unit)? = null,
 ) {
     val colors = RikkaTheme.colors
     val shapes = RikkaTheme.shapes
@@ -177,6 +220,21 @@ private fun ContextMenuPanel(
         Column(
             modifier =
                 Modifier
+                    .then(
+                        if (focusRequester != null) {
+                            Modifier.focusRequester(focusRequester)
+                        } else {
+                            Modifier
+                        },
+                    ).focusable()
+                    .onKeyEvent {
+                        if (it.key == Key.Escape && it.type == KeyEventType.KeyDown) {
+                            onDismiss?.invoke()
+                            true
+                        } else {
+                            false
+                        }
+                    }.semantics { paneTitle = label }
                     .defaultMinSize(
                         minWidth = minWidth,
                     ).widthIn(max = maxWidth)
@@ -297,6 +355,7 @@ fun ContextMenuItem(
         modifier =
             modifier
                 .fillMaxWidth()
+                .minTouchTarget()
                 .hoverable(interactionSource)
                 .clickable(
                     interactionSource = interactionSource,
@@ -360,6 +419,7 @@ fun ContextMenuSeparator(modifier: Modifier = Modifier) {
     Box(
         modifier =
             modifier
+                .clearAndSetSemantics {}
                 .fillMaxWidth()
                 .padding(vertical = spacing.xs)
                 .height(1.dp)

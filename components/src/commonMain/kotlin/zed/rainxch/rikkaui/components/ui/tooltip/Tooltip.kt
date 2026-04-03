@@ -3,8 +3,10 @@ package zed.rainxch.rikkaui.components.ui.tooltip
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -19,8 +21,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.paneTitle
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
@@ -67,6 +76,7 @@ fun Tooltip(
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isHovered by interactionSource.collectIsHoveredAsState()
+    val isFocused by interactionSource.collectIsFocusedAsState()
 
     val motion = RikkaTheme.motion
     val colors = RikkaTheme.colors
@@ -74,9 +84,10 @@ fun Tooltip(
 
     // ─── Delayed visibility ──────────────────────────────
     var isVisible by remember { mutableStateOf(false) }
+    val isTriggered = isHovered || isFocused
 
-    LaunchedEffect(isHovered) {
-        if (isHovered) {
+    LaunchedEffect(isTriggered) {
+        if (isTriggered) {
             if (showDelayMs > 0L) delay(showDelayMs)
             isVisible = true
         } else {
@@ -130,7 +141,17 @@ fun Tooltip(
     Box(
         modifier =
             modifier
-                .hoverable(interactionSource)
+                .onKeyEvent { event ->
+                    if (event.type == KeyEventType.KeyDown &&
+                        event.key == Key.Escape
+                    ) {
+                        isVisible = false
+                        true
+                    } else {
+                        false
+                    }
+                }.hoverable(interactionSource)
+                .focusable(interactionSource = interactionSource)
                 .onGloballyPositioned { coordinates ->
                     contentSize = coordinates.size
                 },
@@ -146,6 +167,7 @@ fun Tooltip(
                 Box(
                     modifier =
                         Modifier
+                            .semantics { paneTitle = tooltip }
                             .graphicsLayer {
                                 this.alpha = alpha
                                 scaleX = scale

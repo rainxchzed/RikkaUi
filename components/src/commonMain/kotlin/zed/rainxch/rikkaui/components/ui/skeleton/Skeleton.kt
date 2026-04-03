@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ──────────────────────────────────────────────
@@ -39,6 +40,7 @@ fun Skeleton(
     modifier: Modifier = Modifier,
     animation: SkeletonAnimation = SkeletonAnimation.Pulse,
     shape: Shape = RikkaTheme.shapes.md,
+    label: String = "Loading",
 ) {
     val motion = RikkaTheme.motion
     val mutedColor = RikkaTheme.colors.muted
@@ -66,7 +68,7 @@ fun Skeleton(
                         .clip(shape)
                         .background(mutedColor)
                         .graphicsLayer { this.alpha = alpha }
-                        .clearAndSetSemantics { },
+                        .clearAndSetSemantics { contentDescription = label },
             )
         }
 
@@ -106,7 +108,7 @@ fun Skeleton(
                                     end = Offset(shimmerX + width * 0.5f, 0f),
                                 )
                             drawRect(brush = brush)
-                        }.clearAndSetSemantics { },
+                        }.clearAndSetSemantics { contentDescription = label },
             )
         }
 
@@ -116,7 +118,7 @@ fun Skeleton(
                     modifier
                         .clip(shape)
                         .background(mutedColor)
-                        .clearAndSetSemantics { },
+                        .clearAndSetSemantics { contentDescription = label },
             )
         }
     }

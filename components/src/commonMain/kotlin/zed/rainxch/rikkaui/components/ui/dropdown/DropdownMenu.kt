@@ -9,6 +9,7 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
@@ -35,11 +36,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.paneTitle
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
@@ -48,6 +59,7 @@ import androidx.compose.ui.window.Popup
 import kotlinx.coroutines.delay
 import zed.rainxch.rikkaui.components.ui.PopupAnimation
 import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 
 // ─── Component ──────────────────────────────────────────────
 
@@ -56,6 +68,7 @@ fun DropdownMenu(
     expanded: Boolean,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
+    label: String = "Menu",
     animation: PopupAnimation = PopupAnimation.FadeExpand,
     minWidth: Dp = 180.dp,
     maxWidth: Dp = 280.dp,
@@ -68,23 +81,46 @@ fun DropdownMenu(
     val spacing = RikkaTheme.spacing
     val motion = RikkaTheme.motion
 
+    val focusRequester = remember { FocusRequester() }
+
     var showPopup by remember { mutableStateOf(false) }
     LaunchedEffect(expanded) {
         if (expanded) showPopup = true
     }
 
     Box(modifier = modifier) {
-        trigger()
+        Box(
+            modifier =
+                Modifier.semantics {
+                    stateDescription = if (expanded) "Expanded" else "Collapsed"
+                },
+        ) {
+            trigger()
+        }
 
         if (showPopup) {
             Popup(
                 alignment = Alignment.BottomStart,
                 onDismissRequest = onDismiss,
             ) {
+                LaunchedEffect(Unit) {
+                    focusRequester.requestFocus()
+                }
+
                 val panelContent: @Composable () -> Unit = {
                     Column(
                         modifier =
                             Modifier
+                                .focusRequester(focusRequester)
+                                .focusable()
+                                .onKeyEvent {
+                                    if (it.key == Key.Escape && it.type == KeyEventType.KeyDown) {
+                                        onDismiss()
+                                        true
+                                    } else {
+                                        false
+                                    }
+                                }.semantics { paneTitle = label }
                                 .defaultMinSize(
                                     minWidth = minWidth,
                                 ).widthIn(max = maxWidth)
@@ -214,6 +250,7 @@ fun DropdownMenuItem(
         modifier =
             modifier
                 .fillMaxWidth()
+                .minTouchTarget()
                 .hoverable(interactionSource)
                 .clickable(
                     interactionSource = interactionSource,
@@ -258,6 +295,7 @@ fun DropdownMenuSeparator(modifier: Modifier = Modifier) {
     Box(
         modifier =
             modifier
+                .clearAndSetSemantics {}
                 .fillMaxWidth()
                 .padding(vertical = spacing.xs)
                 .height(1.dp)

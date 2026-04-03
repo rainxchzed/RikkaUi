@@ -8,6 +8,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
@@ -22,6 +23,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
+import androidx.compose.ui.semantics.paneTitle
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
@@ -61,6 +71,7 @@ fun Popover(
     expanded: Boolean,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
+    label: String = "Popover",
     animation: PopoverAnimation = PopoverAnimation.FadeExpand,
     placement: PopoverPlacement = PopoverPlacement.BottomStart,
     minWidth: Dp = 120.dp,
@@ -69,6 +80,7 @@ fun Popover(
     content: @Composable () -> Unit,
 ) {
     val motion = RikkaTheme.motion
+    val focusRequester = remember { FocusRequester() }
 
     val popupAlignment = resolvePlacement(placement)
 
@@ -120,6 +132,9 @@ fun Popover(
                                     ),
                         ) {
                             PopoverCard(
+                                label = label,
+                                onDismiss = onDismiss,
+                                focusRequester = focusRequester,
                                 minWidth = minWidth,
                                 maxWidth = maxWidth,
                                 content = content,
@@ -146,6 +161,9 @@ fun Popover(
                                 ),
                         ) {
                             PopoverCard(
+                                label = label,
+                                onDismiss = onDismiss,
+                                focusRequester = focusRequester,
                                 minWidth = minWidth,
                                 maxWidth = maxWidth,
                                 content = content,
@@ -155,6 +173,9 @@ fun Popover(
 
                     PopoverAnimation.None -> {
                         PopoverCard(
+                            label = label,
+                            onDismiss = onDismiss,
+                            focusRequester = focusRequester,
                             minWidth = minWidth,
                             maxWidth = maxWidth,
                             content = content,
@@ -177,6 +198,9 @@ fun Popover(
 
 @Composable
 private fun PopoverCard(
+    label: String,
+    onDismiss: () -> Unit,
+    focusRequester: FocusRequester,
     minWidth: Dp,
     maxWidth: Dp,
     content: @Composable () -> Unit,
@@ -185,9 +209,25 @@ private fun PopoverCard(
     val shapes = RikkaTheme.shapes
     val spacing = RikkaTheme.spacing
 
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+    }
+
     Box(
         modifier =
             Modifier
+                .semantics { paneTitle = label }
+                .onKeyEvent { event ->
+                    if (event.type == KeyEventType.KeyDown &&
+                        event.key == Key.Escape
+                    ) {
+                        onDismiss()
+                        true
+                    } else {
+                        false
+                    }
+                }.focusRequester(focusRequester)
+                .focusable()
                 .widthIn(min = minWidth, max = maxWidth)
                 .shadow(RikkaTheme.elevation.high, shapes.md)
                 .border(1.dp, colors.border, shapes.md)

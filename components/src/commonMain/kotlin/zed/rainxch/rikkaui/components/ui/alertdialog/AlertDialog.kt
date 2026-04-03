@@ -11,6 +11,7 @@ import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,14 +32,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.dismiss
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.paneTitle
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupProperties
 import kotlinx.coroutines.delay
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.button.ButtonVariant
@@ -95,7 +105,10 @@ fun AlertDialog(
 
     Popup(
         onDismissRequest = onDismiss,
+        properties = PopupProperties(focusable = true),
     ) {
+        val focusRequester = remember { FocusRequester() }
+
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center,
@@ -140,7 +153,18 @@ fun AlertDialog(
                 Column(
                     modifier =
                         modifier
-                            .widthIn(max = maxWidth)
+                            .focusRequester(focusRequester)
+                            .focusable()
+                            .onKeyEvent { event ->
+                                if (event.key == Key.Escape &&
+                                    event.type == KeyEventType.KeyDown
+                                ) {
+                                    onDismiss()
+                                    true
+                                } else {
+                                    false
+                                }
+                            }.widthIn(max = maxWidth)
                             .semantics(mergeDescendants = true) {
                                 paneTitle = label
                                 contentDescription = label
@@ -165,6 +189,11 @@ fun AlertDialog(
                         content()
                     }
                 }
+            }
+
+            // Auto-focus the dialog card when opened
+            LaunchedEffect(Unit) {
+                focusRequester.requestFocus()
             }
 
             // ─── Cleanup: remove Popup after exit animation ──
@@ -195,6 +224,7 @@ fun AlertDialogHeader(
     ) {
         Text(
             text = title,
+            modifier = Modifier.semantics { heading() },
             variant = TextVariant.Large,
         )
         if (description.isNotEmpty()) {

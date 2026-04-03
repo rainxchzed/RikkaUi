@@ -4,8 +4,10 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.defaultMinSize
@@ -23,6 +25,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
+import androidx.compose.ui.semantics.paneTitle
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
@@ -63,6 +72,7 @@ private const val DEFAULT_HIDE_DELAY_MS = 200L
 @Composable
 fun HoverCard(
     modifier: Modifier = Modifier,
+    label: String = "Additional information",
     animation: HoverCardAnimation = HoverCardAnimation.FadeScale,
     placement: HoverCardPlacement = HoverCardPlacement.BottomStart,
     showDelayMs: Long = DEFAULT_SHOW_DELAY_MS,
@@ -73,6 +83,7 @@ fun HoverCard(
 ) {
     val triggerInteraction = remember { MutableInteractionSource() }
     val isTriggerHovered by triggerInteraction.collectIsHoveredAsState()
+    val isTriggerFocused by triggerInteraction.collectIsFocusedAsState()
 
     val cardInteraction = remember { MutableInteractionSource() }
     val isCardHovered by cardInteraction.collectIsHoveredAsState()
@@ -87,10 +98,10 @@ fun HoverCard(
     val popupAlignment = resolvePlacement(placement)
 
     // ─── Show/hide with delays ───────────────────────────
-    val isAnyHovered = isTriggerHovered || isCardHovered
+    val isAnyActive = isTriggerHovered || isTriggerFocused || isCardHovered
 
-    LaunchedEffect(isAnyHovered) {
-        if (isAnyHovered) {
+    LaunchedEffect(isAnyActive) {
+        if (isAnyActive) {
             delay(showDelayMs)
             isVisible = true
         } else {
@@ -140,15 +151,33 @@ fun HoverCard(
         }
 
     Box(modifier = modifier) {
-        Box(modifier = Modifier.hoverable(triggerInteraction)) {
+        Box(
+            modifier =
+                Modifier
+                    .onKeyEvent { event ->
+                        if (event.type == KeyEventType.KeyDown &&
+                            event.key == Key.Escape
+                        ) {
+                            isVisible = false
+                            true
+                        } else {
+                            false
+                        }
+                    }.hoverable(triggerInteraction)
+                    .focusable(interactionSource = triggerInteraction),
+        ) {
             trigger()
         }
 
         if (showPopup) {
-            Popup(alignment = popupAlignment) {
+            Popup(
+                alignment = popupAlignment,
+                onDismissRequest = { isVisible = false },
+            ) {
                 Box(
                     modifier =
                         Modifier
+                            .semantics { paneTitle = label }
                             .hoverable(cardInteraction)
                             .graphicsLayer {
                                 this.alpha = alpha
