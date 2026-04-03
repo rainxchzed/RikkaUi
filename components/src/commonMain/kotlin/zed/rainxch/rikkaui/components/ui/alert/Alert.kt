@@ -23,7 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.ui.text.Text
@@ -71,13 +73,22 @@ fun Alert(
     val resolved = resolveColors(variant)
     val shape = RikkaTheme.shapes.md
 
+    val resolvedLiveRegion =
+        when (variant) {
+            AlertVariant.Default -> LiveRegionMode.Polite
+            AlertVariant.Destructive -> LiveRegionMode.Assertive
+        }
+
     val semanticsModifier =
         if (label.isNotEmpty()) {
             Modifier.semantics(mergeDescendants = true) {
                 contentDescription = label
+                liveRegion = resolvedLiveRegion
             }
         } else {
-            Modifier.semantics(mergeDescendants = true) {}
+            Modifier.semantics(mergeDescendants = true) {
+                liveRegion = resolvedLiveRegion
+            }
         }
 
     val animationModifier = resolveAnimationModifier(animation)
