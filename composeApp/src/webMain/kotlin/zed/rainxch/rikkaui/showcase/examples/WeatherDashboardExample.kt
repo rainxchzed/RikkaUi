@@ -64,7 +64,10 @@ fun WeatherDashboardExample() {
 
         CardContent {
             Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md)) {
-                Text(text = stringResource(Res.string.temperature), variant = TextVariant.H1)
+                Text(
+                    text = stringResource(Res.string.temperature),
+                    variant = TextVariant.H1,
+                )
                 Text(text = stringResource(Res.string.partly_cloudy), variant = TextVariant.Muted)
 
                 Row(
@@ -87,31 +90,67 @@ fun WeatherDashboardExample() {
 
                 Separator()
 
-                Text(text = stringResource(Res.string.three_day_forecast), variant = TextVariant.Small)
+                Text(
+                    text = stringResource(Res.string.three_day_forecast),
+                    variant = TextVariant.Small,
+                )
 
                 Table {
                     TableHeader {
-                        TableHeaderCell(text = stringResource(Res.string.day_column), modifier = Modifier.weight(1f))
-                        TableHeaderCell(text = stringResource(Res.string.temp_column), modifier = Modifier.weight(1f))
+                        TableHeaderCell(
+                            text = stringResource(Res.string.day_column),
+                            modifier = Modifier.weight(1f),
+                        )
+                        TableHeaderCell(
+                            text = stringResource(Res.string.temp_column),
+                            modifier = Modifier.weight(1f),
+                        )
                         TableHeaderCell(
                             text = stringResource(Res.string.condition_column),
                             modifier = Modifier.weight(1f),
                         )
                     }
                     TableRow {
-                        TableCell(text = stringResource(Res.string.monday), modifier = Modifier.weight(1f))
-                        TableCell(text = stringResource(Res.string.monday_temp), modifier = Modifier.weight(1f))
-                        TableCell(text = stringResource(Res.string.sunny), modifier = Modifier.weight(1f))
+                        TableCell(
+                            text = stringResource(Res.string.monday),
+                            modifier = Modifier.weight(1f),
+                        )
+                        TableCell(
+                            text = stringResource(Res.string.monday_temp),
+                            modifier = Modifier.weight(1f),
+                        )
+                        TableCell(
+                            text = stringResource(Res.string.sunny),
+                            modifier = Modifier.weight(1f),
+                        )
                     }
                     TableRow {
-                        TableCell(text = stringResource(Res.string.tuesday), modifier = Modifier.weight(1f))
-                        TableCell(text = stringResource(Res.string.tuesday_temp), modifier = Modifier.weight(1f))
-                        TableCell(text = stringResource(Res.string.cloudy), modifier = Modifier.weight(1f))
+                        TableCell(
+                            text = stringResource(Res.string.tuesday),
+                            modifier = Modifier.weight(1f),
+                        )
+                        TableCell(
+                            text = stringResource(Res.string.tuesday_temp),
+                            modifier = Modifier.weight(1f),
+                        )
+                        TableCell(
+                            text = stringResource(Res.string.cloudy),
+                            modifier = Modifier.weight(1f),
+                        )
                     }
                     TableRow {
-                        TableCell(text = stringResource(Res.string.wednesday), modifier = Modifier.weight(1f))
-                        TableCell(text = stringResource(Res.string.wednesday_temp), modifier = Modifier.weight(1f))
-                        TableCell(text = stringResource(Res.string.rain), modifier = Modifier.weight(1f))
+                        TableCell(
+                            text = stringResource(Res.string.wednesday),
+                            modifier = Modifier.weight(1f),
+                        )
+                        TableCell(
+                            text = stringResource(Res.string.wednesday_temp),
+                            modifier = Modifier.weight(1f),
+                        )
+                        TableCell(
+                            text = stringResource(Res.string.rain),
+                            modifier = Modifier.weight(1f),
+                        )
                     }
                 }
             }
