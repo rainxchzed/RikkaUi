@@ -31,12 +31,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.isTraversalGroup
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 
 // ─── Animation ────────────────────────────────────────────
 
@@ -63,6 +66,7 @@ fun TabList(
     Row(
         modifier =
             modifier
+                .semantics { isTraversalGroup = true }
                 .background(RikkaTheme.colors.muted, shape)
                 .clip(shape)
                 .padding(RikkaTheme.spacing.xs),
@@ -141,6 +145,7 @@ fun Tab(
     Box(
         modifier =
             modifier
+                .minTouchTarget()
                 .shadow(shadowElevation, shape)
                 .background(backgroundColor, shape)
                 .clip(shape)
@@ -155,6 +160,7 @@ fun Tab(
                     horizontal = RikkaTheme.spacing.md,
                     vertical = RikkaTheme.spacing.sm,
                 ).semantics {
+                    this.selected = selected
                     contentDescription = text
                 },
         contentAlignment = Alignment.Center,

@@ -34,6 +34,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
@@ -88,7 +89,7 @@ fun NavigationBar(
                     .height(80.dp)
                     .padding(
                         horizontal = RikkaTheme.spacing.sm,
-                    ),
+                    ).semantics { isTraversalGroup = true },
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -188,7 +189,7 @@ fun RowScope.NavigationBarItem(
                     role = Role.Tab,
                     enabled = enabled,
                     onClick = onClick,
-                ).semantics {
+                ).semantics(mergeDescendants = true) {
                     this.selected = selected
                     if (!enabled) disabled()
                 }.graphicsLayer {

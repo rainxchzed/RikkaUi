@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -34,6 +35,7 @@ import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.foundation.LocalContentColor
 import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 
 // ─── Animation Enum ─────────────────────────────────────────
 
@@ -234,6 +236,7 @@ private fun PaginationButton(
     Box(
         modifier =
             modifier
+                .minTouchTarget()
                 .then(animationModifier)
                 .then(borderModifier)
                 .then(backgroundModifier)
@@ -248,6 +251,7 @@ private fun PaginationButton(
                 ).then(if (!enabled) Modifier.alpha(0.5f) else Modifier)
                 .semantics(mergeDescendants = true) {
                     contentDescription = label
+                    selected = isActive
                     if (!enabled) {
                         disabled()
                     }
@@ -308,6 +312,7 @@ private fun PaginationIconButton(
     Box(
         modifier =
             modifier
+                .minTouchTarget()
                 .then(borderModifier)
                 .then(backgroundModifier)
                 .clip(shape)

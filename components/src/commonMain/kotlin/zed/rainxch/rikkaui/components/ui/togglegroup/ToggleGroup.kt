@@ -5,13 +5,14 @@ import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.snap
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -23,12 +24,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.foundation.LocalContentColor
 import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 
 // ─── Variant ───────────────────────────────────────────────
 
@@ -63,7 +66,7 @@ fun ToggleGroup(
     content: @Composable () -> Unit,
 ) {
     Row(
-        modifier = modifier,
+        modifier = modifier.selectableGroup(),
         horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -130,20 +133,23 @@ fun ToggleGroupItem(
     Box(
         modifier =
             modifier
+                .minTouchTarget()
                 .then(borderModifier)
                 .then(backgroundModifier)
                 .clip(shape)
                 .graphicsLayer {
                     alpha = if (isHovered && !selected) motion.hoverAlpha else 1f
-                }.clickable(
+                }.selectable(
+                    selected = selected,
                     interactionSource = interactionSource,
                     indication = null,
-                    role = Role.Button,
+                    role = Role.RadioButton,
                     onClick = onClick,
                 ).padding(
                     horizontal = RikkaTheme.spacing.md,
                     vertical = RikkaTheme.spacing.sm,
                 ).semantics {
+                    this.selected = selected
                     if (label.isNotEmpty()) {
                         contentDescription = label
                     }

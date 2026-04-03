@@ -19,13 +19,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDecoration
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 
 // ─── BreadcrumbAnimation ────────────────────────────────────
 
@@ -65,6 +68,7 @@ fun Breadcrumb(
         modifier =
             modifier.semantics {
                 contentDescription = "Breadcrumb navigation"
+                isTraversalGroup = true
             },
         horizontalArrangement =
             Arrangement.spacedBy(
@@ -147,6 +151,7 @@ fun BreadcrumbItem(
             style = textStyle,
             modifier =
                 modifier
+                    .minTouchTarget()
                     .clickable(
                         interactionSource = interactionSource,
                         indication = null,
@@ -183,7 +188,7 @@ fun BreadcrumbSeparator(
             text = "/",
             variant = TextVariant.Small,
             color = RikkaTheme.colors.onMuted,
-            modifier = modifier,
+            modifier = modifier.clearAndSetSemantics {},
         )
     }
 }
