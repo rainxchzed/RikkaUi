@@ -64,7 +64,7 @@ fun UserProfileExample() {
         Separator()
 
         CardContent {
-            Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs)) {
+            Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm)) {
                 PreferenceRow(
                     label = stringResource(Res.string.notifications),
                     checked = notifications,

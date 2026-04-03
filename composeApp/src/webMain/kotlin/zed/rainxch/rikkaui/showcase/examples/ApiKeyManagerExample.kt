@@ -51,7 +51,7 @@ fun ApiKeyManagerExample() {
         }
 
         CardContent {
-            Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm)) {
+            Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs)) {
                 KeyEntry(
                     label = stringResource(Res.string.production),
                     maskedKey = stringResource(Res.string.production_key),

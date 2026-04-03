@@ -29,7 +29,6 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.foundation.RikkaTheme
-import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 
 // ─── Animation ──────────────────────────────────────────────
 
@@ -150,7 +149,6 @@ fun Toggle(
     Box(
         modifier =
             modifier
-                .minTouchTarget()
                 .size(
                     width = sizeValues.trackWidth,
                     height = sizeValues.trackHeight,
