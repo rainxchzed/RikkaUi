@@ -18,6 +18,7 @@ import zed.rainxch.rikkaui.docs.catalog.guidePageIds
 import zed.rainxch.rikkaui.docs.presentation.ComponentsCatalogScreen
 import zed.rainxch.rikkaui.docs.presentation.DocsRoute
 import zed.rainxch.rikkaui.showcase.ShowcaseRoute
+import zed.rainxch.rikkaui.whyrikka.WhyRikkaRoute
 
 private fun updateDocsHash(pageId: String) {
     val path =
@@ -69,6 +70,10 @@ fun AppNavigation(
                     )
                 },
             )
+        }
+
+        composable<AppNavGraph.WhyRikkaRoute> {
+            WhyRikkaRoute()
         }
 
         composable<AppNavGraph.CreatorRoute> {

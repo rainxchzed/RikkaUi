@@ -6,10 +6,12 @@ import rikkaui.composeapp.generated.resources.nav_components
 import rikkaui.composeapp.generated.resources.nav_create
 import rikkaui.composeapp.generated.resources.nav_docs
 import rikkaui.composeapp.generated.resources.nav_home
+import rikkaui.composeapp.generated.resources.nav_why_rikka
 import zed.rainxch.rikkaui.navigation.AppNavGraph.ComponentsCatalogRoute
 import zed.rainxch.rikkaui.navigation.AppNavGraph.CreatorRoute
 import zed.rainxch.rikkaui.navigation.AppNavGraph.DocsRoute
 import zed.rainxch.rikkaui.navigation.AppNavGraph.HomeRoute
+import zed.rainxch.rikkaui.navigation.AppNavGraph.WhyRikkaRoute
 
 data class NavEntry(
     val label: StringResource,
@@ -33,6 +35,11 @@ data class NavEntry(
                     label = Res.string.nav_docs,
                     route = DocsRoute,
                     matchPrefix = RoutePaths.DOCS,
+                ),
+                NavEntry(
+                    label = Res.string.nav_why_rikka,
+                    route = WhyRikkaRoute,
+                    matchPrefix = RoutePaths.WHY_RIKKA,
                 ),
                 NavEntry(
                     label = Res.string.nav_create,

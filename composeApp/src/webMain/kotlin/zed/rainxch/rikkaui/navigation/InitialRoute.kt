@@ -21,6 +21,10 @@ fun resolveInitialRoute(): AppNavGraph {
             AppNavGraph.CreatorRoute
         }
 
+        hash == RoutePaths.WHY_RIKKA -> {
+            AppNavGraph.WhyRikkaRoute
+        }
+
         hash == RoutePaths.DOCS -> {
             AppNavGraph.DocsRoute
         }

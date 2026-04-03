@@ -7,6 +7,7 @@ object RoutePaths {
     const val HOME = "home"
     const val COMPONENTS = "components"
     const val CREATE = "create"
+    const val WHY_RIKKA = "why-rikka"
     const val DOCS = "docs"
     const val DOCS_GUIDE = "docs/guide"
     const val DOCS_COMPONENTS = "docs/components"
@@ -27,6 +28,10 @@ sealed class AppNavGraph {
     @Serializable
     @SerialName(RoutePaths.CREATE)
     data object CreatorRoute : AppNavGraph()
+
+    @Serializable
+    @SerialName(RoutePaths.WHY_RIKKA)
+    data object WhyRikkaRoute : AppNavGraph()
 
     @Serializable
     @SerialName(RoutePaths.DOCS)
