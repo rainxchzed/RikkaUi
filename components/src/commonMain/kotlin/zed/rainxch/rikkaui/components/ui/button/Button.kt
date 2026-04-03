@@ -42,6 +42,7 @@ import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.foundation.LocalContentColor
 import zed.rainxch.rikkaui.foundation.LocalTextStyle
 import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 
 // ─── Variant ────────────────────────────────────────────────
 
@@ -421,6 +422,7 @@ fun Button(
     Row(
         modifier =
             modifier
+                .minTouchTarget()
                 .then(animationModifier)
                 .semantics(mergeDescendants = true) {
                     role = Role.Button
@@ -517,6 +519,7 @@ fun Button(
         animation = animation,
         enabled = enabled,
         loading = loading,
+        label = text,
         colors = colors,
         interactionSource = interactionSource,
     ) {

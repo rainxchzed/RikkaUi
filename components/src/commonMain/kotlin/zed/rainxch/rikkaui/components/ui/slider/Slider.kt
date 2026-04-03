@@ -5,6 +5,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.snap
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
@@ -23,10 +24,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.ProgressBarRangeInfo
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.progressBarRangeInfo
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.Dp
@@ -34,12 +43,13 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.foundation.RikkaMotion
 import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 import kotlin.math.roundToInt
 
-// ─── Animation Enum ─────────────────────────────────────────
+// --- Animation Enum ---------------------------------------------------------
 
 enum class SliderAnimation {
-    /** Spring physics — default. */
+    /** Spring physics -- default. */
     Spring,
 
     /** Smooth eased tween. */
@@ -49,8 +59,38 @@ enum class SliderAnimation {
     None,
 }
 
-// ─── Component ──────────────────────────────────────────────
+// --- Component --------------------------------------------------------------
 
+/**
+ * A horizontal slider that maps a 0f..1f value to a draggable thumb.
+ *
+ * Supports pointer drag, tap-to-seek, and keyboard arrow keys for
+ * accessibility. The slider exposes [progressBarRangeInfo] semantics so
+ * screen readers announce the current value as a percentage.
+ *
+ * ```kotlin
+ * var volume by remember { mutableFloatStateOf(0.5f) }
+ * Slider(
+ *     value = volume,
+ *     onValueChange = { volume = it },
+ *     label = "Volume",
+ * )
+ * ```
+ *
+ * @param value Current slider position in the 0f..1f range.
+ * @param onValueChange Called when the user changes the value.
+ * @param modifier Modifier applied to the outer container.
+ * @param enabled Whether the slider accepts input.
+ * @param animation Animation style for the thumb/fill transition.
+ * @param thumbSize Diameter of the thumb circle.
+ * @param trackHeight Height of the track bar.
+ * @param trackColor Background track color (defaults to [RikkaTheme.colors.muted]).
+ * @param fillColor Filled portion color (defaults to [RikkaTheme.colors.primary]).
+ * @param thumbColor Thumb fill color (defaults to [RikkaTheme.colors.background]).
+ * @param thumbBorderColor Thumb border color (defaults to [RikkaTheme.colors.primary]).
+ * @param label Accessible label read by screen readers.
+ * @param keyboardStep Value increment/decrement per arrow key press (default 1%).
+ */
 @Composable
 fun Slider(
     value: Float,
@@ -65,6 +105,7 @@ fun Slider(
     thumbColor: Color = Color.Unspecified,
     thumbBorderColor: Color = Color.Unspecified,
     label: String = "",
+    keyboardStep: Float = 0.01f,
 ) {
     val clampedValue = value.coerceIn(0f, 1f)
     val colors = RikkaTheme.colors
@@ -93,11 +134,11 @@ fun Slider(
     // Keep latest callback stable for pointer input lambdas.
     val currentOnValueChange by rememberUpdatedState(onValueChange)
 
-    // ─── Resolve animation spec from enum + theme tokens ──
+    // --- Resolve animation spec from enum + theme tokens --
     val animationSpec: AnimationSpec<Float> =
         resolveAnimationSpec(animation, motion)
 
-    // ─── Animated fraction ────────────────────────────────
+    // --- Animated fraction ---------------------------------
     val animatedFraction by animateFloatAsState(
         targetValue = clampedValue,
         animationSpec = animationSpec,
@@ -105,13 +146,31 @@ fun Slider(
 
     val percentText = "${(clampedValue * 100).toInt()}%"
 
-    // ─── Outer container ──────────────────────────────────
+    // --- Outer container ----------------------------------
     Box(
         modifier =
             modifier
                 .fillMaxWidth()
                 .height(thumbSize)
-                .then(
+                .minTouchTarget()
+                .focusable(enabled)
+                .onKeyEvent { event ->
+                    if (!enabled || event.type != KeyEventType.KeyDown) {
+                        return@onKeyEvent false
+                    }
+                    val newValue =
+                        when (event.key) {
+                            Key.DirectionRight, Key.DirectionUp ->
+                                (clampedValue + keyboardStep).coerceIn(0f, 1f)
+                            Key.DirectionLeft, Key.DirectionDown ->
+                                (clampedValue - keyboardStep).coerceIn(0f, 1f)
+                            Key.MoveHome -> 0f
+                            Key.MoveEnd -> 1f
+                            else -> return@onKeyEvent false
+                        }
+                    currentOnValueChange(newValue)
+                    true
+                }.then(
                     if (!enabled) {
                         Modifier.graphicsLayer { alpha = 0.5f }
                     } else {
@@ -155,13 +214,21 @@ fun Slider(
                         } else {
                             percentText
                         }
+                    if (label.isNotEmpty()) {
+                        contentDescription = label
+                    }
+                    progressBarRangeInfo =
+                        ProgressBarRangeInfo(
+                            current = clampedValue,
+                            range = 0f..1f,
+                        )
                     if (!enabled) {
                         disabled()
                     }
                 },
         contentAlignment = Alignment.CenterStart,
     ) {
-        // ─── Track background ─────────────────────────────
+        // --- Track background ---------------------------------
         Box(
             modifier =
                 Modifier
@@ -171,7 +238,7 @@ fun Slider(
                     .background(resolvedTrackColor, shapes.full),
             contentAlignment = Alignment.CenterStart,
         ) {
-            // ─── Filled track ─────────────────────────────
+            // --- Filled track ---------------------------------
             if (animatedFraction > 0f) {
                 Box(
                     modifier =
@@ -184,7 +251,7 @@ fun Slider(
             }
         }
 
-        // ─── Thumb ────────────────────────────────────────
+        // --- Thumb --------------------------------------------
         val thumbOffsetPx =
             ((trackWidthPx.intValue - thumbSizePx) * animatedFraction)
                 .coerceAtLeast(0f)
@@ -201,7 +268,7 @@ fun Slider(
     }
 }
 
-// ─── Private helpers ────────────────────────────────────────
+// --- Private helpers --------------------------------------------------------
 
 @Composable
 private fun resolveAnimationSpec(

@@ -40,7 +40,10 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.error
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntRect
@@ -55,6 +58,7 @@ import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 
 // ─── Data ───────────────────────────────────────────────────
 
@@ -74,6 +78,8 @@ fun Select(
     placeholder: String = "Select...",
     enabled: Boolean = true,
     label: String = "",
+    isError: Boolean = false,
+    errorMessage: String = "",
     animation: PopupAnimation = PopupAnimation.FadeExpand,
     maxHeight: Dp = 200.dp,
 ) {
@@ -92,6 +98,8 @@ fun Select(
 
     val accessibilityLabel = label.ifEmpty { placeholder }
 
+    val borderColor = if (isError) colors.destructive else colors.border
+
     // ─── Trigger ─────────────────────────────────────
     Box(modifier = modifier) {
         Row(
@@ -99,9 +107,10 @@ fun Select(
                 Modifier
                     .fillMaxWidth()
                     .defaultMinSize(minHeight = 40.dp)
+                    .minTouchTarget()
                     .onGloballyPositioned { coordinates ->
                         triggerWidth = coordinates.size.width
-                    }.border(1.dp, colors.border, shapes.md)
+                    }.border(1.dp, borderColor, shapes.md)
                     .background(colors.background, shapes.md)
                     .clip(shapes.md)
                     .clickable(
@@ -125,8 +134,13 @@ fun Select(
                             contentDescription =
                                 accessibilityLabel
                         }
+                        stateDescription =
+                            if (expanded) "Expanded" else "Collapsed"
                         if (!enabled) {
                             disabled()
+                        }
+                        if (isError && errorMessage.isNotEmpty()) {
+                            error(errorMessage)
                         }
                     },
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -328,6 +342,7 @@ private fun SelectItem(
                     onClick = onClick,
                 ).semantics {
                     contentDescription = option.label
+                    selected = isSelected
                 }.padding(
                     horizontal = spacing.md,
                     vertical = spacing.sm,

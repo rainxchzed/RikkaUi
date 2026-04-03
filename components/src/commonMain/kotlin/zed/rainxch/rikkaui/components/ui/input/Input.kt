@@ -43,12 +43,14 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 
 // ─── Animation ──────────────────────────────────────────────
 
@@ -96,9 +98,12 @@ data class InputColorValues(
     fun borderColor(
         focused: Boolean,
         enabled: Boolean,
+        isError: Boolean = false,
+        errorBorder: Color = Color.Unspecified,
     ): Color =
         when {
             !enabled -> disabledBorder
+            isError -> errorBorder
             focused -> focusedBorder
             else -> border
         }
@@ -119,6 +124,8 @@ fun Input(
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     label: String = "",
+    isError: Boolean = false,
+    errorMessage: String = "",
     style: TextStyle = TextStyle.Default,
     animation: InputAnimation = InputAnimation.Glow,
     leadingIcon: ImageVector? = null,
@@ -138,7 +145,14 @@ fun Input(
     val spacing = RikkaTheme.spacing
 
     // ─── Resolve border color & animation ─────────────────
-    val targetBorderColor = colors.borderColor(isFocused, enabled)
+    val errorBorderColor = themeColors.destructive
+    val targetBorderColor =
+        colors.borderColor(
+            focused = isFocused,
+            enabled = enabled,
+            isError = isError,
+            errorBorder = errorBorderColor,
+        )
 
     val borderColor =
         when (animation) {
@@ -228,6 +242,9 @@ fun Input(
             }
             if (!enabled) {
                 disabled()
+            }
+            if (isError && errorMessage.isNotEmpty()) {
+                error(errorMessage)
             }
         }
 
@@ -383,6 +400,7 @@ fun Input(
                         Box(
                             modifier =
                                 Modifier
+                                    .minTouchTarget()
                                     .size(16.dp)
                                     .clickable(
                                         interactionSource =

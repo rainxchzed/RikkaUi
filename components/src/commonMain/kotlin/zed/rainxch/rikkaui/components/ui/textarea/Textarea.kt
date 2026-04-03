@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.LayoutDirection
@@ -65,6 +66,8 @@ fun Textarea(
     minLines: Int = 3,
     maxLines: Int = 5,
     label: String = "",
+    isError: Boolean = false,
+    errorMessage: String = "",
     style: TextStyle = TextStyle.Default,
     animation: TextareaAnimation = TextareaAnimation.Glow,
     maxLength: Int? = null,
@@ -79,9 +82,11 @@ fun Textarea(
     val spacing = RikkaTheme.spacing
 
     // ─── Resolve border color & animation ─────────────────
+    val errorBorderColor = colors.destructive
     val targetBorderColor =
         when {
             !enabled -> colors.border.copy(alpha = 0.5f)
+            isError -> errorBorderColor
             isFocused -> colors.ring
             else -> colors.border
         }
@@ -174,6 +179,9 @@ fun Textarea(
             }
             if (!enabled) {
                 disabled()
+            }
+            if (isError && errorMessage.isNotEmpty()) {
+                error(errorMessage)
             }
         }
 
