@@ -92,7 +92,7 @@ enum class RikkaStylePreset(
             Default -> {
                 RikkaStyle(
                     shapes = rikkaShapes(),
-                    spacing = rikkaSpacing(),
+                    spacing = RikkaSpacingPresets.comfortable(),
                     motion = RikkaMotion(),
                     typeScale = 1f,
                 )
@@ -101,7 +101,7 @@ enum class RikkaStylePreset(
             Nova -> {
                 RikkaStyle(
                     shapes = rikkaShapes(radius = 4.dp),
-                    spacing = rikkaSpacing(base = 3.dp),
+                    spacing = RikkaSpacingPresets.compact(),
                     motion = RikkaMotionPresets.snappy(),
                     typeScale = 0.9f,
                 )
@@ -110,7 +110,7 @@ enum class RikkaStylePreset(
             Vega -> {
                 RikkaStyle(
                     shapes = rikkaShapes(radius = 20.dp),
-                    spacing = rikkaSpacing(base = 5.dp),
+                    spacing = RikkaSpacingPresets.spacious(),
                     motion = RikkaMotionPresets.playful(),
                     typeScale = 1.05f,
                 )
@@ -119,7 +119,7 @@ enum class RikkaStylePreset(
             Aurora -> {
                 RikkaStyle(
                     shapes = rikkaShapes(radius = 14.dp),
-                    spacing = rikkaSpacing(base = 5.dp),
+                    spacing = RikkaSpacingPresets.spacious(),
                     motion = RikkaMotion(),
                     typeScale = 1.1f,
                 )
@@ -128,7 +128,7 @@ enum class RikkaStylePreset(
             Nebula -> {
                 RikkaStyle(
                     shapes = rikkaShapes(radius = 0.dp),
-                    spacing = rikkaSpacing(base = 3.dp),
+                    spacing = RikkaSpacingPresets.compact(),
                     motion = RikkaMotionPresets.minimal(),
                     typeScale = 0.85f,
                 )
