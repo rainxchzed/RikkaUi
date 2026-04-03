@@ -242,7 +242,7 @@ fun CardContent(
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Column(
-        modifier = modifier.padding(top = RikkaTheme.spacing.sm),
+        modifier = modifier,
         content = content,
     )
 }
@@ -253,7 +253,7 @@ fun CardFooter(
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Column(
-        modifier = modifier.padding(top = RikkaTheme.spacing.sm),
+        modifier = modifier,
         content = content,
     )
 }

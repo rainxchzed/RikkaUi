@@ -1,10 +1,10 @@
 package zed.rainxch.rikkaui.showcase.examples
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -50,23 +50,20 @@ fun ApiKeyManagerExample() {
             }
         }
 
-        Spacer(modifier = Modifier.height(RikkaTheme.spacing.xs))
-
         CardContent {
-            KeyEntry(
-                label = stringResource(Res.string.production),
-                maskedKey = stringResource(Res.string.production_key),
-            )
-            Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
-            KeyEntry(
-                label = stringResource(Res.string.development),
-                maskedKey = stringResource(Res.string.development_key),
-            )
+            Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm)) {
+                KeyEntry(
+                    label = stringResource(Res.string.production),
+                    maskedKey = stringResource(Res.string.production_key),
+                )
+                KeyEntry(
+                    label = stringResource(Res.string.development),
+                    maskedKey = stringResource(Res.string.development_key),
+                )
+            }
         }
 
-        Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
         Separator()
-        Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
 
         Alert(variant = AlertVariant.Destructive) {
             AlertTitle(text = stringResource(Res.string.rate_limited), variant = AlertVariant.Destructive)

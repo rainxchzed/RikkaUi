@@ -3,9 +3,7 @@ package zed.rainxch.rikkaui.showcase.examples
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,6 +24,9 @@ import zed.rainxch.rikkaui.components.ui.avatar.Avatar
 import zed.rainxch.rikkaui.components.ui.avatar.AvatarSize
 import zed.rainxch.rikkaui.components.ui.button.Button
 import zed.rainxch.rikkaui.components.ui.card.Card
+import zed.rainxch.rikkaui.components.ui.card.CardContent
+import zed.rainxch.rikkaui.components.ui.card.CardFooter
+import zed.rainxch.rikkaui.components.ui.card.CardHeader
 import zed.rainxch.rikkaui.components.ui.separator.Separator
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
@@ -40,57 +41,55 @@ fun UserProfileExample() {
     var newsletter by remember { mutableStateOf(true) }
 
     Card {
-        // ── Profile header ──
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
-        ) {
-            Avatar(fallback = "JD", size = AvatarSize.Lg)
-            Text(
-                text = stringResource(Res.string.user_name),
-                variant = TextVariant.H4,
-                textAlign = TextAlign.Center,
-            )
-            Text(
-                text = stringResource(Res.string.user_email),
-                variant = TextVariant.Muted,
-                textAlign = TextAlign.Center,
-            )
+        CardHeader {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs),
+            ) {
+                Avatar(fallback = "JD", size = AvatarSize.Lg)
+                Text(
+                    text = stringResource(Res.string.user_name),
+                    variant = TextVariant.H4,
+                    textAlign = TextAlign.Center,
+                )
+                Text(
+                    text = stringResource(Res.string.user_email),
+                    variant = TextVariant.Muted,
+                    textAlign = TextAlign.Center,
+                )
+            }
         }
 
-        Spacer(modifier = Modifier.height(RikkaTheme.spacing.md))
         Separator()
-        Spacer(modifier = Modifier.height(RikkaTheme.spacing.md))
 
-        // ── Preferences — muted labels + small toggles to stay secondary ──
-        // These controls shouldn't compete with the primary action below.
-        PreferenceRow(
-            label = stringResource(Res.string.notifications),
-            checked = notifications,
-            onCheckedChange = { notifications = it },
-        )
-        Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
-        PreferenceRow(
-            label = stringResource(Res.string.dark_mode_preference),
-            checked = darkMode,
-            onCheckedChange = { darkMode = it },
-        )
-        Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
-        PreferenceRow(
-            label = stringResource(Res.string.newsletter),
-            checked = newsletter,
-            onCheckedChange = { newsletter = it },
-        )
+        CardContent {
+            Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs)) {
+                PreferenceRow(
+                    label = stringResource(Res.string.notifications),
+                    checked = notifications,
+                    onCheckedChange = { notifications = it },
+                )
+                PreferenceRow(
+                    label = stringResource(Res.string.dark_mode_preference),
+                    checked = darkMode,
+                    onCheckedChange = { darkMode = it },
+                )
+                PreferenceRow(
+                    label = stringResource(Res.string.newsletter),
+                    checked = newsletter,
+                    onCheckedChange = { newsletter = it },
+                )
+            }
+        }
 
-        Spacer(modifier = Modifier.height(RikkaTheme.spacing.lg))
-
-        // ── Primary action — strongest visual weight on this card ──
-        Button(
-            text = stringResource(Res.string.edit_profile),
-            onClick = { },
-            modifier = Modifier.fillMaxWidth(),
-        )
+        CardFooter {
+            Button(
+                text = stringResource(Res.string.edit_profile),
+                onClick = { },
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
     }
 }
 

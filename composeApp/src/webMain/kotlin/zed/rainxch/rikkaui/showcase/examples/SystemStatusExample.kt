@@ -1,19 +1,13 @@
 package zed.rainxch.rikkaui.showcase.examples
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import rikkaui.composeapp.generated.resources.Res
 import rikkaui.composeapp.generated.resources.api_server
@@ -40,9 +34,6 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 @Composable
 fun SystemStatusExample() {
-    val greenDot = Color(0xFF22C55E)
-    val yellowDot = Color(0xFFFACC15)
-
     Card(
         modifier = Modifier.fillMaxWidth(),
         label = stringResource(Res.string.system_status_label),
@@ -59,39 +50,27 @@ fun SystemStatusExample() {
         }
 
         CardContent {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Box(modifier = Modifier.size(8.dp).background(greenDot, CircleShape))
-                Text(text = stringResource(Res.string.api_server), variant = TextVariant.P, modifier = Modifier.weight(1f))
-                Badge(text = stringResource(Res.string.operational), variant = BadgeVariant.Default)
-            }
+            StatusRow(
+                name = stringResource(Res.string.api_server),
+                badge = stringResource(Res.string.operational),
+                variant = BadgeVariant.Default,
+            )
 
-            Spacer(modifier = Modifier.height(RikkaTheme.spacing.xs))
+            Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Box(modifier = Modifier.size(8.dp).background(greenDot, CircleShape))
-                Text(text = stringResource(Res.string.database), variant = TextVariant.P, modifier = Modifier.weight(1f))
-                Badge(text = stringResource(Res.string.healthy), variant = BadgeVariant.Default)
-            }
+            StatusRow(
+                name = stringResource(Res.string.database),
+                badge = stringResource(Res.string.healthy),
+                variant = BadgeVariant.Default,
+            )
 
-            Spacer(modifier = Modifier.height(RikkaTheme.spacing.xs))
+            Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Box(modifier = Modifier.size(8.dp).background(yellowDot, CircleShape))
-                Text(text = stringResource(Res.string.cdn), variant = TextVariant.P, modifier = Modifier.weight(1f))
-                Badge(text = stringResource(Res.string.degraded), variant = BadgeVariant.Secondary)
-            }
+            StatusRow(
+                name = stringResource(Res.string.cdn),
+                badge = stringResource(Res.string.degraded),
+                variant = BadgeVariant.Secondary,
+            )
 
             Spacer(modifier = Modifier.height(RikkaTheme.spacing.md))
 
@@ -109,5 +88,21 @@ fun SystemStatusExample() {
                 label = stringResource(Res.string.system_uptime),
             )
         }
+    }
+}
+
+@Composable
+private fun StatusRow(
+    name: String,
+    badge: String,
+    variant: BadgeVariant,
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(text = name, variant = TextVariant.P)
+        Badge(text = badge, variant = variant)
     }
 }

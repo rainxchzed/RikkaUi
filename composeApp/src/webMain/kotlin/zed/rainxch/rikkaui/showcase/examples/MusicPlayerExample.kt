@@ -41,6 +41,8 @@ import zed.rainxch.rikkaui.components.ui.card.Card
 import zed.rainxch.rikkaui.components.ui.card.CardContent
 import zed.rainxch.rikkaui.components.ui.card.CardFooter
 import zed.rainxch.rikkaui.components.ui.card.CardHeader
+import zed.rainxch.rikkaui.components.ui.icon.Icon
+import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.label.Label
 import zed.rainxch.rikkaui.components.ui.progress.Progress
 import zed.rainxch.rikkaui.components.ui.slider.Slider
@@ -130,7 +132,10 @@ fun MusicPlayerExample() {
                         size = ButtonSize.Icon,
                         label = stringResource(Res.string.previous_track),
                     ) {
-                        Text(text = "\u25C1", variant = TextVariant.P)
+                        Icon(
+                            imageVector = RikkaIcons.ChevronLeft,
+                            contentDescription = null,
+                        )
                     }
                     Button(
                         onClick = { isPlaying = !isPlaying },
@@ -142,10 +147,14 @@ fun MusicPlayerExample() {
                                 stringResource(Res.string.play)
                             },
                     ) {
-                        Text(
-                            text = if (isPlaying) "\u23F8" else "\u25B6",
-                            variant = TextVariant.P,
-                            color = RikkaTheme.colors.onPrimary,
+                        Icon(
+                            imageVector =
+                                if (isPlaying) {
+                                    RikkaIcons.Minus
+                                } else {
+                                    RikkaIcons.Plus
+                                },
+                            contentDescription = null,
                         )
                     }
                     Button(
@@ -154,7 +163,10 @@ fun MusicPlayerExample() {
                         size = ButtonSize.Icon,
                         label = stringResource(Res.string.next_track),
                     ) {
-                        Text(text = "\u25B7", variant = TextVariant.P)
+                        Icon(
+                            imageVector = RikkaIcons.ChevronRight,
+                            contentDescription = null,
+                        )
                     }
                 }
 

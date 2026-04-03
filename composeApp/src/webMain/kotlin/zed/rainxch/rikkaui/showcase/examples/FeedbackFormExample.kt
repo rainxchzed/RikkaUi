@@ -1,10 +1,9 @@
 package zed.rainxch.rikkaui.showcase.examples
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -46,53 +45,51 @@ fun FeedbackFormExample() {
         }
 
         CardContent {
-            Row(horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs)) {
-                for (star in 1..5) {
-                    Button(
-                        onClick = { rating = star },
-                        variant = ButtonVariant.Ghost,
-                        size = ButtonSize.Icon,
-                    ) {
-                        Icon(
-                            imageVector = RikkaIcons.Star,
-                            contentDescription = stringResource(Res.string.rate_stars, star),
-                            tint =
-                                if (star <= rating) {
-                                    RikkaTheme.colors.primary
-                                } else {
-                                    RikkaTheme.colors.onMuted
-                                },
-                        )
+            Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.md)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs)) {
+                    for (star in 1..5) {
+                        Button(
+                            onClick = { rating = star },
+                            variant = ButtonVariant.Ghost,
+                            size = ButtonSize.Icon,
+                        ) {
+                            Icon(
+                                imageVector = RikkaIcons.Star,
+                                contentDescription = stringResource(Res.string.rate_stars, star),
+                                tint =
+                                    if (star <= rating) {
+                                        RikkaTheme.colors.primary
+                                    } else {
+                                        RikkaTheme.colors.onMuted
+                                    },
+                            )
+                        }
                     }
                 }
+
+                Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.xs)) {
+                    Label(text = stringResource(Res.string.tell_us_more))
+                    Textarea(
+                        value = feedbackText,
+                        onValueChange = { feedbackText = it },
+                        placeholder = stringResource(Res.string.what_could_we_improve),
+                        label = stringResource(Res.string.tell_us_more),
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
+
+                Checkbox(
+                    checked = contactMe,
+                    onCheckedChange = { contactMe = it },
+                    label = stringResource(Res.string.contact_me_about_feedback),
+                )
+
+                Button(
+                    text = stringResource(Res.string.submit_feedback),
+                    onClick = { },
+                    modifier = Modifier.fillMaxWidth(),
+                )
             }
-
-            Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
-
-            Label(text = stringResource(Res.string.tell_us_more))
-            Spacer(modifier = Modifier.height(RikkaTheme.spacing.xs))
-            Textarea(
-                value = feedbackText,
-                onValueChange = { feedbackText = it },
-                placeholder = stringResource(Res.string.what_could_we_improve),
-                modifier = Modifier.fillMaxWidth(),
-            )
-
-            Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
-
-            Checkbox(
-                checked = contactMe,
-                onCheckedChange = { contactMe = it },
-                label = stringResource(Res.string.contact_me_about_feedback),
-            )
-
-            Spacer(modifier = Modifier.height(RikkaTheme.spacing.md))
-
-            Button(
-                text = stringResource(Res.string.submit_feedback),
-                onClick = { },
-                modifier = Modifier.fillMaxWidth(),
-            )
         }
     }
 }

@@ -64,7 +64,7 @@ fun TaskBoardExample() {
         }
 
         CardContent {
-            Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm)) {
+            Column {
                 // Priority badges use Sm size + Outline variant to stay
                 // secondary — they label the row but shouldn't compete
                 // with the task name for visual weight.

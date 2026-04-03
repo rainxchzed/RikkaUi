@@ -3,9 +3,7 @@ package zed.rainxch.rikkaui.showcase.examples
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -28,6 +26,7 @@ import zed.rainxch.rikkaui.components.ui.avatar.Avatar
 import zed.rainxch.rikkaui.components.ui.avatar.AvatarSize
 import zed.rainxch.rikkaui.components.ui.card.Card
 import zed.rainxch.rikkaui.components.ui.card.CardContent
+import zed.rainxch.rikkaui.components.ui.card.CardFooter
 import zed.rainxch.rikkaui.components.ui.card.CardHeader
 import zed.rainxch.rikkaui.components.ui.pagination.Pagination
 import zed.rainxch.rikkaui.components.ui.separator.Separator
@@ -45,40 +44,39 @@ fun ActivityFeedExample() {
         }
 
         CardContent {
-            ActivityItem(
-                initials = "AL",
-                action = stringResource(Res.string.alice_action),
-                time = stringResource(Res.string.alice_time),
-            )
-            Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
-            ActivityItem(
-                initials = "BM",
-                action = stringResource(Res.string.bob_action),
-                time = stringResource(Res.string.bob_time),
-            )
-            Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
-            ActivityItem(
-                initials = "CS",
-                action = stringResource(Res.string.carol_action),
-                time = stringResource(Res.string.carol_time),
-            )
-            Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
-            ActivityItem(
-                initials = "DK",
-                action = stringResource(Res.string.dave_action),
-                time = stringResource(Res.string.dave_time),
-            )
+            Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm)) {
+                ActivityItem(
+                    initials = "AL",
+                    action = stringResource(Res.string.alice_action),
+                    time = stringResource(Res.string.alice_time),
+                )
+                ActivityItem(
+                    initials = "BM",
+                    action = stringResource(Res.string.bob_action),
+                    time = stringResource(Res.string.bob_time),
+                )
+                ActivityItem(
+                    initials = "CS",
+                    action = stringResource(Res.string.carol_action),
+                    time = stringResource(Res.string.carol_time),
+                )
+                ActivityItem(
+                    initials = "DK",
+                    action = stringResource(Res.string.dave_action),
+                    time = stringResource(Res.string.dave_time),
+                )
+            }
         }
 
-        Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
         Separator()
-        Spacer(modifier = Modifier.height(RikkaTheme.spacing.sm))
 
-        Pagination(
-            currentPage = currentPage,
-            totalPages = 4,
-            onPageChange = { currentPage = it },
-        )
+        CardFooter {
+            Pagination(
+                currentPage = currentPage,
+                totalPages = 4,
+                onPageChange = { currentPage = it },
+            )
+        }
     }
 }
 

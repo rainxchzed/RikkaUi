@@ -1,6 +1,7 @@
 package zed.rainxch.rikkaui.showcase.examples
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -54,37 +55,35 @@ fun FileExplorerExample() {
         label = stringResource(Res.string.file_browser_label),
     ) {
         CardHeader {
-            Text(text = stringResource(Res.string.project_files), variant = TextVariant.H4)
+            Text(
+                text = stringResource(Res.string.project_files),
+                variant = TextVariant.H4,
+            )
         }
 
+        Spacer(Modifier.height(RikkaTheme.spacing.md))
+
         CardContent {
-            // File rows — use md vertical spacing between rows (larger than
-            // the sm horizontal gap between icon and text) so the proximity
-            // principle groups each row as a visual unit.
-            FileRow(
-                icon = RikkaIcons.Edit,
-                iconDesc = stringResource(Res.string.kotlin_file_desc),
-                name = stringResource(Res.string.app_kt_name),
-                size = stringResource(Res.string.app_kt_size),
-            )
-
-            Spacer(Modifier.height(RikkaTheme.spacing.md))
-
-            FileRow(
-                icon = RikkaIcons.Settings,
-                iconDesc = stringResource(Res.string.build_file_desc),
-                name = stringResource(Res.string.build_gradle_name),
-                size = stringResource(Res.string.build_gradle_size),
-            )
-
-            Spacer(Modifier.height(RikkaTheme.spacing.md))
-
-            FileRow(
-                icon = RikkaIcons.Download,
-                iconDesc = stringResource(Res.string.readme_file_desc),
-                name = stringResource(Res.string.readme_md_name),
-                size = stringResource(Res.string.readme_size),
-            )
+            Column(verticalArrangement = Arrangement.spacedBy(RikkaTheme.spacing.sm)) {
+                FileRow(
+                    icon = RikkaIcons.Edit,
+                    iconDesc = stringResource(Res.string.kotlin_file_desc),
+                    name = stringResource(Res.string.app_kt_name),
+                    size = stringResource(Res.string.app_kt_size),
+                )
+                FileRow(
+                    icon = RikkaIcons.Settings,
+                    iconDesc = stringResource(Res.string.build_file_desc),
+                    name = stringResource(Res.string.build_gradle_name),
+                    size = stringResource(Res.string.build_gradle_size),
+                )
+                FileRow(
+                    icon = RikkaIcons.Download,
+                    iconDesc = stringResource(Res.string.readme_file_desc),
+                    name = stringResource(Res.string.readme_md_name),
+                    size = stringResource(Res.string.readme_size),
+                )
+            }
         }
 
         Separator()
@@ -110,7 +109,6 @@ fun FileExplorerExample() {
                     Icon(
                         imageVector = RikkaIcons.Search,
                         contentDescription = stringResource(Res.string.search_files_desc),
-                        tint = RikkaTheme.colors.onPrimary,
                         modifier = Modifier.size(16.dp),
                     )
                 }
