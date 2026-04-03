@@ -10,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.Dp
@@ -37,6 +39,7 @@ fun Kbd(
     text: String,
     modifier: Modifier = Modifier,
     size: KbdSize = KbdSize.Default,
+    label: String? = null,
 ) {
     val shape = RikkaTheme.shapes.sm
     val textVariant =
@@ -44,10 +47,12 @@ fun Kbd(
             KbdSize.Lg -> TextVariant.P
             else -> TextVariant.Small
         }
+    val resolvedLabel = label ?: "Keyboard shortcut: $text"
 
     Box(
         modifier =
             modifier
+                .semantics { contentDescription = resolvedLabel }
                 .border(1.dp, RikkaTheme.colors.border, shape)
                 .background(RikkaTheme.colors.muted, shape)
                 .clip(shape)
@@ -72,8 +77,13 @@ fun KbdCombo(
     size: KbdSize = KbdSize.Default,
     separator: String = "+",
 ) {
+    val comboLabel =
+        "Keyboard shortcut: " + keys.joinToString(separator)
     Row(
-        modifier = modifier,
+        modifier =
+            modifier.semantics(mergeDescendants = true) {
+                contentDescription = comboLabel
+            },
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {

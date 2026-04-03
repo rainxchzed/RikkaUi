@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.ui.text.Text
@@ -75,6 +77,7 @@ fun Badge(
     variant: BadgeVariant = BadgeVariant.Default,
     animation: BadgeAnimation = BadgeAnimation.None,
     size: BadgeSize = BadgeSize.Default,
+    label: String = "",
 ) {
     val resolved = resolveColors(variant)
     val sizeValues = resolveSizeValues(size)
@@ -96,9 +99,17 @@ fun Badge(
 
     val animationModifier = resolveAnimationModifier(animation)
 
+    val semanticsModifier =
+        if (label.isNotEmpty()) {
+            Modifier.semantics { contentDescription = label }
+        } else {
+            Modifier
+        }
+
     Box(
         modifier =
             modifier
+                .then(semanticsModifier)
                 .then(animationModifier)
                 .then(borderModifier)
                 .then(backgroundModifier)
@@ -128,6 +139,7 @@ fun Badge(
     variant: BadgeVariant = BadgeVariant.Default,
     animation: BadgeAnimation = BadgeAnimation.None,
     size: BadgeSize = BadgeSize.Default,
+    label: String = "",
     content: @Composable () -> Unit,
 ) {
     val resolved = resolveColors(variant)
@@ -150,9 +162,17 @@ fun Badge(
 
     val animationModifier = resolveAnimationModifier(animation)
 
+    val semanticsModifier =
+        if (label.isNotEmpty()) {
+            Modifier.semantics { contentDescription = label }
+        } else {
+            Modifier
+        }
+
     Box(
         modifier =
             modifier
+                .then(semanticsModifier)
                 .then(animationModifier)
                 .then(borderModifier)
                 .then(backgroundModifier)

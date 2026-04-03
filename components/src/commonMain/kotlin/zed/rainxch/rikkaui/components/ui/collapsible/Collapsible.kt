@@ -28,6 +28,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import zed.rainxch.rikkaui.foundation.RikkaMotion
 import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 
 // ─── Animation Enum ─────────────────────────────────────────
 
@@ -129,6 +130,7 @@ fun CollapsibleTrigger(
     Box(
         modifier =
             modifier
+                .minTouchTarget()
                 .graphicsLayer {
                     alpha = if (isHovered) motion.hoverAlpha else 1f
                 }.clickable(

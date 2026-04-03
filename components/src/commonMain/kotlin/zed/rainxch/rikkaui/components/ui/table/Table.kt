@@ -24,7 +24,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.CollectionInfo
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.collectionInfo
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.ui.text.Text
@@ -74,6 +77,8 @@ private val LocalTableStickyHeader = compositionLocalOf { false }
 @Composable
 fun Table(
     modifier: Modifier = Modifier,
+    rowCount: Int = -1,
+    columnCount: Int = -1,
     animation: TableAnimation = TableAnimation.Hover,
     borderStyle: TableBorderStyle = TableBorderStyle.Outlined,
     stickyHeader: Boolean = false,
@@ -105,7 +110,15 @@ fun Table(
         Column(
             modifier =
                 styledModifier
-                    .semantics(mergeDescendants = false) {},
+                    .semantics(mergeDescendants = false) {
+                        if (rowCount >= 0 && columnCount >= 0) {
+                            collectionInfo =
+                                CollectionInfo(
+                                    rowCount = rowCount,
+                                    columnCount = columnCount,
+                                )
+                        }
+                    },
             content = content,
         )
     }
@@ -237,7 +250,7 @@ fun RowScope.TableHeaderCell(
     content: @Composable () -> Unit,
 ) {
     Box(
-        modifier = modifier,
+        modifier = modifier.semantics { heading() },
     ) {
         content()
     }

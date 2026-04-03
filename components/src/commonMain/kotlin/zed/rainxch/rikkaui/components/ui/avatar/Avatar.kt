@@ -72,6 +72,7 @@ fun Avatar(
     size: AvatarSize = AvatarSize.Default,
     animation: AvatarAnimation = AvatarAnimation.FadeIn,
     status: AvatarStatus? = null,
+    label: String? = null,
 ) {
     val resolved = resolveSizeValues(size)
     val shape = RikkaTheme.shapes.full
@@ -115,10 +116,20 @@ fun Avatar(
     // Resolve status dot color
     val statusColor = resolveStatusColor(status)
 
+    // Build contentDescription: use label if provided, otherwise fallback.
+    // Append status name when a status is set.
+    val baseDescription = label ?: fallback
+    val resolvedDescription =
+        if (status != null) {
+            "$baseDescription, ${status.name}"
+        } else {
+            baseDescription
+        }
+
     Box(
         modifier =
             modifier
-                .semantics { contentDescription = fallback }
+                .semantics { contentDescription = resolvedDescription }
                 .size(resolved.diameter)
                 .graphicsLayer {
                     alpha = animAlpha
