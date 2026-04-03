@@ -31,7 +31,6 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.foundation.RikkaTheme
-import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 
 // ─── Animation ──────────────────────────────────────────────
 
@@ -103,7 +102,6 @@ fun RadioButton(
     Row(
         modifier =
             modifier
-                .minTouchTarget()
                 .selectable(
                     selected = selected,
                     interactionSource = interactionSource,

@@ -35,7 +35,6 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.foundation.RikkaTheme
-import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 
 // ─── Animation ──────────────────────────────────────────────
 
@@ -109,7 +108,6 @@ fun Checkbox(
     Row(
         modifier =
             modifier
-                .minTouchTarget()
                 .toggleable(
                     value = checked,
                     interactionSource = interactionSource,
