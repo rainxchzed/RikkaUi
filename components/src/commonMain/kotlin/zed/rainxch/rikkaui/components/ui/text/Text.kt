@@ -74,12 +74,13 @@ fun Text(
             TextStyle.Default
         }
 
-    // Merge order: base variant → parent-provided style → explicit style → color → alignment.
-    // This lets containers (Button, Card) inject a default text style that the caller
-    // can still override with an explicit `style` parameter.
+    // Merge order: parent default → variant override → explicit style → color → alignment.
+    // Parent (Card, Button) provides a default text style. The variant (H1, P, etc.)
+    // overrides it so headings inside cards still render at heading size.
+    // Explicit `style` param wins over everything.
     val mergedStyle =
-        baseStyle
-            .merge(parentTextStyle)
+        parentTextStyle
+            .merge(baseStyle)
             .merge(style)
             .merge(
                 TextStyle(color = resolvedColor),
