@@ -170,6 +170,7 @@
     <string name="nav_components">Components</string>
     <string name="nav_docs">Docs</string>
     <string name="nav_create">Create</string>
+    <string name="nav_why_rikka">Why RikkaUI</string>
 
     <!-- Theme Toolbar -->
     <string name="toolbar_style_label">Style: %1$s</string>
