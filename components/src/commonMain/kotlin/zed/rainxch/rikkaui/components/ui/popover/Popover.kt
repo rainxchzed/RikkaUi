@@ -39,6 +39,7 @@ import kotlinx.coroutines.delay
 import zed.rainxch.rikkaui.foundation.LocalContentColor
 import zed.rainxch.rikkaui.foundation.LocalTextStyle
 import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.modifier.LocalMinTouchTarget
 
 // ─── Animation ─────────────────────────────────────────────
 
@@ -238,6 +239,7 @@ private fun PopoverCard(
         CompositionLocalProvider(
             LocalContentColor provides colors.onSurface,
             LocalTextStyle provides RikkaTheme.typography.small,
+            LocalMinTouchTarget provides 0.dp,
         ) {
             content()
         }

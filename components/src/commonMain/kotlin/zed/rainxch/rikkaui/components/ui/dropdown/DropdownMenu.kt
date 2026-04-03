@@ -59,7 +59,6 @@ import androidx.compose.ui.window.Popup
 import kotlinx.coroutines.delay
 import zed.rainxch.rikkaui.components.ui.PopupAnimation
 import zed.rainxch.rikkaui.foundation.RikkaTheme
-import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 
 // ─── Component ──────────────────────────────────────────────
 
@@ -250,7 +249,6 @@ fun DropdownMenuItem(
         modifier =
             modifier
                 .fillMaxWidth()
-                .minTouchTarget()
                 .hoverable(interactionSource)
                 .clickable(
                     interactionSource = interactionSource,

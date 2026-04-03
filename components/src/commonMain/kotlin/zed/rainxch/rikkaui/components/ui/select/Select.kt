@@ -58,7 +58,6 @@ import zed.rainxch.rikkaui.components.ui.icon.RikkaIcons
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.foundation.RikkaTheme
-import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 
 // ─── Data ───────────────────────────────────────────────────
 
@@ -107,7 +106,6 @@ fun Select(
                 Modifier
                     .fillMaxWidth()
                     .defaultMinSize(minHeight = 40.dp)
-                    .minTouchTarget()
                     .onGloballyPositioned { coordinates ->
                         triggerWidth = coordinates.size.width
                     }.border(1.dp, borderColor, shapes.md)
