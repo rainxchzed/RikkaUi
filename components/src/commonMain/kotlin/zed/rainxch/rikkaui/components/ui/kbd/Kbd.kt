@@ -12,8 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.components.ui.text.Text
@@ -65,7 +63,7 @@ fun Kbd(
             text = text,
             variant = textVariant,
             color = RikkaTheme.colors.onBackground,
-            style = TextStyle(fontFamily = FontFamily.Monospace),
+            maxLines = 1,
         )
     }
 }
