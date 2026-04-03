@@ -16,7 +16,7 @@
 
     <!-- Footer -->
     <string name="built_with_compose">Built with Compose Multiplatform</string>
-    <string name="footer_tagline">RikkaUI (六花) — Composing elements into harmony.</string>
+    <string name="footer_tagline">RikkaUI — Composing elements into harmony.</string>
 
     <!-- Theme Section -->
     <string name="theme_title">Theme</string>
