@@ -56,12 +56,28 @@ fun generateThemeCode(
         appendLine(") {")
         appendLine("    val fontFamily = rememberRikkaFontFamily(")
         appendLine(
+            "        light = " +
+                "Res.font.${fontResourceNames.light},",
+        )
+        appendLine(
             "        regular = " +
-                "Res.font.${fontResourceNames.first},",
+                "Res.font.${fontResourceNames.regular},",
+        )
+        appendLine(
+            "        medium = " +
+                "Res.font.${fontResourceNames.medium},",
+        )
+        appendLine(
+            "        semiBold = " +
+                "Res.font.${fontResourceNames.semiBold},",
         )
         appendLine(
             "        bold = " +
-                "Res.font.${fontResourceNames.second},",
+                "Res.font.${fontResourceNames.bold},",
+        )
+        appendLine(
+            "        extraBold = " +
+                "Res.font.${fontResourceNames.extraBold},",
         )
         appendLine("    )")
         appendLine()
@@ -204,4 +220,24 @@ fun generateReadme(
         )
     }
 
-private fun buildFontResourceNames(fontId: String): Pair<String, String> = Pair("${fontId}_regular", "${fontId}_bold")
+/**
+ * Font resource names for all 6 weights used by [rememberRikkaFontFamily].
+ */
+private data class FontResourceNames(
+    val light: String,
+    val regular: String,
+    val medium: String,
+    val semiBold: String,
+    val bold: String,
+    val extraBold: String,
+)
+
+private fun buildFontResourceNames(fontId: String): FontResourceNames =
+    FontResourceNames(
+        light = "${fontId}_light",
+        regular = "${fontId}_regular",
+        medium = "${fontId}_medium",
+        semiBold = "${fontId}_semi_bold",
+        bold = "${fontId}_bold",
+        extraBold = "${fontId}_black",
+    )
