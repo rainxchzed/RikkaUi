@@ -22,6 +22,8 @@ android {
 }
 
 kotlin {
+    explicitApi()
+
     androidTarget {
         publishLibraryVariants("release")
     }

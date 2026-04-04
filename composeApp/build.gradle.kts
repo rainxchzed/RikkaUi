@@ -9,6 +9,32 @@ plugins {
 }
 
 // ---------------------------------------------------------------------------
+// API Reference generation: reads KDocs from component sources and writes
+// RIKKAUI_REFERENCE.md for AI agents and developers without IDE access.
+// ---------------------------------------------------------------------------
+
+val generateApiReference by tasks.registering(GenerateApiReferenceTask::class) {
+    componentsUiDir.set(
+        layout.projectDirectory.dir(
+            "../components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/ui",
+        ),
+    )
+    foundationDir.set(
+        layout.projectDirectory.dir(
+            "../foundation/src/commonMain/kotlin/zed/rainxch/rikkaui/foundation",
+        ),
+    )
+    registrySourceFile.set(
+        layout.projectDirectory.file(
+            "../feature/docs/src/commonMain/kotlin/zed/rainxch/rikkaui/docs/catalog/ComponentRegistry.kt",
+        ),
+    )
+    outputFile.set(
+        layout.projectDirectory.file("../RIKKAUI_REFERENCE.md"),
+    )
+}
+
+// ---------------------------------------------------------------------------
 // Registry JSON generation: reads component .kt files, outputs static JSON
 // to /r/ so the website and future CLI share one source of truth.
 // ---------------------------------------------------------------------------

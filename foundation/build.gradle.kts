@@ -22,6 +22,8 @@ android {
 }
 
 kotlin {
+    explicitApi()
+
     androidTarget {
         publishLibraryVariants("release")
     }
@@ -64,9 +66,10 @@ val generateVersion by tasks.registering {
     outputs.dir(outputDir)
 
     doLast {
-        val dir = outputDir.get().asFile.resolve(
-            "zed/rainxch/rikkaui/foundation",
-        )
+        val dir =
+            outputDir.get().asFile.resolve(
+                "zed/rainxch/rikkaui/foundation",
+            )
         dir.mkdirs()
         dir.resolve("RikkaVersion.kt").writeText(
             """
@@ -74,10 +77,10 @@ val generateVersion by tasks.registering {
             |package zed.rainxch.rikkaui.foundation
             |
             |/** Single source of truth for RikkaUI artifact versions. */
-            |object RikkaVersion {
-            |    const val NAME = "$versionName"
-            |    const val FOUNDATION = "$groupId:foundation:$versionName"
-            |    const val COMPONENTS = "$groupId:components:$versionName"
+            |public object RikkaVersion {
+            |    public const val NAME: String = "$versionName"
+            |    public const val FOUNDATION: String = "$groupId:foundation:$versionName"
+            |    public const val COMPONENTS: String = "$groupId:components:$versionName"
             |}
             """.trimMargin(),
         )
