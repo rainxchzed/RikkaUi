@@ -4,8 +4,9 @@
     {
       "name": "rikka-preview",
       "runtimeExecutable": "/bin/bash",
-      "runtimeArgs": ["-c", "export PATH=/opt/homebrew/Cellar/node/25.8.0/bin:/opt/homebrew/bin:$PATH && npx serve composeApp/build/dist/wasmJs/developmentExecutable -l 3000 --no-clipboard"],
-      "port": 3000
+      "runtimeArgs": ["-c", "export PATH=/opt/homebrew/Cellar/node/25.8.0/bin:/opt/homebrew/bin:$PATH && npx serve composeApp/build/dist/wasmJs/developmentExecutable -l $PORT --no-clipboard"],
+      "port": 3000,
+      "autoPort": true
     }
   ]
 }
