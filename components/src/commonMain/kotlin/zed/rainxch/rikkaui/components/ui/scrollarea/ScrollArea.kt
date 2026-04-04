@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.modifier.ScrollFocusMode
 import zed.rainxch.rikkaui.foundation.modifier.keyboardScrollable
 
 // ─── ScrollbarAnimation ─────────────────────────────────────
@@ -63,6 +64,7 @@ fun ScrollArea(
     scrollbarWidth: Dp = DEFAULT_SCROLLBAR_THICKNESS,
     scrollbarColor: Color? = null,
     keyboardScrolling: Boolean = true,
+    scrollFocusMode: ScrollFocusMode = ScrollFocusMode.RequestFocus,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     val scrollState = rememberScrollState()
@@ -100,7 +102,7 @@ fun ScrollArea(
     val boxModifier =
         if (keyboardScrolling) {
             modifier
-                .keyboardScrollable(scrollState)
+                .keyboardScrollable(scrollState, scrollFocusMode)
                 .clip(shape)
                 .onSizeChanged { containerHeightPx.intValue = it.height }
         } else {
@@ -150,6 +152,7 @@ fun HorizontalScrollArea(
     scrollbarWidth: Dp = DEFAULT_SCROLLBAR_THICKNESS,
     scrollbarColor: Color? = null,
     keyboardScrolling: Boolean = true,
+    scrollFocusMode: ScrollFocusMode = ScrollFocusMode.RequestFocus,
     content: @Composable RowScope.() -> Unit,
 ) {
     val scrollState = rememberScrollState()
@@ -184,7 +187,7 @@ fun HorizontalScrollArea(
     val boxModifier =
         if (keyboardScrolling) {
             modifier
-                .keyboardScrollable(scrollState)
+                .keyboardScrollable(scrollState, scrollFocusMode)
                 .clip(shape)
                 .onSizeChanged { containerWidthPx.intValue = it.width }
         } else {
