@@ -268,6 +268,12 @@ private fun ScrollAreaApiTab() {
                     stringResource(Res.string.scroll_area_prop_color_desc),
                 ),
                 PropInfo(
+                    "keyboardScrolling",
+                    "Boolean",
+                    "true",
+                    "Enables Arrow/Space/Page/Home/End keyboard scrolling. Click the area to focus.",
+                ),
+                PropInfo(
                     "content",
                     "ColumnScope.() -> Unit",
                     "required",
@@ -310,6 +316,12 @@ private fun ScrollAreaApiTab() {
                     "Color?",
                     "null",
                     stringResource(Res.string.scroll_area_prop_color_desc),
+                ),
+                PropInfo(
+                    "keyboardScrolling",
+                    "Boolean",
+                    "true",
+                    "Enables Arrow/Space/Page/Home/End keyboard scrolling. Click the area to focus.",
                 ),
                 PropInfo(
                     "content",

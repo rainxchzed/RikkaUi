@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.modifier.keyboardScrollable
 
 // ─── ScrollbarAnimation ─────────────────────────────────────
 
@@ -61,6 +62,7 @@ fun ScrollArea(
     scrollbarAnimation: ScrollbarAnimation = ScrollbarAnimation.Fade,
     scrollbarWidth: Dp = DEFAULT_SCROLLBAR_THICKNESS,
     scrollbarColor: Color? = null,
+    keyboardScrolling: Boolean = true,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     val scrollState = rememberScrollState()
@@ -95,12 +97,19 @@ fun ScrollArea(
         animationSpec = tween(motion.durationDefault),
     )
 
-    Box(
-        modifier =
+    val boxModifier =
+        if (keyboardScrolling) {
+            modifier
+                .keyboardScrollable(scrollState)
+                .clip(shape)
+                .onSizeChanged { containerHeightPx.intValue = it.height }
+        } else {
             modifier
                 .clip(shape)
-                .onSizeChanged { containerHeightPx.intValue = it.height },
-    ) {
+                .onSizeChanged { containerHeightPx.intValue = it.height }
+        }
+
+    Box(modifier = boxModifier) {
         Column(
             modifier =
                 Modifier
@@ -140,6 +149,7 @@ fun HorizontalScrollArea(
     scrollbarAnimation: ScrollbarAnimation = ScrollbarAnimation.Fade,
     scrollbarWidth: Dp = DEFAULT_SCROLLBAR_THICKNESS,
     scrollbarColor: Color? = null,
+    keyboardScrolling: Boolean = true,
     content: @Composable RowScope.() -> Unit,
 ) {
     val scrollState = rememberScrollState()
@@ -171,12 +181,19 @@ fun HorizontalScrollArea(
         animationSpec = tween(motion.durationDefault),
     )
 
-    Box(
-        modifier =
+    val boxModifier =
+        if (keyboardScrolling) {
+            modifier
+                .keyboardScrollable(scrollState)
+                .clip(shape)
+                .onSizeChanged { containerWidthPx.intValue = it.width }
+        } else {
             modifier
                 .clip(shape)
-                .onSizeChanged { containerWidthPx.intValue = it.width },
-    ) {
+                .onSizeChanged { containerWidthPx.intValue = it.width }
+        }
+
+    Box(modifier = boxModifier) {
         Row(
             modifier =
                 Modifier
