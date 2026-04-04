@@ -36,9 +36,18 @@ foundation/src/commonMain/kotlin/zed/rainxch/rikkaui/foundation/
     RikkaSpacing.kt       — 7-level spacing scale (xs=4dp through xxxl=48dp, 4dp base grid)
     RikkaShapes.kt        — 5-level shape scale (sm/md/lg/xl/full) from base radius
     RikkaMotion.kt        — Animation token system (springs, tweens, durations, press scales)
+    RikkaElevation.kt     — Shadow elevation scale (none/low/medium/high) for cards, dialogs, sheets, FABs
     RikkaStyle.kt         — RikkaStyle data class + RikkaStylePreset enum (Default/Nova/Vega/Aurora/Nebula)
     RikkaFontFamily.kt    — Font wrapper with rememberRikkaFontFamily() composable
     RikkaTheme.kt         — 4 RikkaTheme overloads + RikkaTheme object (see Theme System section)
+    modifier/
+        KeyboardScrollable.kt — Keyboard scrolling modifier for scrollable containers (Arrow/Space/Page/Home/End)
+                                 + @Composable 1-param overload (zero boilerplate, just pass ScrollState)
+                                 + ScrollFocusMode enum (RequestFocus/Hover/Click) for focus acquisition strategy
+        MinTouchTarget.kt     — WCAG minimum touch target enforcement (48dp default)
+                                 + LocalMinTouchTarget CompositionLocal (override to 0.dp in dense contexts like popups)
+        FocusRing.kt          — Focus ring border using theme ring color (shadcn focus-visible:ring-2 equivalent)
+        StaggeredEnter.kt     — Stagger delay strategy for list enter animations (Fast/Default/Slow)
 
 components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/ui/
     text/Text.kt          — BasicText wrapper with TextVariant enum, heading accessibility
@@ -73,7 +82,8 @@ components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/ui/
     select/Select.kt       — Dropdown select with chevron/check icons
     breadcrumb/Breadcrumb.kt — Navigation breadcrumbs with auto-separators
     pagination/Pagination.kt — Smart page navigation with icons, provides LocalContentColor
-    scrollarea/ScrollArea.kt — Custom scrollbar (vertical + horizontal)
+    scrollarea/ScrollArea.kt — Custom scrollbar (vertical + horizontal) with built-in keyboard navigation
+                               keyboardScrolling=true by default, scrollFocusMode for focus strategy
     popover/Popover.kt     — Click-triggered popup
     dropdown/DropdownMenu.kt — Action menu with items/separators/labels
     contextmenu/ContextMenu.kt — Right-click triggered menu
@@ -86,8 +96,10 @@ components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/ui/
     navigationbar/NavigationBar.kt — Bottom navigation bar
     topappbar/TopAppBar.kt — Top app bar with navigation + actions
     list/List.kt           — RikkaList with ListVariant (Unordered/Ordered/None), string items + DSL (ListScope)
+    fab/Fab.kt             — Floating Action Button (Default/Small/Large sizes, Extended variant)
     icon/Icon.kt           — Foundation-only icon composable (ImageVector + ColorFilter.tint), defaults to LocalContentColor
     icon/RikkaIcons.kt     — 30 Lucide-style icons as lazy ImageVector definitions
+    PopupAnimation.kt      — Shared popup animation variants (FadeExpand/Fade/None) used by popover, dropdown, etc.
 ```
 
 ### Showcase Website Structure
@@ -96,22 +108,37 @@ components/src/commonMain/kotlin/zed/rainxch/rikkaui/components/ui/
 composeApp/src/webMain/kotlin/zed/rainxch/rikkaui/
   App.kt                  — Entry point: main(), ComposeViewport, RikkaTheme wiring, bindToBrowserNavigation()
                             Uses Scaffold with topBar + toastHost slots. Provides LocalToastHostState.
+  app/
+    AppState.kt           — Root app state (palette, accent, style, dark mode)
+    AppViewModel.kt       — MVI view model managing app-level state
+    AppAction.kt          — Sealed interface for app-level actions
   navigation/
-    Routes.kt             — 5 serializable routes: HomeRoute, CreatorRoute, DocsRoute, ComponentsRoute, ComponentDetailRoute
-  shell/
-    TopNavBar.kt          — Top navigation bar with route links + dark mode toggle
+    AppNavGraph.kt        — NavHost graph with all routes
+    AppNavigation.kt      — Navigation controller and route wiring
+    NavEntry.kt           — Route definitions (Home/Creator/Docs/Components/ComponentDetail/WhyRikka)
+    InitialRoute.kt       — Initial route resolution
   theme/
-    ThemeConfig.kt        — resolvePalette(), resolveAccent(), accentPreviewColor()
-    StylePresets.kt       — stylePresetNames, StylePreset data class, resolveStyle()
-  showcase/
-    ShowcaseApp.kt        — Root layout composable (page flow orchestration)
-    ExamplesGrid.kt       — Responsive grid layouts (Compact/Medium/Expanded)
-    HeroSection.kt        — Landing hero with title, description, CTA buttons
-    ThemeSection.kt       — Interactive style/palette/accent/dark-mode switcher
-    FooterSection.kt      — Footer with tagline
-    SectionHeader.kt      — Reusable section header
+    AppPreferences.kt     — Persistent theme preferences
+    ThemeStore.kt         — Theme state storage and resolution
+  utils/
+    ThemeUtils.kt         — Font family resolution helpers
     WindowSizeClass.kt    — Breakpoint utility (Compact/Medium/Expanded)
+  showcase/
+    ShowcaseScreen.kt     — Home page composable with MVI state management
+    ShowcaseState.kt      — Showcase page state (palette, accent, style)
+    ShowcaseViewModel.kt  — Showcase MVI view model
+    ShowcaseAction.kt     — Showcase action sealed interface
+    ShowcaseRoute.kt      — Route definition for showcase
+    components/
+      ExamplesGrid.kt     — Responsive grid layouts (Compact/Medium/Expanded)
+      HeroSection.kt      — Landing hero with title, description, CTA buttons
+      ThemeToolbar.kt     — Interactive style/palette/accent switcher toolbar
+      FooterSection.kt    — Footer with tagline
+      SectionHeader.kt    — Reusable section header
     examples/             — 10 realistic example cards in 3-column mosaic grid
+  whyrikka/
+    WhyRikkaScreen.kt    — "Why RikkaUI" manifesto page (design philosophy, M3 comparison, a11y)
+    WhyRikkaRoute.kt     — Route definition
 ```
 
 ### Navigation (Browser URL Sync)
@@ -120,16 +147,20 @@ Uses `androidx.navigation.bindToBrowserNavigation()` (ExperimentalBrowserHistory
 - `rikkaui.dev#home` → Home
 - `rikkaui.dev#docs` → Docs
 - `rikkaui.dev#create` → Creator
+- `rikkaui.dev#components` → Components catalog
 - `rikkaui.dev#docs/components/{componentId}` → Component detail
+- `rikkaui.dev#why-rikka` → Why RikkaUI manifesto
 
 Routes use `@SerialName` for clean URL paths. Browser back/forward and page refresh work.
 
 ### Website Page Flow (order matters for engagement)
 
-1. **Hero** — Title + tagline + CTA buttons
-2. **"Components in Action"** — 3-column mosaic grid of 10 example cards (the impressive stuff first!)
-3. **"Make It Yours"** — Theme section (palette/accent/dark-mode switcher)
-4. **Footer**
+Home page:
+1. **Hero** — Title + tagline + CTA buttons (Customize Theme, View Components)
+2. **"Components in Action"** — ThemeToolbar (style/palette/accent) + 3-column mosaic grid of 10 example cards
+3. **Footer**
+
+Other pages: Components catalog, Docs (per-component), Creator (theme configurator), Why RikkaUI (manifesto)
 
 ### Design Patterns (FOLLOW THESE)
 
@@ -144,6 +175,8 @@ Routes use `@SerialName` for clean URL paths. Browser back/forward and page refr
 9. **No Material3** — Use BasicText (not Text), clickable with Role (not Button), compose.foundation only
 10. **KDoc on everything** — With usage examples in code blocks
 11. **LocalContentColor propagation** — Button (and other containers) provide `LocalContentColor` via `CompositionLocalProvider`. Content lambda is `@Composable () -> Unit`. Text, Icon, and Spinner auto-resolve color: explicit → `LocalContentColor` → theme default. Never pass foreground color as a lambda parameter.
+12. **Keyboard scrolling** — Every page-level scrollable container uses `keyboardScrollable(scrollState)` before `verticalScroll()`. Compose's `verticalScroll` does NOT handle keyboard events on any platform. The modifier adds Arrow/Space/Page/Home/End support with auto-focus.
+13. **MinTouchTarget in dense contexts** — Use `LocalMinTouchTarget provides 0.dp` in popup/menu `CompositionLocalProvider` blocks to prevent 48dp touch targets from inflating row heights in compact UI (dropdowns, context menus, popovers).
 
 ### Performance Rules
 
@@ -350,6 +383,8 @@ ktlint { ignoreFailures = true }
 ## Known Bugs & Issues Fixed (for context)
 
 ### Fixed in Recent Sessions
+- **Keyboard scrolling missing on all platforms:** Compose's `verticalScroll` only handles wheel/touch — no keyboard support anywhere. Fix: created `keyboardScrollable` modifier in `:foundation` with `ScrollFocusMode` enum (RequestFocus/Hover/Click). Applied to all scrollable pages. ScrollArea gets it built-in via `keyboardScrolling = true`.
+- **minTouchTarget inflating popup/menu item heights:** 48dp enforcement on small indicators (checkbox dot, radio circle, toggle track) inside clickable rows caused excessive row padding. Fix: removed `minTouchTarget()` from Checkbox, RadioButton, Toggle indicators (parent row is the touch target). Added `LocalMinTouchTarget provides 0.dp` in Popover. Removed from DropdownMenuItem, ContextMenuItem, Select trigger.
 - **Toggle thumb invisible in dark mode (default accent):** `primary` is near-white (0xFFFAFAFA), thumb was hardcoded `Color.White`. Fix: thumb now uses `onPrimary` when checked.
 - **Button/Icon/Text color mismatch:** Children inside Button used theme `onBackground` instead of button's resolved foreground. Fix: replaced foreground lambda with `LocalContentColor` propagation. Text/Icon/Spinner now auto-resolve: explicit → LocalContentColor → theme default.
 - **RikkaTheme overload ambiguity:** `RikkaTheme { }` matched 4 overloads (all had defaults). Fix: distinguishing params (`style`, `preset`, `palette`) now have NO defaults.
@@ -363,7 +398,9 @@ ktlint { ignoreFailures = true }
 - **CodeBlock copy not working:** Ctrl+C doesn't work in Compose WasmJs canvas. Fix: added explicit Copy button using `LocalClipboardManager` + `AnnotatedString`.
 
 ### Important Gotchas
+- **Compose `verticalScroll` has NO keyboard support** — On any platform (not just WasmJs). Arrow keys, Space, Page Up/Down do nothing. Always pair with `keyboardScrollable(scrollState)` modifier from `:foundation`.
 - **Checkbox `label` renders visually** — Don't add a separate Text composable next to Checkbox with label; it will show the text twice.
+- **`minTouchTarget()` inflates layout in dense contexts** — The 48dp enforcement is a `LayoutModifierNode` that expands bounds. In popup menus, dropdowns, and form rows with small indicators (checkbox dot, radio dot), this adds unwanted padding. Override with `LocalMinTouchTarget provides 0.dp` or remove `minTouchTarget()` from indicators when the parent row is already the touch target.
 - **Compose PathBuilder** uses `curveTo` (not `cubicTo`), has no `addOval`/`addRoundRect`. Use custom `circle()` and `roundRect()` helper extensions in RikkaIcons.kt.
 - **Compose Wasm canvas rendering** — `window.scrollBy()` doesn't work for scrolling. The scroll is internal to the Compose canvas. Use WheelEvent dispatch or page reload for screenshot navigation.
 - **Compose WasmJs Popup positions relative to parent** — No CSS `position: fixed` equivalent. Don't use Popup for viewport-level overlays (toasts, snackbars). Use Scaffold slots or SubcomposeLayout instead.
@@ -423,6 +460,8 @@ Status:
 - **Wasm/Web target** — Canvas-based (no SEO). Target dashboards/apps, not content sites. Hover states critical.
 - **bindToBrowserNavigation()** — Official Compose Navigation API for browser hash routing. Replaces custom HashRouter.
 - **Vanniktech maven-publish** — Handles POM generation, signing, Sonatype upload for all KMP targets.
+- **MVI architecture for website** — App/Showcase use State + Action + ViewModel pattern. Theme state persisted across pages.
+- **`@Composable` modifier factory over `composed {}`** — For modifiers needing composition-scoped values (rememberCoroutineScope, remember). `composed {}` is deprecated.
 
 ## Who Is This For
 
