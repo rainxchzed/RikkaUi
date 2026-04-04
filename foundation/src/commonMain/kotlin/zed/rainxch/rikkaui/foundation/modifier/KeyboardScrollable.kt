@@ -3,6 +3,9 @@ package zed.rainxch.rikkaui.foundation.modifier
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -14,6 +17,41 @@ import androidx.compose.ui.input.key.type
 import androidx.compose.ui.input.pointer.pointerInput
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+
+/**
+ * Adds keyboard scrolling to a scrollable container — zero boilerplate.
+ *
+ * This `@Composable` overload internally creates its own [CoroutineScope]
+ * and [FocusRequester], so the call site only needs to pass the [ScrollState]
+ * that is already shared with `verticalScroll()`.
+ *
+ * Clicking anywhere on the container grabs focus so keyboard
+ * scrolling works immediately — no need to Tab first.
+ *
+ * Apply **before** `verticalScroll()` in the modifier chain.
+ *
+ * ### Usage
+ * ```
+ * val scrollState = rememberScrollState()
+ *
+ * Column(
+ *     modifier = Modifier
+ *         .fillMaxSize()
+ *         .keyboardScrollable(scrollState)
+ *         .verticalScroll(scrollState),
+ * ) { ... }
+ * ```
+ */
+@Composable
+fun Modifier.keyboardScrollable(
+    scrollState: ScrollState,
+    scrollAmount: Float = 80f,
+    pageAmount: Float = 500f,
+): Modifier {
+    val scope = rememberCoroutineScope()
+    val focusRequester = remember { FocusRequester() }
+    return keyboardScrollable(scrollState, scope, focusRequester, scrollAmount, pageAmount)
+}
 
 /**
  * Adds keyboard scrolling to a container using [ScrollState].
