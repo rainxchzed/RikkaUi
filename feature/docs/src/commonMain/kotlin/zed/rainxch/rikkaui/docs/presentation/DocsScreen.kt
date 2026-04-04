@@ -15,10 +15,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import zed.rainxch.rikkaui.foundation.modifier.keyboardScrollable
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.docs.catalog.ComponentRegistry
@@ -63,9 +60,6 @@ private fun WideLayout(
 ) {
     val sidebarScroll = rememberScrollState()
     val contentScroll = rememberScrollState()
-    val scope = rememberCoroutineScope()
-    val sidebarFocus = remember { FocusRequester() }
-    val contentFocus = remember { FocusRequester() }
 
     Row(Modifier.fillMaxSize()) {
         DocsSidebar(
@@ -76,7 +70,7 @@ private fun WideLayout(
                 Modifier
                     .width(240.dp)
                     .fillMaxHeight()
-                    .keyboardScrollable(sidebarScroll, scope, sidebarFocus)
+                    .keyboardScrollable(sidebarScroll)
                     .verticalScroll(sidebarScroll)
                     .padding(
                         start = RikkaTheme.spacing.lg,
@@ -98,7 +92,7 @@ private fun WideLayout(
                 Modifier
                     .weight(1f)
                     .fillMaxHeight()
-                    .keyboardScrollable(contentScroll, scope, contentFocus)
+                    .keyboardScrollable(contentScroll)
                     .verticalScroll(contentScroll)
                     .padding(RikkaTheme.spacing.xl),
         ) {
@@ -117,14 +111,12 @@ private fun CompactLayout(
     onSelect: (String) -> Unit,
 ) {
     val scrollState = rememberScrollState()
-    val scope = rememberCoroutineScope()
-    val focusRequester = remember { FocusRequester() }
 
     Column(
         modifier =
             Modifier
                 .fillMaxSize()
-                .keyboardScrollable(scrollState, scope, focusRequester)
+                .keyboardScrollable(scrollState)
                 .verticalScroll(scrollState)
                 .padding(RikkaTheme.spacing.md),
     ) {

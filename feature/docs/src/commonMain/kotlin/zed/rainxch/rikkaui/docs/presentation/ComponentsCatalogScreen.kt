@@ -27,11 +27,9 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import zed.rainxch.rikkaui.foundation.modifier.keyboardScrollable
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.semantics.Role
@@ -79,8 +77,6 @@ fun ComponentsCatalogScreen(onComponentClick: (String) -> Unit) {
     }
 
     val scrollState = rememberScrollState()
-    val scope = rememberCoroutineScope()
-    val focusRequester = remember { FocusRequester() }
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -91,7 +87,7 @@ fun ComponentsCatalogScreen(onComponentClick: (String) -> Unit) {
                 Modifier
                     .widthIn(max = 1120.dp)
                     .fillMaxSize()
-                    .keyboardScrollable(scrollState, scope, focusRequester)
+                    .keyboardScrollable(scrollState)
                     .verticalScroll(scrollState)
                     .padding(
                         horizontal = RikkaTheme.spacing.xl,

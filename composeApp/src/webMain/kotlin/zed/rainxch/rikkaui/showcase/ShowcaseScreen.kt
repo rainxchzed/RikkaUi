@@ -13,12 +13,8 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import zed.rainxch.rikkaui.foundation.modifier.keyboardScrollable
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
@@ -28,6 +24,7 @@ import rikkaui.composeapp.generated.resources.components_in_action_desc
 import zed.rainxch.rikkaui.components.ui.text.Text
 import zed.rainxch.rikkaui.components.ui.text.TextVariant
 import zed.rainxch.rikkaui.foundation.RikkaTheme
+import zed.rainxch.rikkaui.foundation.modifier.keyboardScrollable
 import zed.rainxch.rikkaui.foundation.rikkaTypography
 import zed.rainxch.rikkaui.showcase.components.ExamplesGrid
 import zed.rainxch.rikkaui.showcase.components.FooterSection
@@ -45,14 +42,12 @@ fun ShowcaseScreen(
     onNavigateToComponents: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
-    val scope = rememberCoroutineScope()
-    val focusRequester = remember { FocusRequester() }
 
     BoxWithConstraints(
         modifier =
             Modifier
                 .fillMaxSize()
-                .keyboardScrollable(scrollState, scope, focusRequester)
+                .keyboardScrollable(scrollState)
                 .verticalScroll(scrollState),
         contentAlignment = Alignment.TopCenter,
     ) {
