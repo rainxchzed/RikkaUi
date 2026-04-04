@@ -271,7 +271,13 @@ private fun ScrollAreaApiTab() {
                     "keyboardScrolling",
                     "Boolean",
                     "true",
-                    "Enables Arrow/Space/Page/Home/End keyboard scrolling. Click the area to focus.",
+                    "Enables Arrow/Space/Page/Home/End keyboard scrolling.",
+                ),
+                PropInfo(
+                    "scrollFocusMode",
+                    "ScrollFocusMode",
+                    "RequestFocus",
+                    "How the area acquires focus: RequestFocus (auto), Hover, or Click.",
                 ),
                 PropInfo(
                     "content",
@@ -321,7 +327,13 @@ private fun ScrollAreaApiTab() {
                     "keyboardScrolling",
                     "Boolean",
                     "true",
-                    "Enables Arrow/Space/Page/Home/End keyboard scrolling. Click the area to focus.",
+                    "Enables Arrow/Space/Page/Home/End keyboard scrolling.",
+                ),
+                PropInfo(
+                    "scrollFocusMode",
+                    "ScrollFocusMode",
+                    "RequestFocus",
+                    "How the area acquires focus: RequestFocus (auto), Hover, or Click.",
                 ),
                 PropInfo(
                     "content",
