@@ -14,9 +14,13 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.unit.dp
+import zed.rainxch.rikkaui.foundation.modifier.keyboardScrollable
 import zed.rainxch.rikkaui.creator.fonts.preloadAllCreatorFonts
 import zed.rainxch.rikkaui.creator.panel.ConfigPanel
 import zed.rainxch.rikkaui.creator.preview.LivePreview
@@ -48,6 +52,12 @@ private fun WideLayout(
     state: CreatorState,
     onAction: (CreatorAction) -> Unit,
 ) {
+    val configScroll = rememberScrollState()
+    val previewScroll = rememberScrollState()
+    val scope = rememberCoroutineScope()
+    val configFocus = remember { FocusRequester() }
+    val previewFocus = remember { FocusRequester() }
+
     Row(
         modifier =
             Modifier
@@ -65,7 +75,8 @@ private fun WideLayout(
                 Modifier
                     .weight(0.28f)
                     .fillMaxHeight()
-                    .verticalScroll(rememberScrollState()),
+                    .keyboardScrollable(configScroll, scope, configFocus)
+                    .verticalScroll(configScroll),
         ) {
             CreatorConfigPanel(state = state, onAction = onAction)
         }
@@ -75,7 +86,8 @@ private fun WideLayout(
                 Modifier
                     .weight(0.72f)
                     .fillMaxHeight()
-                    .verticalScroll(rememberScrollState()),
+                    .keyboardScrollable(previewScroll, scope, previewFocus)
+                    .verticalScroll(previewScroll),
         ) {
             LivePreview(
                 stylePreset = state.stylePreset,
@@ -93,12 +105,17 @@ private fun CompactLayout(
     state: CreatorState,
     onAction: (CreatorAction) -> Unit,
 ) {
+    val scrollState = rememberScrollState()
+    val scope = rememberCoroutineScope()
+    val focusRequester = remember { FocusRequester() }
+
     Column(
         modifier =
             Modifier
                 .widthIn(max = 700.dp)
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
+                .keyboardScrollable(scrollState, scope, focusRequester)
+                .verticalScroll(scrollState)
                 .padding(
                     horizontal = RikkaTheme.spacing.md,
                     vertical = RikkaTheme.spacing.lg,

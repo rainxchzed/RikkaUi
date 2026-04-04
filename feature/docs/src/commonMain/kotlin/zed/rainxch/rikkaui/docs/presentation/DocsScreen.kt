@@ -15,7 +15,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import zed.rainxch.rikkaui.foundation.modifier.keyboardScrollable
 import androidx.compose.ui.unit.dp
 import zed.rainxch.rikkaui.docs.catalog.ComponentRegistry
 import zed.rainxch.rikkaui.docs.components.CompactSelector
@@ -57,6 +61,12 @@ private fun WideLayout(
     registry: ComponentRegistry,
     onSelect: (String) -> Unit,
 ) {
+    val sidebarScroll = rememberScrollState()
+    val contentScroll = rememberScrollState()
+    val scope = rememberCoroutineScope()
+    val sidebarFocus = remember { FocusRequester() }
+    val contentFocus = remember { FocusRequester() }
+
     Row(Modifier.fillMaxSize()) {
         DocsSidebar(
             grouped = registry.groupedByCategory(),
@@ -66,7 +76,8 @@ private fun WideLayout(
                 Modifier
                     .width(240.dp)
                     .fillMaxHeight()
-                    .verticalScroll(rememberScrollState())
+                    .keyboardScrollable(sidebarScroll, scope, sidebarFocus)
+                    .verticalScroll(sidebarScroll)
                     .padding(
                         start = RikkaTheme.spacing.lg,
                         top = RikkaTheme.spacing.lg,
@@ -87,7 +98,8 @@ private fun WideLayout(
                 Modifier
                     .weight(1f)
                     .fillMaxHeight()
-                    .verticalScroll(rememberScrollState())
+                    .keyboardScrollable(contentScroll, scope, contentFocus)
+                    .verticalScroll(contentScroll)
                     .padding(RikkaTheme.spacing.xl),
         ) {
             PageContent(
@@ -104,11 +116,16 @@ private fun CompactLayout(
     registry: ComponentRegistry,
     onSelect: (String) -> Unit,
 ) {
+    val scrollState = rememberScrollState()
+    val scope = rememberCoroutineScope()
+    val focusRequester = remember { FocusRequester() }
+
     Column(
         modifier =
             Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
+                .keyboardScrollable(scrollState, scope, focusRequester)
+                .verticalScroll(scrollState)
                 .padding(RikkaTheme.spacing.md),
     ) {
         CompactSelector(

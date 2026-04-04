@@ -13,8 +13,12 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import zed.rainxch.rikkaui.foundation.modifier.keyboardScrollable
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
@@ -40,8 +44,16 @@ fun ShowcaseScreen(
     onNavigateToCreator: () -> Unit,
     onNavigateToComponents: () -> Unit,
 ) {
+    val scrollState = rememberScrollState()
+    val scope = rememberCoroutineScope()
+    val focusRequester = remember { FocusRequester() }
+
     BoxWithConstraints(
-        modifier = Modifier.fillMaxSize(),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .keyboardScrollable(scrollState, scope, focusRequester)
+                .verticalScroll(scrollState),
         contentAlignment = Alignment.TopCenter,
     ) {
         val sizeClass = WindowSizeClass.fromWidth(maxWidth)
@@ -56,8 +68,7 @@ fun ShowcaseScreen(
             modifier =
                 Modifier
                     .widthIn(max = 1200.dp)
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
+                    .fillMaxWidth()
                     .padding(horizontal = horizontalPadding),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
