@@ -15,7 +15,7 @@ import zed.rainxch.rikkaui.foundation.LocalTextStyle
 import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 /** Typography variant mapping to a theme text style. */
-enum class TextVariant {
+public enum class TextVariant {
     /** Largest heading */
     H1,
 
@@ -72,7 +72,7 @@ enum class TextVariant {
  * @param style Additional [TextStyle] merged on top of the variant style.
  */
 @Composable
-fun Text(
+public fun Text(
     text: String,
     modifier: Modifier = Modifier,
     variant: TextVariant = TextVariant.P,

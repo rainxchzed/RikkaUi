@@ -32,7 +32,7 @@ import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 
 // ─── Animation Enum ─────────────────────────────────────────
 
-enum class CollapsibleAnimation {
+public enum class CollapsibleAnimation {
     /** Spring-physics expand/collapse with bounce and fade. Default. */
     Spring,
 
@@ -45,7 +45,7 @@ enum class CollapsibleAnimation {
 
 // ─── Scope ─────────────────────────────────────────────────
 
-class CollapsibleScope internal constructor(
+public class CollapsibleScope internal constructor(
     internal val open: Boolean,
     internal val onOpenChange: (Boolean) -> Unit,
 ) {
@@ -54,11 +54,11 @@ class CollapsibleScope internal constructor(
     internal var bodyContent: (@Composable () -> Unit)? = null
         private set
 
-    fun trigger(content: @Composable () -> Unit) {
+    public fun trigger(content: @Composable () -> Unit) {
         triggerContent = content
     }
 
-    fun content(content: @Composable () -> Unit) {
+    public fun content(content: @Composable () -> Unit) {
         bodyContent = content
     }
 }
@@ -85,7 +85,7 @@ class CollapsibleScope internal constructor(
  * @param content Composable content containing [CollapsibleTrigger] and [CollapsibleContent].
  */
 @Composable
-fun Collapsible(
+public fun Collapsible(
     open: Boolean,
     onOpenChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
@@ -115,7 +115,7 @@ fun Collapsible(
  * @param builder [CollapsibleScope] DSL builder for defining trigger and content blocks.
  */
 @Composable
-fun Collapsible(
+public fun Collapsible(
     modifier: Modifier = Modifier,
     initialOpen: Boolean = false,
     animation: CollapsibleAnimation = CollapsibleAnimation.Spring,
@@ -174,7 +174,7 @@ fun Collapsible(
  * @param content Composable content rendered inside the trigger.
  */
 @Composable
-fun CollapsibleTrigger(
+public fun CollapsibleTrigger(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     label: String = "Toggle section",
@@ -227,7 +227,7 @@ fun CollapsibleTrigger(
  * @param content Composable content rendered when [open] is true.
  */
 @Composable
-fun CollapsibleContent(
+public fun CollapsibleContent(
     open: Boolean,
     modifier: Modifier = Modifier,
     animation: CollapsibleAnimation = CollapsibleAnimation.Spring,

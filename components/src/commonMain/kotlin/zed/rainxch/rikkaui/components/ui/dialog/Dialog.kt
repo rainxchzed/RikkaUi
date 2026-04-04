@@ -59,7 +59,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 /**
  * Animation style for [Dialog] enter/exit transitions.
  */
-enum class DialogAnimation {
+public enum class DialogAnimation {
     /** Fade + scale up from 0.95. Default. */
     FadeScale,
 
@@ -103,7 +103,7 @@ enum class DialogAnimation {
  * ```
  */
 @Composable
-fun Dialog(
+public fun Dialog(
     open: Boolean,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
@@ -247,7 +247,7 @@ fun Dialog(
  * ```
  */
 @Composable
-fun DialogHeader(
+public fun DialogHeader(
     title: String,
     modifier: Modifier = Modifier,
     description: String = "",
@@ -287,7 +287,7 @@ fun DialogHeader(
  * ```
  */
 @Composable
-fun DialogFooter(
+public fun DialogFooter(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {

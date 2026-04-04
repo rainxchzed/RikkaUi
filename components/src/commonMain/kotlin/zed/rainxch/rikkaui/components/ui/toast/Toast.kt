@@ -74,7 +74,7 @@ import kotlin.math.roundToInt
 
 // ─── Variant ────────────────────────────────────────────────
 
-enum class ToastVariant {
+public enum class ToastVariant {
     /** Neutral popover card. */
     Default,
 
@@ -90,7 +90,7 @@ enum class ToastVariant {
 
 // ─── Animation ──────────────────────────────────────────────
 
-enum class ToastAnimation {
+public enum class ToastAnimation {
     /** Slide from nearest edge with fade. */
     SlideIn,
 
@@ -106,7 +106,7 @@ enum class ToastAnimation {
 
 // ─── Position ───────────────────────────────────────────────
 
-enum class ToastPosition {
+public enum class ToastPosition {
     TopCenter,
     TopRight,
     BottomCenter,
@@ -116,19 +116,19 @@ enum class ToastPosition {
 // ─── Toast Data ─────────────────────────────────────────────
 
 @Immutable
-data class ToastData(
-    val id: Long,
-    val message: String,
-    val variant: ToastVariant = ToastVariant.Default,
-    val duration: Long = DEFAULT_TOAST_DURATION,
-    val actionLabel: String? = null,
-    val onAction: (() -> Unit)? = null,
+public data class ToastData(
+    public val id: Long,
+    public val message: String,
+    public val variant: ToastVariant = ToastVariant.Default,
+    public val duration: Long = DEFAULT_TOAST_DURATION,
+    public val actionLabel: String? = null,
+    public val onAction: (() -> Unit)? = null,
 )
 
-const val DEFAULT_TOAST_DURATION = 5000L
-const val TOAST_DURATION_SHORT = 5000L
-const val TOAST_DURATION_LONG = 7000L
-const val TOAST_DURATION_INFINITE = Long.MAX_VALUE
+public const val DEFAULT_TOAST_DURATION: Long = 5000L
+public const val TOAST_DURATION_SHORT: Long = 5000L
+public const val TOAST_DURATION_LONG: Long = 7000L
+public const val TOAST_DURATION_INFINITE: Long = Long.MAX_VALUE
 
 private const val DEFAULT_MAX_VISIBLE_TOASTS = 5
 
@@ -137,13 +137,13 @@ private const val SWIPE_DISMISS_THRESHOLD = 150f
 
 // ─── Host State ─────────────────────────────────────────────
 
-class ToastHostState {
+public class ToastHostState {
     private var nextId = 0L
     private val mutex = Mutex()
 
     internal val toasts = mutableStateListOf<ToastData>()
 
-    suspend fun show(
+    public suspend fun show(
         message: String,
         variant: ToastVariant = ToastVariant.Default,
         duration: Long = DEFAULT_TOAST_DURATION,
@@ -168,7 +168,7 @@ class ToastHostState {
         toasts.removeAll { it.id == id }
     }
 
-    fun dismissAll() {
+    public fun dismissAll() {
         toasts.clear()
     }
 }
@@ -179,9 +179,9 @@ class ToastHostState {
  * @return A remembered [ToastHostState] instance for managing toast notifications.
  */
 @Composable
-fun rememberToastHostState(): ToastHostState = remember { ToastHostState() }
+public fun rememberToastHostState(): ToastHostState = remember { ToastHostState() }
 
-val LocalToastHostState =
+public val LocalToastHostState: androidx.compose.runtime.ProvidableCompositionLocal<ToastHostState> =
     staticCompositionLocalOf<ToastHostState> {
         error("No ToastHostState provided. Place ToastHost at your app root.")
     }
@@ -204,7 +204,7 @@ val LocalToastHostState =
  * @param showProgressBar Whether to display a progress bar showing remaining toast duration. Defaults to false.
  */
 @Composable
-fun ToastHost(
+public fun ToastHost(
     hostState: ToastHostState,
     modifier: Modifier = Modifier,
     position: ToastPosition = ToastPosition.BottomRight,
@@ -483,7 +483,7 @@ private fun resolveTransitions(
  * @param onHoverChange Optional callback invoked when hover state changes, used to pause auto-dismiss timers.
  */
 @Composable
-fun Toast(
+public fun Toast(
     message: String,
     variant: ToastVariant = ToastVariant.Default,
     onDismiss: () -> Unit,

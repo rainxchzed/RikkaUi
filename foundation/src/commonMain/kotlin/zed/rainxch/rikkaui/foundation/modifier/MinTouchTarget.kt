@@ -54,7 +54,7 @@ import kotlin.math.roundToInt
  * @see LocalMinTouchTarget
  */
 @Stable
-fun Modifier.minTouchTarget(): Modifier = this then MinTouchTargetElement
+public fun Modifier.minTouchTarget(): Modifier = this then MinTouchTargetElement
 
 /**
  * CompositionLocal that configures the minimum touch target size for
@@ -63,22 +63,22 @@ fun Modifier.minTouchTarget(): Modifier = this then MinTouchTargetElement
  * Set to [Dp.Unspecified] or `0.dp` to disable enforcement.
  * Default is `48.dp` per WCAG accessibility guidelines.
  */
-val LocalMinTouchTarget: ProvidableCompositionLocal<Dp> =
+public val LocalMinTouchTarget: ProvidableCompositionLocal<Dp> =
     staticCompositionLocalOf { MinTouchTargetDefaults.Default }
 
 /** Platform touch target size constants. */
-object MinTouchTargetDefaults {
+public object MinTouchTargetDefaults {
     /** Android guideline: 48dp. */
-    val Android = 48.dp
+    public val Android: Dp = 48.dp
 
     /** Apple HIG guideline: 44dp (44pt). */
-    val Apple = 44.dp
+    public val Apple: Dp = 44.dp
 
     /** Default — uses Android guideline (48dp). */
-    val Default = Android
+    public val Default: Dp = Android
 
     /** Disabled — no minimum enforced. */
-    val Disabled = 0.dp
+    public val Disabled: Dp = 0.dp
 }
 
 // ─── Modifier.Node Implementation ──────────────────────────

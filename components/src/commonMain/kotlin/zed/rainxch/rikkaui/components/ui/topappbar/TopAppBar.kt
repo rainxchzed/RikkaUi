@@ -33,7 +33,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
  * - [Default] — Solid background with bottom border.
  * - [Transparent] — No background, no border. For overlays.
  */
-enum class TopAppBarVariant {
+public enum class TopAppBarVariant {
     Default,
     Transparent,
 }
@@ -44,7 +44,7 @@ enum class TopAppBarVariant {
  * - [Small] — 56dp, compact default.
  * - [Medium] — 64dp, prominent heading.
  */
-enum class TopAppBarSize {
+public enum class TopAppBarSize {
     Small,
     Medium,
 }
@@ -56,7 +56,7 @@ enum class TopAppBarSize {
  * - [Snap] — Fast tween transition.
  * - [None] — Instant color change.
  */
-enum class TopAppBarColorTransition {
+public enum class TopAppBarColorTransition {
     Smooth,
     Snap,
     None,
@@ -82,7 +82,7 @@ enum class TopAppBarColorTransition {
  * @param colorTransition [TopAppBarColorTransition] controlling how background color changes animate. Defaults to [TopAppBarColorTransition.None].
  */
 @Composable
-fun TopAppBar(
+public fun TopAppBar(
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     navigationIcon: @Composable () -> Unit = {},
@@ -204,7 +204,7 @@ fun TopAppBar(
  * @param colorTransition [TopAppBarColorTransition] controlling how background color changes animate. Defaults to [TopAppBarColorTransition.None].
  */
 @Composable
-fun TopAppBar(
+public fun TopAppBar(
     title: String,
     modifier: Modifier = Modifier,
     navigationIcon: @Composable () -> Unit = {},

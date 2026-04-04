@@ -35,21 +35,21 @@ private enum class ScaffoldSlot {
 // ─── FAB Position ──────────────────────────────────────────
 
 @kotlin.jvm.JvmInline
-value class FabPosition internal constructor(
+public value class FabPosition internal constructor(
     @Suppress("unused") private val value: Int,
 ) {
-    companion object {
+    public companion object {
         /** Position FAB at the bottom of the screen at the start, above the bottom bar. */
-        val Start = FabPosition(0)
+        public val Start: FabPosition = FabPosition(0)
 
         /** Position FAB at the bottom of the screen in the center, above the bottom bar. */
-        val Center = FabPosition(1)
+        public val Center: FabPosition = FabPosition(1)
 
         /** Position FAB at the bottom of the screen at the end, above the bottom bar. */
-        val End = FabPosition(2)
+        public val End: FabPosition = FabPosition(2)
 
         /** Position FAB at the bottom of the screen at the end, overlaying the bottom bar. */
-        val EndOverlay = FabPosition(3)
+        public val EndOverlay: FabPosition = FabPosition(3)
     }
 
     override fun toString(): String =
@@ -64,11 +64,11 @@ value class FabPosition internal constructor(
 // ─── Content Window Insets ──────────────────────────────────
 
 @Immutable
-data class ScaffoldWindowInsets(
-    val left: Dp = 0.dp,
-    val top: Dp = 0.dp,
-    val right: Dp = 0.dp,
-    val bottom: Dp = 0.dp,
+public data class ScaffoldWindowInsets(
+    public val left: Dp = 0.dp,
+    public val top: Dp = 0.dp,
+    public val right: Dp = 0.dp,
+    public val bottom: Dp = 0.dp,
 )
 
 // ─── Component ─────────────────────────────────────────────
@@ -93,7 +93,7 @@ data class ScaffoldWindowInsets(
  * @param content Body content lambda receiving [PaddingValues] that account for top bar and bottom bar heights.
  */
 @Composable
-fun Scaffold(
+public fun Scaffold(
     modifier: Modifier = Modifier,
     topBar: @Composable () -> Unit = {},
     bottomBar: @Composable () -> Unit = {},

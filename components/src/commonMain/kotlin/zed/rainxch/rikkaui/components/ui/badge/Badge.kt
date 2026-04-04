@@ -26,7 +26,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 // ─── Variant ────────────────────────────────────────────────
 
 /** Badge visual variants. */
-enum class BadgeVariant {
+public enum class BadgeVariant {
     /** Solid primary background. */
     Default,
 
@@ -43,7 +43,7 @@ enum class BadgeVariant {
 // ─── Animation ──────────────────────────────────────────────
 
 /** Badge entrance animation style. */
-enum class BadgeAnimation {
+public enum class BadgeAnimation {
     /** Subtle pulse/pop on appear. */
     Pulse,
 
@@ -57,7 +57,7 @@ enum class BadgeAnimation {
 // ─── Size ───────────────────────────────────────────────────
 
 /** Badge size presets. */
-enum class BadgeSize {
+public enum class BadgeSize {
     /** Compact size for dense layouts. */
     Sm,
 
@@ -93,7 +93,7 @@ enum class BadgeSize {
  * @param label Accessibility content description; defaults to empty.
  */
 @Composable
-fun Badge(
+public fun Badge(
     text: String,
     modifier: Modifier = Modifier,
     variant: BadgeVariant = BadgeVariant.Default,
@@ -175,7 +175,7 @@ fun Badge(
  * @param content Composable content rendered inside the badge.
  */
 @Composable
-fun Badge(
+public fun Badge(
     modifier: Modifier = Modifier,
     variant: BadgeVariant = BadgeVariant.Default,
     animation: BadgeAnimation = BadgeAnimation.None,

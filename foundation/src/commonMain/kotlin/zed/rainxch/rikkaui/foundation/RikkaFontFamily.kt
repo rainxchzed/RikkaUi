@@ -39,7 +39,7 @@ import org.jetbrains.compose.resources.FontResource
  * @param extraBold FontResource for weight 800 (h1 headings)
  */
 @Composable
-fun rememberRikkaFontFamily(
+public fun rememberRikkaFontFamily(
     light: FontResource,
     regular: FontResource,
     medium: FontResource,

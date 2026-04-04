@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.Constraints
 import kotlinx.coroutines.launch
 
 /** Stagger delay strategy for list enter animations. */
-enum class StaggerDelay {
+public enum class StaggerDelay {
     /** 50ms between items — fast cascade. */
     Fast,
 
@@ -26,7 +26,7 @@ enum class StaggerDelay {
 }
 
 /** Direction from which items slide in. */
-enum class StaggerDirection {
+public enum class StaggerDirection {
     /** Slide up from below. */
     Up,
 
@@ -41,7 +41,7 @@ enum class StaggerDirection {
 }
 
 @Stable
-fun Modifier.staggeredEnter(
+public fun Modifier.staggeredEnter(
     index: Int,
     delay: StaggerDelay = StaggerDelay.Default,
     direction: StaggerDirection = StaggerDirection.Up,

@@ -9,7 +9,7 @@ import zed.rainxch.rikkaui.components.ui.icon.IconSize
 // ─── Size ────────────────────────────────────────────────────
 
 /** Icon button size variants. */
-enum class IconButtonSize {
+public enum class IconButtonSize {
     /** 36x36 dp button, 20 dp icon. */
     Default,
 
@@ -47,7 +47,7 @@ enum class IconButtonSize {
  * @param loading Shows a spinner instead of the icon when true.
  */
 @Composable
-fun IconButton(
+public fun IconButton(
     icon: ImageVector,
     contentDescription: String,
     onClick: () -> Unit,

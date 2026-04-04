@@ -26,7 +26,7 @@ import androidx.compose.ui.graphics.Color
  * | Inverse contrast | `inverseSurface` | `onInverseSurface` |
  */
 @Immutable
-data class RikkaColors(
+public data class RikkaColors(
     // ── App background ──────────────────────────────────────────────────
     /** The root background of the app. */
     val background: Color,
@@ -104,10 +104,10 @@ data class RikkaColors(
     val secondaryPressed: Color = Color.Unspecified,
 )
 
-val LocalRikkaColors =
+public val LocalRikkaColors: androidx.compose.runtime.ProvidableCompositionLocal<RikkaColors> =
     staticCompositionLocalOf<RikkaColors> {
         error("No RikkaColors provided. Wrap your content in RikkaTheme { ... }")
     }
 
-val LocalContentColor =
+public val LocalContentColor: androidx.compose.runtime.ProvidableCompositionLocal<Color> =
     staticCompositionLocalOf { Color.Unspecified }

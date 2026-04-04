@@ -32,7 +32,7 @@ import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 
 // ─── BreadcrumbAnimation ────────────────────────────────────
 
-enum class BreadcrumbAnimation {
+public enum class BreadcrumbAnimation {
     /** Staggered fade-in. */
     Fade,
 
@@ -46,9 +46,9 @@ enum class BreadcrumbAnimation {
 // ─── Data ──────────────────────────────────────────────────
 
 @Immutable
-data class BreadcrumbItemData(
-    val label: String,
-    val onClick: (() -> Unit)? = null,
+public data class BreadcrumbItemData(
+    public val label: String,
+    public val onClick: (() -> Unit)? = null,
 )
 
 // ─── Constants ─────────────────────────────────────────────
@@ -69,7 +69,7 @@ private const val ELLIPSIS_TEXT = "..."
  * @param content Row content lambda for [BreadcrumbItem] and [BreadcrumbSeparator] composables.
  */
 @Composable
-fun Breadcrumb(
+public fun Breadcrumb(
     modifier: Modifier = Modifier,
     content: @Composable RowScope.() -> Unit,
 ) {
@@ -102,7 +102,7 @@ fun Breadcrumb(
  * @param onEllipsisClick Optional callback invoked when the ellipsis item is clicked.
  */
 @Composable
-fun Breadcrumb(
+public fun Breadcrumb(
     items: List<BreadcrumbItemData>,
     modifier: Modifier = Modifier,
     animation: BreadcrumbAnimation = BreadcrumbAnimation.None,
@@ -160,7 +160,7 @@ fun Breadcrumb(
  * @param modifier [Modifier] applied to the item.
  */
 @Composable
-fun BreadcrumbItem(
+public fun BreadcrumbItem(
     text: String,
     onClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
@@ -217,7 +217,7 @@ fun BreadcrumbItem(
  * @param content Optional custom separator composable. When null, renders a "/" text separator.
  */
 @Composable
-fun BreadcrumbSeparator(
+public fun BreadcrumbSeparator(
     modifier: Modifier = Modifier,
     content: (@Composable () -> Unit)? = null,
 ) {

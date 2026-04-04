@@ -24,9 +24,9 @@ import androidx.compose.ui.graphics.Color
  * All hex values are taken directly from the shadcn/ui v4 source and
  * converted from HSL to sRGB hex.
  */
-object RikkaPalettes {
+public object RikkaPalettes {
     /** Zinc base palette, light variant. */
-    val ZincLight =
+    public val ZincLight: RikkaColors =
         RikkaColors(
             background = Color(0xFFFFFFFF),
             onBackground = Color(0xFF09090B),
@@ -62,7 +62,7 @@ object RikkaPalettes {
         )
 
     /** Zinc base palette, dark variant. */
-    val ZincDark =
+    public val ZincDark: RikkaColors =
         RikkaColors(
             background = Color(0xFF09090B),
             onBackground = Color(0xFFFAFAFA),
@@ -98,7 +98,7 @@ object RikkaPalettes {
         )
 
     /** Slate base palette, light variant. Blue-gray undertone. */
-    val SlateLight =
+    public val SlateLight: RikkaColors =
         RikkaColors(
             background = Color(0xFFF1F5F9),
             onBackground = Color(0xFF020817),
@@ -134,7 +134,7 @@ object RikkaPalettes {
         )
 
     /** Slate base palette, dark variant. */
-    val SlateDark =
+    public val SlateDark: RikkaColors =
         RikkaColors(
             background = Color(0xFF020817),
             onBackground = Color(0xFFF8FAFC),
@@ -170,7 +170,7 @@ object RikkaPalettes {
         )
 
     /** Stone base palette, light variant. Warm, earthy undertone. */
-    val StoneLight =
+    public val StoneLight: RikkaColors =
         RikkaColors(
             background = Color(0xFFF5F5F4),
             onBackground = Color(0xFF0C0A09),
@@ -206,7 +206,7 @@ object RikkaPalettes {
         )
 
     /** Stone base palette, dark variant. */
-    val StoneDark =
+    public val StoneDark: RikkaColors =
         RikkaColors(
             background = Color(0xFF0C0A09),
             onBackground = Color(0xFFFAFAF9),
@@ -242,7 +242,7 @@ object RikkaPalettes {
         )
 
     /** Gray base palette, light variant. Balanced cool cast. */
-    val GrayLight =
+    public val GrayLight: RikkaColors =
         RikkaColors(
             background = Color(0xFFF3F4F6),
             onBackground = Color(0xFF030712),
@@ -278,7 +278,7 @@ object RikkaPalettes {
         )
 
     /** Gray base palette, dark variant. */
-    val GrayDark =
+    public val GrayDark: RikkaColors =
         RikkaColors(
             background = Color(0xFF030712),
             onBackground = Color(0xFFF9FAFB),
@@ -314,7 +314,7 @@ object RikkaPalettes {
         )
 
     /** Neutral base palette, light variant. Pure achromatic. */
-    val NeutralLight =
+    public val NeutralLight: RikkaColors =
         RikkaColors(
             background = Color(0xFFF5F5F5),
             onBackground = Color(0xFF0A0A0A),
@@ -350,7 +350,7 @@ object RikkaPalettes {
         )
 
     /** Neutral base palette, dark variant. */
-    val NeutralDark =
+    public val NeutralDark: RikkaColors =
         RikkaColors(
             background = Color(0xFF0A0A0A),
             onBackground = Color(0xFFFAFAFA),
@@ -401,7 +401,7 @@ object RikkaPalettes {
  * @see RikkaAccentDark for dark-mode accent presets.
  * @see withAccent to apply an accent to a [RikkaColors] instance.
  */
-data class RikkaAccentColor(
+public data class RikkaAccentColor(
     val primary: Color,
     val onPrimary: Color,
     val ring: Color,
@@ -421,9 +421,9 @@ data class RikkaAccentColor(
  * RikkaTheme(colors = colors) { ... }
  * ```
  */
-object RikkaAccent {
-    /** Vibrant red accent. red-600 → hover red-700, press red-800 */
-    val Red =
+public object RikkaAccent {
+    /** Vibrant red accent. red-600 -> hover red-700, press red-800 */
+    public val Red: RikkaAccentColor =
         RikkaAccentColor(
             primary = Color(0xFFDC2626),
             onPrimary = Color(0xFFFAFAFA),
@@ -432,8 +432,8 @@ object RikkaAccent {
             primaryPressed = Color(0xFF991B1B),
         )
 
-    /** Warm rose/pink accent. rose-600 → hover rose-700, press rose-800 */
-    val Rose =
+    /** Warm rose/pink accent. rose-600 -> hover rose-700, press rose-800 */
+    public val Rose: RikkaAccentColor =
         RikkaAccentColor(
             primary = Color(0xFFE11D48),
             onPrimary = Color(0xFFFFF1F2),
@@ -442,8 +442,8 @@ object RikkaAccent {
             primaryPressed = Color(0xFF9F1239),
         )
 
-    /** Energetic orange accent. orange-500 → hover orange-600, press orange-700 */
-    val Orange =
+    /** Energetic orange accent. orange-500 -> hover orange-600, press orange-700 */
+    public val Orange: RikkaAccentColor =
         RikkaAccentColor(
             primary = Color(0xFFF97316),
             onPrimary = Color(0xFFFAFAFA),
@@ -452,8 +452,8 @@ object RikkaAccent {
             primaryPressed = Color(0xFFC2410C),
         )
 
-    /** Fresh green accent. green-600 → hover green-700, press green-800 */
-    val Green =
+    /** Fresh green accent. green-600 -> hover green-700, press green-800 */
+    public val Green: RikkaAccentColor =
         RikkaAccentColor(
             primary = Color(0xFF16A34A),
             onPrimary = Color(0xFFFAFAFA),
@@ -462,8 +462,8 @@ object RikkaAccent {
             primaryPressed = Color(0xFF166534),
         )
 
-    /** Classic blue accent. blue-600 → hover blue-700, press blue-800 */
-    val Blue =
+    /** Classic blue accent. blue-600 -> hover blue-700, press blue-800 */
+    public val Blue: RikkaAccentColor =
         RikkaAccentColor(
             primary = Color(0xFF2563EB),
             onPrimary = Color(0xFFEFF6FF),
@@ -472,8 +472,8 @@ object RikkaAccent {
             primaryPressed = Color(0xFF1E40AF),
         )
 
-    /** Sunny yellow accent. yellow-400 → hover yellow-500, press yellow-600 */
-    val Yellow =
+    /** Sunny yellow accent. yellow-400 -> hover yellow-500, press yellow-600 */
+    public val Yellow: RikkaAccentColor =
         RikkaAccentColor(
             primary = Color(0xFFFACC15),
             onPrimary = Color(0xFF422006),
@@ -482,8 +482,8 @@ object RikkaAccent {
             primaryPressed = Color(0xFFCA8A04),
         )
 
-    /** Rich violet/purple accent. violet-600 → hover violet-700, press violet-800 */
-    val Violet =
+    /** Rich violet/purple accent. violet-600 -> hover violet-700, press violet-800 */
+    public val Violet: RikkaAccentColor =
         RikkaAccentColor(
             primary = Color(0xFF7C3AED),
             onPrimary = Color(0xFFF5F3FF),
@@ -505,9 +505,9 @@ object RikkaAccent {
  * RikkaTheme(colors = colors) { ... }
  * ```
  */
-object RikkaAccentDark {
+public object RikkaAccentDark {
     /** Vibrant red accent (dark mode). */
-    val Red =
+    public val Red: RikkaAccentColor =
         RikkaAccentColor(
             primary = Color(0xFFDC2626),
             onPrimary = Color(0xFFFAFAFA),
@@ -515,7 +515,7 @@ object RikkaAccentDark {
         )
 
     /** Warm rose/pink accent (dark mode). */
-    val Rose =
+    public val Rose: RikkaAccentColor =
         RikkaAccentColor(
             primary = Color(0xFFE11D48),
             onPrimary = Color(0xFFFFF1F2),
@@ -523,7 +523,7 @@ object RikkaAccentDark {
         )
 
     /** Energetic orange accent (dark mode, slightly deeper). */
-    val Orange =
+    public val Orange: RikkaAccentColor =
         RikkaAccentColor(
             primary = Color(0xFFEA580C),
             onPrimary = Color(0xFFFAFAFA),
@@ -531,7 +531,7 @@ object RikkaAccentDark {
         )
 
     /** Fresh green accent (dark mode, brighter for contrast). */
-    val Green =
+    public val Green: RikkaAccentColor =
         RikkaAccentColor(
             primary = Color(0xFF22C55E),
             onPrimary = Color(0xFF052E16),
@@ -539,7 +539,7 @@ object RikkaAccentDark {
         )
 
     /** Classic blue accent (dark mode, brighter for contrast). */
-    val Blue =
+    public val Blue: RikkaAccentColor =
         RikkaAccentColor(
             primary = Color(0xFF3B82F6),
             onPrimary = Color(0xFFEFF6FF),
@@ -547,7 +547,7 @@ object RikkaAccentDark {
         )
 
     /** Sunny yellow accent (dark mode). */
-    val Yellow =
+    public val Yellow: RikkaAccentColor =
         RikkaAccentColor(
             primary = Color(0xFFFACC15),
             onPrimary = Color(0xFF422006),
@@ -555,7 +555,7 @@ object RikkaAccentDark {
         )
 
     /** Rich violet/purple accent (dark mode, slightly deeper). */
-    val Violet =
+    public val Violet: RikkaAccentColor =
         RikkaAccentColor(
             primary = Color(0xFF6D28D9),
             onPrimary = Color(0xFFF5F3FF),
@@ -582,7 +582,7 @@ object RikkaAccentDark {
  * @param accent The accent color to apply.
  * @return A new [RikkaColors] with the accent's primary tokens applied.
  */
-fun RikkaColors.withAccent(accent: RikkaAccentColor): RikkaColors =
+public fun RikkaColors.withAccent(accent: RikkaAccentColor): RikkaColors =
     copy(
         primary = accent.primary,
         onPrimary = accent.onPrimary,
@@ -603,8 +603,8 @@ fun RikkaColors.withAccent(accent: RikkaAccentColor): RikkaColors =
  * RikkaTheme(colors = colors) { ... }
  * ```
  */
-enum class RikkaPalette(
-    val label: String,
+public enum class RikkaPalette(
+    public val label: String,
 ) {
     Zinc("Zinc"),
     Slate("Slate"),
@@ -614,7 +614,7 @@ enum class RikkaPalette(
     ;
 
     /** Resolves to a [RikkaColors] for the given dark-mode flag. */
-    fun resolve(isDark: Boolean): RikkaColors =
+    public fun resolve(isDark: Boolean): RikkaColors =
         when (this) {
             Zinc -> if (isDark) RikkaPalettes.ZincDark else RikkaPalettes.ZincLight
             Slate -> if (isDark) RikkaPalettes.SlateDark else RikkaPalettes.SlateLight
@@ -637,8 +637,8 @@ enum class RikkaPalette(
  * RikkaTheme(colors = colors) { ... }
  * ```
  */
-enum class RikkaAccentPreset(
-    val label: String,
+public enum class RikkaAccentPreset(
+    public val label: String,
 ) {
     Default("Default"),
     Blue("Blue"),
@@ -654,7 +654,7 @@ enum class RikkaAccentPreset(
      * Returns a preview swatch [Color] for this accent,
      * or `null` for [Default].
      */
-    val previewColor: Color?
+    public val previewColor: Color?
         get() =
             when (this) {
                 Default -> null
@@ -671,7 +671,7 @@ enum class RikkaAccentPreset(
      * Applies this accent to a base [RikkaColors].
      * Returns the base unchanged for [Default].
      */
-    fun applyTo(
+    public fun applyTo(
         base: RikkaColors,
         isDark: Boolean,
     ): RikkaColors {

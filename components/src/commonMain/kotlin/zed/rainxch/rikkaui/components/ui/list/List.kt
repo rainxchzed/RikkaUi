@@ -22,7 +22,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 // ─── Variant ────────────────────────────────────────────────
 
 /** List style variants. */
-enum class ListVariant {
+public enum class ListVariant {
     /** Bullet points (•). */
     Unordered,
 
@@ -54,7 +54,7 @@ enum class ListVariant {
  * @param textVariant [TextVariant] applied to each item's text. Defaults to [TextVariant.P].
  */
 @Composable
-fun RikkaList(
+public fun RikkaList(
     items: List<String>,
     modifier: Modifier = Modifier,
     variant: ListVariant = ListVariant.Unordered,
@@ -103,7 +103,7 @@ fun RikkaList(
  * @param content [ListScope] DSL builder where each item is added via [ListScope.ListItem].
  */
 @Composable
-fun RikkaList(
+public fun RikkaList(
     modifier: Modifier = Modifier,
     variant: ListVariant = ListVariant.Unordered,
     content: @Composable ListScope.() -> Unit,
@@ -138,8 +138,8 @@ fun RikkaList(
 
 // ─── ListItem ───────────────────────────────────────────────
 
-interface ListScope {
-    fun ListItem(content: @Composable () -> Unit)
+public interface ListScope {
+    public fun ListItem(content: @Composable () -> Unit)
 }
 
 private class ListScopeImpl(

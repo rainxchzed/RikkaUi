@@ -43,7 +43,7 @@ import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 
 // ─── Animation ────────────────────────────────────────────
 
-enum class TabAnimation {
+public enum class TabAnimation {
     /** Spring-based color transition (default). */
     Spring,
 
@@ -72,7 +72,7 @@ enum class TabAnimation {
  * @param content Composable content containing [Tab] children.
  */
 @Composable
-fun TabList(
+public fun TabList(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
@@ -122,7 +122,7 @@ fun TabList(
  * @param inactiveBackground Background color when unselected. [Color.Unspecified] defaults to theme muted.
  */
 @Composable
-fun Tab(
+public fun Tab(
     selected: Boolean,
     onClick: () -> Unit,
     text: String,
@@ -236,7 +236,7 @@ fun Tab(
  * @param content Composable content that should render based on the current [selectedIndex].
  */
 @Composable
-fun TabContent(
+public fun TabContent(
     selectedIndex: Int = 0,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,

@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
  * ```
  */
 @Immutable
-data class RikkaElevation(
+public data class RikkaElevation(
     /** No shadow. Flat on surface. */
     val none: Dp = 0.dp,
     /** Subtle shadow — cards, low emphasis. */
@@ -35,5 +35,5 @@ data class RikkaElevation(
     val high: Dp = 8.dp,
 )
 
-val LocalRikkaElevation =
+public val LocalRikkaElevation: androidx.compose.runtime.ProvidableCompositionLocal<RikkaElevation> =
     staticCompositionLocalOf { RikkaElevation() }

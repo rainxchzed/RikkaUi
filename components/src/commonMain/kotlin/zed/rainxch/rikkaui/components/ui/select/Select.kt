@@ -61,9 +61,9 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Data ───────────────────────────────────────────────────
 
-data class SelectOption(
-    val value: String,
-    val label: String,
+public data class SelectOption(
+    public val value: String,
+    public val label: String,
 )
 
 // ─── Component ──────────────────────────────────────────────
@@ -105,7 +105,7 @@ data class SelectOption(
  * @param maxHeight Maximum height of the dropdown list before it scrolls. Defaults to 200.dp.
  */
 @Composable
-fun Select(
+public fun Select(
     selectedValue: String,
     onValueChange: (String) -> Unit,
     options: List<SelectOption>,

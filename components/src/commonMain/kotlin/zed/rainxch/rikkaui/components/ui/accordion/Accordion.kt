@@ -41,7 +41,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation Enum ─────────────────────────────────────────
 
-enum class AccordionAnimation {
+public enum class AccordionAnimation {
     /** Spring-physics expand/collapse with medium bounce (default). */
     Spring,
 
@@ -82,7 +82,7 @@ enum class AccordionAnimation {
  * @param content Composable content displayed when expanded.
  */
 @Composable
-fun AccordionItem(
+public fun AccordionItem(
     title: String,
     expanded: Boolean,
     onExpandedChange: (Boolean) -> Unit,

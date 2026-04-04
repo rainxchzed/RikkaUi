@@ -24,7 +24,7 @@ import zed.rainxch.rikkaui.foundation.modifier.LocalMinTouchTarget
  * All parameters have sensible defaults (Neutral light palette).
  */
 @Composable
-fun RikkaTheme(
+public fun RikkaTheme(
     colors: RikkaColors = RikkaPalettes.NeutralLight,
     typography: RikkaTypography = rikkaTypography(),
     spacing: RikkaSpacing = rikkaSpacing(),
@@ -63,7 +63,7 @@ fun RikkaTheme(
  * colors and typography separately since they depend on font/palette choice.
  */
 @Composable
-fun RikkaTheme(
+public fun RikkaTheme(
     colors: RikkaColors = RikkaPalettes.NeutralLight,
     style: RikkaStyle,
     typography: RikkaTypography = rikkaTypography(scale = style.typeScale),
@@ -91,7 +91,7 @@ fun RikkaTheme(
  * ```
  */
 @Composable
-fun RikkaTheme(
+public fun RikkaTheme(
     colors: RikkaColors = RikkaPalettes.NeutralLight,
     preset: RikkaStylePreset,
     typography: RikkaTypography = rikkaTypography(scale = preset.typeScale),
@@ -121,7 +121,7 @@ fun RikkaTheme(
  * ```
  */
 @Composable
-fun RikkaTheme(
+public fun RikkaTheme(
     palette: RikkaPalette,
     accent: RikkaAccentPreset = RikkaAccentPreset.Default,
     isDark: Boolean = false,
@@ -155,38 +155,38 @@ fun RikkaTheme(
  * val spring = RikkaTheme.motion.springDefault
  * ```
  */
-object RikkaTheme {
-    val colors: RikkaColors
+public object RikkaTheme {
+    public val colors: RikkaColors
         @Composable
         @ReadOnlyComposable
         get() = LocalRikkaColors.current
 
-    val typography: RikkaTypography
+    public val typography: RikkaTypography
         @Composable
         @ReadOnlyComposable
         get() = LocalRikkaTypography.current
 
-    val spacing: RikkaSpacing
+    public val spacing: RikkaSpacing
         @Composable
         @ReadOnlyComposable
         get() = LocalRikkaSpacing.current
 
-    val shapes: RikkaShapes
+    public val shapes: RikkaShapes
         @Composable
         @ReadOnlyComposable
         get() = LocalRikkaShapes.current
 
-    val motion: RikkaMotion
+    public val motion: RikkaMotion
         @Composable
         @ReadOnlyComposable
         get() = LocalRikkaMotion.current
 
-    val elevation: RikkaElevation
+    public val elevation: RikkaElevation
         @Composable
         @ReadOnlyComposable
         get() = LocalRikkaElevation.current
 
-    val minTouchTarget: Dp
+    public val minTouchTarget: Dp
         @Composable
         @ReadOnlyComposable
         get() = LocalMinTouchTarget.current
@@ -206,7 +206,7 @@ object RikkaTheme {
  */
 @Composable
 @ReadOnlyComposable
-fun contentColorFor(backgroundColor: Color): Color {
+public fun contentColorFor(backgroundColor: Color): Color {
     val colors = RikkaTheme.colors
     // Most specific first — tinted and inverse may share values
     // with common surfaces (e.g. primaryTinted == muted in some palettes).

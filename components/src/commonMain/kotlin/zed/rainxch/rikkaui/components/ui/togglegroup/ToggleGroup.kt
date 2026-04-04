@@ -36,7 +36,7 @@ import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 // ─── Variant ───────────────────────────────────────────────
 
 /** Muted bg when selected; Outline adds a 1dp border. */
-enum class ToggleGroupVariant {
+public enum class ToggleGroupVariant {
     /** Muted background when selected, transparent otherwise. */
     Default,
 
@@ -47,7 +47,7 @@ enum class ToggleGroupVariant {
 // ─── Animation ────────────────────────────────────────────
 
 /** Animation strategy for selection color transitions. */
-enum class ToggleGroupAnimation {
+public enum class ToggleGroupAnimation {
     /** Spring-based color transition (default). */
     Spring,
 
@@ -79,7 +79,7 @@ enum class ToggleGroupAnimation {
  * @param content Composable slot for [ToggleGroupItem] children.
  */
 @Composable
-fun ToggleGroup(
+public fun ToggleGroup(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
@@ -125,7 +125,7 @@ fun ToggleGroup(
  * @param content Composable content displayed inside the item.
  */
 @Composable
-fun ToggleGroupItem(
+public fun ToggleGroupItem(
     selected: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -237,7 +237,7 @@ fun ToggleGroupItem(
  * @param unselectedColor Override foreground color when unselected. [Color.Unspecified] uses theme default.
  */
 @Composable
-fun ToggleGroupItem(
+public fun ToggleGroupItem(
     text: String,
     selected: Boolean,
     onClick: () -> Unit,

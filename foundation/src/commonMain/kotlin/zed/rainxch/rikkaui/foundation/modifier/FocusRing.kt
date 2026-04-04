@@ -29,7 +29,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
  * @param offset Additional offset from the component edge. Defaults to 2dp.
  */
 @Composable
-fun Modifier.focusRing(
+public fun Modifier.focusRing(
     shape: Shape,
     width: Dp = 2.dp,
     offset: Dp = 2.dp,

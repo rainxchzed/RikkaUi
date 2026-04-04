@@ -29,9 +29,9 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 // ─── Size ───────────────────────────────────────────────────
 
 /** Spinner size variants. */
-enum class SpinnerSize(
-    val diameter: Dp,
-    val stroke: Dp,
+public enum class SpinnerSize(
+    public val diameter: Dp,
+    public val stroke: Dp,
 ) {
     Sm(diameter = 16.dp, stroke = 1.5.dp),
     Default(diameter = 24.dp, stroke = 2.dp),
@@ -41,7 +41,7 @@ enum class SpinnerSize(
 // ─── Animation ──────────────────────────────────────────────
 
 /** Spinner animation variants. */
-enum class SpinnerAnimation {
+public enum class SpinnerAnimation {
     /** Continuous rotation. */
     Spin,
 
@@ -81,7 +81,7 @@ enum class SpinnerAnimation {
  * @param label Accessibility content description. Defaults to "Loading".
  */
 @Composable
-fun Spinner(
+public fun Spinner(
     modifier: Modifier = Modifier,
     size: SpinnerSize = SpinnerSize.Default,
     animation: SpinnerAnimation = SpinnerAnimation.Spin,

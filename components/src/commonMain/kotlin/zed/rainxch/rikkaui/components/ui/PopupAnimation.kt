@@ -1,6 +1,6 @@
 package zed.rainxch.rikkaui.components.ui
 
-enum class PopupAnimation {
+public enum class PopupAnimation {
     /** Fade + vertical expand from top edge (default). */
     FadeExpand,
 

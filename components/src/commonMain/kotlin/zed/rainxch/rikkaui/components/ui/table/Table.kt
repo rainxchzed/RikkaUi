@@ -36,7 +36,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── TableAnimation ───────────────────────────────────────
 
-enum class TableAnimation {
+public enum class TableAnimation {
     /** Hover highlight on rows. */
     Hover,
 
@@ -49,7 +49,7 @@ enum class TableAnimation {
 
 // ─── TableBorderStyle ─────────────────────────────────────
 
-enum class TableBorderStyle {
+public enum class TableBorderStyle {
     /** Outer border with rounded corners. */
     Outlined,
 
@@ -102,7 +102,7 @@ private val LocalTableStickyHeader = compositionLocalOf { false }
  * @param content [ColumnScope] content lambda containing [TableHeader] and [TableRow] children.
  */
 @Composable
-fun Table(
+public fun Table(
     modifier: Modifier = Modifier,
     rowCount: Int = -1,
     columnCount: Int = -1,
@@ -169,7 +169,7 @@ fun Table(
  * @param content [RowScope] content lambda containing [TableHeaderCell] children.
  */
 @Composable
-fun TableHeader(
+public fun TableHeader(
     modifier: Modifier = Modifier,
     content: @Composable RowScope.() -> Unit,
 ) {
@@ -207,7 +207,7 @@ fun TableHeader(
  * @param content [RowScope] content lambda containing [TableCell] children.
  */
 @Composable
-fun TableRow(
+public fun TableRow(
     modifier: Modifier = Modifier,
     rowIndex: Int = -1,
     onClick: (() -> Unit)? = null,
@@ -306,7 +306,7 @@ fun TableRow(
  * @param content Composable content rendered inside the cell.
  */
 @Composable
-fun RowScope.TableCell(
+public fun RowScope.TableCell(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
@@ -334,7 +334,7 @@ fun RowScope.TableCell(
  * @param content Composable content rendered inside the header cell.
  */
 @Composable
-fun RowScope.TableHeaderCell(
+public fun RowScope.TableHeaderCell(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
@@ -358,7 +358,7 @@ fun RowScope.TableHeaderCell(
  * @param modifier [Modifier] applied to the header cell container.
  */
 @Composable
-fun RowScope.TableHeaderCell(
+public fun RowScope.TableHeaderCell(
     text: String,
     modifier: Modifier = Modifier,
 ) {
@@ -384,7 +384,7 @@ fun RowScope.TableHeaderCell(
  * @param modifier [Modifier] applied to the cell container.
  */
 @Composable
-fun RowScope.TableCell(
+public fun RowScope.TableCell(
     text: String,
     modifier: Modifier = Modifier,
 ) {

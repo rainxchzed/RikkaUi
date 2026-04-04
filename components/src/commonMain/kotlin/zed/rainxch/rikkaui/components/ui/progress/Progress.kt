@@ -24,7 +24,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation Enum ─────────────────────────────────────────
 
-enum class ProgressAnimation {
+public enum class ProgressAnimation {
     /** Spring physics, handles interruptions. Default. */
     Spring,
 
@@ -64,7 +64,7 @@ enum class ProgressAnimation {
  * @param label Accessibility label prefix (e.g. "Download"); included in state description.
  */
 @Composable
-fun Progress(
+public fun Progress(
     progress: Float,
     modifier: Modifier = Modifier,
     trackColor: Color = Color.Unspecified,

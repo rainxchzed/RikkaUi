@@ -66,7 +66,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 // ─── Side ───────────────────────────────────────────────────
 
 /** Side from which the sheet slides in. */
-enum class SheetSide {
+public enum class SheetSide {
     /** Slides down from the top edge. */
     Top,
 
@@ -83,7 +83,7 @@ enum class SheetSide {
 // ─── Animation Enum ─────────────────────────────────────────
 
 /** Animation style for sheet enter/exit transitions. */
-enum class SheetAnimation {
+public enum class SheetAnimation {
     /** Slide from edge + fade. */
     Slide,
 
@@ -116,7 +116,7 @@ enum class SheetAnimation {
  * @param content Composable content rendered inside the sheet panel column.
  */
 @Composable
-fun Sheet(
+public fun Sheet(
     open: Boolean,
     onDismiss: () -> Unit,
     side: SheetSide = SheetSide.Right,
@@ -267,7 +267,7 @@ fun Sheet(
  * @param description Optional secondary text shown below the title in muted style. Defaults to empty.
  */
 @Composable
-fun SheetHeader(
+public fun SheetHeader(
     title: String,
     modifier: Modifier = Modifier,
     description: String = "",
@@ -299,7 +299,7 @@ fun SheetHeader(
  * @param content Composable content rendered inside the sheet body.
  */
 @Composable
-fun SheetContent(
+public fun SheetContent(
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit,
 ) {
@@ -316,7 +316,7 @@ fun SheetContent(
  * @param content Composable action buttons (e.g., Cancel and Save).
  */
 @Composable
-fun SheetFooter(
+public fun SheetFooter(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {

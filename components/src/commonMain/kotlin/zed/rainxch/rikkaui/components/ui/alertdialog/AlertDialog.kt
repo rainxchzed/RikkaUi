@@ -64,7 +64,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 /**
  * Animation style for [AlertDialog] enter/exit transitions.
  */
-enum class AlertDialogAnimation {
+public enum class AlertDialogAnimation {
     /** Fade + scale up from 0.95. */
     FadeScale,
 
@@ -95,7 +95,7 @@ enum class AlertDialogAnimation {
  * @param content Composable content rendered inside the dialog card.
  */
 @Composable
-fun AlertDialog(
+public fun AlertDialog(
     open: Boolean,
     onDismiss: () -> Unit,
     onConfirm: () -> Unit,
@@ -239,7 +239,7 @@ fun AlertDialog(
  * @param description Optional secondary text shown below the title in muted style. Defaults to empty.
  */
 @Composable
-fun AlertDialogHeader(
+public fun AlertDialogHeader(
     title: String,
     modifier: Modifier = Modifier,
     description: String = "",
@@ -274,7 +274,7 @@ fun AlertDialogHeader(
  * @param content Composable action buttons (e.g., Cancel and Confirm).
  */
 @Composable
-fun AlertDialogFooter(
+public fun AlertDialogFooter(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
@@ -304,7 +304,7 @@ fun AlertDialogFooter(
  * @param text Label text for the cancel button. Defaults to "Cancel".
  */
 @Composable
-fun AlertDialogCancel(
+public fun AlertDialogCancel(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     text: String = "Cancel",
@@ -319,7 +319,7 @@ fun AlertDialogCancel(
 
 // ─── Action Variant ─────────────────────────────────────────
 
-enum class AlertDialogActionVariant {
+public enum class AlertDialogActionVariant {
     /** Primary-colored confirm button. */
     Default,
 
@@ -338,7 +338,7 @@ enum class AlertDialogActionVariant {
  * @param variant [AlertDialogActionVariant] controlling the button style. Defaults to [AlertDialogActionVariant.Default].
  */
 @Composable
-fun AlertDialogAction(
+public fun AlertDialogAction(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,

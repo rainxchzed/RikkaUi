@@ -35,7 +35,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 // ─── Animation ──────────────────────────────────────────────
 
 /** Animation style for radio button dot and ring transitions. */
-enum class RadioAnimation {
+public enum class RadioAnimation {
     /** Bouncy spring physics (default). */
     Spring,
 
@@ -84,7 +84,7 @@ enum class RadioAnimation {
  * @param label Accessibility content description and visible text label. Defaults to empty.
  */
 @Composable
-fun RadioButton(
+public fun RadioButton(
     selected: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,

@@ -47,7 +47,7 @@ import androidx.compose.ui.unit.sp
  * ```
  */
 @Immutable
-data class RikkaTypography(
+public data class RikkaTypography(
     /** Display heading. 36sp ExtraBold by default. */
     val h1: TextStyle,
     /** Section heading. 30sp SemiBold by default. */
@@ -68,7 +68,7 @@ data class RikkaTypography(
     val muted: TextStyle,
 )
 
-val LocalRikkaTypography =
+public val LocalRikkaTypography: androidx.compose.runtime.ProvidableCompositionLocal<RikkaTypography> =
     staticCompositionLocalOf<RikkaTypography> {
         error(
             "No RikkaTypography provided. " +
@@ -84,7 +84,7 @@ val LocalRikkaTypography =
  * When [TextStyle.Default], the Text component falls back to its
  * variant-based style resolution.
  */
-val LocalTextStyle =
+public val LocalTextStyle: androidx.compose.runtime.ProvidableCompositionLocal<TextStyle> =
     staticCompositionLocalOf { TextStyle.Default }
 
 /**
@@ -104,7 +104,7 @@ val LocalTextStyle =
  * @param mutedSize Override muted text font size (before scale).
  */
 @Suppress("LongParameterList")
-fun rikkaTypography(
+public fun rikkaTypography(
     fontFamily: FontFamily = FontFamily.Default,
     scale: Float = 1f,
     h1Size: TextUnit = 36.sp,
@@ -207,7 +207,7 @@ fun rikkaTypography(
  * )
  * ```
  */
-fun TextStyle.emphasized(): TextStyle = copy(fontWeight = FontWeight.SemiBold)
+public fun TextStyle.emphasized(): TextStyle = copy(fontWeight = FontWeight.SemiBold)
 
 /**
  * Returns a strong version of this text style (Bold weight).
@@ -221,4 +221,4 @@ fun TextStyle.emphasized(): TextStyle = copy(fontWeight = FontWeight.SemiBold)
  * )
  * ```
  */
-fun TextStyle.strong(): TextStyle = copy(fontWeight = FontWeight.Bold)
+public fun TextStyle.strong(): TextStyle = copy(fontWeight = FontWeight.Bold)

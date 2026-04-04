@@ -43,7 +43,7 @@ import androidx.compose.ui.unit.dp
  * ```
  */
 @Immutable
-data class RikkaSpacing(
+public data class RikkaSpacing(
     /** Explicit zero — for override resets. Use instead of bare `0.dp`. */
     val none: Dp,
     /** Extra small (4dp default) — icon-to-text gap, badge padding, tight internal. */
@@ -64,7 +64,7 @@ data class RikkaSpacing(
     val huge: Dp,
 )
 
-val LocalRikkaSpacing =
+public val LocalRikkaSpacing: androidx.compose.runtime.ProvidableCompositionLocal<RikkaSpacing> =
     staticCompositionLocalOf<RikkaSpacing> {
         error(
             "No RikkaSpacing provided. Wrap your content in RikkaTheme { ... }",
@@ -82,7 +82,7 @@ val LocalRikkaSpacing =
  *
  * @param base The base spacing unit. Default is 4dp (standard grid).
  */
-fun rikkaSpacing(base: Dp = 4.dp): RikkaSpacing =
+public fun rikkaSpacing(base: Dp = 4.dp): RikkaSpacing =
     RikkaSpacing(
         none = 0.dp,
         xs = base,
@@ -104,13 +104,13 @@ fun rikkaSpacing(base: Dp = 4.dp): RikkaSpacing =
  * | comfortable | 4dp  | 16dp          | Balanced (recommended)    |
  * | spacious    | 5dp  | 20dp          | Airy: editorial, reading  |
  */
-object RikkaSpacingPresets {
+public object RikkaSpacingPresets {
     /** Dense — for data-heavy UIs: dashboards, tables, admin panels. Base = 3dp. */
-    fun compact(): RikkaSpacing = rikkaSpacing(base = 3.dp)
+    public fun compact(): RikkaSpacing = rikkaSpacing(base = 3.dp)
 
     /** Balanced — the recommended default for most apps. Base = 4dp. */
-    fun comfortable(): RikkaSpacing = rikkaSpacing(base = 4.dp)
+    public fun comfortable(): RikkaSpacing = rikkaSpacing(base = 4.dp)
 
     /** Open — for content-first, editorial, reading apps. Base = 5dp. */
-    fun spacious(): RikkaSpacing = rikkaSpacing(base = 5.dp)
+    public fun spacious(): RikkaSpacing = rikkaSpacing(base = 5.dp)
 }

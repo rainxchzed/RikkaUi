@@ -45,7 +45,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
  * @property Tween Linear tween transition.
  * @property None Instant state change, no animation.
  */
-enum class CheckboxAnimation {
+public enum class CheckboxAnimation {
     /** Bouncy spring physics (default). */
     Spring,
 
@@ -84,7 +84,7 @@ enum class CheckboxAnimation {
  * @param label Accessibility content description and visible text label. Defaults to empty.
  */
 @Composable
-fun Checkbox(
+public fun Checkbox(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,

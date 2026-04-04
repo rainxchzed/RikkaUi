@@ -25,8 +25,8 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 // ─── Size ───────────────────────────────────────────────────
 
 /** Icon size variants. */
-enum class IconSize(
-    val dp: Dp,
+public enum class IconSize(
+    public val dp: Dp,
 ) {
     Xs(12.dp),
     Sm(16.dp),
@@ -62,7 +62,7 @@ enum class IconSize(
  * @param spin When true, continuously rotates the icon using theme motion duration.
  */
 @Composable
-fun Icon(
+public fun Icon(
     imageVector: ImageVector,
     contentDescription: String?,
     modifier: Modifier = Modifier,

@@ -26,7 +26,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Size ───────────────────────────────────────────────────
 
-enum class AvatarSize {
+public enum class AvatarSize {
     /** 32dp — compact contexts. */
     Sm,
 
@@ -39,7 +39,7 @@ enum class AvatarSize {
 
 // ─── Animation ──────────────────────────────────────────────
 
-enum class AvatarAnimation {
+public enum class AvatarAnimation {
     /** Fade in from transparent. */
     FadeIn,
 
@@ -52,7 +52,7 @@ enum class AvatarAnimation {
 
 // ─── Status Indicator ───────────────────────────────────────
 
-enum class AvatarStatus {
+public enum class AvatarStatus {
     /** Green dot. */
     Online,
 
@@ -90,7 +90,7 @@ enum class AvatarStatus {
  * @param label Accessibility content description; defaults to [fallback] text.
  */
 @Composable
-fun Avatar(
+public fun Avatar(
     fallback: String,
     modifier: Modifier = Modifier,
     size: AvatarSize = AvatarSize.Default,

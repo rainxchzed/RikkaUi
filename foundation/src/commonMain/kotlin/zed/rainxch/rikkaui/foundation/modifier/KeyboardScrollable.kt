@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 /**
  * Controls how a [keyboardScrollable] container acquires focus.
  */
-enum class ScrollFocusMode {
+public enum class ScrollFocusMode {
     /** Automatically requests focus when the container is first composed. */
     RequestFocus,
 
@@ -61,7 +61,7 @@ enum class ScrollFocusMode {
  * @param pageAmount Pixels to scroll per Page Up/Down/Space press.
  */
 @Composable
-fun Modifier.keyboardScrollable(
+public fun Modifier.keyboardScrollable(
     scrollState: ScrollState,
     focusMode: ScrollFocusMode = ScrollFocusMode.RequestFocus,
     scrollAmount: Float = 80f,
@@ -99,7 +99,7 @@ fun Modifier.keyboardScrollable(
  * @param scrollAmount Pixels to scroll per arrow key press.
  * @param pageAmount Pixels to scroll per Page Up/Down/Space press.
  */
-fun Modifier.keyboardScrollable(
+public fun Modifier.keyboardScrollable(
     scrollState: ScrollState,
     scope: CoroutineScope,
     focusRequester: FocusRequester,

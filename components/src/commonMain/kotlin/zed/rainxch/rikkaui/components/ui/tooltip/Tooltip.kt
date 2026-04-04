@@ -39,7 +39,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ─────────────────────────────────────────────
 
-enum class TooltipAnimation {
+public enum class TooltipAnimation {
     /** Fade + scale from 95 % to 100 %. */
     FadeScale,
 
@@ -52,7 +52,7 @@ enum class TooltipAnimation {
 
 // ─── Placement ─────────────────────────────────────────────
 
-enum class TooltipPlacement {
+public enum class TooltipPlacement {
     Top,
     Bottom,
     Start,
@@ -79,7 +79,7 @@ private const val DEFAULT_SHOW_DELAY_MS = 400L
  * @param content Composable content that acts as the hover/focus target for the tooltip.
  */
 @Composable
-fun Tooltip(
+public fun Tooltip(
     tooltip: String,
     modifier: Modifier = Modifier,
     animation: TooltipAnimation = TooltipAnimation.FadeScale,

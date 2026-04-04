@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 
 // ─── Icon Library ───────────────────────────────────────────
 
-object RikkaIcons {
+public object RikkaIcons {
     // ── Shared builder helpers ──────────────────────────────
 
     private inline fun lucideIcon(
@@ -30,7 +30,7 @@ object RikkaIcons {
 
     // ── Chevrons ────────────────────────────────────────────
 
-    val ChevronRight: ImageVector by lazy {
+    public val ChevronRight: ImageVector by lazy {
         lucideIcon("ChevronRight") {
             strokePath {
                 moveTo(9f, 18f)
@@ -40,7 +40,7 @@ object RikkaIcons {
         }
     }
 
-    val ChevronDown: ImageVector by lazy {
+    public val ChevronDown: ImageVector by lazy {
         lucideIcon("ChevronDown") {
             strokePath {
                 moveTo(6f, 9f)
@@ -50,7 +50,7 @@ object RikkaIcons {
         }
     }
 
-    val ChevronLeft: ImageVector by lazy {
+    public val ChevronLeft: ImageVector by lazy {
         lucideIcon("ChevronLeft") {
             strokePath {
                 moveTo(15f, 18f)
@@ -60,7 +60,7 @@ object RikkaIcons {
         }
     }
 
-    val ChevronUp: ImageVector by lazy {
+    public val ChevronUp: ImageVector by lazy {
         lucideIcon("ChevronUp") {
             strokePath {
                 moveTo(18f, 15f)
@@ -72,7 +72,7 @@ object RikkaIcons {
 
     // ── Actions ─────────────────────────────────────────────
 
-    val Check: ImageVector by lazy {
+    public val Check: ImageVector by lazy {
         lucideIcon("Check") {
             strokePath {
                 moveTo(20f, 6f)
@@ -82,7 +82,7 @@ object RikkaIcons {
         }
     }
 
-    val X: ImageVector by lazy {
+    public val X: ImageVector by lazy {
         lucideIcon("X") {
             strokePath {
                 moveTo(18f, 6f)
@@ -95,7 +95,7 @@ object RikkaIcons {
         }
     }
 
-    val Plus: ImageVector by lazy {
+    public val Plus: ImageVector by lazy {
         lucideIcon("Plus") {
             strokePath {
                 moveTo(12f, 5f)
@@ -108,7 +108,7 @@ object RikkaIcons {
         }
     }
 
-    val Minus: ImageVector by lazy {
+    public val Minus: ImageVector by lazy {
         lucideIcon("Minus") {
             strokePath {
                 moveTo(5f, 12f)
@@ -119,7 +119,7 @@ object RikkaIcons {
 
     // ── Search ──────────────────────────────────────────────
 
-    val Search: ImageVector by lazy {
+    public val Search: ImageVector by lazy {
         lucideIcon("Search") {
             strokePath {
                 circle(11f, 11f, 8f)
@@ -133,7 +133,7 @@ object RikkaIcons {
 
     // ── Arrows ──────────────────────────────────────────────
 
-    val ArrowLeft: ImageVector by lazy {
+    public val ArrowLeft: ImageVector by lazy {
         lucideIcon("ArrowLeft") {
             strokePath {
                 moveTo(19f, 12f)
@@ -147,7 +147,7 @@ object RikkaIcons {
         }
     }
 
-    val ArrowRight: ImageVector by lazy {
+    public val ArrowRight: ImageVector by lazy {
         lucideIcon("ArrowRight") {
             strokePath {
                 moveTo(5f, 12f)
@@ -161,7 +161,7 @@ object RikkaIcons {
         }
     }
 
-    val ArrowUp: ImageVector by lazy {
+    public val ArrowUp: ImageVector by lazy {
         lucideIcon("ArrowUp") {
             strokePath {
                 moveTo(12f, 19f)
@@ -175,7 +175,7 @@ object RikkaIcons {
         }
     }
 
-    val ArrowDown: ImageVector by lazy {
+    public val ArrowDown: ImageVector by lazy {
         lucideIcon("ArrowDown") {
             strokePath {
                 moveTo(12f, 5f)
@@ -191,7 +191,7 @@ object RikkaIcons {
 
     // ── Menu / More ─────────────────────────────────────────
 
-    val Menu: ImageVector by lazy {
+    public val Menu: ImageVector by lazy {
         lucideIcon("Menu") {
             strokePath {
                 moveTo(3f, 4f)
@@ -208,7 +208,7 @@ object RikkaIcons {
         }
     }
 
-    val MoreHorizontal: ImageVector by lazy {
+    public val MoreHorizontal: ImageVector by lazy {
         lucideIcon("MoreHorizontal") {
             fillPath {
                 circle(5f, 12f, 1f)
@@ -218,7 +218,7 @@ object RikkaIcons {
         }
     }
 
-    val MoreVertical: ImageVector by lazy {
+    public val MoreVertical: ImageVector by lazy {
         lucideIcon("MoreVertical") {
             fillPath {
                 circle(12f, 5f, 1f)
@@ -230,7 +230,7 @@ object RikkaIcons {
 
     // ── Communication ───────────────────────────────────────
 
-    val Mail: ImageVector by lazy {
+    public val Mail: ImageVector by lazy {
         lucideIcon("Mail") {
             strokePath {
                 roundedRect(2f, 4f, 20f, 16f, 2f)
@@ -243,7 +243,7 @@ object RikkaIcons {
         }
     }
 
-    val Send: ImageVector by lazy {
+    public val Send: ImageVector by lazy {
         lucideIcon("Send") {
             strokePath {
                 moveTo(22f, 2f)
@@ -262,7 +262,7 @@ object RikkaIcons {
 
     // ── People ──────────────────────────────────────────────
 
-    val User: ImageVector by lazy {
+    public val User: ImageVector by lazy {
         lucideIcon("User") {
             strokePath {
                 circle(12f, 8f, 5f)
@@ -276,7 +276,7 @@ object RikkaIcons {
 
     // ── Feedback / Social ───────────────────────────────────
 
-    val Heart: ImageVector by lazy {
+    public val Heart: ImageVector by lazy {
         lucideIcon("Heart") {
             strokePath {
                 moveTo(19f, 14f)
@@ -292,7 +292,7 @@ object RikkaIcons {
         }
     }
 
-    val Star: ImageVector by lazy {
+    public val Star: ImageVector by lazy {
         lucideIcon("Star") {
             strokePath {
                 moveTo(12f, 2f)
@@ -312,7 +312,7 @@ object RikkaIcons {
 
     // ── Visibility ──────────────────────────────────────────
 
-    val Eye: ImageVector by lazy {
+    public val Eye: ImageVector by lazy {
         lucideIcon("Eye") {
             strokePath {
                 moveTo(2f, 12f)
@@ -330,7 +330,7 @@ object RikkaIcons {
 
     // ── Editing ─────────────────────────────────────────────
 
-    val Copy: ImageVector by lazy {
+    public val Copy: ImageVector by lazy {
         lucideIcon("Copy") {
             strokePath {
                 roundedRect(9f, 9f, 11f, 11f, 2f)
@@ -348,7 +348,7 @@ object RikkaIcons {
         }
     }
 
-    val Trash: ImageVector by lazy {
+    public val Trash: ImageVector by lazy {
         lucideIcon("Trash") {
             strokePath {
                 moveTo(3f, 6f)
@@ -374,7 +374,7 @@ object RikkaIcons {
         }
     }
 
-    val Edit: ImageVector by lazy {
+    public val Edit: ImageVector by lazy {
         lucideIcon("Edit") {
             strokePath {
                 moveTo(17f, 3f)
@@ -397,7 +397,7 @@ object RikkaIcons {
 
     // ── File transfer ───────────────────────────────────────
 
-    val Download: ImageVector by lazy {
+    public val Download: ImageVector by lazy {
         lucideIcon("Download") {
             strokePath {
                 moveTo(21f, 15f)
@@ -419,7 +419,7 @@ object RikkaIcons {
         }
     }
 
-    val Upload: ImageVector by lazy {
+    public val Upload: ImageVector by lazy {
         lucideIcon("Upload") {
             strokePath {
                 moveTo(21f, 15f)
@@ -443,7 +443,7 @@ object RikkaIcons {
 
     // ── Theme ───────────────────────────────────────────────
 
-    val Sun: ImageVector by lazy {
+    public val Sun: ImageVector by lazy {
         lucideIcon("Sun") {
             strokePath { circle(12f, 12f, 5f) }
             strokePath {
@@ -481,7 +481,7 @@ object RikkaIcons {
         }
     }
 
-    val Moon: ImageVector by lazy {
+    public val Moon: ImageVector by lazy {
         lucideIcon("Moon") {
             strokePath {
                 moveTo(12f, 3f)
@@ -494,7 +494,7 @@ object RikkaIcons {
 
     // ── Settings ────────────────────────────────────────────
 
-    val Settings: ImageVector by lazy {
+    public val Settings: ImageVector by lazy {
         lucideIcon("Settings") {
             strokePath { circle(12f, 12f, 3f) }
             strokePath {

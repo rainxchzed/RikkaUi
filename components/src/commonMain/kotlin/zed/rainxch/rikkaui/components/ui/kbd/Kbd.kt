@@ -21,9 +21,9 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 // ─── Size ───────────────────────────────────────────────────
 
 /** Kbd size variants. */
-enum class KbdSize(
-    val horizontalPadding: Dp,
-    val verticalPadding: Dp,
+public enum class KbdSize(
+    public val horizontalPadding: Dp,
+    public val verticalPadding: Dp,
 ) {
     Sm(horizontalPadding = 4.dp, verticalPadding = 1.dp),
     Default(horizontalPadding = 6.dp, verticalPadding = 2.dp),
@@ -50,7 +50,7 @@ enum class KbdSize(
  * @param label Accessibility content description override; defaults to "Keyboard shortcut: {text}".
  */
 @Composable
-fun Kbd(
+public fun Kbd(
     text: String,
     modifier: Modifier = Modifier,
     size: KbdSize = KbdSize.Default,
@@ -102,7 +102,7 @@ fun Kbd(
  * @param separator String rendered between keys (e.g. "+"); empty string hides separators.
  */
 @Composable
-fun KbdCombo(
+public fun KbdCombo(
     keys: List<String>,
     modifier: Modifier = Modifier,
     size: KbdSize = KbdSize.Default,

@@ -33,7 +33,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 // ─── Animation ──────────────────────────────────────────────
 
 /** Animation style for toggle transitions. */
-enum class ToggleAnimation {
+public enum class ToggleAnimation {
     /** Bouncy spring physics (default). */
     Spring,
 
@@ -47,7 +47,7 @@ enum class ToggleAnimation {
 // ─── Size ───────────────────────────────────────────────────
 
 /** Toggle size variants. */
-enum class ToggleSize {
+public enum class ToggleSize {
     /** Standard toggle (44x24dp). */
     Default,
 
@@ -58,10 +58,10 @@ enum class ToggleSize {
 // ─── Defaults ───────────────────────────────────────────────
 
 /** Default values for [Toggle] configuration. */
-object ToggleDefaults {
+public object ToggleDefaults {
     /** Creates [ToggleColorValues] resolved from the current [RikkaTheme]. */
     @Composable
-    fun colors(): ToggleColorValues {
+    public fun colors(): ToggleColorValues {
         val c = RikkaTheme.colors
         return ToggleColorValues(
             checkedTrack = c.primary,
@@ -85,15 +85,15 @@ object ToggleDefaults {
  * @param disabledUncheckedTrack Track color when unchecked and disabled.
  */
 @Immutable
-data class ToggleColorValues(
-    val checkedTrack: Color,
-    val uncheckedTrack: Color,
-    val checkedThumb: Color,
-    val uncheckedThumb: Color,
-    val disabledCheckedTrack: Color,
-    val disabledUncheckedTrack: Color,
+public data class ToggleColorValues(
+    public val checkedTrack: Color,
+    public val uncheckedTrack: Color,
+    public val checkedThumb: Color,
+    public val uncheckedThumb: Color,
+    public val disabledCheckedTrack: Color,
+    public val disabledUncheckedTrack: Color,
 ) {
-    fun trackColor(
+    public fun trackColor(
         checked: Boolean,
         enabled: Boolean,
     ): Color =
@@ -104,7 +104,7 @@ data class ToggleColorValues(
             else -> uncheckedTrack
         }
 
-    fun thumbColor(checked: Boolean): Color = if (checked) checkedThumb else uncheckedThumb
+    public fun thumbColor(checked: Boolean): Color = if (checked) checkedThumb else uncheckedThumb
 }
 
 // ─── Component ──────────────────────────────────────────────
@@ -134,7 +134,7 @@ data class ToggleColorValues(
  * @param colors Override resolved colors. Defaults to [ToggleDefaults.colors].
  */
 @Composable
-fun Toggle(
+public fun Toggle(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,

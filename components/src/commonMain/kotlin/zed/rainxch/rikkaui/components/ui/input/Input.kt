@@ -61,7 +61,7 @@ import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
  * @property Color Simple border color transition on focus.
  * @property None No animation — border color changes instantly.
  */
-enum class InputAnimation {
+public enum class InputAnimation {
     /** Animated focus ring that glows outward from the border. */
     Glow,
 
@@ -75,10 +75,10 @@ enum class InputAnimation {
 // ─── Defaults ───────────────────────────────────────────────
 
 /** Default values for [Input] configuration. */
-object InputDefaults {
+public object InputDefaults {
     /** Creates [InputColorValues] resolved from the current [RikkaTheme]. */
     @Composable
-    fun colors(): InputColorValues {
+    public fun colors(): InputColorValues {
         val c = RikkaTheme.colors
         return InputColorValues(
             background = c.background,
@@ -106,17 +106,17 @@ object InputDefaults {
  * @param ring Focus glow ring color (used in [InputAnimation.Glow] mode).
  */
 @Immutable
-data class InputColorValues(
-    val background: Color,
-    val border: Color,
-    val focusedBorder: Color,
-    val disabledBorder: Color,
-    val disabledBackground: Color,
-    val text: Color,
-    val placeholder: Color,
-    val ring: Color,
+public data class InputColorValues(
+    public val background: Color,
+    public val border: Color,
+    public val focusedBorder: Color,
+    public val disabledBorder: Color,
+    public val disabledBackground: Color,
+    public val text: Color,
+    public val placeholder: Color,
+    public val ring: Color,
 ) {
-    fun borderColor(
+    public fun borderColor(
         focused: Boolean,
         enabled: Boolean,
         isError: Boolean = false,
@@ -172,7 +172,7 @@ data class InputColorValues(
  * @param colors Override resolved colors. Defaults to [InputDefaults.colors].
  */
 @Composable
-fun Input(
+public fun Input(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,

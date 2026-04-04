@@ -47,7 +47,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ────────────────────────────────────────────────
 
-enum class NavigationBarAnimation {
+public enum class NavigationBarAnimation {
     /** Spring-based transitions (default). */
     Spring,
 
@@ -71,7 +71,7 @@ enum class NavigationBarAnimation {
  * @param content Row content lambda for [NavigationBarItem] composables.
  */
 @Composable
-fun NavigationBar(
+public fun NavigationBar(
     modifier: Modifier = Modifier,
     containerColor: Color = RikkaTheme.colors.background,
     content: @Composable RowScope.() -> Unit,
@@ -129,7 +129,7 @@ fun NavigationBar(
  * @param indicatorColor Color of the selection indicator pill. Defaults to [RikkaTheme.colors.secondary] when [Color.Unspecified].
  */
 @Composable
-fun RowScope.NavigationBarItem(
+public fun RowScope.NavigationBarItem(
     selected: Boolean,
     onClick: () -> Unit,
     icon: @Composable () -> Unit,
@@ -313,7 +313,7 @@ fun RowScope.NavigationBarItem(
  * @param inactiveColor Icon and label color when not selected. Defaults to [RikkaTheme.colors.onMuted] when [Color.Unspecified].
  */
 @Composable
-fun RowScope.NavigationBarItem(
+public fun RowScope.NavigationBarItem(
     selected: Boolean,
     onClick: () -> Unit,
     icon: ImageVector,

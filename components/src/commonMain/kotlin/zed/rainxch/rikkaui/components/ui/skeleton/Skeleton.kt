@@ -22,7 +22,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ──────────────────────────────────────────────
 
-enum class SkeletonAnimation {
+public enum class SkeletonAnimation {
     /** Pulsing opacity (default). */
     Pulse,
 
@@ -61,7 +61,7 @@ enum class SkeletonAnimation {
  * @param label Accessibility content description. Defaults to "Loading".
  */
 @Composable
-fun Skeleton(
+public fun Skeleton(
     modifier: Modifier = Modifier,
     animation: SkeletonAnimation = SkeletonAnimation.Pulse,
     shape: Shape = RikkaTheme.shapes.md,

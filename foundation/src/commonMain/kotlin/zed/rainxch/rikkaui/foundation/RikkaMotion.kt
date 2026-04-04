@@ -82,7 +82,7 @@ import androidx.compose.runtime.staticCompositionLocalOf
  * @param pressAlpha Alpha shift applied on press for interactive feedback.
  */
 @Immutable
-data class RikkaMotion(
+public data class RikkaMotion(
     // ─── Spatial spring parameters (position, size, scale) ───
     val spatialDampingDefault: Float = Spring.DampingRatioMediumBouncy,
     val spatialStiffnessDefault: Float = Spring.StiffnessMediumLow,
@@ -113,19 +113,19 @@ data class RikkaMotion(
      * Default spatial spring. Medium bouncy, medium-low stiffness.
      * Use for most position/size/scale animations.
      */
-    fun <T> spatialDefault(): AnimationSpec<T> = spring(dampingRatio = spatialDampingDefault, stiffness = spatialStiffnessDefault)
+    public fun <T> spatialDefault(): AnimationSpec<T> = spring(dampingRatio = spatialDampingDefault, stiffness = spatialStiffnessDefault)
 
     /**
      * Bouncy spatial spring. Playful, exaggerated motion.
      * Use for delightful interactions (toggles, expand/collapse).
      */
-    fun <T> spatialBouncy(): AnimationSpec<T> = spring(dampingRatio = spatialDampingBouncy, stiffness = spatialStiffnessBouncy)
+    public fun <T> spatialBouncy(): AnimationSpec<T> = spring(dampingRatio = spatialDampingBouncy, stiffness = spatialStiffnessBouncy)
 
     /**
      * Snap spatial spring. Instant, no-bounce.
      * Use for quick snapping (selection indicators, tabs).
      */
-    fun <T> spatialSnap(): AnimationSpec<T> = spring(dampingRatio = spatialDampingSnap, stiffness = spatialStiffnessSnap)
+    public fun <T> spatialSnap(): AnimationSpec<T> = spring(dampingRatio = spatialDampingSnap, stiffness = spatialStiffnessSnap)
 
     // ─── Effects factory methods (generic — works with Float, Color, etc.) ───
 
@@ -133,25 +133,25 @@ data class RikkaMotion(
      * Fast effects tween (100ms default). Micro-interactions.
      * Use for hover state color changes.
      */
-    fun <T> effectsFast(): AnimationSpec<T> = tween(durationMillis = durationFast)
+    public fun <T> effectsFast(): AnimationSpec<T> = tween(durationMillis = durationFast)
 
     /**
      * Default effects tween (150ms default). Standard color/opacity.
      * Use for most color and alpha transitions.
      */
-    fun <T> effectsDefault(): AnimationSpec<T> = tween(durationMillis = durationDefault)
+    public fun <T> effectsDefault(): AnimationSpec<T> = tween(durationMillis = durationDefault)
 
     /**
      * Slow effects tween (250ms default). Larger transitions.
      * Use for page-level color changes, theme switching.
      */
-    fun <T> effectsSlow(): AnimationSpec<T> = tween(durationMillis = durationSlow)
+    public fun <T> effectsSlow(): AnimationSpec<T> = tween(durationMillis = durationSlow)
 
     /**
      * Enter/exit effects tween (200ms default).
      * Use for element appear/disappear animations.
      */
-    fun <T> effectsEnter(): AnimationSpec<T> = tween(durationMillis = durationEnter)
+    public fun <T> effectsEnter(): AnimationSpec<T> = tween(durationMillis = durationEnter)
 
     // ─── Backward-compatible pre-built specs (Float) ───
 
@@ -177,7 +177,7 @@ data class RikkaMotion(
     val tweenEnter: AnimationSpec<Float> get() = effectsEnter()
 }
 
-val LocalRikkaMotion =
+public val LocalRikkaMotion: androidx.compose.runtime.ProvidableCompositionLocal<RikkaMotion> =
     staticCompositionLocalOf<RikkaMotion> {
         error(
             "No RikkaMotion provided. Wrap your content in RikkaTheme { ... }",
@@ -191,12 +191,12 @@ val LocalRikkaMotion =
  * RikkaTheme(motion = RikkaMotionPresets.snappy()) { ... }
  * ```
  */
-object RikkaMotionPresets {
+public object RikkaMotionPresets {
     /**
      * Fast, no-bounce animations. Professional, precise feel.
      * Good for data-heavy dashboards and productivity tools.
      */
-    fun snappy(): RikkaMotion =
+    public fun snappy(): RikkaMotion =
         RikkaMotion(
             spatialDampingDefault = Spring.DampingRatioNoBouncy,
             spatialStiffnessDefault = Spring.StiffnessHigh,
@@ -223,7 +223,7 @@ object RikkaMotionPresets {
      * Bouncy, exaggerated animations. Fun, playful feel.
      * Good for consumer apps, games, creative tools.
      */
-    fun playful(): RikkaMotion =
+    public fun playful(): RikkaMotion =
         RikkaMotion(
             spatialDampingDefault = Spring.DampingRatioLowBouncy,
             spatialStiffnessDefault = Spring.StiffnessLow,
@@ -250,7 +250,7 @@ object RikkaMotionPresets {
      * Minimal, subtle animations. Calm, understated feel.
      * Good for reading apps, accessibility-focused UIs.
      */
-    fun minimal(): RikkaMotion =
+    public fun minimal(): RikkaMotion =
         RikkaMotion(
             spatialDampingDefault = Spring.DampingRatioNoBouncy,
             spatialStiffnessDefault = Spring.StiffnessMedium,

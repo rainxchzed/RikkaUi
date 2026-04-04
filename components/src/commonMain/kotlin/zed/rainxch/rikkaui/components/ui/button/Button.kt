@@ -54,7 +54,7 @@ import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
  * @property Destructive Soft red tint for dangerous actions.
  * @property Link Text link style.
  */
-enum class ButtonVariant {
+public enum class ButtonVariant {
     Default,
     Outline,
     Secondary,
@@ -71,7 +71,7 @@ enum class ButtonVariant {
  * @property Lg Large touch target.
  * @property Icon Square, icon-only.
  */
-enum class ButtonSize {
+public enum class ButtonSize {
     Default,
     Sm,
     Lg,
@@ -85,7 +85,7 @@ enum class ButtonSize {
  * @property Scale Subtle scale-down on press.
  * @property Bounce Playful spring bounce on press.
  */
-enum class ButtonAnimation {
+public enum class ButtonAnimation {
     None,
     Scale,
     Bounce,
@@ -110,15 +110,15 @@ enum class ButtonAnimation {
  * @param pressedContainerColor Background color on press. [Color.Unspecified] = compute via lerp.
  */
 @Immutable
-class ButtonColorValues internal constructor(
-    val containerColor: Color,
-    val contentColor: Color,
-    val borderColor: Color,
-    val disabledContainerColor: Color,
-    val disabledContentColor: Color,
-    val disabledBorderColor: Color,
-    val hoverContainerColor: Color = Color.Unspecified,
-    val pressedContainerColor: Color = Color.Unspecified,
+public class ButtonColorValues internal constructor(
+    public val containerColor: Color,
+    public val contentColor: Color,
+    public val borderColor: Color,
+    public val disabledContainerColor: Color,
+    public val disabledContentColor: Color,
+    public val disabledBorderColor: Color,
+    public val hoverContainerColor: Color = Color.Unspecified,
+    public val pressedContainerColor: Color = Color.Unspecified,
 ) {
     /** Resolved container color for the given [enabled] state. */
     @Stable
@@ -172,7 +172,7 @@ internal data class SizeValues(
 // ─── Defaults ───────────────────────────────────────────────
 
 /** Default values for [Button] configuration. */
-object ButtonDefaults {
+public object ButtonDefaults {
     /**
      * Creates [ButtonColorValues] for the given [variant].
      *
@@ -180,13 +180,13 @@ object ButtonDefaults {
      * to avoid allocations on every recomposition.
      */
     @Composable
-    fun colors(variant: ButtonVariant = ButtonVariant.Default): ButtonColorValues = resolveVariantColors(variant)
+    public fun colors(variant: ButtonVariant = ButtonVariant.Default): ButtonColorValues = resolveVariantColors(variant)
 
     /**
      * Returns the default [Shape] for the given [size].
      */
     @Composable
-    fun shape(size: ButtonSize = ButtonSize.Default): Shape =
+    public fun shape(size: ButtonSize = ButtonSize.Default): Shape =
         when (size) {
             ButtonSize.Sm -> RikkaTheme.shapes.md
             else -> RikkaTheme.shapes.lg
@@ -199,7 +199,7 @@ object ButtonDefaults {
      * "cushion" feel when pressed.
      */
     @Composable
-    fun pressedShape(size: ButtonSize = ButtonSize.Default): Shape =
+    public fun pressedShape(size: ButtonSize = ButtonSize.Default): Shape =
         when (size) {
             ButtonSize.Sm -> RikkaTheme.shapes.lg
             else -> RikkaTheme.shapes.xl
@@ -284,7 +284,7 @@ object ButtonDefaults {
  * @param content Composable content displayed inside the button.
  */
 @Composable
-fun Button(
+public fun Button(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     variant: ButtonVariant = ButtonVariant.Default,
@@ -497,7 +497,7 @@ fun Button(
  * @param trailingIcon Optional composable after the label (hidden during loading).
  */
 @Composable
-fun Button(
+public fun Button(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,

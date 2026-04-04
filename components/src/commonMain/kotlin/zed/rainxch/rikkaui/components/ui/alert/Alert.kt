@@ -37,7 +37,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 // ─── Variant ────────────────────────────────────────────────
 
 /** Alert visual style. */
-enum class AlertVariant {
+public enum class AlertVariant {
     /** Bordered card background with foreground text. */
     Default,
 
@@ -48,7 +48,7 @@ enum class AlertVariant {
 // ─── Animation ──────────────────────────────────────────────
 
 /** Entrance animation when an alert first appears. */
-enum class AlertAnimation {
+public enum class AlertAnimation {
     /** Slide in from the left with a fade. */
     SlideIn,
 
@@ -91,7 +91,7 @@ enum class AlertAnimation {
  * @param content [ColumnScope] content lambda, typically [AlertTitle] and [AlertDescription].
  */
 @Composable
-fun Alert(
+public fun Alert(
     modifier: Modifier = Modifier,
     variant: AlertVariant = AlertVariant.Default,
     animation: AlertAnimation = AlertAnimation.None,
@@ -179,7 +179,7 @@ fun Alert(
  * @param variant [AlertVariant] controlling the text color (destructive uses red).
  */
 @Composable
-fun AlertTitle(
+public fun AlertTitle(
     text: String,
     modifier: Modifier = Modifier,
     variant: AlertVariant = AlertVariant.Default,
@@ -210,7 +210,7 @@ fun AlertTitle(
  * @param variant [AlertVariant] controlling the text color (destructive uses red, default uses muted).
  */
 @Composable
-fun AlertDescription(
+public fun AlertDescription(
     text: String,
     modifier: Modifier = Modifier,
     variant: AlertVariant = AlertVariant.Default,

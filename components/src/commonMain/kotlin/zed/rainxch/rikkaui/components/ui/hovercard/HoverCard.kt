@@ -42,7 +42,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ─────────────────────────────────────────────
 
-enum class HoverCardAnimation {
+public enum class HoverCardAnimation {
     /** Fade + scale (default). */
     FadeScale,
 
@@ -55,7 +55,7 @@ enum class HoverCardAnimation {
 
 // ─── Placement ─────────────────────────────────────────────
 
-enum class HoverCardPlacement {
+public enum class HoverCardPlacement {
     BottomStart,
     BottomEnd,
     TopStart,
@@ -87,7 +87,7 @@ private const val DEFAULT_HIDE_DELAY_MS = 200L
  * @param content Composable content rendered inside the hover card.
  */
 @Composable
-fun HoverCard(
+public fun HoverCard(
     modifier: Modifier = Modifier,
     label: String = "Additional information",
     animation: HoverCardAnimation = HoverCardAnimation.FadeScale,

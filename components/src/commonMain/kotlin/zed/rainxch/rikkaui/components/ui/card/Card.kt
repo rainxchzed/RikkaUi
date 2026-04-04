@@ -39,7 +39,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
  * - [Elevated] — Shadow, no border.
  * - [Ghost] — Transparent, no border or shadow.
  */
-enum class CardVariant {
+public enum class CardVariant {
     Default,
     Elevated,
     Ghost,
@@ -52,7 +52,7 @@ enum class CardVariant {
  * - [Press] — Scale down on click.
  * - [None] — No animation.
  */
-enum class CardAnimation {
+public enum class CardAnimation {
     Hover,
     Press,
     None,
@@ -60,12 +60,12 @@ enum class CardAnimation {
 
 // ─── Defaults ───────────────────────────────────────────────
 
-object CardDefaults {
+public object CardDefaults {
     @Composable
-    fun shape(): Shape = RikkaTheme.shapes.lg
+    public fun shape(): Shape = RikkaTheme.shapes.lg
 
     @Composable
-    fun colors(variant: CardVariant = CardVariant.Default): CardColorValues {
+    public fun colors(variant: CardVariant = CardVariant.Default): CardColorValues {
         val resolved = resolveCardStyle(variant)
         return CardColorValues(
             background = resolved.background,
@@ -76,10 +76,10 @@ object CardDefaults {
 }
 
 @Immutable
-data class CardColorValues(
-    val background: Color,
-    val border: Color,
-    val elevation: Dp,
+public data class CardColorValues(
+    public val background: Color,
+    public val border: Color,
+    public val elevation: Dp,
 )
 
 // ─── Component ──────────────────────────────────────────────
@@ -111,7 +111,7 @@ data class CardColorValues(
  * @param content [ColumnScope] content lambda for the card body.
  */
 @Composable
-fun Card(
+public fun Card(
     modifier: Modifier = Modifier,
     variant: CardVariant = CardVariant.Default,
     onClick: (() -> Unit)? = null,
@@ -264,7 +264,7 @@ fun Card(
  * @param content [ColumnScope] content lambda with xs vertical spacing.
  */
 @Composable
-fun CardHeader(
+public fun CardHeader(
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit,
 ) {
@@ -288,7 +288,7 @@ fun CardHeader(
  * @param content [ColumnScope] content lambda.
  */
 @Composable
-fun CardContent(
+public fun CardContent(
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit,
 ) {
@@ -311,7 +311,7 @@ fun CardContent(
  * @param content [ColumnScope] content lambda.
  */
 @Composable
-fun CardFooter(
+public fun CardFooter(
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit,
 ) {

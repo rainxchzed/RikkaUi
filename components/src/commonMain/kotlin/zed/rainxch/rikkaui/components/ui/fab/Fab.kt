@@ -53,7 +53,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
  * @property Surface Surface-colored — blends with the page, low emphasis.
  * @property Destructive Danger-tinted — delete, remove, discard actions.
  */
-enum class FabVariant {
+public enum class FabVariant {
     Default,
     Secondary,
     Surface,
@@ -69,7 +69,7 @@ enum class FabVariant {
  * @property Small Compact 40dp FAB — secondary or space-constrained actions.
  * @property Large Prominent 72dp FAB — hero actions.
  */
-enum class FabSize {
+public enum class FabSize {
     Default,
     Small,
     Large,
@@ -84,7 +84,7 @@ enum class FabSize {
  * @property Scale Subtle scale-down on press.
  * @property Bounce Playful spring bounce on press.
  */
-enum class FabAnimation {
+public enum class FabAnimation {
     None,
     Scale,
     Bounce,
@@ -106,13 +106,13 @@ enum class FabAnimation {
  * @param pressedContainerColor Background on press. [Color.Unspecified] = compute via lerp.
  */
 @Immutable
-class FabColorValues internal constructor(
-    val containerColor: Color,
-    val contentColor: Color,
-    val disabledContainerColor: Color,
-    val disabledContentColor: Color,
-    val hoverContainerColor: Color = Color.Unspecified,
-    val pressedContainerColor: Color = Color.Unspecified,
+public class FabColorValues internal constructor(
+    public val containerColor: Color,
+    public val contentColor: Color,
+    public val disabledContainerColor: Color,
+    public val disabledContentColor: Color,
+    public val hoverContainerColor: Color = Color.Unspecified,
+    public val pressedContainerColor: Color = Color.Unspecified,
 ) {
     @Stable
     internal fun container(enabled: Boolean): Color = if (enabled) containerColor else disabledContainerColor
@@ -156,12 +156,12 @@ internal data class FabSizeValues(
 // ─── Defaults ───────────────────────────────────────────────
 
 /** Default values for [Fab] configuration. */
-object FabDefaults {
+public object FabDefaults {
     /**
      * Creates [FabColorValues] for the given [variant].
      */
     @Composable
-    fun colors(variant: FabVariant = FabVariant.Default): FabColorValues = resolveVariantColors(variant)
+    public fun colors(variant: FabVariant = FabVariant.Default): FabColorValues = resolveVariantColors(variant)
 
     /**
      * Returns the resolved [FabSizeValues] for the given [size].
@@ -243,7 +243,7 @@ object FabDefaults {
  * @param interactionSource Optional hoisted [MutableInteractionSource].
  */
 @Composable
-fun Fab(
+public fun Fab(
     icon: ImageVector,
     label: String,
     onClick: () -> Unit,
@@ -430,7 +430,7 @@ fun Fab(
  * @param content Composable content displayed inside the FAB.
  */
 @Composable
-fun Fab(
+public fun Fab(
     label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,

@@ -43,7 +43,7 @@ import zed.rainxch.rikkaui.foundation.modifier.LocalMinTouchTarget
 
 // ─── Animation ─────────────────────────────────────────────
 
-enum class PopoverAnimation {
+public enum class PopoverAnimation {
     /** Fade + vertical expand (default). */
     FadeExpand,
 
@@ -56,7 +56,7 @@ enum class PopoverAnimation {
 
 // ─── Alignment ─────────────────────────────────────────────
 
-enum class PopoverPlacement {
+public enum class PopoverPlacement {
     BottomStart,
     BottomEnd,
     TopStart,
@@ -86,7 +86,7 @@ enum class PopoverPlacement {
  * @param content Composable content rendered inside the popover card.
  */
 @Composable
-fun Popover(
+public fun Popover(
     expanded: Boolean,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,

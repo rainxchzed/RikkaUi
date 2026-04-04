@@ -40,7 +40,7 @@ import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 // ─── Animation Enum ─────────────────────────────────────────
 
 /** Active page state transition style. */
-enum class PaginationAnimation {
+public enum class PaginationAnimation {
     /** Spring scale-up effect (default). */
     Scale,
 
@@ -54,7 +54,7 @@ enum class PaginationAnimation {
 // ─── Size Enum ──────────────────────────────────────────────
 
 /** Page button size. */
-enum class PaginationSize {
+public enum class PaginationSize {
     /** 28dp, compact. */
     Small,
 
@@ -85,7 +85,7 @@ enum class PaginationSize {
  * @param nextContent Optional custom composable for the next button. Defaults to a chevron-right icon.
  */
 @Composable
-fun Pagination(
+public fun Pagination(
     currentPage: Int,
     totalPages: Int,
     onPageChange: (Int) -> Unit,

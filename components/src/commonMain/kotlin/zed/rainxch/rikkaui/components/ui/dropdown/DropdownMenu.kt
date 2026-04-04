@@ -81,7 +81,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
  * @param content Menu items rendered inside the dropdown panel column.
  */
 @Composable
-fun DropdownMenu(
+public fun DropdownMenu(
     expanded: Boolean,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
@@ -251,7 +251,7 @@ fun DropdownMenu(
  * @param modifier [Modifier] applied to the menu item row.
  */
 @Composable
-fun DropdownMenuItem(
+public fun DropdownMenuItem(
     text: String,
     onClick: () -> Unit,
     enabled: Boolean = true,
@@ -322,7 +322,7 @@ fun DropdownMenuItem(
  * @param modifier [Modifier] applied to the separator.
  */
 @Composable
-fun DropdownMenuSeparator(modifier: Modifier = Modifier) {
+public fun DropdownMenuSeparator(modifier: Modifier = Modifier) {
     val spacing = RikkaTheme.spacing
 
     Box(
@@ -347,7 +347,7 @@ fun DropdownMenuSeparator(modifier: Modifier = Modifier) {
  * @param modifier [Modifier] applied to the label container.
  */
 @Composable
-fun DropdownMenuLabel(
+public fun DropdownMenuLabel(
     text: String,
     modifier: Modifier = Modifier,
 ) {

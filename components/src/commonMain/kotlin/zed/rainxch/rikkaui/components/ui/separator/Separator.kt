@@ -17,7 +17,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Orientation ────────────────────────────────────────────
 
-enum class SeparatorOrientation {
+public enum class SeparatorOrientation {
     /** Full-width line divider. */
     Horizontal,
 
@@ -27,7 +27,7 @@ enum class SeparatorOrientation {
 
 // ─── Style ──────────────────────────────────────────────────
 
-enum class SeparatorStyle {
+public enum class SeparatorStyle {
     /** Continuous line. */
     Solid,
 
@@ -63,7 +63,7 @@ enum class SeparatorStyle {
  * @param style [SeparatorStyle] controlling the line pattern (Solid, Dashed, or Dotted).
  */
 @Composable
-fun Separator(
+public fun Separator(
     modifier: Modifier = Modifier,
     orientation: SeparatorOrientation = SeparatorOrientation.Horizontal,
     color: Color = Color.Unspecified,

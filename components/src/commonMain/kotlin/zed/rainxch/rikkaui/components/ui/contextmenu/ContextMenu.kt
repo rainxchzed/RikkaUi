@@ -82,7 +82,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
  * @param content Composable content that triggers the context menu on long-press.
  */
 @Composable
-fun ContextMenu(
+public fun ContextMenu(
     menuContent: @Composable ColumnScope.() -> Unit,
     modifier: Modifier = Modifier,
     label: String = "Context menu",
@@ -173,7 +173,7 @@ fun ContextMenu(
  * @param content Composable content displayed behind the context menu.
  */
 @Composable
-fun ControlledContextMenu(
+public fun ControlledContextMenu(
     expanded: Boolean,
     onDismiss: () -> Unit,
     menuContent: @Composable ColumnScope.() -> Unit,
@@ -371,7 +371,7 @@ private fun ContextMenuPanel(
  * @param shortcut Optional keyboard shortcut hint displayed at the trailing end of the item.
  */
 @Composable
-fun ContextMenuItem(
+public fun ContextMenuItem(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -463,7 +463,7 @@ fun ContextMenuItem(
  * @param modifier [Modifier] applied to the separator.
  */
 @Composable
-fun ContextMenuSeparator(modifier: Modifier = Modifier) {
+public fun ContextMenuSeparator(modifier: Modifier = Modifier) {
     val spacing = RikkaTheme.spacing
 
     Box(
@@ -488,7 +488,7 @@ fun ContextMenuSeparator(modifier: Modifier = Modifier) {
  * @param modifier [Modifier] applied to the label container.
  */
 @Composable
-fun ContextMenuLabel(
+public fun ContextMenuLabel(
     text: String,
     modifier: Modifier = Modifier,
 ) {

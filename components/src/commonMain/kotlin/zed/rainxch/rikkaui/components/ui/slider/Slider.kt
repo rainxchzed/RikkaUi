@@ -48,7 +48,7 @@ import kotlin.math.roundToInt
 
 // --- Animation Enum ---------------------------------------------------------
 
-enum class SliderAnimation {
+public enum class SliderAnimation {
     /** Spring physics -- default. */
     Spring,
 
@@ -92,7 +92,7 @@ enum class SliderAnimation {
  * @param keyboardStep Value increment/decrement per arrow key press (default 1%).
  */
 @Composable
-fun Slider(
+public fun Slider(
     value: Float,
     onValueChange: (Float) -> Unit,
     modifier: Modifier = Modifier,

@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.dp
  * @param typeScale Proportional typography multiplier (1.0 = default).
  */
 @Immutable
-data class RikkaStyle(
+public data class RikkaStyle(
     val shapes: RikkaShapes,
     val spacing: RikkaSpacing,
     val motion: RikkaMotion,
@@ -66,9 +66,9 @@ data class RikkaStyle(
  * }
  * ```
  */
-enum class RikkaStylePreset(
+public enum class RikkaStylePreset(
     /** Display label for UI pickers (e.g. "Nova"). */
-    val label: String,
+    public val label: String,
 ) {
     /** Balanced, professional. 10dp radius, 4dp spacing, default motion, 1.0x type. */
     Default("Default"),
@@ -87,7 +87,7 @@ enum class RikkaStylePreset(
     ;
 
     /** The resolved [RikkaStyle] for this preset (cached). */
-    val style: RikkaStyle by lazy {
+    public val style: RikkaStyle by lazy {
         when (this) {
             Default -> {
                 RikkaStyle(
@@ -137,14 +137,14 @@ enum class RikkaStylePreset(
     }
 
     /** Shortcut: the typography scale for this preset. */
-    val typeScale: Float get() = style.typeScale
+    public val typeScale: Float get() = style.typeScale
 
     /** Shortcut: the shapes for this preset. */
-    val shapes: RikkaShapes get() = style.shapes
+    public val shapes: RikkaShapes get() = style.shapes
 
     /** Shortcut: the spacing for this preset. */
-    val spacing: RikkaSpacing get() = style.spacing
+    public val spacing: RikkaSpacing get() = style.spacing
 
     /** Shortcut: the motion for this preset. */
-    val motion: RikkaMotion get() = style.motion
+    public val motion: RikkaMotion get() = style.motion
 }

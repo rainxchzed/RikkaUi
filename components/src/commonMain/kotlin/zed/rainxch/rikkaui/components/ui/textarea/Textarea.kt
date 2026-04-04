@@ -49,7 +49,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
  * @property Color Border color transition on focus.
  * @property None No animation, instant border change.
  */
-enum class TextareaAnimation {
+public enum class TextareaAnimation {
     /** Animated focus ring that glows outward. */
     Glow,
 
@@ -96,7 +96,7 @@ enum class TextareaAnimation {
  * @param showCharCount When true and [maxLength] is set, displays a character counter below the textarea.
  */
 @Composable
-fun Textarea(
+public fun Textarea(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,

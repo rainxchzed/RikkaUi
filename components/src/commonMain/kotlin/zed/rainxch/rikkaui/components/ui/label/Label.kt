@@ -40,7 +40,7 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
  * @param required When true, appends a red asterisk and adds "(required)" to accessibility text.
  */
 @Composable
-fun Label(
+public fun Label(
     text: String,
     modifier: Modifier = Modifier,
     disabled: Boolean = false,

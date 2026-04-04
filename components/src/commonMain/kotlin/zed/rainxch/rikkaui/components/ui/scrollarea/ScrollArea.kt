@@ -38,7 +38,7 @@ import zed.rainxch.rikkaui.foundation.modifier.keyboardScrollable
 
 // ─── ScrollbarAnimation ─────────────────────────────────────
 
-enum class ScrollbarAnimation {
+public enum class ScrollbarAnimation {
     /** Fades in when scrolling, dims when idle. */
     Fade,
 
@@ -73,7 +73,7 @@ private val SCROLLBAR_PADDING: Dp = 2.dp
  * @param content Composable content rendered inside the vertically scrollable column.
  */
 @Composable
-fun ScrollArea(
+public fun ScrollArea(
     modifier: Modifier = Modifier,
     scrollbarAnimation: ScrollbarAnimation = ScrollbarAnimation.Fade,
     scrollbarWidth: Dp = DEFAULT_SCROLLBAR_THICKNESS,
@@ -175,7 +175,7 @@ fun ScrollArea(
  * @param content Composable content rendered inside the horizontally scrollable row.
  */
 @Composable
-fun HorizontalScrollArea(
+public fun HorizontalScrollArea(
     modifier: Modifier = Modifier,
     scrollbarAnimation: ScrollbarAnimation = ScrollbarAnimation.Fade,
     scrollbarWidth: Dp = DEFAULT_SCROLLBAR_THICKNESS,

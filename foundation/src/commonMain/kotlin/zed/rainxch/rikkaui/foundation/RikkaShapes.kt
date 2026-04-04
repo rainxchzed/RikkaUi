@@ -47,7 +47,7 @@ import androidx.compose.ui.unit.dp
  * ```
  */
 @Immutable
-data class RikkaShapes(
+public data class RikkaShapes(
     /** Small rounding — checkboxes, badges, small inputs. */
     val sm: Shape,
     /** Medium rounding — buttons, inputs, cards. */
@@ -63,7 +63,7 @@ data class RikkaShapes(
     val none: Shape get() = RectangleShape
 }
 
-val LocalRikkaShapes =
+public val LocalRikkaShapes: androidx.compose.runtime.ProvidableCompositionLocal<RikkaShapes> =
     staticCompositionLocalOf<RikkaShapes> {
         error(
             "No RikkaShapes provided. Wrap your content in RikkaTheme { ... }",
@@ -78,7 +78,7 @@ val LocalRikkaShapes =
  *
  * @param radius The base corner radius. Default is 10dp.
  */
-fun rikkaShapes(radius: Dp = 10.dp): RikkaShapes {
+public fun rikkaShapes(radius: Dp = 10.dp): RikkaShapes {
     val r = radius.value
     return RikkaShapes(
         sm = RoundedCornerShape((r - 4f).coerceAtLeast(0f).dp),
@@ -102,28 +102,28 @@ private val zeroCorner = CornerSize(0.dp)
  * val topRounded = (RikkaTheme.shapes.lg as CornerBasedShape).top()
  * ```
  */
-fun CornerBasedShape.top(): CornerBasedShape = copy(bottomStart = zeroCorner, bottomEnd = zeroCorner)
+public fun CornerBasedShape.top(): CornerBasedShape = copy(bottomStart = zeroCorner, bottomEnd = zeroCorner)
 
 /**
  * Returns a copy with only the **bottom** corners rounded (top zeroed).
  *
  * Useful for sheets sliding from the top, bottom bars.
  */
-fun CornerBasedShape.bottom(): CornerBasedShape = copy(topStart = zeroCorner, topEnd = zeroCorner)
+public fun CornerBasedShape.bottom(): CornerBasedShape = copy(topStart = zeroCorner, topEnd = zeroCorner)
 
 /**
  * Returns a copy with only the **start** (left in LTR) corners rounded (end zeroed).
  *
  * Useful for sheets sliding from the end, navigation drawers.
  */
-fun CornerBasedShape.start(): CornerBasedShape = copy(topEnd = zeroCorner, bottomEnd = zeroCorner)
+public fun CornerBasedShape.start(): CornerBasedShape = copy(topEnd = zeroCorner, bottomEnd = zeroCorner)
 
 /**
  * Returns a copy with only the **end** (right in LTR) corners rounded (start zeroed).
  *
  * Useful for sheets sliding from the start, side panels.
  */
-fun CornerBasedShape.end(): CornerBasedShape = copy(topStart = zeroCorner, bottomStart = zeroCorner)
+public fun CornerBasedShape.end(): CornerBasedShape = copy(topStart = zeroCorner, bottomStart = zeroCorner)
 
 // ─── Shape Presets ────────────────────────────────────────
 
@@ -134,18 +134,18 @@ fun CornerBasedShape.end(): CornerBasedShape = copy(topStart = zeroCorner, botto
  * RikkaTheme(shapes = RikkaShapesPresets.sharp()) { ... }
  * ```
  */
-object RikkaShapesPresets {
+public object RikkaShapesPresets {
     /** No rounding. Brutalist, geometric. */
-    fun square(): RikkaShapes = rikkaShapes(radius = 0.dp)
+    public fun square(): RikkaShapes = rikkaShapes(radius = 0.dp)
 
     /** Minimal rounding. Clean, technical. */
-    fun sharp(): RikkaShapes = rikkaShapes(radius = 4.dp)
+    public fun sharp(): RikkaShapes = rikkaShapes(radius = 4.dp)
 
     /** Soft rounding. Friendly, modern. */
-    fun rounded(): RikkaShapes = rikkaShapes(radius = 16.dp)
+    public fun rounded(): RikkaShapes = rikkaShapes(radius = 16.dp)
 
     /** Heavy rounding. Pill-like, playful. */
-    fun pill(): RikkaShapes = rikkaShapes(radius = 24.dp)
+    public fun pill(): RikkaShapes = rikkaShapes(radius = 24.dp)
 
     /**
      * Samsung One UI inspired shape scale.
@@ -154,7 +154,7 @@ object RikkaShapesPresets {
      * 20dp medium containers, 26dp large cards/dialogs, 32dp sheets.
      * Creates a soft, modern feel with generous rounding.
      */
-    fun oneUI(): RikkaShapes =
+    public fun oneUI(): RikkaShapes =
         RikkaShapes(
             sm = RoundedCornerShape(12.dp),
             md = RoundedCornerShape(20.dp),
