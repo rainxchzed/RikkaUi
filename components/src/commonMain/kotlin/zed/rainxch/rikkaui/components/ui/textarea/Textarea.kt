@@ -42,6 +42,13 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ──────────────────────────────────────────────
 
+/**
+ * Focus animation style for [Textarea].
+ *
+ * @property Glow Animated focus ring that glows outward.
+ * @property Color Border color transition on focus.
+ * @property None No animation, instant border change.
+ */
 enum class TextareaAnimation {
     /** Animated focus ring that glows outward. */
     Glow,
@@ -55,6 +62,39 @@ enum class TextareaAnimation {
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * A multi-line text input area with animated focus ring, placeholder, and validation.
+ *
+ * Wraps [BasicTextField] in multi-line mode with RikkaUI theming, an optional
+ * character counter, and three focus [animation] styles.
+ *
+ * ```
+ * var bio by remember { mutableStateOf("") }
+ * Textarea(
+ *     value = bio,
+ *     onValueChange = { bio = it },
+ *     placeholder = "Tell us about yourself",
+ *     maxLength = 500,
+ *     showCharCount = true,
+ * )
+ * ```
+ *
+ * @param value Current text value.
+ * @param onValueChange Called when the text changes.
+ * @param modifier Modifier applied to the outer Column container.
+ * @param placeholder Hint text shown when [value] is empty.
+ * @param enabled Whether the textarea accepts user input.
+ * @param readOnly When true, the field is focusable but not editable.
+ * @param minLines Minimum visible lines before scrolling.
+ * @param maxLines Maximum visible lines before scrolling.
+ * @param label Accessibility content description for screen readers.
+ * @param isError When true, the border color changes to destructive.
+ * @param errorMessage Error text announced to assistive technologies when [isError] is true.
+ * @param style Additional [TextStyle] merged with the theme typography.
+ * @param animation Focus animation style — [TextareaAnimation.Glow], Color, None.
+ * @param maxLength Maximum number of characters allowed; null for unlimited.
+ * @param showCharCount When true and [maxLength] is set, displays a character counter below the textarea.
+ */
 @Composable
 fun Textarea(
     value: String,

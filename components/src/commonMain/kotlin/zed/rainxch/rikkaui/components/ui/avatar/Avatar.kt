@@ -65,6 +65,30 @@ enum class AvatarStatus {
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * Circular avatar displaying fallback initials with an optional status indicator dot.
+ *
+ * The avatar supports entrance animations and a colored status dot
+ * (online/offline/busy) drawn at the bottom-right corner.
+ *
+ * ```
+ * Avatar(fallback = "JD")
+ *
+ * Avatar(
+ *     fallback = "AB",
+ *     size = AvatarSize.Lg,
+ *     status = AvatarStatus.Online,
+ *     animation = AvatarAnimation.Scale,
+ * )
+ * ```
+ *
+ * @param fallback The initials or short text displayed inside the avatar circle.
+ * @param modifier [Modifier] applied to the avatar container.
+ * @param size [AvatarSize] controlling the diameter (Sm=32dp, Default=40dp, Lg=48dp).
+ * @param animation [AvatarAnimation] entrance effect (FadeIn, Scale, or None).
+ * @param status Optional [AvatarStatus] that renders a colored dot indicator.
+ * @param label Accessibility content description; defaults to [fallback] text.
+ */
 @Composable
 fun Avatar(
     fallback: String,

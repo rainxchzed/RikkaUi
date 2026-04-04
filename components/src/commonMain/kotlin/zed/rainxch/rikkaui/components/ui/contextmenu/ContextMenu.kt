@@ -66,6 +66,21 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * A right-click / long-press triggered context menu.
+ *
+ * Wraps [content] and shows a popup menu on long-press (touch) or F10 key (keyboard).
+ * Manages its own expanded state internally. Press Escape or click outside to dismiss.
+ *
+ * @param menuContent Menu items rendered inside the context menu panel column.
+ * @param modifier [Modifier] applied to the outer container.
+ * @param label Accessibility pane title for the menu. Defaults to "Context menu".
+ * @param animation [PopupAnimation] style for enter/exit transitions. Defaults to [PopupAnimation.FadeExpand].
+ * @param minWidth Minimum width of the menu panel. Defaults to 200.dp.
+ * @param maxWidth Maximum width of the menu panel. Defaults to 280.dp.
+ * @param maxHeight Maximum height of the menu panel before scrolling. Defaults to 300.dp.
+ * @param content Composable content that triggers the context menu on long-press.
+ */
 @Composable
 fun ContextMenu(
     menuContent: @Composable ColumnScope.() -> Unit,
@@ -140,6 +155,23 @@ fun ContextMenu(
     }
 }
 
+/**
+ * A controlled context menu where the caller manages the expanded state.
+ *
+ * Unlike [ContextMenu], this variant does not manage its own expanded state. The caller
+ * controls visibility via [expanded] and handles dismissal via [onDismiss].
+ *
+ * @param expanded Whether the context menu is currently visible.
+ * @param onDismiss Callback invoked when the user requests dismissal (outside click or Escape).
+ * @param menuContent Menu items rendered inside the context menu panel column.
+ * @param modifier [Modifier] applied to the outer container.
+ * @param label Accessibility pane title for the menu. Defaults to "Context menu".
+ * @param animation [PopupAnimation] style for enter/exit transitions. Defaults to [PopupAnimation.FadeExpand].
+ * @param minWidth Minimum width of the menu panel. Defaults to 200.dp.
+ * @param maxWidth Maximum width of the menu panel. Defaults to 280.dp.
+ * @param maxHeight Maximum height of the menu panel before scrolling. Defaults to 300.dp.
+ * @param content Composable content displayed behind the context menu.
+ */
 @Composable
 fun ControlledContextMenu(
     expanded: Boolean,
@@ -325,6 +357,19 @@ private fun ContextMenuPanel(
 
 // ─── Menu Item ──────────────────────────────────────────────
 
+/**
+ * A single actionable item inside a [ContextMenu] or [ControlledContextMenu].
+ *
+ * Supports an optional leading icon and keyboard shortcut hint text. Displays
+ * hover highlighting and disabled state styling.
+ *
+ * @param text Label text displayed in the menu item.
+ * @param onClick Callback invoked when the item is clicked.
+ * @param modifier [Modifier] applied to the menu item row.
+ * @param enabled Whether the item is interactive. Defaults to true. Disabled items are visually dimmed.
+ * @param leadingIcon Optional composable icon displayed before the label text.
+ * @param shortcut Optional keyboard shortcut hint displayed at the trailing end of the item.
+ */
 @Composable
 fun ContextMenuItem(
     text: String,
@@ -410,6 +455,13 @@ fun ContextMenuItem(
 
 // ─── Separator ──────────────────────────────────────────────
 
+/**
+ * A decorative horizontal separator line within a context menu.
+ *
+ * Cleared from accessibility semantics via [clearAndSetSemantics].
+ *
+ * @param modifier [Modifier] applied to the separator.
+ */
 @Composable
 fun ContextMenuSeparator(modifier: Modifier = Modifier) {
     val spacing = RikkaTheme.spacing
@@ -427,6 +479,14 @@ fun ContextMenuSeparator(modifier: Modifier = Modifier) {
 
 // ─── Label ──────────────────────────────────────────────────
 
+/**
+ * A non-interactive label used to group related items within a context menu.
+ *
+ * Rendered in semi-bold weight to visually distinguish it from actionable items.
+ *
+ * @param text Label text displayed in the menu.
+ * @param modifier [Modifier] applied to the label container.
+ */
 @Composable
 fun ContextMenuLabel(
     text: String,

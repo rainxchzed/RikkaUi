@@ -68,6 +68,42 @@ data class SelectOption(
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * A dropdown select control for choosing a single value from a list of options.
+ *
+ * Renders a trigger row that displays the selected option label (or [placeholder]
+ * when nothing is selected) with a chevron indicator. Tapping the trigger opens
+ * a popup dropdown list of [SelectOption] items. The dropdown supports animated
+ * entry/exit via [animation] and scrolls when the list exceeds [maxHeight].
+ *
+ * ```
+ * val countries = listOf(
+ *     SelectOption("us", "United States"),
+ *     SelectOption("jp", "Japan"),
+ * )
+ * var country by remember { mutableStateOf("") }
+ * Select(
+ *     selectedValue = country,
+ *     onValueChange = { country = it },
+ *     options = countries,
+ *     placeholder = "Choose a country",
+ * )
+ * ```
+ *
+ * @param selectedValue The currently selected option value, or empty string for no selection.
+ * @param onValueChange Called with the new option value when the user selects an item.
+ * @param options The list of [SelectOption] entries to display in the dropdown.
+ * @param modifier Modifier applied to the outer container Box.
+ * @param placeholder Hint text shown when no option is selected. Defaults to "Select...".
+ * @param enabled Whether the select responds to input. Defaults to true.
+ * @param label Accessibility content description for screen readers. Defaults to empty.
+ * @param isError When true, the trigger border color changes to destructive. Defaults to false.
+ * @param errorMessage Error text announced to assistive technologies when [isError] is true.
+ *   Defaults to empty.
+ * @param animation Popup entry/exit animation style -- [PopupAnimation.FadeExpand], Fade, None.
+ *   Defaults to [PopupAnimation.FadeExpand].
+ * @param maxHeight Maximum height of the dropdown list before it scrolls. Defaults to 200.dp.
+ */
 @Composable
 fun Select(
     selectedValue: String,

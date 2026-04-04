@@ -73,6 +73,25 @@ data class ScaffoldWindowInsets(
 
 // ─── Component ─────────────────────────────────────────────
 
+/**
+ * Layout scaffold that manages top bar, bottom bar, FAB, snackbar, toast, and body content slots.
+ *
+ * Uses [SubcomposeLayout] to measure bars first and provide correct [PaddingValues] to the body.
+ * Toasts are rendered as the highest layer, always on top of all other content.
+ * Provides [LocalContentColor] from [contentColor] to all children.
+ *
+ * @param modifier [Modifier] applied to the scaffold root.
+ * @param topBar Composable slot for the top app bar. Defaults to empty.
+ * @param bottomBar Composable slot for the bottom navigation bar. Defaults to empty.
+ * @param floatingActionButton Composable slot for the FAB. Defaults to empty.
+ * @param floatingActionButtonPosition [FabPosition] controlling FAB placement. Defaults to [FabPosition.End].
+ * @param snackbarHost Composable slot for the snackbar host. Defaults to empty.
+ * @param toastHost Composable slot for the toast host overlay. Defaults to empty.
+ * @param containerColor Background color of the scaffold. Defaults to [RikkaTheme.colors.background].
+ * @param contentColor Foreground content color provided via [LocalContentColor]. Defaults to [RikkaTheme.colors.onBackground].
+ * @param contentWindowInsets [ScaffoldWindowInsets] for additional padding around content. Defaults to zero insets.
+ * @param content Body content lambda receiving [PaddingValues] that account for top bar and bottom bar heights.
+ */
 @Composable
 fun Scaffold(
     modifier: Modifier = Modifier,

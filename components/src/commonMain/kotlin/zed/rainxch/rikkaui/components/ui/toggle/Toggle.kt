@@ -57,7 +57,9 @@ enum class ToggleSize {
 
 // ─── Defaults ───────────────────────────────────────────────
 
+/** Default values for [Toggle] configuration. */
 object ToggleDefaults {
+    /** Creates [ToggleColorValues] resolved from the current [RikkaTheme]. */
     @Composable
     fun colors(): ToggleColorValues {
         val c = RikkaTheme.colors
@@ -72,6 +74,16 @@ object ToggleDefaults {
     }
 }
 
+/**
+ * Resolved track and thumb colors for [Toggle].
+ *
+ * @param checkedTrack Track color when checked and enabled.
+ * @param uncheckedTrack Track color when unchecked and enabled.
+ * @param checkedThumb Thumb color when checked.
+ * @param uncheckedThumb Thumb color when unchecked.
+ * @param disabledCheckedTrack Track color when checked and disabled.
+ * @param disabledUncheckedTrack Track color when unchecked and disabled.
+ */
 @Immutable
 data class ToggleColorValues(
     val checkedTrack: Color,
@@ -97,6 +109,30 @@ data class ToggleColorValues(
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * A toggle switch with animated thumb and track for boolean on/off state.
+ *
+ * The thumb slides with spring physics (configurable via [animation]) and
+ * uses [RikkaTheme.colors.onPrimary] when checked for contrast.
+ *
+ * ```
+ * var darkMode by remember { mutableStateOf(false) }
+ * Toggle(
+ *     checked = darkMode,
+ *     onCheckedChange = { darkMode = it },
+ *     label = "Dark mode",
+ * )
+ * ```
+ *
+ * @param checked Whether the toggle is currently on.
+ * @param onCheckedChange Called with the new value when the user taps the toggle.
+ * @param modifier Modifier applied to the toggle track.
+ * @param size Toggle size — [ToggleSize.Default] (44x24dp) or [ToggleSize.Sm] (36x20dp).
+ * @param animation Transition style — [ToggleAnimation.Spring], Tween, None.
+ * @param enabled Whether the toggle responds to input.
+ * @param label Accessibility content description for screen readers.
+ * @param colors Override resolved colors. Defaults to [ToggleDefaults.colors].
+ */
 @Composable
 fun Toggle(
     checked: Boolean,

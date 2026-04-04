@@ -67,6 +67,24 @@ enum class PopoverPlacement {
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * A click-triggered popup that displays additional content anchored to a trigger element.
+ *
+ * The popover renders a card with shadow, border, and theme-aware colors. Press Escape
+ * or click outside to dismiss. Automatically provides [LocalMinTouchTarget] of 0.dp inside
+ * the popover to prevent inflated touch targets in dense content.
+ *
+ * @param expanded Whether the popover is currently visible.
+ * @param onDismiss Callback invoked when the user requests dismissal (outside click or Escape).
+ * @param modifier [Modifier] applied to the outer container wrapping trigger and popup.
+ * @param label Accessibility pane title for the popover. Defaults to "Popover".
+ * @param animation [PopoverAnimation] style for enter/exit transitions. Defaults to [PopoverAnimation.FadeExpand].
+ * @param placement [PopoverPlacement] controlling where the popup appears relative to the trigger. Defaults to [PopoverPlacement.BottomStart].
+ * @param minWidth Minimum width of the popover card. Defaults to 120.dp.
+ * @param maxWidth Maximum width of the popover card. Defaults to 360.dp.
+ * @param trigger Composable content that acts as the anchor element for the popover.
+ * @param content Composable content rendered inside the popover card.
+ */
 @Composable
 fun Popover(
     expanded: Boolean,

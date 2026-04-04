@@ -48,6 +48,41 @@ enum class RadioAnimation {
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * A radio button control with animated dot and ring transitions.
+ *
+ * Draws a 20dp circle with an inner selection dot that scales in/out.
+ * The ring and dot colors transition based on hover, press, and selected
+ * state using theme primary tokens. When [label] is provided it renders
+ * visually next to the radio circle.
+ *
+ * Use inside a `selectableGroup()` modifier alongside other [RadioButton]
+ * instances to create a mutually exclusive selection group.
+ *
+ * ```
+ * var choice by remember { mutableStateOf("a") }
+ * Column(Modifier.selectableGroup()) {
+ *     RadioButton(
+ *         selected = choice == "a",
+ *         onClick = { choice = "a" },
+ *         label = "Option A",
+ *     )
+ *     RadioButton(
+ *         selected = choice == "b",
+ *         onClick = { choice = "b" },
+ *         label = "Option B",
+ *     )
+ * }
+ * ```
+ *
+ * @param selected Whether this radio button is currently selected.
+ * @param onClick Called when the user taps the radio button.
+ * @param modifier Modifier applied to the outer Row container.
+ * @param animation Transition style for the dot and ring -- [RadioAnimation.Spring], Tween, None.
+ *   Defaults to [RadioAnimation.Spring].
+ * @param enabled Whether the radio button responds to input. Defaults to true.
+ * @param label Accessibility content description and visible text label. Defaults to empty.
+ */
 @Composable
 fun RadioButton(
     selected: Boolean,

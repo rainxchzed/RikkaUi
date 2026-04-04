@@ -70,6 +70,28 @@ enum class BadgeSize {
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * Displays a small status label with themed colors and optional entrance animation.
+ *
+ * Convenience overload that renders a text string inside the badge.
+ *
+ * ```
+ * Badge(text = "New", variant = BadgeVariant.Default)
+ *
+ * Badge(
+ *     text = "Error",
+ *     variant = BadgeVariant.Destructive,
+ *     animation = BadgeAnimation.Pulse,
+ * )
+ * ```
+ *
+ * @param text The label string displayed inside the badge.
+ * @param modifier [Modifier] applied to the badge container.
+ * @param variant [BadgeVariant] controlling background and foreground colors.
+ * @param animation [BadgeAnimation] entrance effect when the badge first appears.
+ * @param size [BadgeSize] controlling padding and text style.
+ * @param label Accessibility content description; defaults to empty.
+ */
 @Composable
 fun Badge(
     text: String,
@@ -133,6 +155,25 @@ fun Badge(
     }
 }
 
+/**
+ * Displays a small status label with themed colors, accepting a custom content lambda.
+ *
+ * Generic overload for rendering arbitrary composable content inside the badge.
+ *
+ * ```
+ * Badge(variant = BadgeVariant.Secondary) {
+ *     Icon(RikkaIcons.Star, contentDescription = null, size = IconSize.Xs)
+ *     Text("Featured")
+ * }
+ * ```
+ *
+ * @param modifier [Modifier] applied to the badge container.
+ * @param variant [BadgeVariant] controlling background and foreground colors.
+ * @param animation [BadgeAnimation] entrance effect when the badge first appears.
+ * @param size [BadgeSize] controlling padding dimensions.
+ * @param label Accessibility content description; defaults to empty.
+ * @param content Composable content rendered inside the badge.
+ */
 @Composable
 fun Badge(
     modifier: Modifier = Modifier,

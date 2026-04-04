@@ -64,6 +64,23 @@ enum class TopAppBarColorTransition {
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * A top app bar with navigation icon, title, and trailing action slots.
+ *
+ * This is the content-lambda overload that accepts a composable [title] lambda.
+ * Renders a bottom border separator for the [TopAppBarVariant.Default] variant.
+ * The title slot has heading semantics for accessibility.
+ *
+ * @param title Composable content for the title area.
+ * @param modifier [Modifier] applied to the app bar container.
+ * @param navigationIcon Composable slot for the leading navigation icon (e.g., back arrow). Defaults to empty.
+ * @param actions Composable row slot for trailing action icons. Defaults to empty.
+ * @param variant [TopAppBarVariant] controlling background and border styling. Defaults to [TopAppBarVariant.Default].
+ * @param size [TopAppBarSize] controlling the bar height and title text variant. Defaults to [TopAppBarSize.Small].
+ * @param centerTitle Whether to center the title. Defaults to false (start-aligned).
+ * @param elevation Shadow elevation of the app bar. Defaults to 0.dp.
+ * @param colorTransition [TopAppBarColorTransition] controlling how background color changes animate. Defaults to [TopAppBarColorTransition.None].
+ */
 @Composable
 fun TopAppBar(
     title: @Composable () -> Unit,
@@ -170,6 +187,22 @@ fun TopAppBar(
     }
 }
 
+/**
+ * Convenience top app bar that accepts a [String] title directly.
+ *
+ * Renders the title as a [Text] composable with size-appropriate variant and foreground color.
+ * Delegates to the content-lambda overload of [TopAppBar].
+ *
+ * @param title String title text displayed in the app bar.
+ * @param modifier [Modifier] applied to the app bar container.
+ * @param navigationIcon Composable slot for the leading navigation icon. Defaults to empty.
+ * @param actions Composable row slot for trailing action icons. Defaults to empty.
+ * @param variant [TopAppBarVariant] controlling background and border styling. Defaults to [TopAppBarVariant.Default].
+ * @param size [TopAppBarSize] controlling the bar height and title text variant. Defaults to [TopAppBarSize.Small].
+ * @param centerTitle Whether to center the title. Defaults to false (start-aligned).
+ * @param elevation Shadow elevation of the app bar. Defaults to 0.dp.
+ * @param colorTransition [TopAppBarColorTransition] controlling how background color changes animate. Defaults to [TopAppBarColorTransition.None].
+ */
 @Composable
 fun TopAppBar(
     title: String,

@@ -56,6 +56,9 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation Enum ─────────────────────────────────────────
 
+/**
+ * Animation style for [Dialog] enter/exit transitions.
+ */
 enum class DialogAnimation {
     /** Fade + scale up from 0.95. Default. */
     FadeScale,
@@ -69,6 +72,36 @@ enum class DialogAnimation {
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * A modal dialog overlay with scrim, keyboard dismiss, and focus trapping.
+ *
+ * Renders a centered card on top of a semi-transparent scrim. Pressing Escape or
+ * clicking the scrim dismisses the dialog. Auto-focuses the dialog on open.
+ *
+ * @param open Boolean controlling whether the dialog is visible.
+ * @param onDismiss Callback invoked when the user requests dismissal (scrim click or Escape).
+ * @param modifier [Modifier] applied to the dialog card container.
+ * @param label Accessibility pane title announced by screen readers.
+ * @param animation [DialogAnimation] style for enter/exit transitions.
+ * @param scrimColor [Color] of the backdrop overlay behind the dialog.
+ * @param maxWidth Maximum width of the dialog card in [Dp].
+ * @param content Composable content rendered inside the dialog card column.
+ *
+ * @sample
+ * ```
+ * var showDialog by remember { mutableStateOf(false) }
+ *
+ * Button(text = "Open", onClick = { showDialog = true })
+ *
+ * Dialog(open = showDialog, onDismiss = { showDialog = false }) {
+ *     DialogHeader(title = "Confirm", description = "Are you sure?")
+ *     DialogFooter {
+ *         Button(text = "Cancel", onClick = { showDialog = false }, variant = ButtonVariant.Outline)
+ *         Button(text = "OK", onClick = { showDialog = false })
+ *     }
+ * }
+ * ```
+ */
 @Composable
 fun Dialog(
     open: Boolean,
@@ -199,6 +232,20 @@ fun Dialog(
 
 // ─── Structured Sections ────────────────────────────────────
 
+/**
+ * Structured header section for a [Dialog] with title and optional description.
+ *
+ * @param title Primary heading text displayed in the dialog header.
+ * @param modifier [Modifier] applied to the header column.
+ * @param description Optional secondary text shown below the title in muted style.
+ *
+ * @sample
+ * ```
+ * Dialog(open = true, onDismiss = {}) {
+ *     DialogHeader(title = "Edit Profile", description = "Update your display name.")
+ * }
+ * ```
+ */
 @Composable
 fun DialogHeader(
     title: String,
@@ -225,6 +272,20 @@ fun DialogHeader(
     }
 }
 
+/**
+ * Footer row for action buttons inside a [Dialog], aligned to the end.
+ *
+ * @param modifier [Modifier] applied to the footer row.
+ * @param content Composable action buttons (e.g., Cancel and Confirm).
+ *
+ * @sample
+ * ```
+ * DialogFooter {
+ *     Button(text = "Cancel", onClick = onCancel, variant = ButtonVariant.Outline)
+ *     Button(text = "Save", onClick = onSave)
+ * }
+ * ```
+ */
 @Composable
 fun DialogFooter(
     modifier: Modifier = Modifier,

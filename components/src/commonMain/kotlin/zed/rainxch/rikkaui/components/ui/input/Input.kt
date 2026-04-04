@@ -54,6 +54,13 @@ import zed.rainxch.rikkaui.foundation.modifier.minTouchTarget
 
 // ─── Animation ──────────────────────────────────────────────
 
+/**
+ * Focus animation style for [Input].
+ *
+ * @property Glow Animated focus ring that glows outward from the border.
+ * @property Color Simple border color transition on focus.
+ * @property None No animation — border color changes instantly.
+ */
 enum class InputAnimation {
     /** Animated focus ring that glows outward from the border. */
     Glow,
@@ -67,7 +74,9 @@ enum class InputAnimation {
 
 // ─── Defaults ───────────────────────────────────────────────
 
+/** Default values for [Input] configuration. */
 object InputDefaults {
+    /** Creates [InputColorValues] resolved from the current [RikkaTheme]. */
     @Composable
     fun colors(): InputColorValues {
         val c = RikkaTheme.colors
@@ -84,6 +93,18 @@ object InputDefaults {
     }
 }
 
+/**
+ * Resolved color tokens for [Input].
+ *
+ * @param background Input field background color.
+ * @param border Border color in the default (unfocused) state.
+ * @param focusedBorder Border color when the input is focused.
+ * @param disabledBorder Border color when the input is disabled.
+ * @param disabledBackground Background color when the input is disabled.
+ * @param text Text content color.
+ * @param placeholder Placeholder text color.
+ * @param ring Focus glow ring color (used in [InputAnimation.Glow] mode).
+ */
 @Immutable
 data class InputColorValues(
     val background: Color,
@@ -111,6 +132,45 @@ data class InputColorValues(
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * A single-line text input field with animated focus ring, placeholder, and validation.
+ *
+ * Wraps [BasicTextField] with RikkaUI theming, optional leading/trailing icons,
+ * a clear button, character count, and three focus [animation] styles.
+ *
+ * ```
+ * var name by remember { mutableStateOf("") }
+ * Input(
+ *     value = name,
+ *     onValueChange = { name = it },
+ *     placeholder = "Enter your name",
+ *     label = "Name",
+ * )
+ * ```
+ *
+ * @param value Current text value.
+ * @param onValueChange Called when the text changes.
+ * @param modifier Modifier applied to the outer text field.
+ * @param placeholder Hint text shown when [value] is empty.
+ * @param enabled Whether the input accepts user input.
+ * @param readOnly When true, the field is focusable but not editable.
+ * @param singleLine Whether the input constrains to a single line.
+ * @param keyboardOptions Software keyboard configuration (e.g., input type, IME action).
+ * @param keyboardActions Callbacks for IME actions (e.g., Done, Next).
+ * @param visualTransformation Visual filter applied to the text (e.g., password masking).
+ * @param label Accessibility content description for screen readers.
+ * @param isError When true, the border color changes to destructive.
+ * @param errorMessage Error text announced to assistive technologies when [isError] is true.
+ * @param style Additional [TextStyle] merged with the theme typography.
+ * @param animation Focus animation style — [InputAnimation.Glow], Color, None.
+ * @param leadingIcon Optional [ImageVector] rendered before the text.
+ * @param trailingIcon Optional [ImageVector] rendered after the text.
+ * @param clearable When true, shows a clear button when the field is non-empty.
+ * @param onClear Optional callback invoked when the clear button is tapped; defaults to clearing [value].
+ * @param maxLength Maximum number of characters allowed; null for unlimited.
+ * @param showCharCount When true and [maxLength] is set, displays a character counter.
+ * @param colors Override resolved colors. Defaults to [InputDefaults.colors].
+ */
 @Composable
 fun Input(
     value: String,

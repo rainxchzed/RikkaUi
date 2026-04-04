@@ -61,6 +61,35 @@ enum class AlertAnimation {
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * Alert banner for important messages, supporting default and destructive styles.
+ *
+ * Provides [LocalContentColor] and [LocalTextStyle] to children.
+ * Destructive alerts use [LiveRegionMode.Assertive] so screen readers announce immediately;
+ * default alerts use [LiveRegionMode.Polite].
+ *
+ * ```
+ * Alert {
+ *     AlertTitle("Heads up!")
+ *     AlertDescription("This is an important notice.")
+ * }
+ *
+ * Alert(
+ *     variant = AlertVariant.Destructive,
+ *     icon = { Icon(RikkaIcons.X, contentDescription = null) },
+ * ) {
+ *     AlertTitle("Error", variant = AlertVariant.Destructive)
+ *     AlertDescription("Something went wrong.", variant = AlertVariant.Destructive)
+ * }
+ * ```
+ *
+ * @param modifier [Modifier] applied to the alert container.
+ * @param variant [AlertVariant] controlling background, border, and foreground colors.
+ * @param animation [AlertAnimation] entrance effect (SlideIn, Fade, or None).
+ * @param icon Optional leading icon composable displayed to the left of content.
+ * @param label Accessibility content description for the alert.
+ * @param content [ColumnScope] content lambda, typically [AlertTitle] and [AlertDescription].
+ */
 @Composable
 fun Alert(
     modifier: Modifier = Modifier,
@@ -137,6 +166,18 @@ fun Alert(
 
 // ─── Structured Sections ────────────────────────────────────
 
+/**
+ * Title text within an [Alert], rendered as an H4 heading.
+ *
+ * ```
+ * AlertTitle("Heads up!")
+ * AlertTitle("Error", variant = AlertVariant.Destructive)
+ * ```
+ *
+ * @param text The title string to display.
+ * @param modifier [Modifier] applied to the underlying Text.
+ * @param variant [AlertVariant] controlling the text color (destructive uses red).
+ */
 @Composable
 fun AlertTitle(
     text: String,
@@ -156,6 +197,18 @@ fun AlertTitle(
     )
 }
 
+/**
+ * Description body text within an [Alert], rendered as body paragraph.
+ *
+ * ```
+ * AlertDescription("Please check your input and try again.")
+ * AlertDescription("File could not be saved.", variant = AlertVariant.Destructive)
+ * ```
+ *
+ * @param text The description string to display.
+ * @param modifier [Modifier] applied to the underlying Text.
+ * @param variant [AlertVariant] controlling the text color (destructive uses red, default uses muted).
+ */
 @Composable
 fun AlertDescription(
     text: String,

@@ -22,6 +22,30 @@ enum class IconButtonSize {
 
 // ─── Component ───────────────────────────────────────────────
 
+/**
+ * A square icon-only button — a convenience wrapper over [Button] with [ButtonSize.Icon].
+ *
+ * Defaults to [ButtonVariant.Ghost] for a transparent background that
+ * reveals a hover/press state layer, matching typical icon-button patterns.
+ *
+ * ```
+ * IconButton(
+ *     icon = RikkaIcons.Menu,
+ *     contentDescription = "Open menu",
+ *     onClick = { openDrawer() },
+ * )
+ * ```
+ *
+ * @param icon The [ImageVector] to display inside the button.
+ * @param contentDescription Accessibility label read by screen readers.
+ * @param onClick Called when the icon button is clicked.
+ * @param modifier Modifier applied to the button container.
+ * @param variant Visual style — defaults to [ButtonVariant.Ghost].
+ * @param size Icon button size — [IconButtonSize.Default], Sm, Lg.
+ * @param animation Press feedback — [ButtonAnimation.Scale], Bounce, None.
+ * @param enabled Whether the button responds to input.
+ * @param loading Shows a spinner instead of the icon when true.
+ */
 @Composable
 fun IconButton(
     icon: ImageVector,

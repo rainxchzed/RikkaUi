@@ -38,6 +38,13 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation ──────────────────────────────────────────────
 
+/**
+ * Animation style for [Checkbox] check/uncheck transitions.
+ *
+ * @property Spring Bouncy spring physics (default).
+ * @property Tween Linear tween transition.
+ * @property None Instant state change, no animation.
+ */
 enum class CheckboxAnimation {
     /** Bouncy spring physics (default). */
     Spring,
@@ -51,6 +58,31 @@ enum class CheckboxAnimation {
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * A checkbox control with animated check/uncheck transitions and optional label.
+ *
+ * Draws a 16dp box with a checkmark that scales in/out using spring physics.
+ * The box color transitions between the theme border and primary colors based
+ * on hover, press, and checked state. When [label] is provided it renders
+ * visually next to the checkbox -- do not add a separate Text composable.
+ *
+ * ```
+ * var agreed by remember { mutableStateOf(false) }
+ * Checkbox(
+ *     checked = agreed,
+ *     onCheckedChange = { agreed = it },
+ *     label = "I agree to the terms",
+ * )
+ * ```
+ *
+ * @param checked Whether the checkbox is currently checked.
+ * @param onCheckedChange Called with the new value when the user toggles the checkbox.
+ * @param modifier Modifier applied to the outer Row container.
+ * @param animation Transition style for the checkmark -- [CheckboxAnimation.Spring], Tween, None.
+ *   Defaults to [CheckboxAnimation.Spring].
+ * @param enabled Whether the checkbox responds to input. Defaults to true.
+ * @param label Accessibility content description and visible text label. Defaults to empty.
+ */
 @Composable
 fun Checkbox(
     checked: Boolean,

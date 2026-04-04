@@ -44,6 +44,33 @@ enum class TextVariant {
     Muted,
 }
 
+/**
+ * Themed text component that resolves typography and color from [RikkaTheme] tokens.
+ *
+ * Color resolution order: explicit [color] > [LocalContentColor] > variant default.
+ * Heading variants (H1-H4) automatically receive heading accessibility semantics.
+ *
+ * ```
+ * Text("Hello, Rikka!", variant = TextVariant.H2)
+ *
+ * Text(
+ *     text = "Muted caption",
+ *     variant = TextVariant.Muted,
+ *     selectable = true,
+ * )
+ * ```
+ *
+ * @param text The text string to display.
+ * @param modifier [Modifier] applied to the underlying [BasicText].
+ * @param variant [TextVariant] that maps to a theme typography style (e.g. H1, P, Muted).
+ * @param color Explicit text color; [Color.Unspecified] defers to [LocalContentColor] or variant default.
+ * @param textAlign Horizontal text alignment; null uses the style default.
+ * @param overflow How visual overflow is handled (e.g. [TextOverflow.Ellipsis]).
+ * @param maxLines Maximum number of lines before truncation.
+ * @param minLines Minimum number of lines to occupy.
+ * @param selectable Whether the text can be selected by the user.
+ * @param style Additional [TextStyle] merged on top of the variant style.
+ */
 @Composable
 fun Text(
     text: String,

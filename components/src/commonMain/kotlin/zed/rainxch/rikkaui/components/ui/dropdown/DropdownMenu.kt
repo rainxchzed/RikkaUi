@@ -62,6 +62,24 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * A dropdown action menu anchored to a trigger element.
+ *
+ * Displays a scrollable list of menu items, separators, and labels in a popup card.
+ * Press Escape or click outside to dismiss. The menu panel auto-scrolls when content
+ * exceeds [maxHeight].
+ *
+ * @param expanded Whether the dropdown menu is currently visible.
+ * @param onDismiss Callback invoked when the user requests dismissal (outside click or Escape).
+ * @param modifier [Modifier] applied to the outer container wrapping trigger and popup.
+ * @param label Accessibility pane title for the menu. Defaults to "Menu".
+ * @param animation [PopupAnimation] style for enter/exit transitions. Defaults to [PopupAnimation.FadeExpand].
+ * @param minWidth Minimum width of the menu panel. Defaults to 180.dp.
+ * @param maxWidth Maximum width of the menu panel. Defaults to 280.dp.
+ * @param maxHeight Maximum height of the menu panel before scrolling. Defaults to 300.dp.
+ * @param trigger Composable content that acts as the anchor element (e.g., a button).
+ * @param content Menu items rendered inside the dropdown panel column.
+ */
 @Composable
 fun DropdownMenu(
     expanded: Boolean,
@@ -222,6 +240,16 @@ fun DropdownMenu(
 
 // ─── Menu Item ──────────────────────────────────────────────
 
+/**
+ * A single actionable item inside a [DropdownMenu].
+ *
+ * Displays hover highlighting and disabled state styling. Uses theme-aware colors.
+ *
+ * @param text Label text displayed in the menu item.
+ * @param onClick Callback invoked when the item is clicked.
+ * @param enabled Whether the item is interactive. Defaults to true. Disabled items are visually dimmed.
+ * @param modifier [Modifier] applied to the menu item row.
+ */
 @Composable
 fun DropdownMenuItem(
     text: String,
@@ -286,6 +314,13 @@ fun DropdownMenuItem(
 
 // ─── Separator ──────────────────────────────────────────────
 
+/**
+ * A decorative horizontal separator line within a [DropdownMenu].
+ *
+ * Cleared from accessibility semantics via [clearAndSetSemantics].
+ *
+ * @param modifier [Modifier] applied to the separator.
+ */
 @Composable
 fun DropdownMenuSeparator(modifier: Modifier = Modifier) {
     val spacing = RikkaTheme.spacing
@@ -303,6 +338,14 @@ fun DropdownMenuSeparator(modifier: Modifier = Modifier) {
 
 // ─── Label ──────────────────────────────────────────────────
 
+/**
+ * A non-interactive label used to group related items within a [DropdownMenu].
+ *
+ * Rendered in semi-bold weight to visually distinguish it from actionable items.
+ *
+ * @param text Label text displayed in the menu.
+ * @param modifier [Modifier] applied to the label container.
+ */
 @Composable
 fun DropdownMenuLabel(
     text: String,

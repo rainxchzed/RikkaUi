@@ -69,6 +69,23 @@ private const val DEFAULT_HIDE_DELAY_MS = 200L
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * A hover-triggered popup card that displays additional content with configurable delay.
+ *
+ * Shows on hover or focus of the trigger element, and remains visible while the cursor
+ * is over either the trigger or the card itself. Hides after the [hideDelayMs] delay
+ * when the cursor leaves both. Press Escape to dismiss immediately.
+ *
+ * @param modifier [Modifier] applied to the outer container wrapping trigger and popup.
+ * @param label Accessibility pane title for the hover card. Defaults to "Additional information".
+ * @param animation [HoverCardAnimation] style for show/hide transitions. Defaults to [HoverCardAnimation.FadeScale].
+ * @param placement [HoverCardPlacement] controlling where the card appears relative to the trigger. Defaults to [HoverCardPlacement.BottomStart].
+ * @param showDelayMs Delay in milliseconds before the card appears on hover. Defaults to 300ms.
+ * @param hideDelayMs Delay in milliseconds before the card disappears after hover ends. Defaults to 200ms.
+ * @param maxWidth Maximum width of the hover card. Defaults to 360.dp.
+ * @param trigger Composable content that acts as the hover/focus target.
+ * @param content Composable content rendered inside the hover card.
+ */
 @Composable
 fun HoverCard(
     modifier: Modifier = Modifier,

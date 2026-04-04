@@ -57,6 +57,21 @@ private val SCROLLBAR_PADDING: Dp = 2.dp
 
 // ─── ScrollArea (Vertical) ─────────────────────────────────
 
+/**
+ * A vertically scrollable area with a custom themed scrollbar and built-in keyboard navigation.
+ *
+ * Provides Arrow/Space/Page/Home/End keyboard scrolling by default. The scrollbar thumb
+ * fades in during scrolling and dims when idle (configurable via [scrollbarAnimation]).
+ * Content padding adjusts automatically when the scrollbar is visible.
+ *
+ * @param modifier [Modifier] applied to the scroll area container.
+ * @param scrollbarAnimation [ScrollbarAnimation] controlling scrollbar visibility behavior. Defaults to [ScrollbarAnimation.Fade].
+ * @param scrollbarWidth Thickness of the scrollbar track and thumb. Defaults to 4.dp.
+ * @param scrollbarColor Optional override color for the scrollbar thumb. Defaults to [RikkaTheme.colors.onMuted].
+ * @param keyboardScrolling Whether to enable keyboard scrolling support. Defaults to true.
+ * @param scrollFocusMode [ScrollFocusMode] controlling how the scroll area acquires focus for keyboard input. Defaults to [ScrollFocusMode.RequestFocus].
+ * @param content Composable content rendered inside the vertically scrollable column.
+ */
 @Composable
 fun ScrollArea(
     modifier: Modifier = Modifier,
@@ -145,6 +160,20 @@ fun ScrollArea(
 
 // ─── HorizontalScrollArea ──────────────────────────────────
 
+/**
+ * A horizontally scrollable area with a custom themed scrollbar and built-in keyboard navigation.
+ *
+ * Provides keyboard scrolling support by default. The scrollbar thumb appears at the bottom
+ * and fades in during scrolling. Content padding adjusts automatically when the scrollbar is visible.
+ *
+ * @param modifier [Modifier] applied to the scroll area container.
+ * @param scrollbarAnimation [ScrollbarAnimation] controlling scrollbar visibility behavior. Defaults to [ScrollbarAnimation.Fade].
+ * @param scrollbarWidth Thickness of the scrollbar track and thumb. Defaults to 4.dp.
+ * @param scrollbarColor Optional override color for the scrollbar thumb. Defaults to [RikkaTheme.colors.onMuted].
+ * @param keyboardScrolling Whether to enable keyboard scrolling support. Defaults to true.
+ * @param scrollFocusMode [ScrollFocusMode] controlling how the scroll area acquires focus for keyboard input. Defaults to [ScrollFocusMode.RequestFocus].
+ * @param content Composable content rendered inside the horizontally scrollable row.
+ */
 @Composable
 fun HorizontalScrollArea(
     modifier: Modifier = Modifier,

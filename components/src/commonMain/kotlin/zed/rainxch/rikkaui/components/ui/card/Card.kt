@@ -84,6 +84,32 @@ data class CardColorValues(
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * Surface container that groups related content with optional interaction animations.
+ *
+ * Provides [LocalContentColor] (onSurface) and [LocalTextStyle] (body) to children.
+ * Screen readers treat the card as a single navigable unit via merged descendants.
+ *
+ * ```
+ * Card(variant = CardVariant.Elevated) {
+ *     CardHeader { Text("Title", variant = TextVariant.H3) }
+ *     CardContent { Text("Body content here.") }
+ * }
+ *
+ * Card(onClick = { /* navigate */ }, animation = CardAnimation.Press) {
+ *     Text("Clickable card")
+ * }
+ * ```
+ *
+ * @param modifier [Modifier] applied to the root Column.
+ * @param variant [CardVariant] controlling background, border, and elevation style.
+ * @param onClick Optional click handler; when non-null the card becomes interactive.
+ * @param animation [CardAnimation] controlling hover/press scale effects (only when clickable).
+ * @param elevation Optional explicit elevation override; defaults to the variant value.
+ * @param label Accessibility content description for the card.
+ * @param colors [CardColorValues] for background, border, and elevation; resolved from [variant] by default.
+ * @param content [ColumnScope] content lambda for the card body.
+ */
 @Composable
 fun Card(
     modifier: Modifier = Modifier,
@@ -224,6 +250,19 @@ fun Card(
 
 // ─── Structured Sections ────────────────────────────────────
 
+/**
+ * Header section within a [Card], typically containing a title and subtitle.
+ *
+ * ```
+ * CardHeader {
+ *     Text("Card Title", variant = TextVariant.H3)
+ *     Text("Subtitle", variant = TextVariant.Muted)
+ * }
+ * ```
+ *
+ * @param modifier [Modifier] applied to the header Column.
+ * @param content [ColumnScope] content lambda with xs vertical spacing.
+ */
 @Composable
 fun CardHeader(
     modifier: Modifier = Modifier,
@@ -236,6 +275,18 @@ fun CardHeader(
     )
 }
 
+/**
+ * Main body section within a [Card] for primary content.
+ *
+ * ```
+ * CardContent {
+ *     Text("The main body of the card goes here.")
+ * }
+ * ```
+ *
+ * @param modifier [Modifier] applied to the content Column.
+ * @param content [ColumnScope] content lambda.
+ */
 @Composable
 fun CardContent(
     modifier: Modifier = Modifier,
@@ -247,6 +298,18 @@ fun CardContent(
     )
 }
 
+/**
+ * Footer section within a [Card], typically containing actions or metadata.
+ *
+ * ```
+ * CardFooter {
+ *     Button(onClick = { /* save */ }) { Text("Save") }
+ * }
+ * ```
+ *
+ * @param modifier [Modifier] applied to the footer Column.
+ * @param content [ColumnScope] content lambda.
+ */
 @Composable
 fun CardFooter(
     modifier: Modifier = Modifier,

@@ -37,6 +37,32 @@ enum class ProgressAnimation {
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * Horizontal progress bar with animated fill and accessibility semantics.
+ *
+ * The progress value is clamped to 0..1. The fill animates between values using
+ * the selected [animation] strategy. Screen readers announce the current percentage
+ * via [ProgressBarRangeInfo].
+ *
+ * ```
+ * Progress(progress = 0.6f)
+ *
+ * Progress(
+ *     progress = downloadProgress,
+ *     fillColor = RikkaTheme.colors.success,
+ *     animation = ProgressAnimation.Tween,
+ *     label = "Download",
+ * )
+ * ```
+ *
+ * @param progress Current progress as a Float from 0.0 to 1.0.
+ * @param modifier [Modifier] applied to the track container.
+ * @param trackColor Background track color; [Color.Unspecified] defaults to theme muted.
+ * @param fillColor Fill bar color; [Color.Unspecified] defaults to theme primary.
+ * @param height Track height in [Dp]; defaults to 8.dp.
+ * @param animation [ProgressAnimation] controlling the fill interpolation (Spring, Tween, or None).
+ * @param label Accessibility label prefix (e.g. "Download"); included in state description.
+ */
 @Composable
 fun Progress(
     progress: Float,

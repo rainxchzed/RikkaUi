@@ -37,6 +37,30 @@ enum class IconSize(
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * Foundation-only icon composable that renders an [ImageVector] with a color tint.
+ *
+ * Tint resolution order: explicit [tint] > [LocalContentColor] > theme onBackground.
+ * Pass `null` for [contentDescription] to mark the icon as decorative (clears semantics).
+ *
+ * ```
+ * Icon(RikkaIcons.Heart, contentDescription = "Favorite")
+ *
+ * Icon(
+ *     imageVector = RikkaIcons.Settings,
+ *     contentDescription = null,
+ *     size = IconSize.Lg,
+ *     spin = true,
+ * )
+ * ```
+ *
+ * @param imageVector The [ImageVector] to render (e.g. from [RikkaIcons]).
+ * @param contentDescription Accessibility label; null marks the icon as purely decorative.
+ * @param modifier [Modifier] applied to the icon container.
+ * @param tint Color applied as a tint filter; [Color.Unspecified] defers to [LocalContentColor].
+ * @param size Optional [IconSize] override; null uses the vector's default dimensions.
+ * @param spin When true, continuously rotates the icon using theme motion duration.
+ */
 @Composable
 fun Icon(
     imageVector: ImageVector,

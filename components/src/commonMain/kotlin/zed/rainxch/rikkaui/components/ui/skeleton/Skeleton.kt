@@ -35,6 +35,31 @@ enum class SkeletonAnimation {
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * Placeholder loading indicator that occupies space while content is being fetched.
+ *
+ * Renders a muted-colored block with an optional animation effect (pulse, shimmer, or none).
+ * Semantics are cleared and replaced with a single [label] content description for screen readers.
+ * Size and shape are controlled via [modifier] and [shape].
+ *
+ * ```
+ * Skeleton(
+ *     modifier = Modifier.fillMaxWidth().height(20.dp),
+ * )
+ *
+ * Skeleton(
+ *     modifier = Modifier.size(48.dp),
+ *     animation = SkeletonAnimation.Shimmer,
+ *     shape = RikkaTheme.shapes.full,
+ *     label = "Loading avatar",
+ * )
+ * ```
+ *
+ * @param modifier [Modifier] applied to the skeleton box. Use this to set width and height.
+ * @param animation [SkeletonAnimation] controlling the visual effect (Pulse, Shimmer, or None). Defaults to [SkeletonAnimation.Pulse].
+ * @param shape [Shape] applied to clip and background the skeleton. Defaults to [RikkaTheme.shapes.md].
+ * @param label Accessibility content description. Defaults to "Loading".
+ */
 @Composable
 fun Skeleton(
     modifier: Modifier = Modifier,

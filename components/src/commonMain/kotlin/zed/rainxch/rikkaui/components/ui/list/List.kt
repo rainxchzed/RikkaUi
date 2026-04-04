@@ -35,6 +35,24 @@ enum class ListVariant {
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * Themed list component that renders string items with bullet, numbered, or plain markers.
+ *
+ * Convenience overload that accepts a list of strings. Each item is rendered with the
+ * specified [textVariant]. Provides [CollectionInfo] accessibility semantics.
+ *
+ * ```
+ * RikkaList(
+ *     items = listOf("First item", "Second item", "Third item"),
+ *     variant = ListVariant.Ordered,
+ * )
+ * ```
+ *
+ * @param items List of string items to display.
+ * @param modifier [Modifier] applied to the list column.
+ * @param variant [ListVariant] controlling the marker style (Unordered, Ordered, or None). Defaults to [ListVariant.Unordered].
+ * @param textVariant [TextVariant] applied to each item's text. Defaults to [TextVariant.P].
+ */
 @Composable
 fun RikkaList(
     items: List<String>,
@@ -67,6 +85,23 @@ fun RikkaList(
     }
 }
 
+/**
+ * Themed list component with a DSL builder for custom composable list items.
+ *
+ * Generic overload that accepts a [ListScope] builder for rendering arbitrary
+ * composable content per item. Provides [CollectionInfo] accessibility semantics.
+ *
+ * ```
+ * RikkaList(variant = ListVariant.Unordered) {
+ *     ListItem { Text("Custom item with bold", style = TextStyle(fontWeight = FontWeight.Bold)) }
+ *     ListItem { Row { Icon(RikkaIcons.Star, null); Text("Starred item") } }
+ * }
+ * ```
+ *
+ * @param modifier [Modifier] applied to the list column.
+ * @param variant [ListVariant] controlling the marker style (Unordered, Ordered, or None). Defaults to [ListVariant.Unordered].
+ * @param content [ListScope] DSL builder where each item is added via [ListScope.ListItem].
+ */
 @Composable
 fun RikkaList(
     modifier: Modifier = Modifier,

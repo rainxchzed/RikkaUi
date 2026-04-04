@@ -54,6 +54,32 @@ enum class SpinnerAnimation {
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * Rotating or pulsing loading indicator drawn as a circular arc with an optional track.
+ *
+ * Color resolution order: explicit [color] > [LocalContentColor] > theme primary.
+ * Accessibility semantics include an indeterminate progress bar announcement and
+ * the provided [label] as content description.
+ *
+ * ```
+ * Spinner()
+ *
+ * Spinner(
+ *     size = SpinnerSize.Lg,
+ *     animation = SpinnerAnimation.Pulse,
+ *     color = RikkaTheme.colors.destructive,
+ *     label = "Submitting",
+ * )
+ * ```
+ *
+ * @param modifier [Modifier] applied to the spinner canvas.
+ * @param size [SpinnerSize] controlling the diameter and stroke width. Defaults to [SpinnerSize.Default].
+ * @param animation [SpinnerAnimation] controlling the visual effect (Spin, Pulse, or None). Defaults to [SpinnerAnimation.Spin].
+ * @param color Explicit arc color. [Color.Unspecified] defers to [LocalContentColor] then theme primary.
+ * @param trackColor Background track circle color. Defaults to theme muted. Pass null to hide the track.
+ * @param sweepAngle Arc sweep angle in degrees. Defaults to 240f.
+ * @param label Accessibility content description. Defaults to "Loading".
+ */
 @Composable
 fun Spinner(
     modifier: Modifier = Modifier,

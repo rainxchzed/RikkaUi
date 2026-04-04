@@ -54,6 +54,33 @@ enum class AccordionAnimation {
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * Expandable accordion section with an animated chevron indicator and collapsible content area.
+ *
+ * The title row is clickable and toggles the [expanded] state. A rotating chevron icon
+ * indicates the current expansion state (right when collapsed, down when expanded).
+ * The title underlines on hover for visual feedback. Screen readers announce the
+ * expanded/collapsed state via [stateDescription].
+ *
+ * ```
+ * var expanded by remember { mutableStateOf(false) }
+ * AccordionItem(
+ *     title = "Section Title",
+ *     expanded = expanded,
+ *     onExpandedChange = { expanded = it },
+ * ) {
+ *     Text("Hidden content revealed when expanded.")
+ * }
+ * ```
+ *
+ * @param title The heading text displayed in the clickable title row.
+ * @param expanded Whether the content area is currently visible.
+ * @param onExpandedChange Callback invoked with the new expanded state when the title is clicked.
+ * @param modifier [Modifier] applied to the root column.
+ * @param animation [AccordionAnimation] controlling expand/collapse transitions. Defaults to [AccordionAnimation.Spring].
+ * @param chevronIcon [ImageVector] used as the expansion indicator. Defaults to [RikkaIcons.ChevronRight].
+ * @param content Composable content displayed when expanded.
+ */
 @Composable
 fun AccordionItem(
     title: String,

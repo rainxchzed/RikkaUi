@@ -18,6 +18,27 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * A form label that pairs with [Input], [Textarea], [Select], or any other form control.
+ *
+ * Renders the [text] in a medium-weight small style, with an optional red asterisk
+ * when [required] is true. The label automatically adjusts its color and announces
+ * "(required)" to assistive technologies when applicable.
+ *
+ * ```
+ * Label(text = "Email", required = true)
+ * Input(
+ *     value = email,
+ *     onValueChange = { email = it },
+ *     placeholder = "you@example.com",
+ * )
+ * ```
+ *
+ * @param text The label text content.
+ * @param modifier Modifier applied to the label Row.
+ * @param disabled When true, renders the label in a muted color.
+ * @param required When true, appends a red asterisk and adds "(required)" to accessibility text.
+ */
 @Composable
 fun Label(
     text: String,

@@ -61,6 +61,9 @@ import zed.rainxch.rikkaui.foundation.RikkaTheme
 
 // ─── Animation Enum ─────────────────────────────────────────
 
+/**
+ * Animation style for [AlertDialog] enter/exit transitions.
+ */
 enum class AlertDialogAnimation {
     /** Fade + scale up from 0.95. */
     FadeScale,
@@ -74,6 +77,23 @@ enum class AlertDialogAnimation {
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * A confirmation dialog that requires explicit user action to dismiss.
+ *
+ * Unlike [Dialog][zed.rainxch.rikkaui.components.ui.dialog.Dialog], clicking the scrim does not
+ * dismiss an alert dialog. The user must interact with the action buttons or press Escape.
+ * Auto-focuses on open and traps keyboard focus.
+ *
+ * @param open Whether the alert dialog is currently visible.
+ * @param onDismiss Callback invoked when the user presses Escape or the cancel action.
+ * @param onConfirm Callback invoked when the user confirms the action.
+ * @param modifier [Modifier] applied to the dialog card container.
+ * @param label Accessibility pane title announced by screen readers. Defaults to "Alert Dialog".
+ * @param animation [AlertDialogAnimation] style for enter/exit transitions. Defaults to [AlertDialogAnimation.FadeScale].
+ * @param scrimColor [Color] of the backdrop overlay behind the dialog. Defaults to [RikkaTheme.colors.scrim].
+ * @param maxWidth Maximum width of the dialog card. Defaults to 520.dp.
+ * @param content Composable content rendered inside the dialog card.
+ */
 @Composable
 fun AlertDialog(
     open: Boolean,
@@ -209,6 +229,15 @@ fun AlertDialog(
 
 // ─── Structured Sections ────────────────────────────────────
 
+/**
+ * Structured header section for an [AlertDialog] with title and optional description.
+ *
+ * The title is rendered with heading semantics for accessibility.
+ *
+ * @param title Primary heading text displayed in the alert dialog header.
+ * @param modifier [Modifier] applied to the header column.
+ * @param description Optional secondary text shown below the title in muted style. Defaults to empty.
+ */
 @Composable
 fun AlertDialogHeader(
     title: String,
@@ -236,6 +265,14 @@ fun AlertDialogHeader(
     }
 }
 
+/**
+ * Footer row for action buttons inside an [AlertDialog], aligned to the end.
+ *
+ * Typically contains [AlertDialogCancel] and [AlertDialogAction] buttons.
+ *
+ * @param modifier [Modifier] applied to the footer row.
+ * @param content Composable action buttons (e.g., Cancel and Confirm).
+ */
 @Composable
 fun AlertDialogFooter(
     modifier: Modifier = Modifier,
@@ -259,6 +296,13 @@ fun AlertDialogFooter(
 
 // ─── Action Buttons ─────────────────────────────────────────
 
+/**
+ * Pre-styled cancel button for an [AlertDialog] using the Outline button variant.
+ *
+ * @param onClick Callback invoked when the cancel button is clicked.
+ * @param modifier [Modifier] applied to the button.
+ * @param text Label text for the cancel button. Defaults to "Cancel".
+ */
 @Composable
 fun AlertDialogCancel(
     onClick: () -> Unit,
@@ -283,6 +327,16 @@ enum class AlertDialogActionVariant {
     Destructive,
 }
 
+/**
+ * Pre-styled confirm/action button for an [AlertDialog].
+ *
+ * Supports both default (primary) and destructive styling via [AlertDialogActionVariant].
+ *
+ * @param text Label text for the action button.
+ * @param onClick Callback invoked when the action button is clicked.
+ * @param modifier [Modifier] applied to the button.
+ * @param variant [AlertDialogActionVariant] controlling the button style. Defaults to [AlertDialogActionVariant.Default].
+ */
 @Composable
 fun AlertDialogAction(
     text: String,

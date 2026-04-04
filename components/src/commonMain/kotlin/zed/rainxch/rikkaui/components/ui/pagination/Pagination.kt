@@ -67,6 +67,23 @@ enum class PaginationSize {
 
 // ─── Component ─────────────────────────────────────────────
 
+/**
+ * Smart page navigation with numbered buttons, ellipsis, and previous/next controls.
+ *
+ * Automatically calculates visible page range with leading/trailing ellipsis when the total
+ * page count exceeds [maxVisiblePages]. Active page buttons are highlighted with primary color
+ * and optional scale/fade animation.
+ *
+ * @param currentPage The currently selected page number (1-based).
+ * @param totalPages Total number of pages available.
+ * @param onPageChange Callback invoked with the new page number when a page button is clicked.
+ * @param modifier [Modifier] applied to the pagination row.
+ * @param maxVisiblePages Maximum number of page buttons visible before showing ellipsis. Defaults to 5.
+ * @param animation [PaginationAnimation] style for active page state transitions. Defaults to [PaginationAnimation.Scale].
+ * @param buttonSize [PaginationSize] controlling the size of page buttons. Defaults to [PaginationSize.Default].
+ * @param previousContent Optional custom composable for the previous button. Defaults to a chevron-left icon.
+ * @param nextContent Optional custom composable for the next button. Defaults to a chevron-right icon.
+ */
 @Composable
 fun Pagination(
     currentPage: Int,

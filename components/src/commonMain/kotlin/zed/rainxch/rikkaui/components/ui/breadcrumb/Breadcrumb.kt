@@ -59,6 +59,15 @@ private const val ELLIPSIS_TEXT = "..."
 
 // ─── Component ─────────────────────────────────────────────
 
+/**
+ * A breadcrumb navigation row for manually composing breadcrumb items and separators.
+ *
+ * This is the content-lambda overload. Use [BreadcrumbItem] and [BreadcrumbSeparator]
+ * inside the [content] lambda. For a data-driven approach, use the list-based overload.
+ *
+ * @param modifier [Modifier] applied to the breadcrumb row.
+ * @param content Row content lambda for [BreadcrumbItem] and [BreadcrumbSeparator] composables.
+ */
 @Composable
 fun Breadcrumb(
     modifier: Modifier = Modifier,
@@ -79,6 +88,19 @@ fun Breadcrumb(
     )
 }
 
+/**
+ * A data-driven breadcrumb navigation row with automatic separators and optional ellipsis collapse.
+ *
+ * Renders [BreadcrumbItemData] entries with auto-inserted separators. When [maxVisibleItems]
+ * is set, collapses intermediate items into an ellipsis ("...") that can be clicked to expand.
+ *
+ * @param items List of [BreadcrumbItemData] entries to display. The last item is treated as the current page.
+ * @param modifier [Modifier] applied to the breadcrumb row.
+ * @param animation [BreadcrumbAnimation] entrance effect (Fade, Slide, or None). Defaults to [BreadcrumbAnimation.None].
+ * @param separator Optional custom separator composable. Defaults to a "/" text separator.
+ * @param maxVisibleItems Maximum number of items to display before collapsing. Set to 0 to show all. Defaults to 0.
+ * @param onEllipsisClick Optional callback invoked when the ellipsis item is clicked.
+ */
 @Composable
 fun Breadcrumb(
     items: List<BreadcrumbItemData>,
@@ -127,6 +149,16 @@ fun Breadcrumb(
 
 // ─── BreadcrumbItem ────────────────────────────────────────
 
+/**
+ * A single breadcrumb item that renders as a clickable link or static current-page indicator.
+ *
+ * When [onClick] is provided, the item renders as a muted-color clickable link with hover
+ * underline. When null, it renders as the current page in foreground color.
+ *
+ * @param text Label text displayed for this breadcrumb item.
+ * @param onClick Optional click handler. Pass null to mark this as the current (non-clickable) page.
+ * @param modifier [Modifier] applied to the item.
+ */
 @Composable
 fun BreadcrumbItem(
     text: String,
@@ -176,6 +208,14 @@ fun BreadcrumbItem(
 
 // ─── BreadcrumbSeparator ───────────────────────────────────
 
+/**
+ * A separator element between breadcrumb items, defaulting to a "/" character.
+ *
+ * Cleared from accessibility semantics as it is purely decorative.
+ *
+ * @param modifier [Modifier] applied to the separator.
+ * @param content Optional custom separator composable. When null, renders a "/" text separator.
+ */
 @Composable
 fun BreadcrumbSeparator(
     modifier: Modifier = Modifier,

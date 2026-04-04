@@ -99,6 +99,22 @@ enum class SheetAnimation {
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * A side sheet overlay that slides in from any edge of the screen.
+ *
+ * Renders a panel on top of a semi-transparent scrim. Pressing Escape or clicking the scrim
+ * dismisses the sheet. The panel shape adapts to the chosen [side], rounding only the inner corners.
+ *
+ * @param open Whether the sheet is currently visible.
+ * @param onDismiss Callback invoked when the user requests dismissal (scrim click or Escape).
+ * @param side [SheetSide] from which the panel slides in. Defaults to [SheetSide.Right].
+ * @param modifier [Modifier] applied to the sheet panel.
+ * @param label Accessibility pane title announced by screen readers. Defaults to "Sheet".
+ * @param animation [SheetAnimation] style for enter/exit transitions. Defaults to [SheetAnimation.Slide].
+ * @param scrimColor [Color] of the backdrop overlay behind the sheet. Defaults to [RikkaTheme.colors.scrim].
+ * @param panelWidth Width of the sheet panel for left/right sides (height is fill for vertical sides). Defaults to 320.dp.
+ * @param content Composable content rendered inside the sheet panel column.
+ */
 @Composable
 fun Sheet(
     open: Boolean,
@@ -243,6 +259,13 @@ fun Sheet(
 
 // ─── Structured Sections ────────────────────────────────────
 
+/**
+ * Structured header section for a [Sheet] with title and optional description.
+ *
+ * @param title Primary heading text displayed in the sheet header.
+ * @param modifier [Modifier] applied to the header column.
+ * @param description Optional secondary text shown below the title in muted style. Defaults to empty.
+ */
 @Composable
 fun SheetHeader(
     title: String,
@@ -269,6 +292,12 @@ fun SheetHeader(
     }
 }
 
+/**
+ * Main content area for a [Sheet], rendered as a column with top padding.
+ *
+ * @param modifier [Modifier] applied to the content column.
+ * @param content Composable content rendered inside the sheet body.
+ */
 @Composable
 fun SheetContent(
     modifier: Modifier = Modifier,
@@ -280,6 +309,12 @@ fun SheetContent(
     )
 }
 
+/**
+ * Footer row for action buttons inside a [Sheet], aligned to the end.
+ *
+ * @param modifier [Modifier] applied to the footer row.
+ * @param content Composable action buttons (e.g., Cancel and Save).
+ */
 @Composable
 fun SheetFooter(
     modifier: Modifier = Modifier,

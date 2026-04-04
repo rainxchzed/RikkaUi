@@ -65,6 +65,25 @@ class CollapsibleScope internal constructor(
 
 // ─── Components ────────────────────────────────────────────
 
+/**
+ * Controlled collapsible container that wraps a trigger and expandable content in a column.
+ *
+ * This is the low-level overload where the caller manages the [open] state externally.
+ * Compose the content with [CollapsibleTrigger] and [CollapsibleContent] children.
+ *
+ * ```
+ * var open by remember { mutableStateOf(false) }
+ * Collapsible(open = open, onOpenChange = { open = it }) {
+ *     CollapsibleTrigger(onClick = { open = !open }) { Text("Toggle") }
+ *     CollapsibleContent(open = open) { Text("Revealed content") }
+ * }
+ * ```
+ *
+ * @param open Whether the collapsible content is currently visible.
+ * @param onOpenChange Callback invoked with the new open state.
+ * @param modifier [Modifier] applied to the root column.
+ * @param content Composable content containing [CollapsibleTrigger] and [CollapsibleContent].
+ */
 @Composable
 fun Collapsible(
     open: Boolean,
@@ -77,6 +96,24 @@ fun Collapsible(
     }
 }
 
+/**
+ * Self-managed collapsible container using a [CollapsibleScope] DSL builder.
+ *
+ * Manages its own open/closed state internally. Use the [builder] DSL to define
+ * [CollapsibleScope.trigger] and [CollapsibleScope.content] blocks.
+ *
+ * ```
+ * Collapsible(initialOpen = true, animation = CollapsibleAnimation.Tween) {
+ *     trigger { Text("Click to toggle") }
+ *     content { Text("Expandable content here") }
+ * }
+ * ```
+ *
+ * @param modifier [Modifier] applied to the root column.
+ * @param initialOpen Whether the content starts expanded. Defaults to false.
+ * @param animation [CollapsibleAnimation] controlling expand/collapse transitions. Defaults to [CollapsibleAnimation.Spring].
+ * @param builder [CollapsibleScope] DSL builder for defining trigger and content blocks.
+ */
 @Composable
 fun Collapsible(
     modifier: Modifier = Modifier,
@@ -115,6 +152,27 @@ fun Collapsible(
     }
 }
 
+/**
+ * Clickable trigger element that toggles the collapsible section open or closed.
+ *
+ * Renders with hover opacity feedback and button role semantics.
+ * When [expanded] is provided, screen readers announce the expanded/collapsed state.
+ *
+ * ```
+ * CollapsibleTrigger(onClick = { open = !open }, expanded = open) {
+ *     Row {
+ *         Text("Details")
+ *         Icon(RikkaIcons.ChevronDown, contentDescription = null)
+ *     }
+ * }
+ * ```
+ *
+ * @param onClick Callback invoked when the trigger is clicked.
+ * @param modifier [Modifier] applied to the trigger container.
+ * @param label Accessibility content description for the trigger. Defaults to "Toggle section".
+ * @param expanded Optional expanded state for accessibility announcements. Defaults to null (no state announced).
+ * @param content Composable content rendered inside the trigger.
+ */
 @Composable
 fun CollapsibleTrigger(
     onClick: () -> Unit,
@@ -151,6 +209,23 @@ fun CollapsibleTrigger(
     }
 }
 
+/**
+ * Animated expandable content area within a [Collapsible].
+ *
+ * Uses [AnimatedVisibility] with vertical expand/shrink and fade transitions
+ * driven by the selected [animation] strategy and theme motion tokens.
+ *
+ * ```
+ * CollapsibleContent(open = isOpen, animation = CollapsibleAnimation.Tween) {
+ *     Text("This content expands and collapses with animation.")
+ * }
+ * ```
+ *
+ * @param open Whether the content is currently visible.
+ * @param modifier [Modifier] applied to the inner content box.
+ * @param animation [CollapsibleAnimation] controlling the transition style. Defaults to [CollapsibleAnimation.Spring].
+ * @param content Composable content rendered when [open] is true.
+ */
 @Composable
 fun CollapsibleContent(
     open: Boolean,

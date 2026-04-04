@@ -56,6 +56,21 @@ enum class TabAnimation {
 
 // ─── TabList ───────────────────────────────────────────────
 
+/**
+ * Horizontal container for [Tab] composables, rendered as a muted pill-shaped row.
+ *
+ * Provides traversal group semantics so screen readers navigate tabs as a unit.
+ *
+ * ```
+ * TabList {
+ *     Tab(selected = index == 0, onClick = { index = 0 }, text = "Overview")
+ *     Tab(selected = index == 1, onClick = { index = 1 }, text = "Settings")
+ * }
+ * ```
+ *
+ * @param modifier [Modifier] applied to the tab list row.
+ * @param content Composable content containing [Tab] children.
+ */
 @Composable
 fun TabList(
     modifier: Modifier = Modifier,
@@ -80,6 +95,32 @@ fun TabList(
 
 // ─── Tab ───────────────────────────────────────────────────
 
+/**
+ * Individual tab button within a [TabList], with animated selected/unselected state transitions.
+ *
+ * The active tab receives a subtle elevation shadow and distinct background/text colors.
+ * Hover state reduces opacity for unselected tabs. Accessibility semantics include
+ * Tab role and selected state.
+ *
+ * ```
+ * Tab(
+ *     selected = currentIndex == 0,
+ *     onClick = { currentIndex = 0 },
+ *     text = "Overview",
+ *     animation = TabAnimation.Tween,
+ * )
+ * ```
+ *
+ * @param selected Whether this tab is currently active.
+ * @param onClick Callback invoked when the tab is clicked.
+ * @param text The label string displayed inside the tab.
+ * @param modifier [Modifier] applied to the tab container.
+ * @param animation [TabAnimation] controlling color and elevation transitions. Defaults to [TabAnimation.Spring].
+ * @param activeColor Text color when selected. [Color.Unspecified] defaults to theme onBackground.
+ * @param inactiveColor Text color when unselected. [Color.Unspecified] defaults to theme onMuted.
+ * @param activeBackground Background color when selected. [Color.Unspecified] defaults to theme background.
+ * @param inactiveBackground Background color when unselected. [Color.Unspecified] defaults to theme muted.
+ */
 @Composable
 fun Tab(
     selected: Boolean,
@@ -175,6 +216,25 @@ fun Tab(
 
 // ─── TabContent ────────────────────────────────────────────
 
+/**
+ * Animated content area that transitions between tab panels based on [selectedIndex].
+ *
+ * Uses [AnimatedContent] with fade and vertical slide transitions driven by theme motion tokens.
+ * Place this below a [TabList] to display the content for the currently selected tab.
+ *
+ * ```
+ * TabContent(selectedIndex = currentIndex) {
+ *     when (currentIndex) {
+ *         0 -> Text("Overview panel")
+ *         1 -> Text("Settings panel")
+ *     }
+ * }
+ * ```
+ *
+ * @param selectedIndex Zero-based index of the currently active tab panel. Defaults to 0.
+ * @param modifier [Modifier] applied to the content column.
+ * @param content Composable content that should render based on the current [selectedIndex].
+ */
 @Composable
 fun TabContent(
     selectedIndex: Int = 0,

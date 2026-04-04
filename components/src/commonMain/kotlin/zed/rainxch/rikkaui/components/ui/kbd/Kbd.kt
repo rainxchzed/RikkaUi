@@ -32,6 +32,23 @@ enum class KbdSize(
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * Keyboard shortcut indicator rendered as a bordered, muted-background key cap.
+ *
+ * Automatically sets an accessibility content description of "Keyboard shortcut: {text}"
+ * unless an explicit [label] is provided.
+ *
+ * ```
+ * Kbd(text = "Ctrl")
+ *
+ * Kbd(text = "K", size = KbdSize.Sm)
+ * ```
+ *
+ * @param text The key label displayed inside the indicator (e.g. "Ctrl", "K", "Enter").
+ * @param modifier [Modifier] applied to the key cap container.
+ * @param size [KbdSize] controlling horizontal/vertical padding.
+ * @param label Accessibility content description override; defaults to "Keyboard shortcut: {text}".
+ */
 @Composable
 fun Kbd(
     text: String,
@@ -68,6 +85,22 @@ fun Kbd(
     }
 }
 
+/**
+ * Displays a keyboard shortcut combination as a row of [Kbd] indicators with separators.
+ *
+ * Merges descendants for accessibility and provides a combined content description.
+ *
+ * ```
+ * KbdCombo(keys = listOf("Ctrl", "Shift", "K"))
+ *
+ * KbdCombo(keys = listOf("Cmd", "S"), separator = "+", size = KbdSize.Lg)
+ * ```
+ *
+ * @param keys List of key labels to display (e.g. ["Ctrl", "C"]).
+ * @param modifier [Modifier] applied to the row container.
+ * @param size [KbdSize] applied to each individual key indicator.
+ * @param separator String rendered between keys (e.g. "+"); empty string hides separators.
+ */
 @Composable
 fun KbdCombo(
     keys: List<String>,

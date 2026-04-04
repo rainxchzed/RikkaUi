@@ -65,6 +65,19 @@ private const val DEFAULT_SHOW_DELAY_MS = 400L
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * A tooltip that appears on hover or focus to provide a brief text label.
+ *
+ * Renders a small inverted-color popup near the trigger content after a configurable delay.
+ * Automatically hides when hover/focus ends. Press Escape to dismiss immediately.
+ *
+ * @param tooltip The text string displayed inside the tooltip popup.
+ * @param modifier [Modifier] applied to the outer container wrapping content and tooltip.
+ * @param animation [TooltipAnimation] style for show/hide transitions. Defaults to [TooltipAnimation.FadeScale].
+ * @param placement [TooltipPlacement] controlling which side the tooltip appears on. Defaults to [TooltipPlacement.Top].
+ * @param showDelayMs Delay in milliseconds before the tooltip appears on hover. Defaults to 400ms.
+ * @param content Composable content that acts as the hover/focus target for the tooltip.
+ */
 @Composable
 fun Tooltip(
     tooltip: String,

@@ -40,6 +40,28 @@ enum class SeparatorStyle {
 
 // ─── Component ──────────────────────────────────────────────
 
+/**
+ * Decorative line divider that separates content sections.
+ *
+ * Semantics are cleared so screen readers skip this purely visual element.
+ * Supports horizontal/vertical orientation and solid/dashed/dotted line styles.
+ *
+ * ```
+ * Separator()
+ *
+ * Separator(
+ *     orientation = SeparatorOrientation.Vertical,
+ *     style = SeparatorStyle.Dashed,
+ *     thickness = 2.dp,
+ * )
+ * ```
+ *
+ * @param modifier [Modifier] applied to the Canvas drawing the line.
+ * @param orientation [SeparatorOrientation] controlling whether the line is horizontal or vertical.
+ * @param color Line color; [Color.Unspecified] defaults to [RikkaTheme.colors.border].
+ * @param thickness Line width/height in [Dp]; defaults to 1.dp.
+ * @param style [SeparatorStyle] controlling the line pattern (Solid, Dashed, or Dotted).
+ */
 @Composable
 fun Separator(
     modifier: Modifier = Modifier,

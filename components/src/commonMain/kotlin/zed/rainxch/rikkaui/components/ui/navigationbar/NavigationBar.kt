@@ -60,6 +60,16 @@ enum class NavigationBarAnimation {
 
 // ─── NavigationBar ────────────────────────────────────────────
 
+/**
+ * A bottom navigation bar with a top border divider.
+ *
+ * Renders a fixed-height (80dp) row with evenly spaced navigation items. Place
+ * [NavigationBarItem] composables inside the [content] lambda.
+ *
+ * @param modifier [Modifier] applied to the navigation bar container.
+ * @param containerColor Background color of the navigation bar. Defaults to [RikkaTheme.colors.background].
+ * @param content Row content lambda for [NavigationBarItem] composables.
+ */
 @Composable
 fun NavigationBar(
     modifier: Modifier = Modifier,
@@ -100,6 +110,24 @@ fun NavigationBar(
 
 // ─── NavigationBarItem (content lambda) ───────────────────────
 
+/**
+ * A navigation bar item with icon, optional label, and animated indicator pill.
+ *
+ * This is the content-lambda overload that accepts composable lambdas for icon, label,
+ * and selected icon. Features animated indicator pill, press scale, hover highlight,
+ * and label fade transitions.
+ *
+ * @param selected Whether this item is currently selected.
+ * @param onClick Callback invoked when the item is clicked.
+ * @param icon Composable icon displayed in the default (unselected) state.
+ * @param modifier [Modifier] applied to the item container.
+ * @param label Optional composable label displayed below the icon. Pass null to hide.
+ * @param selectedIcon Optional composable icon displayed when selected. Falls back to [icon] if null.
+ * @param enabled Whether the item is interactive. Defaults to true.
+ * @param alwaysShowLabel Whether to always show the label or only when selected. Defaults to true.
+ * @param animation [NavigationBarAnimation] style for state transitions. Defaults to [NavigationBarAnimation.Spring].
+ * @param indicatorColor Color of the selection indicator pill. Defaults to [RikkaTheme.colors.secondary] when [Color.Unspecified].
+ */
 @Composable
 fun RowScope.NavigationBarItem(
     selected: Boolean,
@@ -265,6 +293,25 @@ fun RowScope.NavigationBarItem(
 
 // ─── NavigationBarItem (convenience overload) ─────────────────
 
+/**
+ * Convenience navigation bar item that accepts [ImageVector] and [String] directly.
+ *
+ * Automatically animates icon and label colors between active/inactive states.
+ * Delegates to the content-lambda overload of [NavigationBarItem].
+ *
+ * @param selected Whether this item is currently selected.
+ * @param onClick Callback invoked when the item is clicked.
+ * @param icon [ImageVector] icon displayed in the default (unselected) state.
+ * @param label String label displayed below the icon.
+ * @param modifier [Modifier] applied to the item container.
+ * @param selectedIcon Optional [ImageVector] icon displayed when selected. Falls back to [icon] if null.
+ * @param enabled Whether the item is interactive. Defaults to true.
+ * @param alwaysShowLabel Whether to always show the label or only when selected. Defaults to true.
+ * @param animation [NavigationBarAnimation] style for state transitions. Defaults to [NavigationBarAnimation.Spring].
+ * @param indicatorColor Color of the selection indicator pill. Defaults to [RikkaTheme.colors.secondary] when [Color.Unspecified].
+ * @param activeColor Icon and label color when selected. Defaults to [RikkaTheme.colors.primary] when [Color.Unspecified].
+ * @param inactiveColor Icon and label color when not selected. Defaults to [RikkaTheme.colors.onMuted] when [Color.Unspecified].
+ */
 @Composable
 fun RowScope.NavigationBarItem(
     selected: Boolean,

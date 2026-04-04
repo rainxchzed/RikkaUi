@@ -60,6 +60,24 @@ enum class ToggleGroupAnimation {
 
 // ─── ToggleGroup ───────────────────────────────────────────
 
+/**
+ * A horizontal group container for [ToggleGroupItem] buttons with selectable-group semantics.
+ *
+ * Applies `selectableGroup()` semantics so screen readers treat child items
+ * as a mutually exclusive selection set. Items are spaced using [RikkaTheme.spacing.xs].
+ *
+ * ```
+ * var selected by remember { mutableStateOf("left") }
+ * ToggleGroup {
+ *     ToggleGroupItem(text = "Left", selected = selected == "left", onClick = { selected = "left" })
+ *     ToggleGroupItem(text = "Center", selected = selected == "center", onClick = { selected = "center" })
+ *     ToggleGroupItem(text = "Right", selected = selected == "right", onClick = { selected = "right" })
+ * }
+ * ```
+ *
+ * @param modifier Modifier applied to the outer Row container.
+ * @param content Composable slot for [ToggleGroupItem] children.
+ */
 @Composable
 fun ToggleGroup(
     modifier: Modifier = Modifier,
@@ -76,6 +94,36 @@ fun ToggleGroup(
 
 // ─── ToggleGroupItem ───────────────────────────────────────
 
+/**
+ * An individual selectable item inside a [ToggleGroup].
+ *
+ * Renders a box with animated background and foreground color transitions
+ * that reflect the current selection state. The resolved foreground color
+ * is provided to children via [LocalContentColor], so Text and Icon composables
+ * inside the [content] lambda automatically inherit the correct color.
+ *
+ * ```
+ * ToggleGroupItem(
+ *     selected = isSelected,
+ *     onClick = { onSelect() },
+ *     label = "Bold",
+ * ) {
+ *     Icon(RikkaIcons.Edit, contentDescription = null)
+ * }
+ * ```
+ *
+ * @param selected Whether this item is currently selected.
+ * @param onClick Called when the user taps this item.
+ * @param modifier Modifier applied to the item Box container.
+ * @param variant Visual style -- [ToggleGroupVariant.Default] or [ToggleGroupVariant.Outline].
+ *   Defaults to [ToggleGroupVariant.Default].
+ * @param animation Color transition style -- [ToggleGroupAnimation.Spring], Tween, None.
+ *   Defaults to [ToggleGroupAnimation.Spring].
+ * @param label Accessibility content description for screen readers. Defaults to empty.
+ * @param selectedColor Override foreground color when selected. [Color.Unspecified] uses theme default.
+ * @param unselectedColor Override foreground color when unselected. [Color.Unspecified] uses theme default.
+ * @param content Composable content displayed inside the item.
+ */
 @Composable
 fun ToggleGroupItem(
     selected: Boolean,
@@ -162,6 +210,32 @@ fun ToggleGroupItem(
     }
 }
 
+/**
+ * Convenience overload of [ToggleGroupItem] that renders a text label.
+ *
+ * Equivalent to wrapping a [Text] composable inside the content lambda of the
+ * generic [ToggleGroupItem] overload. The [text] value is also used as the
+ * accessibility content description.
+ *
+ * ```
+ * ToggleGroupItem(
+ *     text = "Bold",
+ *     selected = isBold,
+ *     onClick = { toggleBold() },
+ * )
+ * ```
+ *
+ * @param text The label to display and use as accessibility description.
+ * @param selected Whether this item is currently selected.
+ * @param onClick Called when the user taps this item.
+ * @param modifier Modifier applied to the item Box container.
+ * @param variant Visual style -- [ToggleGroupVariant.Default] or [ToggleGroupVariant.Outline].
+ *   Defaults to [ToggleGroupVariant.Default].
+ * @param animation Color transition style -- [ToggleGroupAnimation.Spring], Tween, None.
+ *   Defaults to [ToggleGroupAnimation.Spring].
+ * @param selectedColor Override foreground color when selected. [Color.Unspecified] uses theme default.
+ * @param unselectedColor Override foreground color when unselected. [Color.Unspecified] uses theme default.
+ */
 @Composable
 fun ToggleGroupItem(
     text: String,

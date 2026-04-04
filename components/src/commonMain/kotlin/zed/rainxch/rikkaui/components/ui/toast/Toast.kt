@@ -173,6 +173,11 @@ class ToastHostState {
     }
 }
 
+/**
+ * Creates and remembers a [ToastHostState] across recompositions.
+ *
+ * @return A remembered [ToastHostState] instance for managing toast notifications.
+ */
 @Composable
 fun rememberToastHostState(): ToastHostState = remember { ToastHostState() }
 
@@ -183,6 +188,21 @@ val LocalToastHostState =
 
 // ─── Toast Host ─────────────────────────────────────────────
 
+/**
+ * Host container that renders active toast notifications from [hostState].
+ *
+ * Place this inside a [Scaffold][zed.rainxch.rikkaui.components.ui.scaffold.Scaffold] toast slot
+ * to ensure toasts render above all other content. Automatically trims oldest toasts when
+ * exceeding [maxVisibleToasts].
+ *
+ * @param hostState The [ToastHostState] managing the queue of active toasts.
+ * @param modifier [Modifier] applied to the host container.
+ * @param position [ToastPosition] controlling where toasts appear on screen. Defaults to [ToastPosition.BottomRight].
+ * @param animation [ToastAnimation] style for toast enter/exit transitions. Defaults to [ToastAnimation.SlideIn].
+ * @param maxVisibleToasts Maximum number of toasts displayed simultaneously. Defaults to 5.
+ * @param swipeToDismiss Whether horizontal swipe gestures dismiss individual toasts. Defaults to true.
+ * @param showProgressBar Whether to display a progress bar showing remaining toast duration. Defaults to false.
+ */
 @Composable
 fun ToastHost(
     hostState: ToastHostState,
@@ -445,6 +465,23 @@ private fun resolveTransitions(
 
 // ─── Toast (visual card) ────────────────────────────────────
 
+/**
+ * Individual toast notification card with dismiss button and optional action.
+ *
+ * Renders a bordered card with variant-specific accent stripe, message text, optional action
+ * button, and close button. Supports pause-on-hover for auto-dismiss timers.
+ *
+ * @param message The notification text displayed in the toast.
+ * @param variant [ToastVariant] controlling the accent color (Default, Success, Destructive, Warning). Defaults to [ToastVariant.Default].
+ * @param onDismiss Callback invoked when the dismiss button is clicked or the toast is swiped away.
+ * @param modifier [Modifier] applied to the toast card.
+ * @param actionLabel Optional label for an inline action button. Both [actionLabel] and [onAction] must be set to show the button.
+ * @param onAction Optional callback invoked when the action button is clicked.
+ * @param label Accessibility content description override. Defaults to auto-generated text based on [variant] and [message].
+ * @param showProgressBar Whether to display a progress bar at the bottom of the toast. Defaults to false.
+ * @param progressFraction Current progress value from 1.0 (full) to 0.0 (expired). Defaults to 1f.
+ * @param onHoverChange Optional callback invoked when hover state changes, used to pause auto-dismiss timers.
+ */
 @Composable
 fun Toast(
     message: String,
