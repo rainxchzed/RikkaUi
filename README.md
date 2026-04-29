@@ -10,6 +10,8 @@
 
 *Beautiful, production-ready components. Zero Material3. Full ownership.*
 
+_**UNDER ACTIVE DEVELOPMENT**_
+
 <br/>
 
 <!-- Replace with an actual screenshot or GIF of your theme configurator -->
